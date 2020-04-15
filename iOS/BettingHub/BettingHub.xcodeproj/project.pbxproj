@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1620DEA72495310D9E09EFDB /* Pods_BettingHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E07A6320D39728AEA85C3AA3 /* Pods_BettingHub.framework */; };
 		1CC4EF8A2447238D00D69C67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC4EF892447238D00D69C67 /* AppDelegate.swift */; };
 		1CC4EF8E2447238D00D69C67 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC4EF8D2447238D00D69C67 /* ViewController.swift */; };
 		1CC4EF932447239300D69C67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CC4EF922447239300D69C67 /* Assets.xcassets */; };
@@ -20,6 +21,9 @@
 		1CC4EF922447239300D69C67 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1CC4EF952447239300D69C67 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1CC4EF972447239300D69C67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5CCA83A745208C2A7BBA9496 /* Pods-BettingHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BettingHub.release.xcconfig"; path = "Target Support Files/Pods-BettingHub/Pods-BettingHub.release.xcconfig"; sourceTree = "<group>"; };
+		BCF48A15E2485EA03FC824DA /* Pods-BettingHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BettingHub.debug.xcconfig"; path = "Target Support Files/Pods-BettingHub/Pods-BettingHub.debug.xcconfig"; sourceTree = "<group>"; };
+		E07A6320D39728AEA85C3AA3 /* Pods_BettingHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BettingHub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,17 +31,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1620DEA72495310D9E09EFDB /* Pods_BettingHub.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B6D7089B4BA001A6DBCD391 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BCF48A15E2485EA03FC824DA /* Pods-BettingHub.debug.xcconfig */,
+				5CCA83A745208C2A7BBA9496 /* Pods-BettingHub.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		1CC4EF7D2447238D00D69C67 = {
 			isa = PBXGroup;
 			children = (
 				1CC4EF882447238D00D69C67 /* BettingHub */,
 				1CC4EF872447238D00D69C67 /* Products */,
+				0B6D7089B4BA001A6DBCD391 /* Pods */,
+				4FD40D6DFEDF34C36DC5C6FC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,6 +78,14 @@
 			path = BettingHub;
 			sourceTree = "<group>";
 		};
+		4FD40D6DFEDF34C36DC5C6FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E07A6320D39728AEA85C3AA3 /* Pods_BettingHub.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -68,9 +93,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1CC4EF9A2447239300D69C67 /* Build configuration list for PBXNativeTarget "BettingHub" */;
 			buildPhases = (
+				F6D95D26CC0BF5F562920D95 /* [CP] Check Pods Manifest.lock */,
 				1CC4EF822447238D00D69C67 /* Sources */,
 				1CC4EF832447238D00D69C67 /* Frameworks */,
 				1CC4EF842447238D00D69C67 /* Resources */,
+				10BA539705A202D3FB7D64CA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -125,6 +152,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		10BA539705A202D3FB7D64CA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BettingHub/Pods-BettingHub-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BettingHub/Pods-BettingHub-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BettingHub/Pods-BettingHub-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F6D95D26CC0BF5F562920D95 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BettingHub-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1CC4EF822447238D00D69C67 /* Sources */ = {
@@ -266,6 +335,7 @@
 		};
 		1CC4EF9B2447239300D69C67 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BCF48A15E2485EA03FC824DA /* Pods-BettingHub.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -284,6 +354,7 @@
 		};
 		1CC4EF9C2447239300D69C67 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5CCA83A745208C2A7BBA9496 /* Pods-BettingHub.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
