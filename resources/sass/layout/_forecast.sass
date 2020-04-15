@@ -1,0 +1,143 @@
+.forecast
+  background: #ffffff
+  box-shadow: rgba(0, 0, 0, 0.05) 0 1px 6px 0
+  margin-bottom: 20px
+  position: relative
+  display: block
+  text-decoration: none
+  color: #000000
+  //display: none
+  &:hover
+    text-decoration: none
+    color: #000000
+  &_win
+    border: 3px solid green
+  &_lose
+    border: 3px solid red
+  &__top
+    border-bottom: 1px solid rgb(248, 248, 248)
+    padding: 10px 15px
+    display: flex
+    align-items: center
+    justify-content: space-between
+    +xs-block
+      flex-direction: column
+      align-items: flex-end
+  &__topBox
+    display: flex
+    align-items: center
+  &__name
+    color: #000000
+    text-decoration: none
+    &::after
+      display: inline-block
+      content: '|'
+      margin-right: 8px
+      margin-left: 8px
+  &__roi
+    &_plus
+      color: #4bc26a
+    &_minus
+      color: #ff4c5c
+      font-size: 12px
+  &__sportType
+    color: #000000
+    &::after
+      display: inline-block
+      content: '|'
+      margin-right: 8px
+      margin-left: 8px
+  &__date
+    color: #bac3c6
+  &__person
+    padding: 20px
+  &__img
+    width: 60px
+    height: 60px
+    border-radius: 50%
+    background-size: cover
+    background-repeat: no-repeat
+    background-position: center center
+    margin-right: 25px
+    +xs-block
+      position: absolute
+      top: 10px
+      left: 10px
+  &__row
+    display: flex
+    align-items: center
+    margin-bottom: 20px
+  &__col
+    display: flex
+    flex-direction: column
+  &__title
+    font-size: 24px
+    display: flex
+    align-items: center
+    a
+      text-decoration: none
+      color: #000000
+  &__divider
+    display: block
+    width: 5px
+    height: 5px
+    background: rgb(224, 225, 226)
+    border-radius: 50%
+    margin-right: 8px
+    margin-left: 8px
+  &__content
+    background: rgb(248, 248, 248)
+    padding: 15px 15px 15px 25px
+    border-radius: 20px
+    font-size: 16px
+    color: #000000
+    position: relative
+
+  &__championship
+    font-size: 11px
+    color: #999999
+    font-weight: 300
+  &__teams
+    font-weight: bold
+    font-size: 19px
+  &__start
+    font-size: 12px
+    color: #777777
+
+  &__result
+    font-weight: bold
+    &_win
+      color: green
+    &_lose
+      color: red
+
+  &__cogs
+    display: none
+    +xs-block
+      display: block
+      border: none
+      font-size: 24px
+      background: none
+  &__mobileHidden
+    +xs-block
+      display: none
+  &__mobileFilter
+    +xs-block
+      display: none
+    &_margin
+      +xs-block
+        margin-bottom: 15px
+  &__hidden
+    display: none
+    +xs-block
+      display: flex
+
+
+.read_more
+  position: absolute
+  right: 0
+  bottom: 0
+  background: #f8f8f8
+  padding: 10px
+  color: #53a6d2
+  cursor: pointer

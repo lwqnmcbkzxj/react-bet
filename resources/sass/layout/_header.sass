@@ -1,0 +1,110 @@
+.custom-logo-link
+  display: inline-flex
+  +lg-block
+    display: none
+.custom-logo
+  width: 100px
+
+.header
+  background: #383e4a
+  padding: 10px 12px
+  display: flex
+  align-items: center
+  justify-content: space-between
+  margin-bottom: 30px
+  &__logo
+    display: inline-flex
+    +xs-block
+      display: none
+    img
+      max-width: 100px
+  &__nav
+    display: flex
+    align-items: center
+    z-index: 10
+    +lg-block
+      position: absolute
+      top: 49px
+      background: #383e4a
+      left: 0
+      padding: 20px 20px 20px 0
+      display: none
+      height: 100vh
+    li
+      margin-right: 25px
+      border-bottom: 1px solid transparent
+      +lg-block
+        padding-top: 7px
+        padding-bottom: 7px
+        border-top: 1px solid #343944
+        padding-left: 15px
+      &:hover
+        border-bottom: 1px solid #f8981e
+        +lg-block
+          border-top: 1px solid #343944
+          border-bottom: none
+      a
+        color: #fff
+        text-decoration: none
+        font-size: 16px
+    li.current_page_item
+      +lg-block
+        border-left: 3px solid #f8981e
+      a
+        color: #f8981e
+        +lg-block
+          color: #ffffff
+  &__search
+    border-radius: 16px
+    border: none
+    padding: 5px 10px
+    +xs-block
+      width: 150px
+  &__searchSubmit
+    background: none
+    color: #fff
+    font-size: 16px
+    border: none
+    cursor: pointer
+  &__auth
+    padding: 4px 20px
+    background: #4bc26a
+    color: #ffffff
+    text-align: center
+    border: none
+    transition: 0.3s ease all
+    font-size: 16px
+    width: 120px
+    border-radius: 5px
+    cursor: pointer
+    &:hover
+      background: #39a956
+    +xs-block
+      width: 70px
+      padding: 4px 5px
+  &__logout
+    display: inline-block
+    color: #ffffff
+    margin-left: 5px
+  &__loginList
+    position: relative
+  &__dropdown
+    display: none
+    position: absolute
+    top: 38px
+    right: -12px
+    width: 225px
+    text-align: center
+    padding: 10px
+    background: #383e4a
+    box-shadow: rgba(0,0,0,.05) 0 1px 6px 0
+    z-index: 10
+    & > li
+      & > a
+        text-decoration: none
+        color: #fff
+  &__login
+    color: #ffffff
+    cursor: pointer
+    display: inline-block
+    padding: 5px

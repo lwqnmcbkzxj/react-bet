@@ -1,0 +1,58 @@
+.rating
+  &__box
+    width: 100%
+    background: #ffffff
+    box-shadow: 0 1px 6px 0 rgba(0,0,0,.05)
+    padding: 20px
+    margin-bottom: 30px
+    border-radius: 10px
+    +md-block
+      overflow: auto
+    +xs-block
+      padding: 8px
+  &__table
+    width: 100%
+    border-spacing: 0 10px
+    tr
+      display: flex
+    td
+      display: inline-flex
+      align-items: center
+      width: calc(100% / 3 - 100px)
+      padding-bottom: 10px
+      +xs-block
+        width: calc(100% / 3 - 40px)
+      &:nth-child(3)
+        +xs-block
+          width: 100px !important
+          overflow: hidden
+          margin-right: 10px
+      &:nth-child(4)
+        +xs-block
+          display: none
+      a
+        color: #000000
+        text-decoration: none
+    thead
+      td
+        color: #bac3c6
+  &__ava
+    display: inline-block
+    width: 45px
+    height: 45px
+    border-radius: 50%
+    background-size: cover
+    background-position: center center
+    background-repeat: no-repeat
+  &__roi
+    &_plus
+      color: #4bc26a
+    &_minus
+      color: #ff4c5c
+  &__stat
+    &_win
+      color: green
+    &_lose
+      color: red
+    &_back
+      color: blue
