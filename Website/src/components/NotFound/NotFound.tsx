@@ -5,7 +5,7 @@ import s from './NotFound.module.css';
 const Welcome = () => {
     return (
         <div className={s.notfound}>
-            <h1>PAGE NOT FOUND</h1>
+			<h1>Страница не найдена</h1>
         </div>
     );
 }

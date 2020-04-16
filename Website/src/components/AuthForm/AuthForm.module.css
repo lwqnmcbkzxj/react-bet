@@ -64,6 +64,7 @@
 
 .authBlock .authHeader .closePopup:hover {
 	color: #ffffff;
+	cursor: pointer;
 }
 
 .authBlock .authForm form > div  {

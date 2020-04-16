@@ -5,8 +5,18 @@ header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	display: grid;
+	grid-template-columns: 170px auto auto 250px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 65%;
+	z-index: 5;
 }
 
+header .logoLink {
+	text-align: right;
+}
 header .logo {
 	height: 45px;
 }
@@ -92,18 +102,22 @@ header .logo {
 	font-size: 23px;
 }
 
-.commentsHeader {
+.commentsBtn {
 	color: #fff;
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: left;
 }
-.commentsHeader .commentsIcon {
+.commentsBtn .commentsIcon {
 	color: #F7971D;
 	margin-right: 8px;
 }
-.commentsHeader span {
+.commentsBtn span {
 	color: #F7971D;
 	font-size: 18;
 	line-height: 22px;
+}
+
+.advert {
+	
 }

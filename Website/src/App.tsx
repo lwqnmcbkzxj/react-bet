@@ -14,40 +14,32 @@ import CommentsContainer from './components/Comments/CommentsContainer'
 
 
 import NotFound from './components/NotFound/NotFound'
- 
+
 const App: FC = () => {
-	const [isAuthFormVisible, setAuthFormVisible] = useState(false)
-	const toggleAuthFormVisible = () => {
-		setAuthFormVisible(!isAuthFormVisible)
-	}
-	const [commentsBlockVisible, setCommentsBlockVisible] = useState(true)
-
-	const toggleCommentsVisible = () => {
-		setCommentsBlockVisible(!commentsBlockVisible)
-	}
-
 	return (
 		<div className="app-wrapper">
-			<Route path="/" render={() => <HeaderContainer toggleAuthFormVisible={toggleAuthFormVisible} toggleCommentsVisible={toggleCommentsVisible}/>} />
-			<Route path="/" render={() => <MenuContainer />} />
-			<Route path="/" render={() => <CommentsContainer />} />
-			<Route path="/" render={() => <AuthFormContainer isAuthFormVisible={isAuthFormVisible} toggleAuthFormVisible={toggleAuthFormVisible}/>} />
-			
+			<Route path="/" render={() => <HeaderContainer />} />
+			<Route path="/" render={() => <AuthFormContainer />} />
+
 			<div className='app-container'>
+				<Route path="/" render={() => <MenuContainer />} />
+
 				<Switch>
 					{/* <Route exact path="/" render={() => <ProductsListContainer />} /> */}
 					{/* <Route path="/" render={() => <MainPageContainer />} /> */}
 
-					{/* <Route path="/" render={() => <ForecastersContainer />} />						 */}
+					{/* <Route path="/" render={() => <ForecastersContainer />} /> */}
 					{/* <Route path="/" render={() => <ForecastsContainer />} /> */}
 					{/* <Route path="/" render={() => <MatchesContainer />} /> */}
 
 					{/* <Route path="/" render={() => <ArticlesContainer />} /> */}
 					{/* <Route path="/" render={() => <NewsContainer />} /> */}
 					{/* <Route path="/" render={() => <UserContainer />} /> */}
-					
 					<Route component={NotFound} />
+					
 				</Switch>
+				<Route path="/" render={() => <CommentsContainer />} />
+
 			</div>
 		</div>
 	)

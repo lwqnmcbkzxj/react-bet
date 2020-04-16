@@ -9,3 +9,16 @@ body {
 button:hover {
 	opacity: .7;
 }
+
+.app-container {
+	width: 65%;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: 170px auto 250px;
+	margin-top: 60px;
+}
+
+.app-wrapper {
+	position: relative;
+}
+

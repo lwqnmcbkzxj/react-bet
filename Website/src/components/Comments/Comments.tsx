@@ -1,16 +1,27 @@
-import React, { FC } from 'react';
+import React, {	FC } from 'react';
 import s from './Comments.module.css';
-import { NavLink } from 'react-router-dom';
+import { CommentType } from '../../types/types'
+import LiveBtn from '../Header/LiveBtn/LiveBtn';
+import Comment from './Comment'
 
- 
 type CommentsPropsType = {
-	
+	comments: Array<CommentType>,
+	isCommentsBlockVisible: boolean
+	toggleCommentsBlockVisibility: () => void
 }
 
-const Comments: FC<CommentsPropsType> = ({ ...props }) => {
-
+const Comments: FC<CommentsPropsType> = ({ comments, isCommentsBlockVisible, toggleCommentsBlockVisibility, ...props }) => {
+	// Comments or toggle button
+	let renderBlock
+	if (isCommentsBlockVisible) {
+		renderBlock = comments.map(comment => <Comment key={comment.id} comment={comment} />)
+	} else {
+		renderBlock = <LiveBtn toggleCommentsBlockVisibility={toggleCommentsBlockVisibility}/>			
+	}
 	return (
-		<div>COMMENTS</div>
+		<div className={s.comments}>
+			{renderBlock}
+		</div>
 	)
 }
 

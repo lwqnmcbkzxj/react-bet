@@ -1,0 +1,107 @@
+.menuHolder {
+	/* position: fixed; */
+}
+
+.menu {
+	padding-top: 15px;
+	margin-left: -10px;
+	border-right: 1px solid #E5E2E2;
+	min-height: calc(100vh - 60px);
+	height: 100%;
+	box-sizing: border-box;
+	position: relative;
+	/* position: fixed; */
+
+
+}
+
+.pagesLinks {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.pagesLinks .link {
+	margin-top: 8px;
+	padding: 8px 15px 5px 10px;
+	color: #5E687B;
+	font-size: 15px;
+	line-height: 18px;
+}
+
+.pagesLinks .activeLink {
+	background: #F9F9F9;
+	color: #202E48;
+	font-family: "Roboto Medium";
+	position: relative;
+}
+
+.pagesLinks .activeLink::before {
+	content: "";
+	background: #F7971D;
+	width: 3px;
+	height: 100%;
+	position: absolute;
+	right: -2px;
+	top: 0;
+}
+
+.sportBlock {
+	padding-left: 10px;
+	margin-top: 40px;
+	margin-bottom: 150%;
+}
+
+.sportBlock h2 {
+	font-size: 13px;
+	line-height: 15px;
+	color: #343638;
+	text-transform: uppercase;
+	opacity: 0.62;
+}
+
+.sportBlock .sportLinks {
+	display: flex;
+	flex-direction: column;
+}
+
+.sportBlock .sportLink {
+	margin-top: 20px;	
+}
+.sportBlock .sportLink button {
+	display: flex;
+	align-items: center;
+}
+.sportBlock .sportLink img {
+	margin-right: 10px;
+}
+.sportBlock .sportBtn {
+	margin-top: 20px;
+	font-size: 13px;
+	line-height: 15px;
+	color: #343638;
+	opacity: 0.62;
+}
+
+.menuFooter {
+	padding-left: 10px;
+	bottom: 0px;
+	padding-bottom: 15px;
+	padding-top: 0;
+	position: absolute;
+}
+
+.menuFooter .menuFooterLink {
+	display: block;
+}
+.menuFooter .menuFooterLink, .menuFooter .languageSelector, .menuFooter .download, .menuFooter .copyright {
+	font-size: 13px;
+	line-height: 15px;
+	color: #818283;
+	margin-bottom: 19px;
+}
+.menuFooter .download {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 6px;
+}

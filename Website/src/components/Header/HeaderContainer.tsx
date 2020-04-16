@@ -1,22 +1,28 @@
 import React, { FC } from 'react';
 import { useDispatch, useSelector} from "react-redux";
 import { AppStateType } from '../../types/types'
+import { toggleAuthFormVisiblility, toggleCommentsBlockVisibility } from '../../redux/app-reducer'
+
 
 import Header from './Header'
 
-type HeaderContainerProps = {
-	toggleAuthFormVisible: () => void
-	toggleCommentsVisible: () => void
-}
 
-const HeaderConainer: FC<HeaderContainerProps> = ({toggleAuthFormVisible, toggleCommentsVisible, ...props }) => {
-	// const cartProductsCount = useSelector<AppStateType>(state => state.cart.cartProducts);
-	// const dispatch = useDispatch();
+const HeaderConainer: FC = () => {
+	const isCommentsBlockVisible = useSelector<AppStateType, boolean>(state => state.app.isCommentsBlockVisible);
 
+	const dispatch = useDispatch();
+
+	const toggleAuthFormVisiblilityDispatch = () => {
+		dispatch(toggleAuthFormVisiblility())
+	}
+	const toggleCommentsBlockVisibilityDispatch = () => {
+		dispatch(toggleCommentsBlockVisibility())
+	}
 	return (
 		<Header
-			toggleAuthFormVisible={toggleAuthFormVisible}
-			toggleCommentsVisible={toggleCommentsVisible}
+			isCommentsBlockVisible={isCommentsBlockVisible}
+			toggleAuthFormVisiblility={toggleAuthFormVisiblilityDispatch}
+			toggleCommentsBlockVisibility={toggleCommentsBlockVisibilityDispatch}
 		/>
 	)
 }

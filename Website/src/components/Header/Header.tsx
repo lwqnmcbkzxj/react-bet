@@ -5,28 +5,30 @@ import { NavLink } from 'react-router-dom';
 import logo from '../../assets/img/logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faCaretLeft } from '@fortawesome/free-solid-svg-icons'
-
 import Search from './Search'
+import LiveBtn from './LiveBtn/LiveBtn';
 type HeaderPropsType = {
-	toggleAuthFormVisible: () => void
-	toggleCommentsVisible: () => void
+	isCommentsBlockVisible: boolean
+	toggleAuthFormVisiblility: () => void
+	toggleCommentsBlockVisibility: () => void
 }
 
-const Header: FC<HeaderPropsType> = ({ toggleAuthFormVisible, toggleCommentsVisible, ...props }) => {
+const Header: FC<HeaderPropsType> = ({isCommentsBlockVisible, toggleAuthFormVisiblility, toggleCommentsBlockVisibility, ...props }) => {
 
 	return (
-		<header>
-			<NavLink to="/"><img src={logo} className={s.logo} alt="logo" /></NavLink>
-			<Search />
-			<button className={s.loginBtn} onClick={toggleAuthFormVisible}>
-				<FontAwesomeIcon icon={faUser} className={s.loginIcon} />
-				<span>Войти</span>
-			</button>
-			<button className={s.commentsHeader} onClick={toggleCommentsVisible}>
-				<FontAwesomeIcon icon={faCaretLeft} className={s.commentsIcon} />
-				<p>Комментарии <span>LIVE</span></p>
-			</button>
-		</header>
+		<div className="">
+			<div className={s.advert}></div>
+			<header>
+				<NavLink to="/" className={s.logoLink}><img src={logo} className={s.logo} alt="logo" /></NavLink>
+				<Search />
+				<button className={s.loginBtn} onClick={toggleAuthFormVisiblility}>
+					<FontAwesomeIcon icon={faUser} className={s.loginIcon} />
+					<span>Войти</span>
+				</button>
+				{isCommentsBlockVisible && <LiveBtn toggleCommentsBlockVisibility={toggleCommentsBlockVisibility}/>}
+				
+			</header>
+		</div>
 	)
 }
 
