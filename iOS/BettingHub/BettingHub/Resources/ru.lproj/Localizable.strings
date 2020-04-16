@@ -1,0 +1,34 @@
+/* 
+  Localizable.strings
+  
+
+  Created by Maxim Bezdenezhnykh on 15.04.2020.
+  
+*/
+
+"loginTitle" = "Вход";
+"registerTitle" = "Регистрация";
+"restoreTitle" = "Восстановление пароля";
+
+"yourNickname" = "Ваш логин";
+"yourMail" = "Ваша почта";
+"yourMailOrNick" = "Ваша почта или никнейм";
+"password" = "Пароль";
+"confirmPass" = "Повторите пароль";
+
+"login" = "ВОЙТИ";
+"restore" = "ВОССТАНОВИТЬ";
+
+"or" = "или";
+
+"loginWithGoogle" = "Войти через Google";
+"withGoogle" = "С помощью Google";
+
+"forgetPass" = "Забыли пароль?";
+
+"noAccount" = "Еще нет аккаунта?";
+"haveAccount" = "Уже есть аккаунт?";
+"register" = "Зарегестрируйтесь";
+"authorize" = "Войдите";
+
+"wrongLogin" = "Неверный пароль или логин!";

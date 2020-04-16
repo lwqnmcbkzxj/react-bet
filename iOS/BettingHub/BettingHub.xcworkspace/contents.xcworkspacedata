@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/maximbezdenezhnykh/ios/bettingHub/iOS/BettingHub/BettingHub/Resources/Localizable.strings">
+   </FileRef>
+   <FileRef
       location = "group:BettingHub.xcodeproj">
    </FileRef>
    <FileRef
