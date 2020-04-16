@@ -41,4 +41,12 @@ extension UIColor {
     static var errorTextColor: UIColor {
         return UIColor.hex(0x222A39)
     }
+    
+    static var darkBlue: UIColor {
+        return UIColor.hex(0x202E48)
+    }
+    
+    static var grayBlue: UIColor {
+        return UIColor.hex(0x515C70)
+    }
 }

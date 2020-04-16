@@ -28,4 +28,6 @@ class Text {
     static var register: String { "register".localized }
     static var authorize: String { "authorize".localized }
     static var wrongLogin: String { "wrongLogin".localized }
+    static var back: String { "back".localized }
+    static var BANK: String { "BANK".localized }
 }

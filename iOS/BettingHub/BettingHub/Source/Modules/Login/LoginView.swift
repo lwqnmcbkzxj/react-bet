@@ -189,7 +189,7 @@ class LoginView: UIView {
         addSubview(loginLabel)
         loginLabel.snp.makeConstraints { (make) in
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(snp.topMargin)
+            make.top.equalTo(snp.top).offset(statusHeight)
             make.height.greaterThanOrEqualTo(24)
             make.height.lessThanOrEqualTo(107)
             make.height.equalTo(107).priority(.medium)
@@ -210,22 +210,22 @@ class LoginView: UIView {
         
         inputsStackView.addArrangedSubview(usernameInput)
         usernameInput.snp.makeConstraints { (make) in
-            make.height.equalTo(70)
+            make.height.equalTo(70).priority(999)
         }
         
         inputsStackView.addArrangedSubview(mailInput)
         mailInput.snp.makeConstraints { (make) in
-            make.height.equalTo(usernameInput)
+            make.height.equalTo(70).priority(999)
         }
         
         inputsStackView.addArrangedSubview(passwordInput)
         passwordInput.snp.makeConstraints { (make) in
-            make.height.equalTo(mailInput)
+            make.height.equalTo(70).priority(999)
         }
         
         inputsStackView.addArrangedSubview(confirmPasswordInput)
         passwordInput.snp.makeConstraints { (make) in
-            make.height.equalTo(mailInput)
+            make.height.equalTo(70).priority(999)
         }
         
         addSubview(loginButton)
@@ -281,8 +281,8 @@ class LoginView: UIView {
         bottomStack.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.top.equalTo(passwordButton.snp.bottom)
-            make.bottom.equalTo(snp.bottomMargin).offset(-38).priority(.high)
-            make.bottom.lessThanOrEqualTo(snp.bottomMargin).offset(-16)
+            make.bottom.equalTo(snp.bottom).offset(-38).priority(.high)
+            make.bottom.lessThanOrEqualTo(snp.bottom).offset(-16)
             make.height.equalTo(passwordButton)
         }
         
