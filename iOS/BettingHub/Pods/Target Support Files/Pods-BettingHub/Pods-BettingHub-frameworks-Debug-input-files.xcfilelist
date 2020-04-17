@@ -1,2 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-BettingHub/Pods-BettingHub-frameworks.sh
+${BUILT_PRODUCTS_DIR}/AloeStackView/AloeStackView.framework
 ${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework
