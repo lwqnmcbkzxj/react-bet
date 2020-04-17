@@ -4,7 +4,7 @@ import cn from 'classnames'
 import { Field } from 'redux-form';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye } from '@fortawesome/free-solid-svg-icons'
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 export function createField(
 	name,
@@ -32,7 +32,7 @@ export const Input = (props) => {
 
 	let type = input.type === 'password';
 
-	const [passwordVisibilty, togglePasswordVisibilty] = useState(false)
+	const [passwordVisibilty, setPasswordVisibilty] = useState(false)
 
 	if (props.canSeeInputValue) {
 		if (passwordVisibilty) {
@@ -42,6 +42,10 @@ export const Input = (props) => {
 		}
 	}
 	
+	const togglePasswordVisibilty = () => {
+		setPasswordVisibilty(!passwordVisibilty)
+	}
+
 	return (
 		<div className={cn(s.inputBlock, { [s.canSeeContent] :  props.canSeeInputValue})}>
 			<label>{props.label}</label>
@@ -49,9 +53,10 @@ export const Input = (props) => {
 				<input {...input} {...restProps} className={hasError ? s.errorInput : null} type={type} />
 
 				{props.canSeeInputValue ?
-					<FontAwesomeIcon icon={faEye} className={s.inputEye}
-						onMouseDown={() => togglePasswordVisibilty(true)}
-						onMouseUp={() => togglePasswordVisibilty(false)}
+					<FontAwesomeIcon
+						icon={passwordVisibilty ? faEyeSlash : faEye}
+						className={s.inputEye}
+						onClick={togglePasswordVisibilty}						
 					/>
 					: null}
 			</div>

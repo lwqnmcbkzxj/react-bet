@@ -10,7 +10,7 @@ type CommentPropsType = {
 const Comment: FC<CommentPropsType> = ({ comment, ...props }) => {
 
 	return (
-		<div key={comment.id} className={s.comment}>
+		<div className={s.comment}>
 			<div className={s.commentInfo}>
 				<NavLink className={s.commentatorInfo} to={`/users/${comment.userId}`}>
 					<img src={comment.userImg} alt="comentatorImg" />

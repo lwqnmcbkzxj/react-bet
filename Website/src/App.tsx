@@ -7,7 +7,7 @@ import { withRouter } from 'react-router'
 
 import AuthFormContainer from './components/AuthForm/AuthFormContainer'
 
-
+import ForecastsContainer from './components/Forecasts/ForecastsContainer'
 import HeaderContainer from './components/Header/HeaderContainer'
 import MenuContainer from './components/Menu/MenuContainer'
 import CommentsContainer from './components/Comments/CommentsContainer'
@@ -24,20 +24,22 @@ const App: FC = () => {
 			<div className='app-container'>
 				<Route path="/" render={() => <MenuContainer />} />
 
-				<Switch>
-					{/* <Route exact path="/" render={() => <ProductsListContainer />} /> */}
-					{/* <Route path="/" render={() => <MainPageContainer />} /> */}
+				<div className="app-content">
+					<Switch>
+						{/* <Route exact path="/" render={() => <ProductsListContainer />} /> */}
+						{/* <Route path="/" render={() => <MainPageContainer />} /> */}
 
-					{/* <Route path="/" render={() => <ForecastersContainer />} /> */}
-					{/* <Route path="/" render={() => <ForecastsContainer />} /> */}
-					{/* <Route path="/" render={() => <MatchesContainer />} /> */}
+						{/* <Route path="/" render={() => <ForecastersContainer />} /> */}
+						<Route path="/" render={() => <ForecastsContainer />} />
+						{/* <Route path="/" render={() => <MatchesContainer />} /> */}
 
-					{/* <Route path="/" render={() => <ArticlesContainer />} /> */}
-					{/* <Route path="/" render={() => <NewsContainer />} /> */}
-					{/* <Route path="/" render={() => <UserContainer />} /> */}
-					<Route component={NotFound} />
-					
-				</Switch>
+						{/* <Route path="/" render={() => <ArticlesContainer />} /> */}
+						{/* <Route path="/" render={() => <NewsContainer />} /> */}
+						{/* <Route path="/" render={() => <UserContainer />} /> */}
+						<Route component={NotFound} />
+
+					</Switch>
+				</div>
 				<Route path="/" render={() => <CommentsContainer />} />
 
 			</div>

@@ -9,14 +9,14 @@
 	padding-right: 50px;
 }
 
-label {
+.inputBlock label {
 	font-size: 12px;
 	line-height: 14px;
 	color: #818283;
 	margin-bottom: 6px;
 }
 
-input {
+.inputBlock input {
 	color: #343638;
 	font-size: 19px;
 	line-height: 23px;
@@ -39,4 +39,7 @@ input {
 	position: absolute;
 	font-size: 20px;
 	right: 17px;
+}
+.inputEye:hover {
+	cursor: pointer;
 }

@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import footballImg from '../../assets/img/football.png'
 import tennisImg from '../../assets/img/table-tennis.png'
 import basketballImg from '../../assets/img/basketball.png'
-import puckImg from '../../assets/img/puck.png'
+import hockeyImg from '../../assets/img/hockey.png'
 
 type MenuPropsType = {
 
@@ -21,22 +21,22 @@ const SportsBlock: FC<MenuPropsType> = ({ ...props }) => {
 		{ name: "Футбол", filterName: "football", img: footballImg },
 		{ name: "Теннис", filterName: "tennis", img: tennisImg },
 		{ name: "Баскетбол", filterName: "basketbal", img: basketballImg },
-		{ name: "Хоккей", filterName: "puck", img: puckImg },
-		{ name: "Хоккей", filterName: "puck", img: puckImg },
-		{ name: "Хоккей", filterName: "puck", img: puckImg },
-		{ name: "Хоккей", filterName: "puck", img: puckImg },
-		{ name: "Хоккей", filterName: "puck", img: puckImg },
-		{ name: "Хоккей", filterName: "puck", img: puckImg },
-		{ name: "Хоккей", filterName: "puck", img: puckImg },
-		{ name: "Хоккей", filterName: "puck", img: puckImg },
-		{ name: "Хоккей", filterName: "puck", img: puckImg },
-		{ name: "Хоккей", filterName: "puck", img: puckImg },
-		{ name: "Хоккей", filterName: "puck", img: puckImg },
-		{ name: "Хоккей", filterName: "puck", img: puckImg },
-		{ name: "Хоккей", filterName: "puck", img: puckImg },
-		{ name: "Хоккей", filterName: "puck", img: puckImg },
-		{ name: "Хоккей", filterName: "puck", img: puckImg },
-		{ name: "Хоккей", filterName: "puck", img: puckImg },
+		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
+		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
+		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
+		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
+		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
+		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
+		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
+		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
+		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
+		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
+		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
+		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
+		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
+		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
+		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
+		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
 	]
 
 	let sportLinks = [] as any

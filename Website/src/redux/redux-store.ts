@@ -3,6 +3,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux"
 import thunkMiddleware from "redux-thunk"
 
 import userReducer from "./user-reducer"
+import forecastReducer from "./forecast-reducer"
 import appReducer from "./app-reducer"
 import liveCommentsReducer from "./liveComments-reducer"
 import { reducer as formReducer } from "redux-form";
@@ -12,7 +13,7 @@ let rootReducer = combineReducers({
 	user: userReducer,
 	app: appReducer,
 	liveComments: liveCommentsReducer,
-
+	forecasts: forecastReducer,
     form: formReducer
 }); 
 

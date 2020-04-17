@@ -1,0 +1,21 @@
+.breadcrumbs {
+	display: flex;
+	align-items: center;
+	margin-bottom: 15px;
+}
+
+.breadcrumbs p {
+	font-size: 15px;
+	line-height: 18px;
+	color: #1E2157;
+}
+
+.breadcrumbs .slash {
+	margin: 0 8px;
+}
+
+
+.breadcrumbs p:last-child{
+	opacity: 0.57;
+	color: #5E687B;
+}

@@ -22,3 +22,14 @@ button:hover {
 	position: relative;
 }
 
+.app-content {
+	padding: 26px 75px;
+}
+
+.app-content .pageName {
+	font-size: 22px;
+	line-height: 27px;
+	font-family: 'Roboto Medium';
+	color: #343638;
+	text-transform: uppercase;
+}

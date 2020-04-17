@@ -1,0 +1,17 @@
+.forecastsHeader {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 30px;
+}
+
+.filters {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	position: relative;
+}
+
+.filters > div:nth-child(2){
+	position: absolute;
+    right: 0;
+}
