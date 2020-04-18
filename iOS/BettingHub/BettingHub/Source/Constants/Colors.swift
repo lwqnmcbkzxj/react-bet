@@ -49,4 +49,20 @@ extension UIColor {
     static var grayBlue: UIColor {
         return UIColor.hex(0x515C70)
     }
+    
+    static var lightGray: UIColor {
+        return UIColor.hex(0xF5F5F5)
+    }
+    
+    static var positiveGreen: UIColor {
+        return UIColor.hex(0x0F971D)
+    }
+    
+    static var negativeRed: UIColor {
+        return UIColor.hex(0xAA0F0F)
+    }
+    
+    static var textGrayDark: UIColor {
+        return UIColor.hex(0x656668)
+    }
 }

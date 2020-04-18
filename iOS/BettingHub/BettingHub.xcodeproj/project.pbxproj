@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		1620DEA72495310D9E09EFDB /* Pods_BettingHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E07A6320D39728AEA85C3AA3 /* Pods_BettingHub.framework */; };
+		1C43E2C7244B8FB3002CF7EB /* MainCellsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43E2C6244B8FB3002CF7EB /* MainCellsProvider.swift */; };
+		1C43E2C9244B905B002CF7EB /* MainScreenDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43E2C8244B905B002CF7EB /* MainScreenDataProvider.swift */; };
+		1C43E2CB244B90F3002CF7EB /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43E2CA244B90F3002CF7EB /* Match.swift */; };
+		1C43E2CD244B90FB002CF7EB /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43E2CC244B90FB002CF7EB /* Forecast.swift */; };
+		1C43E2CF244B9105002CF7EB /* Bookmaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43E2CE244B9105002CF7EB /* Bookmaker.swift */; };
+		1C43E2D1244B9415002CF7EB /* MainSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43E2D0244B9415002CF7EB /* MainSection.swift */; };
+		1C6608F82449E1C3007E9BEB /* TopForecastersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6608F72449E1C3007E9BEB /* TopForecastersView.swift */; };
+		1C6608FB2449E388007E9BEB /* TopForecasterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6608FA2449E388007E9BEB /* TopForecasterCell.swift */; };
 		1C7A356C2448E15A00E3AB9B /* NavigationBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A356B2448E15A00E3AB9B /* NavigationBackView.swift */; };
 		1C7A356E2448E4F500E3AB9B /* BettingNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A356D2448E4F500E3AB9B /* BettingNavigationBar.swift */; };
 		1C9134802447497E00AE4510 /* UIItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C91347F2447497E00AE4510 /* UIItems.swift */; };
@@ -42,11 +50,30 @@
 		1CC4EFD32447374300D69C67 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1CC4EFD52447374300D69C67 /* Localizable.strings */; };
 		1CC4EFD82447375B00D69C67 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC4EFD72447375B00D69C67 /* String.swift */; };
 		1CC4EFDE2447416900D69C67 /* BottomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC4EFDD2447416900D69C67 /* BottomButton.swift */; };
+		1CCFB12C244B604C00F431BA /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCFB12B244B604C00F431BA /* UIViewController.swift */; };
 		1CEE8BDA2448B4BF007F2FDB /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE8BD92448B4BF007F2FDB /* UIView.swift */; };
 		1CEE8BDC2448BC5C007F2FDB /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE8BDB2448BC5C007F2FDB /* NavigationController.swift */; };
+		1CF225B1244B744C005D510D /* PanelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF225B0244B744C005D510D /* PanelCell.swift */; };
+		1CF225B6244B7D74005D510D /* MatchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF225B4244B7D74005D510D /* MatchCell.swift */; };
+		1CF225B9244B81EE005D510D /* PositivityLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF225B8244B81EE005D510D /* PositivityLabel.swift */; };
+		1CF2C22A2449E41E00A7B0B8 /* Forecaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF2C2292449E41E00A7B0B8 /* Forecaster.swift */; };
+		1CF2C22C2449E57300A7B0B8 /* OrangeScrollIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF2C22B2449E57300A7B0B8 /* OrangeScrollIndicator.swift */; };
+		1CF2C22E2449F3AA00A7B0B8 /* ButtonFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF2C22D2449F3AA00A7B0B8 /* ButtonFooter.swift */; };
+		1CF2C230244A0A5500A7B0B8 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF2C22F244A0A5500A7B0B8 /* UIImage.swift */; };
+		1CF2C235244A0E6800A7B0B8 /* TopBookmakersHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF2C234244A0E6800A7B0B8 /* TopBookmakersHeaderView.swift */; };
+		1CF2C237244A3C9A00A7B0B8 /* ColumnsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF2C236244A3C9A00A7B0B8 /* ColumnsHeaderView.swift */; };
+		1CF2C239244A473600A7B0B8 /* BookmakerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF2C238244A473600A7B0B8 /* BookmakerCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C43E2C6244B8FB3002CF7EB /* MainCellsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCellsProvider.swift; sourceTree = "<group>"; };
+		1C43E2C8244B905B002CF7EB /* MainScreenDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainScreenDataProvider.swift; path = /Users/maximbezdenezhnykh/ios/bettingHub/iOS/BettingHub/BettingHub/Source/UIElements/MainScreenDataProvider.swift; sourceTree = "<absolute>"; };
+		1C43E2CA244B90F3002CF7EB /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
+		1C43E2CC244B90FB002CF7EB /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
+		1C43E2CE244B9105002CF7EB /* Bookmaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmaker.swift; sourceTree = "<group>"; };
+		1C43E2D0244B9415002CF7EB /* MainSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSection.swift; sourceTree = "<group>"; };
+		1C6608F72449E1C3007E9BEB /* TopForecastersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopForecastersView.swift; sourceTree = "<group>"; };
+		1C6608FA2449E388007E9BEB /* TopForecasterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopForecasterCell.swift; sourceTree = "<group>"; };
 		1C7A356B2448E15A00E3AB9B /* NavigationBackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBackView.swift; sourceTree = "<group>"; };
 		1C7A356D2448E4F500E3AB9B /* BettingNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BettingNavigationBar.swift; sourceTree = "<group>"; };
 		1C91347F2447497E00AE4510 /* UIItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIItems.swift; sourceTree = "<group>"; };
@@ -85,8 +112,19 @@
 		1CC4EFD62447374700D69C67 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1CC4EFD72447375B00D69C67 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		1CC4EFDD2447416900D69C67 /* BottomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomButton.swift; sourceTree = "<group>"; };
+		1CCFB12B244B604C00F431BA /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		1CEE8BD92448B4BF007F2FDB /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		1CEE8BDB2448BC5C007F2FDB /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		1CF225B0244B744C005D510D /* PanelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelCell.swift; sourceTree = "<group>"; };
+		1CF225B4244B7D74005D510D /* MatchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchCell.swift; sourceTree = "<group>"; };
+		1CF225B8244B81EE005D510D /* PositivityLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositivityLabel.swift; sourceTree = "<group>"; };
+		1CF2C2292449E41E00A7B0B8 /* Forecaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecaster.swift; sourceTree = "<group>"; };
+		1CF2C22B2449E57300A7B0B8 /* OrangeScrollIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrangeScrollIndicator.swift; sourceTree = "<group>"; };
+		1CF2C22D2449F3AA00A7B0B8 /* ButtonFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFooter.swift; sourceTree = "<group>"; };
+		1CF2C22F244A0A5500A7B0B8 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		1CF2C234244A0E6800A7B0B8 /* TopBookmakersHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBookmakersHeaderView.swift; sourceTree = "<group>"; };
+		1CF2C236244A3C9A00A7B0B8 /* ColumnsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnsHeaderView.swift; sourceTree = "<group>"; };
+		1CF2C238244A473600A7B0B8 /* BookmakerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmakerCell.swift; sourceTree = "<group>"; };
 		5CCA83A745208C2A7BBA9496 /* Pods-BettingHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BettingHub.release.xcconfig"; path = "Target Support Files/Pods-BettingHub/Pods-BettingHub.release.xcconfig"; sourceTree = "<group>"; };
 		BCF48A15E2485EA03FC824DA /* Pods-BettingHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BettingHub.debug.xcconfig"; path = "Target Support Files/Pods-BettingHub/Pods-BettingHub.debug.xcconfig"; sourceTree = "<group>"; };
 		E07A6320D39728AEA85C3AA3 /* Pods_BettingHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BettingHub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,13 +151,46 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		1C6608F62449E1B6007E9BEB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1C6608F92449E37C007E9BEB /* TopForecasters */,
+				1CF2C231244A0DEB00A7B0B8 /* Headers */,
+				1CBE1130244B395D00C12832 /* Footers */,
+				1CF2C232244A0DFF00A7B0B8 /* Cells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1C6608F92449E37C007E9BEB /* TopForecasters */ = {
+			isa = PBXGroup;
+			children = (
+				1C6608F72449E1C3007E9BEB /* TopForecastersView.swift */,
+				1C6608FA2449E388007E9BEB /* TopForecasterCell.swift */,
+				1CF2C22B2449E57300A7B0B8 /* OrangeScrollIndicator.swift */,
+			);
+			path = TopForecasters;
+			sourceTree = "<group>";
+		};
 		1C91348B2448B07300AE4510 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				1C6608F62449E1B6007E9BEB /* Views */,
 				1C91348C2448B07D00AE4510 /* MainView.swift */,
+				1C43E2D0244B9415002CF7EB /* MainSection.swift */,
 				1C91348E2448B08500AE4510 /* MainViewController.swift */,
+				1C43E2C6244B8FB3002CF7EB /* MainCellsProvider.swift */,
+				1C43E2C8244B905B002CF7EB /* MainScreenDataProvider.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		1CBE1130244B395D00C12832 /* Footers */ = {
+			isa = PBXGroup;
+			children = (
+				1CF2C22D2449F3AA00A7B0B8 /* ButtonFooter.swift */,
+			);
+			path = Footers;
 			sourceTree = "<group>";
 		};
 		1CC4EF7D2447238D00D69C67 = {
@@ -183,10 +254,11 @@
 		1CC4EFA024472C4200D69C67 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				1CF2C2282449E41300A7B0B8 /* Models */,
+				1CC4EF9E24472C0600D69C67 /* Modules */,
+				1CC4EFA8244731D200D69C67 /* UIElements */,
 				1CC4EFBF2447338800D69C67 /* Extensions */,
 				1CC4EFB8244732FB00D69C67 /* Constants */,
-				1CC4EFA8244731D200D69C67 /* UIElements */,
-				1CC4EF9E24472C0600D69C67 /* Modules */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -209,6 +281,9 @@
 				1C91348324476ABD00AE4510 /* BorderedTextField.swift */,
 				1C9134852447837F00AE4510 /* SocialButton.swift */,
 				1C9134892447A39C00AE4510 /* ErrorView.swift */,
+				1CF2C236244A3C9A00A7B0B8 /* ColumnsHeaderView.swift */,
+				1CF225B8244B81EE005D510D /* PositivityLabel.swift */,
+				1CF225B0244B744C005D510D /* PanelCell.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -249,6 +324,8 @@
 				1CC4EFD72447375B00D69C67 /* String.swift */,
 				1C91348124475A7B00AE4510 /* UITextField.swift */,
 				1CEE8BD92448B4BF007F2FDB /* UIView.swift */,
+				1CF2C22F244A0A5500A7B0B8 /* UIImage.swift */,
+				1CCFB12B244B604C00F431BA /* UIViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -261,6 +338,34 @@
 				1CEE8BDB2448BC5C007F2FDB /* NavigationController.swift */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		1CF2C2282449E41300A7B0B8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1CF2C2292449E41E00A7B0B8 /* Forecaster.swift */,
+				1C43E2CA244B90F3002CF7EB /* Match.swift */,
+				1C43E2CC244B90FB002CF7EB /* Forecast.swift */,
+				1C43E2CE244B9105002CF7EB /* Bookmaker.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1CF2C231244A0DEB00A7B0B8 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				1CF2C234244A0E6800A7B0B8 /* TopBookmakersHeaderView.swift */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		1CF2C232244A0DFF00A7B0B8 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				1CF2C238244A473600A7B0B8 /* BookmakerCell.swift */,
+				1CF225B4244B7D74005D510D /* MatchCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		4FD40D6DFEDF34C36DC5C6FC /* Frameworks */ = {
@@ -399,16 +504,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CF2C22E2449F3AA00A7B0B8 /* ButtonFooter.swift in Sources */,
 				1CC4EFBE2447331C00D69C67 /* Fonts.swift in Sources */,
+				1CF2C235244A0E6800A7B0B8 /* TopBookmakersHeaderView.swift in Sources */,
+				1CF2C237244A3C9A00A7B0B8 /* ColumnsHeaderView.swift in Sources */,
+				1CF2C22A2449E41E00A7B0B8 /* Forecaster.swift in Sources */,
 				1CC4EFA524472C8300D69C67 /* LoginView.swift in Sources */,
 				1CC4EFBA2447330600D69C67 /* Colors.swift in Sources */,
 				1CC4EFD82447375B00D69C67 /* String.swift in Sources */,
+				1CF2C230244A0A5500A7B0B8 /* UIImage.swift in Sources */,
+				1C43E2C9244B905B002CF7EB /* MainScreenDataProvider.swift in Sources */,
+				1C43E2D1244B9415002CF7EB /* MainSection.swift in Sources */,
 				1C7A356C2448E15A00E3AB9B /* NavigationBackView.swift in Sources */,
+				1CF2C22C2449E57300A7B0B8 /* OrangeScrollIndicator.swift in Sources */,
 				1C7A356E2448E4F500E3AB9B /* BettingNavigationBar.swift in Sources */,
 				1C91348224475A7B00AE4510 /* UITextField.swift in Sources */,
 				1CC4EFA324472C7400D69C67 /* LoginViewController.swift in Sources */,
 				1C9134862447837F00AE4510 /* SocialButton.swift in Sources */,
+				1C43E2CB244B90F3002CF7EB /* Match.swift in Sources */,
+				1C43E2CF244B9105002CF7EB /* Bookmaker.swift in Sources */,
+				1C6608FB2449E388007E9BEB /* TopForecasterCell.swift in Sources */,
 				1CC4EF8A2447238D00D69C67 /* AppDelegate.swift in Sources */,
+				1CF2C239244A473600A7B0B8 /* BookmakerCell.swift in Sources */,
 				1C91348424476ABD00AE4510 /* BorderedTextField.swift in Sources */,
 				1CC4EFDE2447416900D69C67 /* BottomButton.swift in Sources */,
 				1C91348D2448B07D00AE4510 /* MainView.swift in Sources */,
@@ -416,9 +533,16 @@
 				1CEE8BDC2448BC5C007F2FDB /* NavigationController.swift in Sources */,
 				1CC4EFC32447339B00D69C67 /* UIColor.swift in Sources */,
 				1CC4EFBC2447330D00D69C67 /* Text.swift in Sources */,
+				1C43E2C7244B8FB3002CF7EB /* MainCellsProvider.swift in Sources */,
 				1C91348F2448B08500AE4510 /* MainViewController.swift in Sources */,
+				1CF225B1244B744C005D510D /* PanelCell.swift in Sources */,
+				1C6608F82449E1C3007E9BEB /* TopForecastersView.swift in Sources */,
+				1CF225B9244B81EE005D510D /* PositivityLabel.swift in Sources */,
+				1CCFB12C244B604C00F431BA /* UIViewController.swift in Sources */,
 				1CC4EFAA244731DE00D69C67 /* InputView.swift in Sources */,
+				1CF225B6244B7D74005D510D /* MatchCell.swift in Sources */,
 				1CEE8BDA2448B4BF007F2FDB /* UIView.swift in Sources */,
+				1C43E2CD244B90FB002CF7EB /* Forecast.swift in Sources */,
 				1C91348A2447A39C00AE4510 /* ErrorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

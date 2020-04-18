@@ -12,16 +12,53 @@ class MainViewController: UIViewController {
     
     private lazy var mainView = MainView()
     
-    override func loadView() {
-        view = mainView
-    }
+    private let dataProvider = MainScreenDataProvider()
+    
+    private lazy var cellsProvider = MainCellsProvider(tableView: mainView.tableView,
+                                                       dataProvider: dataProvider)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Hello"
+        
+        view.backgroundColor = .white
+        setView(mainView)
+        mainView.tableView.dataSource = self
+        
+        let data = (0...14).map { (number) -> Forecaster in
+            return Forecaster(username: "user \(number)",
+                profilePicture: "https://sun9-6.userapi.com/c638025/v638025891/5a04a/UMREqJtanv0.jpg?ava=1",
+                income: 50.32)
+        }
+        
+        mainView.tableHeader.setData(forecasters: data)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+    }
+    
+    private func numberOfRows(section: Int) -> Int {
+        let numbers: [Int: Int] = [
+            0: 3,
+            1: 5,
+            2: 5
+        ]
+        
+        return numbers[section] ?? 0
+    }
+}
+
+extension MainViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        numberOfRows(section: section)
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        cellsProvider.cell(indexPath: indexPath)
     }
 }

@@ -32,10 +32,6 @@ class NavigationController: UINavigationController {
             viewController.addBackView(text: title)
         }
     }
-    
-    private func configure() {
-        
-    }
 }
 
 extension UIViewController {
@@ -46,13 +42,9 @@ extension UIViewController {
         
         let height = 36
         backView.snp.makeConstraints { (make) in
-            make.leading.trailing.top.equalToSuperview()
+            make.top.equalTo(topLayoutGuide.snp.bottom)
+            make.leading.trailing.equalToSuperview()
             make.height.equalTo(height)
-        }
-        
-        view.safeLayout.snp.remakeConstraints { (make) in
-            make.leading.trailing.bottom.equalToSuperview()
-            make.top.equalTo(backView.snp.bottom)
         }
     }
     

@@ -60,7 +60,7 @@ extension UIView {
         addSubview(errorView)
         errorView.snp.makeConstraints { (make) in
             make.leading.trailing.top.equalToSuperview()
-            make.bottom.equalTo(snp.top).constraint
+            make.bottom.equalTo(snp.top)
         }
     }
     

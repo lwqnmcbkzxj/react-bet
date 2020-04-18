@@ -189,7 +189,7 @@ class LoginView: UIView {
         addSubview(loginLabel)
         loginLabel.snp.makeConstraints { (make) in
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(snp.top).offset(statusHeight)
+            make.top.equalToSuperview()
             make.height.greaterThanOrEqualTo(24)
             make.height.lessThanOrEqualTo(107)
             make.height.equalTo(107).priority(.medium)

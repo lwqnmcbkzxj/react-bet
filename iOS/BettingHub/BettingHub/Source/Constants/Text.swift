@@ -30,4 +30,16 @@ class Text {
     static var wrongLogin: String { "wrongLogin".localized }
     static var back: String { "back".localized }
     static var BANK: String { "BANK".localized }
+    static var topForecasters: String { "topForecasters".localized }
+    static var showAll: String { "showAll".localized }
+    static var showMore: String { "showMore".localized }
+    static var bookmakersRating: String { "bookmakersRating".localized }
+    static var firm: String { "firm".localized }
+    static var rating: String { "rating".localized }
+    static var bonus: String { "bonus".localized }
+    static var review: String { "review".localized }
+    static var date: String { "date".localized }
+    static var match: String { "match".localized }
+    static var bets: String { "bets".localized }
+    static var topMatches: String { "topMatches".localized }
 }
