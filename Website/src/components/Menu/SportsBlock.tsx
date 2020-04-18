@@ -41,7 +41,12 @@ const SportsBlock: FC<MenuPropsType> = ({ ...props }) => {
 
 	let sportLinks = [] as any
 	sportsArray.map((link, counter) => {
-		sportLinks.push(<NavLink key={counter} to="/forecasts" className={s.sportLink}><button onClick={() => { console.log(link.filterName) }}><img src={link.img} alt="sport-img" />{link.name}</button></NavLink>)
+		sportLinks.push(
+			<NavLink key={counter} to="/forecasts" className={s.sportLink}>
+				<button onClick={() => { console.log(link.filterName) }}>
+					<img src={link.img} alt="sport-img" />{link.name}
+				</button>
+			</NavLink>)
 	})
 	let sportLinksLimit = sportsBlockVisible ? -1 : 4;
 	let sportBtn;

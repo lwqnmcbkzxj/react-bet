@@ -91,15 +91,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-
-	/* position: absolute; */
-	/* top: -70px; */
-	/* transition: .5s; */
 }
-
-/* .authBlock .formError.formError_active { */
-	/* top: 0; */
-/* } */
 
 .authBlock h1 {
 	text-align: center;
@@ -109,26 +101,6 @@
 	letter-spacing: 0px;
 	color: #343638;
 	margin: 33px 0 26px 0;
-}
-
-.authBlock form .submitBtn {
-	width: 100%;
-	font-size: 18px;
-	line-height: 22px;
-	font-family: "Roboto Medium";
-	letter-spacing: 0px;
-	color: #202E48;
-	height: 45px;
-	width: 100%;
-	background: transparent linear-gradient(97deg, #E5E2E2 0%, #F2F2F2 100%) 0% 0% no-repeat padding-box;
-	border-radius: 6px 6px 4px 4px;
-	transition: 0s;
-	text-transform: uppercase;
-}
-
-.authBlock form .submitBtn:hover {
-	background: #F7971D;
-	opacity: 1;
 }
 
 .orLine {

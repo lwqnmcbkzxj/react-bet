@@ -1,0 +1,231 @@
+.forecastHeader {
+	margin-top: 40px;
+}
+
+.forecastHeader .headerDetails {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	font-size: 15px;
+	line-height: 18px;
+	color: #5E687B;
+	margin-bottom: 9px;
+}
+
+.headerDetails .matchDate {
+	text-align: right;
+}
+
+.forecastHeader .forecastName {
+	font-size: 22px;
+	line-height: 27px;
+	font-family: 'Roboto Medium';
+	color: #343638;
+	text-transform: uppercase;
+}
+
+.teams {
+	margin: 28px 0 23px 0;
+	border: 1px solid #E5E2E2;
+	border-radius: 5px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	justify-items: center;
+	position: relative;
+}
+
+.teams .team:first-child {
+	border-right: 1px solid #E5E2E2;
+}
+
+.teams .team {
+	padding: 20px;
+	width: 100%;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.teams .team img {
+	width: 35px;
+	height: 35px;
+}
+
+.teams .team p {
+	margin: 0 12px;
+	font-size: 22px;
+	line-height: 27px;
+	font-family: 'Roboto Medium';
+	color: #343638;
+}
+
+.teams .vsBlock {
+	position: absolute;
+	top: calc(50% - 25.75px);
+	left: calc(50% - 25.17px);
+	background: #fff;
+	border-radius: 50%;
+	padding: 11px;
+	border: 1px solid #E5E2E2;
+	font-size: 22px;
+	line-height: 27px;
+	font-family: 'Roboto Medium';
+	color: #5E687B;
+	text-transform: uppercase;
+}
+
+.forecastDetails {
+	display: flex;
+	flex-direction: column;
+}
+
+
+.forecastDetails>div {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	margin-bottom: 14px;
+}
+
+.forecastDetails div p:first-child {
+	font-size: 17px;
+	line-height: 22px;
+	font-family: 'Roboto Medium';
+	color: #343638;
+	text-align: left;
+}
+
+.forecastDetails div p:last-child {
+	text-align: right;
+	color: #343638;
+	font-size: 17px;
+	line-height: 20px;
+	font-family: 'Roboto';
+}
+
+.forecastDetails .details_forecast p:last-child,
+.forecastDetails .details_cash p:last-child {
+	font-size: 17px;
+	line-height: 22px;
+	font-family: 'Roboto Medium';
+}
+
+.forecastDetails .details_cash p:last-child {
+	color: #0F971D;
+}
+
+.forecastDetails .details_cash span {
+	font-size: 15px;
+	margin-left: 3px;
+}
+
+.forecastDetails .splitter {
+	/* width: 100%; */
+	height: 100%;
+	border-bottom: 1px dotted #A8ABAF;
+	flex: auto;
+	margin: 0 9px 3px 9px;
+	box-sizing: border-box;
+}
+
+.userBlock {
+	width: 100%;
+	background: #FCFCFC;
+	border-radius: 7px;
+	padding: 12px 7px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.userBlock .userInfo {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.userBlock .userInfo img {
+	border-radius: 4px;
+	width: 47px;
+	height: 47px;
+	border: 1px solid #0000001A;
+	margin-right: 12px;
+}
+
+.userBlock .userInfo .userNickName {
+	font-size: 18px;
+	line-height: 20px;
+	color: #343638;
+}
+
+.userStats {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	justify-items: center;
+	align-items: center;
+	grid-gap: 40px;
+	margin: 0 10px;
+}
+
+.userStats .statBlock {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.userStats .statBlock p:first-child {
+	font-size: 15px;
+	line-height: 18px;
+	color: #343638;
+	opacity: 0.76;
+}
+
+.userStats .statBlock p:last-child {
+	font-size: 16px;
+	line-height: 19px;
+	color: #343638;
+	margin-top: 6px;
+}
+
+.userStats .statBlock p span.wins,
+.userStats .statBlock p.positive {
+	color: #0F971D;
+}
+
+.userStats .statBlock p span.loses,
+.userStats .statBlock p.negative {
+	color: #AA0F0F;
+}
+
+.userStats .statBlock p span.draws {
+	color: #0F19AA;
+}
+
+
+
+.userBlock .subscribeBtn {
+	background: #FFFFFF;
+	border: 1px solid #E5E2E2;
+	border-radius: 5px;
+	padding: 5px 20px;
+	font-family: 'Roboto Medium';
+	font-size: 14px;
+	line-height: 17px;
+	color: #343638;
+}
+
+.userBlock .subscribeBtn span {
+	font-size: 20px;
+}
+
+.forecastDescription {
+	margin: 40px 0;
+	font-size: 18px;
+	line-height: 26px;
+	color: #232324;
+}
+.forecastDescription p {
+	margin-bottom: 18px;
+}

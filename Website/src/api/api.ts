@@ -22,11 +22,11 @@ export const userAPI = {
         );
     },
 
-    // register(login, email, password) {
-    //     return instance.post(`register`, { login, email, password })
-    //         .then((response) => {
-    //             return response.data
-    //         }
-    //     );
-    // },    
+    register(username: string, email: string, password: string) {
+        return instance.post(`register`, { username, email, password })
+            .then((response) => {
+                return response.data
+            }
+        );
+    },    
 }

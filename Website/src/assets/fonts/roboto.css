@@ -46,8 +46,8 @@
     font-weight: 500;
     font-style: italic;
 }
-/* @font-face {
-    font-family: 'Roboto';
+ @font-face {
+    font-family: 'Roboto Bold';
     src: local('Roboto Bold'), local('Roboto-Bold'), url('Robotobold.woff2') format('woff2'), url('Robotobold.woff') format('woff'), url('Robotobold.ttf') format('truetype');
     font-weight: 700;
     font-style: normal;
@@ -58,6 +58,7 @@
     font-weight: 700;
     font-style: italic;
 }
+/*
 @font-face {
     font-family: 'Roboto';
     src: local('Roboto Black'), local('Roboto-Black'), url('Robotoblack.woff2') format('woff2'), url('Robotoblack.woff') format('woff'), url('Robotoblack.ttf') format('truetype');

@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import logo from '../../assets/img/logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faCaretLeft } from '@fortawesome/free-solid-svg-icons'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 import Search from './Search'
 import LiveBtn from './LiveBtn/LiveBtn';
 type HeaderPropsType = {

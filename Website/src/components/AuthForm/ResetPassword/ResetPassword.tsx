@@ -4,6 +4,8 @@ import { Redirect } from 'react-router';
 
 import { reduxForm } from 'redux-form';
 import { Input, createField } from '../../Common/FormComponents/FormComponents';
+import ActionButton from '../../Common/ActionButton/ActionButton'
+
 // import LoginThrough from './LoginThrough/LoginThrough'
 
 const RegisterForm = (props: any) => {
@@ -15,8 +17,7 @@ const RegisterForm = (props: any) => {
 
 				{createField("email", Input, "Ваша почта или никнейм" )  }
 				
-				
-				<div className={s.btnHolder}><button className={s.submitBtn}>Восстановить</button></div>
+				<div className={s.btnHolder}><ActionButton value="Восстановить"/></div>
 			</form>
 		</div>
 	);

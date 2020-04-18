@@ -8,6 +8,10 @@ import { withRouter } from 'react-router'
 import AuthFormContainer from './components/AuthForm/AuthFormContainer'
 
 import ForecastsContainer from './components/Forecasts/ForecastsContainer'
+import ForecastContainer from './components/Forecast/ForecastContainer'
+
+
+import MainPageContainer from './components/MainPage/MainPageContainer'
 import HeaderContainer from './components/Header/HeaderContainer'
 import MenuContainer from './components/Menu/MenuContainer'
 import CommentsContainer from './components/Comments/CommentsContainer'
@@ -27,10 +31,11 @@ const App: FC = () => {
 				<div className="app-content">
 					<Switch>
 						{/* <Route exact path="/" render={() => <ProductsListContainer />} /> */}
-						{/* <Route path="/" render={() => <MainPageContainer />} /> */}
+						<Route exact path="/" render={() => <MainPageContainer />} />
 
 						{/* <Route path="/" render={() => <ForecastersContainer />} /> */}
-						<Route path="/" render={() => <ForecastsContainer />} />
+						<Route exact path="/forecasts" render={() => <ForecastsContainer />} />
+						<Route exact path="/forecasts/:forecastId" render={() => <ForecastContainer />} />
 						{/* <Route path="/" render={() => <MatchesContainer />} /> */}
 
 						{/* <Route path="/" render={() => <ArticlesContainer />} /> */}

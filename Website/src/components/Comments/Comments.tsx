@@ -1,4 +1,4 @@
-import React, {	FC } from 'react';
+import React, { FC } from 'react';
 import s from './Comments.module.css';
 import { CommentType } from '../../types/types'
 import LiveBtn from '../Header/LiveBtn/LiveBtn';
@@ -16,11 +16,13 @@ const Comments: FC<CommentsPropsType> = ({ comments, isCommentsBlockVisible, tog
 	if (isCommentsBlockVisible) {
 		renderBlock = comments.map(comment => <Comment key={comment.id} comment={comment} />)
 	} else {
-		renderBlock = <LiveBtn toggleCommentsBlockVisibility={toggleCommentsBlockVisibility}/>			
+		renderBlock = <LiveBtn toggleCommentsBlockVisibility={toggleCommentsBlockVisibility} />
 	}
 	return (
-		<div className={s.comments}>
-			{renderBlock}
+		<div className={s.commentsHolder}>
+			<div className={s.comments}>
+				{renderBlock}
+			</div>
 		</div>
 	)
 }

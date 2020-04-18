@@ -2,8 +2,10 @@ import React from 'react';
 import s from '../AuthForm.module.css';
 import { Redirect } from 'react-router';
 
-import { Field, reduxForm } from 'redux-form';
+import { reduxForm } from 'redux-form';
 import { Input, createField } from '../../Common/FormComponents/FormComponents';
+import ActionButton from '../../Common/ActionButton/ActionButton'
+
 // import LoginThrough from './LoginThrough/LoginThrough'
 
 const RegisterForm = (props: any) => {
@@ -17,8 +19,7 @@ const RegisterForm = (props: any) => {
 				{createField("password", Input, "Пароль", { type: "password" })}
 				{createField("password-repeat", Input, "Повторите пароль", { type: "password" })}
 				
-			
-				<div className={s.btnHolder}><button className={s.submitBtn}>Зарегистрироваться</button></div>
+				<div className={s.btnHolder}><ActionButton value="Зарегистрироваться"/></div>
 			</form>
 		</div>
 	);

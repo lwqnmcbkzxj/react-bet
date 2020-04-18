@@ -1,12 +1,12 @@
 import React from 'react';
-import s from './NotFound.module.css';
+import s from './NotFound.module.scss';
 
 
-const Welcome = () => {
+const NotFound = () => {
     return (
         <div className={s.notfound}>
 			<h1>Страница не найдена</h1>
         </div>
     );
 }
-export default Welcome; 
+export default NotFound; 

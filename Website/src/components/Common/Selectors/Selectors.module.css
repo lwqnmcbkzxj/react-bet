@@ -53,6 +53,9 @@
 	flex-direction: column;
 }
 
+.selectors.dropDownVisible {
+    box-shadow: 0 5px 10px -5px #333;
+} 
 .selectors.dropDownVisible .selector {
 	display: block!important;
 } 

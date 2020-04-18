@@ -6,13 +6,14 @@ import ForecastsListElement from './ForecastsListElement'
 
 type ForecastsListPropsType = {
 	forecasts: Array<ForecastType>
-	filters: ForecastFiltersType
+	filters?: ForecastFiltersType
+	limit?: number
 }
-const ForecastsList: FC<ForecastsListPropsType> = ({ forecasts, filters, ...props }) => {
+const ForecastsList: FC<ForecastsListPropsType> = ({ forecasts, filters, limit = 0,...props }) => {
 	return (
 		<div className={s.forecastList}>
-			{forecasts.map(forecast => 
-				<ForecastsListElement forecast={forecast}/>
+			{forecasts.map((forecast, counter) => 
+				(counter < limit || limit === 0) ? <ForecastsListElement forecast={forecast}/> : null
 			)}
 			
 		</div>

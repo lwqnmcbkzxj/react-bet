@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 import s from '../AuthForm.module.css'
-import cn from 'classnames'
 import { Redirect } from 'react-router'
 import { reduxForm, InjectedFormProps, SubmissionError } from 'redux-form'
 import { Input, createField } from '../../Common/FormComponents/FormComponents'
+import ActionButton from '../../Common/ActionButton/ActionButton'
 
 // import LoginThrough from './LoginThrough/LoginThrough'
 
@@ -25,7 +25,8 @@ const LoginForm: FC<InjectedFormProps<LoginFormValuesType>> = (props: any) => {
 			{createField("email", Input, "Ваша почта или никнейм")}
 			{createField("password", Input, "Пароль", { type: "password", canSeeInputValue: true })}
 
-			<div className={s.btnHolder}><button className={s.submitBtn}>Войти</button></div>
+			
+			<div className={s.btnHolder}><ActionButton value="Войти"/></div>
 		</form>
 	);
 }

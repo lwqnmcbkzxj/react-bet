@@ -6,6 +6,7 @@ import Breadcrumbs from '../Common/Breadcrumbs/Breadcrumbs'
 
 import Selectors from '../Common/Selectors/Selectors'
 import ForeCastsList from './ForecastsList/ForecastsList'
+import ActionButton from '../Common/ActionButton/ActionButton'
 
 type ForecastsPropsType = {
 	forecasts: Array<ForecastType>
@@ -42,6 +43,9 @@ const Forecasts: FC<ForecastsPropsType> = ({ forecasts, filters, toggleFilter, .
 			</div>
 			
 			<ForeCastsList forecasts={forecasts} filters={filters} />
+			<div className={s.actionBtnHoder}>
+			<ActionButton value="Показать больше" func={() => { }} />
+			</div>
 		</div>
 	)
 }
