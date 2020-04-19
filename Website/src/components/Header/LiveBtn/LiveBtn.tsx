@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import './LiveBtn.css';
+import './LiveBtn.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretLeft } from '@fortawesome/free-solid-svg-icons'

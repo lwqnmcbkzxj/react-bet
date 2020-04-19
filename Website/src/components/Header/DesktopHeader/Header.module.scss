@@ -1,0 +1,142 @@
+.desktopHeader {
+	height: 60px;
+}
+.desktopHeader header {
+	height: 60px;
+	padding: 0 17.5%;
+	width: 65%;
+	background: #202E48;
+	
+	display: grid;
+	grid-template-columns: 180px auto auto 250px;
+	grid-gap: 10px;
+	justify-content: space-between;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 5;
+
+	& .logoLink {
+		text-align: right;
+		& .logo {
+			height: 45px;
+		}
+	}
+	& .loginBtn {
+		color: #fff;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-family: "Roboto";
+		font-size: 17px;
+		line-height: 20px;
+		& .loginIcon {
+			margin-right: 10px;
+			font-size: 23px;
+		}
+	}
+
+	& .search_block {
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	
+		& input {
+			background: #515C70 0% 0% no-repeat padding-box;
+			box-shadow: 0px 3px 6px #00000029;
+			border-radius: 6px;
+			height: 34px;
+		
+			color: #D5D8DD;
+			font-size: 16px;
+			line-height: 19px;
+			font-family: "Roboto Light";
+		
+			border: none;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 3px 10px 3px 40px;
+			font-size: 22px;
+			line-height: 34px;
+			width: 100%;
+			box-sizing: border-box;
+		}
+		& .searchIcon {
+			position: absolute;
+			top: 8px;
+			left: 10.6px;
+			font-size: 18px;
+			color: #D5D8DD;
+		}
+	}	
+}
+
+
+
+::-webkit-input-placeholder {
+	color: #D5D8DD;
+	font-size: 16px;
+	line-height: 19px;
+	font-family: "Roboto Light";
+}
+
+::-moz-placeholder {
+	color: #D5D8DD;
+	font-size: 16px;
+	line-height: 19px;
+	font-family: "Roboto Light";
+}
+
+:-ms-input-placeholder {
+	color: #D5D8DD;
+	font-size: 16px;
+	line-height: 19px;
+	font-family: "Roboto Light";
+}
+
+:-moz-placeholder {
+	color: #D5D8DD;
+	font-size: 16px;
+	line-height: 19px;
+	font-family: "Roboto Light";
+}
+
+
+
+
+@media screen and (max-width: 1600px) {
+	.desktopHeader header {
+		padding: 0 12.5%;
+		width: 75%;
+	}
+}
+
+@media screen and (max-width: 1400px) {
+	.desktopHeader header {
+		padding: 0 7.5%;
+		width: 85%;
+	}	
+}
+
+@media screen and (max-width: 1224px) {
+	.desktopHeader header {
+		padding: 0 5%;
+		width: 90%;
+	}	
+}
+@media screen and (max-width: 1024px) {
+	.desktopHeader header {
+		grid-template-columns: 180px auto auto;		
+	}	
+}
+
+
+@media screen and (max-width: 480px) {
+	.commentsHolder {
+		display: none;
+	}
+}
+

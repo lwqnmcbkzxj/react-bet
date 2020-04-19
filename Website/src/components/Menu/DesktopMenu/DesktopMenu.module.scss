@@ -1,0 +1,108 @@
+.menuHolder {
+	position: relative;
+
+	& .menu {
+		padding-top: 15px;
+		margin-left: -10px;
+		border-right: 1px solid #E5E2E2;
+		min-height: calc(100vh - 60px);
+		height: calc(100vh - 60px);
+		box-sizing: border-box;
+		overflow-y: auto;
+		overflow-x: hidden;
+		position: fixed;
+		width: 190px;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+
+		-ms-overflow-style: none;
+		overflow: -moz-scrollbars-none;
+
+		&::-webkit-scrollbar {
+			width: 0;
+		}
+
+		& .pagesLinks {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+
+			& .link {
+				margin-top: 8px;
+				padding: 8px 15px 5px 10px;
+				color: #5E687B;
+				font-size: 15px;
+				line-height: 18px;
+
+				&.activeLink {
+					background: #F9F9F9;
+					color: #202E48;
+					font-family: "Roboto Medium";
+					position: relative;
+
+					&::before {
+						content: "";
+						background: #F7971D;
+						width: 3px;
+						height: 100%;
+						position: absolute;
+						right: -2px;
+						top: 0;
+					}
+				}
+			}
+		}
+
+		& .sportBlock {
+			padding-left: 10px;
+			margin-top: 40px;
+
+			& h2 {
+				font-size: 13px;
+				line-height: 15px;
+				color: #343638;
+				text-transform: uppercase;
+				opacity: 0.62;
+			}
+
+			& .sportLinks {
+				display: flex;
+				flex-direction: column;
+
+				& .sportLink {
+					margin-top: 20px;
+
+					& button {
+						display: flex;
+						align-items: center;
+					}
+
+					& img {
+						margin-right: 10px;
+						width: 17px;
+						height: 17px;
+					}
+				}
+			}
+
+			& .showBtn {
+				margin-top: 20px;
+				font-size: 13px;
+				line-height: 15px;
+				color: #343638;
+				opacity: 0.62;
+			}
+		}
+
+		
+	}
+}
+
+
+@media screen and (max-width: 480px) {
+	.menuHolder {
+		display: none;
+	}
+}

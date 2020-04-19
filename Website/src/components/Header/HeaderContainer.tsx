@@ -1,11 +1,13 @@
 import React, { FC } from 'react';
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from '../../types/types'
 import { toggleAuthFormVisiblility, toggleCommentsBlockVisibility } from '../../redux/app-reducer'
 
 
-import Header from './Header'
+import DesktopHeader from './DesktopHeader/DesktopHeader'
+import MobileHeader from './MobileHeader/MobileHeader'
 
+import useMobile from '../../hooks/useMobile'
 
 const HeaderConainer: FC = () => {
 	const isCommentsBlockVisible = useSelector<AppStateType, boolean>(state => state.app.isCommentsBlockVisible);
@@ -18,12 +20,27 @@ const HeaderConainer: FC = () => {
 	const toggleCommentsBlockVisibilityDispatch = () => {
 		dispatch(toggleCommentsBlockVisibility())
 	}
+
+
+
+	let isMobile = useMobile(480)
+
+	let renderComponent
+
+	if (isMobile) {
+		renderComponent = <MobileHeader />
+	} else {
+		renderComponent =
+			<DesktopHeader
+				isCommentsBlockVisible={isCommentsBlockVisible}
+				toggleAuthFormVisiblility={toggleAuthFormVisiblilityDispatch}
+				toggleCommentsBlockVisibility={toggleCommentsBlockVisibilityDispatch}
+			/>
+	}
 	return (
-		<Header
-			isCommentsBlockVisible={isCommentsBlockVisible}
-			toggleAuthFormVisiblility={toggleAuthFormVisiblilityDispatch}
-			toggleCommentsBlockVisibility={toggleCommentsBlockVisibilityDispatch}
-		/>
+		<>
+			{renderComponent}
+		</>
 	)
 }
 

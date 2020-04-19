@@ -15,7 +15,6 @@ button:hover {
 	margin: 0 auto;
 	display: grid;
 	grid-template-columns: 180px auto 250px;
-	margin-top: 60px;
 }
 
 .app-wrapper {
@@ -32,4 +31,43 @@ button:hover {
 	font-family: 'Roboto Medium';
 	color: #343638;
 	text-transform: uppercase;
+}
+
+
+
+@media screen and (max-width: 1600px) {
+	.app-container {
+		width: 75%;
+	}	
+}
+
+@media screen and (max-width: 1400px) {
+	.app-container {
+		width: 85%;
+	}	
+}
+@media screen and (max-width: 1224px) {
+	.app-container {
+		width: 90%;
+	}	
+	.app-content {
+		padding: 10px 15px;
+		overflow: hidden;
+	}	
+}
+@media screen and (max-width: 1024px) {
+	.app-container {
+		grid-template-columns: 180px auto;
+	}	
+}
+
+@media screen and (max-width: 768px) {
+	.app-container {
+		width: 100%;
+		grid-template-columns: 1fr;
+	}
+	.app-content {
+		padding: 10px 15px;
+		overflow: hidden;
+	}	
 }

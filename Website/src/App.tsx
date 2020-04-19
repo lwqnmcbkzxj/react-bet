@@ -19,21 +19,28 @@ import CommentsContainer from './components/Comments/CommentsContainer'
 
 import NotFound from './components/NotFound/NotFound'
 
+
+
+
 const App: FC = () => {
+
+
 	return (
 		<div className="app-wrapper">
-			<Route path="/" render={() => <HeaderContainer />} />
-			<Route path="/" render={() => <AuthFormContainer />} />
+
+			<HeaderContainer />
+
+			{/* <Route path="/" render={() => <AuthFormContainer />} /> */}
+
 
 			<div className='app-container'>
-				<Route path="/" render={() => <MenuContainer />} />
+				<MenuContainer />
 
 				<div className="app-content">
 					<Switch>
-						{/* <Route exact path="/" render={() => <ProductsListContainer />} /> */}
 						<Route exact path="/" render={() => <MainPageContainer />} />
 
-						{/* <Route path="/" render={() => <ForecastersContainer />} /> */}
+						{/* <Route path="/forecasters" render={() => <ForecastersContainer />} /> */}
 						<Route exact path="/forecasts" render={() => <ForecastsContainer />} />
 						<Route exact path="/forecasts/:forecastId" render={() => <ForecastContainer />} />
 						{/* <Route path="/" render={() => <MatchesContainer />} /> */}
@@ -45,9 +52,10 @@ const App: FC = () => {
 
 					</Switch>
 				</div>
-				<Route path="/" render={() => <CommentsContainer />} />
+				<CommentsContainer />
 
 			</div>
+
 		</div>
 	)
 }

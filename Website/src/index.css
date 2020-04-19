@@ -151,3 +151,8 @@ button {
 	cursor: pointer;
 	transition: .5s;
 }
+@media screen and (max-width: 480px) {
+	body, html {
+		overflow-x: hidden;
+	}
+}

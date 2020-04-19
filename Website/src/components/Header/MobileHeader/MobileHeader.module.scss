@@ -1,0 +1,39 @@
+.mobileHeader header {
+	height: 50px;
+	background: #202E48;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-gap: 10px;
+	justify-items: center;
+	align-items: center;
+	
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	box-sizing: border-box;
+	z-index: 5;
+	padding:  0 15px;
+	& .logoLink img {
+		height: 35px;
+	}
+
+	& .bankBlock {
+		background: #515C70;
+		color: #fff;
+		font-size: 13px;
+		line-height: 15px;
+		padding: 4px 5px;
+		border-radius: 3px;
+		& span {
+			font-family: 'Roboto Medium';
+		}
+	}
+
+	& .searchBlock {
+		color: #fff;
+		justify-self: flex-end;
+		font-size: 20px;
+	}
+
+}
