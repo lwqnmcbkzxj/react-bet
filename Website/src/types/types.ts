@@ -2,6 +2,12 @@ import { RootReducerType } from '../redux/redux-store'
 
 export type AppStateType = ReturnType<RootReducerType>
 
+export enum languageEnum {
+	rus = 'Русский',
+	eng = 'English',
+	ger = 'Deutsch'
+}
+
 /* LIVE COMMENTS */
 export type CommentType = {
 	userId: number

@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import s from './MainPage.module.css';
 import s from './MainPage.module.scss';
 import { NavLink } from 'react-router-dom';
 import ForecastsList from '../Forecasts/ForecastsList/ForecastsList'
@@ -9,18 +8,24 @@ import { ForecastType } from '../../types/types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 
+import useMobile from '../../hooks/useMobile'
+
+import MobileFooter  from '../Common/Footer/Footer'
+
 type MainPagePropsType = {
 	forecasts: Array<ForecastType>
 }
 
 const MainPage: FC<MainPagePropsType> = ({ forecasts, ...props }) => {
 
+	let isMobile = useMobile(768)
+
 	const toggleBlock = () => {
 		console.log('TOGGLING')
 	}
 
 	return (
-		<div className="">
+		<div className={s.mainBlock}>
 			<div className={s.forecasters}>
 				<h1 className={s.blockHeader}>Лучшие прогнозисты</h1>
 				<p>Здесь будет список прогнозистов</p>
@@ -56,6 +61,9 @@ const MainPage: FC<MainPagePropsType> = ({ forecasts, ...props }) => {
 				</div>
 				<NavLink to="/matches" className={s.navLinkBtn}><ActionButton value="Показать дальше" /></NavLink>
 			</div>
+		
+		
+			{ isMobile && <MobileFooter />}
 		</div>
 	)
 }

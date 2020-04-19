@@ -1,15 +1,18 @@
-import { AppStateType } from '../types/types'
+import { AppStateType, languageEnum } from '../types/types'
 import { ThunkAction } from 'redux-thunk'
+
 
 const TOGGLE_AUTH_FORM_VISIBILITY = 'app/TOGGLE_AUTH_FORM_VISIBILITY'
 const TOGGLE_COMMENTS_BLOCK_VISIBILITY = 'app/TOGGLE_COMMENTS_BLOCK_VISIBILITY'
 const CHANGE_MAIN_PAGE_BLOCK_VISIBILITY = 'app/CHANGE_MAIN_PAGE_BLOCK_VISIBILITY'
 const SET_MAIN_PAGE_BLOCKS_VISIBILITY = 'app/SET_MAIN_PAGE_BLOCKS_VISIBILITY'
+const CHANGE_LANGUAGE = 'app/CHANGE_LANGUAGE'
 
 let initialState = {
 	isAuthFormVisible: false,
 	isCommentsBlockVisible: true,
-	mainPageHiddenBlocks: [] as any
+	mainPageHiddenBlocks: [] as any,
+	language: languageEnum.rus
 }
 
 type InitialStateType = typeof initialState;
@@ -17,7 +20,8 @@ type ActionsTypes =
 	ToggleAuthFormVisiblilityType |
 	ToggleCommentsBlockVisibilityType | 
 	SetMainPageBlockVisibilityType | 
-	ChangeMainPageBlockVisibilityType;
+	ChangeMainPageBlockVisibilityType |
+	ChangeLanguageType;
 
 const appReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
@@ -27,12 +31,14 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 				isAuthFormVisible: !state.isAuthFormVisible
 			}
 		}
+			
 		case TOGGLE_COMMENTS_BLOCK_VISIBILITY: {
 			return {
 				...state,
 				isCommentsBlockVisible: !state.isCommentsBlockVisible
 			}
 		}
+			
 		case SET_MAIN_PAGE_BLOCKS_VISIBILITY: {
 			let mainPageVisibility = localStorage.getItem('mainPageVisibility') as any
 			if (mainPageVisibility) {
@@ -50,6 +56,7 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 				mainPageHiddenBlocks: mainPageVisibility
 			}
 		}
+			
 		case CHANGE_MAIN_PAGE_BLOCK_VISIBILITY: {
 			let mainPageVisibility = localStorage.getItem('mainPageVisibility') as any
 			mainPageVisibility = JSON.parse(mainPageVisibility)
@@ -67,6 +74,13 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 			}
 		}
 
+		case CHANGE_LANGUAGE: {
+			return {
+				...state,
+				language: action.language
+			}
+		}
+		
 		default:
 			return state;
 	}
@@ -85,6 +99,10 @@ type SetMainPageBlockVisibilityType = {
 type ChangeMainPageBlockVisibilityType = {
 	type: typeof CHANGE_MAIN_PAGE_BLOCK_VISIBILITY
 	blockName: string
+}
+type ChangeLanguageType = {
+	type: typeof CHANGE_LANGUAGE
+	language: languageEnum
 }
 export const toggleAuthFormVisiblility = (): ToggleAuthFormVisiblilityType => {
 	return {
@@ -106,6 +124,13 @@ export const changeMainPageHiddenBlock = (blockName: string): ChangeMainPageBloc
 	return {
 		type: CHANGE_MAIN_PAGE_BLOCK_VISIBILITY,
 		blockName
+	}
+}
+
+export const changeLanguage = (language: languageEnum): ChangeLanguageType => {
+	return {
+		type: CHANGE_LANGUAGE,
+		language
 	}
 }
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
