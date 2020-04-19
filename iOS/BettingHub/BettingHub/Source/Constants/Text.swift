@@ -42,4 +42,10 @@ class Text {
     static var match: String { "match".localized }
     static var bets: String { "bets".localized }
     static var topMatches: String { "topMatches".localized }
+    static var forecast: String { "forecast".localized }
+    static var betAmount: String { "forecast".localized }
+    static var matchStart: String { "forecast".localized }
+    static var coeficient: String { "forecast".localized }
+    static var income: String { "forecast".localized }
+    static var lastForecasts: String { "lastForecasts".localized }
 }

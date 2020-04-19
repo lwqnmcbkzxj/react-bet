@@ -19,6 +19,10 @@ class PositivityLabel: UILabel {
         case integer
     }
     
+    var number: Double {
+        return Double(text ?? "0") ?? 0
+    }
+    
     var showingSign: Bool = true
     
     var units: Units = .percent
@@ -27,6 +31,7 @@ class PositivityLabel: UILabel {
     
     init() {
         super.init(frame: .zero)
+        setNumber(to: 0)
     }
     
     required init?(coder: NSCoder) {
@@ -44,8 +49,8 @@ class PositivityLabel: UILabel {
         
         let numberStr = getNumberStr(from: number)
         let unitsStr = getUnitsStr()
-        
-        text = "\(number > 0 ? "+" : "")\(numberStr)\(unitsStr)"
+        let sign = number > 0 ? "+" : ""
+        text = "\(showingSign ? sign : "")\(numberStr)\(unitsStr)"
     }
     
     private func getNumberStr(from number: Double) -> String {

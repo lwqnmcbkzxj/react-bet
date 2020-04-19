@@ -18,4 +18,22 @@ class UIItems {
         button.setTitleColor(.textGray, for: .highlighted)
         return button
     }
+    
+    static var forecastTitleLabel: UILabel {
+        let label = UILabel()
+        label.text = "title"
+        label.textColor = .titleBlack
+        label.font = .robotoRegular(size: 14)
+        return label
+    }
+    
+    static var forecastValueLabel: UILabel {
+        let label = UILabel()
+        label.text = "value"
+        label.textColor = .titleBlack
+        label.font = .robotoMedium(size: 14)
+        label.backgroundColor = .forecastLabelBackground
+        label.layer.cornerRadius = 4
+        return label
+    }
 }

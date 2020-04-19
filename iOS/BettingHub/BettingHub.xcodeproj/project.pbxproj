@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1620DEA72495310D9E09EFDB /* Pods_BettingHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E07A6320D39728AEA85C3AA3 /* Pods_BettingHub.framework */; };
+		1C36FDE0244CD6A7002A3601 /* LastForecastsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C36FDDF244CD6A7002A3601 /* LastForecastsView.swift */; };
+		1C36FDE2244CEE46002A3601 /* LastForecastsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C36FDE1244CEE46002A3601 /* LastForecastsHeaderView.swift */; };
 		1C43E2C7244B8FB3002CF7EB /* MainCellsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43E2C6244B8FB3002CF7EB /* MainCellsProvider.swift */; };
 		1C43E2C9244B905B002CF7EB /* MainScreenDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43E2C8244B905B002CF7EB /* MainScreenDataProvider.swift */; };
 		1C43E2CB244B90F3002CF7EB /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43E2CA244B90F3002CF7EB /* Match.swift */; };
@@ -25,6 +27,11 @@
 		1C91348A2447A39C00AE4510 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9134892447A39C00AE4510 /* ErrorView.swift */; };
 		1C91348D2448B07D00AE4510 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C91348C2448B07D00AE4510 /* MainView.swift */; };
 		1C91348F2448B08500AE4510 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C91348E2448B08500AE4510 /* MainViewController.swift */; };
+		1CABD5E0244CA52D0039D99C /* ForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABD5DF244CA52D0039D99C /* ForecastCell.swift */; };
+		1CABD5E2244CB37E0039D99C /* LabeledIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABD5E1244CB37E0039D99C /* LabeledIconView.swift */; };
+		1CABD5E4244CB7570039D99C /* ArrowsStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABD5E3244CB7570039D99C /* ArrowsStepperView.swift */; };
+		1CABD5E7244CC9520039D99C /* ForecastCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABD5E6244CC9520039D99C /* ForecastCellPresenter.swift */; };
+		1CABD5EB244CCDB20039D99C /* ForecastCellRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABD5EA244CCDB20039D99C /* ForecastCellRouter.swift */; };
 		1CC4EF8A2447238D00D69C67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC4EF892447238D00D69C67 /* AppDelegate.swift */; };
 		1CC4EF932447239300D69C67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CC4EF922447239300D69C67 /* Assets.xcassets */; };
 		1CC4EF962447239300D69C67 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CC4EF942447239300D69C67 /* LaunchScreen.storyboard */; };
@@ -66,6 +73,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C36FDDF244CD6A7002A3601 /* LastForecastsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastForecastsView.swift; sourceTree = "<group>"; };
+		1C36FDE1244CEE46002A3601 /* LastForecastsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastForecastsHeaderView.swift; sourceTree = "<group>"; };
 		1C43E2C6244B8FB3002CF7EB /* MainCellsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCellsProvider.swift; sourceTree = "<group>"; };
 		1C43E2C8244B905B002CF7EB /* MainScreenDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainScreenDataProvider.swift; path = /Users/maximbezdenezhnykh/ios/bettingHub/iOS/BettingHub/BettingHub/Source/UIElements/MainScreenDataProvider.swift; sourceTree = "<absolute>"; };
 		1C43E2CA244B90F3002CF7EB /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
@@ -83,6 +92,11 @@
 		1C9134892447A39C00AE4510 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		1C91348C2448B07D00AE4510 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		1C91348E2448B08500AE4510 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		1CABD5DF244CA52D0039D99C /* ForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCell.swift; sourceTree = "<group>"; };
+		1CABD5E1244CB37E0039D99C /* LabeledIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledIconView.swift; sourceTree = "<group>"; };
+		1CABD5E3244CB7570039D99C /* ArrowsStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowsStepperView.swift; sourceTree = "<group>"; };
+		1CABD5E6244CC9520039D99C /* ForecastCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCellPresenter.swift; sourceTree = "<group>"; };
+		1CABD5EA244CCDB20039D99C /* ForecastCellRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCellRouter.swift; sourceTree = "<group>"; };
 		1CC4EF862447238D00D69C67 /* BettingHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BettingHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CC4EF892447238D00D69C67 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1CC4EF922447239300D69C67 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -185,6 +199,16 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		1CABD5E5244CC8140039D99C /* ForecastCell */ = {
+			isa = PBXGroup;
+			children = (
+				1CABD5DF244CA52D0039D99C /* ForecastCell.swift */,
+				1CABD5E6244CC9520039D99C /* ForecastCellPresenter.swift */,
+				1CABD5EA244CCDB20039D99C /* ForecastCellRouter.swift */,
+			);
+			path = ForecastCell;
+			sourceTree = "<group>";
+		};
 		1CBE1130244B395D00C12832 /* Footers */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,6 +258,7 @@
 		1CC4EF9E24472C0600D69C67 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				1CABD5E5244CC8140039D99C /* ForecastCell */,
 				1CEE8BDD2448BC74007F2FDB /* Navigation */,
 				1C91348B2448B07300AE4510 /* Main */,
 				1CC4EFA124472C5C00D69C67 /* Login */,
@@ -284,6 +309,9 @@
 				1CF2C236244A3C9A00A7B0B8 /* ColumnsHeaderView.swift */,
 				1CF225B8244B81EE005D510D /* PositivityLabel.swift */,
 				1CF225B0244B744C005D510D /* PanelCell.swift */,
+				1CABD5E1244CB37E0039D99C /* LabeledIconView.swift */,
+				1CABD5E3244CB7570039D99C /* ArrowsStepperView.swift */,
+				1C36FDDF244CD6A7002A3601 /* LastForecastsView.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -355,6 +383,7 @@
 			isa = PBXGroup;
 			children = (
 				1CF2C234244A0E6800A7B0B8 /* TopBookmakersHeaderView.swift */,
+				1C36FDE1244CEE46002A3601 /* LastForecastsHeaderView.swift */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -514,7 +543,10 @@
 				1CC4EFD82447375B00D69C67 /* String.swift in Sources */,
 				1CF2C230244A0A5500A7B0B8 /* UIImage.swift in Sources */,
 				1C43E2C9244B905B002CF7EB /* MainScreenDataProvider.swift in Sources */,
+				1CABD5E0244CA52D0039D99C /* ForecastCell.swift in Sources */,
 				1C43E2D1244B9415002CF7EB /* MainSection.swift in Sources */,
+				1CABD5E2244CB37E0039D99C /* LabeledIconView.swift in Sources */,
+				1CABD5E7244CC9520039D99C /* ForecastCellPresenter.swift in Sources */,
 				1C7A356C2448E15A00E3AB9B /* NavigationBackView.swift in Sources */,
 				1CF2C22C2449E57300A7B0B8 /* OrangeScrollIndicator.swift in Sources */,
 				1C7A356E2448E4F500E3AB9B /* BettingNavigationBar.swift in Sources */,
@@ -529,6 +561,7 @@
 				1C91348424476ABD00AE4510 /* BorderedTextField.swift in Sources */,
 				1CC4EFDE2447416900D69C67 /* BottomButton.swift in Sources */,
 				1C91348D2448B07D00AE4510 /* MainView.swift in Sources */,
+				1CABD5E4244CB7570039D99C /* ArrowsStepperView.swift in Sources */,
 				1C9134802447497E00AE4510 /* UIItems.swift in Sources */,
 				1CEE8BDC2448BC5C007F2FDB /* NavigationController.swift in Sources */,
 				1CC4EFC32447339B00D69C67 /* UIColor.swift in Sources */,
@@ -537,13 +570,16 @@
 				1C91348F2448B08500AE4510 /* MainViewController.swift in Sources */,
 				1CF225B1244B744C005D510D /* PanelCell.swift in Sources */,
 				1C6608F82449E1C3007E9BEB /* TopForecastersView.swift in Sources */,
+				1C36FDE2244CEE46002A3601 /* LastForecastsHeaderView.swift in Sources */,
 				1CF225B9244B81EE005D510D /* PositivityLabel.swift in Sources */,
 				1CCFB12C244B604C00F431BA /* UIViewController.swift in Sources */,
+				1C36FDE0244CD6A7002A3601 /* LastForecastsView.swift in Sources */,
 				1CC4EFAA244731DE00D69C67 /* InputView.swift in Sources */,
 				1CF225B6244B7D74005D510D /* MatchCell.swift in Sources */,
 				1CEE8BDA2448B4BF007F2FDB /* UIView.swift in Sources */,
 				1C43E2CD244B90FB002CF7EB /* Forecast.swift in Sources */,
 				1C91348A2447A39C00AE4510 /* ErrorView.swift in Sources */,
+				1CABD5EB244CCDB20039D99C /* ForecastCellRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

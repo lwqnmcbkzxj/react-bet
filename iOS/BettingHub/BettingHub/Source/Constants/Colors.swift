@@ -65,4 +65,8 @@ extension UIColor {
     static var textGrayDark: UIColor {
         return UIColor.hex(0x656668)
     }
+    
+    static var forecastLabelBackground: UIColor {
+        return UIColor.hex(0xEEF8EF)
+    }
 }

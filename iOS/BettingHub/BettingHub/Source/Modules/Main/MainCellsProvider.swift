@@ -21,11 +21,13 @@ class MainCellsProvider {
     
     func cell(indexPath: IndexPath) -> UITableViewCell {
         [
-            0: bookmakerCell(indexPath: indexPath,
-                             data: dataProvider.dataForBookmaker(row: indexPath.row)),
-            1: matchCell(indexPath: indexPath,
-                         data: dataProvider.dataForMatch(row: indexPath.row))
-        ][indexPath.section]!
+            0: { self.bookmakerCell(indexPath: indexPath,
+                                    data: self.dataProvider.dataForBookmaker(row: indexPath.row)) },
+            1: { self.matchCell(indexPath: indexPath,
+                                data: self.dataProvider.dataForMatch(row: indexPath.row)) },
+            2: { self.forecastCell(indexPath: indexPath,
+                                   data: self.dataProvider.dataForForecast(row: indexPath.row)) }
+        ][indexPath.section]!()
     }
     
     func bookmakerCell(indexPath: IndexPath, data: Bookmaker) -> UITableViewCell {
@@ -41,6 +43,12 @@ class MainCellsProvider {
         let cell = tableView.dequeueReusableCell(withIdentifier: section.cellId()) as! MatchCell
         let last = indexPath.row == tableView.numberOfRows(inSection: section.sectionIndex()) - 1
         cell.isLast(last)
+        return cell
+    }
+    
+    func forecastCell(indexPath: IndexPath, data: Forecast) -> UITableViewCell {
+        let section = MainSection.lastForecasts
+        let cell = tableView.dequeueReusableCell(withIdentifier: section.cellId()) as! ForecastCell
         return cell
     }
 }

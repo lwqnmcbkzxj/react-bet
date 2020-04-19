@@ -12,7 +12,6 @@ class MainView: UIView {
     
     let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
-        table.rowHeight = 64
         table.scrollIndicatorInsets = .init(top: 0, left: 0, bottom: 0, right: -15)
         table.backgroundColor = .clear
         table.separatorColor = .clear
@@ -50,6 +49,9 @@ class MainView: UIView {
         tableView.register(TopBookmakersHeaderView.self,
                            forHeaderFooterViewReuseIdentifier: MainSection.topMatches.headerId())
         
+        tableView.register(LastForecastsHeaderView.self,
+                           forHeaderFooterViewReuseIdentifier: MainSection.lastForecasts.headerId())
+        
         //Footers
         tableView.register(ButtonFooter.self,
                            forHeaderFooterViewReuseIdentifier: MainSection.footerID())
@@ -58,7 +60,11 @@ class MainView: UIView {
         tableView.register(BookmakerCell.self,
                            forCellReuseIdentifier: MainSection.topBookmakers.cellId())
         
-        tableView.register(MatchCell.self, forCellReuseIdentifier: MainSection.topMatches.cellId())
+        tableView.register(MatchCell.self,
+                           forCellReuseIdentifier: MainSection.topMatches.cellId())
+        
+        tableView.register(ForecastCell.self,
+                           forCellReuseIdentifier: MainSection.lastForecasts.cellId())
         
         tableView.delegate = self
     }
@@ -75,6 +81,11 @@ class MainView: UIView {
                                                 rightInset: 5)
             return header
             
+        case 2 :
+            let section = MainSection.section(for: number)
+            let id = section.headerId()
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: id)
+            return header
         default: return nil
         }
     }
@@ -124,7 +135,13 @@ extension MainView: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return UITableView.automaticDimension
+        let heights: [Int: CGFloat] =
+        [
+            0: 79,
+            1: 79,
+            2: 52
+        ]
+        return heights[section]!
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
@@ -140,6 +157,15 @@ extension MainView: UITableViewDelegate {
         return 98
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let heights: [Int: CGFloat] =
+        [
+            0: 64,
+            1: 53,
+            2: 422
+        ]
+        return heights[indexPath.section]!
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)

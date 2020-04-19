@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   
 
@@ -37,12 +37,13 @@
 "BANK" = "БАНК";
 
 "topForecasters" = "ЛУЧШИЕ ПРОГНОЗИСТЫ";
+"bookmakersRating" = "РЕЙТИНГ БУКМЕКЕРОВ";
+"topMatches" = "ТОП МАТЧИ";
+"lastForecasts" = "ПОСЛЕДНИЕ ПРОГНОЗЫ";
 
 "showAll" = "Посмотреть всех";
 "showMore" = "Показать больше";
 
-"bookmakersRating" = "РЕЙТИНГ БУКМЕКЕРОВ";
-"topMatches" = "ТОП МАТЧИ";
 
 "firm" = "Контора";
 "rating" = "Рейтинг";
@@ -52,3 +53,9 @@
 "date" = "Дата";
 "match" = "Матч";
 "bets" = "Ставки";
+
+"forecast" = "Прогноз:";
+"betAmount" = "Сумма ставки:";
+"matchStart" = "Начало игры:";
+"coeficient" = "Коэфициент:";
+"income" = "Прибыль:";

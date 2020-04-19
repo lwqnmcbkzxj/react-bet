@@ -17,4 +17,12 @@ extension UIFont {
     static func robotoMedium(size: CGFloat) -> UIFont {
         return UIFont(name: "Roboto-Medium", size: size)!
     }
+    
+    static func robotoBold(size: CGFloat) -> UIFont {
+        return UIFont(name: "Roboto-Bold", size: size)!
+    }
+    
+    static func robotoItalic(size: CGFloat) -> UIFont {
+        return UIFont(name: "Roboto-Italic", size: size)!
+    }
 }
