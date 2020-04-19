@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import s from './Forecast.module.css';
+import s from './Forecast.module.scss';
 import classNames from 'classnames'
 import Breadcrumbs from '../Common/Breadcrumbs/Breadcrumbs'
 
 import ForecastStats from './ForecastElements/ForecastStats'
 import footballImg from '../../assets/img/football.png'
-// import forecastUserImg from '../../assets/img/forecast-user-img.png'
+import forecastUserImg from '../../assets/img/forecast-img.png'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRubleSign } from '@fortawesome/free-solid-svg-icons'
@@ -78,7 +78,7 @@ const Forecast: FC<ForecastPropsType> = ({ ...props }) => {
 
 			<div className={s.userBlock}>
 				<div className={s.userInfo}>
-					{/* <img src={forecastUserImg} alt="forecastUserImg" /> */}
+					<img src={forecastUserImg} alt="forecastUserImg" />
 					<p className={s.userNickName}>Никнейм</p>
 				</div>
 				<div className={s.userStats}>

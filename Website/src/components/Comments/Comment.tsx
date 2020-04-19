@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import s from './Comments.module.css';
+import s from './Comments.module.scss';
 import { NavLink } from 'react-router-dom';
 import { CommentType } from '../../types/types'
 import { getTimeSinceSending } from '../../utils/commentTime'

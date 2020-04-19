@@ -1,0 +1,44 @@
+.inputBlock {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 16px;
+	position: relative;
+
+	&.canSeeContent input {
+		padding-right: 50px;
+	}
+
+	&  label {
+		font-size: 12px;
+		line-height: 14px;
+		color: #818283;
+		margin-bottom: 6px;
+	}
+	& input {
+		color: #343638;
+		font-size: 19px;
+		line-height: 23px;
+		width: 300px;
+		height: 48px;
+		background: #FFFFFF 0% 0% no-repeat padding-box;
+		border: 1px solid #D5D8DD;
+		border-radius: 5px;
+		box-sizing: border-box;
+		padding: 12px 13px 13px 13px;
+	}
+	& div {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		& .inputEye {
+			position: absolute;
+			font-size: 20px;
+			right: 17px;
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
+}
+
+

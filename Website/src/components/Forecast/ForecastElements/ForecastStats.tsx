@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
-import s from './ForecastStats.module.css';
+import s from './ForecastStats.module.scss';
 import classNames from 'classnames'
-import { ForecastType } from '../../../types/types'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faChevronUp, faBookmark as faBookmarkFill} from '@fortawesome/free-solid-svg-icons'

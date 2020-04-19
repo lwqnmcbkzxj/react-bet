@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import s from './Forecasts.module.css';
+import s from './Forecasts.module.scss';
 import '../../App.css'
 import { ForecastType, ForecastFiltersType } from '../../types/types'
 import Breadcrumbs from '../Common/Breadcrumbs/Breadcrumbs'

@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import s from './MainPage.module.css';
+import s from './MainPage.module.scss';
 import { NavLink } from 'react-router-dom';
 import ForecastsList from '../Forecasts/ForecastsList/ForecastsList'
 import ActionButton from '../Common/ActionButton/ActionButton'

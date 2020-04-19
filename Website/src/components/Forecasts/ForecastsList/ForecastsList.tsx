@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import s from './ForecastsList.module.css';
+import s from './ForecastsList.module.scss';
 import { ForecastType, ForecastFiltersType } from '../../../types/types'
 
 import ForecastsListElement from './ForecastsListElement'

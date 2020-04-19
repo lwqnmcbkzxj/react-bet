@@ -1,0 +1,173 @@
+.forecast {
+	margin-top: 20px;
+	border: 1px solid #F4F4F4;
+	border-radius: 7px;
+
+	& .forecastHeader {
+		padding: 11px 21px 8px 21px;
+		border-bottom: 1px solid #F4F4F4;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		& .gameInfo,
+		& .matchDate {
+			font-size: 14px;
+			line-height: 17px;
+			color: #818181;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		& .gameInfo {
+			& .sportName {
+				color: #232324;
+			}
+
+			&>img {
+				width: 17px;
+				height: 17px;
+				margin-right: 4px;
+			}
+
+			&>p {
+				margin-right: 4px;
+			}
+		}
+	}
+
+	& .forecastContent {
+		padding: 22px 0 25px 0;
+
+		& > div {
+			margin-left: 21px;
+			margin-right: 21px;
+			&.mathPreview {
+				margin: 0 21px 0 0;
+				display: flex;
+				align-items: center;
+				& .profit {
+					padding: 6px 13px 4px 22px;
+					border-radius: 0px 5px 5px 0px;
+					font-family: 'Roboto Bold';
+					font-size: 14px;
+					line-height: 17px;
+					margin-right: 7px;
+					&.positive {
+						background: #0F971D;
+						color: #FFFFFF;
+					}
+					&.negative {
+						background: #F2F2F2;
+						color: #393F4D;
+					}
+				}
+				& .matchTitle {
+					font-family: 'Roboto Medium';
+					font-size: 24px;
+					line-height: 29px;
+					color: #000000;
+				}
+			}
+			&.matchStats {
+				margin-top: 16px;
+				margin-bottom: 12px;
+				display: flex;
+				flex-direction: column;
+				& .profitStats {
+					display: flex;
+					&>div {
+						font-size: 14px;
+						line-height: 17px;
+						color: #343638;
+						margin-right: 18px;
+						display: flex;
+						align-items: center;
+						& span {
+							font-family: 'Roboto Bold';
+							color: #232324;
+							background: rgba(15, 151, 29, 0.07);
+							border-radius: 7px;
+							padding: 4px 6px 3px 5px;
+							margin-left: 3px;
+							white-space: nowrap;
+						}
+					}
+				}
+				&  .matchStart {
+					font-size: 14px;
+					line-height: 17px;
+					color: #343638;
+					margin-top: 8px;
+				}
+			}	
+			&.matchDescription {
+				font-family: 'Roboto';
+				font-size: 16px;
+				line-height: 22px;
+				color: #000000;
+				opacity: 1;
+			}
+		}
+	}
+
+	& .forecastFooter {
+		padding: 9px 21px;
+		border-top: 1px solid #F4F4F4;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		& .userStats {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+
+			& .userInfo,
+			& .userMatches,
+			& .userProfit {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				font-size: 14px;
+				line-height: 17px;
+			}
+
+			& .userInfo {
+				& img {
+					width: 18px;
+					height: 18px;
+					border: 1px solid #0000001A;
+					border-radius: 2px;
+					margin-right: 9px;
+				}
+
+				& .userNickName {
+					color: #343638;
+				}
+
+				& .slash {
+					margin: 0 8.5px;
+					color: #818181;
+				}
+			}
+
+			& .userProfit {
+				color: #818181;
+
+				& span {
+					margin-left: 6px;
+
+					&.positive {
+						color: #0F971D;
+					}
+
+					&.negative {
+						color: #AA0F0F;
+					}
+				}
+			}
+		}
+	}
+}

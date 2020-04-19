@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import s from './Selectors.module.css';
+import s from './Selectors.module.scss';
 import classNames from 'classnames'
 
 import { FilterType } from '../../../types/types'

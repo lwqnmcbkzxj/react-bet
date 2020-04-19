@@ -1,0 +1,36 @@
+.forecastStats {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	& .leftBlock {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	& div {
+		color: #A8ABAF;
+		margin-right: 10px;
+		display: flex;
+		& span {
+			color: #202E48;
+			font-size: 15px;
+			line-height: 18px;
+			font-family: 'Roboto Regular';
+			margin: 0 7px;
+			&.positive {
+				color: #0F971D;
+			}
+			&.negative {
+				color: #AA0F0F;
+			}
+		}
+	}
+	& .likes {
+		color: #5E687B;
+		// margin-left: 20px;
+		margin-right: 0;
+	}
+	& .favourites button.active {
+		color: #E84755;
+	}
+}

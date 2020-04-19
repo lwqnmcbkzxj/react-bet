@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import s from './ActionButton.module.css';
+import s from './ActionButton.module.scss';
 
 type ForecastsPropsType = {
 	value: string

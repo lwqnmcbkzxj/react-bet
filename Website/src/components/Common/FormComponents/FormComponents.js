@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import s from './FormComponents.module.css';
+import s from './FormComponents.module.scss';
 import cn from 'classnames'
 import { Field } from 'redux-form';
 

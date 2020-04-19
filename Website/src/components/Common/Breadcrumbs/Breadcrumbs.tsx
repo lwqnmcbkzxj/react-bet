@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import s from './Breadcrumbs.module.css';
+import s from './Breadcrumbs.module.scss';
 
 type ForecastsPropsType = {
 	pathParams: Array<string>

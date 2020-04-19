@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import s from './Comments.module.css';
+import s from './Comments.module.scss';
 import { CommentType } from '../../types/types'
 import LiveBtn from '../Header/LiveBtn/LiveBtn';
 import Comment from './Comment'

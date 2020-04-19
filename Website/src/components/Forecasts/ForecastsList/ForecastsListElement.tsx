@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import s from './ForecastsList.module.css';
+import s from './ForecastsList.module.scss';
 import classNames from 'classnames'
 import { ForecastType } from '../../../types/types'
 
@@ -66,8 +66,9 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 					<div className={s.userInfo}>
 						<img src={forecastUserImg} alt="userImg" />
 						<p className={s.userNickName}>Никнейм</p>
+						<div className={s.slash}>|</div>
+
 					</div>
-					<div className={s.slash}>|</div>
 					<div className={s.userMatches}>
 						<img src="" alt="" />
 						<img src="" alt="" />
