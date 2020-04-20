@@ -1,29 +1,50 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState, useCallback } from 'react';
 import s from './MainPage.module.scss';
+import classNames from 'classnames'
 import { NavLink } from 'react-router-dom';
 import ForecastsList from '../Forecasts/ForecastsList/ForecastsList'
 import ActionButton from '../Common/ActionButton/ActionButton'
+import MobileFooter  from '../Common/Footer/Footer'
+
 import { ForecastType } from '../../types/types'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
-
 import useMobile from '../../hooks/useMobile'
 
-import MobileFooter  from '../Common/Footer/Footer'
+
+import { getArrayFromEnum } from '../../utils/enumToArray'
+
+
+enum blocksNamesEnum {
+	bookmakers = 'bookmakers'
+}
+
 
 type MainPagePropsType = {
 	forecasts: Array<ForecastType>
+	mainPageBlocksVisibility: any
+	setMainPageBlocksVisibility: (blockNames: Array<string>) => void
+	changeMainPageBlockVisibility: (blockName: string) => void
 }
 
-const MainPage: FC<MainPagePropsType> = ({ forecasts, ...props }) => {
-
+const MainPage: FC<MainPagePropsType> = ({ forecasts, mainPageBlocksVisibility, setMainPageBlocksVisibility, changeMainPageBlockVisibility, ...props }) => {
 	let isMobile = useMobile(768)
 
-	const toggleBlock = () => {
-		console.log('TOGGLING')
+	// Force update for toggling blocks
+	const [, updateState] = useState();
+	const forceUpdate = useCallback(() => updateState({}), []);
+
+	const toggleBlockVisibility = (blockName: string) => {
+		changeMainPageBlockVisibility(blockName)
+		forceUpdate()
 	}
 
+	useEffect(() => {
+		setMainPageBlocksVisibility(getArrayFromEnum(blocksNamesEnum))
+	}, []);
+
+	
 	return (
 		<div className={s.mainBlock}>
 			<div className={s.forecasters}>
@@ -40,13 +61,20 @@ const MainPage: FC<MainPagePropsType> = ({ forecasts, ...props }) => {
 			</div>
 
 			<div className={s.bookMakers}>
-				<div className={s.contentBlock}>
+				<div className={classNames(
+					s.contentBlock,
+					{[s.contentHidden]: mainPageBlocksVisibility[blocksNamesEnum.bookmakers]}
+				)}>
 					<div className={s.contentBlockHeader}>
 						<h1>Рейтинг букмекеров</h1>
-						<button className={s.toggleButton} onClick={toggleBlock}><FontAwesomeIcon icon={faCaretDown} /></button>
+						<button className={s.toggleButton} onClick={() => { toggleBlockVisibility(blocksNamesEnum.bookmakers)}}><FontAwesomeIcon icon={faCaretDown} /></button>
 					</div>
 
-					<p>Список букмекеров</p>
+					
+					<div className={s.contentBlockList}>
+						<p>Список букмекеров</p>
+					</div>
+					
 
 				</div>
 				<NavLink to="/bookmakers" className={s.navLinkBtn}><ActionButton value="Посмотреть всех" /></NavLink>

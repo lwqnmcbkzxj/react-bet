@@ -11,7 +11,7 @@ const CHANGE_LANGUAGE = 'app/CHANGE_LANGUAGE'
 let initialState = {
 	isAuthFormVisible: false,
 	isCommentsBlockVisible: true,
-	mainPageHiddenBlocks: [] as any,
+	mainPageBlocksVisibility: {} as any,
 	language: languageEnum.rus
 }
 
@@ -40,20 +40,22 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 		}
 			
 		case SET_MAIN_PAGE_BLOCKS_VISIBILITY: {
-			let mainPageVisibility = localStorage.getItem('mainPageVisibility') as any
+			let mainPageVisibility = localStorage.getItem('mainPageVisibility')
 			if (mainPageVisibility) {
 				mainPageVisibility = JSON.parse(mainPageVisibility)
 			} else {
+				let mainPageVisibilityNew = { } as any
 				for (let blockName of action.blocksNames) {
-					mainPageVisibility[blockName] = true
+					mainPageVisibilityNew[blockName] = true
 				}
 
-				localStorage.setItem('mainPageVisibility', JSON.stringify(mainPageVisibility))
+				localStorage.setItem('mainPageVisibility', JSON.stringify(mainPageVisibilityNew))
+				mainPageVisibility = mainPageVisibilityNew
 			}
 
 			return {
 				...state,
-				mainPageHiddenBlocks: mainPageVisibility
+				mainPageBlocksVisibility: mainPageVisibility
 			}
 		}
 			
@@ -64,13 +66,13 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 			mainPageVisibility[action.blockName] = !mainPageVisibility[action.blockName]
 			localStorage.setItem('mainPageVisibility', JSON.stringify(mainPageVisibility))
 
-			let customHiddenBlockForState = state.mainPageHiddenBlocks;
+			let customHiddenBlockForState = state.mainPageBlocksVisibility;
 			customHiddenBlockForState[action.blockName] = !customHiddenBlockForState[action.blockName]
 			
 		
 			return {
 				...state,
-				mainPageHiddenBlocks: customHiddenBlockForState
+				mainPageBlocksVisibility: customHiddenBlockForState
 			}
 		}
 
@@ -94,7 +96,7 @@ type ToggleCommentsBlockVisibilityType = {
 }
 type SetMainPageBlockVisibilityType = {
 	type: typeof SET_MAIN_PAGE_BLOCKS_VISIBILITY
-	blocksNames: string
+	blocksNames: Array<string>
 }
 type ChangeMainPageBlockVisibilityType = {
 	type: typeof CHANGE_MAIN_PAGE_BLOCK_VISIBILITY
@@ -114,13 +116,13 @@ export const toggleCommentsBlockVisibility = (): ToggleCommentsBlockVisibilityTy
 		type: TOGGLE_COMMENTS_BLOCK_VISIBILITY
 	}
 }
-export const setMainPageBlocksVisibility = (blocksNames: string): SetMainPageBlockVisibilityType => {
+export const setMainPageBlocksVisibility = (blocksNames: Array<string>): SetMainPageBlockVisibilityType => {
 	return {
 		type: SET_MAIN_PAGE_BLOCKS_VISIBILITY,
 		blocksNames
 	}
 }
-export const changeMainPageHiddenBlock = (blockName: string): ChangeMainPageBlockVisibilityType => {
+export const changeMainPageBlockVisibility = (blockName: string): ChangeMainPageBlockVisibilityType => {
 	return {
 		type: CHANGE_MAIN_PAGE_BLOCK_VISIBILITY,
 		blockName

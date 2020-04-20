@@ -9,7 +9,7 @@
 	}
 
 	& .navLinkBtn button {
-		margin: 48px 0 59px 0;
+		margin: 22px 0 59px 0;
 	}
 
 	& .contentBlock {
@@ -23,6 +23,7 @@
 
 			& .toggleButton {
 				font-size: 24px;
+				transition: .4s;
 			}
 		}
 
@@ -32,6 +33,23 @@
 			line-height: 22px;
 			color: #343638;
 			text-transform: uppercase;
+		}
+
+		& .contentBlockList {
+			max-height: 0;
+			transition: max-height 0.25s ease-out;
+			overflow: hidden;
+		}
+
+		&.contentHidden {
+			& .contentBlockList {
+				max-height: 500px;
+				transition: max-height 0.25s ease-in;
+			}
+
+			.contentBlockHeader .toggleButton {
+				transform: rotate(180deg);
+			}
 		}
 	}
 }
