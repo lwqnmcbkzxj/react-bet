@@ -1,38 +1,21 @@
 {
-    "name": "html_fast_start",
-    "version": "1.0.0",
-    "description": "Fast start in psd to html",
-    "main": "index.js",
+    "private": true,
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "dev": "npm run development",
+        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "npm run development -- --watch",
+        "watch-poll": "npm run watch -- --watch-poll",
+        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "prod": "npm run production",
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/quas1k/html_fast_start.git"
-    },
-    "keywords": [
-        "psdToHtml"
-    ],
-    "author": "Quas1k",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/quas1k/html_fast_start/issues"
-    },
-    "homepage": "https://github.com/quas1k/html_fast_start#readme",
     "devDependencies": {
-        "del": "^3.0.0",
-        "gulp": "^4.0.0",
-        "gulp-autoprefixer": "^5.0.0",
-        "gulp-cache": "^1.0.2",
-        "gulp-clean-css": "^3.9.3",
-        "gulp-concat": "^2.6.1",
-        "gulp-group-css-media-queries": "^1.2.2",
-        "gulp-imagemin": "^4.1.0",
-        "gulp-notify": "^3.2.0",
-        "gulp-sass": "^4.0.0",
-        "gulp-uglify-es": "^1.0.4",
-        "imagemin-jpeg-recompress": "^5.1.0",
-        "imagemin-pngquant": "^5.1.0",
-        "smart-grid": "^2.0.1"
+        "axios": "^0.19",
+        "cross-env": "^7.0",
+        "laravel-mix": "^5.0.1",
+        "lodash": "^4.17.13",
+        "resolve-url-loader": "^3.1.0",
+        "sass": "^1.15.2",
+        "sass-loader": "^8.0.0"
     }
 }

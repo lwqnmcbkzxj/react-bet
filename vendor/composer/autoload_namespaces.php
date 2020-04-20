@@ -6,8 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Parsedown' => array($vendorDir . '/erusev/parsedown'),
     'Mockery' => array($vendorDir . '/mockery/mockery/library'),
-    'KubAT\\PhpSimple\\HtmlDomParser' => array($vendorDir . '/kub-at/php-simple-html-dom-parser/src'),
-    'Barryvdh' => array($vendorDir . '/barryvdh/reflection-docblock/src'),
+    'Highlight\\' => array($vendorDir . '/scrivo/highlight.php'),
+    'HighlightUtilities\\' => array($vendorDir . '/scrivo/highlight.php'),
 );

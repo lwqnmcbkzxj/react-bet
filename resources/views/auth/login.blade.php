@@ -57,10 +57,6 @@
                                     {{ __('Login') }}
                                 </button>
 
-                                <a href="{{route('login.vk')}}" type="submit" class="btn btn-primary">
-                                    Login with vk
-                                </a>
-
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
