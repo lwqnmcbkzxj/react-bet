@@ -1,15 +1,14 @@
 import React, { FC } from 'react';
 import s from './ForecastsList.module.scss';
-import { ForecastType, ForecastFiltersType } from '../../../types/types'
+import { ForecastType, ForecastsFiltersType } from '../../../types/forecasts'
 
 import ForecastsListElement from './ForecastsListElement'
 
 type ForecastsListPropsType = {
 	forecasts: Array<ForecastType>
-	filters?: ForecastFiltersType
 	limit?: number
 }
-const ForecastsList: FC<ForecastsListPropsType> = ({ forecasts, filters, limit = 0,...props }) => {
+const ForecastsList: FC<ForecastsListPropsType> = ({ forecasts, limit = 0,...props }) => {
 	return (
 		<div className={s.forecastList}>
 			{forecasts.map((forecast, counter) => 

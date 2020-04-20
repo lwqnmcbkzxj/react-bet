@@ -6,10 +6,6 @@ import { ForecastType } from '../../../types/types'
 import ForecastStats from '../../Forecast/ForecastElements/ForecastStats'
 import football from '../../../assets/img/football.png'
 import forecastUserImg from '../../../assets/img/forecast-img.png'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
-import { faCommentAlt, faBookmark, } from '@fortawesome/free-regular-svg-icons'
 import { NavLink } from 'react-router-dom';
 
 

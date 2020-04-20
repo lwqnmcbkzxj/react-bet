@@ -12,7 +12,7 @@ interface MatchParams {
 interface Props extends RouteComponentProps<MatchParams> {}
 
 const ForecastsContainer: FC<Props> = ({ ...props }) => {
-	const forecast = useSelector<AppStateType, ForecastType>(state => state.forecast)
+	const forecast = useSelector<AppStateType, ForecastType>(state => state.forecasts.currentForecast)
 
 
 	const dispatch = useDispatch()

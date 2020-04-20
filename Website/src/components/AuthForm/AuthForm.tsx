@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
-import s from './AuthForm.module.css'
+import s from './AuthForm.module.scss'
 import cn from 'classnames'
 
 import Login from './Login/Login'
@@ -40,6 +40,7 @@ const AuthFormContainer: FC<AuthFormPropsType> = ({ isAuthFormVisible, toggleAut
 					<img src={logo} alt="logo" />
 					<FontAwesomeIcon icon={faTimes} className={s.closePopup} onClick={toggleAuthFormVisiblility} />
 				</div>
+				<FontAwesomeIcon icon={faTimes} className={s.closePopup + ' ' + s.mobileClosePopup} onClick={toggleAuthFormVisiblility} />
 				<div className={s.authForm}>{visibleFormBlock}</div>
 			</div>
 			<div className={s.auth_bg} onClick={isAuthFormVisible ? toggleAuthFormVisiblility : () => { }}></div>

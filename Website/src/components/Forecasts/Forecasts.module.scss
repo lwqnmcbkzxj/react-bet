@@ -1,6 +1,7 @@
-.forecastsHeader {
+.pageHeader {
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	margin-bottom: 30px;
 }
 
@@ -12,11 +13,24 @@
 	margin-bottom: 12px;
 }
 
-.filters > div:nth-child(2){
+.filters>div:nth-child(2) {
 	position: absolute;
-    right: 0;
+	right: 0;
 }
 
 .forecastsPage .actionBtnHoder {
 	margin: 40px 0;
+}
+
+
+
+@media screen and (max-width: 900px) {
+
+	.filters {
+		flex-direction: column;
+		&>div:nth-child(2) {
+			position: relative;
+			margin: 20px auto 0 auto;
+		}
+	}
 }

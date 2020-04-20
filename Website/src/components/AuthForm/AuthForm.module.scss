@@ -1,0 +1,207 @@
+.authBlock {
+	opacity: 0;
+	transition: .2s;
+	z-index: -1;
+	position: fixed;
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+	top: 13vh;
+	width: 430px;
+	background: #fff;
+	box-sizing: border-box;
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+	box-shadow: 0px 0px 13px #00000029;
+	border-radius: 7px;
+	&_visible {
+		opacity: 1;
+		z-index: 6;
+		&~.auth_bg {
+			opacity: 1;
+			z-index: 4;
+		}
+	}
+
+	& .authHeader {
+		background: #202E48 0% 0% no-repeat padding-box;
+		border-radius: 7px 7px 0px 0px;
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 60px;
+		z-index: 5;
+		& img {
+			height: 42.5px;
+			display: block;
+		}		
+	}
+	& .closePopup {
+		position: absolute;
+		top: 22px;
+		right: 26px;
+		font-size: 22px;
+		color: #aab0ba;
+		transition: .3s;
+		&:hover {
+			color: #ffffff;
+			cursor: pointer;
+		}
+	}
+	& .authForm  {
+		padding-bottom: 65px;
+		& > div {
+			padding: 0 65px;
+			box-sizing: border-box;
+		}
+
+		& form {
+			position: relative;
+		}
+		& form > div  {	
+			padding: 0 65px;		
+			&.formError {
+				padding: 0;
+			}
+		}
+	}
+	& .formError {
+		background: #aa0f0f33;
+		font-family: "Roboto";
+		font-size: 15px;
+		line-height: 18px;
+		color: #222A39;
+		height: 35px;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-top: -35px;
+		transition: .3s;
+		&_active {
+			margin-top: 0px;
+		}
+	}
+	& h1 {
+		text-align: center;
+		font-family: "Roboto Medium";
+		font-size: 24px;
+		line-height: 29px;
+		letter-spacing: 0px;
+		color: #343638;
+		padding: 33px 0 26px 0;
+	}
+	& .mobileClosePopup {
+		z-index: 8;
+		display: none;
+		position: absolute;
+		top: 6.5px;
+		right: 10px;
+	}
+}
+
+
+
+
+
+.auth_bg {
+	opacity: 0;
+	transition: .4s;
+	z-index: -5;
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, .3);
+}
+
+.orLine {
+	width: calc(100% - 150px);
+	position: relative;
+	margin: 15px auto;
+	& p {
+		text-align: center;
+		font-size: 16px;
+		line-height: 19px;
+		font-family: "Roboto Regular";
+		letter-spacing: 0px;
+		color: #818283;
+		&::after {
+			content: "";
+			display: block;
+			width: calc(50% - 14px);
+			height: 1px;
+			background: #D5D8DD;
+			position: absolute;
+			left: -14px;
+			top: 10px;
+		}
+		&::before {
+			content: "";
+			display: block;
+			width: calc(50% - 14px);
+			height: 1px;
+			background: #D5D8DD;
+			position: absolute;
+			left: calc(50% + 28px);
+			top: 10px;
+		}
+	}
+}
+
+.actions {
+	width: 100%;
+	box-sizing: border-box;
+	& p {
+		text-align: center;
+		font-size: 17px;
+		line-height: 20px;
+		font-family: "Roboto";
+		letter-spacing: 0px;
+		color: #818283;
+		margin-top: 17px;
+	
+	}
+	& button {
+		color: #F7971D;
+	}
+}
+
+
+
+@media screen and (max-width: 480px) {
+	.authBlock {
+		left: 0;
+		right: 0;
+		top: 0;
+		width: 100vw;
+		border-radius: 0;
+		height: 100vh;
+		overflow: hidden;
+		
+		& .authHeader {
+			display: none;
+		}
+	}
+	.actions {
+		position: absolute;
+		bottom: 38px;
+	}
+	.authForm  {
+		padding-bottom: 65px;
+		& form > div , & > div {
+			padding: 0 38px!important;
+		}
+		.formError {
+			padding: 0!important;
+		}
+	}
+	.orLine {
+		width: calc(100% - 100px);
+	}
+	& .mobileClosePopup {
+		display: block!important;
+	}
+}

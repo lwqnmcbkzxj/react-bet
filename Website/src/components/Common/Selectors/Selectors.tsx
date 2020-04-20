@@ -2,12 +2,13 @@ import React, { FC, useState } from 'react';
 import s from './Selectors.module.scss';
 import classNames from 'classnames'
 
-import { FilterType } from '../../../types/types'
+import { FilterType as ForecastsFiltersType } from '../../../types/forecasts'
+import { FilterType as ForecastersFiltersType } from '../../../types/users'
 
 
 
 type SelectorsType = {
-	selectors: Array<FilterType>
+	selectors: Array<ForecastsFiltersType | ForecastersFiltersType>
 	selectorsBlockName: string
 	onChangeFunc: (filterName: string, filtersBlockName: string) => void
 	isDropdown?: boolean
@@ -23,7 +24,7 @@ const Selectors: FC<SelectorsType> = ({ selectors, selectorsBlockName, onChangeF
 		if (isDropdown) setDropdownVisible(!dropdownVisible)
 	}
 
-	if (isDropdown) {		
+	if (isDropdown) {
 		selectors = selectors.sort(function sortByIndex(a, b) { return a.index - b.index })
 		selectors = selectors.sort(selector => {
 			if (selector.active) return -1;
@@ -31,6 +32,11 @@ const Selectors: FC<SelectorsType> = ({ selectors, selectorsBlockName, onChangeF
 		})
 	}
 
+	let activeSelector = selectors[0]
+	if (isDropdown) {
+		activeSelector = selectors.filter(selector => selector.active === true)[0]
+		selectors = selectors.filter(selector => selector.active !== true)
+	}
 
 
 	let renderSelectors = [] as Array<any>
@@ -54,14 +60,29 @@ const Selectors: FC<SelectorsType> = ({ selectors, selectorsBlockName, onChangeF
 		)
 	})
 
-	return (
-		<div className={classNames(s.selectors, {
-			[s.fillBg]: fillBg,
-			[s.dropdown]: isDropdown,
-			[s.dropDownVisible]: dropdownVisible
-		})} >
-			{renderSelectors}
-		</div>
-	)
+
+	if (isDropdown) {
+		return (
+			<div className={classNames(s.selectors, {
+				[s.dropdown]: isDropdown,
+				[s.dropDownVisible]: dropdownVisible
+			})} >
+				<div onClick={toggleDropdownVisibility} className={s.activeSelector}>{activeSelector.visibleText}</div>
+				<div className={s.selectorsList}>
+					{renderSelectors}
+				</div>
+			</div>
+		)
+	} else {
+		return (
+			<div className={classNames(s.selectors, {
+				[s.fillBg]: fillBg,
+			})} >
+				{renderSelectors}
+			</div>
+		)
+	}
+
+
 }
 export default Selectors;

@@ -1,5 +1,7 @@
 import React from 'react';
-import s from '../AuthForm.module.css';
+import s from '../AuthForm.module.scss';
+import classNames from 'classnames'
+
 import { Redirect } from 'react-router';
 
 import { reduxForm } from 'redux-form';
@@ -12,7 +14,7 @@ const RegisterForm = (props: any) => {
 	return (
 		<div className={s.resetPasswordForm}>
 			<form onSubmit={props.handleSubmit}>
-				<div className={s.formError}>{props.error}</div>
+			<div className={classNames(s.formError, {[s.formError_active]: props.error})}>{props.error}</div>
 				<h1>Восстановление пароля</h1>
 
 				{createField("email", Input, "Ваша почта или никнейм" )  }

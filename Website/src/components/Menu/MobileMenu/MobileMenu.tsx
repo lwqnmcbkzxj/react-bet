@@ -21,22 +21,23 @@ const MobileMenu: FC<MobileMenuPropsType> = ({ ...props }) => {
 	const toggleMenuBlocks = () => {
 		setMenuBlocksVisibility(!menuBlocksVisible)
 	}
-	
+
 	let menuBarLinksActiveClass = "";
-	if (!menuBlocksVisible) 
+	if (!menuBlocksVisible)
 		menuBarLinksActiveClass = classNames(s.active)
 
 	return (
 		<div className="">
 			<div className={s.mobileMenu}>
 				<NavLink exact to="/" className={s.menuLink} activeClassName={menuBarLinksActiveClass}><FontAwesomeIcon icon={faHome} /></NavLink>
-				<NavLink exact to="/forecasts" className={s.menuLink} activeClassName={menuBarLinksActiveClass}><FontAwesomeIcon icon={faWifi} /></NavLink>
+				<NavLink exact to="/forecasts" className={classNames(s.menuLink, s.rotateLink)} activeClassName={menuBarLinksActiveClass}><FontAwesomeIcon icon={faWifi} /></NavLink>
 				<NavLink exact to="/forecasts/add" className={s.menuLink} activeClassName={menuBarLinksActiveClass}><FontAwesomeIcon icon={faPlusSquare} /></NavLink>
 				<NavLink to="/me" className={s.menuLink} activeClassName={menuBarLinksActiveClass}><FontAwesomeIcon icon={faUser} /></NavLink>
 				<button className={classNames(
 					s.toggleMenuBtn,
 					{ [s.active]: menuBlocksVisible }
-				)} onClick={toggleMenuBlocks}><FontAwesomeIcon icon={faBars} /></button>
+				)} onClick={toggleMenuBlocks}><FontAwesomeIcon icon={faBars} />
+				</button>
 			</div>
 			<div className={classNames(
 				s.menuContent,

@@ -14,15 +14,18 @@
 	box-sizing: border-box;
 	overflow: hidden;
 
+	& .menuLink.rotateLink {
+		transform: rotate(45deg);
+	}
+
 	& .menuLink, & .toggleMenuBtn {
 		color: #202E48;
 		font-size: 28px;
 		display: block;
-	}
-
-	& .menuLink.active, & .toggleMenuBtn.active {
-		color: #F7971D;
-		transition: .2s;
+		&.active {
+			color: #F7971D;
+			transition: .2s;
+		}
 	}
 }
 

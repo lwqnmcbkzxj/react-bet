@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import s from './Forecasts.module.scss';
-import '../../App.css'
-import { ForecastType, ForecastFiltersType } from '../../types/types'
+import '../../App.scss'
+import { ForecastType, ForecastsFiltersType } from '../../types/forecasts'
 import Breadcrumbs from '../Common/Breadcrumbs/Breadcrumbs'
 
 import Selectors from '../Common/Selectors/Selectors'
@@ -10,15 +10,15 @@ import ActionButton from '../Common/ActionButton/ActionButton'
 
 type ForecastsPropsType = {
 	forecasts: Array<ForecastType>
-	filters: ForecastFiltersType
+	filters: ForecastsFiltersType
 	toggleFilter: (filterName: string, filtersBlockName: string) => void
 }
 const Forecasts: FC<ForecastsPropsType> = ({ forecasts, filters, toggleFilter, ...props }) => {
 	return (
 		<div className={s.forecastsPage}>
 			<Breadcrumbs pathParams={['Главная', 'Прогнозы']} />
-			<div className={s.forecastsHeader}>
-				<h1 className='pageName'>Прогнозы</h1>
+			<div className="pageHeader">
+				<h1 className="pageName">Прогнозы</h1>
 
 				<Selectors
 					selectors={filters.subscribtionFilter}
@@ -42,7 +42,7 @@ const Forecasts: FC<ForecastsPropsType> = ({ forecasts, filters, toggleFilter, .
 				/>
 			</div>
 			
-			<ForeCastsList forecasts={forecasts} filters={filters} />
+			<ForeCastsList forecasts={forecasts} />
 			<div className={s.actionBtnHoder}>
 			<ActionButton value="Показать больше" func={() => { }} />
 			</div>

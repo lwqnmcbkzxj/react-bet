@@ -5,14 +5,10 @@ import { changeLanguage } from '../../../../redux/app-reducer'
 import s from '../Footer.module.scss';
 import classNames from 'classnames'
 
+import { getArrayFromEnum } from '../../../../utils/enumToArray'
+
 type MenuFooterPropsType = { }
-const getArrayFromEnum = (enumObject: any) => {
-	var array = [];
-	for(var key in enumObject){
-		array.push(enumObject[key]);
-	}
-	return array;
- }
+
 
 const LanguageSelector: FC<MenuFooterPropsType> = ({ ...props }) => {
 	const dispatch = useDispatch();

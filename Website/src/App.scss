@@ -1,4 +1,4 @@
-@import url('./assets/fonts/roboto.css');
+@import url('./assets/fonts/font.css');
 
 
 body {
@@ -23,14 +23,19 @@ button:hover {
 
 .app-content {
 	padding: 26px 75px;
-}
-
-.app-content .pageName {
-	font-size: 22px;
-	line-height: 27px;
-	font-family: 'Roboto Medium';
-	color: #343638;
-	text-transform: uppercase;
+	& .pageName {
+		font-size: 22px;
+		line-height: 27px;
+		font-family: 'Roboto Medium';
+		color: #343638;
+		text-transform: uppercase;
+	}
+	& .pageHeader {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 30px;
+	}
 }
 
 
@@ -51,7 +56,7 @@ button:hover {
 		width: 90%;
 	}	
 	.app-content {
-		padding: 10px 15px;
+		padding: 26px 15px;
 		overflow: hidden;
 	}	
 }
@@ -67,7 +72,18 @@ button:hover {
 		grid-template-columns: 1fr;
 	}
 	.app-content {
-		padding: 10px 15px;
-		overflow: hidden;
+		padding-bottom: 40px;
 	}	
+}
+
+@media screen and (max-width: 480px) {
+
+	.pageHeader {
+		flex-direction: column;
+	}
+	.pageName {
+		margin-bottom: 20px;
+		font-size: 20px;
+		line-height: 24px;
+	}
 }

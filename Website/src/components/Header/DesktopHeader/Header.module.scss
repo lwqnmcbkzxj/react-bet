@@ -1,8 +1,8 @@
 .desktopHeader {
-	height: 60px;
+	height: 50px;
 }
 .desktopHeader header {
-	height: 60px;
+	height: 50px;
 	padding: 0 17.5%;
 	width: 65%;
 	background: #202E48;
@@ -18,9 +18,9 @@
 	z-index: 5;
 
 	& .logoLink {
-		text-align: right;
+		text-align: center;
 		& .logo {
-			height: 45px;
+			height: 40px;
 		}
 	}
 	& .loginBtn {
@@ -47,7 +47,7 @@
 			background: #515C70 0% 0% no-repeat padding-box;
 			box-shadow: 0px 3px 6px #00000029;
 			border-radius: 6px;
-			height: 34px;
+			height: 30px;
 		
 			color: #D5D8DD;
 			font-size: 16px;
@@ -59,8 +59,7 @@
 			justify-content: center;
 			align-items: center;
 			padding: 3px 10px 3px 40px;
-			font-size: 22px;
-			line-height: 34px;
+			
 			width: 100%;
 			box-sizing: border-box;
 		}

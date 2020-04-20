@@ -16,6 +16,7 @@
 
 	&:not(.fillBg) .selector {
 		padding: 8px 0;
+
 		& label {
 			padding: 7px 13px;
 		}
@@ -27,24 +28,12 @@
 		}
 	}
 
-	&.dropdown {
-		display: flex;
-		flex-direction: column;
-		& .selector[data-active=false] {
-			display: none;
-		}
-	}
-	&.dropDownVisible {
-		box-shadow: 0 5px 10px -5px #333;
-		& .selector {
-			display: block !important;
-		}
-	}
-
 	& .selector {
 		padding: 7px 13px;
+
 		& input[type=radio] {
 			display: none;
+
 			&:checked+label {
 				color: #202E48;
 				font-family: 'Roboto Medium';
@@ -64,3 +53,65 @@
 	}
 }
 
+
+
+.selectors.dropdown {
+	position: relative;
+
+	& .selectorsList {
+		position: absolute;
+		display: none;
+		flex-direction: column;
+		background: #F9F9F9;
+		box-shadow: 0 5px 10px -5px #333;
+		border-radius: 6px;
+		top: 35px;
+	}
+
+	&.dropDownVisible {
+		& .selectorsList {
+			display: flex;
+		}
+	}
+
+	& .selector {
+		padding: 7px 13px;
+		& label {
+			padding: 0;
+		}
+	}
+
+	& .activeSelector {
+		background: #F9F9F9;
+		box-shadow: 0px 0px 6px #0000001C;
+		border-radius: 6px;
+		padding: 7px 13px;
+		font-size: 16px;
+		line-height: 19px;
+		font-family: 'Roboto Regular';
+		color: #5E687B;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}
+
+
+
+
+@media screen and (max-width: 768px) {
+	.selectors {
+		& .selector {
+			text-align: center;
+		}
+	}
+
+	.selectors:not(.fillBg):not(.dropdown) {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		align-items: center;
+		justify-items: center;
+		width: 100%;
+	}
+}

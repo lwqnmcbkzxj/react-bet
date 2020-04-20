@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
-import s from './AuthForm.module.css'
+import s from './AuthForm.module.scss'
 
 
 type AuthFormPropsType = {
