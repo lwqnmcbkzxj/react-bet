@@ -1,48 +1,18 @@
 import { AppStateType } from '../types/types'
-
-import { ForecastType,
-	timeFilterEnum,
-	subscribtionFilterEnum,
-	sportTypeFilterEnum,
-	ForecastsFiltersType } from '../types/forecasts'
-
 import { ThunkAction } from 'redux-thunk'
 
+import { timeFilterEnum, sportTypeFilterEnum, UsersFiltersType, }from '../types/users'
 
-const TOGGLE_FILTER = 'forecasts/TOGGLE_FILTER'
-
+const TOGGLE_FILTER = 'users/TOGGLE_FILTER'
 
 let initialState = {
-	forecasts: [
-		{ },
-		{ },
-		{ },
-		{ },
-		{ },
-		{ },
-		{ },
-		{ },
-		{ },
-		{ },
-		{ },
-		{ },
-		{ },
-		{ },
-		{ },
-	] as Array<ForecastType>,
+	users: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
 	filters: {
 		timeFilter: [
 			{index: 1, name: timeFilterEnum.allTime, visibleText: 'Все время', active: true},
-			{index: 2, name: timeFilterEnum.period_3_hours, visibleText: '3 часа', active: false},
-			{index: 3, name: timeFilterEnum.period_6_hours, visibleText: '6 часов', active: false},
-			{index: 4, name: timeFilterEnum.period_12_hours, visibleText: '12 часов', active: false},
-			{index: 5, name: timeFilterEnum.period_24_hours, visibleText: '24 часа', active: false},
+			{index: 2, name: timeFilterEnum.month, visibleText: 'Месяц', active: false},
 		],
-		subscribtionFilter: [
-			{index: 1, name: subscribtionFilterEnum.mySubscribtions, visibleText: 'Подписки', active: false},
-			{index: 2, name: subscribtionFilterEnum.allForecasts, visibleText: 'Все прогнозы', active: true},
-			{index: 3, name: subscribtionFilterEnum.prepaid, visibleText: 'Платные', active: false},
-		],
+		
 		sportTypeFilter: [
 			{ index: 1, name: sportTypeFilterEnum.allSports, visibleText: 'Все', active: true },
 			{ index: 2, name: sportTypeFilterEnum.football, visibleText: 'Футбол', active: false },
@@ -51,14 +21,14 @@ let initialState = {
 			{ index: 5, name: sportTypeFilterEnum.hockey, visibleText: 'Хоккей', active: false },
 			{ index: 6, name: sportTypeFilterEnum.another, visibleText: 'Другое', active: false },
 		]
-	} as ForecastsFiltersType,
-	currentForecast: {} as ForecastType
+	} as UsersFiltersType,
+	currentUser: {},
 }
 
 type InitialStateType = typeof initialState;
 type ActionsTypes = ToggleFilterType;
 
-const forecastsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
+const usersReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
 		case TOGGLE_FILTER: {
 			let filters = state.filters[action.filtersBlockName];
@@ -80,10 +50,11 @@ const forecastsReducer = (state = initialState, action: ActionsTypes): InitialSt
 }
 
 
+
 type ToggleFilterType = {
 	type: typeof TOGGLE_FILTER
-	filterName: timeFilterEnum | subscribtionFilterEnum | sportTypeFilterEnum
-	filtersBlockName: keyof ForecastsFiltersType
+	filterName: timeFilterEnum | sportTypeFilterEnum
+	filtersBlockName: keyof UsersFiltersType
 }
 export const toggleFilter = (filterName: string, filtersBlockName: string) => {
 	return {
@@ -96,4 +67,4 @@ export const toggleFilter = (filterName: string, filtersBlockName: string) => {
 
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
-export default forecastsReducer;
+export default usersReducer;
