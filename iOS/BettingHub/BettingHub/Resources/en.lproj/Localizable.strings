@@ -57,7 +57,7 @@
 "forecast" = "Прогноз:";
 "betAmount" = "Сумма ставки:";
 "matchStart" = "Начало игры:";
-"coeficient" = "Коэфициент:";
+"coeficient" = "Коэффициент:";
 "income" = "Прибыль:";
 
 "forecasts" = "ПРОГНОЗЫ";
@@ -72,3 +72,12 @@
 "basketball" = "Баскетбол";
 "hockey" = "Хокей";
 "other" = "Другое";
+
+"subscribe" = "Подписаться";
+"unsubscibe" = "Отписаться";
+"tournament" = "Турнир";
+"dateTime" = "Дата и время";
+"forecastWord" = "Прогноз";
+"coeficientWord" = "Коэффициет";
+"bet" = "Ставка";
+"possibleWin" = "Возможный выигрыш";

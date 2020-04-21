@@ -11,7 +11,7 @@ import UIKit
 class PositivityLabel: UILabel {
     
     enum Units {
-        case percent, none
+        case percent, none, rubles
     }
     
     enum Rounding {
@@ -67,6 +67,8 @@ class PositivityLabel: UILabel {
         switch units {
         case .percent:
             return "%"
+        case .rubles:
+            return "₽"
         default:
             return ""
         }

@@ -40,6 +40,12 @@ class NavigationController: UINavigationController {
 
 extension UIViewController {
     
+    var backView: NavigationBackView? {
+        return view.subviews.first { (view) -> Bool in
+            return (view as? NavigationBackView) != nil
+        } as? NavigationBackView
+    }
+    
     fileprivate func addBackView(text: String?) {
         let backView = self.backView(text: text)
         view.addSubview(backView)

@@ -15,6 +15,7 @@ class TopForecasterCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 4
         imageView.clipsToBounds = true
+        imageView.makeBordered()
         return imageView
     }()
     

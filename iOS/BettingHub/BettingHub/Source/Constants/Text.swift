@@ -59,5 +59,13 @@ class Text {
     static var basketball: String { "basketball".localized }
     static var hockey: String { "hockey".localized }
     static var other: String { "other".localized }
+    static var subscribe: String { "subscribe".localized }
+    static var unsubscibe: String { "unsubscibe".localized }
+    static var tournament: String { "tournament".localized }
+    static var dateTime: String { "dateTime".localized }
+    static var forecastWord: String { "forecastWord".localized }
+    static var coeficientWord: String { "coeficientWord".localized }
+    static var bet: String { "bet".localized }
+    static var possibleWin: String { "possibleWin".localized }
 }
 

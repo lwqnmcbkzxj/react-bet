@@ -1,5 +1,5 @@
 //
-//  UIImage.swift
+//  UIImageView.swift
 //  BettingHub
 //
 //  Created by Maxim Bezdenezhnykh on 17.04.2020.
@@ -21,5 +21,10 @@ extension UIImageView {
                 self.image = image
             }
         }
+    }
+    
+    func makeBordered() {
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.lineGray.cgColor
     }
 }

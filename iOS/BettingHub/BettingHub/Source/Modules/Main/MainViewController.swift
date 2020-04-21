@@ -26,7 +26,7 @@ class MainViewController: UIViewController {
         
         let data = (0...14).map { (number) -> Forecaster in
             return Forecaster(username: "user \(number)",
-                profilePicture: "https://sun9-6.userapi.com/c638025/v638025891/5a04a/UMREqJtanv0.jpg?ava=1",
+                profilePicture: "",
                 income: 50.32)
         }
         
