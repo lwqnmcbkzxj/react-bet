@@ -1,9 +1,13 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { useDispatch, useSelector} from "react-redux"
-import { AppStateType, ForecastType } from '../../types/types'
+import { AppStateType } from '../../types/types'
+import { ForecastType } from '../../types/forecasts'
+
 import Forecast from './Forecast'
 
 import { withRouter, RouteComponentProps  } from 'react-router'
+
+import { getForecastFromServer } from '../../redux/forecasts-reducer'
 
 interface MatchParams {
     forecastId: string;
@@ -14,13 +18,17 @@ interface Props extends RouteComponentProps<MatchParams> {}
 const ForecastsContainer: FC<Props> = ({ ...props }) => {
 	const forecast = useSelector<AppStateType, ForecastType>(state => state.forecasts.currentForecast)
 
-
 	const dispatch = useDispatch()
 	let forecastId = props.match.params.forecastId ? props.match.params.forecastId : 1;
-	console.log(forecastId)
+
+	useEffect(() => {
+		dispatch(getForecastFromServer(+forecastId))		
+	}, []);
+
+
 	return (
 		<Forecast
-			
+			forecast={forecast}
 		/>
 	)
 }

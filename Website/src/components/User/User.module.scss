@@ -1,107 +1,172 @@
-.pageHeader {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 30px;
-
-	& h1 {
-		text-transform: uppercase;
-		font-size: 22px;
-		line-height: 27px;
-		font-family: 'Roboto Medium';
-	}
-}
-
-.filters {
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
-	position: relative;
-	margin-bottom: 24px;
-}
-
-
-
-.userList {
+.user {
+	border: 1px solid #F4F4F4;
 	border-radius: 7px;
-	border: 1px solid #E5E2E2;
 
-	& .listHeader,
-	& .user {
-		display: grid;
-		grid-template-columns: 1fr 4fr 2fr 2fr 2fr 3fr;
-		grid-gap: 20px;
-		justify-items: center;
+	&>div {
+		padding: 0 20px;
+	}
+
+	& .userInfo {
+		padding-top: 15px;
+		padding-bottom: 15px;
+		display: flex;
 		align-items: center;
+		justify-content: space-between;
+		border-bottom: 1px solid #F4F4F4;
 
-		& div {
-			font-size: 16px;
-			line-height: 19px;
-			color: #343638;
-		}
-
-		& .nickName {
-			justify-self: flex-start;
-		}
-
-		& .position {
-			justify-self: flex-end;
-		}
-	}
-
-	& .listHeader {
-		padding: 7px 16px;
-		background: #F5F5F5;
-
-		& div {
-			opacity: 0.76;
-		}
-	}
-
-	& .user {
-		padding: 18px 16px;	
-		border-bottom: 1px solid #E5E2E2;;	
-
-		& .position {
+		& .userDetails {
 			display: flex;
+			align-items: center;
+			justify-content: stretch;
 
-			& .positionIcon {
-				margin-right: 5px;
 
-				&.negative {
-					transform: rotate(180deg);
+			& img {
+				width: 54px;
+				height: 54px;
+				display: block;
+			}
+
+			& .rightBlock {
+				margin: 0 10px;
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				justify-content: space-between;
+
+				& .nickName {
+					font-family: 'Roboto Medium';
+					font-size: 24px;
+					line-height: 29px;
+					color: #343638;
+					margin-bottom: 5px;
+				}
+
+				& .userBalance {
+					display: flex;
+
+					& .bank {
+						margin-right: 10px;
+
+						font-size: 16px;
+						line-height: 19px;
+						font-family: 'Roboto Medium';
+						letter-spacing: 0px;
+						color: #393F4D;
+
+						& span {
+							font-family: 'Roboto';
+							text-transform: uppercase;
+						}
+					}
+
+					& .roi {
+						font-family: 'Roboto';
+						font-size: 16px;
+						line-height: 19px;
+						color: #393F4D;
+
+						& span {
+							margin-right: 5px;
+							font-family: 'Roboto Medium';
+						}
+					}
 				}
 			}
 		}
 
-		& .nickName {
+		& .subscribeBtn {
+			border-radius: 5px;
+			padding: 9px 20px;
+			border: 1px solid #E5E2E2;
+			color: #343638;
+			font-family: 'Roboto Medium';
+			font-size: 14px;
+			line-height: 17px;
 			display: flex;
-			align-items: center;
-			justify-self: center;
-			& img {
-				border-radius: 4px;
-				width: 30px;
-				height: 30px;
-				margin-right: 10px;
-			}
-		}
+			align-self: flex-start;
 
-		& .matchesStats {
-			display: flex;
-
-			& .wins {
-				color: #0F971D;
-			}
-
-			& .loses {
-				color: #AA0F0F;
-			}
-
-			& .draws {
-				color: #0F19AA;
+			& span {
+				font-size: 20px;
+				margin-right: 6px;
 			}
 		}
 	}
+
+	& .userStats {
+		padding-top: 20px;
+		padding-bottom: 20px;
+		border-bottom: 1px solid #F4F4F4;
+		display: flex;
+		align-self: center;
+		justify-content: space-between;
+
+		&>div {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			margin-right: 10px;
+
+			&:last-child {
+				margin-right: 0px;
+			}
+
+
+			& p:first-child {
+				margin-bottom: 6px;
+				text-align: center;
+
+				font-family: 'Roboto';
+				font-size: 14px;
+				line-height: 17px;
+				color: #343638;
+				opacity: 0.54;
+			}
+
+			& p:nth-child(2) {
+				font-family: 'Roboto Medium';
+				font-size: 18px;
+				line-height: 22px;
+				opacity: 1;
+				color: #393F4D;
+			}
+		}
+	}
+
+	& .userListsSelector {
+		display: flex;
+		align-items: center;
+
+		& .selector {
+			margin-right: 30px;
+			padding-top: 15.5px;
+				padding-bottom: 12px;
+			&:last-child {
+				margin-right: 0;
+			}
+			
+
+			& label {
+				font-size: 15px;
+				line-height: 18px;
+				color: #343638;
+				padding-top: 15.5px;
+				padding-bottom: 11px;
+				&:hover {
+					cursor: pointer;
+				}				
+			}				
+
+			& input[type=radio] {
+				display: none;
+			}
+			& input[type=radio]:checked + label {
+				font-family: 'Roboto Medium';
+				border-bottom: 3px solid #F7971D;
+			}
+		}
+	}
+
 }
 
 .positive {
@@ -110,4 +175,8 @@
 
 .negative {
 	color: #AA0F0F !important;
+}
+
+.neutral {
+	color: #0F19AA !important;
 }

@@ -7,29 +7,16 @@ import { ForecastType,
 	ForecastsFiltersType } from '../types/forecasts'
 
 import { ThunkAction } from 'redux-thunk'
+import { forecastsAPI } from '../api/api'
 
 
 const TOGGLE_FILTER = 'forecasts/TOGGLE_FILTER'
+const SET_FORECASTS = 'forecasts/SET_FORECASTS'
+const SET_FORECAST = 'forecasts/SET_FORECAST'
 
 
 let initialState = {
-	forecasts: [
-		{ },
-		{ },
-		{ },
-		{ },
-		{ },
-		{ },
-		{ },
-		{ },
-		{ },
-		{ },
-		{ },
-		{ },
-		{ },
-		{ },
-		{ },
-	] as Array<ForecastType>,
+	forecasts: [ ] as Array<ForecastType>,
 	filters: {
 		timeFilter: [
 			{index: 1, name: timeFilterEnum.allTime, visibleText: 'Все время', active: true},
@@ -56,10 +43,19 @@ let initialState = {
 }
 
 type InitialStateType = typeof initialState;
-type ActionsTypes = ToggleFilterType;
+type ActionsTypes =
+	ToggleFilterType |
+	SetForecastsType |
+	SetForecastType;
 
 const forecastsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
+		case SET_FORECASTS: {
+			return {
+				...state,
+				forecasts: action.forecasts
+			}
+		}
 		case TOGGLE_FILTER: {
 			let filters = state.filters[action.filtersBlockName];
 			filters.map(filter => {
@@ -79,12 +75,55 @@ const forecastsReducer = (state = initialState, action: ActionsTypes): InitialSt
 	}
 }
 
+type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
 type ToggleFilterType = {
 	type: typeof TOGGLE_FILTER
 	filterName: timeFilterEnum | subscribtionFilterEnum | sportTypeFilterEnum
 	filtersBlockName: keyof ForecastsFiltersType
 }
+type SetForecastsType = {
+	type: typeof SET_FORECASTS
+	forecasts: Array<ForecastType>
+}
+type SetForecastType = {
+	type: typeof SET_FORECAST
+	forecast: ForecastType
+}
+
+
+
+export const getForecastsFromServer = (page: number, quanity: number, filters?: ForecastsFiltersType): ThunksType => async (dispatch) => {
+	let response = await forecastsAPI.getAllForecasts(page, quanity)
+	// if (filters) {
+		
+	// }
+	
+	dispatch(setForecasts(response))
+}
+
+export const getForecastFromServer = (id: number): ThunksType => async (dispatch) => {
+	let response = await forecastsAPI.getForecast(id)	
+	
+	dispatch(setForecast(response))
+}
+
+export const setForecasts = (forecasts: Array<ForecastType>): SetForecastsType => {
+	return {
+		type: SET_FORECASTS,
+		forecasts
+	}
+}
+export const setForecast = (forecast: ForecastType): SetForecastType => {
+	return {
+		type: SET_FORECAST,
+		forecast
+	}
+}
+
+
+
+
 export const toggleFilter = (filterName: string, filtersBlockName: string) => {
 	return {
 		type: TOGGLE_FILTER,
@@ -94,6 +133,5 @@ export const toggleFilter = (filterName: string, filtersBlockName: string) => {
 }
 
 
-type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
 export default forecastsReducer;

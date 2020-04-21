@@ -3,10 +3,12 @@ import { ThunkAction } from 'redux-thunk'
 
 import { timeFilterEnum, sportTypeFilterEnum, UsersFiltersType, }from '../types/users'
 
+import { UserType } from '../types/users'
+
 const TOGGLE_FILTER = 'users/TOGGLE_FILTER'
 
 let initialState = {
-	users: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+	users: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}] as Array<UserType>,
 	filters: {
 		timeFilter: [
 			{index: 1, name: timeFilterEnum.allTime, visibleText: 'Все время', active: true},

@@ -1,10 +1,12 @@
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { AppStateType, ForecastType } from '../../types/types'
+import { AppStateType } from '../../types/types'
+import { ForecastType } from '../../types/forecasts'
 import { setMainPageBlocksVisibility, changeMainPageBlockVisibility } from '../../redux/app-reducer'
 
 import MainPage from './MainPage'
 
+import {getForecastsFromServer } from '../../redux/forecasts-reducer'
 
 const HeaderConainer: FC = () => {
 	const dispatch = useDispatch();
@@ -18,6 +20,13 @@ const HeaderConainer: FC = () => {
 	const changeMainPageBlockVisibilityDispatch = (blockName: string) => {
 		dispatch(changeMainPageBlockVisibility(blockName))
 	}
+
+
+	useEffect(() => {
+		dispatch(getForecastsFromServer(1, 5))		
+	}, []);
+
+
 
 	return (
 		<MainPage

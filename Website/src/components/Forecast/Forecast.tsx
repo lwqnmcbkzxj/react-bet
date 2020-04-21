@@ -9,11 +9,12 @@ import forecastUserImg from '../../assets/img/forecast-img.png'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRubleSign } from '@fortawesome/free-solid-svg-icons'
+import { ForecastType } from '../../types/forecasts';
 
 type ForecastPropsType = {
-
+	forecast: ForecastType
 }
-const Forecast: FC<ForecastPropsType> = ({ ...props }) => {
+const Forecast: FC<ForecastPropsType> = ({forecast, ...props }) => {
 	return (
 		<div className={s.forecast}>
 			<Breadcrumbs pathParams={['Главная', 'Прогнозы', 'Энергетик-БГУ тотал больше 1.5']} />

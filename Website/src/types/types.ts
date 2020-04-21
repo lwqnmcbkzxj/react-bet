@@ -19,4 +19,3 @@ export type CommentType = {
 	publishDate: number
 }
 /* LIVE COMMENTS */
-export type ForecastType = {}

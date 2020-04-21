@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import s from './ForecastsList.module.scss';
 import classNames from 'classnames'
-import { ForecastType } from '../../../types/types'
+import { ForecastType } from '../../../types/forecasts'
 
 import ForecastStats from '../../Forecast/ForecastElements/ForecastStats'
 import football from '../../../assets/img/football.png'
@@ -35,7 +35,7 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 							[s.negative]: false,
 						}
 					)}>+750 xB</div>
-					<NavLink to='forecasts/5'><div className={s.matchTitle}>FlyToMoon - Team Unique</div></NavLink>
+					<NavLink to={`forecasts/${forecast.ForecastId}`}><div className={s.matchTitle}>FlyToMoon - Team Unique</div></NavLink>
 				</div>
 				<div className={s.matchStats}>
 					<div className={s.profitStats}>

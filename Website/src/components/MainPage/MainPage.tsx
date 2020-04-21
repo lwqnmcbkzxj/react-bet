@@ -6,8 +6,7 @@ import ForecastsList from '../Forecasts/ForecastsList/ForecastsList'
 import ActionButton from '../Common/ActionButton/ActionButton'
 import MobileFooter  from '../Common/Footer/Footer'
 
-import { ForecastType } from '../../types/types'
-
+import { ForecastType } from '../../types/forecasts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import useMobile from '../../hooks/useMobile'

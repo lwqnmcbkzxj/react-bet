@@ -42,14 +42,15 @@ const App: FC = () => {
 						<Route exact path="/" render={() => <MainPageContainer />} />
 
 						<Route exact path="/forecasters" render={() => <UsersContainer />} />
-						<Route path="/forecaster/:forecasterId" render={() => <UserContainer />} />
+						<Route exact path="/forecasters/:userId" render={() => <UserContainer />} />
+
+
 						<Route exact path="/forecasts" render={() => <ForecastsContainer />} />
 						<Route exact path="/forecasts/:forecastId" render={() => <ForecastContainer />} />
 						{/* <Route path="/" render={() => <MatchesContainer />} /> */}
 
 						{/* <Route path="/" render={() => <ArticlesContainer />} /> */}
 						{/* <Route path="/" render={() => <NewsContainer />} /> */}
-						{/* <Route path="/" render={() => <UserContainer />} /> */}
 						<Route component={NotFound} />
 
 					</Switch>

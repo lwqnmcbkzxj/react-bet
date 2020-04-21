@@ -1,9 +1,9 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { useDispatch, useSelector} from "react-redux"
 import { AppStateType } from '../../types/types'
 import Forecasts from './Forecasts'
 
-import { toggleFilter } from '../../redux/forecasts-reducer'
+import { toggleFilter, getForecastsFromServer } from '../../redux/forecasts-reducer'
 import { ForecastsFiltersType, ForecastType } from '../../types/forecasts'
 import { withRouter, RouteComponentProps  } from 'react-router'
 
@@ -17,8 +17,12 @@ const ForecastsContainer: FC<Props> = ({ ...props }) => {
 	const forecasts = useSelector<AppStateType, Array<ForecastType>>(state => state.forecasts.forecasts)
 	const filters = useSelector<AppStateType, ForecastsFiltersType>(state => state.forecasts.filters)
 
-
 	const dispatch = useDispatch()
+
+	useEffect(() => {
+		dispatch(getForecastsFromServer(1, 5))		
+	}, []);
+
 	const toggleFilterDispatch = (filterName: string, filtersBlockName: string) => {
 		dispatch(toggleFilter(filterName, filtersBlockName))
 	}

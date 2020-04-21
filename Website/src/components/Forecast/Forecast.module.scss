@@ -166,12 +166,11 @@
 	}
 
 	& .userStats {
-		display: grid;
-		grid-template-columns: 1fr 1fr 1fr;
-		justify-items: center;
+		display: flex;
 		align-items: center;
-		grid-gap: 40px;
-		margin: 0 10px;
+		justify-content: space-between;
+		width: 100%;
+		margin: 0 20px;
 
 		& .statBlock {
 			display: flex;
@@ -180,6 +179,7 @@
 			justify-content: center;
 
 			& p {
+				display: flex;
 				&:first-child {
 					font-size: 15px;
 					line-height: 18px;
