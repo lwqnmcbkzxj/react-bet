@@ -14,6 +14,7 @@ class MainView: UIView {
         let table = UITableView(frame: .zero, style: .grouped)
         table.scrollIndicatorInsets = .init(top: 0, left: 0, bottom: 0, right: -15)
         table.backgroundColor = .clear
+        table.clipsToBounds = false
         table.separatorColor = .clear
         return table
     }()
@@ -49,7 +50,7 @@ class MainView: UIView {
         tableView.register(TopBookmakersHeaderView.self,
                            forHeaderFooterViewReuseIdentifier: MainSection.topMatches.headerId())
         
-        tableView.register(LastForecastsHeaderView.self,
+        tableView.register(BigTitleHeader.self,
                            forHeaderFooterViewReuseIdentifier: MainSection.lastForecasts.headerId())
         
         //Footers

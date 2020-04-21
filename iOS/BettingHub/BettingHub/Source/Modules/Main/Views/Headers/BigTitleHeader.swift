@@ -1,5 +1,5 @@
 //
-//  LastForecastsHeaderView.swift
+//  BigTitleHeader.swift
 //  BettingHub
 //
 //  Created by Maxim Bezdenezhnykh on 19.04.2020.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LastForecastsHeaderView: UITableViewHeaderFooterView {
+class BigTitleHeader: UITableViewHeaderFooterView {
     
     let titleLabel: UILabel = {
         let view = UILabel()

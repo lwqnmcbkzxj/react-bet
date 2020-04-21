@@ -14,6 +14,7 @@ class UIItems {
         let button = UIButton()
         button.titleLabel?.font = .robotoRegular(size: 16)
         button.backgroundColor = .white
+        button.setTitle("title", for: .normal)
         button.setTitleColor(.mainOrange, for: .normal)
         button.setTitleColor(.textGray, for: .highlighted)
         return button
@@ -28,12 +29,39 @@ class UIItems {
     }
     
     static var forecastValueLabel: UILabel {
-        let label = UILabel()
+        let label = LabelWithInsets()
+        label.insets = .init(top: 0, left: 6, bottom: 0, right: 6)
         label.text = "value"
         label.textColor = .titleBlack
         label.font = .robotoMedium(size: 14)
         label.backgroundColor = .forecastLabelBackground
         label.layer.cornerRadius = 4
+        label.layer.masksToBounds = true
         return label
     }
+    
+    static var grayPanel: UIView {
+        let view = UIView()
+        view.backgroundColor = .hex(0xF9F9F9)
+        view.layer.cornerRadius = 7
+        view.layer.shadowOpacity = 0.1
+        view.layer.shadowOffset = .zero
+        view.layer.shadowRadius = 5
+        return view
+    }
 }
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+@available(iOS 13, *)
+struct UIItemsPreview: PreviewProvider {
+    static var previews: some View {
+        VStack(spacing: 10) {
+            UIViewPreview { UIItems.authTextButton }
+            UIViewPreview { UIItems.forecastTitleLabel }
+            UIViewPreview { UIItems.forecastValueLabel }
+            UIViewPreview { UIItems.grayPanel }.frame(maxWidth: 200, maxHeight: 33)
+        }
+    }
+}
+#endif

@@ -32,6 +32,10 @@ class NavigationController: UINavigationController {
             viewController.addBackView(text: title)
         }
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 }
 
 extension UIViewController {

@@ -28,7 +28,7 @@ class ForecastCell: UITableViewCell {
     
     private let sportLabel: UILabel = {
         let view = UILabel()
-        view.text = "Киперспорт"
+        view.text = "Киберспорт"
         view.textColor = .titleBlack
         view.font = .robotoRegular(size: 11)
         return view
@@ -209,6 +209,7 @@ class ForecastCell: UITableViewCell {
         }
         
         panelView.addSubview(sportLabel)
+        sportLabel.snp.contentCompressionResistanceHorizontalPriority = 1000
         sportLabel.snp.makeConstraints { (make) in
             make.top.bottom.equalTo(cornerIcon)
             make.leading.equalTo(cornerIcon.snp.trailing).offset(5)
@@ -237,6 +238,7 @@ class ForecastCell: UITableViewCell {
         }
         
         panelView.addSubview(forecastTitleLabel)
+        forecastTitleLabel.snp.contentCompressionResistanceHorizontalPriority = 1000
         forecastTitleLabel.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(8)
             make.top.equalTo(matchLabel.snp.bottom).offset(12)
@@ -251,6 +253,7 @@ class ForecastCell: UITableViewCell {
         }
         
         panelView.addSubview(coeficientTitleLabel)
+        coeficientTitleLabel.snp.contentCompressionResistanceHorizontalPriority = 1000
         coeficientTitleLabel.snp.makeConstraints { (make) in
             make.leading.equalTo(forecastLabel.snp.trailing).offset(18).priority(.high)
             make.leading.greaterThanOrEqualTo(forecastLabel.snp.trailing).offset(5)
@@ -265,6 +268,7 @@ class ForecastCell: UITableViewCell {
         }
         
         panelView.addSubview(betAmountTitleLabel)
+        betAmountTitleLabel.snp.contentCompressionResistanceHorizontalPriority = 1000
         betAmountTitleLabel.snp.makeConstraints { (make) in
             make.leading.height.equalTo(forecastTitleLabel)
             make.top.equalTo(forecastTitleLabel.snp.bottom).offset(9)
@@ -279,6 +283,7 @@ class ForecastCell: UITableViewCell {
         }
         
         panelView.addSubview(matchStartTitleLabel)
+        matchStartTitleLabel.snp.contentCompressionResistanceHorizontalPriority = 1000
         matchStartTitleLabel.snp.makeConstraints { (make) in
             make.leading.height.equalTo(betAmountTitleLabel)
             make.top.equalTo(betAmountTitleLabel.snp.bottom).offset(9)
@@ -348,6 +353,7 @@ class ForecastCell: UITableViewCell {
         }
         stackView.addArrangedSubview(userImageView)
         
+        usernameLabel.snp.contentCompressionResistanceHorizontalPriority = 1000
         stackView.addArrangedSubview(usernameLabel)
         
         let separator1 = UIView()
@@ -366,8 +372,11 @@ class ForecastCell: UITableViewCell {
         }
         stackView.addArrangedSubview(separator2)
         
-        stackView.addArrangedSubview(incomeTitleLabel)
+        if !DeviceInfo.shared.smallScreen {
+            stackView.addArrangedSubview(incomeTitleLabel)
+        }
         
+        incomeLabel.snp.contentCompressionResistanceHorizontalPriority = 1000
         stackView.addArrangedSubview(incomeLabel)
         
         return stackView

@@ -43,9 +43,21 @@ class Text {
     static var bets: String { "bets".localized }
     static var topMatches: String { "topMatches".localized }
     static var forecast: String { "forecast".localized }
-    static var betAmount: String { "forecast".localized }
-    static var matchStart: String { "forecast".localized }
-    static var coeficient: String { "forecast".localized }
-    static var income: String { "forecast".localized }
+    static var betAmount: String { "betAmount".localized }
+    static var matchStart: String { "matchStart".localized }
+    static var coeficient: String { "coeficient".localized }
+    static var income: String { "income".localized }
     static var lastForecasts: String { "lastForecasts".localized }
+    static var forecasts: String { "forecasts".localized }
+    static var subscribtions: String { "subscribtions".localized }
+    static var allForecasts: String { "allForecasts".localized }
+    static var paid: String { "paid".localized }
+    static var nearest: String { "nearest".localized }
+    static var all: String { "all".localized }
+    static var football: String { "football".localized }
+    static var tennis: String { "tennis".localized }
+    static var basketball: String { "basketball".localized }
+    static var hockey: String { "hockey".localized }
+    static var other: String { "other".localized }
 }
+

@@ -10,6 +10,8 @@ import UIKit
 
 class LastForecastsView: UIView {
     
+    private let minimumCircleWidth: CGFloat = 10
+    
     private let stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
@@ -30,6 +32,24 @@ class LastForecastsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+//        stackView.arrangedSubviews.forEach { (circle) in
+//            if !circle.isHidden,
+//                circle.frame.width < minimumCircleWidth {
+//                circle.isHidden = true
+//                layoutSubviews()
+//                return
+//            } else if circle.isHidden,
+//                circle.frame.width >= minimumCircleWidth {
+//                circle.isHidden = false
+//            }
+//        }
+//        if stackView.frame.width < stackView.intrinsicContentSize.width {
+//            
+//        }
+    }
+    
     func populate(with values: [Bool]) {
         for view in stackView.arrangedSubviews {
             stackView.removeArrangedSubview(view)
@@ -43,6 +63,9 @@ class LastForecastsView: UIView {
     private func generateCircle(from value: Bool) -> UIView {
         let circle = UIImageView()
         circle.contentMode = .scaleAspectFit
+        circle.snp.makeConstraints { (make) in
+            make.width.equalTo(10)
+        }
         circle.image = UIImage(named: value ? "rightCircle" : "falseCircle")!
         return circle
     }

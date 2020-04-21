@@ -8,5 +8,7 @@ target 'BettingHub' do
   # Pods for BettingHub
   pod 'SnapKit'
   pod "AloeStackView"
+  pod 'DeviceKit'
+  pod 'IQKeyboardManagerSwift'
 
 end

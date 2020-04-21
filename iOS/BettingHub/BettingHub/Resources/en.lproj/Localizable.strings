@@ -45,7 +45,6 @@
 "showMore" = "Показать больше";
 
 
-
 "firm" = "Контора";
 "rating" = "Рейтинг";
 "bonus" = "Бонус";
@@ -60,3 +59,16 @@
 "matchStart" = "Начало игры:";
 "coeficient" = "Коэфициент:";
 "income" = "Прибыль:";
+
+"forecasts" = "ПРОГНОЗЫ";
+"subscribtions" = "Подписки";
+"allForecasts" = "Все прогнозы";
+"paid" = "Платные";
+"nearest" = "Ближайшие:";
+
+"all" = "Все";
+"football" = "Футбол";
+"tennis" = "Теннис";
+"basketball" = "Баскетбол";
+"hockey" = "Хокей";
+"other" = "Другое";

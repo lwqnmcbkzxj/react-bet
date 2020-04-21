@@ -8,16 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		1620DEA72495310D9E09EFDB /* Pods_BettingHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E07A6320D39728AEA85C3AA3 /* Pods_BettingHub.framework */; };
+		1C083F50244E687B0010D719 /* Sport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C083F4F244E687B0010D719 /* Sport.swift */; };
+		1C25F83E244DD8C600A24F31 /* LabelWithInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C25F83D244DD8C600A24F31 /* LabelWithInsets.swift */; };
+		1C25F841244DE4A700A24F31 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C25F840244DE4A700A24F31 /* Device.swift */; };
+		1C25F844244DEC3400A24F31 /* ForecastsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C25F843244DEC3400A24F31 /* ForecastsView.swift */; };
+		1C25F846244DF30A00A24F31 /* ForecastsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C25F845244DF30A00A24F31 /* ForecastsViewController.swift */; };
+		1C25F848244DF56C00A24F31 /* ForecastsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C25F847244DF56C00A24F31 /* ForecastsHeader.swift */; };
+		1C25F84D244E16A000A24F31 /* MainCellsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C25F84B244E16A000A24F31 /* MainCellsProvider.swift */; };
+		1C25F84E244E16A000A24F31 /* MainScreenDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C25F84C244E16A000A24F31 /* MainScreenDataProvider.swift */; };
+		1C25F850244E191400A24F31 /* UIPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C25F84F244E191400A24F31 /* UIPreview.swift */; };
+		1C25F852244E195E00A24F31 /* TableViewPreviewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C25F851244E195E00A24F31 /* TableViewPreviewDataSource.swift */; };
 		1C36FDE0244CD6A7002A3601 /* LastForecastsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C36FDDF244CD6A7002A3601 /* LastForecastsView.swift */; };
-		1C36FDE2244CEE46002A3601 /* LastForecastsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C36FDE1244CEE46002A3601 /* LastForecastsHeaderView.swift */; };
-		1C43E2C7244B8FB3002CF7EB /* MainCellsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43E2C6244B8FB3002CF7EB /* MainCellsProvider.swift */; };
-		1C43E2C9244B905B002CF7EB /* MainScreenDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43E2C8244B905B002CF7EB /* MainScreenDataProvider.swift */; };
+		1C36FDE2244CEE46002A3601 /* BigTitleHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C36FDE1244CEE46002A3601 /* BigTitleHeader.swift */; };
 		1C43E2CB244B90F3002CF7EB /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43E2CA244B90F3002CF7EB /* Match.swift */; };
 		1C43E2CD244B90FB002CF7EB /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43E2CC244B90FB002CF7EB /* Forecast.swift */; };
 		1C43E2CF244B9105002CF7EB /* Bookmaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43E2CE244B9105002CF7EB /* Bookmaker.swift */; };
 		1C43E2D1244B9415002CF7EB /* MainSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43E2D0244B9415002CF7EB /* MainSection.swift */; };
+		1C4516CF244E6F6500D636BC /* PanelSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4516CE244E6F6500D636BC /* PanelSegmentedControl.swift */; };
+		1C5E3A1B244E4169007F5E0E /* SelectionControll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5E3A1A244E4169007F5E0E /* SelectionControll.swift */; };
 		1C6608F82449E1C3007E9BEB /* TopForecastersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6608F72449E1C3007E9BEB /* TopForecastersView.swift */; };
 		1C6608FB2449E388007E9BEB /* TopForecasterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6608FA2449E388007E9BEB /* TopForecasterCell.swift */; };
+		1C6BCC65244E3711009AA7D1 /* DefaultPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6BCC64244E3711009AA7D1 /* DefaultPreview.swift */; };
 		1C7A356C2448E15A00E3AB9B /* NavigationBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A356B2448E15A00E3AB9B /* NavigationBackView.swift */; };
 		1C7A356E2448E4F500E3AB9B /* BettingNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A356D2448E4F500E3AB9B /* BettingNavigationBar.swift */; };
 		1C9134802447497E00AE4510 /* UIItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C91347F2447497E00AE4510 /* UIItems.swift */; };
@@ -70,19 +81,32 @@
 		1CF2C235244A0E6800A7B0B8 /* TopBookmakersHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF2C234244A0E6800A7B0B8 /* TopBookmakersHeaderView.swift */; };
 		1CF2C237244A3C9A00A7B0B8 /* ColumnsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF2C236244A3C9A00A7B0B8 /* ColumnsHeaderView.swift */; };
 		1CF2C239244A473600A7B0B8 /* BookmakerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF2C238244A473600A7B0B8 /* BookmakerCell.swift */; };
+		1CFE8263244E5837002326DB /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CFE8262244E5837002326DB /* SwiftUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		1CFE8265244E5DD2002326DB /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFE8264244E5DD2002326DB /* TimePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C083F4F244E687B0010D719 /* Sport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sport.swift; sourceTree = "<group>"; };
+		1C25F83D244DD8C600A24F31 /* LabelWithInsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithInsets.swift; sourceTree = "<group>"; };
+		1C25F840244DE4A700A24F31 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		1C25F843244DEC3400A24F31 /* ForecastsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastsView.swift; sourceTree = "<group>"; };
+		1C25F845244DF30A00A24F31 /* ForecastsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastsViewController.swift; sourceTree = "<group>"; };
+		1C25F847244DF56C00A24F31 /* ForecastsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastsHeader.swift; sourceTree = "<group>"; };
+		1C25F84B244E16A000A24F31 /* MainCellsProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCellsProvider.swift; sourceTree = "<group>"; };
+		1C25F84C244E16A000A24F31 /* MainScreenDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenDataProvider.swift; sourceTree = "<group>"; };
+		1C25F84F244E191400A24F31 /* UIPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPreview.swift; sourceTree = "<group>"; };
+		1C25F851244E195E00A24F31 /* TableViewPreviewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewPreviewDataSource.swift; sourceTree = "<group>"; };
 		1C36FDDF244CD6A7002A3601 /* LastForecastsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastForecastsView.swift; sourceTree = "<group>"; };
-		1C36FDE1244CEE46002A3601 /* LastForecastsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastForecastsHeaderView.swift; sourceTree = "<group>"; };
-		1C43E2C6244B8FB3002CF7EB /* MainCellsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCellsProvider.swift; sourceTree = "<group>"; };
-		1C43E2C8244B905B002CF7EB /* MainScreenDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainScreenDataProvider.swift; path = /Users/maximbezdenezhnykh/ios/bettingHub/iOS/BettingHub/BettingHub/Source/UIElements/MainScreenDataProvider.swift; sourceTree = "<absolute>"; };
+		1C36FDE1244CEE46002A3601 /* BigTitleHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigTitleHeader.swift; sourceTree = "<group>"; };
 		1C43E2CA244B90F3002CF7EB /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		1C43E2CC244B90FB002CF7EB /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 		1C43E2CE244B9105002CF7EB /* Bookmaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmaker.swift; sourceTree = "<group>"; };
 		1C43E2D0244B9415002CF7EB /* MainSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSection.swift; sourceTree = "<group>"; };
+		1C4516CE244E6F6500D636BC /* PanelSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelSegmentedControl.swift; sourceTree = "<group>"; };
+		1C5E3A1A244E4169007F5E0E /* SelectionControll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionControll.swift; sourceTree = "<group>"; };
 		1C6608F72449E1C3007E9BEB /* TopForecastersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopForecastersView.swift; sourceTree = "<group>"; };
 		1C6608FA2449E388007E9BEB /* TopForecasterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopForecasterCell.swift; sourceTree = "<group>"; };
+		1C6BCC64244E3711009AA7D1 /* DefaultPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPreview.swift; sourceTree = "<group>"; };
 		1C7A356B2448E15A00E3AB9B /* NavigationBackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBackView.swift; sourceTree = "<group>"; };
 		1C7A356D2448E4F500E3AB9B /* BettingNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BettingNavigationBar.swift; sourceTree = "<group>"; };
 		1C91347F2447497E00AE4510 /* UIItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIItems.swift; sourceTree = "<group>"; };
@@ -139,6 +163,8 @@
 		1CF2C234244A0E6800A7B0B8 /* TopBookmakersHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBookmakersHeaderView.swift; sourceTree = "<group>"; };
 		1CF2C236244A3C9A00A7B0B8 /* ColumnsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnsHeaderView.swift; sourceTree = "<group>"; };
 		1CF2C238244A473600A7B0B8 /* BookmakerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmakerCell.swift; sourceTree = "<group>"; };
+		1CFE8262244E5837002326DB /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		1CFE8264244E5DD2002326DB /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
 		5CCA83A745208C2A7BBA9496 /* Pods-BettingHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BettingHub.release.xcconfig"; path = "Target Support Files/Pods-BettingHub/Pods-BettingHub.release.xcconfig"; sourceTree = "<group>"; };
 		BCF48A15E2485EA03FC824DA /* Pods-BettingHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BettingHub.debug.xcconfig"; path = "Target Support Files/Pods-BettingHub/Pods-BettingHub.debug.xcconfig"; sourceTree = "<group>"; };
 		E07A6320D39728AEA85C3AA3 /* Pods_BettingHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BettingHub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,6 +175,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CFE8263244E5837002326DB /* SwiftUI.framework in Frameworks */,
 				1620DEA72495310D9E09EFDB /* Pods_BettingHub.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -163,6 +190,36 @@
 				5CCA83A745208C2A7BBA9496 /* Pods-BettingHub.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		1C25F83F244DE49300A24F31 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1C25F840244DE4A700A24F31 /* Device.swift */,
+				1C25F853244E197500A24F31 /* Preview */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		1C25F842244DE9B100A24F31 /* Forecasts */ = {
+			isa = PBXGroup;
+			children = (
+				1C25F847244DF56C00A24F31 /* ForecastsHeader.swift */,
+				1C25F843244DEC3400A24F31 /* ForecastsView.swift */,
+				1C25F845244DF30A00A24F31 /* ForecastsViewController.swift */,
+				1CFE8264244E5DD2002326DB /* TimePicker.swift */,
+			);
+			path = Forecasts;
+			sourceTree = "<group>";
+		};
+		1C25F853244E197500A24F31 /* Preview */ = {
+			isa = PBXGroup;
+			children = (
+				1C25F84F244E191400A24F31 /* UIPreview.swift */,
+				1C25F851244E195E00A24F31 /* TableViewPreviewDataSource.swift */,
+				1C6BCC64244E3711009AA7D1 /* DefaultPreview.swift */,
+			);
+			path = Preview;
 			sourceTree = "<group>";
 		};
 		1C6608F62449E1B6007E9BEB /* Views */ = {
@@ -193,8 +250,8 @@
 				1C91348C2448B07D00AE4510 /* MainView.swift */,
 				1C43E2D0244B9415002CF7EB /* MainSection.swift */,
 				1C91348E2448B08500AE4510 /* MainViewController.swift */,
-				1C43E2C6244B8FB3002CF7EB /* MainCellsProvider.swift */,
-				1C43E2C8244B905B002CF7EB /* MainScreenDataProvider.swift */,
+				1C25F84B244E16A000A24F31 /* MainCellsProvider.swift */,
+				1C25F84C244E16A000A24F31 /* MainScreenDataProvider.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -258,6 +315,7 @@
 		1CC4EF9E24472C0600D69C67 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				1C25F842244DE9B100A24F31 /* Forecasts */,
 				1CABD5E5244CC8140039D99C /* ForecastCell */,
 				1CEE8BDD2448BC74007F2FDB /* Navigation */,
 				1C91348B2448B07300AE4510 /* Main */,
@@ -283,6 +341,7 @@
 				1CC4EF9E24472C0600D69C67 /* Modules */,
 				1CC4EFA8244731D200D69C67 /* UIElements */,
 				1CC4EFBF2447338800D69C67 /* Extensions */,
+				1C25F83F244DE49300A24F31 /* Utils */,
 				1CC4EFB8244732FB00D69C67 /* Constants */,
 			);
 			path = Source;
@@ -312,6 +371,9 @@
 				1CABD5E1244CB37E0039D99C /* LabeledIconView.swift */,
 				1CABD5E3244CB7570039D99C /* ArrowsStepperView.swift */,
 				1C36FDDF244CD6A7002A3601 /* LastForecastsView.swift */,
+				1C25F83D244DD8C600A24F31 /* LabelWithInsets.swift */,
+				1C5E3A1A244E4169007F5E0E /* SelectionControll.swift */,
+				1C4516CE244E6F6500D636BC /* PanelSegmentedControl.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -375,6 +437,7 @@
 				1C43E2CA244B90F3002CF7EB /* Match.swift */,
 				1C43E2CC244B90FB002CF7EB /* Forecast.swift */,
 				1C43E2CE244B9105002CF7EB /* Bookmaker.swift */,
+				1C083F4F244E687B0010D719 /* Sport.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -383,7 +446,7 @@
 			isa = PBXGroup;
 			children = (
 				1CF2C234244A0E6800A7B0B8 /* TopBookmakersHeaderView.swift */,
-				1C36FDE1244CEE46002A3601 /* LastForecastsHeaderView.swift */,
+				1C36FDE1244CEE46002A3601 /* BigTitleHeader.swift */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -400,6 +463,7 @@
 		4FD40D6DFEDF34C36DC5C6FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1CFE8262244E5837002326DB /* SwiftUI.framework */,
 				E07A6320D39728AEA85C3AA3 /* Pods_BettingHub.framework */,
 			);
 			name = Frameworks;
@@ -533,6 +597,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C083F50244E687B0010D719 /* Sport.swift in Sources */,
 				1CF2C22E2449F3AA00A7B0B8 /* ButtonFooter.swift in Sources */,
 				1CC4EFBE2447331C00D69C67 /* Fonts.swift in Sources */,
 				1CF2C235244A0E6800A7B0B8 /* TopBookmakersHeaderView.swift in Sources */,
@@ -542,7 +607,6 @@
 				1CC4EFBA2447330600D69C67 /* Colors.swift in Sources */,
 				1CC4EFD82447375B00D69C67 /* String.swift in Sources */,
 				1CF2C230244A0A5500A7B0B8 /* UIImage.swift in Sources */,
-				1C43E2C9244B905B002CF7EB /* MainScreenDataProvider.swift in Sources */,
 				1CABD5E0244CA52D0039D99C /* ForecastCell.swift in Sources */,
 				1C43E2D1244B9415002CF7EB /* MainSection.swift in Sources */,
 				1CABD5E2244CB37E0039D99C /* LabeledIconView.swift in Sources */,
@@ -551,26 +615,38 @@
 				1CF2C22C2449E57300A7B0B8 /* OrangeScrollIndicator.swift in Sources */,
 				1C7A356E2448E4F500E3AB9B /* BettingNavigationBar.swift in Sources */,
 				1C91348224475A7B00AE4510 /* UITextField.swift in Sources */,
+				1C4516CF244E6F6500D636BC /* PanelSegmentedControl.swift in Sources */,
+				1C25F84E244E16A000A24F31 /* MainScreenDataProvider.swift in Sources */,
 				1CC4EFA324472C7400D69C67 /* LoginViewController.swift in Sources */,
 				1C9134862447837F00AE4510 /* SocialButton.swift in Sources */,
+				1C25F846244DF30A00A24F31 /* ForecastsViewController.swift in Sources */,
+				1CFE8265244E5DD2002326DB /* TimePicker.swift in Sources */,
 				1C43E2CB244B90F3002CF7EB /* Match.swift in Sources */,
 				1C43E2CF244B9105002CF7EB /* Bookmaker.swift in Sources */,
+				1C25F848244DF56C00A24F31 /* ForecastsHeader.swift in Sources */,
+				1C25F850244E191400A24F31 /* UIPreview.swift in Sources */,
 				1C6608FB2449E388007E9BEB /* TopForecasterCell.swift in Sources */,
 				1CC4EF8A2447238D00D69C67 /* AppDelegate.swift in Sources */,
 				1CF2C239244A473600A7B0B8 /* BookmakerCell.swift in Sources */,
+				1C25F852244E195E00A24F31 /* TableViewPreviewDataSource.swift in Sources */,
 				1C91348424476ABD00AE4510 /* BorderedTextField.swift in Sources */,
+				1C25F841244DE4A700A24F31 /* Device.swift in Sources */,
+				1C25F844244DEC3400A24F31 /* ForecastsView.swift in Sources */,
 				1CC4EFDE2447416900D69C67 /* BottomButton.swift in Sources */,
+				1C6BCC65244E3711009AA7D1 /* DefaultPreview.swift in Sources */,
 				1C91348D2448B07D00AE4510 /* MainView.swift in Sources */,
 				1CABD5E4244CB7570039D99C /* ArrowsStepperView.swift in Sources */,
+				1C25F84D244E16A000A24F31 /* MainCellsProvider.swift in Sources */,
+				1C5E3A1B244E4169007F5E0E /* SelectionControll.swift in Sources */,
 				1C9134802447497E00AE4510 /* UIItems.swift in Sources */,
 				1CEE8BDC2448BC5C007F2FDB /* NavigationController.swift in Sources */,
 				1CC4EFC32447339B00D69C67 /* UIColor.swift in Sources */,
 				1CC4EFBC2447330D00D69C67 /* Text.swift in Sources */,
-				1C43E2C7244B8FB3002CF7EB /* MainCellsProvider.swift in Sources */,
+				1C25F83E244DD8C600A24F31 /* LabelWithInsets.swift in Sources */,
 				1C91348F2448B08500AE4510 /* MainViewController.swift in Sources */,
 				1CF225B1244B744C005D510D /* PanelCell.swift in Sources */,
 				1C6608F82449E1C3007E9BEB /* TopForecastersView.swift in Sources */,
-				1C36FDE2244CEE46002A3601 /* LastForecastsHeaderView.swift in Sources */,
+				1C36FDE2244CEE46002A3601 /* BigTitleHeader.swift in Sources */,
 				1CF225B9244B81EE005D510D /* PositivityLabel.swift in Sources */,
 				1CCFB12C244B604C00F431BA /* UIViewController.swift in Sources */,
 				1C36FDE0244CD6A7002A3601 /* LastForecastsView.swift in Sources */,
