@@ -16,7 +16,7 @@ const SET_FORECAST = 'forecasts/SET_FORECAST'
 
 
 let initialState = {
-	forecasts: [ ] as Array<ForecastType>,
+	forecasts: [] as Array<ForecastType>,
 	filters: {
 		timeFilter: [
 			{index: 1, name: timeFilterEnum.allTime, visibleText: 'Все время', active: true},

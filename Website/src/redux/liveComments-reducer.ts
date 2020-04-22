@@ -19,7 +19,7 @@ let initialState = {
 			text: "Текст комментария, очень длинный текст комментария, вообще длиннющий текст",
 			articleName: "Название статьи, очень длинное",
 			articleId: 21,
-			publishDate: 1587004255
+			publishDate: 1587516676000
 		},
 		{
 			userId: 2,
@@ -29,7 +29,7 @@ let initialState = {
 			text: "Текст комментария, очень длинный текст комментария, вообще длиннющий текст",
 			articleName: "Название статьи, очень длинное",
 			articleId: 22,
-			publishDate: 1587004255
+			publishDate: 1587516676000
 		},
 		{
 			userId: 3,
@@ -39,7 +39,7 @@ let initialState = {
 			text: "Текст комментария, очень длинный текст комментария, вообще длиннющий текст",
 			articleName: "Название статьи, очень длинное",
 			articleId: 23,
-			publishDate: 1587004255
+			publishDate: 1587516676000
 		},
 		{
 			userId: 4,
@@ -49,7 +49,7 @@ let initialState = {
 			text: "Текст комментария, очень длинный текст комментария, вообще длиннющий текст",
 			articleName: "Название статьи, очень длинное",
 			articleId: 24,
-			publishDate: 1587004255
+			publishDate: 1587516676000
 		},
 		{
 			userId: 5,
@@ -59,7 +59,7 @@ let initialState = {
 			text: "Текст комментария, очень длинный текст комментария, вообще длиннющий текст",
 			articleName: "Название статьи, очень длинное",
 			articleId: 25,
-			publishDate: 1587004255
+			publishDate: 1587516676000
 		},
 		{
 			userId: 6,
@@ -69,7 +69,7 @@ let initialState = {
 			text: "Текст комментария, очень длинный текст комментария, вообще длиннющий текст",
 			articleName: "Название статьи, очень длинное",
 			articleId: 26,
-			publishDate: 1587004255
+			publishDate: 1587516676000
 		},
 		{
 			userId: 7,
@@ -79,7 +79,7 @@ let initialState = {
 			text: "Текст комментария, очень длинный текст комментария, вообще длиннющий текст",
 			articleName: "Название статьи, очень длинное",
 			articleId: 27,
-			publishDate: 1587004255
+			publishDate: 1587516676000
 		},
 		{
 			userId: 8,
@@ -89,7 +89,7 @@ let initialState = {
 			text: "Текст комментария, очень длинный текст комментария, вообще длиннющий текст",
 			articleName: "Название статьи, очень длинное",
 			articleId: 28,
-			publishDate: 1587004255
+			publishDate: 1587516676000
 		}
 
 
