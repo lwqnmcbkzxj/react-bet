@@ -5,6 +5,8 @@ import '../../App.scss'
 import { UserType } from '../../types/users'
 
 import userImg from '../../assets/img/users-list-img.png'
+import ForecastsList from '../Forecasts/ForecastsList/ForecastsList';
+import UserStats from './UserStats'
 
 enum selectors {
 	forecasts = 'forecasts',
@@ -16,11 +18,19 @@ type UsersPropsType = {
 	user: UserType
 }
 const User: FC<UsersPropsType> = ({ user, ...props }) => {
-	const [visibleTab, setVisibleTab] = useState('forecasts')
-
+	const [visibleTab, setVisibleTab] = useState('statistics')
 	const changeVisibleTab = (tabName: string) => {
 		if (visibleTab !== tabName)
 			setVisibleTab(tabName)
+	}
+
+	let renderingTab 
+	if (visibleTab === 'forecasts') {
+		// renderingTab = <ForecastsList />
+	} else if (visibleTab === 'statistics') {
+		renderingTab = <UserStats wins={10} loses={5} returns={2} />
+	} else if (visibleTab === 'forecfavouritesasts') {
+		// renderingTab = <ForecastsList />
 	}
 	return (
 		<div className={s.userPage}>
@@ -103,19 +113,12 @@ const User: FC<UsersPropsType> = ({ user, ...props }) => {
 
 
 				</div>
+			</div>	
+			
 
+			<div className={s.infoBlock}>
+				{renderingTab}
 			</div>
-
-
-
-
-
-
-
-
-
-
-			{visibleTab}
 		</div>
 	)
 }
