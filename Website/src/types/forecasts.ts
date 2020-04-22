@@ -1,10 +1,10 @@
 /* FORECAST TYPES */
 export enum timeFilterEnum {
-	allTime = 'allTime',
-	period_3_hours = '3 hours',
-	period_6_hours = '6 hours',
-	period_12_hours = '12 hours',
-	period_24_hours = '24 hours',
+	allTime = 'all',
+	period_3_hours = '3h',
+	period_6_hours = '6h',
+	period_12_hours = '12h',
+	period_24_hours = 'day',
 }
 export enum subscribtionFilterEnum {
 	allForecasts = 'allForesacts',
@@ -13,12 +13,12 @@ export enum subscribtionFilterEnum {
 }
 
 export enum sportTypeFilterEnum {
-	allSports = 'allSports',
-	football = 'football',
-	tennis = 'tennis',
-	basketball = 'basketball',
-	hockey = 'hockey',
-	another = 'another',
+	allSports = 'all',
+	football = '1',
+	tennis = '2',
+	basketball = '3',
+	hockey = '4',
+	another = '5',
 }
 
 export type FilterType = {

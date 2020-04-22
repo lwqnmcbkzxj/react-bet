@@ -9,7 +9,7 @@ import { ForecastType,
 import { ThunkAction } from 'redux-thunk'
 import { forecastsAPI } from '../api/api'
 
-
+const TOGGLE_IS_FORECASTS_FETCHING = 'forecasts/TOGGLE_IS_FORECASTS_FETCHING'
 const TOGGLE_FILTER = 'forecasts/TOGGLE_FILTER'
 const SET_FORECASTS = 'forecasts/SET_FORECASTS'
 const SET_FORECAST = 'forecasts/SET_FORECAST'
@@ -39,14 +39,16 @@ let initialState = {
 			{ index: 6, name: sportTypeFilterEnum.another, visibleText: 'Другое', active: false },
 		]
 	} as ForecastsFiltersType,
-	currentForecast: {} as ForecastType
+	currentForecast: {} as ForecastType,
+	isFetching: false
 }
 
 type InitialStateType = typeof initialState;
 type ActionsTypes =
 	ToggleFilterType |
 	SetForecastsType |
-	SetForecastType;
+	SetForecastType |
+	TypeToggleIsForecastsFetching;
 
 const forecastsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
@@ -70,6 +72,12 @@ const forecastsReducer = (state = initialState, action: ActionsTypes): InitialSt
 			}
 		}
 
+		case TOGGLE_IS_FORECASTS_FETCHING: {
+			return {
+				...state,
+				isFetching: action.isFetching
+			}
+		}
 		default:
 			return state;
 	}
@@ -90,16 +98,26 @@ type SetForecastType = {
 	type: typeof SET_FORECAST
 	forecast: ForecastType
 }
+type TypeToggleIsForecastsFetching = {
+	type: typeof TOGGLE_IS_FORECASTS_FETCHING
+	isFetching: boolean
+}
 
 
 
-export const getForecastsFromServer = (page: number, quanity: number, filters?: ForecastsFiltersType): ThunksType => async (dispatch) => {
-	let response = await forecastsAPI.getAllForecasts(page, quanity)
-	// if (filters) {
-		
-	// }
+export const getForecastsFromServer = (page: number, quanity: number, options = {} as any): ThunksType => async (dispatch) => {	
+	let optionsObj = {
+		tf: options.tf || 'all',
+		sport: options.sport || 'all',
+		useSubscribes: options.useSubscribes || false,
+		useFavorites: options.useFavorites || false
+	}
+	dispatch(toggleIsForecastsFetching(true))
+	let response = await forecastsAPI.getForecasts(page, quanity, optionsObj)
+	dispatch(toggleIsForecastsFetching(false))
 	
 	dispatch(setForecasts(response))
+
 }
 
 export const getForecastFromServer = (id: number): ThunksType => async (dispatch) => {
@@ -132,6 +150,12 @@ export const toggleFilter = (filterName: string, filtersBlockName: string) => {
 	}
 }
 
+export const toggleIsForecastsFetching = (isFetching: boolean): TypeToggleIsForecastsFetching => {
+	return {
+		type: TOGGLE_IS_FORECASTS_FETCHING,
+		isFetching
+	}
+}
 
 
 export default forecastsReducer;

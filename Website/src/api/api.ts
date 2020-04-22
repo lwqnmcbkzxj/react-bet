@@ -34,8 +34,15 @@ export const userAPI = {
 
 
 export const forecastsAPI = {
-	getAllForecasts(page: number, quanity: number) {
-		return instance.post(`forecast/getAll`, { page, quanity })
+	getForecasts(page: number, quanity: number, options: any) {
+		return instance.post(`forecastList`, {
+			page,
+			quanity,
+			tf: options.tf || 'all',
+			sport: options.sport || 'all',
+			useSubscribes: options.useSubscribes || false,
+			useFavorites: options.useFavorites || false
+		})
 			.then((response) => {
 				return response.data
 			}

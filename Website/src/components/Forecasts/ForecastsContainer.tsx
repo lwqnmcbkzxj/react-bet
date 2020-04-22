@@ -7,6 +7,7 @@ import { toggleFilter, getForecastsFromServer } from '../../redux/forecasts-redu
 import { ForecastsFiltersType, ForecastType } from '../../types/forecasts'
 import { withRouter, RouteComponentProps  } from 'react-router'
 
+import {getActiveFilter } from '../../utils/getActiveFilter'
 interface MatchParams {
     forecastId: string;
 }
@@ -19,22 +20,28 @@ const ForecastsContainer: FC<Props> = ({ ...props }) => {
 
 	const dispatch = useDispatch()
 
+	let activeSportFilter = getActiveFilter(filters, 'sportTypeFilter')
+	let activesubscribtionFilter = getActiveFilter(filters, 'subscribtionFilter')
+	let activeTimeFilter = 	getActiveFilter(filters, 'timeFilter')
+
+	let options = {
+		sport: activeSportFilter,
+		tf: activeTimeFilter
+	}
+
 	useEffect(() => {
-		dispatch(getForecastsFromServer(1, 5))		
-	}, []);
+		dispatch(getForecastsFromServer(1, 15, options))		
+	}, [filters]);
 
 	const toggleFilterDispatch = (filterName: string, filtersBlockName: string) => {
 		dispatch(toggleFilter(filterName, filtersBlockName))
 	}
 
-	let forecastId = props.match.params.forecastId ? props.match.params.forecastId : 1;
-
-
 	return (
 		<Forecasts
 			forecasts={forecasts}
 			filters={filters}
-			toggleFilter={toggleFilterDispatch} 
+			toggleFilter={toggleFilterDispatch}
 		/>
 	)
 }
