@@ -10,17 +10,21 @@ import UIKit
 
 extension UIViewController {
     
-    func setView(_ view: UIView) {
+    func setView(_ view: UIView, insets: UIEdgeInsets = .zero) {
         self.view.addSubview(view)
         if #available(iOS 11, *) {
             view.snp.makeConstraints { (make) in
-                make.edges.equalToSuperview()
+                make.top.equalToSuperview().offset(insets.top)
+                make.leading.equalToSuperview().offset(insets.left)
+                make.trailing.equalToSuperview().offset(-insets.right)
+                make.bottom.equalToSuperview().offset(-insets.bottom)
             }
         } else {
             view.snp.makeConstraints { (make) in
-                make.leading.trailing.equalToSuperview()
-                make.top.equalTo(topLayoutGuide.snp.bottom)
-                make.bottom.equalTo(bottomLayoutGuide.snp.top)
+                make.leading.equalToSuperview().offset(insets.left)
+                make.trailing.equalToSuperview().offset(-insets.right)
+                make.top.equalTo(topLayoutGuide.snp.bottom).offset(-insets.bottom)
+                make.bottom.equalTo(bottomLayoutGuide.snp.top).offset(insets.top)
             }
         }
     }

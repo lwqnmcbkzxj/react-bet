@@ -67,5 +67,6 @@ class Text {
     static var coeficientWord: String { "coeficientWord".localized }
     static var bet: String { "bet".localized }
     static var possibleWin: String { "possibleWin".localized }
+    static var reply: String { "reply".localized }
 }
 

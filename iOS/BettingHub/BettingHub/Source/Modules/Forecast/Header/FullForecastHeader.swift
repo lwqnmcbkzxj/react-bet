@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SnapKit
 
-class FullForecastHeader: UIView {
+class FullForecastHeader: UITableViewHeaderFooterView {
     
     private let seasonLabel: UILabel = {
         let view = UILabel()
@@ -106,8 +107,21 @@ class FullForecastHeader: UIView {
         return view
     }()
     
-    init() {
-        super.init(frame: .zero)
+    private let numberOfCommentsLabel: UILabel = {
+        let view = UILabel()
+        view.textColor = .titleBlack
+        view.font = .robotoMedium(size: 16)
+        view.textAlignment = .left
+        view.text = "16 Комментариев"
+        view.numberOfLines = 0
+        return view
+    }()
+    
+    private var textHConstraint: Constraint?
+    
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        backgroundColor = .white
         makeLayout()
         infoStack.configure(forecast: Forecast())
     }
@@ -116,11 +130,16 @@ class FullForecastHeader: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setText(text: String) {
+        descLabel.text = text
+    }
+    
     private func makeLayout() {
         addSubview(seasonLabel)
         seasonLabel.snp.makeConstraints { (make) in
             make.leading.equalToSuperview()
             make.top.equalToSuperview().offset(22)
+            make.height.equalTo(37)
         }
         
         addSubview(forecastDateLabel)
@@ -136,6 +155,7 @@ class FullForecastHeader: UIView {
         matchTitleLabel.snp.makeConstraints { (make) in
             make.top.equalTo(seasonLabel.snp.bottom).offset(12)
             make.leading.trailing.equalToSuperview()
+            make.height.equalTo(26)
         }
         
         
@@ -191,6 +211,14 @@ class FullForecastHeader: UIView {
             make.top.bottom.equalTo(commentsView)
             make.trailing.equalTo(descLabel)
         }
+        
+        addSubview(numberOfCommentsLabel)
+        numberOfCommentsLabel.snp.makeConstraints { (make) in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(commentsView.snp.bottom).offset(39)
+            make.bottom.equalToSuperview().offset(-32)
+            make.height.equalTo(18)
+        }
     }
     
     
@@ -224,7 +252,7 @@ class FullForecastHeader: UIView {
         panel.addSubview(incomeLabel)
         incomeLabel.snp.makeConstraints { (make) in
             make.top.bottom.equalTo(incomeTitleLabel)
-            make.leading.equalTo(incomeTitleLabel.snp.trailing)
+            make.leading.equalTo(incomeTitleLabel.snp.trailing).offset(5)
         }
         
         panel.addSubview(subscribeButton)
