@@ -1,36 +1,55 @@
-.pageHeader {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 30px;
-}
+// .filters {
+// 	display: flex;
+// 	justify-content: space-between;
+// 	align-items: flex-start;
+// 	position: relative;
+// 	margin-bottom: 12px;
+// }
 
-.filters {
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
-	position: relative;
-	margin-bottom: 12px;
-}
-
-.filters>div:nth-child(2) {
-	position: absolute;
-	right: 0;
-}
 
 .forecastsPage .actionBtnHoder {
 	margin: 40px 0;
 }
 
+// @media screen and (max-width: 1124px) {
+// 	.filters {
+// 		flex-direction: column-reverse;
+// 		&>div:nth-child(2) {
+// 			margin-bottom: 20px;
+// 		}
+// 	}
+// }
+
+// @media screen and (max-width: 1024px) {
+// 	.filters {
+// 		flex-direction: column-reverse;
+
+// 		&>div:nth-child(2) {
+// 			margin-bottom: 20px;
+// 		}
+// 	}
+// }
 
 
-@media screen and (max-width: 900px) {
+// @media screen and (max-width: 900px) {
+// 	.filters {
+// 		flex-direction: column-reverse;
 
-	.filters {
-		flex-direction: column;
-		&>div:nth-child(2) {
-			position: relative;
-			margin: 20px auto 0 auto;
-		}
-	}
-}
+// 		&>div:nth-child(2) {
+// 			margin-bottom: 20px;
+// 		}
+// 	}
+// }
+
+// @media screen and (max-width: 480px) {
+// 	.filters {
+// 		max-height: 0;
+// 		transition: max-height 0.4s ease-out;
+// 		overflow: hidden;
+
+// 		&.active {
+// 			max-height: 250px;
+// 			transition: max-height 0.4s ease-in;
+// 		}
+// 	}
+// }

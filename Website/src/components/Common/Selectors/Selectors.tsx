@@ -6,6 +6,9 @@ import { FilterType as ForecastsFiltersType } from '../../../types/forecasts'
 import { FilterType as ForecastersFiltersType } from '../../../types/users'
 
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
+
 
 type SelectorsType = {
 	selectors: Array<ForecastsFiltersType | ForecastersFiltersType>
@@ -63,13 +66,23 @@ const Selectors: FC<SelectorsType> = ({ selectors, selectorsBlockName, onChangeF
 
 	if (isDropdown) {
 		return (
-			<div className={classNames(s.selectors, {
-				[s.dropdown]: isDropdown,
-				[s.dropDownVisible]: dropdownVisible
-			})} >
-				<div onClick={toggleDropdownVisibility} className={s.activeSelector}>{activeSelector.visibleText}</div>
-				<div className={s.selectorsList}>
-					{renderSelectors}
+			<div className={s.dropdownHolder}>
+				<p className={s.filterName}>Ближайшие: </p>
+				<div className={classNames(s.selectors, {
+					[s.dropdown]: isDropdown,
+					[s.dropDownVisible]: dropdownVisible
+				})} >
+
+					{/* <div className={s.activeSelectorBlock}> */}
+					<div onClick={toggleDropdownVisibility} className={s.activeSelector}>
+
+						{activeSelector.visibleText}
+						<FontAwesomeIcon icon={faCaretDown} className={s.dropDownIcon} />
+					</div>
+					{/* </div> */}
+					<div className={s.selectorsList}>
+						{renderSelectors}
+					</div>
 				</div>
 			</div>
 		)

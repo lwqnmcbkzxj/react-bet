@@ -20,6 +20,10 @@
 			align-items: center;
 		}
 
+		& .matchDate {
+			text-align: right;
+		}
+
 		& .gameInfo {
 			& .sportName {
 				color: #232324;
@@ -34,19 +38,28 @@
 			&>p {
 				margin-right: 4px;
 			}
+
+			& .gameName {
+				overflow: hidden;
+				display: -webkit-box;
+				-webkit-line-clamp: 1;
+				-webkit-box-orient: vertical;
+			}
 		}
 	}
 
 	& .forecastContent {
 		padding: 22px 0 25px 0;
 
-		& > div {
-			margin-left: 21px;
-			margin-right: 21px;
+		&>div {
+			padding-left: 21px;
+			padding-right: 21px;
+
 			&.mathPreview {
-				margin: 0 21px 0 0;
+				padding: 0 21px 0 0;
 				display: flex;
 				align-items: center;
+
 				& .profit {
 					padding: 6px 13px 4px 22px;
 					border-radius: 0px 5px 5px 0px;
@@ -54,15 +67,18 @@
 					font-size: 14px;
 					line-height: 17px;
 					margin-right: 7px;
+
 					&.positive {
 						background: #0F971D;
 						color: #FFFFFF;
 					}
+
 					&.negative {
 						background: #F2F2F2;
 						color: #393F4D;
 					}
 				}
+
 				& .matchTitle {
 					font-family: 'Roboto Medium';
 					font-size: 24px;
@@ -70,13 +86,16 @@
 					color: #000000;
 				}
 			}
+
 			&.matchStats {
-				margin-top: 16px;
-				margin-bottom: 12px;
+				padding-top: 16px;
+				padding-bottom: 12px;
 				display: flex;
 				flex-direction: column;
+
 				& .profitStats {
 					display: flex;
+
 					&>div {
 						font-size: 14px;
 						line-height: 17px;
@@ -84,6 +103,7 @@
 						margin-right: 18px;
 						display: flex;
 						align-items: center;
+
 						& span {
 							font-family: 'Roboto Bold';
 							color: #232324;
@@ -95,19 +115,26 @@
 						}
 					}
 				}
-				&  .matchStart {
+
+				& .matchStart {
 					font-size: 14px;
 					line-height: 17px;
 					color: #343638;
-					margin-top: 8px;
+					margin-top: 10px;
 				}
-			}	
+			}
+
 			&.matchDescription {
 				font-family: 'Roboto';
 				font-size: 16px;
 				line-height: 22px;
 				color: #000000;
 				opacity: 1;
+
+				overflow: hidden;
+				display: -webkit-box;
+				-webkit-line-clamp: 3;
+				-webkit-box-orient: vertical;
 			}
 		}
 	}
@@ -123,6 +150,7 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
+			margin-right: 10px;
 
 			& .userInfo,
 			& .userMatches,
@@ -146,11 +174,21 @@
 				& .userNickName {
 					color: #343638;
 				}
+			}
 
-				& .slash {
-					margin: 0 8.5px;
-					color: #818181;
+			& .userMatches {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+
+				& img {
+					margin-right: 2.5px;
+
+					&:nth-child(5) {
+						margin: 0 !important;
+					}
 				}
+
 			}
 
 			& .userProfit {
@@ -166,6 +204,121 @@
 					&.negative {
 						color: #AA0F0F;
 					}
+				}
+			}
+
+			& .slash {
+				margin: 0 8.5px;
+				color: #818181;
+			}
+		}
+	}
+}
+
+
+@media screen and (max-width: 1024px) {
+
+	.forecastHeader,
+	.forecastFooter {
+		padding-left: 13px;
+		padding-right: 13px;
+	}
+
+	.forecastContent {
+		&>div {
+			padding-left: 13px;
+			padding-right: 13px;
+		}
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.forecast {
+
+		& .forecastHeader,
+		& .forecastFooter,
+		& .forecastContent {
+			padding-left: 8px;
+			padding-right: 8px;
+		}
+
+		& .forecastContent {
+			&>div {
+				padding-left: 0px;
+				padding-right: 0px;
+			}
+		}
+
+		& .forecastHeader {
+			& .matchDate {
+				display: none;
+			}
+		}
+
+		& .forecastFooter {
+			border-top: none;
+			flex-direction: column;
+			align-items: stretch;
+			padding: 0;
+
+			& .userStats {
+				padding: 0 8px 20px 8px;
+				justify-content: flex-start;
+
+				& .userProfit {
+					p {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+@media screen and (max-width: 480px) {
+	.forecast {
+		& .forecastHeader {
+
+			& .gameInfo,
+			& .matchDate {
+				font-size: 11px;
+				line-height: 13px;
+			}
+		}
+
+		& .forecastContent {
+			padding-top: 15px;
+			padding-bottom: 20px;
+
+			&>div {
+				&.mathPreview {
+					& .matchTitle {
+						font-size: 18px;
+						line-height: 22px;
+					}
+
+					& .profit {
+						display: none;
+					}
+				}
+
+				&.matchStats {
+					& .profitStats {
+						flex-wrap: wrap;
+						justify-content: space-between;
+
+						&>div {
+							margin-bottom: 10px;
+
+							&:last-child {
+								margin-bottom: 0;
+							}
+						}
+					}
+				}
+				&.matchDescription {
+					-webkit-line-clamp: 6;
 				}
 			}
 		}

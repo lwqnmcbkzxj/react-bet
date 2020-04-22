@@ -27,10 +27,28 @@
 	}
 	& .likes {
 		color: #5E687B;
-		// margin-left: 20px;
 		margin-right: 0;
+		& button {		
+			&:first-child:hover {
+				color: #AA0F0F;
+			}
+			&:last-child:hover {
+				color: #0F971D;
+			}
+		}
 	}
 	& .favourites button.active {
 		color: #E84755;
+	}
+}
+
+
+
+@media screen and (max-width: 768px) {
+	.forecastStats {
+		border-top: 1px solid #F4F4F4;
+		
+		padding: 10px 8px;
+
 	}
 }

@@ -16,6 +16,7 @@
 
 	&:not(.fillBg) .selector {
 		padding: 8px 0;
+		margin-bottom: 5px;
 
 		& label {
 			padding: 7px 13px;
@@ -53,6 +54,18 @@
 	}
 }
 
+.dropdownHolder {
+	display: flex;
+	align-items: center;
+	& .filterName {
+		display: none;
+		font-size: 16px;
+		line-height: 19px;
+		font-family: 'Roboto Medium';
+		margin-right: 10px;
+	}
+}
+
 
 
 .selectors.dropdown {
@@ -62,15 +75,16 @@
 		position: absolute;
 		display: none;
 		flex-direction: column;
-		background: #F9F9F9;
+		background: #FFFFFF;
 		box-shadow: 0 5px 10px -5px #333;
-		border-radius: 6px;
+		border-radius: 3x;
 		top: 35px;
 	}
 
 	&.dropDownVisible {
 		& .selectorsList {
 			display: flex;
+			width: 100%;
 		}
 	}
 
@@ -78,9 +92,10 @@
 		padding: 7px 13px;
 		& label {
 			padding: 0;
+			white-space: nowrap;
 		}
 	}
-
+	
 	& .activeSelector {
 		background: #F9F9F9;
 		box-shadow: 0px 0px 6px #0000001C;
@@ -90,7 +105,12 @@
 		line-height: 19px;
 		font-family: 'Roboto Regular';
 		color: #5E687B;
-
+		display: flex;
+		align-items: center;
+		& .dropDownIcon {
+			margin-left: 10px;
+		}
+		
 		&:hover {
 			cursor: pointer;
 		}
@@ -108,10 +128,20 @@
 	}
 
 	.selectors:not(.fillBg):not(.dropdown) {
-		display: grid;
-		grid-template-columns: 1fr 1fr 1fr;
-		align-items: center;
-		justify-items: center;
+		justify-content: start;	
+		flex-wrap: wrap;	
 		width: 100%;
 	}
 }
+
+@media screen and (max-width: 480px) {
+	
+
+	.dropdownHolder {
+		& .filterName {
+			display: block;
+		
+		}
+	}
+}
+

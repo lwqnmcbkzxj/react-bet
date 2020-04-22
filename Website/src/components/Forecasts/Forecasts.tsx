@@ -1,5 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import s from './Forecasts.module.scss';
+import classNames from 'classnames'
 import '../../App.scss'
 import { ForecastType, ForecastsFiltersType } from '../../types/forecasts'
 import Breadcrumbs from '../Common/Breadcrumbs/Breadcrumbs'
@@ -8,17 +9,27 @@ import Selectors from '../Common/Selectors/Selectors'
 import ForeCastsList from './ForecastsList/ForecastsList'
 import ActionButton from '../Common/ActionButton/ActionButton'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCog } from '@fortawesome/free-solid-svg-icons'
+
+
 type ForecastsPropsType = {
 	forecasts: Array<ForecastType>
 	filters: ForecastsFiltersType
 	toggleFilter: (filterName: string, filtersBlockName: string) => void
 }
 const Forecasts: FC<ForecastsPropsType> = ({ forecasts, filters, toggleFilter, ...props }) => {
+
+	const [filtersVisible, setFiltersVisible] = useState(false)
+	
 	return (
 		<div className={s.forecastsPage}>
 			<Breadcrumbs pathParams={['Главная', 'Прогнозы']} />
 			<div className="pageHeader">
-				<h1 className="pageName">Прогнозы</h1>
+				<div className="pageHeaderOptions">
+					<h1 className="pageName">Прогнозы</h1>
+					<button className={classNames("showSelectorsBtn", {"active": filtersVisible})} onClick={() => {setFiltersVisible(!filtersVisible)}}><FontAwesomeIcon icon={faCog}/></button>
+				</div>
 
 				<Selectors
 					selectors={filters.subscribtionFilter}
@@ -26,8 +37,10 @@ const Forecasts: FC<ForecastsPropsType> = ({ forecasts, filters, toggleFilter, .
 					onChangeFunc={toggleFilter}
 					fillBg={true}
 				/>
+				
+
 			</div>
-			<div className={s.filters}>
+			<div className={classNames("filters", {"active": filtersVisible })}>
 				<Selectors
 					selectors={filters.sportTypeFilter}
 					selectorsBlockName={'sportTypeFilter'}
@@ -38,7 +51,6 @@ const Forecasts: FC<ForecastsPropsType> = ({ forecasts, filters, toggleFilter, .
 					selectorsBlockName={'timeFilter'}
 					onChangeFunc={toggleFilter}
 					isDropdown={true}
-					
 				/>
 			</div>
 			

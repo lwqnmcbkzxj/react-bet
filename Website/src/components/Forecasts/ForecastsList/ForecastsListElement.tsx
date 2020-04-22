@@ -8,6 +8,8 @@ import football from '../../../assets/img/football.png'
 import forecastUserImg from '../../../assets/img/forecast-img.png'
 import { NavLink } from 'react-router-dom';
 
+import winImg from '../../../assets/img/win-img.png'
+import loseImg from '../../../assets/img/lose-img.png'
 
 type ForecastPropsType = {
 	forecast: ForecastType
@@ -19,8 +21,7 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 				<div className={s.gameInfo}>
 					<img src={football} alt="gameImg" />
 					<p className={s.sportName}>Киберспорт. </p>
-					<p className={s.gameName}>Dota 2. </p>
-					<p className={s.tournamentName}>StayHome Challenge (матчи из 3-х карт)</p>
+					<p className={s.gameName}>Dota 2. StayHome Challenge (матчи из 3-х карт)</p>
 				</div>
 				<div className={s.matchDate}>
 					Сегодня, 19:06
@@ -59,18 +60,22 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 
 			<div className={s.forecastFooter}>
 				<div className={s.userStats}>
+					<NavLink to="/forecaster/5">
 					<div className={s.userInfo}>
 						<img src={forecastUserImg} alt="userImg" />
 						<p className={s.userNickName}>Никнейм</p>
+						
+					</div>
+					</NavLink>
+					<div className={s.userMatches}>
+					<div className={s.slash}>|</div>
+						<img src={winImg} alt="winImg" />
+						<img src={loseImg} alt="loseImg" />
+						<img src={winImg} alt="winImg" />
+						<img src={winImg} alt="winImg" />
+						<img src={loseImg} alt="loseImg" />
 						<div className={s.slash}>|</div>
 
-					</div>
-					<div className={s.userMatches}>
-						<img src="" alt="" />
-						<img src="" alt="" />
-						<img src="" alt="" />
-						<img src="" alt="" />
-						<img src="" alt="" />
 					</div>
 					<div className={s.userProfit}>
 						<p>Прибыль: </p>
