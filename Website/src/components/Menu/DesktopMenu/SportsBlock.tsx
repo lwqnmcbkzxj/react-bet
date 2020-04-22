@@ -6,11 +6,13 @@ import tennisImg from '../../../assets/img/table-tennis.png'
 import basketballImg from '../../../assets/img/basketball.png'
 import hockeyImg from '../../../assets/img/hockey.png'
 
-type MenuPropsType = {
+import { sportTypeFilterEnum } from '../../../types/forecasts'
 
+type SportsBlockPropsType = {
+	toggleFilter: (filterName: string, filtersBlockName: string)=> void
 }
 
-const SportsBlock: FC<MenuPropsType> = ({ ...props }) => {
+const SportsBlock: FC<SportsBlockPropsType> = ({toggleFilter, ...props }) => {
 	const [sportsBlockVisible, setSportsBlockVisibitity] = useState(false);
 
 	const toggleSportsBlockVisibitity = () => {
@@ -18,32 +20,32 @@ const SportsBlock: FC<MenuPropsType> = ({ ...props }) => {
 	}
 
 	let sportsArray = [
-		{ name: "Футбол", filterName: "football", img: footballImg },
-		{ name: "Теннис", filterName: "tennis", img: tennisImg },
-		{ name: "Баскетбол", filterName: "basketbal", img: basketballImg },
-		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
-		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
-		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
-		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
-		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
-		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
-		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
-		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
-		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
-		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
-		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
-		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
-		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
-		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
-		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
-		{ name: "Хоккей", filterName: "hockey", img: hockeyImg },
+		{ name: "Футбол", filterName: sportTypeFilterEnum.football, img: footballImg },
+		{ name: "Теннис", filterName: sportTypeFilterEnum.tennis, img: tennisImg },
+		{ name: "Баскетбол", filterName: sportTypeFilterEnum.basketball, img: basketballImg },
+		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
+		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
+		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
+		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
+		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
+		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
+		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
+		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
+		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
+		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
+		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
+		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
+		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
+		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
+		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
+		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
 	]
 
 	let sportLinks = [] as any
 	sportsArray.map((link, counter) => {
 		sportLinks.push(
 			<NavLink key={counter} to="/forecasts" className={s.sportLink}>
-				<button onClick={() => { console.log(link.filterName) }}>
+				<button onClick={() => { toggleFilter(link.filterName, 'sportTypeFilter') }}>
 					<img src={link.img} alt="sport-img" />{link.name}
 				</button>
 			</NavLink>)

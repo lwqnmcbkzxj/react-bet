@@ -7,7 +7,7 @@ body {
 }
 
 button:hover {
-	opacity: .7;
+	opacity: .8;
 }
 
 .app-container {
@@ -23,6 +23,7 @@ button:hover {
 
 .app-content {
 	padding: 26px 75px;
+
 	& .pageName {
 		font-size: 22px;
 		line-height: 27px;
@@ -30,12 +31,35 @@ button:hover {
 		color: #343638;
 		text-transform: uppercase;
 	}
+
 	& .pageHeader {
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
 		margin-bottom: 30px;
+
+		& .pageHeaderOptions {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+
+			& .showSelectorsBtn {
+				color: #A8ABAF;
+				font-size: 22px;
+				transition: .2s;
+				display: none;
+				&.active {
+					color: #F7971D;
+				}
+			}
+		}
 	}
+}
+.filters {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	position: relative;
+	margin-bottom: 12px;
 }
 
 
@@ -43,27 +67,40 @@ button:hover {
 @media screen and (max-width: 1600px) {
 	.app-container {
 		width: 75%;
-	}	
+	}
+
+	.app-content {
+		padding: 26px 45px;
+		overflow: hidden;
+	}
 }
 
 @media screen and (max-width: 1400px) {
 	.app-container {
 		width: 85%;
-	}	
+	}
+
+	.app-content {
+		padding: 26px 25px;
+		overflow: hidden;
+	}
 }
+
 @media screen and (max-width: 1224px) {
 	.app-container {
-		width: 90%;
-	}	
+		width: 95%;
+	}
+
 	.app-content {
 		padding: 26px 15px;
 		overflow: hidden;
-	}	
+	}
 }
+
 @media screen and (max-width: 1024px) {
 	.app-container {
 		grid-template-columns: 180px auto;
-	}	
+	}
 }
 
 @media screen and (max-width: 768px) {
@@ -71,19 +108,74 @@ button:hover {
 		width: 100%;
 		grid-template-columns: 1fr;
 	}
+
 	.app-content {
 		padding-bottom: 40px;
-	}	
+
+	}
+
 }
 
 @media screen and (max-width: 480px) {
 
 	.pageHeader {
 		flex-direction: column;
+		& .pageHeaderOptions {
+			align-items: flex-start!important;
+			& .showSelectorsBtn {
+				display: block!important;
+			}
+		}
 	}
+
 	.pageName {
 		margin-bottom: 20px;
 		font-size: 20px;
 		line-height: 24px;
+	}
+}
+
+
+// FILTERS
+@media screen and (max-width: 1124px) {
+	.filters {
+		flex-direction: column-reverse;
+		&>div:nth-child(2) {
+			margin-bottom: 20px;
+		}
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	.filters {
+		flex-direction: column-reverse;
+
+		&>div:nth-child(2) {
+			margin-bottom: 20px;
+		}
+	}
+}
+
+
+@media screen and (max-width: 900px) {
+	.filters {
+		flex-direction: column-reverse;
+
+		&>div:nth-child(2) {
+			margin-bottom: 20px;
+		}
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.filters {
+		max-height: 0;
+		transition: max-height 0.4s ease-out;
+		overflow: hidden;
+
+		&.active {
+			max-height: 250px;
+			transition: max-height 0.4s ease-in;
+		}
 	}
 }

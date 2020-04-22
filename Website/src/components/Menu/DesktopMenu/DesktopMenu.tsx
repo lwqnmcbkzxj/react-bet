@@ -5,10 +5,10 @@ import SportsBlock from './SportsBlock';
 import MenuFooter from '../../Common/Footer/Footer';
 
 type MenuPropsType = {
-
+	toggleFilter: (filterName: string, filtersBlockName: string)=> void
 }
 
-const Menu: FC<MenuPropsType> = ({ ...props }) => {
+const Menu: FC<MenuPropsType> = ({toggleFilter,  ...props }) => {
 	return (
 		<div className={s.menuHolder}>
 			<div className={s.menu}>
@@ -22,7 +22,7 @@ const Menu: FC<MenuPropsType> = ({ ...props }) => {
 						<NavLink to="/articles" className={s.link} activeClassName={s.activeLink}>Статьи</NavLink>
 						<NavLink to="/news" className={s.link} activeClassName={s.activeLink}>Новости</NavLink>
 					</div>
-					<SportsBlock />
+					<SportsBlock toggleFilter={toggleFilter}/>
 				</div>
 
 				<MenuFooter />
