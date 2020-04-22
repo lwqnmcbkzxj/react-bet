@@ -159,7 +159,7 @@
 				justify-content: space-between;
 				align-items: center;
 				font-size: 14px;
-				line-height: 17px;
+				line-height: 17px;				
 			}
 
 			& .userInfo {
@@ -260,11 +260,13 @@
 			flex-direction: column;
 			align-items: stretch;
 			padding: 0;
-
+		
 			& .userStats {
 				padding: 0 8px 20px 8px;
+				margin: 0;
 				justify-content: flex-start;
-
+				padding-bottom: 10px;
+				border-bottom: 1px solid #F4F4F4;		
 				& .userProfit {
 					p {
 						display: none;

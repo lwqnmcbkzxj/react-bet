@@ -1,7 +1,4 @@
 export const getTimeSinceSending = (timestamp: number) => {
-debugger
-	let a = +Date.now()
-
 	let dateDifference = (+Date.now()  - timestamp) / 1000
 
 	let minute = 60;

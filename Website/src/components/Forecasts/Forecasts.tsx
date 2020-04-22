@@ -21,14 +21,14 @@ type ForecastsPropsType = {
 const Forecasts: FC<ForecastsPropsType> = ({ forecasts, filters, toggleFilter, ...props }) => {
 
 	const [filtersVisible, setFiltersVisible] = useState(false)
-	
+
 	return (
 		<div className={s.forecastsPage}>
 			<Breadcrumbs pathParams={['Главная', 'Прогнозы']} />
 			<div className="pageHeader">
 				<div className="pageHeaderOptions">
 					<h1 className="pageName">Прогнозы</h1>
-					<button className={classNames("showSelectorsBtn", {"active": filtersVisible})} onClick={() => {setFiltersVisible(!filtersVisible)}}><FontAwesomeIcon icon={faCog}/></button>
+					<button className={classNames("showSelectorsBtn", { "active": filtersVisible })} onClick={() => { setFiltersVisible(!filtersVisible) }}><FontAwesomeIcon icon={faCog} /></button>
 				</div>
 
 				<Selectors
@@ -37,10 +37,10 @@ const Forecasts: FC<ForecastsPropsType> = ({ forecasts, filters, toggleFilter, .
 					onChangeFunc={toggleFilter}
 					fillBg={true}
 				/>
-				
+
 
 			</div>
-			<div className={classNames("filters", {"active": filtersVisible })}>
+			<div className={classNames("filters", { "active": filtersVisible })}>
 				<Selectors
 					selectors={filters.sportTypeFilter}
 					selectorsBlockName={'sportTypeFilter'}
@@ -53,10 +53,12 @@ const Forecasts: FC<ForecastsPropsType> = ({ forecasts, filters, toggleFilter, .
 					isDropdown={true}
 				/>
 			</div>
-			
-			<ForeCastsList forecasts={forecasts} />
+
+			<ForeCastsList forecasts={forecasts}/>
 			<div className={s.actionBtnHoder}>
-			<ActionButton value="Показать больше" func={() => { }} />
+
+				{forecasts.length > 0 && <ActionButton value="Показать больше" func={() => { }} />}
+
 			</div>
 		</div>
 	)

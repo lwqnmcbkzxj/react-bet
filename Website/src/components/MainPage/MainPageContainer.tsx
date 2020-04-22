@@ -6,7 +6,8 @@ import { setMainPageBlocksVisibility, changeMainPageBlockVisibility } from '../.
 
 import MainPage from './MainPage'
 
-import {getForecastsFromServer } from '../../redux/forecasts-reducer'
+import { getForecastsFromServer } from '../../redux/forecasts-reducer'
+import { getActiveFilter } from '../../utils/getActiveFilter'
 
 const HeaderConainer: FC = () => {
 	const dispatch = useDispatch();

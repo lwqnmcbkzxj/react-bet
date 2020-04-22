@@ -8,15 +8,26 @@ import footballImg from '../../assets/img/football.png'
 import forecastUserImg from '../../assets/img/forecast-img.png'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRubleSign } from '@fortawesome/free-solid-svg-icons'
+import { faRubleSign, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faBookmark, } from '@fortawesome/free-regular-svg-icons'
+
 import { ForecastType } from '../../types/forecasts';
+import { NavLink } from 'react-router-dom';
 
 type ForecastPropsType = {
 	forecast: ForecastType
 }
-const Forecast: FC<ForecastPropsType> = ({forecast, ...props }) => {
+const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 	return (
 		<div className={s.forecast}>
+			<div className={s.goBackBlock}>
+				<NavLink to="/forecasts" className={s.goBackPage}>
+					<button className={s.goBackBtn}><FontAwesomeIcon icon={faArrowLeft}/></button>
+					<p>Прогнозы</p>
+				</NavLink>
+				<button className={s.goBackBlockIcon}><FontAwesomeIcon icon={faBookmark}/></button>
+			</div>
+
 			<Breadcrumbs pathParams={['Главная', 'Прогнозы', 'Энергетик-БГУ тотал больше 1.5']} />
 
 			<div className={s.forecastHeader}>
@@ -26,16 +37,16 @@ const Forecast: FC<ForecastPropsType> = ({forecast, ...props }) => {
 				</div>
 				<div className={s.forecastName}>Энергетик-БГУ тотал больше 1.5</div>
 			</div>
-			
+
 			<div className={s.teams}>
 				<div className={s.team}>
-					<img src={footballImg} alt="sportImg"/>
+					<img src={footballImg} alt="sportImg" />
 					<p>Команда 1</p>
 				</div>
 				<div className={s.vsBlock}>VS</div>
-				<div className={s.team}>					
+				<div className={s.team}>
 					<p>Команда 2</p>
-					<img src={footballImg} alt="sportImg"/>
+					<img src={footballImg} alt="sportImg" />
 				</div>
 			</div>
 
@@ -70,7 +81,7 @@ const Forecast: FC<ForecastPropsType> = ({forecast, ...props }) => {
 				<div className={s.details_cash}>
 					<p>Чистая прибыль</p>
 					<p className={s.splitter}></p>
-					<p>1 700 
+					<p>1 700
 						<span><FontAwesomeIcon icon={faRubleSign} /></span>
 					</p>
 				</div>
@@ -80,7 +91,10 @@ const Forecast: FC<ForecastPropsType> = ({forecast, ...props }) => {
 			<div className={s.userBlock}>
 				<div className={s.userInfo}>
 					<img src={forecastUserImg} alt="forecastUserImg" />
-					<p className={s.userNickName}>Никнейм</p>
+					<div className={s.userDetails}>
+						<p className={s.userNickName}>Никнейм</p>
+						<p className={s.mobileUserProfit}>Прибыль: <span className={classNames(s.mobileUserProfit, { [s.positive]: true })}>+20%</span></p>
+					</div>
 				</div>
 				<div className={s.userStats}>
 					<div className={s.statBlock}>
@@ -125,7 +139,7 @@ const Forecast: FC<ForecastPropsType> = ({forecast, ...props }) => {
 				sanctus est Lorem ipsum dolor sit amet.
 				</p>
 			</div>
-			
+
 			<ForecastStats comments={16} favourites={54} likes={23} />
 
 			<div className={s.comments}>
