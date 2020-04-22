@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetAllForecastByUser extends FormRequest
+class GetAllForecastsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,12 @@ class GetAllForecastByUser extends FormRequest
     public function rules()
     {
         return [
+            'tf' => 'required',
+            'sport' => 'required',
+            'useSubscribes' => 'required',
+            'useFavorites' => 'required',
             'quanity' => 'required',
             'page' => 'required',
-            'user_id' => 'required',
         ];
     }
 }

@@ -11,10 +11,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/register', 'RegisterController@register');
 
 // Прогнозы
-Route::post('/forecast/getAll', 'ForecastController@getAll');
-Route::post('/forecast/getBySport', 'ForecastController@getBySport');
-Route::post('/forecast/getByUser', 'ForecastController@getByUser');
+Route::post('/forecastList', 'ForecastController@getAll');
 Route::get('/forecast/{id}', 'ForecastController@getOne');
-
 // Работа с юзером
-Route::get('/userSubscribes/{id}', 'UserWorksController@getSubscribes');
