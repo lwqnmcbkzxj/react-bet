@@ -27,15 +27,14 @@ const MobileHeader: FC<HeaderPropsType> = ({ ...props }) => {
 			<div className={s.advert}></div>
 			<header>
 				<NavLink to="/" className={s.logoLink}><img src={logo} className={s.logo} alt="logo" /></NavLink>
-				{true && !seactBlockVisible && <div className={s.bankBlock}>Банк: <span>1 500 xB</span></div>}
-
-				<div className={classNames(s.search_block, {[s.active]: seactBlockVisible})}>
-					<input type="text" placeholder="поиск..." ref={inputRef} onBlur={toggleSeachBlockVisibility} />
-					<button onClick={toggleSeachBlockVisibility}><FontAwesomeIcon icon={faSearch} className={s.searchIcon} /></button>
-				</div>
-
+				{true && <div className={s.bankBlock}>Банк: <span>1 500 xB</span></div>}
+				<button onClick={toggleSeachBlockVisibility} className={classNames(s.searchToggleIcon, { [s.active]: seactBlockVisible })}><FontAwesomeIcon icon={faSearch} /></button>
 
 			</header>
+			<div className={classNames(s.search_block, { [s.active]: seactBlockVisible })}>
+				<button className={s.seachIcon}><FontAwesomeIcon icon={faSearch} /></button>
+				<input type="text" placeholder="поиск..." ref={inputRef} onBlur={toggleSeachBlockVisibility} />
+			</div>
 		</div>
 	)
 }

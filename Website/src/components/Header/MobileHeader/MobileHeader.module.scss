@@ -1,8 +1,55 @@
 .mobileHeader {
 	height: 50px;
+
+	& .search_block {
+		position: absolute;
+		display: flex;
+		justify-content: flex-end;
+		justify-self: flex-end;
+		align-items: center;
+		height: 50px;
+		top: -10px;
+		z-index: -5;
+		width: 100%;
+		box-sizing: border-box;
+		padding: 10px 15px;
+		background: #202E48;
+		transition: .5s;
+
+		& input {
+			width: 100%;
+			background: #FFFFFF;
+			box-shadow: 0px 3px 6px #00000029;
+			border-radius: 6px;
+			height: 34px;
+
+			color: #A8ABAF;
+			font-size: 16px;
+			line-height: 19px;
+			font-family: "Roboto Light";
+			box-sizing: border-box;
+			border: none;
+			transition: .5s;
+			padding: 3px 10px 3px 40px;
+		}
+
+		& .seachIcon {
+			position: absolute;
+			top: 14px;
+			left: 23.6px;
+			font-size: 20px;
+			color: #A8ABAF;
+		}
+
+		&.active {
+			top: 50px;
+			z-index: 5;
+		}
+	}
 }
 
 .mobileHeader header {
+	position: relative;
 	height: 50px;
 	background: #202E48;
 	display: grid;
@@ -36,49 +83,46 @@
 		}
 	}
 
-	& .search_block {
-		position: relative;
-		display: flex;
-		justify-content: flex-end;
-		justify-self: flex-end;
-		align-items: center;
 
-		& input {
-			background: #515C70 0% 0% no-repeat padding-box;
-			box-shadow: 0px 3px 6px #00000029;
-			border-radius: 6px;
-			height: 30px;
 
-			color: #D5D8DD;
-			font-size: 16px;
-			line-height: 19px;
-			font-family: "Roboto Light";
-			box-sizing: border-box;
-			width: 0%;
-			border: none;
-			transition: .5s;
-			padding: 3px 0;
-
-		}
+	& .searchToggleIcon {
+		top: 15px;
+		right: 10.6px;
+		font-size: 20px;
+		color: #FFFFFF;
+		justify-self: self-end;
 
 		&.active {
-			& input {
-			padding: 3px 40px 3px 10px;
-
-				width: 100%;
-			}
-
-			grid-column: 2/4;
-		}
-
-
-		& .searchIcon {
-			position: absolute;
-			top: 8px;
-			right: 10.6px;
-			font-size: 18px;
-			color: #D5D8DD;
+			color: #F7971D;
 		}
 	}
+}
 
+
+::-webkit-input-placeholder {
+	color: #A8ABAF;
+	font-size: 16px;
+	line-height: 19px;
+	font-family: "Roboto Light";
+}
+
+::-moz-placeholder {
+	color: #A8ABAF;
+	font-size: 16px;
+	line-height: 19px;
+	font-family: "Roboto Light";
+}
+
+:-ms-input-placeholder {
+	color: #A8ABAF;
+	font-size: 16px;
+	line-height: 19px;
+	font-family: "Roboto Light";
+}
+
+:-moz-placeholder {
+	color: #A8ABAF;
+	font-size: 16px;
+	line-height: 19px;
+	font-family: "Roboto Light";
 }

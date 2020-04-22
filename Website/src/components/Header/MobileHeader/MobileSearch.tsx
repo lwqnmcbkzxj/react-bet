@@ -13,8 +13,9 @@ const MobileHeader: FC<HeaderPropsType> = ({ ...props }) => {
 
 	return (
 		<div className={s.search_block} >
+			
 			<input type="text" placeholder="поиск..."/>
-			<button><FontAwesomeIcon icon={faSearch} className={ s.searchIcon }/></button>
+			
 		</div>
 	)
 }
