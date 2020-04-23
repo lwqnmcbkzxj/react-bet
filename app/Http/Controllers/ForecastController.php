@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Forecast;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\GetAllForecastsRequest;
+use App\Http\Requests\LikeForecastRequest;
+use App\Http\Requests\CommentForecastReques;
+use App\Http\Requests\AddToFavRequest;
 use Carbon\Traits\Timestamp;
 use Illuminate\Support\Facades\Auth;
 use App\User;
@@ -51,8 +54,6 @@ class ForecastController extends Controller
             ->when($request->sport != 'all', function ($query) use ($sport){
                 return $query->where('sports.id', '=', $sport);
             })
-            
-            
             // using favorites
             ->when($request->useFavorites == 1, function($query) {
                 $favorites = DB::table('forecast_favorites')
@@ -63,9 +64,7 @@ class ForecastController extends Controller
                     $fav[] = $item->forecast_id;
                 }
                 return $query->whereIn('forecasts.id', $fav);
-            })
-            
-            
+            }) 
             // using subs
             ->when($request->useSubscribes == 1, function($query) {
                 $subsR = DB::table('subscribers')
@@ -91,7 +90,6 @@ class ForecastController extends Controller
                 $forecasts[$i]->CommentsQuanity = $comments;
                 $i++;
             }
-
             // getting likes 
             $i = 0;
             foreach ($forecasts as $item){
@@ -113,7 +111,6 @@ class ForecastController extends Controller
                 $forecasts[$i]->Rating = $likes- $dislikes;
                 $i++;
             }
-
             // getting favs
             $i = 0;
             foreach ($forecasts as $item){
@@ -124,7 +121,10 @@ class ForecastController extends Controller
                 $forecasts[$i]->FavAmmount = $likes;
                 $i++;
             }
-        return $forecasts;
+        
+            // calculating small stat
+        
+            return $forecasts;
     }
 
     public function getOne($id) {
@@ -196,6 +196,51 @@ class ForecastController extends Controller
 
         return $forecasts;
         
+    }
+
+
+    public function like(LikeForecastRequest $request) {
+        $hasVotes = DB::table('forecast_votes')
+        ->where('user_id', auth('api')->user()->id)
+        ->where('forecast_id', $request->forecastId)
+        ->count('*');
+
+        if ($hasVotes == 0) {
+            DB::table('forecast_votes')
+            ->insert([
+                'forecast_id' => $request->forecastId,
+                'type' => $request->type,
+                'user_id' => auth('api')->user()->id
+            ]);
+            return ['ОПА + голос', 'PS: В разработке нормальные ответы и коды)'];
+        } else return ['ТЫ ГАЛАСАВАЛ УЖЕ ЫААААААААА', 'PS: В разработке нормальные ответы и коды)'];
+    }
+
+    public function makeFav(AddToFavRequest $request) {
+        $hasVotes = DB::table('forecast_favorites')
+        ->where('user_id', auth('api')->user()->id)
+        ->where('forecast_id', $request->forecastId)
+        ->count('*');
+
+        if ($hasVotes == 0) {
+            DB::table('forecast_favorites')
+            ->insert([
+                'forecast_id' => $request->forecastId,
+                'user_id' => auth('api')->user()->id
+            ]);
+            return ['ОПА + фаворит', 'PS: В разработке нормальные ответы и коды)'];
+        } else return ['ТЫ УЖЕ ДОБАВИЛ ЫААААААААА', 'PS: В разработке нормальные ответы и коды)'];
+    }
+
+    public function comment(CommentForecastReques $request) {
+        DB::table('forecast_comments')
+        ->insert([
+            'forecast_id' => $request->forecastId,
+            'comment' => $request->text,
+            'replying' => $request->replying,
+            'user_id' => auth('api')->user()->id
+        ]);
+        return ['ОПА + Коммент', 'PS: В разработке нормальные ответы и коды)'];
     }
 
 }
