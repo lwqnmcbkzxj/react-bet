@@ -22,6 +22,8 @@
 		1C25F84E244E16A000A24F31 /* MainScreenDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C25F84C244E16A000A24F31 /* MainScreenDataProvider.swift */; };
 		1C25F850244E191400A24F31 /* UIPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C25F84F244E191400A24F31 /* UIPreview.swift */; };
 		1C25F852244E195E00A24F31 /* TableViewPreviewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C25F851244E195E00A24F31 /* TableViewPreviewDataSource.swift */; };
+		1C2CFC0424511C9A00E1071F /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2CFC0324511C9A00E1071F /* RequestError.swift */; };
+		1C2CFC0624511CDD00E1071F /* RequestErrorsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2CFC0524511CDD00E1071F /* RequestErrorsHandler.swift */; };
 		1C36FDE0244CD6A7002A3601 /* LastForecastsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C36FDDF244CD6A7002A3601 /* LastForecastsView.swift */; };
 		1C36FDE2244CEE46002A3601 /* BigTitleHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C36FDE1244CEE46002A3601 /* BigTitleHeader.swift */; };
 		1C43E2CB244B90F3002CF7EB /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43E2CA244B90F3002CF7EB /* Match.swift */; };
@@ -35,6 +37,11 @@
 		1C5E3A1B244E4169007F5E0E /* SelectionControll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5E3A1A244E4169007F5E0E /* SelectionControll.swift */; };
 		1C6608F82449E1C3007E9BEB /* TopForecastersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6608F72449E1C3007E9BEB /* TopForecastersView.swift */; };
 		1C6608FB2449E388007E9BEB /* TopForecasterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6608FA2449E388007E9BEB /* TopForecasterCell.swift */; };
+		1C6937B12450FEB900AE01BE /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6937AE2450FEB800AE01BE /* HttpClient.swift */; };
+		1C6937B22450FEB900AE01BE /* IHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6937AF2450FEB800AE01BE /* IHttpClient.swift */; };
+		1C6937B42450FEDD00AE01BE /* ITokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6937B32450FEDD00AE01BE /* ITokenService.swift */; };
+		1C6937B7245101F000AE01BE /* IRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6937B6245101F000AE01BE /* IRequestBuilder.swift */; };
+		1C6937B9245109D000AE01BE /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6937B8245109D000AE01BE /* RequestBuilder.swift */; };
 		1C779B8C244F2F26008C1FDB /* FullForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C779B8B244F2F26008C1FDB /* FullForecastViewController.swift */; };
 		1C7A356C2448E15A00E3AB9B /* NavigationBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A356B2448E15A00E3AB9B /* NavigationBackView.swift */; };
 		1C7A356E2448E4F500E3AB9B /* BettingNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A356D2448E4F500E3AB9B /* BettingNavigationBar.swift */; };
@@ -108,6 +115,8 @@
 		1C25F84C244E16A000A24F31 /* MainScreenDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenDataProvider.swift; sourceTree = "<group>"; };
 		1C25F84F244E191400A24F31 /* UIPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPreview.swift; sourceTree = "<group>"; };
 		1C25F851244E195E00A24F31 /* TableViewPreviewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewPreviewDataSource.swift; sourceTree = "<group>"; };
+		1C2CFC0324511C9A00E1071F /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
+		1C2CFC0524511CDD00E1071F /* RequestErrorsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestErrorsHandler.swift; sourceTree = "<group>"; };
 		1C36FDDF244CD6A7002A3601 /* LastForecastsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastForecastsView.swift; sourceTree = "<group>"; };
 		1C36FDE1244CEE46002A3601 /* BigTitleHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigTitleHeader.swift; sourceTree = "<group>"; };
 		1C43E2CA244B90F3002CF7EB /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
@@ -121,6 +130,11 @@
 		1C5E3A1A244E4169007F5E0E /* SelectionControll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionControll.swift; sourceTree = "<group>"; };
 		1C6608F72449E1C3007E9BEB /* TopForecastersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopForecastersView.swift; sourceTree = "<group>"; };
 		1C6608FA2449E388007E9BEB /* TopForecasterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopForecasterCell.swift; sourceTree = "<group>"; };
+		1C6937AE2450FEB800AE01BE /* HttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
+		1C6937AF2450FEB800AE01BE /* IHttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IHttpClient.swift; path = ../../../../../../../abchess/ABChess/Services/HttpClient/IHttpClient.swift; sourceTree = "<group>"; };
+		1C6937B32450FEDD00AE01BE /* ITokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITokenService.swift; sourceTree = "<group>"; };
+		1C6937B6245101F000AE01BE /* IRequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRequestBuilder.swift; sourceTree = "<group>"; };
+		1C6937B8245109D000AE01BE /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
 		1C779B8B244F2F26008C1FDB /* FullForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullForecastViewController.swift; sourceTree = "<group>"; };
 		1C7A356B2448E15A00E3AB9B /* NavigationBackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBackView.swift; sourceTree = "<group>"; };
 		1C7A356D2448E4F500E3AB9B /* BettingNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BettingNavigationBar.swift; sourceTree = "<group>"; };
@@ -270,6 +284,52 @@
 			path = TopForecasters;
 			sourceTree = "<group>";
 		};
+		1C6937A72450FBB000AE01BE /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				1C6937B5245101E300AE01BE /* RequestBuilder */,
+				1C6937AC2450FE0400AE01BE /* TokenService */,
+				1C6937AB2450FDFB00AE01BE /* AuthService */,
+				1C6937A82450FBD200AE01BE /* HttpClient */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		1C6937A82450FBD200AE01BE /* HttpClient */ = {
+			isa = PBXGroup;
+			children = (
+				1C6937AF2450FEB800AE01BE /* IHttpClient.swift */,
+				1C6937AE2450FEB800AE01BE /* HttpClient.swift */,
+				1C2CFC0324511C9A00E1071F /* RequestError.swift */,
+				1C2CFC0524511CDD00E1071F /* RequestErrorsHandler.swift */,
+			);
+			path = HttpClient;
+			sourceTree = "<group>";
+		};
+		1C6937AB2450FDFB00AE01BE /* AuthService */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AuthService;
+			sourceTree = "<group>";
+		};
+		1C6937AC2450FE0400AE01BE /* TokenService */ = {
+			isa = PBXGroup;
+			children = (
+				1C6937B32450FEDD00AE01BE /* ITokenService.swift */,
+			);
+			path = TokenService;
+			sourceTree = "<group>";
+		};
+		1C6937B5245101E300AE01BE /* RequestBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				1C6937B6245101F000AE01BE /* IRequestBuilder.swift */,
+				1C6937B8245109D000AE01BE /* RequestBuilder.swift */,
+			);
+			path = RequestBuilder;
+			sourceTree = "<group>";
+		};
 		1C779B88244F2EC3008C1FDB /* Forecast */ = {
 			isa = PBXGroup;
 			children = (
@@ -375,6 +435,7 @@
 		1CC4EFA024472C4200D69C67 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				1C6937A72450FBB000AE01BE /* Services */,
 				1CF2C2282449E41300A7B0B8 /* Models */,
 				1CC4EF9E24472C0600D69C67 /* Modules */,
 				1CC4EFA8244731D200D69C67 /* UIElements */,
@@ -661,6 +722,7 @@
 				1CF2C22A2449E41E00A7B0B8 /* Forecaster.swift in Sources */,
 				1CC4EFA524472C8300D69C67 /* LoginView.swift in Sources */,
 				1CC4EFBA2447330600D69C67 /* Colors.swift in Sources */,
+				1C2CFC0424511C9A00E1071F /* RequestError.swift in Sources */,
 				1CC4EFD82447375B00D69C67 /* String.swift in Sources */,
 				1CF2C230244A0A5500A7B0B8 /* UIImageView.swift in Sources */,
 				1CABD5E0244CA52D0039D99C /* ForecastCell.swift in Sources */,
@@ -676,6 +738,7 @@
 				1C4516CF244E6F6500D636BC /* PanelSegmentedControl.swift in Sources */,
 				1C25F84E244E16A000A24F31 /* MainScreenDataProvider.swift in Sources */,
 				1C22EF402450830E00A7543D /* CommentsTableView.swift in Sources */,
+				1C6937B42450FEDD00AE01BE /* ITokenService.swift in Sources */,
 				1CC4EFA324472C7400D69C67 /* LoginViewController.swift in Sources */,
 				1C9134862447837F00AE4510 /* SocialButton.swift in Sources */,
 				1C25F846244DF30A00A24F31 /* ForecastsViewController.swift in Sources */,
@@ -690,15 +753,19 @@
 				1CF2C239244A473600A7B0B8 /* BookmakerCell.swift in Sources */,
 				1C25F852244E195E00A24F31 /* TableViewPreviewDataSource.swift in Sources */,
 				1C91348424476ABD00AE4510 /* BorderedTextField.swift in Sources */,
+				1C2CFC0624511CDD00E1071F /* RequestErrorsHandler.swift in Sources */,
 				1C25F841244DE4A700A24F31 /* Device.swift in Sources */,
+				1C6937B9245109D000AE01BE /* RequestBuilder.swift in Sources */,
 				1C25F844244DEC3400A24F31 /* ForecastsView.swift in Sources */,
 				1CC4EFDE2447416900D69C67 /* BottomButton.swift in Sources */,
+				1C6937B7245101F000AE01BE /* IRequestBuilder.swift in Sources */,
 				1C91348D2448B07D00AE4510 /* MainView.swift in Sources */,
 				1CABD5E4244CB7570039D99C /* ArrowsStepperView.swift in Sources */,
 				1C22EF462450899C00A7543D /* CommentCell.swift in Sources */,
 				1C25F84D244E16A000A24F31 /* MainCellsProvider.swift in Sources */,
 				1CD0F1C5244F8A49008436CD /* ForecastInfoStackView.swift in Sources */,
 				1C5E3A1B244E4169007F5E0E /* SelectionControll.swift in Sources */,
+				1C6937B22450FEB900AE01BE /* IHttpClient.swift in Sources */,
 				1C9134802447497E00AE4510 /* UIItems.swift in Sources */,
 				1CEE8BDC2448BC5C007F2FDB /* NavigationController.swift in Sources */,
 				1CC4EFC32447339B00D69C67 /* UIColor.swift in Sources */,
@@ -711,6 +778,7 @@
 				1C36FDE2244CEE46002A3601 /* BigTitleHeader.swift in Sources */,
 				1CF225B9244B81EE005D510D /* PositivityLabel.swift in Sources */,
 				1CCFB12C244B604C00F431BA /* UIViewController.swift in Sources */,
+				1C6937B12450FEB900AE01BE /* HttpClient.swift in Sources */,
 				1C36FDE0244CD6A7002A3601 /* LastForecastsView.swift in Sources */,
 				1CC4EFAA244731DE00D69C67 /* InputView.swift in Sources */,
 				1CF225B6244B7D74005D510D /* MatchCell.swift in Sources */,

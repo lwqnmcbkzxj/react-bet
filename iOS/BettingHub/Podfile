@@ -10,5 +10,6 @@ target 'BettingHub' do
   pod "AloeStackView"
   pod 'DeviceKit'
   pod 'IQKeyboardManagerSwift'
+  pod 'Alamofire'
 
 end

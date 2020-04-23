@@ -24,6 +24,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = nav
         window?.makeKeyAndVisible()
         
+        let req = RequestBuilder().registerRequest(username: "testM17", email: "testM17@mail.ru", password: "12345678")
+        
+        let client = HttpClient()
+        client.authRequest(request: req) { (success) in
+            if success {
+                print("Congrats")
+            } else {
+                print("fuq")
+            }
+        }
+        
         return true
     }
 }
