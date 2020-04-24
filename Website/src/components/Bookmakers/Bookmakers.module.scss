@@ -1,0 +1,184 @@
+.bookmakersList {
+	width: 100%;
+	border-radius: 7px;
+	border: 1px solid #E5E2E2;
+
+	&.isMainpage {
+		border: none;
+		border-top: 1px solid #E5E2E2;
+		border-radius: 0px;
+	}
+
+	& .listHeader,
+	& .bookmaker {
+		display: grid;
+		grid-template-columns: 1fr 125px 1fr 3fr 2fr 2fr 5fr;
+		grid-gap: 10px;
+		justify-items: center;
+		align-items: center;
+
+		& div {
+			font-size: 16px;
+			line-height: 19px;
+			color: #343638;
+		}
+		& .matchInfo {  
+			justify-self: start;
+		}
+	}
+
+	& .listHeader {
+		padding: 7px 16px;
+		background: #F5F5F5;
+		& div {
+			opacity: 0.76;
+		}
+	}
+
+	& .bookmaker {
+		padding: 7px 16px;
+		border-bottom: 1px solid #E5E2E2;;	
+
+		&:last-child {
+			border-bottom: none;	
+		}
+
+		& .company img {
+			height: 50px;
+		}
+		& .rating {
+			font-size: 17px;
+			line-height: 20px;
+		}
+		& .bonus {
+			font-size: 17px;
+			line-height: 20px;
+			font-family: 'Roboto Medium';
+			color: #D57F11;
+			white-space: nowrap;
+			& span {
+				font-size: 14.5px;
+				margin-left: 3px;
+			}
+		}
+		& .review {
+			font-size: 14px;
+			line-height: 17px;
+			text-transform: uppercase;
+			color: #343638;
+		}
+
+		& .link button {
+			& .desktopLink {
+				padding: 12px 33px;
+				border: 1px solid #5E687B;
+				border-radius: 7px;
+				font-size: 14px;
+				line-height: 17px;
+				color: #222A39;
+				text-transform: uppercase;
+			}	
+			& .mobileLink {
+				display: none;
+				font-size: 18px;
+				color: #5E687B;
+			}
+		}
+	}
+}
+
+.positive {
+	color: #0F971D !important;
+}
+.neutral {
+	color: #D57F11 !important;
+}
+.negative {
+	color: #AA0F0F !important;
+}
+
+
+@media screen and (max-width: 768px) {
+	.bookmakersList {
+		
+		& .listHeader, & .bookmaker {
+			grid-template-columns: 1fr 125px 1fr 3fr 2fr 2fr 20px;
+
+		}
+
+		& .bookmaker {
+			& .link button {
+				& .desktopLink {
+					display: none;
+				}	
+				& .mobileLink {
+					display: block;
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.bookmakersList {
+		& .listHeader,
+		& .bookmaker {
+			display: grid;
+			grid-template-columns: 110px 1fr 1fr 1fr 20px;
+
+			grid-gap: 6px;
+			padding: 8px;
+			& div {
+				font-size: 13px;
+				line-height: 15px;
+			}
+
+			& .company {
+				justify-self: start;
+			}
+			& .position, & .isChecked {
+				display: none;
+			}
+		}
+		& .listHeader {
+			font-size: 12px;
+			line-height: 14px;
+		}
+
+		& .bookmaker {
+			& .company img {
+				height: 45px;
+			}
+			& .rating {
+				& .ratingNumber {
+					font-size: 15px;
+				line-height: 18px;
+				color: #343638!important;
+				}
+				& .maxRating {
+					display: none;
+				}
+			}
+
+			& .bonus {
+				font-size: 15px;
+				line-height: 18px;
+				& span {
+					font-size: 13px;
+				}
+			}
+			& .review {
+				font-size: 13px;
+				line-height: 15px;
+			}
+			& .link button {
+				& .desktopLink {
+					display: none;
+				}	
+				& .mobileLink {
+					display: block;
+				}
+			}
+		}
+	}
+}

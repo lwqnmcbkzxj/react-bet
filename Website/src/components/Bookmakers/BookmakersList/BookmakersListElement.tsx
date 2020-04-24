@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom'
-import s from './BookmakersList.module.scss';
+import s from '../Bookmakers.module.scss';
 import classNames from 'classnames'
 // import { BookmakerType } from '../../types/bookmakers'
 
@@ -9,7 +9,7 @@ import bookmakerImg2 from '../../../assets/img/bookmaker-img-2.png'
 import bookmakerImg3 from '../../../assets/img/bookmaker-img-3.png'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRubleSign, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faRubleSign, faCheck, faTimes, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
 import { BookmakerType } from '../../../types/bookmakers';
 
 type BookmakersListElementPropsType = {
@@ -51,7 +51,8 @@ const BookmakersListElement: FC<BookmakersListElementPropsType> = ({ bookmaker, 
 				<FontAwesomeIcon icon={checkedIcon} className={checkedClass}/>
 			</div>
 			<div className={s.rating}>
-				<span className={classNames(s.ratingNumber, raingClass)}>9.40</span>/10
+				<span className={classNames(s.ratingNumber, raingClass)}>9.40</span>
+				<span className={s.maxRating}>/10</span>
 			</div>
 			<div className={s.bonus}>1 000
 				<span><FontAwesomeIcon icon={faRubleSign} /></span>
@@ -61,8 +62,10 @@ const BookmakersListElement: FC<BookmakersListElementPropsType> = ({ bookmaker, 
 			</div>
 			<div className={s.link}>
 				<button>
-					<a href="https://betcity.ru/">Сайт</a>
+					<a href="https://betcity.ru/" className={s.desktopLink}>Сайт</a>
+					<a href="https://betcity.ru/" className={s.mobileLink}><FontAwesomeIcon icon={faExternalLinkAlt} /></a>
 				</button>
+				
 			</div>
 		</div>
 	)

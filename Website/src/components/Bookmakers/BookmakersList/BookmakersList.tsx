@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import s from './BookmakersList.module.scss';
+import s from '../Bookmakers.module.scss';
 import classNames from 'classnames'
 import { BookmakerType } from '../../../types/bookmakers'
 
@@ -40,6 +40,8 @@ const BookmakersList: FC<BookmakersListPropsType> = ({ bookmakers, limit = 0, is
 		{bookmakers.map((bookmaker, counter) =>
 			(counter < limit || limit === 0) &&
 			<BookmakersListElement
+
+				// key={bookmaker.id}
 				position={counter + 1}
 				bookmaker={bookmaker}
 			/>
