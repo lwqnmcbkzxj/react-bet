@@ -12,16 +12,14 @@ import ActionButton from '../../Common/ActionButton/ActionButton'
 
 const RegisterForm = (props: any) => {
 	return (
-		<div className={s.resetPasswordForm}>
-			<form onSubmit={props.handleSubmit}>
-			<div className={classNames(s.formError, {[s.formError_active]: props.error})}>{props.error}</div>
-				<h1>Восстановление пароля</h1>
+		<form onSubmit={props.handleSubmit}>
+			<div className={classNames(s.formError, { [s.formError_active]: props.error })}>{props.error}</div>
+			<h1>Восстановление пароля</h1>
 
-				{createField("email", Input, "Ваша почта или никнейм" )  }
-				
-				<div className={s.btnHolder}><ActionButton value="Восстановить"/></div>
-			</form>
-		</div>
+			{createField("email", Input, "Ваша почта или никнейм")}
+
+			<div className={s.btnHolder}><ActionButton value="Восстановить" /></div>
+		</form>
 	);
 }
 const ReduxPasswordResetForm = reduxForm({ form: 'reset-password' })(RegisterForm)
@@ -43,13 +41,13 @@ class PasswordReset extends React.Component<AuthFormPropsType> {
 		// }
 
 		return (
-			<div >
+			<>
 				<ReduxPasswordResetForm onSubmit={() => console.log('s')} />
 
 				<div className={s.orLine}><p>или</p></div>
-				
+
 				{/* <LoginThrough /> */}
-			</div>
+			</>
 		);
 	}
 }

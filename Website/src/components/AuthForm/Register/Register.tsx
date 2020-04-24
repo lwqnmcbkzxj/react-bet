@@ -12,18 +12,16 @@ import ActionButton from '../../Common/ActionButton/ActionButton'
 
 const RegisterForm = (props: any) => {
 	return (
-		<div className={s.registerForm}>
-			<form onSubmit={props.handleSubmit}>
-			<div className={classNames(s.formError, {[s.formError_active]: props.error})}>{props.error}</div>
-				<h1>Регистрация</h1>
+		<form onSubmit={props.handleSubmit}>
+			<div className={classNames(s.formError, { [s.formError_active]: props.error })}>{props.error}</div>
+			<h1>Регистрация</h1>
 
-				{createField("email", Input, "Ваша почта или никнейм" )  }
-				{createField("password", Input, "Пароль", { type: "password" })}
-				{createField("password-repeat", Input, "Повторите пароль", { type: "password" })}
-				
-				<div className={s.btnHolder}><ActionButton value="Зарегистрироваться"/></div>
-			</form>
-		</div>
+			{createField("email", Input, "Ваша почта или никнейм")}
+			{createField("password", Input, "Пароль", { type: "password" })}
+			{createField("password-repeat", Input, "Повторите пароль", { type: "password" })}
+
+			<div className={s.btnHolder}><ActionButton value="Зарегистрироваться" /></div>
+		</form>
 	);
 }
 const ReduxRegisterForm = reduxForm({ form: 'register' })(RegisterForm)
@@ -45,17 +43,17 @@ class Register extends React.Component<AuthFormPropsType> {
 		// }
 
 		return (
-			<div >
+			<>
 				<ReduxRegisterForm onSubmit={() => console.log('s')} />
 
 				<div className={s.orLine}><p>или</p></div>
-				
+
 				{/* <LoginThrough /> */}
 				<div className={s.actions}>
 					<p>У вас есть аккаунт? <button onClick={() => { this.props.changeAuthFormPhase('login') }}>
-						Войдите</button></p>	
+						Войдите</button></p>
 				</div>
-			</div>
+			</>
 		);
 	}
 }
