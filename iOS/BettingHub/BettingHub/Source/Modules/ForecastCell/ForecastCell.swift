@@ -23,22 +23,23 @@ class ForecastCell: UITableViewCell {
         let view = UIImageView()
         view.layer.borderColor = UIColor.lineGray.cgColor
         view.layer.borderWidth = 1
+        view.isSkeletonable = true
         return view
     }()
     
     private let sportLabel: UILabel = {
         let view = UILabel()
-        view.text = "Киберспорт"
         view.textColor = .titleBlack
         view.font = .robotoRegular(size: 11)
+        view.isSkeletonable = true
         return view
     }()
     
     private let seasonLabel: UILabel = {
         let view = UILabel()
-        view.text = "Dota 2. StayHome Challenge (матчи из 3-х карт)"
         view.textColor = .textGray
         view.font = .robotoRegular(size: 11)
+        view.isSkeletonable = true
         return view
     }()
     
@@ -50,45 +51,49 @@ class ForecastCell: UITableViewCell {
     
     private let matchLabel: UILabel = {
         let view = UILabel()
-        view.text = "FlyToMoon - Team Unique"
         view.textColor = .titleBlack
         view.font = .robotoMedium(size: 18)
+        view.isSkeletonable = true
         return view
     }()
     
     private let forecastTitleLabel: UILabel = {
         let view = UIItems.forecastTitleLabel
         view.text = Text.forecast
+        view.isSkeletonable = true
         return view
     }()
     
     private let betAmountTitleLabel: UILabel = {
         let view = UIItems.forecastTitleLabel
         view.text = Text.betAmount
+        view.isSkeletonable = true
         return view
     }()
     
     private let matchStartTitleLabel: UILabel = {
         let view = UIItems.forecastTitleLabel
         view.text = Text.matchStart
+        view.isSkeletonable = true
         return view
     }()
     
     private let coeficientTitleLabel: UILabel = {
         let view = UIItems.forecastTitleLabel
         view.text = Text.coeficient
+        view.isSkeletonable = true
         return view
     }()
     
     private let forecastLabel: UILabel = {
         let view = UIItems.forecastValueLabel
-        view.text = "ФОРА1 (-1.5)"
+        view.isSkeletonable = true
         return view
     }()
     
     private let betAmountLabel: UILabel = {
         let view = UIItems.forecastValueLabel
-        view.text = "550"
+        view.isSkeletonable = true
         return view
     }()
     
@@ -96,13 +101,13 @@ class ForecastCell: UITableViewCell {
         let view = UILabel()
         view.textColor = .textGrayDark
         view.font = .robotoItalic(size: 14)
-        view.text = "–"
+        view.isSkeletonable = true
         return view
     }()
     
     private let coeficientLabel: UILabel = {
         let view = UIItems.forecastValueLabel
-        view.text = "2.02"
+        view.isSkeletonable = true
         return view
     }()
     
@@ -111,13 +116,13 @@ class ForecastCell: UITableViewCell {
         view.numberOfLines = 6
         view.textColor = .titleBlack
         view.font = .robotoRegular(size: 16)
-        view.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Bibendum est ultricies integer quis. Iaculis urna id volutpat lacus laoreet. Mauris vitae ultricies leo integer malesuada. Ac odio"
+        view.isSkeletonable = true
         return view
     }()
     
     private let userImageView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = .gray
+        view.makeBordered()
         view.layer.cornerRadius = 2
         view.contentMode = .scaleAspectFill
         return view
@@ -127,13 +132,12 @@ class ForecastCell: UITableViewCell {
         let view = UILabel()
         view.textColor = .titleBlack
         view.font = .robotoRegular(size: 14)
-        view.text = "Никнейм"
         return view
     }()
     
     private let lastForecastsView: LastForecastsView = {
         let view = LastForecastsView()
-        view.populate(with: [true, false, true, true, false])
+        view.populate(with: [false, false, false, false, false])
         return view
     }()
     
@@ -150,7 +154,7 @@ class ForecastCell: UITableViewCell {
         view.units = .percent
         view.rounding = .decimal(1)
         view.showingSign = true
-        view.setNumber(to: 50.4 )
+        view.text = ""
         return view
     }()
     
@@ -164,7 +168,7 @@ class ForecastCell: UITableViewCell {
         let view = LabeledIconView()
         let image = UIImage(named: "commentIcon")!
         view.setImage(image)
-        view.setText("3")
+        view.isSkeletonable = true
         return view
     }()
     
@@ -172,13 +176,13 @@ class ForecastCell: UITableViewCell {
         let view = LabeledIconView()
         let image = UIImage(named: "bookmarkIcon")!
         view.setImage(image)
-        view.setText("54")
+        view.isSkeletonable = true
         return view
     }()
     
     private let stepperView: ArrowsStepperView = {
         let view = ArrowsStepperView()
-        view.setNumber(23)
+        view.isSkeletonable = true
         return view
     }()
     
@@ -187,72 +191,91 @@ class ForecastCell: UITableViewCell {
         
         selectionStyle = .none
         makeLayout()
+        isSkeletonable = true
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(with forecast: Forecast) {
+        sportLabel.text = forecast.sportName
+        seasonLabel.text = forecast.tournament
+        matchLabel.text = forecast.text
+        descLabel.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Bibendum est ultricies integer quis. Iaculis urna id volutpat lacus laoreet. Mauris vitae ultricies leo integer malesuada. Ac odio"
+        forecastLabel.text = "ФОРА1 (-1.5)"
+        coeficientLabel.text = String(forecast.coefficient)
+        betAmountLabel.text = String(forecast.betValue)
+        matchStartLabel.text = forecast.time
+        usernameLabel.text = forecast.userName
+        userImageView.setImage(url: forecast.userAvatar)
+        lastForecastsView.populate(with: [true, false, true, true, false])
+        incomeLabel.setNumber(to: 50.4)
+        commentsView.setText(String(forecast.commentsQuanity))
+        bookmarksView.setText(String(forecast.favAmmount))
+        stepperView.setNumber(forecast.rating)
+    }
+    
     private func makeLayout() {
         
-        addSubview(panelView)
+        contentView.addSubview(panelView)
         panelView.snp.makeConstraints { (make) in
             make.leading.trailing.top.equalToSuperview()
             make.height.equalTo(402)
         }
         
-        panelView.addSubview(cornerIcon)
+        contentView.addSubview(cornerIcon)
         cornerIcon.snp.makeConstraints { (make) in
             make.width.height.equalTo(15)
-            make.leading.equalToSuperview().offset(8)
+            make.leading.equalTo(panelView).offset(8)
             make.top.equalToSuperview().offset(11)
         }
         
-        panelView.addSubview(sportLabel)
+        contentView.addSubview(sportLabel)
         sportLabel.snp.contentCompressionResistanceHorizontalPriority = 1000
         sportLabel.snp.makeConstraints { (make) in
             make.top.bottom.equalTo(cornerIcon)
             make.leading.equalTo(cornerIcon.snp.trailing).offset(5)
         }
         
-        panelView.addSubview(seasonLabel)
+        contentView.addSubview(seasonLabel)
         seasonLabel.snp.makeConstraints { (make) in
             make.top.bottom.equalTo(cornerIcon)
             make.leading.equalTo(sportLabel.snp.trailing).offset(3)
-            make.trailing.equalToSuperview().offset(-8)
+            make.trailing.equalTo(panelView).offset(-8)
         }
         
-        panelView.addSubview(topSeparator)
+        contentView.addSubview(topSeparator)
         topSeparator.snp.makeConstraints { (make) in
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(cornerIcon.snp.bottom).offset(8)
             make.height.equalTo(1)
         }
         
-        panelView.addSubview(matchLabel)
+        contentView.addSubview(matchLabel)
         matchLabel.snp.makeConstraints { (make) in
             make.top.equalTo(topSeparator).offset(13)
-            make.leading.equalToSuperview().offset(8)
-            make.trailing.equalToSuperview().offset(8)
+            make.leading.equalTo(panelView).offset(8)
+            make.trailing.equalTo(panelView).offset(-8)
             make.height.equalTo(24)
         }
         
-        panelView.addSubview(forecastTitleLabel)
+        contentView.addSubview(forecastTitleLabel)
         forecastTitleLabel.snp.contentCompressionResistanceHorizontalPriority = 1000
         forecastTitleLabel.snp.makeConstraints { (make) in
-            make.leading.equalToSuperview().offset(8)
+            make.leading.equalTo(panelView).offset(8)
             make.top.equalTo(matchLabel.snp.bottom).offset(12)
             make.height.equalTo(19)
         }
         
-        panelView.addSubview(forecastLabel)
+        contentView.addSubview(forecastLabel)
         forecastLabel.snp.makeConstraints { (make) in
             make.leading.equalTo(forecastTitleLabel.snp.trailing).offset(3)
             make.top.equalTo(forecastTitleLabel).offset(-1)
             make.bottom.equalTo(forecastTitleLabel).offset(2)
         }
         
-        panelView.addSubview(coeficientTitleLabel)
+        contentView.addSubview(coeficientTitleLabel)
         coeficientTitleLabel.snp.contentCompressionResistanceHorizontalPriority = 1000
         coeficientTitleLabel.snp.makeConstraints { (make) in
             make.leading.equalTo(forecastLabel.snp.trailing).offset(18).priority(.high)
@@ -260,83 +283,83 @@ class ForecastCell: UITableViewCell {
             make.top.bottom.equalTo(forecastTitleLabel)
         }
         
-        panelView.addSubview(coeficientLabel)
+        contentView.addSubview(coeficientLabel)
         coeficientLabel.snp.makeConstraints { (make) in
             make.top.bottom.equalTo(forecastLabel)
             make.leading.equalTo(coeficientTitleLabel.snp.trailing).offset(3)
-            make.trailing.lessThanOrEqualToSuperview().offset(-8)
+            make.trailing.lessThanOrEqualTo(panelView).offset(-8)
         }
         
-        panelView.addSubview(betAmountTitleLabel)
+        contentView.addSubview(betAmountTitleLabel)
         betAmountTitleLabel.snp.contentCompressionResistanceHorizontalPriority = 1000
         betAmountTitleLabel.snp.makeConstraints { (make) in
             make.leading.height.equalTo(forecastTitleLabel)
             make.top.equalTo(forecastTitleLabel.snp.bottom).offset(9)
         }
         
-        panelView.addSubview(betAmountLabel)
+        contentView.addSubview(betAmountLabel)
         betAmountLabel.snp.makeConstraints { (make) in
             make.leading.equalTo(betAmountTitleLabel.snp.trailing).offset(3)
             make.top.equalTo(betAmountTitleLabel).offset(-1)
             make.bottom.equalTo(betAmountTitleLabel).offset(2)
-            make.trailing.lessThanOrEqualToSuperview().offset(-8)
+            make.trailing.lessThanOrEqualTo(panelView).offset(-8)
         }
         
-        panelView.addSubview(matchStartTitleLabel)
+        contentView.addSubview(matchStartTitleLabel)
         matchStartTitleLabel.snp.contentCompressionResistanceHorizontalPriority = 1000
         matchStartTitleLabel.snp.makeConstraints { (make) in
             make.leading.height.equalTo(betAmountTitleLabel)
             make.top.equalTo(betAmountTitleLabel.snp.bottom).offset(9)
         }
         
-        panelView.addSubview(matchStartLabel)
+        contentView.addSubview(matchStartLabel)
         matchStartLabel.snp.makeConstraints { (make) in
             make.leading.equalTo(matchStartTitleLabel.snp.trailing).offset(9)
             make.top.bottom.equalTo(matchStartTitleLabel)
-            make.trailing.lessThanOrEqualToSuperview().offset(-8)
+            make.trailing.lessThanOrEqualTo(panelView).offset(-8)
         }
         
-        panelView.addSubview(descLabel)
+        contentView.addSubview(descLabel)
         descLabel.snp.makeConstraints { (make) in
-            make.leading.equalToSuperview().offset(9)
-            make.trailing.equalToSuperview().offset(-9)
+            make.leading.equalTo(panelView).offset(9)
+            make.trailing.equalTo(panelView).offset(-9)
             make.top.equalTo(matchStartTitleLabel.snp.bottom).offset(20)
             make.height.equalTo(132)
         }
         
         let userLine = buildUserLine()
-        panelView.addSubview(userLine)
+        contentView.addSubview(userLine)
         userLine.snp.makeConstraints { (make) in
-            make.leading.equalToSuperview().offset(8)
-            make.trailing.lessThanOrEqualToSuperview().offset(-8)
+            make.leading.equalTo(panelView).offset(8)
+            make.trailing.lessThanOrEqualTo(panelView).offset(-8)
             make.top.equalTo(descLabel.snp.bottom).offset(14)
             make.height.equalTo(19)
         }
         
-        panelView.addSubview(bottomSeparator)
+        contentView.addSubview(bottomSeparator)
         bottomSeparator.snp.makeConstraints { (make) in
-            make.leading.trailing.equalToSuperview()
+            make.leading.trailing.equalTo(panelView)
             make.top.equalTo(userLine.snp.bottom).offset(20)
             make.height.equalTo(1)
         }
         
-        panelView.addSubview(commentsView)
+        contentView.addSubview(commentsView)
         commentsView.snp.makeConstraints { (make) in
             make.top.equalTo(bottomSeparator).offset(11)
-            make.leading.equalToSuperview().offset(11)
+            make.leading.equalTo(panelView).offset(11)
             make.height.equalTo(16)
         }
         
-        panelView.addSubview(bookmarksView)
+        contentView.addSubview(bookmarksView)
         bookmarksView.snp.makeConstraints { (make) in
             make.leading.equalTo(commentsView.snp.trailing).offset(16)
             make.height.top.bottom.equalTo(commentsView)
         }
         
-        panelView.addSubview(stepperView)
+        contentView.addSubview(stepperView)
         stepperView.snp.makeConstraints { (make) in
             make.top.equalTo(bottomSeparator).offset(8)
-            make.trailing.equalToSuperview().offset(-9)
+            make.trailing.equalTo(panelView).offset(-9)
             make.height.equalTo(20)
             make.leading.greaterThanOrEqualTo(bookmarksView.snp.trailing)
         }
@@ -347,6 +370,7 @@ class ForecastCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.spacing = 8
         stackView.distribution = .fillProportionally
+        stackView.isSkeletonable = true
         
         userImageView.snp.makeConstraints { (make) in
             make.width.equalTo(19)

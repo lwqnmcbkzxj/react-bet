@@ -29,9 +29,10 @@ class ForecastsHeader: UIView {
         return button
     }()
     
-    private let forecastsSegmenter: PanelSegmenterControl = {
+    let forecastsSegmenter: PanelSegmenterControl = {
         let view = PanelSegmenterControl(items: [Text.subscribtions, Text.allForecasts, Text.paid])
         view.selectedSegment = 1
+        view.clipsToBounds = false
         return view
     }()
     
@@ -57,13 +58,19 @@ class ForecastsHeader: UIView {
     
     init() {
         super.init(frame: .zero)
+        clipsToBounds = false
         makeLayout()
-        
         filtersButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setCompact(_ compact: Bool) {
+        [nearestTitleLabel,
+        timePicker,
+        selectionControl].forEach { $0.isHidden = compact}
     }
     
     @objc private func buttonTapped() {

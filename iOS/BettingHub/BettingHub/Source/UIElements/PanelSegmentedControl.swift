@@ -30,6 +30,7 @@ class PanelSegmenterControl: UIControl {
         super.init(frame: .zero)
         makeLayout()
         populate()
+        layer.masksToBounds = false
     }
     
     required init?(coder: NSCoder) {

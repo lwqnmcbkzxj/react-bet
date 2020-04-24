@@ -71,6 +71,8 @@ class MainScreenCellsProvider {
     func forecastCell(row: Int, data: Forecast) -> UITableViewCell {
         let section = MainSection.lastForecasts
         let cell = tableView.dequeueReusableCell(withIdentifier: section.cellId()) as! ForecastCell
+        let forecast = dataProvider.dataForForecast(row: row)
+        cell.configure(with: forecast)
         return cell
     }
     

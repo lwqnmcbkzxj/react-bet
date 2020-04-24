@@ -58,6 +58,7 @@
 		1C91348D2448B07D00AE4510 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C91348C2448B07D00AE4510 /* MainView.swift */; };
 		1C91348F2448B08500AE4510 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C91348E2448B08500AE4510 /* MainViewController.swift */; };
 		1C97686C2453483500C11AF0 /* TimeFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C97686B2453483500C11AF0 /* TimeFrame.swift */; };
+		1C9768702453712900C11AF0 /* ForecastsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C97686F2453712900C11AF0 /* ForecastsViewModel.swift */; };
 		1CA01F662451F6400025FF4F /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA01F652451F6400025FF4F /* LoginPresenter.swift */; };
 		1CA01F6A2451F9E70025FF4F /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA01F692451F9E70025FF4F /* LoginRouter.swift */; };
 		1CA01F6C2451FA6F0025FF4F /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA01F6B2451FA6F0025FF4F /* AppCoordinator.swift */; };
@@ -163,6 +164,7 @@
 		1C91348C2448B07D00AE4510 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		1C91348E2448B08500AE4510 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		1C97686B2453483500C11AF0 /* TimeFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFrame.swift; sourceTree = "<group>"; };
+		1C97686F2453712900C11AF0 /* ForecastsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastsViewModel.swift; sourceTree = "<group>"; };
 		1CA01F652451F6400025FF4F /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		1CA01F692451F9E70025FF4F /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
 		1CA01F6B2451FA6F0025FF4F /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -269,10 +271,11 @@
 		1C25F842244DE9B100A24F31 /* Forecasts */ = {
 			isa = PBXGroup;
 			children = (
+				1CFE8264244E5DD2002326DB /* TimePicker.swift */,
 				1C25F847244DF56C00A24F31 /* ForecastsHeader.swift */,
 				1C25F843244DEC3400A24F31 /* ForecastsView.swift */,
 				1C25F845244DF30A00A24F31 /* ForecastsViewController.swift */,
-				1CFE8264244E5DD2002326DB /* TimePicker.swift */,
+				1C97686F2453712900C11AF0 /* ForecastsViewModel.swift */,
 			);
 			path = Forecasts;
 			sourceTree = "<group>";
@@ -799,6 +802,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C083F50244E687B0010D719 /* Sport.swift in Sources */,
+				1C9768702453712900C11AF0 /* ForecastsViewModel.swift in Sources */,
 				1CF2C22E2449F3AA00A7B0B8 /* ButtonFooter.swift in Sources */,
 				1CC4EFBE2447331C00D69C67 /* Fonts.swift in Sources */,
 				1CF2C235244A0E6800A7B0B8 /* TopBookmakersHeaderView.swift in Sources */,

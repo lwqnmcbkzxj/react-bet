@@ -11,10 +11,10 @@ import UIKit
 extension UIImageView {
     func setImage(url: String) {
         //TODO: add placeholder image
-        guard let url = URL(string: url) else { return }
+        let fullURL = baseURL.appendingPathComponent(url)
         DispatchQueue.global(qos: .background).async {
             guard
-                let data = try? Data(contentsOf: url),
+                let data = try? Data(contentsOf: fullURL),
                 let image = UIImage(data: data)
             else { return }
             DispatchQueue.main.async {

@@ -17,6 +17,8 @@ class ForecastsView: UIView {
     
     private var headerIsFull: Bool = false
     
+    private(set) lazy var header = ForecastsHeader()
+    
     let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.scrollIndicatorInsets = .init(top: 0, left: 0, bottom: 0, right: -15)
@@ -24,6 +26,7 @@ class ForecastsView: UIView {
         table.clipsToBounds = false
         table.separatorColor = .clear
         table.rowHeight = 422
+        table.isSkeletonable = true
         return table
     }()
     
@@ -44,8 +47,7 @@ class ForecastsView: UIView {
     }
     
     private func configureHeader() {
-        let header = ForecastsHeader()
-        header.layer.masksToBounds = true
+        header.setCompact(true)
         header.frame = .init(x: 0, y: 0, width: 0, height: headerCompactHeight)
         tableView.tableHeaderView = header
         
@@ -54,6 +56,7 @@ class ForecastsView: UIView {
     
     @objc func setHeaderHeight() {
         headerIsFull.toggle()
+        header.setCompact(!headerIsFull)
         tableView.tableHeaderView?.frame = .init(x: 0, y: 0,
                                                  width: tableView.frame.width,
                                                  height: headerIsFull ? headerFullHeight : headerCompactHeight)

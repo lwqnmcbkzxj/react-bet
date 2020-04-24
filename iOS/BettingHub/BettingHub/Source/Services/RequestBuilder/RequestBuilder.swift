@@ -8,9 +8,11 @@
 
 import Foundation
 
+let baseURL = URL(string: "http://betting-hub.sixhands.co")!
+
 class RequestBuilder: IRequestBuilder {
     
-    private let baseURL = URL(string: "http://betting-hub.sixhands.co")!
+    private let baseURL = BettingHub.baseURL
     
     func registerRequest(username: String, email: String, password: String) -> URLRequest {
         let url = baseURL.appendingPathComponent("api/register")

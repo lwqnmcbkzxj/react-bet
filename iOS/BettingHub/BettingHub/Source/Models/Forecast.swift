@@ -83,7 +83,7 @@ struct Forecast: Codable {
                  sportName: "Футбол",
                  tournament: "Dota 2. StayHome Challenge (матчи из 3-х карт)",
                  time: "",
-                 text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.",
+                 text: "Вегас Голден Найтс - Эдмонтон Ойлерз",
                  betValue: 550,
                  cratedAt: "",
                  coefficient: 1.64,

@@ -34,25 +34,11 @@ class LastForecastsView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-//        stackView.arrangedSubviews.forEach { (circle) in
-//            if !circle.isHidden,
-//                circle.frame.width < minimumCircleWidth {
-//                circle.isHidden = true
-//                layoutSubviews()
-//                return
-//            } else if circle.isHidden,
-//                circle.frame.width >= minimumCircleWidth {
-//                circle.isHidden = false
-//            }
-//        }
-//        if stackView.frame.width < stackView.intrinsicContentSize.width {
-//            
-//        }
     }
     
     func populate(with values: [Bool]) {
-        for view in stackView.arrangedSubviews {
-            stackView.removeArrangedSubview(view)
+        stackView.arrangedSubviews.forEach { (view) in
+            view.removeFromSuperview()
         }
         
         values.map {generateCircle(from: $0)}.forEach { (circle) in
