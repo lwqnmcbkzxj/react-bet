@@ -2,10 +2,15 @@ import React, { FC, useEffect, useState, useCallback } from 'react';
 import s from './MainPage.module.scss';
 import classNames from 'classnames'
 import { NavLink } from 'react-router-dom';
+
 import ForecastsList from '../Forecasts/ForecastsList/ForecastsList'
 import MatchesList from '../Matches/MatchesList'
+import BookmakersList from '../Bookmakers/BookmakersList/BookmakersList'
+
+
+
 import ActionButton from '../Common/ActionButton/ActionButton'
-import MobileFooter  from '../Common/Footer/Footer'
+import MobileFooter from '../Common/Footer/Footer'
 
 import { ForecastType } from '../../types/forecasts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -44,7 +49,7 @@ const MainPage: FC<MainPagePropsType> = ({ forecasts, mainPageBlocksVisibility, 
 		setMainPageBlocksVisibility(getArrayFromEnum(blocksNamesEnum))
 	}, []);
 
-	
+
 	return (
 		<div className={s.mainBlock}>
 			<div className={s.forecasters}>
@@ -54,27 +59,20 @@ const MainPage: FC<MainPagePropsType> = ({ forecasts, mainPageBlocksVisibility, 
 
 			</div>
 
-			<div className={s.forecasts}>
-				<h1 className={s.blockHeader}>Последние прогнозы</h1>
-				<ForecastsList forecasts={forecasts} limit={5} />
-				<NavLink to="/forecasts" className={s.navLinkBtn}><ActionButton value="Все прогнозы" /></NavLink>
-			</div>
-
 			<div className={s.bookMakers}>
 				<div className={classNames(
 					s.contentBlock,
-					{[s.contentHidden]: mainPageBlocksVisibility[blocksNamesEnum.bookmakers]}
+					{ [s.contentHidden]: mainPageBlocksVisibility[blocksNamesEnum.bookmakers] }
 				)}>
 					<div className={s.contentBlockHeader}>
 						<h1>Рейтинг букмекеров</h1>
-						<button className={s.toggleButton} onClick={() => { toggleBlockVisibility(blocksNamesEnum.bookmakers)}}><FontAwesomeIcon icon={faCaretDown} /></button>
+						<button className={s.toggleButton} onClick={() => { toggleBlockVisibility(blocksNamesEnum.bookmakers) }}><FontAwesomeIcon icon={faCaretDown} /></button>
 					</div>
 
-					
 					<div className={s.contentBlockList}>
-						<p>Список букмекеров</p>
+						<BookmakersList limit={3} isMainpage={true}/>
 					</div>
-					
+
 
 				</div>
 				<NavLink to="/bookmakers" className={s.navLinkBtn}><ActionButton value="Посмотреть всех" /></NavLink>
@@ -83,17 +81,23 @@ const MainPage: FC<MainPagePropsType> = ({ forecasts, mainPageBlocksVisibility, 
 			<div className={s.matches}>
 				<div className={s.contentBlock}>
 					<div className={s.contentBlockHeader}>
-						<h1>Рейтинг букмекеров</h1>
 						<h1>Топ матчи</h1>
 					</div>
-					<p>Список матчей</p>
 					<MatchesList limit={5} isMainpage={true}/>
 				</div>
 				<NavLink to="/matches" className={s.navLinkBtn}><ActionButton value="Показать дальше" /></NavLink>
 			</div>
-		
-		
-			{ isMobile && <MobileFooter />}
+
+			<div className={s.forecasts}>
+				<h1 className={s.blockHeader}>Последние прогнозы</h1>
+				<ForecastsList forecasts={forecasts} limit={5} />
+				<NavLink to="/forecasts" className={s.navLinkBtn}><ActionButton value="Все прогнозы" /></NavLink>
+			</div>
+
+
+
+
+			{isMobile && <MobileFooter />}
 		</div>
 	)
 }

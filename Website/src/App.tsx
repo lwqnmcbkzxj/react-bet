@@ -13,6 +13,9 @@ import ForecastContainer from './components/Forecast/ForecastContainer'
 import UsersContainer from './components/Users/UsersContainer'
 import UserContainer from './components/User/UserContainer'
 
+import BookmakersContainer from './components/Bookmakers/BookmakersContainer'
+// import BookmakerContainer from './components/Bookmaker/BookmakerContainer'
+
 import MatchesContainer from './components/Matches/MatchesContainer'
 // import MatchContainer from './components/Match/MatchContainer'
 
@@ -49,7 +52,10 @@ const App: FC = () => {
 
 						<Route exact path="/forecasts" render={() => <ForecastsContainer />} />
 						<Route exact path="/forecasts/:forecastId" render={() => <ForecastContainer />} />
-						{/* <Route path="/" render={() => <MatchesContainer />} /> */}
+
+						<Route exact path="/bookmakers" render={() => <BookmakersContainer />} />
+						{/* <Route exact path="/bookmakers/:bookmakerId" render={() => <BookmakerContainer />} /> */}
+						
 						<Route exact path="/matches" render={() => <MatchesContainer />} />
 						{/* <Route path="/matches/:matchId" render={() => <MatchContainer />} /> */}
 
