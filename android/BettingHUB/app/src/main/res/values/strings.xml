@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Betting HUB</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="main_title">Главная</string>
+    <string name="vanga_title">Прогнозы</string>
+    <string name="add_vanga_title">Добавить прогноз</string>
+    <string name="profile_title">Профиль</string>
+    <string name="menu_title">Меню</string>
+    <string name="login_label">Вход</string>
+    <string name="password_label">Пароль</string>
+    <string name="password_hint">Введите пароль</string>
+    <string name="login_field_label">Ваша почта или никнейм</string>
+    <string name="login_button_text">войти</string>
+    <string name="login_field_hint">Введите почту или никнейм</string>
+    <string name="or_label">или</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="not_registered_yet_label">Ещё нет аккаунта?</string>
+    <string name="register_button_text">Зарегистрируйтесь</string>
+    <string name="registration_label">Регистрация</string>
+    <string name="already_registered_label">Уже есть аккаунт?</string>
+    <string name="return_to_login_button_text">Войдите</string>
+    <string name="repeat_password_label">Повторите пароль</string>
+    <string name="registration_button_text">Зарегистрироваться</string>
+    <string name="default_user_name">UserName</string>
+    <string name="see_all_label_text">Посмотреть всех</string>
+    <string name="bookmakers_rating_label">Рейтинг букмекеров</string>
+</resources>
