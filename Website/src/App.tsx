@@ -13,6 +13,8 @@ import ForecastContainer from './components/Forecast/ForecastContainer'
 import UsersContainer from './components/Users/UsersContainer'
 import UserContainer from './components/User/UserContainer'
 
+import MatchesContainer from './components/Matches/MatchesContainer'
+// import MatchContainer from './components/Match/MatchContainer'
 
 import MainPageContainer from './components/MainPage/MainPageContainer'
 import HeaderContainer from './components/Header/HeaderContainer'
@@ -48,6 +50,8 @@ const App: FC = () => {
 						<Route exact path="/forecasts" render={() => <ForecastsContainer />} />
 						<Route exact path="/forecasts/:forecastId" render={() => <ForecastContainer />} />
 						{/* <Route path="/" render={() => <MatchesContainer />} /> */}
+						<Route exact path="/matches" render={() => <MatchesContainer />} />
+						{/* <Route path="/matches/:matchId" render={() => <MatchContainer />} /> */}
 
 						{/* <Route path="/" render={() => <ArticlesContainer />} /> */}
 						{/* <Route path="/" render={() => <NewsContainer />} /> */}

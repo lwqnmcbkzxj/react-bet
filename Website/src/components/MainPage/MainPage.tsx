@@ -3,6 +3,7 @@ import s from './MainPage.module.scss';
 import classNames from 'classnames'
 import { NavLink } from 'react-router-dom';
 import ForecastsList from '../Forecasts/ForecastsList/ForecastsList'
+import MatchesList from '../Matches/MatchesList'
 import ActionButton from '../Common/ActionButton/ActionButton'
 import MobileFooter  from '../Common/Footer/Footer'
 
@@ -83,8 +84,10 @@ const MainPage: FC<MainPagePropsType> = ({ forecasts, mainPageBlocksVisibility, 
 				<div className={s.contentBlock}>
 					<div className={s.contentBlockHeader}>
 						<h1>Рейтинг букмекеров</h1>
+						<h1>Топ матчи</h1>
 					</div>
 					<p>Список матчей</p>
+					<MatchesList limit={5} isMainpage={true}/>
 				</div>
 				<NavLink to="/matches" className={s.navLinkBtn}><ActionButton value="Показать дальше" /></NavLink>
 			</div>

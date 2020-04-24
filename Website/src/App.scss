@@ -31,6 +31,7 @@ button:hover {
 		font-family: 'Roboto Medium';
 		color: #343638;
 		text-transform: uppercase;
+		text-align: center;
 	}
 
 	& .pageHeader {
@@ -62,7 +63,6 @@ button:hover {
 	position: relative;
 	margin-bottom: 12px;
 }
-
 
 
 @media screen and (max-width: 1600px) {
@@ -123,6 +123,10 @@ button:hover {
 		flex-direction: column;
 		& .pageHeaderOptions {
 			align-items: flex-start!important;
+
+			& .pageName {
+				margin-bottom: 20px;
+			}
 			& .showSelectorsBtn {
 				display: block!important;
 			}
@@ -130,7 +134,6 @@ button:hover {
 	}
 
 	.pageName {
-		margin-bottom: 20px;
 		font-size: 20px;
 		line-height: 24px;
 	}
