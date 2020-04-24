@@ -37,12 +37,14 @@ class InputView: UIView {
         addSubview(label)
         label.snp.makeConstraints { (make) in
             make.leading.top.trailing.equalToSuperview()
+            make.height.equalTo(16).priority(999)
         }
         
         addSubview(textField)
         textField.snp.makeConstraints { (make) in
             make.leading.bottom.trailing.equalToSuperview()
-            make.height.equalTo(48)
+            make.height.equalTo(48).priority(999)
+            make.top.equalTo(label.snp.bottom).offset(6)
         }
     }
 }

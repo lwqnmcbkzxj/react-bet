@@ -67,6 +67,7 @@ extension UIView {
     func showError(text: String) {
         for view in subviews {
             if let errView = view as? ErrorView {
+                bringSubviewToFront(errView)
                 show(errorView: errView, text: text)
                 return
             }

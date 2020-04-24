@@ -123,7 +123,7 @@ class FullForecastHeader: UITableViewHeaderFooterView {
         super.init(reuseIdentifier: reuseIdentifier)
         backgroundColor = .white
         makeLayout()
-        infoStack.configure(forecast: Forecast())
+        infoStack.configure(forecast: Forecast.stub())
     }
     
     required init?(coder: NSCoder) {

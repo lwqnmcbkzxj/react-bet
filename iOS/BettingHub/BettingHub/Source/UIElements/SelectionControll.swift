@@ -10,12 +10,6 @@ import UIKit
 
 class SportsControl: SelectionControl {
     
-    override var selectedIndex: Int? {
-        didSet {
-            print(sports[selectedIndex!].rawValue)
-        }
-    }
-    
     private let sports = Sport.getAll()
     
     init() {

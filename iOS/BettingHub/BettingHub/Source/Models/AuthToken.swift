@@ -1,5 +1,5 @@
 //
-//  RequestError.swift
+//  AuthToken.swift
 //  BettingHub
 //
 //  Created by Maxim Bezdenezhnykh on 23.04.2020.
@@ -8,7 +8,8 @@
 
 import Foundation
 
-enum RequestError: Error {
-    
-    case userAlreadyRegistered
+struct AuthToken: Codable {
+    let access_token: String
+    let refresh_token: String
+    let expires_in: Double
 }

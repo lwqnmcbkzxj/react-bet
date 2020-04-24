@@ -9,23 +9,9 @@
 import Foundation
 
 enum MainSection: String {
-    case topBookmakers, topMatches, lastForecasts
-    
-    static func section(for index: Int) -> MainSection {
-        [
-            0: .topBookmakers,
-            1: .topMatches,
-            2: .lastForecasts
-        ][index]!
-    }
-    
-    func sectionIndex() -> Int {
-        [
-            .topBookmakers: 0,
-            .topMatches: 1,
-            .lastForecasts: 2
-        ][self] ?? 0
-    }
+    case topBookmakers
+    case topMatches
+    case lastForecasts
     
     static func footerID() -> String {
         return "buttonFooter"

@@ -12,20 +12,19 @@ extension UIViewController {
     
     func setView(_ view: UIView, insets: UIEdgeInsets = .zero) {
         self.view.addSubview(view)
-        if #available(iOS 11, *) {
-            view.snp.makeConstraints { (make) in
-                make.top.equalToSuperview().offset(insets.top)
-                make.leading.equalToSuperview().offset(insets.left)
-                make.trailing.equalToSuperview().offset(-insets.right)
-                make.bottom.equalToSuperview().offset(-insets.bottom)
+        view.snp.makeConstraints { (make) in
+            make.leading.equalToSuperview().offset(insets.left)
+            make.trailing.equalToSuperview().offset(-insets.right)
+            
+            //kostyl'
+            if let backView = self.view.subviews.first(where: { type(of: $0) === NavigationBackView.self }) {
+                make.top.equalTo(backView.snp.bottom).offset(insets.top)
+                self.view.bringSubviewToFront(backView)
+            } else {
+                make.top.equalTo(topLayoutGuide.snp.bottom).offset(insets.top)
             }
-        } else {
-            view.snp.makeConstraints { (make) in
-                make.leading.equalToSuperview().offset(insets.left)
-                make.trailing.equalToSuperview().offset(-insets.right)
-                make.top.equalTo(topLayoutGuide.snp.bottom).offset(-insets.bottom)
-                make.bottom.equalTo(bottomLayoutGuide.snp.top).offset(insets.top)
-            }
+            
+            make.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-insets.bottom)
         }
     }
 }

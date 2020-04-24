@@ -9,19 +9,7 @@
 import Foundation
 import Alamofire
 
-class HttpClient {
-    
-//    private let tokenService: ITokenService
-//
-//    init(tokenService: ITokenService) {
-//        self.tokenService = tokenService
-//    }
-    init() {
-        
-    }
-}
-
-extension HttpClient: IHttpClient {
+class HttpClient: IHttpClient {
     
     func request(request: URLRequest, callback: ((Result<Data, Error>) -> Void)?) {
         AF.request(request).responseData { (res) in
@@ -45,28 +33,15 @@ extension HttpClient: IHttpClient {
         }
     }
     
-    func authRequest(request: URLRequest, callback: ((Bool) -> Void)?) {
+    func authRequest(request: URLRequest, callback: ((BHError?) -> Void)?) {
         AF.request(request).responseData { (afRes) in
             if afRes.response?.statusCode == 200 {
-                callback?(true)
+                callback?(nil)
             } else if afRes.response?.statusCode == 422 {
-                print("Duplicate user")
-                callback?(false)
+                callback?(.userAlreadyRegistered)
             } else {
-                callback?(false)
+                callback?(.unspecified)
             }
         }
     }
 }
-
-//private extension HttpClient {
-//    func makeAuthorized(headers: inout HTTPHeaders) -> Error? {
-//        if headers["Authorization"] == nil,
-//            let token = tokenService.authToken() {
-//            headers.add(name: "Authorization", value: "Bearer \(token)")
-//            return nil
-//        } else {
-//            return URLError(.userAuthenticationRequired)
-//        }
-//    }
-//}

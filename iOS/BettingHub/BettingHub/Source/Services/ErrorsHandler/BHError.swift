@@ -1,5 +1,5 @@
 //
-//  RequestErrorsHandler.swift
+//  BHError.swift
 //  BettingHub
 //
 //  Created by Maxim Bezdenezhnykh on 23.04.2020.
@@ -8,6 +8,10 @@
 
 import Foundation
 
-class RequestErrorsHandler {
-
+enum BHError: Int, Error {
+    
+    case userAlreadyRegistered
+    case userUnauthorized
+    case tokenExpired
+    case unspecified
 }

@@ -9,5 +9,9 @@
 import Foundation
 
 struct Match {
-    
+    let date: Date
+    let sport: Sport
+    let name: String
+    let season: String
+    let bets: Int 
 }

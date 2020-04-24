@@ -12,5 +12,7 @@ protocol IRequestBuilder: class {
     
     func registerRequest(username: String, email: String, password: String) -> URLRequest
     
-    func loginRequest(usernameOrEmail: String)
+    func loginRequest(usernameOrEmail: String, password: String) -> URLRequest
+    
+    func userInfo() -> Result<URLRequest, Error>
 }

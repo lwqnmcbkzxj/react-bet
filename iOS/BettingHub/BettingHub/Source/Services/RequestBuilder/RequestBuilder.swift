@@ -27,9 +27,30 @@ class RequestBuilder: IRequestBuilder {
         return req
     }
     
-    func loginRequest(usernameOrEmail: String) {}
+    func loginRequest(usernameOrEmail: String, password: String) -> URLRequest {
+        let url = baseURL.appendingPathComponent("oauth/token")
+        
+        let paramsDict: [String: String] = [
+            "grant_type": "password",
+            "client_id": "2",
+            "client_secret": "V79SdKGIlqFgbmlRGLNIm5r8wPevKerRePbqwzDT",
+            "username": usernameOrEmail,
+            "password": password
+        ]
+        
+        let req = jsonPostRequest(url: url, params: paramsDict)
+        
+        return req
+    }
     
-    private func jsonPostRequest(url: URL, params: [String: String]) -> URLRequest {
+    func userInfo() -> Result<URLRequest, Error> {
+        return .failure(BHError.unspecified)
+    }
+}
+
+private extension RequestBuilder {
+    
+    func jsonPostRequest(url: URL, params: [String: String]) -> URLRequest {
         
         let method = "POST"
         let parametersEncoded = try! JSONEncoder().encode(params)

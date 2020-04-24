@@ -20,14 +20,14 @@ class LoginView: UIView {
         return label
     }()
     
-    private let usernameInput: InputView = {
+    let usernameInput: InputView = {
         let input = InputView()
         input.label.text = Text.yourNickname
         input.textField.makeForUsername()
         return input
     }()
     
-    private let mailInput: InputView = {
+    let mailInput: InputView = {
         let input = InputView()
         input.label.text = Text.yourMailOrNick
         input.textField.keyboardType = .emailAddress
@@ -35,14 +35,14 @@ class LoginView: UIView {
         return input
     }()
     
-    private let passwordInput: InputView = {
+    let passwordInput: InputView = {
         let input = InputView()
         input.label.text = Text.password
         input.textField.makeForPassword(new: false)
         return input
     }()
     
-    private let confirmPasswordInput: InputView = {
+    let confirmPasswordInput: InputView = {
         let input = InputView()
         input.label.text = Text.confirmPass
         input.textField.makeForPassword(new: false)
@@ -112,7 +112,6 @@ class LoginView: UIView {
         backgroundColor = .white
         makeLayout()
         configureView()
-        enableErrorShowing()
     }
     
     required init?(coder: NSCoder) {
@@ -120,7 +119,8 @@ class LoginView: UIView {
     }
     
     func setForState(_ state: LoginScreenState) {
-        mailInput.isHidden = state != .register
+//        mailInput.isHidden = state != .register
+        usernameInput.isHidden = state != .register
         passwordInput.isHidden = state == .restore
         confirmPasswordInput.isHidden = state != .register
         passwordButton.isHidden = state == .register
@@ -131,6 +131,7 @@ class LoginView: UIView {
         case .login:
             loginLabel.text = Text.loginTitle
             usernameInput.label.text = Text.yourMailOrNick
+            mailInput.label.text = Text.yourMailOrNick
             loginButton.setTitle(Text.login, for: .normal)
             googleButton.setTitle(Text.loginWithGoogle, for: .normal)
             
@@ -140,6 +141,7 @@ class LoginView: UIView {
         case .register:
             loginLabel.text = Text.registerTitle
             usernameInput.label.text = Text.yourNickname
+            mailInput.label.text = Text.yourMail
             loginButton.setTitle(Text.login, for: .normal)
             googleButton.setTitle(Text.withGoogle, for: .normal)
             
@@ -205,7 +207,7 @@ class LoginView: UIView {
             make.top.equalTo(loginLabel.snp.bottom)
             make.centerX.equalToSuperview()
             make.width.greaterThanOrEqualTo(300)
-            make.width.equalTo(0.8).priority(.high)
+            make.width.equalToSuperview().multipliedBy(0.8).priority(.high)
         }
         
         inputsStackView.addArrangedSubview(usernameInput)

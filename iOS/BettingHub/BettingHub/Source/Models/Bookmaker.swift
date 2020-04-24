@@ -9,5 +9,7 @@
 import Foundation
 
 struct Bookmaker {
-    
+    let image: String?
+    let rating: Double
+    let bonus: Double
 }

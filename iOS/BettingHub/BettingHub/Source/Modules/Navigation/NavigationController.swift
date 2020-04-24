@@ -26,11 +26,6 @@ class NavigationController: UINavigationController {
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
         viewController.navigationItem.hidesBackButton = true
         super.pushViewController(viewController, animated: animated)
-        
-        if viewControllers.count > 1 {
-            let title = viewControllers[viewControllers.count - 2].title
-            viewController.addBackView(text: title)
-        }
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -46,7 +41,7 @@ extension UIViewController {
         } as? NavigationBackView
     }
     
-    fileprivate func addBackView(text: String?) {
+    func addBackView(text: String?) {
         let backView = self.backView(text: text)
         view.addSubview(backView)
         

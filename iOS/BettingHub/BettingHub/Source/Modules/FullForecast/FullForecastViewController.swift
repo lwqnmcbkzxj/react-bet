@@ -21,7 +21,7 @@ class FullForecastViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+        addBackView(text: nil)
         setView(commentsTable, insets: .init(top: 0, left: 15, bottom: 0, right: 15))
     }
     

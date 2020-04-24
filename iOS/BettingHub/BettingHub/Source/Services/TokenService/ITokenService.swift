@@ -10,5 +10,9 @@ import Foundation
 
 protocol ITokenService: class {
     
-    func authToken() -> String?
+    func authToken() -> Result<String, BHError>
+    
+    func refreshToken() -> Result<String, BHError>
+    
+    func saveAuthToken(_ token: AuthToken)
 }

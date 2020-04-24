@@ -24,9 +24,11 @@ extension UITextField {
         } else {
             textContentType = .emailAddress
         }
+        autocapitalizationType = .none
     }
     
     func makeForEmail() {
         textContentType = .emailAddress
+        autocapitalizationType = .none
     }
 }

@@ -60,6 +60,11 @@ class TopForecastersView: UIView {
         collectionView.reloadData()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        scrollIndicator.reload()
+    }
+    
     private func configure() {
         scrollIndicator.attach(to: collectionView, direction: .horizontal)
         collectionView.register(TopForecasterCell.self, forCellWithReuseIdentifier: cellID)

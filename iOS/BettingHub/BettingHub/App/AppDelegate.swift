@@ -13,27 +13,18 @@ import IQKeyboardManagerSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    
+    private let appCoordinator = AppCoordinator()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         IQKeyboardManager.shared.enable = true
         
-        let vc = FullForecastViewController()
-        let nav = NavigationController(rootViewController: vc)
-        
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = nav
-        window?.makeKeyAndVisible()
         
-        let req = RequestBuilder().registerRequest(username: "testM17", email: "testM17@mail.ru", password: "12345678")
+        let appInitializer = AppInitializer(coordinator: appCoordinator,
+                                            authService: ServiceLocator.shared.authService)
         
-        let client = HttpClient()
-        client.authRequest(request: req) { (success) in
-            if success {
-                print("Congrats")
-            } else {
-                print("fuq")
-            }
-        }
+        appInitializer.start(with: window!)
         
         return true
     }
