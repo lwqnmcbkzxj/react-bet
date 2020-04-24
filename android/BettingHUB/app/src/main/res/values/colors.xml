@@ -9,4 +9,6 @@
     <color name="light_gray">#e9e7e7</color>
     <color name="main_blue">#202e48</color>
     <color name="white">#ffffff</color>
+
+    <color name="frameColor">#E5E2E2</color>
 </resources>

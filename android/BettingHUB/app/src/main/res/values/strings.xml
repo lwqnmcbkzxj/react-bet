@@ -29,4 +29,14 @@
     <string name="default_user_name">UserName</string>
     <string name="see_all_label_text">Посмотреть всех</string>
     <string name="bookmakers_rating_label">Рейтинг букмекеров</string>
+
+    <string name="forecasts">Прогнозы</string>
+    <string name="subscriptions">Подписки</string>
+    <string name="allForecasts">Все прогнозы</string>
+    <string name="paid">Платные</string>
+    <string name="forecastField">Прогноз:</string>
+    <string name="coefficientField">Коэффициент:</string>
+    <string name="betAmountField">Сумма ставки:</string>
+    <string name="gameStartField">Начало игры:</string>
+    <string name="profit">Прибыль</string>
 </resources>
