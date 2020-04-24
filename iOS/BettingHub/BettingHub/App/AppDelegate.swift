@@ -23,9 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let appInitializer = AppInitializer(coordinator: appCoordinator,
                                             authService: ServiceLocator.shared.authService)
-        
+
         appInitializer.start(with: window!)
-        
         return true
     }
 }

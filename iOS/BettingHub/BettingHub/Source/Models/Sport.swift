@@ -8,11 +8,22 @@
 
 enum Sport: String {
     case all
-    case football
-    case tennis
-    case basketball
-    case hockey
-    case other
+    case football = "1"
+    case tennis = "2"
+    case basketball = "3"
+    case hockey = "4"
+    case other = "5"
+    
+    var sportName: String {
+        [
+            .all: "all",
+            .football: "football",
+            .tennis: "tennis",
+            .basketball: "basketball",
+            .hockey: "hockey",
+            .other: "other"
+        ][self]!
+    }
     
     static func getAll() -> [Sport] {
         return [.all, .football, .tennis, .basketball, .hockey, .other]

@@ -14,5 +14,7 @@ protocol IRequestBuilder: class {
     
     func loginRequest(usernameOrEmail: String, password: String) -> URLRequest
     
-    func userInfo() -> Result<URLRequest, Error>
+    func forecastsList(page: Int, quantity: Int,
+                       timeFrame: TimeFrame, sport: Sport,
+                       subscribers: Bool, favorites: Bool) -> URLRequest
 }

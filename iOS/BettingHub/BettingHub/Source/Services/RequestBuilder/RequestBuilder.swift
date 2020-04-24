@@ -43,8 +43,23 @@ class RequestBuilder: IRequestBuilder {
         return req
     }
     
-    func userInfo() -> Result<URLRequest, Error> {
-        return .failure(BHError.unspecified)
+    func forecastsList(page: Int, quantity: Int,
+                       timeFrame: TimeFrame, sport: Sport,
+                       subscribers: Bool, favorites: Bool) -> URLRequest {
+        let url = baseURL.appendingPathComponent("api/forecastList")
+        
+        let params: [String: String] = [
+                "page": String(page),
+                "quanity": String(quantity),
+                "tf": TimeFrame.all.rawValue,
+                "sport": Sport.all.rawValue,
+                "useSubscribes": subscribers ? "1" : "0",
+                "useFavorites": favorites ? "1" : "0"
+        ]
+        
+        let req = jsonPostRequest(url: url, params: params)
+        
+        return req
     }
 }
 

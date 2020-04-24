@@ -13,7 +13,7 @@ class SportsControl: SelectionControl {
     private let sports = Sport.getAll()
     
     init() {
-        let items = sports.map {$0.rawValue.localized}
+        let items = sports.map {$0.sportName.localized}
         super.init(items: items)
     }
     

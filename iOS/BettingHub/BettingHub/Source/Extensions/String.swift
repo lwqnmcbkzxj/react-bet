@@ -13,4 +13,8 @@ extension String {
     var localized: String {
         return NSLocalizedString(self, comment: "")
     }
+    
+    func convert<T: LosslessStringConvertible>(to type: T.Type) -> T? {
+        return T(self)
+    }
 }
