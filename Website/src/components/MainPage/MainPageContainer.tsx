@@ -8,10 +8,15 @@ import MainPage from './MainPage'
 
 import { getForecastsFromServer } from '../../redux/forecasts-reducer'
 import { getActiveFilter } from '../../utils/getActiveFilter'
+import { MatchType } from '../../types/matches';
+import { BookmakerType } from '../../types/bookmakers';
 
-const HeaderConainer: FC = () => {
+const MainPageContainer: FC = () => {
 	const dispatch = useDispatch();
+	const matches = useSelector<AppStateType, Array<MatchType>>(state => state.matches.matches)
 	const forecasts = useSelector<AppStateType, Array<ForecastType>>(state => state.forecasts.forecasts)
+	const bookmakers = useSelector<AppStateType, Array<BookmakerType>>(state => state.bookamkers.bookmakers)
+
 	const mainPageBlocksVisibility = useSelector<AppStateType, Array<ForecastType>>(state => state.app.mainPageBlocksVisibility)
 
 	
@@ -32,6 +37,8 @@ const HeaderConainer: FC = () => {
 	return (
 		<MainPage
 			forecasts={forecasts}
+			matches={matches}
+			bookmakers={bookmakers}
 			mainPageBlocksVisibility={mainPageBlocksVisibility}
 			setMainPageBlocksVisibility={setMainPageBlocksVisibilityDispatch}
 			changeMainPageBlockVisibility={changeMainPageBlockVisibilityDispatch}
@@ -39,4 +46,4 @@ const HeaderConainer: FC = () => {
 	)
 }
 
-export default HeaderConainer;
+export default MainPageContainer;

@@ -1,20 +1,19 @@
 import React, { FC } from 'react';
 import s from './BookmakersList.module.scss';
 import classNames from 'classnames'
-// import { BookmakerType } from '../../types/matches'
+import { BookmakerType } from '../../../types/bookmakers'
 
 import BookmakersListElement from './BookmakersListElement'
 
 
 type BookmakersListPropsType = {
-	// bookmakers: Array<BookmakerType>
+	bookmakers: Array<BookmakerType>
 	limit?: number
 	isMainpage?: boolean
 }
 
 
-const BookmakersList: FC<BookmakersListPropsType> = ({ limit = 0, isMainpage = false,  ...props }) => {
-	let bookmakers = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},]
+const BookmakersList: FC<BookmakersListPropsType> = ({ bookmakers, limit = 0, isMainpage = false,  ...props }) => {
 	let userRating = 9.40;
 	let raingClass
 	if (userRating > 7) {
@@ -38,11 +37,11 @@ const BookmakersList: FC<BookmakersListPropsType> = ({ limit = 0, isMainpage = f
 		</div>
 
 
-		{bookmakers.map((match, counter) =>
+		{bookmakers.map((bookmaker, counter) =>
 			(counter < limit || limit === 0) &&
 			<BookmakersListElement
 				position={counter + 1}
-				// bookmaker={bookmaker}
+				bookmaker={bookmaker}
 			/>
 		)}
 

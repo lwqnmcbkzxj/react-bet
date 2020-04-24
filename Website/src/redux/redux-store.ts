@@ -4,6 +4,9 @@ import thunkMiddleware from "redux-thunk"
 
 import userReducer from "./user-reducer"
 import usersReducer from "./users-reducer"
+import matchesReducer from "./matches-reducer"
+import bookmakersReducer from "./bookmakers-reducer"
+
 import forecastsReducer from "./forecasts-reducer"
 import appReducer from "./app-reducer"
 import liveCommentsReducer from "./liveComments-reducer"
@@ -15,7 +18,10 @@ let rootReducer = combineReducers({
 	app: appReducer,
 	liveComments: liveCommentsReducer,
 
+	matches: matchesReducer,
 
+	bookamkers: bookmakersReducer,
+	
 	user: userReducer,
 	users: usersReducer,
 	

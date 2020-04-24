@@ -10,16 +10,17 @@ import bookmakerImg3 from '../../../assets/img/bookmaker-img-3.png'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRubleSign, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { BookmakerType } from '../../../types/bookmakers';
 
 type BookmakersListElementPropsType = {
-	// bookmaker: BookmakerType
+	bookmaker: BookmakerType
 	position: number
 }
 
 // https://betcity.ru/
 // https://www.ligastavok.ru/
 
-const BookmakersListElement: FC<BookmakersListElementPropsType> = ({ position, ...props }) => {
+const BookmakersListElement: FC<BookmakersListElementPropsType> = ({ bookmaker, position, ...props }) => {
 	let userRating = 9.40;
 	let raingClass
 	let checkedIcon

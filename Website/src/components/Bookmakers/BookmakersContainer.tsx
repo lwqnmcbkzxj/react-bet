@@ -3,11 +3,11 @@ import { useDispatch, useSelector} from "react-redux"
 import { AppStateType } from '../../types/types'
 import Bookmakers from './Bookmakers'
 
-// import {  } from '../../types/bookmakers'
+import { BookmakerType } from '../../types/bookmakers'
 
 
 const BookmakersContainer: FC = ({ ...props }) => {
-	// const forecasts = useSelector<AppStateType, Array<ForecastType>>(state => state.forecasts.forecasts)
+	const bookmakers = useSelector<AppStateType, Array<BookmakerType>>(state => state.bookamkers.bookmakers)
 
 	const dispatch = useDispatch()
 
@@ -18,7 +18,7 @@ const BookmakersContainer: FC = ({ ...props }) => {
 
 	return (
 		<Bookmakers
-			// matches={matches}
+			bookmakers={bookmakers}
 		/>
 	)
 }

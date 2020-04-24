@@ -2,17 +2,16 @@ import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom'
 import s from './Matches.module.scss';
 import classNames from 'classnames'
-// import { MatchType } from '../../types/matches'
+import { MatchType } from '../../types/matches'
 
 import footballImg from '../../assets/img/football.png'
 
-type UsersListPropsType = {
-	// matches: Array<MatchType>
+type MatchesListPropsType = {
+	matches: Array<MatchType>
 	limit?: number
 	isMainpage?: boolean
 }
-const UsersList: FC<UsersListPropsType> = ({ limit = 0, isMainpage = false, ...props }) => {
-	let matches = [{}, {}, {}, {}, {},{}, {}, {}, {}, {},{}, {}, {}, {}, {},]
+const UsersList: FC<MatchesListPropsType> = ({ matches, limit = 0, isMainpage = false, ...props }) => {
 	return (
 		<div className={classNames(s.matchList, {[s.isMainpage]: isMainpage }) }>
 			<div className={s.listHeader}>

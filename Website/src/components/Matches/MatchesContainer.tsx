@@ -3,22 +3,22 @@ import { useDispatch, useSelector} from "react-redux"
 import { AppStateType } from '../../types/types'
 import Matches from './Matches'
 
-import {  } from '../../types/forecasts'
-
+import { MatchType } from '../../types/matches'
+import { getMatchesFromServer } from '../../redux/matches-reducer'
 
 const MatchesContainer: FC = ({ ...props }) => {
-	// const forecasts = useSelector<AppStateType, Array<ForecastType>>(state => state.forecasts.forecasts)
+	const matches = useSelector<AppStateType, Array<MatchType>>(state => state.matches.matches)
 
 	const dispatch = useDispatch()
 
-	// useEffect(() => {
-	// 	dispatch(getMatchesFromServer(1, 15))		
-	// }, []);
+	useEffect(() => {
+		dispatch(getMatchesFromServer())		
+	}, []);
 
 
 	return (
 		<Matches
-			// matches={matches}
+			matches={matches}
 		/>
 	)
 }

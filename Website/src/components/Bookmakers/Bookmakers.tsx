@@ -5,11 +5,12 @@ import {  } from '../../types/forecasts'
 import Breadcrumbs from '../Common/Breadcrumbs/Breadcrumbs'
 
 import BookmakersList from './BookmakersList/BookmakersList'
+import { BookmakerType } from '../../types/bookmakers';
 
 type BookmakersPropsType = {
-	
+	bookmakers: Array<BookmakerType>
 }
-const Bookmakers: FC<BookmakersPropsType> = ({ ...props }) => {
+const Bookmakers: FC<BookmakersPropsType> = ({ bookmakers, ...props }) => {
 	return (
 		<div className={s.bookmakers}>
 			<Breadcrumbs pathParams={['Главная', 'Рейтинг букмекеров']} />
@@ -17,7 +18,7 @@ const Bookmakers: FC<BookmakersPropsType> = ({ ...props }) => {
 				<h1 className="pageName">Рейтинг букмекеров</h1>
 			</div>
 
-			<BookmakersList />
+			<BookmakersList bookmakers={bookmakers}/>
 		</div>
 	)
 }

@@ -5,11 +5,12 @@ import {  } from '../../types/forecasts'
 import Breadcrumbs from '../Common/Breadcrumbs/Breadcrumbs'
 
 import MatchesList from './MatchesList'
+import { MatchType } from '../../types/matches';
 
 type MatchesPropsType = {
-	
+	matches: Array<MatchType>
 }
-const Matches: FC<MatchesPropsType> = ({ ...props }) => {
+const Matches: FC<MatchesPropsType> = ({matches, ...props }) => {
 	return (
 		<div className={s.matches}>
 			<Breadcrumbs pathParams={['Главная', 'Лучшие матчи']} />
@@ -17,7 +18,7 @@ const Matches: FC<MatchesPropsType> = ({ ...props }) => {
 				<h1 className="pageName">Топ матчи</h1>
 			</div>
 
-			<MatchesList />
+			<MatchesList matches={matches}/>
 		</div>
 	)
 }
