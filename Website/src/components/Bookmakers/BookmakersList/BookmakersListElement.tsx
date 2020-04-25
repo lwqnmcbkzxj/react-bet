@@ -17,14 +17,11 @@ type BookmakersListElementPropsType = {
 	position: number
 }
 
-// https://betcity.ru/
-// https://www.ligastavok.ru/
+
 
 const BookmakersListElement: FC<BookmakersListElementPropsType> = ({ bookmaker, position, ...props }) => {
-	let userRating = 9.40;
+	let userRating = bookmaker.rating;
 	let raingClass
-	let checkedIcon
-	let checkedClass
 	if (userRating > 7) {
 		raingClass = s.positive
 	} else if (userRating > 3.5) {
@@ -33,7 +30,9 @@ const BookmakersListElement: FC<BookmakersListElementPropsType> = ({ bookmaker, 
 		raingClass = s.negative
 	}
 
-	if (true) {
+	let checkedIcon
+	let checkedClass
+	if (bookmaker.isChecked) {
 		checkedIcon = faCheck
 		checkedClass = s.positive
 	} else {
@@ -45,25 +44,28 @@ const BookmakersListElement: FC<BookmakersListElementPropsType> = ({ bookmaker, 
 		<div className={s.bookmaker}>
 			<div className={s.position}>{position}</div>
 			<div className={s.company}>
-				<img src={bookmakerImg1} alt="bookmaker-img" />
+				<img src={bookmaker.companyImg} alt="bookmaker-img" />
 			</div>
 			<div className={s.isChecked}>
 				<FontAwesomeIcon icon={checkedIcon} className={checkedClass}/>
 			</div>
 			<div className={s.rating}>
-				<span className={classNames(s.ratingNumber, raingClass)}>9.40</span>
+				<span className={classNames(s.ratingNumber, raingClass)}>
+					{bookmaker.rating.toFixed(2)}
+				</span>
 				<span className={s.maxRating}>/10</span>
 			</div>
-			<div className={s.bonus}>1 000
+			<div className={s.bonus}>
+				{bookmaker.bonus.toLocaleString()}
 				<span><FontAwesomeIcon icon={faRubleSign} /></span>
 			</div>
 			<div className={s.review}>
-				<NavLink to="bookmakers/1">Обзор</NavLink>
+				<NavLink to={`bookmakers/${bookmaker.id}`}>Обзор</NavLink>
 			</div>
 			<div className={s.link}>
 				<button>
-					<a href="https://betcity.ru/" className={s.desktopLink}>Сайт</a>
-					<a href="https://betcity.ru/" className={s.mobileLink}><FontAwesomeIcon icon={faExternalLinkAlt} /></a>
+					<a href={bookmaker.link} className={s.desktopLink}>Сайт</a>
+					<a href={bookmaker.link} className={s.mobileLink}><FontAwesomeIcon icon={faExternalLinkAlt} /></a>
 				</button>
 				
 			</div>

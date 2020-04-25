@@ -3,6 +3,10 @@ import { ThunkAction } from 'redux-thunk'
 
 import { BookmakerType } from '../types/bookmakers'
 
+import bookmakerImg1 from '../assets/img/bookmaker-img-1.png'
+import bookmakerImg2 from '../assets/img/bookmaker-img-2.png'
+import bookmakerImg3 from '../assets/img/bookmaker-img-3.png'
+
 const SET_BOOKMAKERS = 'bookmakers/SET_BOOKMAKERS'
 const TOGGLE_IS_FETCHING = 'bookmakers/TOGGLE_IS_FETCHING'
 
@@ -10,8 +14,36 @@ const TOGGLE_IS_FETCHING = 'bookmakers/TOGGLE_IS_FETCHING'
 
 
 let initialState = {
-    isFetching: false,
-    bookmakers: [ {},{},{},{},{},{},{},{},{},{},{},{},{},{},{}] as Array<BookmakerType>
+	isFetching: false,
+	bookmakers: [
+		{
+			id: 1,
+			position: 1,
+			companyImg: bookmakerImg1,
+			isChecked: true,
+			rating: 9.40,
+			bonus: 1000,
+			link: "https://1xstavka.ru/"
+		},
+		{
+			id: 2,
+			position: 2,
+			companyImg: bookmakerImg2,
+			isChecked: true,
+			rating: 8.80,
+			bonus: 2500,
+			link: "https://betcity.ru/"
+		},
+		{
+			id: 3,
+			position: 3,
+			companyImg: bookmakerImg3,
+			isChecked: true,
+			rating: 8.35,
+			bonus: 1000,
+			link: "https://www.ligastavok.ru/"
+		}
+	] as Array<BookmakerType>
 }
 
 type InitialStateType = typeof initialState;
@@ -44,8 +76,8 @@ export const setBookmakers = (bookmakers: Array<BookmakerType>): SetBookmakersTy
 	}
 }
 
-export const getMatchesFromServer = ():ThunksType => async (dispatch) => {
-    // dispatch(setMatches(matches))
+export const getMatchesFromServer = (): ThunksType => async (dispatch) => {
+	// dispatch(setMatches(matches))
 }
 
 
