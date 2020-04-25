@@ -7,6 +7,7 @@ import ForecastsList from '../Forecasts/ForecastsList/ForecastsList'
 import MatchesList from '../Matches/MatchesList'
 import BookmakersList from '../Bookmakers/BookmakersList/BookmakersList'
 
+import UsersList from '../Users/MainPageUsersList/MainPageUsersList'
 
 
 import ActionButton from '../Common/ActionButton/ActionButton'
@@ -21,6 +22,7 @@ import useMobile from '../../hooks/useMobile'
 import { getArrayFromEnum } from '../../utils/enumToArray'
 import { MatchType } from '../../types/matches';
 import { BookmakerType } from '../../types/bookmakers';
+import { UserType } from '../../types/users';
 
 
 enum blocksNamesEnum {
@@ -29,6 +31,7 @@ enum blocksNamesEnum {
 
 
 type MainPagePropsType = {
+	users: Array<UserType>
 	forecasts: Array<ForecastType>
 	matches: Array<MatchType>
 	bookmakers: Array<BookmakerType>
@@ -37,7 +40,7 @@ type MainPagePropsType = {
 	changeMainPageBlockVisibility: (blockName: string) => void
 }
 
-const MainPage: FC<MainPagePropsType> = ({ forecasts, matches, bookmakers, mainPageBlocksVisibility, setMainPageBlocksVisibility, changeMainPageBlockVisibility, ...props }) => {
+const MainPage: FC<MainPagePropsType> = ({ users, forecasts, matches, bookmakers, mainPageBlocksVisibility, setMainPageBlocksVisibility, changeMainPageBlockVisibility, ...props }) => {
 	let isMobile = useMobile(768)
 
 	// Force update for toggling blocks
@@ -58,7 +61,7 @@ const MainPage: FC<MainPagePropsType> = ({ forecasts, matches, bookmakers, mainP
 		<div className={s.mainBlock}>
 			<div className={s.forecasters}>
 				<h1 className={s.blockHeader}>Лучшие прогнозисты</h1>
-				<p>Здесь будет список прогнозистов</p>
+				<UsersList users={users}/>
 				<NavLink to="/forecasters" className={s.navLinkBtn}><ActionButton value="Посмотреть всех" /></NavLink>
 
 			</div>

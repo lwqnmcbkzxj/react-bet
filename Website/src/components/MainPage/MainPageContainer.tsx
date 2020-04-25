@@ -10,9 +10,11 @@ import { getForecastsFromServer } from '../../redux/forecasts-reducer'
 import { getActiveFilter } from '../../utils/getActiveFilter'
 import { MatchType } from '../../types/matches';
 import { BookmakerType } from '../../types/bookmakers';
+import { UserType } from '../../types/users';
 
 const MainPageContainer: FC = () => {
 	const dispatch = useDispatch();
+	const users = useSelector<AppStateType, Array<UserType>>(state => state.users.users)
 	const matches = useSelector<AppStateType, Array<MatchType>>(state => state.matches.matches)
 	const forecasts = useSelector<AppStateType, Array<ForecastType>>(state => state.forecasts.forecasts)
 	const bookmakers = useSelector<AppStateType, Array<BookmakerType>>(state => state.bookamkers.bookmakers)
@@ -36,6 +38,7 @@ const MainPageContainer: FC = () => {
 
 	return (
 		<MainPage
+			users={users}
 			forecasts={forecasts}
 			matches={matches}
 			bookmakers={bookmakers}
