@@ -13,8 +13,12 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 type AuthFormPropsType = {
 	isAuthFormVisible: boolean
 	toggleAuthFormVisiblility: () => void
+
+	login: (email: string, password: string) => void
+	register: (username: string, email: string, password: string) => void
+	resetPassword: (email: string) => void
 }
-const AuthFormContainer: FC<AuthFormPropsType> = ({ isAuthFormVisible, toggleAuthFormVisiblility, ...props }) => {
+const AuthFormContainer: FC<AuthFormPropsType> = ({	login, register, resetPassword, isAuthFormVisible, toggleAuthFormVisiblility, ...props }) => {
 	const [authFormPhase, setAuthFormPhase] = useState('login')
 
 	useEffect(() => {
@@ -27,11 +31,20 @@ const AuthFormContainer: FC<AuthFormPropsType> = ({ isAuthFormVisible, toggleAut
 
 	let visibleFormBlock;
 	if (authFormPhase === 'login') {
-		visibleFormBlock = <Login changeAuthFormPhase={changeAuthFormPhase} />
+		visibleFormBlock = <Login
+			login={login}
+			changeAuthFormPhase={changeAuthFormPhase}
+		/>
 	} else if (authFormPhase === 'register') {
-		visibleFormBlock = <Register changeAuthFormPhase={changeAuthFormPhase} />
+		visibleFormBlock = <Register
+			register={register}
+			changeAuthFormPhase={changeAuthFormPhase}
+		/>
 	} else if (authFormPhase === 'reset-password') {
-		visibleFormBlock = <ResetPassword changeAuthFormPhase={changeAuthFormPhase}/>
+		visibleFormBlock = <ResetPassword
+			resetPassword={resetPassword}
+			changeAuthFormPhase={changeAuthFormPhase}
+		/>
 	}
 	return (
 		<>
@@ -41,7 +54,9 @@ const AuthFormContainer: FC<AuthFormPropsType> = ({ isAuthFormVisible, toggleAut
 					<FontAwesomeIcon icon={faTimes} className={s.closePopup} onClick={toggleAuthFormVisiblility} />
 				</div>
 				<FontAwesomeIcon icon={faTimes} className={s.closePopup + ' ' + s.mobileClosePopup} onClick={toggleAuthFormVisiblility} />
+
 				<div className={s.authForm}>{visibleFormBlock}</div>
+
 			</div>
 			<div className={s.auth_bg} onClick={isAuthFormVisible ? toggleAuthFormVisiblility : () => { }}></div>
 		</>

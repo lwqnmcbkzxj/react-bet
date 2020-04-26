@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 import s from '../AuthForm.module.scss';
 import classNames from 'classnames'
 
 import { Redirect } from 'react-router';
 
-import { reduxForm } from 'redux-form';
+import { reduxForm, InjectedFormProps, SubmissionError } from 'redux-form'
 import { Input, createField } from '../../Common/FormComponents/FormComponents';
 import ActionButton from '../../Common/ActionButton/ActionButton'
 
@@ -26,31 +26,32 @@ const ReduxPasswordResetForm = reduxForm({ form: 'reset-password' })(RegisterFor
 
 type AuthFormPropsType = {
 	changeAuthFormPhase: (phase: string) => void
+	resetPassword: (email: string) => void
+
 }
 
-class PasswordReset extends React.Component<AuthFormPropsType> {
-	// componentDidMount() {
-	//     this.props.authUser();
-	// }
-	// login = (formData) => {
-	//     this.props.login(formData.email, formData.password);
-	// }
-	render() {
-		// if (this.props.logged) {
-		//     return <Redirect to={"/course"} />
-		// }
 
-		return (
-			<>
-				<ReduxPasswordResetForm onSubmit={() => console.log('s')} />
-
-				<div className={s.orLine}><p>или</p></div>
-
-				{/* <LoginThrough /> */}
-			</>
-		);
+const PasswordReset: FC<AuthFormPropsType> = ({ resetPassword, changeAuthFormPhase, ...props }) => {
+	const handleReset = (formData: any) => {
+		if (formData.email === '')
+			throw new SubmissionError({ _error: 'Заполните все поля' })
+		else {
+			resetPassword(formData.email)
+			throw new SubmissionError({ _error: '' })
+		}
 	}
+
+	return (
+		<>
+			<ReduxPasswordResetForm onSubmit={handleReset} />
+
+			<div className={s.orLine}><p>или</p></div>
+
+			{/* <LoginThrough /> */}
+		</>
+	);
 }
+
 
 
 

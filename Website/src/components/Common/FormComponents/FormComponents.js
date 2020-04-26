@@ -30,7 +30,7 @@ export const Input = (props) => {
 	const { input, meta, ...restProps } = props;
 	const hasError = meta.touched && meta.error;
 
-	let type = input.type === 'password';
+	let type = props.type;
 
 	const [passwordVisibilty, setPasswordVisibilty] = useState(false)
 

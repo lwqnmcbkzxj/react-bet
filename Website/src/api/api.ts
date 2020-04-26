@@ -7,19 +7,29 @@ const instance = Axios.create({
 	}
 });
 
-// export const setToken = (token) => {
-//     instance.defaults.headers.Authorization = "Bearer " + token;
-// }
+export const setTokenForAPI = (token: string) => {
+    instance.defaults.headers.Authorization = "Bearer " + token;
+}
 
 
 
 export const userAPI = {
 	login(email: string, password: string) {
-		return instance.post(`login`, { "email": email, "password": password })
+
+		// let obj = {
+		// 	grant_type: "password",
+  		// 	client_id: "2",
+  		// 	client_secret: "V79SdKGIlqFgbmlRGLNIm5r8wPevKerRePbqwzDT",
+  		// 	username: "cerberus3@gmail.com",
+  		// 	password: "CerberusInvesting",
+ 		// 	 scope: "*"
+		// }
+
+		return instance.post(`http://betting-hub.sixhands.co/oauth/token`, JSON.stringify(email))
 			.then((response) => {
 				return response.data
 			}
-			);
+		);
 	},
 
 	register(username: string, email: string, password: string) {

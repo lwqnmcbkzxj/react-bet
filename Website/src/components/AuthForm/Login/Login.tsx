@@ -9,6 +9,7 @@ import ActionButton from '../../Common/ActionButton/ActionButton'
 // import LoginThrough from './LoginThrough/LoginThrough'
 
 type AuthFormPropsType = {
+	login: (email: string, password: string) => void
 	changeAuthFormPhase: (phase: string) => void
 }
 type LoginFormValuesType = {
@@ -34,27 +35,21 @@ const LoginForm: FC<InjectedFormProps<LoginFormValuesType>> = (props: any) => {
 const ReduxLoginForm = reduxForm<LoginFormValuesType>({ form: 'login' })(LoginForm)
 
 
-const Login: FC<AuthFormPropsType> = (props) => {
+const Login: FC<AuthFormPropsType> = ({ login, ...props }) => {
 
-	const login = (formData: LoginFormValuesType) => {
-		console.log(formData)
-		checkLoginSubmit(formData.email, formData.password)
-	}
-
-	const checkLoginSubmit = (email = "", password = "") => {
-		if (email === '' || password === '')
+	const handleLogin = (formData: LoginFormValuesType) => {
+		if (formData.email === '' || formData.password === '') 		
 			throw new SubmissionError({ _error: 'Заполните все поля' })
-		else 
+		else {
+			login(formData.email, formData.password)
 			throw new SubmissionError({ _error: '' })
-			
-			
-			
-
+		}
 	}
 
+	
 	return (
 		<>
-			<ReduxLoginForm onSubmit={login} />
+			<ReduxLoginForm onSubmit={handleLogin} />
 
 			<div className={s.orLine}><p>или</p></div>
 

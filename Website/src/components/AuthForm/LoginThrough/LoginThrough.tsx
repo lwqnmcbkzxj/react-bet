@@ -1,15 +1,10 @@
 import React, { FC, useState, useEffect } from 'react';
-import s from './AuthForm.module.scss'
+import s from '../AuthForm.module.scss'
 
 
 type AuthFormPropsType = {
-	isAuthFormVisible: boolean
-	toggleAuthFormVisible: () => void
 }
-const LoginThrough: FC<AuthFormPropsType> = ({ isAuthFormVisible, toggleAuthFormVisible, ...props }) => {
-
-	
-
+const LoginThrough: FC<AuthFormPropsType> = ({ ...props }) => {
 	return (
 		<div>
 			
