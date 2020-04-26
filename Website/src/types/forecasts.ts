@@ -45,6 +45,9 @@ export type ForecastType = {
 	BetValue: number
 	CratedAt: string
 	Coefficient: number
+	CommentsQuanity: number
+	FavAmmount: number
+	Rating: number
 }
 
 /* FORECAST TYPES */
