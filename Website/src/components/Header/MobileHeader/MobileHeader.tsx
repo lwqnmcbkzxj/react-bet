@@ -10,10 +10,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 type HeaderPropsType = {
-
+	logged: boolean
 }
 
-const MobileHeader: FC<HeaderPropsType> = ({ ...props }) => {
+const MobileHeader: FC<HeaderPropsType> = ({ logged, ...props }) => {
 	const [seactBlockVisible, setSearchBlockVisibility] = useState(false)
 
 	const toggleSeachBlockVisibility = () => {
@@ -27,7 +27,7 @@ const MobileHeader: FC<HeaderPropsType> = ({ ...props }) => {
 			<div className={s.advert}></div>
 			<header>
 				<NavLink to="/" className={s.logoLink}><img src={logo} className={s.logo} alt="logo" /></NavLink>
-				{true && <div className={s.bankBlock}>Банк: <span>1 500 xB</span></div>}
+				{logged && <div className={s.bankBlock}>Банк: <span>1 500 xB</span></div>}
 				<button onClick={toggleSeachBlockVisibility} className={classNames(s.searchToggleIcon, { [s.active]: seactBlockVisible })}><FontAwesomeIcon icon={faSearch} /></button>
 
 			</header>

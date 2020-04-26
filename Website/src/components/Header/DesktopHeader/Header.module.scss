@@ -5,12 +5,13 @@
 .desktopHeader {
 	height: 50px;
 }
+
 .desktopHeader header {
 	height: 50px;
 	padding: 0 17.5%;
 	width: 65%;
 	background: #202E48;
-	
+
 	display: grid;
 	grid-template-columns: 180px 1fr 1fr 250px;
 	justify-content: space-between;
@@ -22,60 +23,114 @@
 
 	& .logoLink {
 		text-align: right;
+
 		& .logo {
 			height: 40px;
 		}
 	}
-	& .loginBtn {
-		margin-right: 75px;
-		color: #fff;
+
+	& .headerUserBlock {
 		display: flex;
 		align-items: center;
-		justify-content: center;
-		font-family: "Roboto";
-		font-size: 17px;
-		line-height: 20px;
-		justify-content: flex-end;
-		& .loginIcon {
-			margin-right: 10px;
-			font-size: 23px;
+		justify-content: space-between;
+
+		& .bankBlock {
+			display: flex;
+			align-items: center;
+			margin: 0 10px;
+			background: #515C70;
+			height: 32px;
+			color: #fff;
+			font-size: 17px;
+			line-height: 20px;
+			padding: 7px 13px;
+			border-radius: 6px;
+			box-shadow: 0px 3px 6px #00000029;
+
+			box-sizing: border-box;
+			font-family: 'Roboto Light';
+			text-transform: uppercase;
+			vertical-align: middle;
+
+			& span {
+				margin-left: 3px;
+				font-family: 'Roboto Medium';
+				text-transform: initial;
+			}
+		}
+
+		& .loggedUser {
+			margin-right: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			& img {
+				width: 34px;
+				height: 34px;
+				margin-right: 5px;
+			}
+
+			& .userBlockToggler {
+				color: #fff;
+			}
+		}
+
+		& .loginBtn {
+			justify-self: flex-end;
+			color: #fff;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-family: "Roboto";
+			font-size: 17px;
+			line-height: 20px;
+			justify-content: flex-end;
+
+			& .loginIcon {
+				margin-right: 10px;
+				font-size: 23px;
+			}
 		}
 	}
+
+
 
 	& .search_block {
 		position: relative;
 		display: flex;
 		align-items: center;
 		margin-left: 75px;
-	
+
 		& input {
 			background: #515C70 0% 0% no-repeat padding-box;
 			box-shadow: 0px 3px 6px #00000029;
 			border-radius: 6px;
-			height: 34px;
-		
+			height: 32px;
+
 			color: #D5D8DD;
 			font-size: 16px;
 			line-height: 19px;
 			font-family: "Roboto Light";
-		
+
 			border: none;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			padding: 3px 10px 3px 40px;
-			
+
 			width: 100%;
 			box-sizing: border-box;
 		}
+
 		& .searchIcon {
 			position: absolute;
-			top: 8px;
+			top: 6px;
 			left: 10.6px;
 			font-size: 20px;
 			color: #D5D8DD;
 		}
-	}	
+	}
 }
 
 
@@ -116,11 +171,13 @@
 		padding: 0 12.5%;
 		width: 75%;
 	}
-	.loginBtn {
-		margin-right: 45px!important;
+
+	.headerUserBlock {
+		margin-right: 45px !important;
 	}
+
 	.search_block {
-		margin-left: 45px!important;
+		margin-left: 45px !important;
 	}
 }
 
@@ -128,12 +185,14 @@
 	.desktopHeader header {
 		padding: 0 7.5%;
 		width: 85%;
-	}	
-	.loginBtn {
-		margin-right: 25px!important;
 	}
+
+	.headerUserBlock {
+		margin-right: 25px !important;
+	}
+
 	.search_block {
-		margin-left: 25px!important;
+		margin-left: 25px !important;
 	}
 }
 
@@ -141,27 +200,44 @@
 	.desktopHeader header {
 		padding: 0 2.5%;
 		width: 95%;
-	}	
-
-	.loginBtn {
-		margin-right: 15px!important;
 	}
+
+	.headerUserBlock {
+		margin-right: 15px !important;
+	}
+
 	.search_block {
-		margin-left: 15px!important;
+		margin-left: 15px !important;
 	}
 }
+
 @media screen and (max-width: 1024px) {
 	.desktopHeader header {
-		grid-template-columns: 180px auto auto;		
+		grid-template-columns: 180px auto auto;
 		grid-gap: 10px;
-	}	
-	.loginBtn {
-		margin-right: 0px!important;
-	}
-	.search_block {
-		margin-left: 0px!important;
+
+		& .headerUserBlock {
+			margin-right: 0px !important;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			& .loggedUser {
+				margin-right: 20px;
+			}
+
+			& .bankBlock {
+				font-size: 14px;
+				line-height: 17px;
+			}
+		}
+
+		& .search_block {
+			margin-left: 0px !important;
+		}
 	}
 }
+
 
 
 @media screen and (max-width: 480px) {
@@ -169,4 +245,3 @@
 		display: none;
 	}
 }
-

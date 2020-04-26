@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import AuthForm from './AuthForm'
@@ -9,6 +9,7 @@ import { login, register, resetPassword } from '../../redux/user-reducer'
 
 const AuthFormContainer: FC = ({ ...props }) => {
 	const isAuthFormVisible = useSelector<AppStateType, boolean>(state => state.app.isAuthFormVisible);
+	const logged = useSelector<AppStateType, boolean>(state => state.user.logged);
 	const dispatch = useDispatch();
 
 	const toggleAuthFormVisibleDispatch = () => {
@@ -24,6 +25,13 @@ const AuthFormContainer: FC = ({ ...props }) => {
 	const resetPasswordDispatch = (email: string) => {
 		dispatch(resetPassword(email))
 	}
+
+	// 
+	useEffect(() => {
+		if (isAuthFormVisible)
+			toggleAuthFormVisibleDispatch()
+	}, [logged]);
+	
 	return (
 		<AuthForm
 			isAuthFormVisible={isAuthFormVisible}
