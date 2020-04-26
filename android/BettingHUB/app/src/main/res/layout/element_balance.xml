@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="balance"
+            type="String"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_balanca"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/roboto_regular"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text="@string/bankField"/>
+
+        <TextView
+            android:id="@+id/balance"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/roboto_regular"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text="@{balance}"
+            android:layout_marginStart="3dp"/>
+
+    </LinearLayout>
+
+</layout>

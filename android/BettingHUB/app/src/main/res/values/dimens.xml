@@ -6,4 +6,7 @@
     <dimen name="sideMargin">15dp</dimen>
     <dimen name="forecastSideMargin">8dp</dimen>
     <dimen name="forecastFieldSpace">6dp</dimen>
+
+    <dimen name="forecastItemTopSpace">25dp</dimen>
+    <dimen name="forecastItemSpace">20dp</dimen>
 </resources>
