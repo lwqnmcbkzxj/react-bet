@@ -58,6 +58,13 @@ const forecastsReducer = (state = initialState, action: ActionsTypes): InitialSt
 				forecasts: action.forecasts
 			}
 		}
+		case SET_FORECAST: {
+			debugger
+			return {
+				...state,
+				currentForecast: action.forecast
+			}
+		}
 		case TOGGLE_FILTER: {
 			let filters = state.filters[action.filtersBlockName];
 			filters.map(filter => {
@@ -121,9 +128,12 @@ export const getForecastsFromServer = (page: number, quanity: number, options = 
 }
 
 export const getForecastFromServer = (id: number): ThunksType => async (dispatch) => {
+
+	dispatch(toggleIsForecastsFetching(true))
 	let response = await forecastsAPI.getForecast(id)	
-	
-	dispatch(setForecast(response))
+	dispatch(toggleIsForecastsFetching(false))
+
+	dispatch(setForecast(response[0]))
 }
 
 export const setForecasts = (forecasts: Array<ForecastType>): SetForecastsType => {
@@ -155,6 +165,10 @@ export const toggleIsForecastsFetching = (isFetching: boolean): TypeToggleIsFore
 		type: TOGGLE_IS_FORECASTS_FETCHING,
 		isFetching
 	}
+}
+
+export const rateForecast = (id: number, type: number): ThunksType => async (dispatch) =>{
+	let response = await forecastsAPI.rateForecast(id, type)	
 }
 
 
