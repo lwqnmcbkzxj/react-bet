@@ -46,7 +46,7 @@ const ReduxRegisterForm = reduxForm({ form: 'register' })(RegisterForm)
 
 const Register: FC<AuthFormPropsType> = ({ register, changeAuthFormPhase, ...props }) => {
 	const handleRegister = (formData: any) => {
-		if (formData.email === '' || formData.password === '' || formData.username)
+		if (formData.email === '' || formData.password === '' || formData.username === '')
 			throw new SubmissionError({ _error: 'Заполните все поля' })
 		else {
 			register(formData.username, formData.email, formData.password)

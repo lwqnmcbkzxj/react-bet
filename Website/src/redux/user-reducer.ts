@@ -2,18 +2,20 @@ import { AppStateType } from '../types/types'
 import { ThunkAction } from 'redux-thunk'
 import { userAPI, setTokenForAPI } from '../api/api';
 import { Dispatch } from 'react';
+import { UserType } from '../types/user';
+import { stopSubmit, startSubmit } from 'redux-form';
 
-import axios from 'axios'
 const SET_LOGGED = 'user/SET_LOGGED'
 const SET_TOKEN = 'user/SET_TOKEN'
+const SET_USER_INFO = 'user/SET_USER_INFO'
 
 let initialState = {
-	logged: false,
+	logged: true,
 	token: ""
 }
 
 type InitialStateType = typeof initialState;
-type ActionsTypes = SetLoggedType | SetTokenType;
+type ActionsTypes = SetLoggedType | SetTokenType | SetUserInfo;
 
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
@@ -46,31 +48,55 @@ type SetTokenType = {
 	type: typeof SET_TOKEN,
 	token: string
 }
-export const setLogged = (logged: boolean) => {
+type SetUserInfo = {
+	type: typeof SET_USER_INFO,
+	userInfo: any
+}
+export const setLogged = (logged: boolean): SetLoggedType => {
 	return {
 		type: SET_LOGGED,
 		logged
 	}
 }
 
-export const register = (username: string, email: string, password: string):ThunksType => async (dispatch) => {
+export const register = (username: string, email: string, password: string): ThunksType => async (dispatch) => {
 	let response = await userAPI.register(username, email, password)
+
 }
 
-
-export const login = (email: string, password: string):ThunksType => async (dispatch) => {
+export const login = (email: string, password: string): ThunksType => async (dispatch) => {
 	let response = await userAPI.login(email, password)
 
-		// setToken("12345")
+	if (!response.message) {
+		dispatch(setAccessToken(response.access_token))
+		dispatch(setLogged(true))
+		dispatch(getUserInfo())
+	}
 }
 
-export const resetPassword = (email: string):ThunksType => async (dispatch) => {
+export const resetPassword = (email: string): ThunksType => async (dispatch) => {
 	// let response = await userAPI.resetPassword(email)
 }
 
+export const logout = (): ThunksType => async (dispatch) => {
+	dispatch(setLogged(false))
+	dispatch(setAccessToken(""))
+}
 
+export const getUserInfo = (): ThunksType => async (dispatch) => {
+	let response = await userAPI.getUserInfo()
+	if (!response.message) {
+		dispatch(setUserInfo(response))
+	}
+}
+export const setUserInfo = (userInfo: any): SetUserInfo => {
+	return {
+		type: SET_USER_INFO,
+		userInfo
+	}
+}
 
-const setToken = (token: string):ThunksType => async (dispatch) => {
+const setAccessToken = (token: string): ThunksType => async (dispatch) => {
 	dispatch(setTokenSuccess(token))
 	setTokenForAPI(token)
 }

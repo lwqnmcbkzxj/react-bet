@@ -1,9 +1,10 @@
 import Axios from 'axios';
+import qs from 'query-string'
 
 const instance = Axios.create({
 	baseURL: "http://betting-hub.sixhands.co/api/",
 	headers: {
-
+		
 	}
 });
 
@@ -14,22 +15,23 @@ export const setTokenForAPI = (token: string) => {
 
 
 export const userAPI = {
-	login(email: string, password: string) {
+	login(usernameOrEmail: string, password: string) {
 
-		// let obj = {
-		// 	grant_type: "password",
-  		// 	client_id: "2",
-  		// 	client_secret: "V79SdKGIlqFgbmlRGLNIm5r8wPevKerRePbqwzDT",
-  		// 	username: "cerberus3@gmail.com",
-  		// 	password: "CerberusInvesting",
- 		// 	 scope: "*"
-		// }
+		let obj = {
+			"grant_type": "password",
+			"client_id": "2",
+			"client_secret": "V79SdKGIlqFgbmlRGLNIm5r8wPevKerRePbqwzDT",
+			"username": "test3@yandex.ru",
+			"password": "123456789",
+			"scope": "*"
+		  }
 
-		return instance.post(`http://betting-hub.sixhands.co/oauth/token`, JSON.stringify(email))
+		return instance.post(`https://cors-anywhere.herokuapp.com/http://betting-hub.sixhands.co/oauth/token`, qs.stringify(obj))
 			.then((response) => {
 				return response.data
-			}
-		);
+			})
+			.catch((err) => { console.log(err) })
+		
 	},
 
 	register(username: string, email: string, password: string) {
@@ -37,8 +39,15 @@ export const userAPI = {
 			.then((response) => {
 				return response.data
 			}
-			);
+		);
 	},
+	getUserInfo(){
+		return instance.get(`user`, )
+			.then((response) => {
+				return response.data
+			}
+		);
+	}
 }
 
 
@@ -64,6 +73,13 @@ export const forecastsAPI = {
 				return response.data
 			}
 		);
-	}
+	},
+	rateForecast(forecastId: number, type: number) {
+		return instance.post(`forecastLike`, {forecastId, type})
+			.then((response) => {
+				return response.data
+			}
+		);
+	},
 }
 
