@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/navigation_home">
+    app:startDestination="@+id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_home"
@@ -13,8 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_radiation"
-        android:name="com.xbethub.webview.ui.forecasts.ForecastsFragment"
-        android:label="@string/title_dashboard" />
+        android:name="com.xbethub.webview.ui.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_plus"
