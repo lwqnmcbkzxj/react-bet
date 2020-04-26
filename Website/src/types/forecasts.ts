@@ -46,6 +46,7 @@ export type ForecastType = {
 	CratedAt: string
 	Coefficient: number
 	CommentsQuanity: number
+	Comments: Array<any>
 	FavAmmount: number
 	Rating: number
 }

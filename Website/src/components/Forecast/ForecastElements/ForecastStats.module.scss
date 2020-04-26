@@ -17,12 +17,7 @@
 			line-height: 18px;
 			font-family: 'Roboto Regular';
 			margin: 0 7px;
-			&.positive {
-				color: #0F971D;
-			}
-			&.negative {
-				color: #AA0F0F;
-			}
+			
 		}
 	}
 	& .likes {
@@ -43,6 +38,12 @@
 }
 
 
+.positive {
+	color: #0F971D!important;
+}
+.negative {
+	color: #AA0F0F!important;
+}
 
 @media screen and (max-width: 768px) {
 	.forecastStats {

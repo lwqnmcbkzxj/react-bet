@@ -10,28 +10,42 @@ import { NavLink, Link } from 'react-router-dom';
 import winImg from '../../../assets/img/win-img.png'
 import loseImg from '../../../assets/img/lose-img.png'
 
-import { SportsImagesObj } from '../../../types/types'
+import { getSportImg } from '../../../utils/getSportImg';
+import moment from 'moment'
 
 type ForecastPropsType = {
 	forecast: ForecastType
 }
+const serverUrl = "http://xbethub.com/"
+
+const formatDateForForecastListElement = (createdAt: string) => {
+	let createdDate = Date.parse(createdAt)
+	let momentFormat = moment.unix(createdDate / 1000)
+	let now = Date.now()
+
+	let startDate = ''
+	if ((now - createdDate ) / 86400 < 1) {
+		startDate = 'Сегодня, ' + momentFormat.format("HH:MM")
+	} else if ((now - createdDate) / 86400 < 2) {
+		startDate = 'Вчера, '  + momentFormat.format("HH:MM")
+	} else {
+		startDate = momentFormat.format("DD.MM.YYYY в HH:MM")
+	}
+
+	return startDate
+}
+
+
+
+
 const Forecasts: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 	let fullGameName = forecast.Tournament
 	let gameName = fullGameName.split('.')[1] + '.' + fullGameName.split('.')[2]
 
 
-	let sport = forecast.SportName
-	let sportImg = SportsImagesObj.football
-	if (sport === 'Футбол') {
-		sportImg = SportsImagesObj.football
-	} else if (sport === 'Теннис') {
-		sportImg = SportsImagesObj.tennis
-	} else if (sport === 'Баскетбол') {
-		sportImg = SportsImagesObj.basketball
-	} else if (sport === 'Хоккей') {
-		sportImg = SportsImagesObj.hockey
-	} 
-
+	let sportImg = getSportImg(forecast.SportName)
+	
+	
 
 	return (
 		<div className={s.forecast}>
@@ -42,7 +56,7 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 					<Link to={`forecasts/${forecast.ForecastId}`}><p className={s.gameName}>{gameName}</p></Link>
 				</div>
 				<div className={s.matchDate}>
-					??Сегодня, 19:06
+						{formatDateForForecastListElement(forecast.CratedAt)}
 				</div>
 			</div>
 
@@ -80,7 +94,7 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 			<div className={s.forecastFooter}>
 				<div className={s.userStats}>
 					<NavLink to="/forecasters/5" className={s.userInfo}>
-						<img src={forecastUserImg} alt="userImg" />
+						<img src={serverUrl + forecast.UserAvatar} alt="userImg" />
 						<p className={s.userNickName}>{forecast.UserName}</p>
 					</NavLink>
 					<div className={s.userMatches}>
@@ -105,7 +119,11 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 
 				</div>
 
-				<ForecastStats comments={forecast.CommentsQuanity} favourites={forecast.FavAmmount} likes={forecast.Rating} />
+				<ForecastStats
+					comments={forecast.CommentsQuanity}
+					favourites={forecast.FavAmmount}
+					likes={forecast.Rating}
+					forecastId={forecast.ForecastId} />
 			</div>
 		</div>
 	)

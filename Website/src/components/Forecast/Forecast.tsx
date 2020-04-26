@@ -13,11 +13,33 @@ import { faBookmark, } from '@fortawesome/free-regular-svg-icons'
 
 import { ForecastType } from '../../types/forecasts';
 import { NavLink } from 'react-router-dom';
+import { getSportImg } from '../../utils/getSportImg';
+
+import moment from 'moment'
 
 type ForecastPropsType = {
 	forecast: ForecastType
 }
+
+
+const formatDateForForecastPage = (createdAt: string) => {
+	let createdDate = Date.parse(createdAt)
+	return moment.unix(createdDate / 1000).format("DD.MM.YYYY в HH:MM")
+}
+
+
+
+
 const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
+	let sportImg = getSportImg(forecast.SportName)
+	// let tournament = forecast.Tournament.split('.')
+	let teams = ['','']
+	if (forecast.Text) {
+		teams = forecast.Text.split(' - ')
+	}
+	
+	
+
 	return (
 		<div className={s.forecast}>
 			<div className={s.goBackBlock}>
@@ -28,25 +50,26 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 				<button className={s.goBackBlockIcon}><FontAwesomeIcon icon={faBookmark}/></button>
 			</div>
 
-			<Breadcrumbs pathParams={['Главная', 'Прогнозы', 'Энергетик-БГУ тотал больше 1.5']} />
+			<Breadcrumbs pathParams={['Главная', 'Прогнозы', `${forecast.Text} тотал больше 1.5`]} />
 
 			<div className={s.forecastHeader}>
 				<div className={s.headerDetails}>
-					<div className={s.disciplineName}>Волейбол. NORCECA Women's Continental Championship</div>
-					<div className={s.matchDate}>03.04.2020 в 12:03</div>
+					<div className={s.disciplineName}>{forecast.Tournament}</div>
+					{/* <div className={s.matchDate}>03.04.2020 в 12:03</div> */}
+					<div className={s.matchDate}>{formatDateForForecastPage(forecast.CratedAt)}</div>
 				</div>
-				<div className={s.forecastName}>Энергетик-БГУ тотал больше 1.5</div>
+				<div className={s.forecastName}>{forecast.Text} тотал больше 1.5</div>
 			</div>
 
 			<div className={s.teams}>
 				<div className={s.team}>
-					<img src={footballImg} alt="sportImg" />
-					<p>Команда 1</p>
+					<img src={sportImg} alt="sportImg" />
+					<p>{teams[0]}</p>
 				</div>
 				<div className={s.vsBlock}>VS</div>
 				<div className={s.team}>
-					<p>Команда 2</p>
-					<img src={footballImg} alt="sportImg" />
+					<p>{teams[1]}</p>
+					<img src={sportImg} alt="sportImg" />
 				</div>
 			</div>
 
@@ -59,7 +82,7 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 				<div>
 					<p>Дата и время</p>
 					<p className={s.splitter}></p>
-					<p>10.04.2020 в 12:40</p>
+					<p>{formatDateForForecastPage(forecast.Time)}</p>
 				</div>
 				<div className={s.details_forecast}>
 					<p>Прогноз</p>
@@ -69,19 +92,19 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 				<div>
 					<p>Коэффициент</p>
 					<p className={s.splitter}></p>
-					<p>1.78</p>
+					<p>{forecast.Coefficient}</p>
 				</div>
 				<div className={s.details_cash}>
 					<p>Ставка</p>
 					<p className={s.splitter}></p>
-					<p>1 370
+					<p>{forecast.BetValue}
 						<span><FontAwesomeIcon icon={faRubleSign} /></span>
 					</p>
 				</div>
 				<div className={s.details_cash}>
 					<p>Чистая прибыль</p>
 					<p className={s.splitter}></p>
-					<p>1 700
+					<p>{(forecast.BetValue * forecast.Coefficient - forecast.BetValue).toFixed(2)}
 						<span><FontAwesomeIcon icon={faRubleSign} /></span>
 					</p>
 				</div>
@@ -90,9 +113,9 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 
 			<div className={s.userBlock}>
 				<div className={s.userInfo}>
-					<img src={forecastUserImg} alt="forecastUserImg" />
+					{/* <img src={"http://xbethub.com/" + forecast.UserAvatar} alt="forecastUserImg" /> */}
 					<div className={s.userDetails}>
-						<p className={s.userNickName}>Никнейм</p>
+						<p className={s.userNickName}>{forecast.UserName}</p>
 						<p className={s.mobileUserProfit}>Прибыль: <span className={classNames(s.mobileUserProfit, { [s.positive]: true })}>+20%</span></p>
 					</div>
 				</div>
@@ -140,10 +163,11 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 				</p>
 			</div>
 
-			<ForecastStats comments={16} favourites={54} likes={23} />
+			<ForecastStats comments={0} favourites={forecast.FavAmmount} likes={forecast.Rating} forecastId={forecast.ForecastId}/>
 
 			<div className={s.comments}>
 				Forecast Comments
+					{/* comments={forecast.comments} */}
 			</div>
 		</div>
 	)

@@ -8,6 +8,7 @@ import Forecast from './Forecast'
 import { withRouter, RouteComponentProps  } from 'react-router'
 
 import { getForecastFromServer } from '../../redux/forecasts-reducer'
+import Preloader from '../Common/Preloader/Preloader'
 
 interface MatchParams {
     forecastId: string;
@@ -17,6 +18,7 @@ interface Props extends RouteComponentProps<MatchParams> {}
 
 const ForecastsContainer: FC<Props> = ({ ...props }) => {
 	const forecast = useSelector<AppStateType, ForecastType>(state => state.forecasts.currentForecast)
+	const isFetching = useSelector<AppStateType, boolean>(state => state.forecasts.isFetching)
 
 	const dispatch = useDispatch()
 	let forecastId = props.match.params.forecastId ? props.match.params.forecastId : 1;
@@ -25,6 +27,8 @@ const ForecastsContainer: FC<Props> = ({ ...props }) => {
 		dispatch(getForecastFromServer(+forecastId))		
 	}, []);
 
+	if (isFetching) 
+		return <Preloader />
 
 	return (
 		<Forecast
