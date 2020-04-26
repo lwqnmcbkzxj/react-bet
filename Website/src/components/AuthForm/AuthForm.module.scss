@@ -13,12 +13,16 @@
 	background: #FFFFFF 0% 0% no-repeat padding-box;
 	box-shadow: 0px 0px 13px #00000029;
 	border-radius: 7px;
+
 	&_visible {
 		opacity: 1;
-		z-index: 6;
+		z-index: 7;
+
 		&~.auth_bg {
+			z-index: 6;
 			opacity: 1;
-			z-index: 4;
+			width: 100%;
+
 		}
 	}
 
@@ -31,11 +35,13 @@
 		justify-content: center;
 		height: 60px;
 		z-index: 5;
+
 		& img {
 			height: 42.5px;
 			display: block;
-		}		
+		}
 	}
+
 	& .closePopup {
 		position: absolute;
 		top: 22px;
@@ -43,14 +49,17 @@
 		font-size: 22px;
 		color: #aab0ba;
 		transition: .3s;
+
 		&:hover {
 			color: #ffffff;
 			cursor: pointer;
 		}
 	}
-	& .authForm  {
+
+	& .authForm {
 		padding-bottom: 65px;
-		& > div {
+
+		&>div {
 			padding: 0 65px;
 			box-sizing: border-box;
 		}
@@ -58,13 +67,16 @@
 		& form {
 			position: relative;
 		}
-		& form > div  {	
-			padding: 0 65px;		
+
+		& form>div {
+			padding: 0 65px;
+
 			&.formError {
 				padding: 0;
 			}
 		}
 	}
+
 	& .formError {
 		background: #aa0f0f33;
 		font-family: "Roboto";
@@ -78,10 +90,12 @@
 		justify-content: center;
 		margin-top: -35px;
 		transition: .3s;
+
 		&_active {
 			margin-top: 0px;
 		}
 	}
+
 	& h1 {
 		text-align: center;
 		font-family: "Roboto Medium";
@@ -91,6 +105,7 @@
 		color: #343638;
 		padding: 33px 0 26px 0;
 	}
+
 	& .mobileClosePopup {
 		z-index: 8;
 		display: none;
@@ -106,8 +121,8 @@
 
 .auth_bg {
 	opacity: 0;
-	transition: .4s;
-	z-index: -5;
+	transition: opacity .4s;
+	width: 0;
 
 	position: fixed;
 	top: 0;
@@ -121,6 +136,7 @@
 	width: calc(100% - 150px);
 	position: relative;
 	margin: 15px auto;
+
 	& p {
 		text-align: center;
 		font-size: 16px;
@@ -128,6 +144,7 @@
 		font-family: "Roboto Regular";
 		letter-spacing: 0px;
 		color: #818283;
+
 		&::after {
 			content: "";
 			display: block;
@@ -138,6 +155,7 @@
 			left: -14px;
 			top: 10px;
 		}
+
 		&::before {
 			content: "";
 			display: block;
@@ -154,6 +172,7 @@
 .actions {
 	width: 100%;
 	box-sizing: border-box;
+
 	& p {
 		text-align: center;
 		font-size: 17px;
@@ -162,8 +181,9 @@
 		letter-spacing: 0px;
 		color: #818283;
 		margin-top: 17px;
-	
+
 	}
+
 	& button {
 		color: #F7971D;
 	}
@@ -180,28 +200,35 @@
 		border-radius: 0;
 		height: 100vh;
 		overflow: hidden;
-		
+
 		& .authHeader {
 			display: none;
 		}
 	}
+
 	.actions {
 		position: absolute;
 		bottom: 38px;
 	}
-	.authForm  {
+
+	.authForm {
 		padding-bottom: 65px;
-		& form > div , & > div {
-			padding: 0 38px!important;
+
+		& form>div,
+		&>div {
+			padding: 0 38px !important;
 		}
+
 		.formError {
-			padding: 0!important;
+			padding: 0 !important;
 		}
 	}
+
 	.orLine {
 		width: calc(100% - 100px);
 	}
+
 	& .mobileClosePopup {
-		display: block!important;
+		display: block !important;
 	}
 }

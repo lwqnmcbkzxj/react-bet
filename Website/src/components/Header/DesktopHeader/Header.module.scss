@@ -1,3 +1,7 @@
+.forecast {
+	overflow-y: scroll;
+}
+
 .desktopHeader {
 	height: 50px;
 }
@@ -8,8 +12,7 @@
 	background: #202E48;
 	
 	display: grid;
-	grid-template-columns: 180px auto auto 250px;
-	grid-gap: 10px;
+	grid-template-columns: 180px 1fr 1fr 250px;
 	justify-content: space-between;
 	align-items: center;
 	position: fixed;
@@ -18,12 +21,13 @@
 	z-index: 5;
 
 	& .logoLink {
-		text-align: center;
+		text-align: right;
 		& .logo {
 			height: 40px;
 		}
 	}
 	& .loginBtn {
+		margin-right: 75px;
 		color: #fff;
 		display: flex;
 		align-items: center;
@@ -31,6 +35,7 @@
 		font-family: "Roboto";
 		font-size: 17px;
 		line-height: 20px;
+		justify-content: flex-end;
 		& .loginIcon {
 			margin-right: 10px;
 			font-size: 23px;
@@ -40,8 +45,8 @@
 	& .search_block {
 		position: relative;
 		display: flex;
-		justify-content: center;
 		align-items: center;
+		margin-left: 75px;
 	
 		& input {
 			background: #515C70 0% 0% no-repeat padding-box;
@@ -111,6 +116,12 @@
 		padding: 0 12.5%;
 		width: 75%;
 	}
+	.loginBtn {
+		margin-right: 45px!important;
+	}
+	.search_block {
+		margin-left: 45px!important;
+	}
 }
 
 @media screen and (max-width: 1400px) {
@@ -118,18 +129,38 @@
 		padding: 0 7.5%;
 		width: 85%;
 	}	
+	.loginBtn {
+		margin-right: 25px!important;
+	}
+	.search_block {
+		margin-left: 25px!important;
+	}
 }
 
 @media screen and (max-width: 1224px) {
 	.desktopHeader header {
-		padding: 0 5%;
-		width: 90%;
+		padding: 0 2.5%;
+		width: 95%;
 	}	
+
+	.loginBtn {
+		margin-right: 15px!important;
+	}
+	.search_block {
+		margin-left: 15px!important;
+	}
 }
 @media screen and (max-width: 1024px) {
 	.desktopHeader header {
 		grid-template-columns: 180px auto auto;		
+		grid-gap: 10px;
 	}	
+	.loginBtn {
+		margin-right: 0px!important;
+	}
+	.search_block {
+		margin-left: 0px!important;
+	}
 }
 
 

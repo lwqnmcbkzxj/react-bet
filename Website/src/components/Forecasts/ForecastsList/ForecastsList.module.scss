@@ -35,7 +35,7 @@
 				margin-right: 4px;
 			}
 
-			&>p {
+			& p {
 				margin-right: 4px;
 			}
 
@@ -95,15 +95,17 @@
 
 				& .profitStats {
 					display: flex;
+					flex-wrap: wrap;
 
-					&>div {
+					& .profitStat {
 						font-size: 14px;
 						line-height: 17px;
 						color: #343638;
 						margin-right: 18px;
 						display: flex;
 						align-items: center;
-
+						white-space: nowrap;
+						margin-bottom: 12px;
 						& span {
 							font-family: 'Roboto Bold';
 							color: #232324;
@@ -120,7 +122,6 @@
 					font-size: 14px;
 					line-height: 17px;
 					color: #343638;
-					margin-top: 10px;
 				}
 			}
 
@@ -212,6 +213,18 @@
 				color: #818181;
 			}
 		}
+	}
+}
+
+
+@media screen and (max-width: 1700px) {
+	.forecastFooter .userStats .userProfit p{
+		display: none;
+	}
+}
+@media screen and (max-width: 1600px) {
+	.forecastFooter .userStats .userProfit p{
+		display: block;
 	}
 }
 
@@ -310,8 +323,8 @@
 						flex-wrap: wrap;
 						justify-content: space-between;
 
-						&>div {
-							margin-bottom: 10px;
+						& .profitStat {
+							margin-bottom: 14px;
 
 							&:last-child {
 								margin-bottom: 0;
