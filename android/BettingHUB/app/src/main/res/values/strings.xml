@@ -29,20 +29,33 @@
     <string name="default_user_name">UserName</string>
     <string name="see_all_label_text">Посмотреть всех</string>
     <string name="bookmakers_rating_label">Рейтинг букмекеров</string>
-    <string name="review_label_text">Обзор</string>
-    <string name="firm_name_label">Контора</string>
-    <string name="rating_label">Рейтинг</string>
-    <string name="bonus_label">Бонус</string>
-    <string name="top_matches_label">Топ матчи</string>
-    <string name="date">Дата</string>
-    <string name="match">Матч</string>
-    <string name="bets">Ставки</string>
-    <string name="last_forecasts_label">Последние прогнозы</string>
-    <string name="forecast_label">Прогноз:</string>
-    <string name="coefficient_label">Коэффициент:</string>
-    <string name="bet_sum_label">Сумма ставки:</string>
-    <string name="game_start_time_label">Начало игры</string>
-    <string name="fish_sample_text">Дуализм преобразует структурализм, не учитывая мнения авторитетов. Согласно мнению известных философов, александрийская школа изоморфна времени. Гений, следовательно, представляет собой трагический гедонизм. Диалектика вырождена. Суждение поразительно. Интеллект индуцирует естественный закон внешнего мира, изменяя привычную реальность. Созерцание, как следует из вышесказанного, поразительно. Заблуждение, следовательно, индуктивно дискредитирует структурализм.</string>
-    <string name="stonks_label">Прибыль:</string>
-    <string name="all_forecasts_label">Все прогнозы</string>
+
+    <string name="forecasts">Прогнозы</string>
+    <string name="subscriptions">Подписки</string>
+    <string name="allForecasts">Все прогнозы</string>
+    <string name="paid">Платные</string>
+    <string name="forecastField">Прогноз:</string>
+    <string name="coefficientField">Коэффициент:</string>
+    <string name="betAmountField">Сумма ставки:</string>
+    <string name="gameStartField">Начало игры:</string>
+    <string name="profitField">Прибыль:</string>
+
+    <string name="showMore">Показать больше</string>
+    <string name="copyright">© 2020 г. Betting HUB</string>
+
+    <string name="bankField">БАНК:</string>
+
+    <string name="allSports">Все</string>
+    <string name="football">Футбол</string>
+    <string name="tennis">Теннис</string>
+    <string name="basketball">Баскетбол</string>
+    <string name="hockey">Хоккей</string>
+    <string name="other">Другое</string>
+
+    <string name="nearestField">Ближайшие:</string>
+    <string name="allTime">Все время</string>
+    <string name="day">День</string>
+    <string name="h12">12 часов</string>
+    <string name="h6">6 часов</string>
+    <string name="h3">3 часа</string>
 </resources>
