@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xbethub.webview.R
+import com.xbethub.webview.ui.home.recycler_view_adapters.ItemDecoration
 import com.xbethub.webview.ui.home.recycler_view_adapters.LastForecastsTableAdapter
 import com.xbethub.webview.ui.home.recycler_view_adapters.TopUsersTableAdapter
 
@@ -37,6 +38,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 5
             ) { i -> i.toString()})
         }
+
+
+        lastForecastsTable.addItemDecoration(ItemDecoration(resources.getDimensionPixelSize(R.dimen.homeForecastTopSpace)
+            , resources.getDimensionPixelSize(R.dimen.homeForecastBottomSpace)))
 
         lastForecastsTable.apply {
             setHasFixedSize(true)

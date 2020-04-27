@@ -3,6 +3,9 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="homeForecastTopSpace">10dp</dimen>
+    <dimen name="homeForecastBottomSpace">10dp</dimen>
+
     <dimen name="sideMargin">15dp</dimen>
     <dimen name="forecastSideMargin">15dp</dimen>
     <dimen name="forecastFieldSpace">6dp</dimen>
