@@ -7,7 +7,7 @@ import { BookmakerType } from '../../types/bookmakers'
 
 
 const BookmakersContainer: FC = ({ ...props }) => {
-	const bookmakers = useSelector<AppStateType, Array<BookmakerType>>(state => state.bookamkers.bookmakers)
+	const bookmakers = useSelector<AppStateType, Array<BookmakerType>>(state => state.bookmakers.bookmakers)
 
 	const dispatch = useDispatch()
 

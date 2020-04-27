@@ -1,0 +1,90 @@
+.articlesList {
+	& .article {
+		display: block;
+		padding: 17px 17px 8px 17px;
+		box-sizing: border-box;
+		border: 1px solid #E5E2E2;
+		border-radius: 7px;
+		width: 100%;
+		margin-bottom: 20px;
+
+		& img {
+			width: 100%;
+			margin-bottom: 10px;
+		}
+
+		& .articleHeader {
+			margin-top: 8px;
+			font-size: 15px;
+			line-height: 18px;
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+
+			& .categoryName {
+				font-family: 'Roboto Medium';
+				color: #343638;
+			}
+
+			& .publishDate {
+				color: #5E687B;
+				opacity: 0.7;
+			}
+		}
+
+		& .articleContent {
+			margin: 20px 0;
+			& .acticleName {
+				margin-bottom: 9px;
+				font-size: 22px;
+				line-height: 27px;
+				font-family: 'Roboto Medium';
+				color: #343638;
+			}
+			& .articleDescription {
+				font-size: 15px;
+				line-height: 19px;
+				color: #4E525A;
+
+				overflow: hidden;
+				display: -webkit-box;
+				-webkit-line-clamp: 4;
+				-webkit-box-orient: vertical;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.articlesList {
+		& .article {
+			padding-bottom: 0px;
+		}
+	}
+}
+
+
+@media screen and (max-width: 480px) {
+	.articlesList {
+		& .article {
+			padding: 8px;
+			& .articleHeader {
+				margin-top: 8px;
+				font-size: 13px;
+				line-height: 15px;
+			}
+	
+			& .articleContent {
+				& .acticleName {
+					font-size: 19px;
+					line-height: 23px;
+				}
+				& .articleDescription {
+					font-size: 15px;
+					line-height: 21px;
+					-webkit-line-clamp: 8;
+				}
+			}
+		}
+	}
+}

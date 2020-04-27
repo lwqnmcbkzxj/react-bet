@@ -6,11 +6,13 @@ import userReducer from "./user-reducer"
 import usersReducer from "./users-reducer"
 import matchesReducer from "./matches-reducer"
 import bookmakersReducer from "./bookmakers-reducer"
+import newsReducer from "./news-reducer"
 
 import forecastsReducer from "./forecasts-reducer"
 import appReducer from "./app-reducer"
 import liveCommentsReducer from "./liveComments-reducer"
 import { reducer as formReducer } from "redux-form";
+import articlesReducer from './articles-reducer'
 
 
 let rootReducer = combineReducers({    
@@ -19,12 +21,14 @@ let rootReducer = combineReducers({
 	liveComments: liveCommentsReducer,
 
 	matches: matchesReducer,
-
-	bookamkers: bookmakersReducer,
+	articles: articlesReducer,
+	bookmakers: bookmakersReducer,
 	
 	user: userReducer,
 	users: usersReducer,
 	
+	news: newsReducer,
+
 	forecasts: forecastsReducer,
 
     form: formReducer

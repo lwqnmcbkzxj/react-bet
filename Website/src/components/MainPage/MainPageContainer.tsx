@@ -17,7 +17,7 @@ const MainPageContainer: FC = () => {
 	const users = useSelector<AppStateType, Array<UserType>>(state => state.users.users)
 	const matches = useSelector<AppStateType, Array<MatchType>>(state => state.matches.matches)
 	const forecasts = useSelector<AppStateType, Array<ForecastType>>(state => state.forecasts.forecasts)
-	const bookmakers = useSelector<AppStateType, Array<BookmakerType>>(state => state.bookamkers.bookmakers)
+	const bookmakers = useSelector<AppStateType, Array<BookmakerType>>(state => state.bookmakers.bookmakers)
 
 	const mainPageBlocksVisibility = useSelector<AppStateType, Array<ForecastType>>(state => state.app.mainPageBlocksVisibility)
 

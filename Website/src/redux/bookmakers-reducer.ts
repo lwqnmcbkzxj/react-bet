@@ -43,7 +43,8 @@ let initialState = {
 			bonus: 1000,
 			link: "https://www.ligastavok.ru/"
 		}
-	] as Array<BookmakerType>
+	] as Array<BookmakerType>,
+	currentBookmaker: {} as BookmakerType
 }
 
 type InitialStateType = typeof initialState;

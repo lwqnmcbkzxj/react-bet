@@ -11,7 +11,8 @@ const TOGGLE_IS_FETCHING = 'matches/TOGGLE_IS_FETCHING'
 
 let initialState = {
     isFetching: false,
-    matches: [ {},{},{},{},{},{},{},{},{},{},{},{},{},{},{}] as Array<MatchType>
+	matches: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}] as Array<MatchType>,
+	currentMatch: {} as MatchType
 }
 
 type InitialStateType = typeof initialState;

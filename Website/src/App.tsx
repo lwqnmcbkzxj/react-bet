@@ -14,10 +14,16 @@ import UsersContainer from './components/Users/UsersContainer'
 import UserContainer from './components/User/UserContainer'
 
 import BookmakersContainer from './components/Bookmakers/BookmakersContainer'
-// import BookmakerContainer from './components/Bookmaker/BookmakerContainer'
+import BookmakerContainer from './components/Bookmaker/BookmakerContainer'
 
 import MatchesContainer from './components/Matches/MatchesContainer'
-// import MatchContainer from './components/Match/MatchContainer'
+import MatchContainer from './components/Match/MatchContainer'
+
+import NewsContainer from './components/News/NewsContainer'
+import NewsSingleContainer from './components/NewsSingle/NewsSingleContainer'
+
+import ArticleContainer from './components/Article/ArticleContainer'
+import ArticlesContainer from './components/Articles/ArticlesContainer'
 
 import MainPageContainer from './components/MainPage/MainPageContainer'
 import HeaderContainer from './components/Header/HeaderContainer'
@@ -54,13 +60,17 @@ const App: FC = () => {
 						<Route exact path="/forecasts/:forecastId" render={() => <ForecastContainer />} />
 
 						<Route exact path="/bookmakers" render={() => <BookmakersContainer />} />
-						{/* <Route exact path="/bookmakers/:bookmakerId" render={() => <BookmakerContainer />} /> */}
+						<Route exact path="/bookmakers/:bookmakerId" render={() => <BookmakerContainer />} />
 						
 						<Route exact path="/matches" render={() => <MatchesContainer />} />
-						{/* <Route path="/matches/:matchId" render={() => <MatchContainer />} /> */}
+						<Route path="/matches/:matchId" render={() => <MatchContainer />} />
 
-						{/* <Route path="/" render={() => <ArticlesContainer />} /> */}
-						{/* <Route path="/" render={() => <NewsContainer />} /> */}
+						<Route exact path="/articles" render={() => <ArticlesContainer />} />
+						<Route exact path="/articles/:articleId" render={() => <ArticleContainer />} />
+
+						<Route exact path="/news" render={() => <NewsContainer />} />
+						<Route exact path="/news/:newsId" render={() => <NewsSingleContainer />} />
+						
 						<Route component={NotFound} />
 
 					</Switch>
