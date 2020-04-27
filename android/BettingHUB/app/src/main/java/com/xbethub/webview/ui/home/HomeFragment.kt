@@ -11,9 +11,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xbethub.webview.R
-import com.xbethub.webview.ui.forecasts.items.ItemAdapter
-import com.xbethub.webview.ui.forecasts.items.ItemDecoration
-import com.xbethub.webview.ui.forecasts.items.items.*
 import com.xbethub.webview.ui.recycler_view_adapters.LastForecastsTableAdapter
 import com.xbethub.webview.ui.recycler_view_adapters.SpanningLinearLayoutManager
 import com.xbethub.webview.ui.recycler_view_adapters.TopUsersTableAdapter
@@ -28,7 +25,6 @@ class HomeFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 

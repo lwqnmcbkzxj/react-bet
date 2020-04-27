@@ -16,33 +16,25 @@ class ItemDecoration(val topSpace: Int, val sideSpace: Int, val itemSpace: Int
         state: RecyclerView.State
     ) {
         val pos = parent.getChildAdapterPosition(view)
+        val itemType = (parent.adapter as ItemAdapter).getItem(pos).getType()
 
-        (parent.adapter as? ItemAdapter)?.let {
-            val itemType = it.getItem(pos).getType()
+        when (itemType) {
+            ItemType.HEADER -> {}
 
-            when (itemType) {
-                ItemType.HEADER -> {}
-
-                ItemType.FORECAST -> {
-                    outRect.left = sideSpace
-                    outRect.right = sideSpace
-                    outRect.top = if (pos == 1) topSpace else itemSpace
-                }
-
-                ItemType.SHOW_MORE_BTN -> {
-                    outRect.top = showMoreTopSpace
-                }
-
-                ItemType.FOOTER -> {
-                    outRect.top = footerTopSpace
-                    outRect.bottom = bottomSpace
-                }
+            ItemType.FORECAST -> {
+                outRect.left = sideSpace
+                outRect.right = sideSpace
+                outRect.top = if (pos == 1) topSpace else itemSpace
             }
-        } ?: run {
-            outRect.left = sideSpace
-            outRect.right = sideSpace
-            outRect.top = if (pos == 0) 0 else itemSpace
-        }
 
+            ItemType.SHOW_MORE_BTN -> {
+                outRect.top = showMoreTopSpace
+            }
+
+            ItemType.FOOTER -> {
+                outRect.top = footerTopSpace
+                outRect.bottom = bottomSpace
+            }
+        }
     }
 }

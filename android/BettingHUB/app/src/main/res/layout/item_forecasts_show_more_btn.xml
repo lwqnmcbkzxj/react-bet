@@ -10,6 +10,4 @@
     android:textSize="18sp"
     android:textColor="#202E48"
     android:background="@drawable/bg_button"
-    android:layout_marginStart="@dimen/sideMargin"
-    android:layout_marginEnd="@dimen/sideMargin"
     />

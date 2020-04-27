@@ -73,16 +73,4 @@
     <string name="h12">12 часов</string>
     <string name="h6">6 часов</string>
     <string name="h3">3 часа</string>
-
-    <string name="tournamentField">Турнир</string>
-    <string name="dateAndTimeField">Дата и время</string>
-    <string name="forecastField1">Прогноз</string>
-    <string name="coefficientField1">Коэффициент</string>
-    <string name="betField">Ставка</string>
-    <string name="possibleWinField">Возможный выигрыш</string>
-
-    <string name="subscribe">+ Подписаться</string>
-
-    <string name="reply">Ответить</string>
-    <string name="newComment">Новый комментарий</string>
 </resources>
