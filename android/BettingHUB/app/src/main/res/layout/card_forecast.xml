@@ -1,437 +1,444 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="10dp"
-    android:background="@drawable/bg_clipping_rounded_rectangle_outline">
-
-    <LinearLayout
-        android:id="@+id/header_layout"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_sports_esports_light_main_blue_100px"
-            android:scaleType="fitCenter"
-            android:layout_marginStart="3dp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Киберспорт"
-            android:gravity="center"
-            android:layout_marginStart="3dp"
-            android:textColor="@color/darkest_gray"
-            android:fontFamily="sans-serif-medium"
-            tools:ignore="HardcodedText" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Dota 2. StayHome Challenge (матчи из 3 карт)"
-            android:gravity="center"
-            android:textColor="@color/minor_content_gray"
-            tools:ignore="HardcodedText" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header_layout" />
-    <TextView
-        android:id="@+id/match_name_label"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:fontFamily="sans-serif-medium"
-        android:text="FlyToMoon - Team Unique"
-        android:textColor="@color/darkest_gray"
-        android:textSize="20sp"
-        android:gravity="center_vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header_layout"
-        tools:ignore="HardcodedText" />
-
-    <TableLayout
-        android:id="@+id/header_info_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/match_name_label">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@string/forecast_label"
-                    android:textColor="@color/darkest_gray" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/bg_green_tranparent"
-                    android:fontFamily="sans-serif"
-                    android:gravity="center"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
-                    android:text="Фора1 (-1.5)"
-                    android:textAllCaps="true"
-                    android:textColor="@color/darkest_gray"
-                    android:textStyle="bold"
-                    tools:ignore="HardcodedText" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@string/coefficient_label"
-                    android:textColor="@color/darkest_gray" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/bg_green_tranparent"
-                    android:fontFamily="sans-serif"
-                    android:gravity="center"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
-                    android:text="2.02"
-                    android:textAllCaps="true"
-                    android:textColor="@color/darkest_gray"
-                    android:textStyle="bold"
-                    tools:ignore="HardcodedText" />
-            </LinearLayout>
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@string/bet_sum_label"
-                    android:textColor="@color/darkest_gray" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/bg_green_tranparent"
-                    android:fontFamily="sans-serif"
-                    android:gravity="center"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
-                    android:text="450"
-                    android:textAllCaps="true"
-                    android:textColor="@color/darkest_gray"
-                    android:textStyle="bold"
-                    tools:ignore="HardcodedText" />
-            </LinearLayout>
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@string/game_start_time_label"
-                    android:textColor="@color/darkest_gray" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:fontFamily="sans-serif"
-                    android:gravity="center"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
-                    android:text="2.02.2002 20:55"
-                    android:textAllCaps="true"
-                    android:textColor="@color/darkest_gray"
-                    android:textStyle="bold"
-                    tools:ignore="HardcodedText" />
-            </LinearLayout>
-        </TableRow>
-    </TableLayout>
-
-    <TextView
-        android:id="@+id/forecast_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:text="@string/fish_sample_text"
-        android:textColor="@color/darkest_gray"
-        android:textSize="16sp"
-        android:fontFamily="sans-serif-medium"
-        android:textStyle="normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header_info_layout" />
-
-    <LinearLayout
-        android:id="@+id/bottom_info_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/forecast_text">
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="30dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/img_test_avatar" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/default_user_name"
-            android:textSize="15sp"
-            android:gravity="center"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"/>
-        <ImageView
-            android:layout_width="1dp"
-            android:layout_height="20dp"
-            android:paddingTop="10dp"
-
-            android:layout_gravity="center_vertical"
-            android:background="@color/gray"
-            tools:ignore="ContentDescription" />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:showDividers="middle"
-            android:divider="@drawable/horizontal_divider_3dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:scaleType="fitCenter"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_check_circle_24px"/>
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:scaleType="fitCenter"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_highlight_off_24px"/>
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:scaleType="fitCenter"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_check_circle_24px"/>
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:scaleType="fitCenter"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_highlight_off_24px"/>
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:scaleType="fitCenter"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_check_circle_24px"/>
-        </LinearLayout>
-        <ImageView
-            android:layout_width="1dp"
-            android:layout_height="20dp"
-            android:paddingTop="10dp"
-
-            android:layout_gravity="center_vertical"
-            android:background="@color/gray"
-            tools:ignore="ContentDescription" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/stonks_label"
-            android:textColor="@color/gray"
-            android:textSize="15sp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="5dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="+50.5%"
-            android:textColor="@color/green_indicator"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="15sp"
-            tools:ignore="HardcodedText" />
-    </LinearLayout>
-
-    <View
-        android:id="@+id/bottom_divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray"
-        android:layout_marginTop="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bottom_info_layout" />
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:background="@drawable/bg_corned_frame"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bottom_divider"
-        app:layout_constraintVertical_bias="0.0">
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        android:focusable="true">
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:padding="3dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_comment_outline"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/headerBlock"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="3dp"
-            android:text="34"
-            android:textColor="@color/darkest_gray"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView3"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="HardcodedText" />
+            <ImageView
+                android:id="@+id/categoryIcon"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_test_category_icon"
+                android:layout_marginStart="@dimen/forecastSideMargin"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
 
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:padding="3dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_bookmark_outline"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView5"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/categoryName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="11sp"
+                android:textColor="#232324"
+                android:text="Киберспорт."
+                android:layout_marginStart="5dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/categoryIcon"
+                />
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="3dp"
-            android:text="52"
-            android:textColor="@color/darkest_gray"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView4"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="HardcodedText" />
+            <TextView
+                android:id="@+id/eventName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="11sp"
+                android:textColor="#A8ABAF"
+                android:lines="1"
+                android:ellipsize="end"
+                android:text="Dota 2. StayHome Challenge (матчи из 3-х карт)"
+                android:layout_marginStart="3dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/categoryName"
+                />
 
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:padding="0dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_chevron_up"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/frameColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
 
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:text="52"
-            android:textColor="@color/green_indicator"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/imageView5"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="HardcodedText" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="5dp"
-            android:padding="0dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_chevron_up"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/textView7"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/forecastInfoBlock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/headerBlock">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/forecastSideMargin"
+                />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/forecastSideMargin"
+                />
+
+            <TextView
+                android:id="@+id/teams"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:gravity="start"
+                android:lines="1"
+                android:ellipsize="end"
+                android:text="FlyToMoon - Team Unique"
+                android:layout_marginTop="15dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="@id/start"
+                app:layout_constraintEnd_toEndOf="@id/end"
+                />
+
+            <LinearLayout
+                android:id="@+id/fieldsBlock"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/teams"
+                app:layout_constraintStart_toStartOf="@id/start"
+                app:layout_constraintEnd_toEndOf="@id/end">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ForecastFieldStyle"
+                        android:text="@string/forecastField"
+                        />
+
+                    <TextView
+                        style="@style/ForecastFieldStyle"
+                        android:fontFamily="@font/roboto_medium"
+                        android:layout_marginStart="10dp"
+                        android:text=""
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/forecastFieldSpace">
+
+                    <TextView
+                        style="@style/ForecastFieldStyle"
+                        android:text="@string/coefficientField"
+                        />
+
+                    <TextView
+                        style="@style/ForecastFieldStyle"
+                        android:fontFamily="@font/roboto_medium"
+                        android:layout_marginStart="10dp"
+                        android:text=""
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/forecastFieldSpace">
+
+                    <TextView
+                        style="@style/ForecastFieldStyle"
+                        android:text="@string/betAmountField"
+                        />
+
+                    <TextView
+                        style="@style/ForecastFieldStyle"
+                        android:fontFamily="@font/roboto_medium"
+                        android:layout_marginStart="10dp"
+                        android:text=""
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/forecastFieldSpace">
+
+                    <TextView
+                        style="@style/ForecastFieldStyle"
+                        android:text="@string/gameStartField"
+                        />
+
+                    <TextView
+                        style="@style/ForecastFieldStyle"
+                        android:fontFamily="@font/roboto_medium"
+                        android:layout_marginStart="10dp"
+                        android:text=""
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Bibendum est ultricies integer quis. Iaculis urna id volutpat lacus laoreet. Mauris vitae ultricies leo integer malesuada. Ac odio "
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/fieldsBlock"
+                app:layout_constraintStart_toStartOf="@id/start"
+                app:layout_constraintEnd_toEndOf="@id/end"
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/userInfoBlock"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                app:layout_constraintTop_toBottomOf="@id/description"
+                app:layout_constraintStart_toStartOf="@id/start"
+                app:layout_constraintEnd_toEndOf="@id/end">
+
+                <ImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/img_test_avatar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="14sp"
+                    android:textColor="#343638"
+                    android:gravity="center"
+                    android:text="Username"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/avatar"
+                    />
+
+                <View
+                    android:id="@+id/border1"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:background="#A8ABAF"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintStart_toEndOf="@id/userName"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <LinearLayout
+                    android:id="@+id/winLossBlock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/border1">
+
+                    <ImageView
+                        android:id="@+id/win1"
+                        style="@style/WinLossCircleStyle"
+                        android:src="@drawable/ic_check"
+                        />
+
+                    <ImageView
+                        android:id="@+id/win2"
+                        style="@style/WinLossCircleStyle"
+                        android:src="@drawable/ic_check"
+                        android:layout_marginStart="3dp"
+                        />
+
+                    <ImageView
+                        android:id="@+id/win3"
+                        style="@style/WinLossCircleStyle"
+                        android:src="@drawable/ic_close"
+                        android:layout_marginStart="3dp"
+                        />
+
+                    <ImageView
+                        android:id="@+id/win4"
+                        style="@style/WinLossCircleStyle"
+                        android:src="@drawable/ic_check"
+                        android:layout_marginStart="3dp"
+                        />
+
+                    <ImageView
+                        android:id="@+id/win5"
+                        style="@style/WinLossCircleStyle"
+                        android:src="@drawable/ic_close"
+                        android:layout_marginStart="3dp"
+                        />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/border2"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:background="#A8ABAF"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintStart_toEndOf="@id/winLossBlock"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <TextView
+                    android:id="@+id/profitField"
+                    style="@style/ForecastFieldStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#A8ABAF"
+                    android:text="@string/profitField"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/border2"/>
+
+                <TextView
+                    android:id="@+id/profit"
+                    style="@style/ForecastFieldStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#0F971D"
+                    android:text="+50.4%"
+                    android:layout_marginStart="6dp"
+                    app:layout_constraintStart_toEndOf="@id/profitField"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/frameColor"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/userInfoBlock"
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/forecastStatsBlock"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintStart_toStartOf="@id/start"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line2">
+
+                <ImageView
+                    android:id="@+id/commentIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_comment"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/commentCount"
+                    style="@style/ForecastStatsStyle"
+                    android:text="3"
+                    android:layout_marginStart="6dp"
+                    app:layout_constraintStart_toEndOf="@id/commentIcon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+                <ImageView
+                    android:id="@+id/bookmarkIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_bookmark"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/commentCount"/>
+
+                <TextView
+                    android:id="@+id/bookmarkCount"
+                    style="@style/ForecastStatsStyle"
+                    android:text="54"
+                    android:layout_marginStart="6dp"
+                    app:layout_constraintStart_toEndOf="@id/bookmarkIcon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/ratingBlock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <ImageButton
+                        android:id="@+id/downVoteBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_arrow_down"
+                        android:background="@android:color/transparent"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        />
+
+                    <TextView
+                        style="@style/ForecastStatsStyle"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textColor="#0F971D"
+                        android:text="23"
+                        />
+
+                    <ImageButton
+                        android:id="@+id/upVoteBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_arrow_up"
+                        android:background="@android:color/transparent"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="@dimen/forecastSideMargin"
+                        />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

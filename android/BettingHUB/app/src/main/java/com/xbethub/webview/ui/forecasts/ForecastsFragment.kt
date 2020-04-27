@@ -20,8 +20,7 @@ import com.xbethub.webview.ui.forecasts.items.ItemAdapter
 import com.xbethub.webview.ui.forecasts.items.items.*
 
 
-class ForecastsFragment : Fragment(),
-    ForecastListener {
+class ForecastsFragment : Fragment(), ForecastListener {
 
     private lateinit var navController: NavController
     private lateinit var binding: FragmentForecastsBinding
@@ -33,7 +32,6 @@ class ForecastsFragment : Fragment(),
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentForecastsBinding.inflate(inflater)
-        binding.fragment = this
         binding.lifecycleOwner = this
 
         addItemDecoration()
@@ -42,8 +40,6 @@ class ForecastsFragment : Fragment(),
 
         vm = ViewModelProviders.of(this).get(ForecastsViewModel::class.java)
         vm.forecastsLiveData.observe(viewLifecycleOwner, Observer { addForecasts(it) })
-
-        binding.viewModel = vm
 
         return binding.root
     }
@@ -58,7 +54,7 @@ class ForecastsFragment : Fragment(),
         val sideSpace = resources.getDimensionPixelSize(R.dimen.forecastSideMargin)
         val itemSpace = resources.getDimensionPixelSize(R.dimen.forecastsItemSpace)
         val showMoreTopSpace = resources.getDimensionPixelSize(R.dimen.forecastsShowMoreTopSpace)
-        val footerTopSpace = resources.getDimensionPixelSize(R.dimen.forecastsShowMoreTopSpace)
+        val footerTopSpace = resources.getDimensionPixelSize(R.dimen.forecastsFooterTopSpace)
         val bottomSpace = resources.getDimensionPixelSize(R.dimen.forecastsItemBottomSpace)
 
         binding.forecastRV.addItemDecoration(
@@ -100,6 +96,6 @@ class ForecastsFragment : Fragment(),
 
     // ForecastListener
     override fun onForecastClick(forecast: Forecast, position: Int) {
-
+        navController.navigate(R.id.action_navigation_radiation_to_forecastFragment)
     }
 }
