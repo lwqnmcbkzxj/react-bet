@@ -1,4 +1,4 @@
-.forecastStats {
+.elementStats {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -46,7 +46,7 @@
 }
 
 @media screen and (max-width: 768px) {
-	.forecastStats {
+	.elementStats {
 		padding: 10px 8px 10px 8px;
 	}
 }

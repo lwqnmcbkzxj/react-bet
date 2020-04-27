@@ -18,10 +18,12 @@ type MobileMenuPropsType = {
 const MobileMenu: FC<MobileMenuPropsType> = ({ ...props }) => {
 	const [menuBlocksVisible, setMenuBlocksVisibility] = useState(false);
 
-	const toggleMenuBlocks = () => {
+	const toggleMenuBlocks = () => {		
 		setMenuBlocksVisibility(!menuBlocksVisible)
 	}
-
+	const hideMenuBlocks = () => {		
+		setMenuBlocksVisibility(false)
+	}
 	let menuBarLinksActiveClass = "";
 	if (!menuBlocksVisible)
 		menuBarLinksActiveClass = classNames(s.active)
@@ -29,10 +31,19 @@ const MobileMenu: FC<MobileMenuPropsType> = ({ ...props }) => {
 	return (
 		<div className="">
 			<div className={s.mobileMenu}>
-				<NavLink exact to="/" className={s.menuLink} activeClassName={menuBarLinksActiveClass}><FontAwesomeIcon icon={faHome} /></NavLink>
-				<NavLink exact to="/forecasts" className={classNames(s.menuLink, s.rotateLink)} activeClassName={menuBarLinksActiveClass}><FontAwesomeIcon icon={faWifi} /></NavLink>
-				<NavLink exact to="/forecasts/add" className={s.menuLink} activeClassName={menuBarLinksActiveClass}><FontAwesomeIcon icon={faPlusSquare} /></NavLink>
-				<NavLink to="/me" className={s.menuLink} activeClassName={menuBarLinksActiveClass}><FontAwesomeIcon icon={faUser} /></NavLink>
+				<NavLink exact to="/" className={s.menuLink} activeClassName={menuBarLinksActiveClass} onClick={hideMenuBlocks}>
+					<FontAwesomeIcon icon={faHome} />
+				</NavLink>
+				<NavLink exact to="/forecasts" className={classNames(s.menuLink, s.rotateLink)} activeClassName={menuBarLinksActiveClass} onClick={hideMenuBlocks}>
+					<FontAwesomeIcon icon={faWifi} />
+				</NavLink>
+				<NavLink exact to="/forecasts/add" className={s.menuLink} activeClassName={menuBarLinksActiveClass} onClick={hideMenuBlocks}>
+					<FontAwesomeIcon icon={faPlusSquare} />
+				</NavLink>
+				<NavLink to="/me" className={s.menuLink} activeClassName={menuBarLinksActiveClass} onClick={hideMenuBlocks}>
+					<FontAwesomeIcon icon={faUser} />
+				</NavLink>
+
 				<button className={classNames(
 					s.toggleMenuBtn,
 					{ [s.active]: menuBlocksVisible }

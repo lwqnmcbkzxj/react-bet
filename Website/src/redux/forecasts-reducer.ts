@@ -170,6 +170,8 @@ export const toggleIsForecastsFetching = (isFetching: boolean): TypeToggleIsFore
 export const rateForecast = (id: number, type: number): ThunksType => async (dispatch) =>{
 	let response = await forecastsAPI.rateForecast(id, type)	
 }
-
+export const favouriteForecast = (id: number): ThunksType => async (dispatch) =>{
+	let response = await forecastsAPI.favouriteForecast(id)	
+}
 
 export default forecastsReducer;

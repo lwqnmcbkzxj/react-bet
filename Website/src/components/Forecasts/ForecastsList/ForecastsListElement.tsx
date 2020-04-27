@@ -3,7 +3,7 @@ import s from './ForecastsList.module.scss';
 import classNames from 'classnames'
 import { ForecastType } from '../../../types/forecasts'
 
-import ForecastStats from '../../Forecast/ForecastElements/ForecastStats'
+import ElementStats from '../../Common/ElementStats/ElementStats'
 import forecastUserImg from '../../../assets/img/forecast-img.png'
 import { NavLink, Link } from 'react-router-dom';
 
@@ -16,7 +16,6 @@ import moment from 'moment'
 type ForecastPropsType = {
 	forecast: ForecastType
 }
-const serverUrl = "http://xbethub.com/"
 
 const formatDateForForecastListElement = (createdAt: string) => {
 	let createdDate = Date.parse(createdAt)
@@ -40,11 +39,17 @@ const formatDateForForecastListElement = (createdAt: string) => {
 
 const Forecasts: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 	let fullGameName = forecast.Tournament
-	let gameName = fullGameName.split('.')[1] + '.' + fullGameName.split('.')[2]
-
+	let gameName = fullGameName.split('.').splice(1).join('.')
 
 	let sportImg = getSportImg(forecast.SportName)
-	
+
+	// const serverUrl = "http://xbethub.com/"
+	let userAvatar = ''
+	if (forecast.UserAvatar) {
+		userAvatar = 'http://xbethub.com/' + forecast.UserAvatar
+	} else {
+		userAvatar=''
+	}
 	
 
 	return (
@@ -94,7 +99,7 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 			<div className={s.forecastFooter}>
 				<div className={s.userStats}>
 					<NavLink to="/forecasters/5" className={s.userInfo}>
-						<img src={serverUrl + forecast.UserAvatar} alt="userImg" />
+						<img src={userAvatar} alt="userImg" />
 						<p className={s.userNickName}>{forecast.UserName}</p>
 					</NavLink>
 					<div className={s.userMatches}>
@@ -118,12 +123,14 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 					</div>
 
 				</div>
-
-				<ForecastStats
-					comments={forecast.CommentsQuanity}
-					favourites={forecast.FavAmmount}
-					likes={forecast.Rating}
-					forecastId={forecast.ForecastId} />
+				
+				<ElementStats
+				comments={forecast.CommentsQuanity}
+				favourites={forecast.FavAmmount}
+				likes={forecast.Rating}
+				id={forecast.ForecastId}
+				elementType={'forecast'} />
+				
 			</div>
 		</div>
 	)

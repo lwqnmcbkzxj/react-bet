@@ -16,13 +16,14 @@ export const setTokenForAPI = (token: string) => {
 
 export const userAPI = {
 	login(usernameOrEmail: string, password: string) {
-
+		// "username": "test3@yandex.ru",
+		// "password": "123456789",
 		let obj = {
 			"grant_type": "password",
 			"client_id": "2",
 			"client_secret": "V79SdKGIlqFgbmlRGLNIm5r8wPevKerRePbqwzDT",
-			"username": "test3@yandex.ru",
-			"password": "123456789",
+			"username": usernameOrEmail,
+			"password": password,
 			"scope": "*"
 		  }
 
@@ -81,5 +82,19 @@ export const forecastsAPI = {
 			}
 		);
 	},
+	commentForecast(forecastId: number, text: string, replying: boolean) {
+		return instance.post(`forecastComment`, {forecastId, text, replying})
+			.then((response) => {
+				return response.data
+			}
+		);
+	},
+	favouriteForecast(forecastId: number) {
+		return instance.post(`forecastFav`, {forecastId})
+			.then((response) => {
+				return response.data
+			}
+		);
+	}
 }
 

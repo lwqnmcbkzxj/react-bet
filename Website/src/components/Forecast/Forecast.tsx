@@ -3,7 +3,6 @@ import s from './Forecast.module.scss';
 import classNames from 'classnames'
 import Breadcrumbs from '../Common/Breadcrumbs/Breadcrumbs'
 
-import ForecastStats from './ForecastElements/ForecastStats'
 import footballImg from '../../assets/img/football.png'
 import forecastUserImg from '../../assets/img/forecast-img.png'
 
@@ -14,6 +13,8 @@ import { faBookmark, } from '@fortawesome/free-regular-svg-icons'
 import { ForecastType } from '../../types/forecasts';
 import { NavLink } from 'react-router-dom';
 import { getSportImg } from '../../utils/getSportImg';
+
+import ElementStats from '../Common/ElementStats/ElementStats'
 
 import moment from 'moment'
 
@@ -38,7 +39,12 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 		teams = forecast.Text.split(' - ')
 	}
 	
-	
+	let userAvatar = ''
+	if (forecast.UserAvatar) {
+		userAvatar = 'http://xbethub.com/' + forecast.UserAvatar
+	} else {
+		userAvatar=''
+	}
 
 	return (
 		<div className={s.forecast}>
@@ -113,7 +119,7 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 
 			<div className={s.userBlock}>
 				<div className={s.userInfo}>
-					{/* <img src={"http://xbethub.com/" + forecast.UserAvatar} alt="forecastUserImg" /> */}
+					<img src={userAvatar} alt="forecastUserImg" />
 					<div className={s.userDetails}>
 						<p className={s.userNickName}>{forecast.UserName}</p>
 						<p className={s.mobileUserProfit}>Прибыль: <span className={classNames(s.mobileUserProfit, { [s.positive]: true })}>+20%</span></p>
@@ -163,7 +169,12 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 				</p>
 			</div>
 
-			<ForecastStats comments={0} favourites={forecast.FavAmmount} likes={forecast.Rating} forecastId={forecast.ForecastId}/>
+			<ElementStats
+				comments={0}
+				favourites={forecast.FavAmmount}
+				likes={forecast.Rating}
+				id={forecast.ForecastId}
+				elementType={'forecast'} />
 
 			<div className={s.comments}>
 				Forecast Comments
