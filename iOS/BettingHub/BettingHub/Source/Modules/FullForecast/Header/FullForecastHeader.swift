@@ -103,7 +103,6 @@ class FullForecastHeader: UITableViewHeaderFooterView {
     
     private let ratingView: ArrowsStepperView = {
         let view = ArrowsStepperView()
-        view.setNumber(23)
         return view
     }()
     
@@ -130,8 +129,24 @@ class FullForecastHeader: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setText(text: String) {
-        descLabel.text = text
+    func configure(with forecast: Forecast) {
+        matchTitleLabel.text = forecast.text
+        seasonLabel.text = forecast.tournament
+        forecastDateLabel.text = forecast.cratedAt
+        configureTeamsView(with: forecast.text)
+        commentsView.setText("\(forecast.commentsQuanity)")
+        bookMarksView.setText("\(forecast.favAmmount)")
+        profileImageView.setImage(url: forecast.userAvatar)
+        usernameLabel.text = forecast.userName
+        infoStack.configure(forecast: forecast)
+        ratingView.setNumber(forecast.rating)
+    }
+    
+    //TODO: delete after creation of viewModelItem for forecast
+    private func configureTeamsView(with title: String) {
+        let teams = title.components(separatedBy: " - ")
+        teamsView.leftTeamLabel.text = teams[0]
+        teamsView.rightTeamLabel.text = teams[1]
     }
     
     private func makeLayout() {

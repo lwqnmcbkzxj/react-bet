@@ -43,7 +43,6 @@ class ForecastsView: UIView {
     
     private func configureTableView() {
         tableView.register(ForecastCell.self, forCellReuseIdentifier: cellId)
-        tableView.delegate = self
     }
     
     private func configureHeader() {
@@ -71,10 +70,6 @@ class ForecastsView: UIView {
             make.trailing.equalToSuperview().offset(-15)
         }
     }
-}
-
-extension ForecastsView: UITableViewDelegate {
-    
 }
 
 #if canImport(SwiftUI) && DEBUG

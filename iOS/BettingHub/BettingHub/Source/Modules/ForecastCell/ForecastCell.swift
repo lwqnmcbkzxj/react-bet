@@ -40,6 +40,7 @@ class ForecastCell: UITableViewCell {
         view.textColor = .textGray
         view.font = .robotoRegular(size: 11)
         view.isSkeletonable = true
+        view.textAlignment = .right
         return view
     }()
     
@@ -122,9 +123,9 @@ class ForecastCell: UITableViewCell {
     
     private let userImageView: UIImageView = {
         let view = UIImageView()
-        view.makeBordered()
         view.layer.cornerRadius = 2
         view.contentMode = .scaleAspectFill
+        view.clipsToBounds = true
         return view
     }()
     
@@ -397,6 +398,7 @@ class ForecastCell: UITableViewCell {
         stackView.addArrangedSubview(separator2)
         
         if !DeviceInfo.shared.smallScreen {
+            incomeTitleLabel.snp.contentCompressionResistanceHorizontalPriority = 1000
             stackView.addArrangedSubview(incomeTitleLabel)
         }
         

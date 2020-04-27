@@ -25,5 +25,7 @@ class FullForecastViewController: UIViewController {
         setView(commentsTable, insets: .init(top: 0, left: 15, bottom: 0, right: 15))
     }
     
-    
+    func configure(with forecast: Forecast) {
+        fullForecastHeader.configure(with: forecast)
+    }
 }

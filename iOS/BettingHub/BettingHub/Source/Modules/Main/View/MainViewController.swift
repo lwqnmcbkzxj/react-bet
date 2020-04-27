@@ -14,7 +14,7 @@ class MainViewController: UIViewController {
     
     private lazy var mainView = MainView()
     
-    private let dataProvider = MainScreenDataProvider()
+    var dataProvider: MainScreenDataProvider!
     
     private lazy var cellsProvider = MainScreenCellsProvider(tableView: mainView.tableView,
                                                              dataProvider: dataProvider,

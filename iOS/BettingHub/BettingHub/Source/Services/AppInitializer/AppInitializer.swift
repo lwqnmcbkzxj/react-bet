@@ -19,19 +19,7 @@ class AppInitializer {
     }
     
     func start(with window: UIWindow) {
-//        switch authService.isAuthorized {
-//        case .success(let auth):
-//            if auth {
-//                //TODO: change when exit added
-////                window.rootViewController = coordinator.mainTabBarScreen
-//                window.rootViewController = coordinator.loginVC()
-//            } else {
-//                window.rootViewController = coordinator.loginVC()
-//            }
-//        case .failure(_):
-//            window.rootViewController = coordinator.loginVC()
-//        }
-        window.rootViewController = coordinator.mainTabBarScreen
+        window.rootViewController = coordinator.loginVC()
         window.makeKeyAndVisible()
     }
 }

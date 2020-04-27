@@ -20,14 +20,14 @@ class AuthService: IAuthService {
         self.reqBuilder = reqBuilder
     }
     
-    var isAuthorized: Result<Bool, BHError> {
+    var isAuthorized: BHError? {
         let authToken = tokenService.authToken()
         switch authToken {
         case .success(_):
-            return .success(true)
+            return nil
             
         case .failure(let error):
-            return .failure(error)
+            return error
         }
     }
     
@@ -53,7 +53,7 @@ class AuthService: IAuthService {
                 callback(nil)
                 
             case .failure(let err):
-                callback((err as? BHError) ?? .unspecified)
+                callback(err.asBHError())
             }
         }
     }

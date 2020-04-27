@@ -39,8 +39,9 @@ class ArrowsStepperView: UIControl {
         super.init(frame: .zero)
         makeLayout()
         
-        downArrowButton.addTarget(self, action: #selector(downTapped), for: .touchUpInside)
-        upArrowButton.addTarget(self, action: #selector(upTapped), for: .touchUpInside)
+//        TODO: Uncomment
+//        downArrowButton.addTarget(self, action: #selector(downTapped), for: .touchUpInside)
+//        upArrowButton.addTarget(self, action: #selector(upTapped), for: .touchUpInside)
     }
     
     func setNumber(_ number: Int) {

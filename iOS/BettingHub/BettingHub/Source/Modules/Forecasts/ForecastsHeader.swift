@@ -8,6 +8,25 @@
 
 import UIKit
 
+class ForecastFilterPanel: PanelSegmenterControl {
+    
+    var selectedFilter: ForecastFilter {
+        [
+            0: ForecastFilter.subscribers,
+            1: ForecastFilter.all,
+            2: ForecastFilter.paid
+        ][selectedSegment ?? 1]!
+    }
+    
+    init() {
+        super.init(items: [Text.subscribtions, Text.allForecasts, Text.paid])
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 class ForecastsHeader: UIView {
     
     private let buttonSelectedTint: UIColor = .mainOrange
@@ -29,8 +48,8 @@ class ForecastsHeader: UIView {
         return button
     }()
     
-    let forecastsSegmenter: PanelSegmenterControl = {
-        let view = PanelSegmenterControl(items: [Text.subscribtions, Text.allForecasts, Text.paid])
+    let forecastsSegmenter: ForecastFilterPanel = {
+        let view = ForecastFilterPanel()
         view.selectedSegment = 1
         view.clipsToBounds = false
         return view

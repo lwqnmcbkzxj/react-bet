@@ -14,4 +14,11 @@ enum BHError: Int, Error {
     case userUnauthorized
     case tokenExpired
     case unspecified
+    case unexpectedContent
+}
+
+extension Error {
+    func asBHError() -> BHError {
+        return (self as? BHError) ?? .unspecified
+    }
 }

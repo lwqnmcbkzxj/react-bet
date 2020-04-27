@@ -23,4 +23,8 @@ class ServiceLocator {
     private(set) lazy var authService: IAuthService = AuthService(tokenService: tokenService,
                                                                   httpClient: httpClient,
                                                                   reqBuilder: requestBuilder)
+    
+    private(set) lazy var forecastService: IForecastService = ForecastService(authService: authService,
+                                                                              client: httpClient,
+                                                                              requestBuilder: requestBuilder)
 }

@@ -31,17 +31,19 @@ class ForecastInfoStackView: UIView {
     }
     
     func configure(forecast: Forecast) {
-        populateStack()
+        populateStack(forecast: forecast)
     }
     
-    private func populateStack() {
+    private func populateStack(forecast: Forecast) {
         stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         stackView.addArrangedSubview(plainRow(title: Text.tournament, value: "NORCECA WCC"))
-        stackView.addArrangedSubview(plainRow(title: Text.dateTime, value: "10.04.2020 в 12:40"))
+        stackView.addArrangedSubview(plainRow(title: Text.dateTime, value: forecast.time))
         stackView.addArrangedSubview(boldRow(title: Text.forecastWord, value: "Тотал больше 1.5"))
-        stackView.addArrangedSubview(plainRow(title: Text.coeficientWord, value: "1.78"))
-        stackView.addArrangedSubview(positivityRow(title: Text.bet, value: 1700))
-        stackView.addArrangedSubview(positivityRow(title: Text.possibleWin, value: 1370, withLine: false))
+        stackView.addArrangedSubview(plainRow(title: Text.coeficientWord, value: "\(forecast.coefficient)"))
+        stackView.addArrangedSubview(positivityRow(title: Text.bet, value: forecast.betValue))
+        stackView.addArrangedSubview(positivityRow(title: Text.possibleWin,
+                                                   value: forecast.betValue * (forecast.coefficient - 1),
+                                                   withLine: false))
     }
     
     

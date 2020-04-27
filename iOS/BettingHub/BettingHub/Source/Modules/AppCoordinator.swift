@@ -25,6 +25,9 @@ class AppCoordinator {
     func mainScreen() -> UIViewController {
         let vc = MainViewController()
         let router = MainScreenRouter(coordinator: self)
+        let interactor = MainScreenInteractor(forecastService: ServiceLocator.shared.forecastService)
+        let dataProvider = MainScreenDataProvider(interactor: interactor)
+        vc.dataProvider = dataProvider
         vc.router = router
         router.viewController = vc
         let nav = NavigationController(rootViewController: vc)
@@ -32,7 +35,11 @@ class AppCoordinator {
     }
     
     func forecastsScreen() -> UIViewController {
-        let vc = ForecastsViewController()
+        let vm = ForecastsViewModel(forecastService: ServiceLocator.shared.forecastService)
+        let vc = ForecastsViewController(viewModel: vm)
+        let router = ForecastsRouter(coordinator: self)
+        vc.router = router
+        router.viewController = vc
         let nav = NavigationController(rootViewController: vc)
         return nav
     }
@@ -50,6 +57,7 @@ class AppCoordinator {
     
     func fullForecastScreen(forecast: Forecast) -> UIViewController {
         let vc = FullForecastViewController()
+        vc.configure(with: forecast)
         return vc
     }
 }

@@ -11,7 +11,9 @@ import UIKit
 extension UIImageView {
     func setImage(url: String) {
         //TODO: add placeholder image
-        let fullURL = baseURL.appendingPathComponent(url)
+//        let fullURL = baseURL.appendingPathComponent(url)
+        //TODO: change after migration to new server
+        let fullURL = URL(string: "http://xbethub.com")!.appendingPathComponent(url)
         DispatchQueue.global(qos: .background).async {
             guard
                 let data = try? Data(contentsOf: fullURL),

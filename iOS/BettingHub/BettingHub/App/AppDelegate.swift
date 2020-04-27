@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                             authService: ServiceLocator.shared.authService)
 
         appInitializer.start(with: window!)
+        
         return true
     }
 }

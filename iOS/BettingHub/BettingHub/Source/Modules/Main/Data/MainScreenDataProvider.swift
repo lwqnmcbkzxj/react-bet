@@ -9,6 +9,11 @@ import Foundation
 
 class MainScreenDataProvider {
     
+    let interactor: IMainScreenInteractor
+    
+    init(interactor: IMainScreenInteractor) {
+        self.interactor = interactor
+    }
     
     private var forecasters: [Forecaster] = [] {
         didSet {
@@ -98,8 +103,8 @@ class MainScreenDataProvider {
                       bets: 122)
             }
             
-            self.forecasts = (0..<5).map { (_) -> Forecast in
-                Forecast.stub()
+            self.interactor.getForecasts { [weak self] (forecasts) in
+                self?.forecasts = forecasts
             }
         }
     }
