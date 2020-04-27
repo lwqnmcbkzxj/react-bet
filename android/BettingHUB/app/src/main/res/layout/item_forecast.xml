@@ -6,7 +6,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_corned_frame">
+        android:background="@drawable/bg_corned_frame"
+        android:clickable="true"
+        android:focusable="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/headerBlock"
@@ -88,7 +90,7 @@
                 />
 
             <TextView
-                android:id="@+id/rivals"
+                android:id="@+id/teams"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_medium"
@@ -110,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@id/rivals"
+                app:layout_constraintTop_toBottomOf="@id/teams"
                 app:layout_constraintStart_toStartOf="@id/start"
                 app:layout_constraintEnd_toEndOf="@id/end">
 

@@ -4,7 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="sideMargin">15dp</dimen>
-    <dimen name="forecastSideMargin">8dp</dimen>
+    <dimen name="forecastSideMargin">15dp</dimen>
     <dimen name="forecastFieldSpace">6dp</dimen>
 
     <dimen name="forecastsItemTopSpace">25dp</dimen>
@@ -12,4 +12,20 @@
     <dimen name="forecastsShowMoreTopSpace">44dp</dimen>
     <dimen name="forecastsFooterTopSpace">44dp</dimen>
     <dimen name="forecastsItemSpace">20dp</dimen>
+
+    <dimen name="forecastFieldHeight">36dp</dimen>
+
+    <dimen name="commentSideSpace">8dp</dimen>
+    <dimen name="commentLevel1Margin">15dp</dimen>
+    <dimen name="commentLevel2Margin">30dp</dimen>
+    <dimen name="commentLevel3Margin">53dp</dimen>
+
+    <dimen name="commentLineLevel2Margin">23dp</dimen>
+    <dimen name="commentLineLevel3Margin">46dp</dimen>
+
+    <dimen name="commentShowMoreBtnMarginStart">23dp</dimen>
+
+    <dimen name="commentItemTopSpace">27dp</dimen>
+    <dimen name="commentItemSideSpace">20dp</dimen>
+    <dimen name="commentItemSpace">20dp</dimen>
 </resources>
