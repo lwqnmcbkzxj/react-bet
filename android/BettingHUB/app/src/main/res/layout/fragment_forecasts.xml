@@ -17,254 +17,202 @@
 
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/forecastRV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_forecast"
+        tools:itemCount="1"
+        android:background="@android:color/white"
+        />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white">
+<!--    <androidx.core.widget.NestedScrollView-->
+<!--        android:id="@+id/rootNestedSV"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/topPanel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="50dp"
-                android:background="@drawable/bg_main_blue_rectangle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@android:color/white">-->
 
-                <ImageButton
-                    android:id="@+id/searchBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintDimensionRatio="1"
-                    android:background="@android:color/transparent"
-                    android:padding="12dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_search"
-                    android:layout_marginEnd="5dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@id/bottom"
-                    android:onClick="@{v -> fragment.onSearchBtnClick()}"/>
+<!--            <include-->
+<!--                android:id="@+id/topPanel"-->
+<!--                layout="@layout/element_top_panel"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                />-->
 
-                <ImageView
-                    android:id="@+id/logo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/small_logo"
-                    android:layout_marginStart="@dimen/sideMargin"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@id/bottom"/>
+<!--            <TextView-->
+<!--                android:id="@+id/title"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fontFamily="@font/roboto_medium"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textColor="#343638"-->
+<!--                android:textAllCaps="true"-->
+<!--                android:text="@string/forecasts"-->
+<!--                android:layout_marginStart="@dimen/sideMargin"-->
+<!--                android:layout_marginTop="25dp"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/topPanel"/>-->
 
-                <include
-                    android:id="@+id/bankBalance"
-                    layout="@layout/element_balance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
-                    app:layout_constraintStart_toEndOf="@id/logo"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@id/bottom"
-                    />
+<!--            <ImageButton-->
+<!--                android:id="@+id/extraFiltersBtn"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@drawable/ic_settings"-->
+<!--                android:background="@android:color/transparent"-->
+<!--                android:padding="@dimen/sideMargin"-->
+<!--                app:layout_constraintTop_toTopOf="@id/title"-->
+<!--                app:layout_constraintBottom_toBottomOf="@id/title"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                android:onClick="@{v -> fragment.onExtraFiltersBtnClick()}"-->
+<!--                />-->
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/bottom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_begin="50dp"/>
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/filter"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="33dp"-->
+<!--                android:layout_marginTop="25dp"-->
+<!--                android:layout_marginStart="@dimen/sideMargin"-->
+<!--                android:layout_marginEnd="@dimen/sideMargin"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/title"-->
+<!--                android:background="@drawable/bg_forecast_filter">-->
 
-                <SearchView
-                    android:id="@+id/searchField"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/bg_search_bar"
-                    android:visibility="visible"
-                    android:iconifiedByDefault="false"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/bottom" />
+<!--                <Button-->
+<!--                    android:id="@+id/subscriptionsBtn"-->
+<!--                    style="@style/ForecastFilterStyle"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:text="@string/subscriptions"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintEnd_toStartOf="@id/allForecastsBtn"-->
+<!--                    android:onClick="@{v -> viewModel.onForecastTypeBtnClick(ForecastType.SUBSCRIPTION)}"-->
+<!--                    />-->
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                <Button-->
+<!--                    android:id="@+id/allForecastsBtn"-->
+<!--                    style="@style/ForecastFilterStyle"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:text="@string/allForecasts"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/subscriptionsBtn"-->
+<!--                    app:layout_constraintEnd_toStartOf="@id/paidBtn"-->
+<!--                    android:onClick="@{v -> viewModel.onForecastTypeBtnClick(ForecastType.ALL)}"-->
+<!--                    />-->
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="20sp"
-                android:textColor="#343638"
-                android:textAllCaps="true"
-                android:text="@string/forecasts"
-                android:layout_marginStart="@dimen/sideMargin"
-                android:layout_marginTop="25dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/topPanel"/>
+<!--                <Button-->
+<!--                    android:id="@+id/paidBtn"-->
+<!--                    style="@style/ForecastFilterStyle"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:text="@string/paid"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/allForecastsBtn"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    android:onClick="@{v -> viewModel.onForecastTypeBtnClick(ForecastType.PAID)}"-->
+<!--                    />-->
 
-            <ImageButton
-                android:id="@+id/extraFiltersBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_settings"
-                android:background="@android:color/transparent"
-                android:padding="@dimen/sideMargin"
-                app:layout_constraintTop_toTopOf="@id/title"
-                app:layout_constraintBottom_toBottomOf="@id/title"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:onClick="@{v -> fragment.onExtraFiltersBtnClick()}"
-                />
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/filter"
-                android:layout_width="match_parent"
-                android:layout_height="33dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginStart="@dimen/sideMargin"
-                android:layout_marginEnd="@dimen/sideMargin"
-                app:layout_constraintTop_toBottomOf="@id/title"
-                android:background="@drawable/bg_forecast_filter">
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/extraFilterFields"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="@dimen/sideMargin"-->
+<!--                android:layout_marginEnd="@dimen/sideMargin"-->
+<!--                android:layout_marginTop="25dp"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/filter"-->
+<!--                >-->
 
-                <Button
-                    android:id="@+id/subscriptionsBtn"
-                    style="@style/ForecastFilterStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/subscriptions"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/allForecastsBtn"
-                    android:onClick="@{v -> viewModel.onForecastTypeBtnClick(ForecastType.SUBSCRIPTION)}"
-                    />
+<!--                <TextView-->
+<!--                    android:id="@+id/nearestField"-->
+<!--                    style="@style/ForecastFilterStyle"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/nearestField"-->
+<!--                    android:fontFamily="@font/roboto_medium"-->
+<!--                    android:textColor="#202E48"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/timeIntervalSpinnerLayout"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@id/timeIntervalSpinnerLayout"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    />-->
 
-                <Button
-                    android:id="@+id/allForecastsBtn"
-                    style="@style/ForecastFilterStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/allForecasts"
-                    app:layout_constraintStart_toEndOf="@id/subscriptionsBtn"
-                    app:layout_constraintEnd_toStartOf="@id/paidBtn"
-                    android:onClick="@{v -> viewModel.onForecastTypeBtnClick(ForecastType.ALL)}"
-                    />
+<!--                <RelativeLayout-->
+<!--                    android:id="@+id/timeIntervalSpinnerLayout"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@drawable/bg_forecast_filter"-->
+<!--                    android:layout_marginStart="10dp"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/nearestField">-->
 
-                <Button
-                    android:id="@+id/paidBtn"
-                    style="@style/ForecastFilterStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/paid"
-                    app:layout_constraintStart_toEndOf="@id/allForecastsBtn"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:onClick="@{v -> viewModel.onForecastTypeBtnClick(ForecastType.PAID)}"
-                    />
+<!--                    <Spinner-->
+<!--                        android:id="@+id/timeIntervalSpinner"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerInParent="true"-->
+<!--                        />-->
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/extraFilterFields"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/sideMargin"
-                android:layout_marginEnd="@dimen/sideMargin"
-                android:layout_marginTop="25dp"
-                app:layout_constraintTop_toBottomOf="@id/filter"
-                >
-
-                <TextView
-                    android:id="@+id/nearestField"
-                    style="@style/ForecastFilterStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/nearestField"
-                    android:fontFamily="@font/roboto_medium"
-                    android:textColor="#202E48"
-                    app:layout_constraintTop_toTopOf="@id/timeIntervalSpinnerLayout"
-                    app:layout_constraintBottom_toBottomOf="@id/timeIntervalSpinnerLayout"
-                    app:layout_constraintStart_toStartOf="parent"
-                    />
-
-                <RelativeLayout
-                    android:id="@+id/timeIntervalSpinnerLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_forecast_filter"
-                    android:layout_marginStart="10dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/nearestField">
-
-                    <Spinner
-                        android:id="@+id/timeIntervalSpinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        />
-
-                </RelativeLayout>
+<!--                </RelativeLayout>-->
 
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/sportRV"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    app:layout_constraintTop_toBottomOf="@id/nearestField"
-                    />
+<!--                <androidx.recyclerview.widget.RecyclerView-->
+<!--                    android:id="@+id/sportRV"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="25dp"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/nearestField"-->
+<!--                    />-->
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/forecastRV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/item_forecast"
-                tools:itemCount="1"
-                app:layout_constraintTop_toBottomOf="@id/extraFilterFields"
-                />
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/forecastRV"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                tools:listitem="@layout/item_forecast"-->
+<!--                tools:itemCount="1"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/extraFilterFields"-->
+<!--                />-->
 
-            <Button
-                android:id="@+id/showMoreBtn"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:text="@string/showMore"
-                android:fontFamily="@font/roboto_medium"
-                android:textAllCaps="false"
-                android:textSize="18sp"
-                android:textColor="#202E48"
-                android:background="@drawable/bg_button"
-                android:layout_marginStart="@dimen/sideMargin"
-                android:layout_marginEnd="@dimen/sideMargin"
-                android:layout_marginTop="44dp"
-                app:layout_constraintTop_toBottomOf="@id/forecastRV"
-                android:onClick="@{v -> viewModel.onShowMoreBtnClick()}"
-                />
+<!--            <Button-->
+<!--                android:id="@+id/showMoreBtn"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:text="@string/showMore"-->
+<!--                android:fontFamily="@font/roboto_medium"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textSize="18sp"-->
+<!--                android:textColor="#202E48"-->
+<!--                android:background="@drawable/bg_button"-->
+<!--                android:layout_marginStart="@dimen/sideMargin"-->
+<!--                android:layout_marginEnd="@dimen/sideMargin"-->
+<!--                android:layout_marginTop="44dp"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/forecastRV"-->
+<!--                android:onClick="@{v -> viewModel.onShowMoreBtnClick()}"-->
+<!--                />-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/copyright"
-                android:gravity="center"
-                android:fontFamily="@font/roboto_regular"
-                android:textSize="13sp"
-                android:textColor="#818283"
-                android:layout_marginTop="44dp"
-                android:layout_marginBottom="70dp"
-                app:layout_constraintTop_toBottomOf="@id/showMoreBtn"
-                app:layout_constraintBottom_toBottomOf="parent"
-                />
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/copyright"-->
+<!--                android:gravity="center"-->
+<!--                android:fontFamily="@font/roboto_regular"-->
+<!--                android:textSize="13sp"-->
+<!--                android:textColor="#818283"-->
+<!--                android:layout_marginTop="44dp"-->
+<!--                android:layout_marginBottom="70dp"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/showMoreBtn"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                />-->
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-    </androidx.core.widget.NestedScrollView>
+<!--    </androidx.core.widget.NestedScrollView>-->
 
 
 

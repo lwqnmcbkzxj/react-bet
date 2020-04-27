@@ -1,10 +1,10 @@
-package com.xbethub.webview.ui.forecasts.forecastItem
+package com.xbethub.webview.ui.forecasts.items.viewHolders
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.xbethub.webview.databinding.ItemForecastBinding
 import com.xbethub.webview.models.Forecast
-import com.xbethub.webview.ui.forecasts.forecastItem.ForecastListener
+import com.xbethub.webview.ui.forecasts.items.ForecastListener
 
 class ForecastViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     private var binding: ItemForecastBinding = ItemForecastBinding.bind(itemView)

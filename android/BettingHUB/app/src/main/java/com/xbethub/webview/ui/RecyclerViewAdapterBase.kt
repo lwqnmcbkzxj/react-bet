@@ -18,6 +18,14 @@ abstract class RecyclerViewAdapterBase<L, M, VH: RecyclerView.ViewHolder>(privat
         notifyItemRangeChanged(oldSize, addedSize)
     }
 
+    fun addAll(position: Int, data: Collection<M>) {
+        models.addAll(position, data)
+
+        val addedSize = data.size
+
+        notifyItemRangeChanged(position, addedSize)
+    }
+
     fun moveItem(fromPosition: Int, toPosition: Int) {
         val item = models.removeAt(fromPosition)
         models.add(toPosition, item)

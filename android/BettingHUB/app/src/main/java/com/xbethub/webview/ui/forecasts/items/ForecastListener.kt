@@ -1,4 +1,4 @@
-package com.xbethub.webview.ui.forecasts.forecastItem
+package com.xbethub.webview.ui.forecasts.items
 
 import com.xbethub.webview.models.Forecast
 
