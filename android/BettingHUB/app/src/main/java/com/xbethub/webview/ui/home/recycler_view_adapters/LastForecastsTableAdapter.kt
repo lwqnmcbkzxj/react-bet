@@ -1,8 +1,7 @@
-package com.xbethub.webview.ui.recycler_view_adapters
+package com.xbethub.webview.ui.home.recycler_view_adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.xbethub.webview.R
@@ -12,7 +11,7 @@ class LastForecastsTableAdapter (private val myDataset: Array<String>) :
     class MyViewHolder(val forecastCard: ConstraintLayout) : RecyclerView.ViewHolder(forecastCard)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val forecastCard = LayoutInflater.from(parent.context).inflate(R.layout.card_forecast, parent, false) as ConstraintLayout
+        val forecastCard = LayoutInflater.from(parent.context).inflate(R.layout.item_forecast, parent, false) as ConstraintLayout
         return MyViewHolder(forecastCard)
     }
 

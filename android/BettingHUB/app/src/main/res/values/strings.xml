@@ -73,4 +73,9 @@
     <string name="h12">12 часов</string>
     <string name="h6">6 часов</string>
     <string name="h3">3 часа</string>
+    <string name="invalid_email">Некорректный email!</string>
+    <string name="too_short_password_hint">Слишком короткий пароль!</string>
+    <string name="dismatch_passwords_hint">Пароли не сопадают!</string>
+    <string name="email_hint">Введите email</string>
+    <string name="email_label">Ваша почта</string>
 </resources>
