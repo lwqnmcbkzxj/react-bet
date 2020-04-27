@@ -4,25 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.ImageButton
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xbethub.webview.R
-import com.xbethub.webview.ui.forecasts.items.ItemAdapter
-import com.xbethub.webview.ui.forecasts.items.ItemDecoration
-import com.xbethub.webview.ui.forecasts.items.items.*
-import com.xbethub.webview.ui.recycler_view_adapters.LastForecastsTableAdapter
-import com.xbethub.webview.ui.recycler_view_adapters.SpanningLinearLayoutManager
-import com.xbethub.webview.ui.recycler_view_adapters.TopUsersTableAdapter
+import com.xbethub.webview.ui.home.recycler_view_adapters.LastForecastsTableAdapter
+import com.xbethub.webview.ui.home.recycler_view_adapters.TopUsersTableAdapter
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), View.OnClickListener {
 
     lateinit var topUsersTable: RecyclerView
     lateinit var lastForecastsTable: RecyclerView
-
+    var searchBarState: Boolean = false //inactive
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -53,5 +48,19 @@ class HomeFragment : Fragment() {
                 5
             ) { i -> i.toString()})
         }
+        view?.findViewById<ImageButton>(R.id.search_button)?.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.search_button -> searchButton(v as ImageButton)
+        }
+    }
+    private fun searchButton(button: ImageButton) {
+        searchBarState = !searchBarState
+        button.setImageResource(if (searchBarState) R.drawable.ic_search_enabled
+                                else R.drawable.ic_search_disabled)
+        view?.findViewById<SearchView>(R.id.searchField)?.visibility =
+            if (searchBarState) View.VISIBLE else View.GONE
     }
 }
