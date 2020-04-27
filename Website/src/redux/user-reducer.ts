@@ -10,7 +10,7 @@ const SET_TOKEN = 'user/SET_TOKEN'
 const SET_USER_INFO = 'user/SET_USER_INFO'
 
 let initialState = {
-	logged: true,
+	logged: false,
 	token: ""
 }
 
@@ -66,10 +66,10 @@ export const register = (username: string, email: string, password: string): Thu
 
 export const login = (email: string, password: string): ThunksType => async (dispatch) => {
 	let response = await userAPI.login(email, password)
-
 	if (!response.message) {
-		dispatch(setAccessToken(response.access_token))
 		dispatch(setLogged(true))
+		dispatch(setAccessToken(response.access_token))
+
 		dispatch(getUserInfo())
 	}
 }
