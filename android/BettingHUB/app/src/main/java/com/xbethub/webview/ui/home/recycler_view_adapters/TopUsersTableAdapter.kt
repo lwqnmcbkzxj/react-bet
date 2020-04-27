@@ -1,12 +1,10 @@
-package com.xbethub.webview.ui.recycler_view_adapters
+package com.xbethub.webview.ui.home.recycler_view_adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.xbethub.webview.R
-import java.util.zip.Inflater
 
 class TopUsersTableAdapter(private val myDataset: Array<String>) :
     RecyclerView.Adapter<TopUsersTableAdapter.MyViewHolder>() {

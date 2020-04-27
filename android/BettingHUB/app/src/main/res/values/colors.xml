@@ -13,4 +13,5 @@
     <color name="minor_content_gray">#a8abaf</color>
     <color name="green_indicator_transparent">#2000BB00</color>
     <color name="frameColor">#E5E2E2</color>
+    <color name="red_transparent_indicator">#3BFF1111</color>
 </resources>

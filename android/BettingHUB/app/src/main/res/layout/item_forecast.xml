@@ -6,6 +6,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
         android:background="@drawable/bg_corned_frame">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +20,7 @@
                 android:id="@+id/categoryIcon"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:src="@drawable/ic_test_category_icon"
+                app:srcCompat="@drawable/ic_test_category_icon"
                 android:layout_marginStart="@dimen/forecastSideMargin"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -220,34 +222,34 @@
                     <ImageView
                         android:id="@+id/win1"
                         style="@style/WinLossCircleStyle"
-                        android:src="@drawable/ic_check"
+                        app:srcCompat="@drawable/ic_check"
                         />
 
                     <ImageView
                         android:id="@+id/win2"
                         style="@style/WinLossCircleStyle"
-                        android:src="@drawable/ic_check"
+                        app:srcCompat="@drawable/ic_check"
                         android:layout_marginStart="3dp"
                         />
 
                     <ImageView
                         android:id="@+id/win3"
                         style="@style/WinLossCircleStyle"
-                        android:src="@drawable/ic_close"
+                        app:srcCompat="@drawable/ic_close"
                         android:layout_marginStart="3dp"
                         />
 
                     <ImageView
                         android:id="@+id/win4"
                         style="@style/WinLossCircleStyle"
-                        android:src="@drawable/ic_check"
+                        app:srcCompat="@drawable/ic_check"
                         android:layout_marginStart="3dp"
                         />
 
                     <ImageView
                         android:id="@+id/win5"
                         style="@style/WinLossCircleStyle"
-                        android:src="@drawable/ic_close"
+                        app:srcCompat="@drawable/ic_close"
                         android:layout_marginStart="3dp"
                         />
 
@@ -311,7 +313,7 @@
                     android:id="@+id/commentIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_comment"
+                    app:srcCompat="@drawable/ic_comment"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"/>
@@ -330,7 +332,7 @@
                     android:id="@+id/bookmarkIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_bookmark"
+                    app:srcCompat="@drawable/ic_bookmark"
                     android:layout_marginStart="16dp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -357,7 +359,7 @@
                         android:id="@+id/downVoteBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_arrow_down"
+                        app:srcCompat="@drawable/ic_arrow_down"
                         android:background="@android:color/transparent"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
@@ -375,7 +377,7 @@
                         android:id="@+id/upVoteBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_arrow_up"
+                        app:srcCompat="@drawable/ic_arrow_up"
                         android:background="@android:color/transparent"
                         android:paddingStart="8dp"
                         android:paddingEnd="@dimen/forecastSideMargin"
