@@ -28,7 +28,7 @@ class ItemAdapter(listener: ForecastListener, private val viewModel: ForecastsVi
 
     override fun setModel(holder: RecyclerView.ViewHolder, model: Item) {
         when (holder) {
-            is ForecastViewHolder -> holder.forecast = (model as ForecastItem).forecast
+            is ForecastViewHolder -> holder.setForecastItem(model as ForecastItem)
         }
     }
 

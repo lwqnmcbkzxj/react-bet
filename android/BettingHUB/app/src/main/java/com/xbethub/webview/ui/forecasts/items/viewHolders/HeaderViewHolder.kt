@@ -6,6 +6,8 @@ import android.os.Build
 import android.os.IBinder
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.LifecycleOwner
@@ -41,12 +43,28 @@ class HeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         binding.viewHolder = this
         binding.topPanel.searchBtn.setOnClickListener { onSearchBtnClick() }
+        binding.timeIntervalSpinner.adapter = ArrayAdapter(context!!, R.layout.row_time_interval, R.id.text
+            , TimeInterval.values().map { itemView.resources.getString(it.stringRes) })
     }
 
     fun setViewModel(viewModel: ForecastsViewModel, viewLifecycleOwner: LifecycleOwner) {
         binding.viewModel = viewModel
         addSportItems(viewModel)
         viewModel.forecastFilterLiveData.observe(viewLifecycleOwner, Observer { updateFilterViews(it) })
+
+        binding.timeIntervalSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                viewModel.onTimeIntervalSelected(TimeInterval.values()[position])
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
     }
 
     private fun addSportItems(viewModel: ForecastsViewModel) {
@@ -97,6 +115,10 @@ class HeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         activeSport = forecastFilter.sport
         sportAdapter.getItem(activeSport!!.ordinal).active = true
         sportAdapter.notifyItemChanged(activeSport!!.ordinal)
+
+        // TimeInterval
+        activeTimeInterval = forecastFilter.timeInterval
+        binding.timeIntervalSpinner.setSelection(activeTimeInterval!!.ordinal)
     }
 
     private fun updateExtraFiltersVisibility() {

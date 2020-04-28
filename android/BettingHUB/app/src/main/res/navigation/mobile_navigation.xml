@@ -46,5 +46,9 @@
         android:id="@+id/forecastFragment"
         android:name="com.xbethub.webview.ui.forecast.ForecastFragment"
         android:label="ForecastFragment"
-        tools:layout="@layout/fragment_forecast"/>
+        tools:layout="@layout/fragment_forecast">
+        <argument
+            android:name="forecast"
+            app:argType="com.xbethub.webview.models.Forecast" />
+    </fragment>
 </navigation>
