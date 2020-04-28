@@ -1,34 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Атрибут android:opacity=”opaque” крайне важен для предотвращения черных миганий при переходе к вашей теме -->
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
-    android:opacity="opaque"
-    android:paddingStart="300dp"
-    android:paddingEnd="300dp"
-    >
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
 
     <!-- Цвет фона, предпочтительно как в главной теме -->
     <item android:drawable="@android:color/white"/>
-    <item
 
-        android:left="75dp"
-        android:right="75dp">
-        <bitmap
-            android:gravity="left|right|center|center_vertical"
-            android:src="@drawable/img_main_logo"
-            android:tileMode="disabled" />
-    </item>
     <!-- Лого приложения - 144dp версия иконки приложения -->
-<!--    <item>-->
-<!--        <inset android:drawable="@drawable/btm_main_logo"-->
-<!--            android:insetRight="150dp"-->
-<!--            android:insetTop="150dp"-->
-<!--            android:insetLeft="150dp"-->
-<!--            android:insetBottom="150dp"/>-->
-<!--&lt;!&ndash;        <bitmap&ndash;&gt;-->
-<!--&lt;!&ndash;            android:src="@drawable/img_main_logo"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:gravity="center"&ndash;&gt;-->
-<!--&lt;!&ndash;            />&ndash;&gt;-->
+    <item>
 
-<!--    </item>-->
+        <bitmap
+            android:src="@drawable/img_main_logo"
+            android:gravity="center"/>
+
+    </item>
 
 </layer-list>

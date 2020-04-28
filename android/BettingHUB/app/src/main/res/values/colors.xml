@@ -9,10 +9,9 @@
     <color name="light_gray">#e9e7e7</color>
     <color name="main_blue">#202e48</color>
     <color name="white">#ffffff</color>
-    <color name="green_indicator">#0F971D</color>
+    <color name="green_indicator">#00bb00</color>
     <color name="minor_content_gray">#a8abaf</color>
-    <color name="green_indicator_transparent">#200F971D</color>
+    <color name="green_indicator_transparent">#2000BB00</color>
     <color name="frameColor">#E5E2E2</color>
-    <color name="red_transparent_indicator">#20FF1111</color>
-    <color name="lighter_gray">#f5f5f5</color>
+    <color name="red_transparent_indicator">#3BFF1111</color>
 </resources>
