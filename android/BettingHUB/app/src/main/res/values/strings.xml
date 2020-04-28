@@ -91,4 +91,5 @@
     <string name="dismatch_passwords_hint">Пароли не сопадают!</string>
     <string name="email_hint">Введите email</string>
     <string name="email_label">Ваша почта</string>
+    <string name="show_more_title">Показать больше</string>
 </resources>
