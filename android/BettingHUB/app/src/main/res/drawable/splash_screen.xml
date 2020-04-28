@@ -13,9 +13,10 @@
         android:left="75dp"
         android:right="75dp">
         <bitmap
-            android:gravity="left|right|center|center_vertical"
-            android:src="@drawable/img_main_logo"
-            android:tileMode="disabled" />
+            android:gravity="center"
+            android:src="@drawable/betting_hub_small"
+            android:tileMode="disabled"
+            />
     </item>
     <!-- Лого приложения - 144dp версия иконки приложения -->
 <!--    <item>-->

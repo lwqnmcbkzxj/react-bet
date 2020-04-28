@@ -11,7 +11,7 @@ class LastForecastsTableAdapter (private val myDataset: Array<String>) :
     class MyViewHolder(val forecastCard: ConstraintLayout) : RecyclerView.ViewHolder(forecastCard)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val forecastCard = LayoutInflater.from(parent.context).inflate(R.layout.item_forecast, parent, false) as ConstraintLayout
+        val forecastCard = LayoutInflater.from(parent.context).inflate(R.layout.card_forecast, parent, false) as ConstraintLayout
         return MyViewHolder(forecastCard)
     }
 

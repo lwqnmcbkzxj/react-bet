@@ -118,6 +118,7 @@
             android:text="@string/see_all_label_text"
             android:textAllCaps="false"
             android:textSize="20sp"
+            android:textColor="#202e48"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/top_users_list" />
@@ -144,8 +145,8 @@
                 android:text="@string/bookmakers_rating_label"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:fontFamily="sans-serif-medium"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -154,7 +155,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="1dp"
-                android:stretchColumns="1,2"
+                android:stretchColumns="0,2"
                 android:divider="@drawable/table_divider"
                 android:showDividers="middle"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -211,6 +212,7 @@
                         <ImageView
                             android:layout_height="match_parent"
                             android:layout_width="match_parent"
+                            android:adjustViewBounds="true"
                             android:background="@drawable/bg_clipping_rounded_rectangle_outline"
                             android:src="@drawable/img_test_kontora_logo" />
 
@@ -234,6 +236,7 @@
                         tools:ignore="HardcodedText" />
 
                     <TextView
+                        android:textColor="#343638"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:layout_marginStart="10dp"
@@ -246,6 +249,7 @@
                         android:layout_height="20dp"
                         android:layout_gravity="center"
                         android:scaleType="fitCenter"
+                        android:layout_marginEnd="10dp"
                         android:src="@drawable/ic_open_light_main_blue_100px" />
                 </TableRow>
 
@@ -263,6 +267,7 @@
                         <ImageView
                             android:layout_height="match_parent"
                             android:layout_width="match_parent"
+                            android:adjustViewBounds="true"
                             android:background="@drawable/bg_clipping_rounded_rectangle_outline"
                             android:src="@drawable/img_test_kontora_logo" />
 
@@ -286,6 +291,7 @@
                         tools:ignore="HardcodedText" />
 
                     <TextView
+                        android:textColor="#343638"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:layout_marginStart="10dp"
@@ -296,6 +302,7 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:layout_marginEnd="10dp"
                         android:scaleType="fitCenter"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_open_light_main_blue_100px" />
@@ -314,6 +321,7 @@
                         <ImageView
                             android:layout_height="match_parent"
                             android:layout_width="match_parent"
+                            android:adjustViewBounds="true"
                             android:background="@drawable/bg_clipping_rounded_rectangle_outline"
                             android:src="@drawable/img_test_kontora_logo" />
 
@@ -338,6 +346,7 @@
                         tools:ignore="HardcodedText" />
 
                     <TextView
+                        android:textColor="#343638"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:layout_marginStart="10dp"
@@ -348,6 +357,7 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:layout_marginEnd="10dp"
                         android:scaleType="fitCenter"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_open_light_main_blue_100px" />
@@ -368,6 +378,7 @@
             android:text="@string/see_all_label_text"
             android:textAllCaps="false"
             android:textSize="20sp"
+            android:textColor="#202e48"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/constraintLayout4" />
@@ -388,14 +399,14 @@
                 android:id="@+id/top_matches_label"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:fontFamily="sans-serif-medium"
+                android:fontFamily="sans-serif"
                 android:gravity="center_vertical"
                 android:paddingStart="10dp"
                 android:paddingEnd="5dp"
                 android:text="@string/top_matches_label"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -443,22 +454,87 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
                         android:text="@string/bets" />
                 </TableRow>
 
                 <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:textSize="12sp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:gravity="center"
+                    android:text="сегодня\n9:31"
+                    android:textAllCaps="true"
+                    android:textColor="@color/darkest_gray"
+                    android:textStyle="normal"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    tools:ignore="HardcodedText,SmallSp" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_sport_soccer" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1
+"                           android:layout_marginBottom="0dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center_vertical"
+                        android:text="Mousesports - Virtus.pro"
+                        android:textSize="15sp"
+                        android:paddingEnd="5dp"
+                        android:paddingStart="5dp"
+                        android:textColor="@color/darkest_gray"
+                        android:textStyle="normal"
+                        tools:ignore="HardcodedText" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center_vertical"
+                        android:text="LPL Pro League Season  4"
+                        android:textSize="12sp"
+                        android:paddingEnd="5dp"
+                        android:paddingStart="5dp"
+                        android:textColor="@color/gray"
+                        android:textStyle="normal"
+                        tools:ignore="HardcodedText" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="+144"
+                    android:textColor="@color/green_indicator"
+                    tools:ignore="HardcodedText"
+                    android:textAllCaps="true" />
+            </TableRow>
+                <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
                         android:textSize="12sp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
                         android:gravity="center"
                         android:text="сегодня\n9:31"
                         android:textAllCaps="true"
@@ -474,7 +550,6 @@
                         android:layout_height="20dp"
                         android:scaleType="fitCenter"
                         android:layout_gravity="center"
-                        android:layout_marginEnd="10dp"
                         android:src="@drawable/ic_sport_soccer" />
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -486,7 +561,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1
-"                           android:layout_marginBottom="3dp"
+"                           android:layout_marginBottom="0dp"
                             android:fontFamily="sans-serif-medium"
                             android:gravity="center_vertical"
                             android:text="Mousesports - Virtus.pro"
@@ -520,7 +595,6 @@
                         tools:ignore="HardcodedText"
                         android:textAllCaps="true" />
                 </TableRow>
-
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -528,8 +602,8 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
                         android:textSize="12sp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
                         android:gravity="center"
                         android:text="сегодня\n9:31"
                         android:textAllCaps="true"
@@ -543,7 +617,6 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:layout_marginEnd="10dp"
                         android:scaleType="fitCenter"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_sport_soccer" />
@@ -557,7 +630,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1
-"                           android:layout_marginBottom="3dp"
+"                           android:layout_marginBottom="0dp"
                             android:fontFamily="sans-serif-medium"
                             android:gravity="center_vertical"
                             android:text="Mousesports - Virtus.pro"
@@ -591,7 +664,6 @@
                         tools:ignore="HardcodedText"
                         android:textAllCaps="true" />
                 </TableRow>
-
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -599,8 +671,8 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
                         android:textSize="12sp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
                         android:gravity="center"
                         android:text="сегодня\n9:31"
                         android:textAllCaps="true"
@@ -615,7 +687,6 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:scaleType="fitCenter"
-                        android:layout_marginEnd="10dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_sport_soccer" />
                     <LinearLayout
@@ -628,7 +699,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1
-"                           android:layout_marginBottom="3dp"
+"                           android:layout_marginBottom="0dp"
                             android:fontFamily="sans-serif-medium"
                             android:gravity="center_vertical"
                             android:text="Mousesports - Virtus.pro"
@@ -662,7 +733,6 @@
                         tools:ignore="HardcodedText"
                         android:textAllCaps="true" />
                 </TableRow>
-
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -670,8 +740,8 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
                         android:textSize="12sp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
                         android:gravity="center"
                         android:text="сегодня\n9:31"
                         android:textAllCaps="true"
@@ -686,7 +756,6 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:scaleType="fitCenter"
-                        android:layout_marginEnd="10dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_sport_soccer" />
                     <LinearLayout
@@ -699,78 +768,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1
-"                           android:layout_marginBottom="3dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:gravity="center_vertical"
-                            android:text="Mousesports - Virtus.pro"
-                            android:textSize="15sp"
-                            android:paddingEnd="5dp"
-                            android:paddingStart="5dp"
-                            android:textColor="@color/darkest_gray"
-                            android:textStyle="normal"
-                            tools:ignore="HardcodedText" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="sans-serif"
-                            android:gravity="center_vertical"
-                            android:text="LPL Pro League Season  4"
-                            android:textSize="12sp"
-                            android:paddingEnd="5dp"
-                            android:paddingStart="5dp"
-                            android:textColor="@color/gray"
-                            android:textStyle="normal"
-                            tools:ignore="HardcodedText" />
-                    </LinearLayout>
-
-
-                    <TextView
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="+144"
-                        android:textColor="@color/green_indicator"
-                        tools:ignore="HardcodedText"
-                        android:textAllCaps="true" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif"
-                        android:textSize="12sp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:gravity="center"
-                        android:text="сегодня\n9:31"
-                        android:textAllCaps="true"
-                        android:textColor="@color/darkest_gray"
-                        android:textStyle="normal"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:paddingStart="4dp"
-                        android:paddingEnd="4dp"
-                        tools:ignore="HardcodedText,SmallSp" />
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:scaleType="fitCenter"
-                        android:layout_marginEnd="10dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_sport_soccer" />
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center_vertical"
-                        >
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1
-"                           android:layout_marginBottom="3dp"
+"                           android:layout_marginBottom="0dp"
                             android:fontFamily="sans-serif-medium"
                             android:gravity="center_vertical"
                             android:text="Mousesports - Virtus.pro"
@@ -819,6 +817,7 @@
             android:text="@string/show_more_title"
             android:textAllCaps="false"
             android:textSize="20sp"
+            android:textColor="#202e48"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/constraintLayout5" />
@@ -856,7 +855,7 @@
             app:layout_constraintTop_toBottomOf="@id/last_forecasts_label"
             tools:itemCount="5"
 
-            tools:listitem="@layout/item_forecast">
+            tools:listitem="@layout/card_forecast">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -874,6 +873,7 @@
             android:text="@string/all_forecasts_label"
             android:textAllCaps="false"
             android:textSize="20sp"
+            android:textColor="#202e48"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
