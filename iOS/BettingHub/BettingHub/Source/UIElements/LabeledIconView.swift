@@ -8,6 +8,17 @@
 
 import UIKit
 
+class LabeledIconWithNumber: LabeledIconView {
+    
+    func setNumber(_ number: Int) {
+        if number == 0 {
+            setText("")
+        } else {
+            setText("\(number)")
+        }
+    }
+}
+
 class LabeledIconView: UIView {
 
     private let iconImageView: UIImageView = {

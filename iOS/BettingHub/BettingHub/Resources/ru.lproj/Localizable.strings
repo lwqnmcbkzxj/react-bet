@@ -92,3 +92,4 @@
 
 "fieldsEmptyError" = "Заполните все поля";
 "unmatchingPasswordsError" = "Пароли не сопадают";
+"unspecifiedError" = "Ошибка";

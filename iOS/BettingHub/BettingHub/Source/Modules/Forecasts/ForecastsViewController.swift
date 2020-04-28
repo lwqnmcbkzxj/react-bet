@@ -70,7 +70,7 @@ class ForecastsViewController: UIViewController {
     }
     
     @objc private func segmentChanged() {
-        viewModel.forecastFilter = forecastsView.header.forecastsSegmenter.selectedFilter
+//        viewModel.forecastFilter = forecastsView.header.forecastsSegmenter.selectedFilter
     }
     
     @objc private func sportChanged() {

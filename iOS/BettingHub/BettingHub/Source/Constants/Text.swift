@@ -75,5 +75,6 @@ class Text {
     static var menuArticles: String { "menuArticles".localized }
     static var fieldsEmptyError: String { "fieldsEmptyError".localized }
     static var unmatchingPasswordsError: String { "unmatchingPasswordsError".localized }
+    static var unspecifiedError: String { "unspecifiedError".localized }
 }
 

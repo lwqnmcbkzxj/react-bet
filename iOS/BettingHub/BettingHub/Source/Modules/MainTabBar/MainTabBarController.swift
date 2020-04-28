@@ -21,7 +21,7 @@ class MainTabBarController: UITabBarController {
     
     init(coordinator: AppCoordinator) {
         super.init(nibName: nil, bundle: nil)
-        
+        tabBar.itemPositioning = .centered
         setupScreens(coordinator: coordinator)
         selectedIndex = 0
     }
@@ -35,42 +35,40 @@ class MainTabBarController: UITabBarController {
         let mainScreen = coordinator.mainScreen()
         let mainImage = UIImage(named: "homeIcon")!.withRenderingMode(.alwaysOriginal)
         let mainImageSel = UIImage(named: "homeIconSelected")!.withRenderingMode(.alwaysOriginal)
-        mainScreen.tabBarItem = UITabBarItem(title: nil,
-                                             image: mainImage,
-                                             selectedImage: mainImageSel)
+        mainScreen.tabBarItem = item(image: mainImage, selectedImage: mainImageSel)
         
         let forecastsScreen = coordinator.forecastsScreen()
         let forecastsImage = UIImage(named: "forecastsIcon")!.withRenderingMode(.alwaysOriginal)
         let forecastsImageSel = UIImage(named: "forecastsIconSelected")!.withRenderingMode(.alwaysOriginal)
-        forecastsScreen.tabBarItem = UITabBarItem(title: nil,
-                                                  image: forecastsImage,
-                                                  selectedImage: forecastsImageSel)
+        forecastsScreen.tabBarItem = item(image: forecastsImage, selectedImage: forecastsImageSel)
         
         let createScreen = UIViewController()
         createScreen.view.backgroundColor = .white
         let createImage = UIImage(named: "plusTabBar")!.withRenderingMode(.alwaysOriginal)
         let createImageSel = UIImage(named: "plusTabBarSelected")!.withRenderingMode(.alwaysOriginal)
-        createScreen.tabBarItem = UITabBarItem(title: nil ,
-                                               image: createImage,
-                                               selectedImage: createImageSel)
+        createScreen.tabBarItem = item(image: createImage, selectedImage: createImageSel)
         
         let profileScreen = UIViewController()
         profileScreen.view.backgroundColor = .white
         let profileImage = UIImage(named: "profileTabBar")!.withRenderingMode(.alwaysOriginal)
         let profileImageSel = UIImage(named: "profileTabBarSelected")!.withRenderingMode(.alwaysOriginal)
-        profileScreen.tabBarItem = UITabBarItem(title: nil,
-                                                image: profileImage,
-                                                selectedImage: profileImageSel)
+        profileScreen.tabBarItem = item(image: profileImage, selectedImage: profileImageSel)
         
         let menuScreen = coordinator.menuScreen()
         let menuImage = UIImage(named: "menuTabBar")!.withRenderingMode(.alwaysOriginal)
         let menuImageSel = UIImage(named: "menuTabBarSelected")!.withRenderingMode(.alwaysOriginal)
-        menuScreen.tabBarItem = UITabBarItem(title: nil,
-                                             image: menuImage,
-                                             selectedImage: menuImageSel)
+        menuScreen.tabBarItem = item(image: menuImage, selectedImage: menuImageSel)
         
         setViewControllers([mainScreen, forecastsScreen, createScreen, profileScreen, menuScreen],
                            animated: false)
+    }
+    
+    private func item(image: UIImage, selectedImage: UIImage) -> UITabBarItem {
+        let item = UITabBarItem(title: nil,
+                                image: image,
+                                selectedImage: selectedImage)
+        item.imageInsets = .init(top: 4, left: 0, bottom: -4, right: 0)
+        return item
     }
 }
 

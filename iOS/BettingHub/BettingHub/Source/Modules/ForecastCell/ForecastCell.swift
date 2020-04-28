@@ -165,16 +165,16 @@ class ForecastCell: UITableViewCell {
         return view
     }()
     
-    private let commentsView: LabeledIconView = {
-        let view = LabeledIconView()
+    private let commentsView: LabeledIconWithNumber = {
+        let view = LabeledIconWithNumber()
         let image = UIImage(named: "commentIcon")!
         view.setImage(image)
         view.isSkeletonable = true
         return view
     }()
     
-    private let bookmarksView: LabeledIconView = {
-        let view = LabeledIconView()
+    private let bookmarksView: LabeledIconWithNumber = {
+        let view = LabeledIconWithNumber()
         let image = UIImage(named: "bookmarkIcon")!
         view.setImage(image)
         view.isSkeletonable = true
@@ -212,8 +212,8 @@ class ForecastCell: UITableViewCell {
         userImageView.setImage(url: forecast.userAvatar)
         lastForecastsView.populate(with: [true, false, true, true, false])
         incomeLabel.setNumber(to: 50.4)
-        commentsView.setText(String(forecast.commentsQuanity))
-        bookmarksView.setText(String(forecast.favAmmount))
+        commentsView.setNumber(forecast.commentsQuanity)
+        bookmarksView.setNumber(forecast.favAmmount)
         stepperView.setNumber(forecast.rating)
     }
     
@@ -333,14 +333,14 @@ class ForecastCell: UITableViewCell {
         userLine.snp.makeConstraints { (make) in
             make.leading.equalTo(panelView).offset(8)
             make.trailing.lessThanOrEqualTo(panelView).offset(-8)
-            make.top.equalTo(descLabel.snp.bottom).offset(14)
-            make.height.equalTo(19)
+            make.top.equalTo(descLabel.snp.bottom).offset(17)
+            make.height.equalTo(25)
         }
         
         contentView.addSubview(bottomSeparator)
         bottomSeparator.snp.makeConstraints { (make) in
             make.leading.trailing.equalTo(panelView)
-            make.top.equalTo(userLine.snp.bottom).offset(20)
+            make.top.equalTo(userLine.snp.bottom).offset(17)
             make.height.equalTo(1)
         }
         
@@ -374,7 +374,7 @@ class ForecastCell: UITableViewCell {
         stackView.isSkeletonable = true
         
         userImageView.snp.makeConstraints { (make) in
-            make.width.equalTo(19)
+            make.width.equalTo(25)
         }
         stackView.addArrangedSubview(userImageView)
         

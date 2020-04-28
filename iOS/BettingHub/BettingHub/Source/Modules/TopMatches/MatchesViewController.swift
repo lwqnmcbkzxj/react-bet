@@ -30,7 +30,7 @@ class MatchesViewController: UIViewController {
         let dateW = 0.135
         let matchW = 0.47
         let betsW = 1 - dateW - matchW
-        view.configure(text: Text.bookmakersRating, mode: .matches)
+        view.configure(text: Text.topMatches, mode: .matches)
         return view
     }()
     

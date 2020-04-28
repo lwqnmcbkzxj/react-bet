@@ -122,6 +122,6 @@ extension LoginViewController: ILoginViewController {
     }
     
     func unspecifiedError() {
-//        view.showError(text: "unspecifiedErrorText")
+        view.showError(text: Text.unspecifiedError)
     }
 }

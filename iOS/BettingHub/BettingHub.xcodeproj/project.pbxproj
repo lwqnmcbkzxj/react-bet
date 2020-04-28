@@ -82,7 +82,6 @@
 		1CABD5E2244CB37E0039D99C /* LabeledIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABD5E1244CB37E0039D99C /* LabeledIconView.swift */; };
 		1CABD5E4244CB7570039D99C /* ArrowsStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABD5E3244CB7570039D99C /* ArrowsStepperView.swift */; };
 		1CABD5E7244CC9520039D99C /* ForecastCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABD5E6244CC9520039D99C /* ForecastCellPresenter.swift */; };
-		1CABD5EB244CCDB20039D99C /* ForecastCellRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABD5EA244CCDB20039D99C /* ForecastCellRouter.swift */; };
 		1CC4EF8A2447238D00D69C67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC4EF892447238D00D69C67 /* AppDelegate.swift */; };
 		1CC4EF932447239300D69C67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CC4EF922447239300D69C67 /* Assets.xcassets */; };
 		1CC4EF962447239300D69C67 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CC4EF942447239300D69C67 /* LaunchScreen.storyboard */; };
@@ -201,7 +200,6 @@
 		1CABD5E1244CB37E0039D99C /* LabeledIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledIconView.swift; sourceTree = "<group>"; };
 		1CABD5E3244CB7570039D99C /* ArrowsStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowsStepperView.swift; sourceTree = "<group>"; };
 		1CABD5E6244CC9520039D99C /* ForecastCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCellPresenter.swift; sourceTree = "<group>"; };
-		1CABD5EA244CCDB20039D99C /* ForecastCellRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCellRouter.swift; sourceTree = "<group>"; };
 		1CC4EF862447238D00D69C67 /* BettingHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BettingHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CC4EF892447238D00D69C67 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1CC4EF922447239300D69C67 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -510,7 +508,6 @@
 			children = (
 				1CABD5DF244CA52D0039D99C /* ForecastCell.swift */,
 				1CABD5E6244CC9520039D99C /* ForecastCellPresenter.swift */,
-				1CABD5EA244CCDB20039D99C /* ForecastCellRouter.swift */,
 			);
 			path = ForecastCell;
 			sourceTree = "<group>";
@@ -970,7 +967,6 @@
 				1CA01F6F24521B1F0025FF4F /* MainTabBarController.swift in Sources */,
 				1C43E2CD244B90FB002CF7EB /* Forecast.swift in Sources */,
 				1C91348A2447A39C00AE4510 /* ErrorView.swift in Sources */,
-				1CABD5EB244CCDB20039D99C /* ForecastCellRouter.swift in Sources */,
 				1C22EF442450884E00A7543D /* CommentsTableViewPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1121,17 +1117,19 @@
 			baseConfigurationReference = BCF48A15E2485EA03FC824DA /* Pods-BettingHub.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YVBDZ2ZFAE;
+				DEVELOPMENT_TEAM = BEZVYLYFD7;
 				INFOPLIST_FILE = BettingHub/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.maximBezd.BettingHub;
+				PRODUCT_BUNDLE_IDENTIFIER = vk.app.Bhub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1140,17 +1138,19 @@
 			baseConfigurationReference = 5CCA83A745208C2A7BBA9496 /* Pods-BettingHub.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YVBDZ2ZFAE;
+				DEVELOPMENT_TEAM = BEZVYLYFD7;
 				INFOPLIST_FILE = BettingHub/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.maximBezd.BettingHub;
+				PRODUCT_BUNDLE_IDENTIFIER = vk.app.Bhub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
