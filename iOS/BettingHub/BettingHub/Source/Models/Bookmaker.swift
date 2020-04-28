@@ -12,4 +12,8 @@ struct Bookmaker {
     let image: String?
     let rating: Double
     let bonus: Double
+    
+    static func stub() -> Bookmaker {
+        return .init(image: nil, rating: 9.4, bonus: 1337)
+    }
 }

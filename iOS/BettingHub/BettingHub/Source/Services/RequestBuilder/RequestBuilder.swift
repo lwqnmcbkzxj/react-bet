@@ -53,8 +53,8 @@ class RequestBuilder: IRequestBuilder {
         let params: [String: String] = [
                 "page": String(page),
                 "quanity": String(quantity),
-                "tf": TimeFrame.all.rawValue,
-                "sport": Sport.all.rawValue,
+                "tf": timeFrame.rawValue,
+                "sport": sport.rawValue,
                 "useSubscribes": subscribers ? "1" : "0",
                 "useFavorites": favorites ? "1" : "0"
         ]

@@ -20,6 +20,7 @@ class AppInitializer {
     
     func start(with window: UIWindow) {
         window.rootViewController = coordinator.loginVC()
+//        window.rootViewController = coordinator.mainTabBarScreen
         window.makeKeyAndVisible()
     }
 }

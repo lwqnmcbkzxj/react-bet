@@ -10,6 +10,11 @@ import UIKit
 
 class SportsControl: SelectionControl {
     
+    var selectedSport: Sport? {
+        guard let index = selectedIndex else { return nil }
+        return sports[index]
+    }
+    
     private let sports = Sport.getAll()
     
     init() {
@@ -50,7 +55,7 @@ class SelectionControl: UIControl {
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 10
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.backgroundColor = .white
+        collection.backgroundColor = .clear
         collection.clipsToBounds = false
         return collection
     }()

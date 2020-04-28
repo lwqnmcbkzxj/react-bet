@@ -15,12 +15,13 @@ class BookmakerCell: PanelCell {
         imageView.layer.cornerRadius = 5
         imageView.layer.masksToBounds = true
         imageView.backgroundColor = .gray
+        imageView.isSkeletonable = true
         return imageView
     }()
     
     private let ratingLabel: UILabel = {
         let view = UILabel()
-        view.text = "rating"
+        view.text = "9.40"
         view.font = .robotoRegular(size: 15)
         view.textColor = .titleBlack
         view.textAlignment = .center
@@ -55,6 +56,7 @@ class BookmakerCell: PanelCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .white
         selectionStyle = .none
+        isSkeletonable = true
         makeLayout()
     }
     
@@ -62,49 +64,57 @@ class BookmakerCell: PanelCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(with bookmaker: Bookmaker) {
+        
+    }
+    
     private func makeLayout() {
         let guide = UILayoutGuide()
         contentView.addLayoutGuide(guide)
         guide.snp.makeConstraints { (make) in
-            make.top.leading.bottom.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+            make.leading.equalToSuperview().offset(5)
             make.width.equalToSuperview().dividedBy(3.2)
         }
         
         contentView.addSubview(firmImageView)
         firmImageView.snp.makeConstraints { (make) in
-            make.leading.equalTo(guide).offset(8)
+            make.leading.equalTo(guide).offset(3)
             make.trailing.lessThanOrEqualTo(guide.snp.trailing)
             make.centerY.equalTo(guide)
             make.height.equalToSuperview().multipliedBy(45.0/64).priority(.high)
             make.width.equalTo(firmImageView.snp.height).multipliedBy(2.13)
         }
         
-        contentView.addSubview(ratingLabel)
-        ratingLabel.snp.makeConstraints { (make) in
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.isSkeletonable = true
+        
+        contentView.addSubview(stack)
+        stack.snp.makeConstraints { (make) in
             make.leading.equalTo(guide.snp.trailing)
-            make.top.bottom.equalToSuperview()
-            make.width.equalToSuperview().dividedBy(5)
+            make.trailing.equalToSuperview().offset(-8)
+            make.centerY.equalToSuperview()
+        }
+        
+        stack.addArrangedSubview(ratingLabel)
+        ratingLabel.snp.makeConstraints { (make) in
+            make.width.equalTo(contentView).dividedBy(5).priority(.high)
         }
 
-        contentView.addSubview(bonusLabel)
+        stack.addArrangedSubview(bonusLabel)
         bonusLabel.snp.makeConstraints { (make) in
-            make.leading.equalTo(ratingLabel.snp.trailing)
-            make.top.bottom.equalToSuperview()
-            make.width.equalToSuperview().dividedBy(5)
+            make.width.equalTo(contentView).dividedBy(5).priority(.high)
         }
 
-        contentView.addSubview(reviewLabel)
+        stack.addArrangedSubview(reviewLabel)
         reviewLabel.snp.makeConstraints { (make) in
-            make.leading.equalTo(bonusLabel.snp.trailing)
-            make.top.bottom.equalToSuperview()
+            make.width.equalTo(contentView).dividedBy(5).priority(.high)
         }
-
-        contentView.addSubview(linkImageView)
+        
+        stack.addArrangedSubview(linkImageView)
         linkImageView.snp.makeConstraints { (make) in
             make.height.width.equalTo(20)
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-8)
-            make.leading.equalTo(reviewLabel.snp.trailing)
         }
     }
 }

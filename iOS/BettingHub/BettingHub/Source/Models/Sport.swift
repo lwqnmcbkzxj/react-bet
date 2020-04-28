@@ -7,7 +7,7 @@
 //
 
 enum Sport: String {
-    case all
+    case all = "all"
     case football = "1"
     case tennis = "2"
     case basketball = "3"

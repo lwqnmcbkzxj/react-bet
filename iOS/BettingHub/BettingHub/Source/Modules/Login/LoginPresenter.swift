@@ -31,22 +31,25 @@ class LoginPresenter: ILoginPresenter {
     func register(username: String, email: String, password: String, confirmPassword: String) {
         if isLoading { return }
         
-        if check(username: username, email: email,
-                 password: password, confirmPassoword: confirmPassword) {
-            isLoading = true
-            authService.register(username: username, email: email, password: password) { (error) in
-                self.isLoading = false
-                if let error = error {
-                    self.handleError(error)
-                    return
-                }
-                print("success")
+        if !checkRegister(username: username, email: email,
+                          password: password, confirmPassoword: confirmPassword) { return }
+        
+        isLoading = true
+        authService.register(username: username, email: email, password: password) { (error) in
+            self.isLoading = false
+            if let error = error {
+                self.handleError(error)
+                return
             }
+            print("success")
         }
+        
     }
     
     func logIn(usernameOrMail: String, password: String) {
         if isLoading { return }
+        
+        if !checkLogIn(usernameOrEmail: usernameOrMail, password: password) { return }
         
         isLoading = true
         authService.logIn(usernameOrMail: usernameOrMail, password: password) { (err) in
@@ -62,11 +65,28 @@ class LoginPresenter: ILoginPresenter {
 
 private extension LoginPresenter {
     
-    private func check(username: String, email: String, password: String, confirmPassoword: String) -> Bool {
+    private func checkRegister(username: String, email: String,
+                               password: String, confirmPassoword: String) -> Bool {
+        if username.isEmpty
+            || email.isEmpty
+            || password.isEmpty
+            || confirmPassoword.isEmpty {
+            vc.fieldsEmpty()
+        }
+        
         if password != confirmPassoword {
-            vc?.unmatchingPasswords()
+            vc.unmatchingPasswords()
             return false
         }
+        return true
+    }
+    
+    private func checkLogIn(usernameOrEmail: String, password: String) -> Bool {
+        if usernameOrEmail.isEmpty || password.isEmpty {
+            vc.fieldsEmpty()
+            return false
+        }
+        
         return true
     }
     

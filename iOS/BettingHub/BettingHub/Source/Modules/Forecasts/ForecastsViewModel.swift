@@ -12,6 +12,10 @@ class ForecastsViewModel {
     
     let pageSize: Int = 10
     
+    init(forecastService: IForecastService) {
+        self.forecastService = forecastService
+    }
+    
     //Options
     var currentPage: Int = 0 {
         didSet {
@@ -22,7 +26,9 @@ class ForecastsViewModel {
         }
     }
     
-    var sport: Sport = .all
+    var sport: Sport = .all {
+        didSet { sportChanged(old: oldValue, new: sport) }
+    }
     
     var timeFrame: TimeFrame = .all
     
@@ -37,11 +43,6 @@ class ForecastsViewModel {
     
     var loadingStatusChanged: ((Bool)->Void)?
     
-    private let forecastService: IForecastService
-    
-    init(forecastService: IForecastService) {
-        self.forecastService = forecastService
-    }
     
     //Info
     
@@ -61,6 +62,8 @@ class ForecastsViewModel {
     
     //Private
     
+    private let forecastService: IForecastService
+    
     private var isLoading: Bool = false {
         didSet {
             loadingStatusChanged?(isLoading)
@@ -75,17 +78,11 @@ class ForecastsViewModel {
     
     private func forecastsFilterChanged(old: ForecastFilter, new: ForecastFilter) {
         //TODO: implement when ready on beckend. Do nothing now.
-//        switch old {
-//        case .all, .paid:
-//            if new != .subscribers { break }
-//            forecasts = []
-//            fetchMore()
-//        case .subscribers:
-//            if new != .subscribers {
-//                forecasts = []
-//                fetchMore()
-//            }
-//        }
+    }
+    
+    private func sportChanged(old: Sport, new: Sport) {
+        forecasts = []
+        fetchMore()
     }
     
     private func fetchMore() {

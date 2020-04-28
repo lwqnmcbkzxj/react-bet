@@ -10,8 +10,6 @@ import UIKit
 
 class AppCoordinator {
     
-    static let main: AppCoordinator = AppCoordinator()
-    
     var mainTabBar: IMainTabBar {
         return mainTabBarScreen as! IMainTabBar
     }
@@ -58,6 +56,26 @@ class AppCoordinator {
     func fullForecastScreen(forecast: Forecast) -> UIViewController {
         let vc = FullForecastViewController()
         vc.configure(with: forecast)
+        return vc
+    }
+    
+    func menuScreen() -> UIViewController {
+        let vc = MenuViewController(coordinator: self)
+        let nav = NavigationController(rootViewController: vc)
+        return nav
+    }
+    
+    func bookmakersScreen() -> UIViewController {
+        let vc = BookmakersViewController()
+        let vm = BookmakersViewModel()
+        vc.viewModel = vm
+        return vc
+    }
+    
+    func matchesScreen() -> UIViewController {
+        let vc = MatchesViewController()
+        let vm = MatchesViewModel()
+        vc.viewModel = vm
         return vc
     }
 }

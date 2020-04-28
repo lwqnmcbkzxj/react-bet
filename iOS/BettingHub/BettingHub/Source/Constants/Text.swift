@@ -68,5 +68,12 @@ class Text {
     static var bet: String { "bet".localized }
     static var possibleWin: String { "possibleWin".localized }
     static var reply: String { "reply".localized }
+    static var menuMatches: String { "menuMatches".localized }
+    static var menuBookmakers: String { "menuBookmakers".localized }
+    static var menuForecasters: String { "menuForecasters".localized }
+    static var menuNews: String { "menuNews".localized }
+    static var menuArticles: String { "menuArticles".localized }
+    static var fieldsEmptyError: String { "fieldsEmptyError".localized }
+    static var unmatchingPasswordsError: String { "unmatchingPasswordsError".localized }
 }
 

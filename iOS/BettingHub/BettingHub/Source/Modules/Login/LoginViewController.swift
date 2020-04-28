@@ -14,6 +14,8 @@ enum LoginScreenState {
 
 protocol ILoginViewController: class {
     
+    func fieldsEmpty()
+    
     func unmatchingPasswords()
     
     func notSuitableLogin()
@@ -99,23 +101,27 @@ class LoginViewController: UIViewController {
 
 extension LoginViewController: ILoginViewController {
     
+    func fieldsEmpty() {
+        view.showError(text: Text.fieldsEmptyError )
+    }
+    
     func unmatchingPasswords() {
-        view.showError(text: "unmatchingPasswordsText")
+        view.showError(text: Text.unmatchingPasswordsError )
     }
     
     func notSuitableLogin() {
-        view.showError(text: "notSuitableLoginText")
+//        view.showError(text: "notSuitableLoginText")
     }
     
     func notSuitablePassword() {
-        view.showError(text: "notSuitablePasswordText")
+//        view.showError(text: "notSuitablePasswordText")
     }
     
     func userAlreadyRegistered() {
-        view.showError(text: "userAlreadyRegisteredText")
+//        view.showError(text: "userAlreadyRegisteredText")
     }
     
     func unspecifiedError() {
-        view.showError(text: "unspecifiedErrorText")
+//        view.showError(text: "unspecifiedErrorText")
     }
 }

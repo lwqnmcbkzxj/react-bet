@@ -81,9 +81,9 @@ class MainScreenCellsProvider {
         case .topBookmakers, .topMatches:
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: sec.headerId()) as! TopBookmakersHeaderView
             header.titleLabel.text = sec == .topBookmakers ? Text.bookmakersRating : Text.topMatches
-            header.columnsHeaderView.setColumns(columns(for: sec),
-                                                leftInset: 5,
-                                                rightInset: 5)
+            if let mode = columnsMode(for: sec) {
+                header.columnsHeaderView.setMode(mode)
+            }
             return header
             
         case .lastForecasts:
@@ -126,26 +126,15 @@ class MainScreenCellsProvider {
                            forCellReuseIdentifier: MainSection.lastForecasts.cellId())
     }
     
-    private func columns(for section: MainSection) -> [ColumnsHeaderView.Column] {
+    private func columnsMode(for section: MainSection) -> ColumnsHeaderView.Mode? {
         switch section {
         case .topBookmakers:
-            return [
-                .init(title: Text.firm, occupation: 0.31),
-                .init(title: Text.rating, occupation: 0.2),
-                .init(title: Text.bonus, occupation: 1 - 0.2 - 0.33)
-            ]
+            return .bookmakers
         
         case .topMatches:
-            let dateW = 0.135
-            let matchW = 0.47
-            let betsW = 1 - dateW - matchW
-            return [
-                .init(title: Text.date, occupation: dateW, alignment: .center),
-                .init(title: Text.match, occupation: matchW, alignment: .center),
-                .init(title: Text.bets, occupation: betsW, alignment: .right)
-            ]
+            return .matches
             
-        default: return []
+        default: return nil
         }
     }
 }

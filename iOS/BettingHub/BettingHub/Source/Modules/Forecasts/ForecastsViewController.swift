@@ -47,6 +47,10 @@ class ForecastsViewController: UIViewController {
                                                           action: #selector(segmentChanged),
                                                           for: .valueChanged)
         
+        forecastsView.header.selectionControl.addTarget(self,
+                                                        action: #selector(sportChanged),
+                                                        for: .valueChanged)
+        
         viewModel.loadingStatusChanged = { [weak self] (isLoading) in
             guard let this = self else { return }
             let shouldShowSkeleton = isLoading && this.viewModel.loadedPages == 0
@@ -67,6 +71,11 @@ class ForecastsViewController: UIViewController {
     
     @objc private func segmentChanged() {
         viewModel.forecastFilter = forecastsView.header.forecastsSegmenter.selectedFilter
+    }
+    
+    @objc private func sportChanged() {
+        guard let sport = forecastsView.header.selectionControl.selectedSport else { return }
+        viewModel.sport = sport
     }
     
     private func handleUpdates() {

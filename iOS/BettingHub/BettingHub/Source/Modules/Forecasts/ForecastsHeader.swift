@@ -69,7 +69,7 @@ class ForecastsHeader: UIView {
         return view
     }()
     
-    private let selectionControl: SportsControl = {
+    let selectionControl: SportsControl = {
         let control = SportsControl()
         control.selectedIndex = 0
         return control

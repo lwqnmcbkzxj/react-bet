@@ -16,6 +16,7 @@ class MatchCell: PanelCell {
         label.font = .robotoRegular(size: 10)
         label.textColor = .textGrayDark
         label.textAlignment = .center
+        label.isSkeletonable = true
         return label
     }()
     
@@ -25,6 +26,7 @@ class MatchCell: PanelCell {
         label.font = .robotoRegular(size: 14)
         label.textColor = .textGrayDark
         label.textAlignment = .center
+        label.isSkeletonable = true
         return label
     }()
     
@@ -32,6 +34,7 @@ class MatchCell: PanelCell {
         let imageView = UIImageView()
         imageView.layer.borderWidth = 1.5
         imageView.layer.borderColor = UIColor.lineGray.cgColor
+        imageView.isSkeletonable = true
         return imageView
     }()
     
@@ -40,6 +43,7 @@ class MatchCell: PanelCell {
         label.text = "Mousesports - Virtus.pro"
         label.font = .robotoMedium(size: 14)
         label.textColor = .textGrayDark
+        label.isSkeletonable = true
         return label
     }()
     
@@ -48,6 +52,7 @@ class MatchCell: PanelCell {
         label.text = "LPL Pro League Season 4"
         label.font = .robotoRegular(size: 10)
         label.textColor = .textGrayDark
+        label.isSkeletonable = true
         return label
     }()
     
@@ -58,6 +63,7 @@ class MatchCell: PanelCell {
         label.showingSign = true
         label.textAlignment = .center
         label.setNumber(to: 122)
+        label.isSkeletonable = true
         return label
     }()
 
@@ -65,6 +71,7 @@ class MatchCell: PanelCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
         backgroundColor = .white
+        isSkeletonable = true
         makeLayout()
     }
     
@@ -72,18 +79,22 @@ class MatchCell: PanelCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(with item: Match) {
+        
+    }
+    
     private func makeLayout() {
-        addSubview(dateLabel)
+        contentView.addSubview(dateLabel)
         dateLabel.snp.makeConstraints { (make) in
-            make.leading.equalToSuperview()
-            make.bottom.equalTo(snp.centerY)
+            make.leading.equalToSuperview().offset(4)
+            make.bottom.equalTo(snp.centerY).offset(-1)
             make.width.equalToSuperview().multipliedBy(0.17)
         }
         
-        addSubview(timeLabel)
+        contentView.addSubview(timeLabel)
         timeLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(dateLabel.snp.bottom)
-            make.leading.width.equalTo(dateLabel)
+            make.top.equalTo(dateLabel.snp.bottom).offset(1)
+            make.centerX.equalTo(dateLabel)
         }
         
         let imageGuide = UILayoutGuide()
@@ -94,29 +105,30 @@ class MatchCell: PanelCell {
             make.width.equalToSuperview().dividedBy(6)
         }
         
-        addSubview(sportImageView)
+        contentView.addSubview(sportImageView)
         sportImageView.snp.makeConstraints { (make) in
             make.centerX.centerY.equalTo(imageGuide)
             make.width.height.equalTo(15)
         }
         
-        addSubview(teamsLabel)
+        contentView.addSubview(teamsLabel)
         teamsLabel.snp.makeConstraints { (make) in
             make.leading.equalTo(imageGuide.snp.trailing)
             make.bottom.equalTo(snp.centerY).offset(-2)
             make.width.equalToSuperview().dividedBy(2)
         }
         
-        addSubview(seasonLabel)
+        contentView.addSubview(seasonLabel)
         seasonLabel.snp.makeConstraints { (make) in
             make.leading.width.equalTo(teamsLabel)
-            make.top.equalTo(teamsLabel.snp.bottom)
+            make.top.equalTo(teamsLabel.snp.bottom).offset(4)
         }
         
-        addSubview(betsLabel)
+        contentView.addSubview(betsLabel)
         betsLabel.snp.makeConstraints { (make) in
-            make.leading.equalTo(teamsLabel.snp.trailing)
-            make.centerY.trailing.equalToSuperview()
+            make.leading.equalTo(teamsLabel.snp.trailing).offset(4)
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-4)
         }
     }
 }

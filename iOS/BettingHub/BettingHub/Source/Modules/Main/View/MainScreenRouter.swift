@@ -13,6 +13,10 @@ protocol IMainScreenRouter: class {
     func showFullForecastScreen(_ forecast: Forecast)
     
     func showForecastsListScreen()
+    
+    func showBookmakersListScreen()
+    
+    func showMatchesListScreen()
 }
 
 
@@ -33,5 +37,15 @@ class MainScreenRouter: IMainScreenRouter {
     
     func showForecastsListScreen() {
         coordinator.mainTabBar.show(screen: .forecasts)
+    }
+    
+    func showBookmakersListScreen() {
+        let vc = coordinator.bookmakersScreen()
+        viewController.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func showMatchesListScreen() {
+        let vc = coordinator.matchesScreen()
+        viewController.navigationController?.pushViewController(vc, animated: true)
     }
 }

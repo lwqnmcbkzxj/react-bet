@@ -14,4 +14,8 @@ enum TimeFrame: String {
     case h12 = "12h"
     case day = "day"
     case all = "all"
+    
+    var localized: String {
+        return rawValue.localized
+    }
 }

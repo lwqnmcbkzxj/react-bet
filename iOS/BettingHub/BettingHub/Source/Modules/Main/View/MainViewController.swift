@@ -139,8 +139,10 @@ extension MainViewController: ButtonFooterDelegate {
         switch section {
         case .lastForecasts:
             router.showForecastsListScreen()
-        default:
-            break
+        case .topBookmakers:
+            router.showBookmakersListScreen()
+        case .topMatches:
+            router.showMatchesListScreen()
         }
     }
 }

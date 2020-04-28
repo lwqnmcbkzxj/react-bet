@@ -83,3 +83,12 @@
 "possibleWin" = "Возможный выигрыш";
 
 "reply" = "Ответить";
+
+"menuMatches" = "Топ матчи";
+"menuBookmakers" = "Рейтинг букмекеров";
+"menuForecasters" = "Рейтинг прогнозистов";
+"menuNews" = "Новости";
+"menuArticles" = "Статьи";
+
+"fieldsEmptyError" = "Заполните все поля";
+"unmatchingPasswordsError" = "Пароли не сопадают";

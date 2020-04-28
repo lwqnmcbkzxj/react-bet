@@ -13,5 +13,13 @@ struct Match {
     let sport: Sport
     let name: String
     let season: String
-    let bets: Int 
+    let bets: Int
+    
+    static func stub() -> Match {
+        return .init(date: Date(),
+                     sport: .football,
+                     name: "Mousesports - Virtus.pro",
+                     season: "LPL Pro League Season 4",
+                     bets: 122)
+    }
 }
