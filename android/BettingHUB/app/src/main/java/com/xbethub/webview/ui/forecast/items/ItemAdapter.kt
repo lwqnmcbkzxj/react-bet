@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xbethub.webview.R
 import com.xbethub.webview.ui.RecyclerViewAdapterBase
 import com.xbethub.webview.ui.forecast.ForecastViewModel
+import com.xbethub.webview.ui.forecast.items.items.HeaderItem
 import com.xbethub.webview.ui.forecast.items.items.Item
 import com.xbethub.webview.ui.forecast.items.items.ItemType
 import com.xbethub.webview.ui.forecast.items.items.ShowMoreItem
@@ -25,6 +26,7 @@ class ItemAdapter(listener: ItemListener, private val viewModel: ForecastViewMod
     override fun setModel(holder: RecyclerView.ViewHolder, model: Item) {
         when (holder) {
             is ShowMoreViewHolder -> holder.showMoreItem = model as ShowMoreItem
+            is HeaderViewHolder -> holder.setHeaderItem(model as HeaderItem)
         }
     }
 

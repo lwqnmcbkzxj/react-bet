@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xbethub.webview.R
 import com.xbethub.webview.databinding.FragmentForecastBinding
+import com.xbethub.webview.models.Forecast
 import com.xbethub.webview.ui.forecast.items.ItemAdapter
 import com.xbethub.webview.ui.forecast.items.ItemListener
 import com.xbethub.webview.ui.forecast.items.items.FooterItem
@@ -63,7 +64,7 @@ class ForecastFragment: Fragment() {
             )
         binding.forecastRV.adapter = adapter
 
-        items.add(HeaderItem())
+        items.add(HeaderItem(arguments!!.getSerializable("forecast") as Forecast))
         items.add(NewCommentItem())
         items.add(FooterItem())
 

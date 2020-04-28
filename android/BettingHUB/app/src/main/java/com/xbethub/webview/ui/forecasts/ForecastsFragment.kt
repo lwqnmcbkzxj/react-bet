@@ -40,6 +40,7 @@ class ForecastsFragment : Fragment(), ForecastListener {
 
         vm = ViewModelProviders.of(this).get(ForecastsViewModel::class.java)
         vm.forecastsLiveData.observe(viewLifecycleOwner, Observer { addForecasts(it) })
+        vm.forecastsClearLiveData.observe(viewLifecycleOwner, Observer { removeAllForecasts() })
 
         return binding.root
     }
@@ -69,6 +70,14 @@ class ForecastsFragment : Fragment(), ForecastListener {
         )
     }
 
+    private fun removeAllForecasts() {
+        (binding.forecastRV.adapter as? ItemAdapter)?.let {
+            if (it.itemCount - 3 > 0) {
+                it.removeItems(1, it.itemCount - 3)
+            }
+        }
+    }
+
     private fun addForecasts(forecasts: List<Forecast>) {
         if (binding.forecastRV.adapter == null) {
             val items = ArrayList<Item>()
@@ -96,6 +105,10 @@ class ForecastsFragment : Fragment(), ForecastListener {
 
     // ForecastListener
     override fun onForecastClick(forecast: Forecast, position: Int) {
-        navController.navigate(R.id.action_navigation_radiation_to_forecastFragment)
+        val args = Bundle()
+
+        args.putSerializable("forecast", forecast)
+
+        navController.navigate(R.id.action_navigation_radiation_to_forecastFragment, args)
     }
 }

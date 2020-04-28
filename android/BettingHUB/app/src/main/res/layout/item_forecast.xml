@@ -366,6 +366,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/rating"
                         style="@style/ForecastStatsStyle"
                         android:layout_height="match_parent"
                         android:gravity="center"
