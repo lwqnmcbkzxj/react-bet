@@ -11,7 +11,7 @@ import { toggleFilter } from '../../redux/forecasts-reducer'
 
 const MenuContainer: FC = ({ ...props }) => {
 	let isMobile = useMobile(768)
-
+	let loggedUserId = useSelector<AppStateType, number>(state => state.user.userInfo.id);
 	const dispatch = useDispatch()
 
 	const toggleFilterDispatch = (filterName: string, filtersBlockName: string) => {
@@ -19,7 +19,8 @@ const MenuContainer: FC = ({ ...props }) => {
 	}
 
 	return (
-		isMobile ? <MobileMenu /> :
+		isMobile ? <MobileMenu
+			loggedUserId={loggedUserId}/> :
 			<Menu
 				toggleFilter={toggleFilterDispatch}
 			/>

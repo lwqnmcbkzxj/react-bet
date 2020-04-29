@@ -4,12 +4,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import AuthForm from './AuthForm'
 import { AppStateType } from '../../types/types'
 
-import { toggleAuthFormVisiblility } from '../../redux/app-reducer' 
+import { toggleAuthFormVisiblility, setShouldRedirect } from '../../redux/app-reducer' 
 import { login, register, resetPassword } from '../../redux/user-reducer'
+import { Redirect } from 'react-router';
 
 const AuthFormContainer: FC = ({ ...props }) => {
 	const isAuthFormVisible = useSelector<AppStateType, boolean>(state => state.app.isAuthFormVisible);
 	const logged = useSelector<AppStateType, boolean>(state => state.user.logged);
+
+	const redirectLink = useSelector<AppStateType, string>(state => state.app.redirectLink);
+	const shouldRedirect = useSelector<AppStateType, boolean>(state => state.app.shouldRedirect);
+
 	const dispatch = useDispatch();
 
 	const toggleAuthFormVisibleDispatch = () => {
@@ -31,6 +36,18 @@ const AuthFormContainer: FC = ({ ...props }) => {
 		if (isAuthFormVisible)
 			toggleAuthFormVisibleDispatch()
 	}, [logged]);
+
+
+
+	useEffect(() => {
+		console.log(shouldRedirect)
+		if (shouldRedirect) {
+			setShouldRedirect(false)
+		}
+	}, [shouldRedirect]);
+	
+	if (shouldRedirect && redirectLink !== "")
+		return <Redirect to={`${redirectLink}`} />
 	
 	return (
 		<AuthForm

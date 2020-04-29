@@ -7,8 +7,12 @@ const TOGGLE_COMMENTS_BLOCK_VISIBILITY = 'app/TOGGLE_COMMENTS_BLOCK_VISIBILITY'
 const CHANGE_MAIN_PAGE_BLOCK_VISIBILITY = 'app/CHANGE_MAIN_PAGE_BLOCK_VISIBILITY'
 const SET_MAIN_PAGE_BLOCKS_VISIBILITY = 'app/SET_MAIN_PAGE_BLOCKS_VISIBILITY'
 const CHANGE_LANGUAGE = 'app/CHANGE_LANGUAGE'
+const SET_REDIRECT_LINK = 'app/SET_REDIRECT_LINK'
+const SET_SHOULD_REDIRECT = 'app/SET_SHOULD_REDIRECT'
 
 let initialState = {
+	redirectLink: "",
+	shouldRedirect: false,
 	isAuthFormVisible: false,
 	isCommentsBlockVisible: true,
 	mainPageBlocksVisibility: {} as any,
@@ -17,6 +21,8 @@ let initialState = {
 
 type InitialStateType = typeof initialState;
 type ActionsTypes =
+	SetRedirectLinkType | 
+	SetShouldRedirectType |
 	ToggleAuthFormVisiblilityType |
 	ToggleCommentsBlockVisibilityType | 
 	SetMainPageBlockVisibilityType | 
@@ -26,9 +32,13 @@ type ActionsTypes =
 const appReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
 		case TOGGLE_AUTH_FORM_VISIBILITY: {
+			let value = !state.isAuthFormVisible
+			if (action.value === false || action.value === true) {
+				value = action.value
+			}
 			return {
 				...state,
-				isAuthFormVisible: !state.isAuthFormVisible
+				isAuthFormVisible: value
 			}
 		}
 			
@@ -82,7 +92,18 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 				language: action.language
 			}
 		}
-		
+		case SET_REDIRECT_LINK: {
+			return {
+				...state,
+				redirectLink: action.redirectLink
+			}
+		}
+		case SET_SHOULD_REDIRECT: {
+			return {
+				...state,
+				shouldRedirect: action.shouldRedirect
+			}
+		}
 		default:
 			return state;
 	}
@@ -90,6 +111,7 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 
 type ToggleAuthFormVisiblilityType = {
 	type: typeof TOGGLE_AUTH_FORM_VISIBILITY
+	value?: boolean
 }
 type ToggleCommentsBlockVisibilityType = {
 	type: typeof TOGGLE_COMMENTS_BLOCK_VISIBILITY
@@ -106,9 +128,19 @@ type ChangeLanguageType = {
 	type: typeof CHANGE_LANGUAGE
 	language: languageEnum
 }
-export const toggleAuthFormVisiblility = (): ToggleAuthFormVisiblilityType => {
+type SetRedirectLinkType = {
+	type: typeof SET_REDIRECT_LINK
+	redirectLink: string
+}
+export type SetShouldRedirectType = {
+	type: typeof SET_SHOULD_REDIRECT
+	shouldRedirect: boolean
+}
+
+export const toggleAuthFormVisiblility = (value?: boolean): ToggleAuthFormVisiblilityType => {
 	return {
-		type: TOGGLE_AUTH_FORM_VISIBILITY
+		type: TOGGLE_AUTH_FORM_VISIBILITY,
+		value
 	}
 }
 export const toggleCommentsBlockVisibility = (): ToggleCommentsBlockVisibilityType => {
@@ -133,6 +165,19 @@ export const changeLanguage = (language: languageEnum): ChangeLanguageType => {
 	return {
 		type: CHANGE_LANGUAGE,
 		language
+	}
+}
+
+export const setRedirectLink = (redirectLink: string): SetRedirectLinkType => {
+	return {
+		type: SET_REDIRECT_LINK,
+		redirectLink
+	}
+}
+export const setShouldRedirect = (shouldRedirect: boolean): SetShouldRedirectType => {
+	return {
+		type: SET_SHOULD_REDIRECT,
+		shouldRedirect
 	}
 }
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>

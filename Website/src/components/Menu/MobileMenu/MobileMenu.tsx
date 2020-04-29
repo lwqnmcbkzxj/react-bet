@@ -1,4 +1,7 @@
 import React, { FC, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux"
+import { AppStateType } from '../../../types/types'
+
 import s from './MobileMenu.module.scss';
 import classNames from 'classnames'
 import { NavLink } from 'react-router-dom';
@@ -8,25 +11,56 @@ import { faHome, faWifi, faPlusSquare, faUser, faBars } from '@fortawesome/free-
 import football_F from '../../../assets/img/football-field.png'
 import trophy from '../../../assets/img/trophy.png'
 import newspaper from '../../../assets/img/newspaper.png'
+import { toggleAuthFormVisiblility, setShouldRedirect, setRedirectLink } from '../../../redux/app-reducer';
 
 
 
 type MobileMenuPropsType = {
-
+	loggedUserId:number
 }
 
-const MobileMenu: FC<MobileMenuPropsType> = ({ ...props }) => {
+const MobileMenu: FC<MobileMenuPropsType> = ({ loggedUserId, ...props }) => {
+	const logged = useSelector<AppStateType, boolean>(state => state.user.logged)
+	const dispatch = useDispatch()
+
+
+
 	const [menuBlocksVisible, setMenuBlocksVisibility] = useState(false);
 
-	const toggleMenuBlocks = () => {		
+	const toggleMenuBlocks = () => {
+		dispatch(toggleAuthFormVisiblility(false))
+
 		setMenuBlocksVisibility(!menuBlocksVisible)
 	}
-	const hideMenuBlocks = () => {		
+	const hideMenuBlocks = () => {
 		setMenuBlocksVisibility(false)
 	}
 	let menuBarLinksActiveClass = "";
 	if (!menuBlocksVisible)
 		menuBarLinksActiveClass = classNames(s.active)
+
+	const tryToLogin = (redirectLink: string) => {
+		dispatch(toggleAuthFormVisiblility(true))
+
+		dispatch(setRedirectLink(redirectLink))
+
+		hideMenuBlocks()
+	}
+
+	let addForecastLink
+	let profileLink
+	if (logged) {
+		profileLink = <NavLink exact to="/forecasts/add" className={s.menuLink} activeClassName={menuBarLinksActiveClass} onClick={hideMenuBlocks}>
+			<FontAwesomeIcon icon={faPlusSquare} />
+		</NavLink>
+		addForecastLink = <NavLink to={`/forecasters/${loggedUserId}`} className={s.menuLink} activeClassName={menuBarLinksActiveClass} onClick={hideMenuBlocks}>
+			<FontAwesomeIcon icon={faUser} />
+		</NavLink>
+	} else {
+		profileLink = <button className={s.menuLink} onClick={() => {tryToLogin('/forecasts/add')}}><FontAwesomeIcon icon={faPlusSquare} /></button>
+		addForecastLink = <button className={s.menuLink} onClick={() => {tryToLogin(`/forecasters/${loggedUserId}`)}}><FontAwesomeIcon icon={faUser} /></button>
+	}
+
 
 	return (
 		<div className="">
@@ -37,12 +71,8 @@ const MobileMenu: FC<MobileMenuPropsType> = ({ ...props }) => {
 				<NavLink exact to="/forecasts" className={classNames(s.menuLink, s.rotateLink)} activeClassName={menuBarLinksActiveClass} onClick={hideMenuBlocks}>
 					<FontAwesomeIcon icon={faWifi} />
 				</NavLink>
-				<NavLink exact to="/forecasts/add" className={s.menuLink} activeClassName={menuBarLinksActiveClass} onClick={hideMenuBlocks}>
-					<FontAwesomeIcon icon={faPlusSquare} />
-				</NavLink>
-				<NavLink to="/me" className={s.menuLink} activeClassName={menuBarLinksActiveClass} onClick={hideMenuBlocks}>
-					<FontAwesomeIcon icon={faUser} />
-				</NavLink>
+				{profileLink}
+				{addForecastLink}
 
 				<button className={classNames(
 					s.toggleMenuBtn,

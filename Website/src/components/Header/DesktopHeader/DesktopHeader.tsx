@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import s from './Header.module.scss';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 import userImg from '../../../assets/img/mainpage-users-img.png'
 
@@ -13,20 +13,24 @@ import LiveBtn from '../LiveBtn/LiveBtn';
 type HeaderPropsType = {
 	logged: boolean
 	logout: () => void
+	loggedUserId: number
+
 	isCommentsBlockVisible: boolean
 	toggleAuthFormVisiblility: () => void
 	toggleCommentsBlockVisibility: () => void
 }
 
-const DesktopHeader: FC<HeaderPropsType> = ({ logged, logout, isCommentsBlockVisible, toggleAuthFormVisiblility, toggleCommentsBlockVisibility, ...props }) => {
+const DesktopHeader: FC<HeaderPropsType> = ({ logged, logout, loggedUserId, isCommentsBlockVisible, toggleAuthFormVisiblility, toggleCommentsBlockVisibility, ...props }) => {
 	let authedBlock
 	if (logged) {
 		authedBlock =
 			<div className={s.headerUserBlock}>
 				<div className={s.bankBlock}>Банк: <span>1 500 xB</span></div>
 				<div className={s.loggedUser}>
-					<img src={userImg} alt="user-img" />
-				<button className={s.userBlockToggler} onClick={logout}>
+					<Link to={`/forecasters/${loggedUserId}`}>
+						<img src={userImg} alt="user-img" />
+					</Link>
+					<button className={s.userBlockToggler} onClick={logout}>
 						<FontAwesomeIcon icon={faCaretDown} />
 					</button>
 				</div>

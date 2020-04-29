@@ -11,6 +11,7 @@ import MobileHeader from './MobileHeader/MobileHeader'
 import useMobile from '../../hooks/useMobile'
 
 const HeaderConainer: FC = () => {
+	let loggedUserId = useSelector<AppStateType, number>(state => state.user.userInfo.id);
 	const isCommentsBlockVisible = useSelector<AppStateType, boolean>(state => state.app.isCommentsBlockVisible);
 	const logged = useSelector<AppStateType, boolean>(state => state.user.logged);
 
@@ -40,6 +41,8 @@ const HeaderConainer: FC = () => {
 			<DesktopHeader
 				logged={logged}
 				logout={logoutDispatch}
+				loggedUserId={loggedUserId}
+
 				isCommentsBlockVisible={isCommentsBlockVisible}
 				toggleAuthFormVisiblility={toggleAuthFormVisiblilityDispatch}
 				toggleCommentsBlockVisibility={toggleCommentsBlockVisibilityDispatch}

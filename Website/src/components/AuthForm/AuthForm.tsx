@@ -18,13 +18,21 @@ type AuthFormPropsType = {
 	register: (username: string, email: string, password: string) => void
 	resetPassword: (email: string) => void
 }
-const AuthFormContainer: FC<AuthFormPropsType> = ({	login, register, resetPassword, isAuthFormVisible, toggleAuthFormVisiblility, ...props }) => {
+const AuthFormContainer: FC<AuthFormPropsType> = ({
+	login,
+	register,
+	resetPassword,
+	isAuthFormVisible,
+	toggleAuthFormVisiblility,
+	...props }) => {
 	const [authFormPhase, setAuthFormPhase] = useState('login')
 
 	useEffect(() => {
 		if (isAuthFormVisible)
 			changeAuthFormPhase('login')
 	}, [isAuthFormVisible]);
+
+	
 	const changeAuthFormPhase = (phase: string) => {
 		setAuthFormPhase(phase)
 	}

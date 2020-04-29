@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import './App.scss'
 import { Route, NavLink } from "react-router-dom"
 import { Switch } from 'react-router'
@@ -32,11 +32,17 @@ import CommentsContainer from './components/Comments/CommentsContainer'
 
 
 import NotFound from './components/NotFound/NotFound'
+import AddForecastContainer from './components/Forecasts/AddForecast/AddForecastContainer'
+
+import { useDispatch, useSelector } from "react-redux"
+import { AppStateType } from './types/types'
+
+import { toggleAuthFormVisiblility } from './redux/app-reducer'
 
 
-
-
-const App: FC = () => {
+const App = (props: any) => {
+	const logged = useSelector<AppStateType, boolean>(state => state.user.logged)
+	const dispatch = useDispatch()
 
 
 	return (
@@ -57,7 +63,11 @@ const App: FC = () => {
 
 
 						<Route exact path="/forecasts" render={() => <ForecastsContainer />} />
+						<Route exact path="/forecasts/add" render={() => <AddForecastContainer />} />
+
 						<Route exact path="/forecasts/:forecastId" render={() => <ForecastContainer />} />
+
+
 
 						<Route exact path="/bookmakers" render={() => <BookmakersContainer />} />
 						<Route exact path="/bookmakers/:bookmakerId" render={() => <BookmakerContainer />} />

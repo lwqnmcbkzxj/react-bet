@@ -1,21 +1,28 @@
 import { AppStateType } from '../types/types'
+// import { br } from "react-router-dom";
+
 import { ThunkAction } from 'redux-thunk'
 import { userAPI, setTokenForAPI } from '../api/api';
 import { Dispatch } from 'react';
 import { UserType } from '../types/user';
 import { stopSubmit, startSubmit } from 'redux-form';
+import { setShouldRedirect, SetShouldRedirectType } from './app-reducer';
 
 const SET_LOGGED = 'user/SET_LOGGED'
+const SET_REDIRECT_LINK = 'user/SET_REDIRECT_LINK'
 const SET_TOKEN = 'user/SET_TOKEN'
 const SET_USER_INFO = 'user/SET_USER_INFO'
 
 let initialState = {
 	logged: false,
-	token: ""
+	token: "",
+	userInfo: {
+		id: 0
+	} as UserType 
 }
 
 type InitialStateType = typeof initialState;
-type ActionsTypes = SetLoggedType | SetTokenType | SetUserInfo;
+type ActionsTypes = SetLoggedType | SetTokenType | SetUserInfo | SetShouldRedirectType;
 
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
@@ -33,11 +40,16 @@ const userReducer = (state = initialState, action: ActionsTypes): InitialStateTy
 				token: action.token
 			}
 		}
+		case SET_USER_INFO: {
+			return {
+				...state,
+				userInfo: action.userInfo
+			}
+		}
 		default:
 			return state;
 	}
 }
-
 
 
 type SetLoggedType = {
@@ -64,13 +76,14 @@ export const register = (username: string, email: string, password: string): Thu
 
 }
 
-export const login = (email: string, password: string): ThunksType => async (dispatch) => {
+export const login = (email: string, password: string): ThunksType => async (dispatch, getState) => {
 	let response = await userAPI.login(email, password)
 	if (!response.message) {
 		dispatch(setLogged(true))
 		dispatch(setAccessToken(response.access_token))
 
 		dispatch(getUserInfo())
+		dispatch(setShouldRedirect(true))
 	}
 }
 
