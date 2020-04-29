@@ -30,11 +30,13 @@ const MobileHeader: FC<HeaderPropsType> = ({ logged, ...props }) => {
 				{logged && <div className={s.bankBlock}>Банк: <span>1 500 xB</span></div>}
 				<button onClick={toggleSeachBlockVisibility} className={classNames(s.searchToggleIcon, { [s.active]: seactBlockVisible })}><FontAwesomeIcon icon={faSearch} /></button>
 
+
+				<div className={classNames(s.search_block, { [s.active]: seactBlockVisible })}>
+					<button className={s.seachIcon}><FontAwesomeIcon icon={faSearch} /></button>
+					<input type="text" placeholder="поиск..." ref={inputRef} onBlur={toggleSeachBlockVisibility} />
+				</div>
 			</header>
-			<div className={classNames(s.search_block, { [s.active]: seactBlockVisible })}>
-				<button className={s.seachIcon}><FontAwesomeIcon icon={faSearch} /></button>
-				<input type="text" placeholder="поиск..." ref={inputRef} onBlur={toggleSeachBlockVisibility} />
-			</div>
+			
 		</div>
 	)
 }

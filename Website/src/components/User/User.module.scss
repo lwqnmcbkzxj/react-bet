@@ -74,7 +74,7 @@
 			}
 		}
 
-		& .subscribeBtn {
+		& .profileBtn {
 			border-radius: 5px;
 			padding: 9px 20px;
 			border: 1px solid #E5E2E2;
@@ -83,11 +83,15 @@
 			font-size: 14px;
 			line-height: 17px;
 			display: flex;
+			align-items: center;
 			align-self: flex-start;
 
 			& span {
 				font-size: 20px;
 				margin-right: 6px;
+				& .settingIcon {
+					font-size: 12px;
+				}
 			}
 		}
 	}

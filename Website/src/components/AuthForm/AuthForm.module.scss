@@ -206,10 +206,12 @@
 		}
 	}
 
-	.actions {
-		position: absolute;
-		bottom: 38px;
-	}
+	// .actions {
+	// 	position: absolute;
+	// 	bottom: 38px;
+	// 	padding-bottom: 50px!important;
+	// 	box-sizing: border-box;
+	// }
 
 	.authForm {
 		padding-bottom: 65px;
@@ -217,6 +219,12 @@
 		& form>div,
 		&>div {
 			padding: 0 38px !important;
+		}
+		.actions {
+			position: absolute;
+			bottom: 38px;
+			padding-bottom: 40px!important;
+			box-sizing: border-box;
 		}
 
 		.formError {

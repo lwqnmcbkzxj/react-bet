@@ -67,12 +67,10 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 
 			<div className={s.forecastContent}>
 				<div className={s.mathPreview}>
-					<div className={classNames(s.profit,
-						{
-							[s.positive]: true,
-							[s.negative]: false,
-						}
-					)}>+750 xB</div>
+					{forecast.ForecastId % 2 === 0 ?
+						<div className={classNames(s.profit, s.positive)}>+750 xB</div> :
+						<div className={classNames(s.profit, s.negative)}>-750 xB</div>}
+						
 					<Link to={`forecasts/${forecast.ForecastId}`}><div className={s.matchTitle}>{forecast.Text}</div></Link>
 				</div>
 				<div className={s.matchStats}>
