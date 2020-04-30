@@ -17,6 +17,8 @@ protocol IMainScreenRouter: class {
     func showBookmakersListScreen()
     
     func showMatchesListScreen()
+    
+    func showForecasters()
 }
 
 
@@ -46,6 +48,11 @@ class MainScreenRouter: IMainScreenRouter {
     
     func showMatchesListScreen() {
         let vc = coordinator.matchesScreen()
+        viewController.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func showForecasters() {
+        let vc = coordinator.forecastersScreen()
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
 }

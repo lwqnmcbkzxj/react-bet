@@ -24,8 +24,8 @@ class TitleWithColumnHeader: UITableViewHeaderFooterView {
         return view
     }()
     
-    private let columnsView: ColumnsHeaderView = {
-        let view = ColumnsHeaderView()
+    private let columnsView: ColumnsView = {
+        let view = ColumnsView()
         view.layer.cornerRadius = 7
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.lineGray.cgColor
@@ -44,7 +44,7 @@ class TitleWithColumnHeader: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(text: String, mode: ColumnsHeaderView.Mode) {
+    func configure(text: String, mode: ColumnsView.Mode) {
         titleLabel.text = text
         columnsView.setMode(mode)
     }

@@ -39,7 +39,7 @@ class TopForecastersView: UIView {
     
     private let scrollIndicator = OrangeScrollIndicator()
     
-    private let button: BottomButton = {
+    let button: BottomButton = {
         let button = BottomButton(whiteStyle: false)
         button.setTitle(Text.showAll, for: .normal)
         return button

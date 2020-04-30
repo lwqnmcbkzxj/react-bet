@@ -76,5 +76,10 @@ class Text {
     static var fieldsEmptyError: String { "fieldsEmptyError".localized }
     static var unmatchingPasswordsError: String { "unmatchingPasswordsError".localized }
     static var unspecifiedError: String { "unspecifiedError".localized }
+    static var month: String { "month".localized }
+    static var allTime: String { "allTime".localized }
+    static var forecastersRating: String { "forecastersRating".localized }
+    static var name: String { "name".localized }
+    static var incomeWord: String { "incomeWord".localized }
 }
 

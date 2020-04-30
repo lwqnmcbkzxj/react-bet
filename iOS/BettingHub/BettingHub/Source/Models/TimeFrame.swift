@@ -13,9 +13,17 @@ enum TimeFrame: String {
     case h6 = "6h"
     case h12 = "12h"
     case day = "day"
+    case month = "m"
     case all = "all"
     
     var localized: String {
-        return rawValue.localized
+        switch self {
+        case .month:
+            return Text.month
+        case .all:
+            return Text.allTime
+        default:
+            return rawValue.localized
+        }
     }
 }

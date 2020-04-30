@@ -44,7 +44,7 @@ class BookmakersViewController: UIViewController {
             if isSkeletonActive {
                 tableView.showAnimatedSkeleton()
             } else {
-                tableView.hideSkeleton(reloadDataAfter: false)
+                tableView.defaultHideSkeleton()
                 tableView.reloadData()
             }
         }

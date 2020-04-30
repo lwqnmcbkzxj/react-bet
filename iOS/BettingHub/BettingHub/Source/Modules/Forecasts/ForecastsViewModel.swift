@@ -47,9 +47,9 @@ class ForecastsViewModel {
     //Info
     
     var loadedPages: Int {
-        let fullPages = forecasts.count / pageSize
-        let isLastPage = forecasts.count % pageSize > 0
-        return fullPages + (isLastPage ? 1 : 0)
+        let fullPages = numberOfRows() / pageSize
+        let lastIsIncomplete = (numberOfRows() % pageSize) > 0
+        return fullPages + (lastIsIncomplete ? 1 : 0)
     }
     
     func numberOfRows() -> Int {

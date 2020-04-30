@@ -28,6 +28,8 @@ class MainViewController: UIViewController {
         mainView.tableView.dataSource = self
         mainView.tableView.delegate = self
         
+        mainView.tableHeader.button.addTarget(self, action: #selector(headerButtonTapped), for: .touchUpInside)
+        
         setupBinds()
         
         dataProvider.getData()
@@ -69,6 +71,10 @@ class MainViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    @objc private func headerButtonTapped() {
+        router.showForecasters()
     }
 }
 

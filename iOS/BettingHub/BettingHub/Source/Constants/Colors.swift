@@ -62,6 +62,10 @@ extension UIColor {
         return UIColor.hex(0xAA0F0F)
     }
     
+    static var drawBlue: UIColor {
+        return UIColor.hex(0x0F19AA)
+    }
+    
     static var textGrayDark: UIColor {
         return UIColor.hex(0x656668)
     }

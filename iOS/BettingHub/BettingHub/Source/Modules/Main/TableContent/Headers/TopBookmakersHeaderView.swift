@@ -30,8 +30,8 @@ class TopBookmakersHeaderView: UITableViewHeaderFooterView {
         return view
     }()
     
-    let columnsHeaderView: ColumnsHeaderView = {
-        let view = ColumnsHeaderView()
+    let columnsHeaderView: ColumnsView = {
+        let view = ColumnsView()
         return view
     }()
     

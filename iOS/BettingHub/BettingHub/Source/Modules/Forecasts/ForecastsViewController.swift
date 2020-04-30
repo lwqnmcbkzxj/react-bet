@@ -22,7 +22,7 @@ class ForecastsViewController: UIViewController {
             if skeletonViewIsActive {
                 forecastsView.tableView.showAnimatedSkeleton()
             } else {
-                forecastsView.tableView.hideSkeleton(reloadDataAfter: false)
+                forecastsView.tableView.defaultHideSkeleton()
                 forecastsView.tableView.reloadData()
             }
         }
@@ -60,11 +60,14 @@ class ForecastsViewController: UIViewController {
         }
         
         viewModel.dataChanged = { [weak self] in
-            if !(self?.skeletonViewIsActive ?? true) {
+            guard let this = self else { return }
+            if !this.skeletonViewIsActive {
                 self?.handleUpdates()
             }
         }
-        
+    }
+    
+    override func viewDidLayoutSubviews() {
         //start loading
         viewModel.currentPage = 1
     }
@@ -101,6 +104,9 @@ extension ForecastsViewController: SkeletonTableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: forecastsView.cellId) as! ForecastCell
         let forecast = viewModel.forecast(at: indexPath)
         cell.configure(with: forecast)
+        
+        cell.hideSkeletonIfActive()
+        
         return cell
     }
     
@@ -114,7 +120,6 @@ extension ForecastsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cellPage = (indexPath.row / viewModel.pageSize) + 1
         viewModel.currentPage = cellPage
-
         let isEnd = viewModel.numberOfRows() == indexPath.row + 1
         if isEnd {
             viewModel.currentPage = cellPage + 1

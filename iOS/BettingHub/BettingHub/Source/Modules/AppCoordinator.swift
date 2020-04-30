@@ -78,4 +78,11 @@ class AppCoordinator {
         vc.viewModel = vm
         return vc
     }
+    
+    func forecastersScreen() -> UIViewController {
+        let vc = ForecastersViewController()
+        let vm = ForecastersViewModel()
+        vc.viewModel = vm
+        return vc
+    }
 }

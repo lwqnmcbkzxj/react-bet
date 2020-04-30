@@ -1,5 +1,5 @@
 //
-//  ColumnsHeaderView.swift
+//  ColumnsView.swift
 //  BettingHub
 //
 //  Created by Maxim Bezdenezhnykh on 17.04.2020.
@@ -8,11 +8,12 @@
 
 import UIKit
 
-extension ColumnsHeaderView {
+extension ColumnsView {
     
     enum Mode {
         case bookmakers
         case matches
+        case forecasters
     }
     
     struct Column {
@@ -32,7 +33,7 @@ extension ColumnsHeaderView {
     }
 }
 
-class ColumnsHeaderView: UIView {
+class ColumnsView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -62,6 +63,15 @@ class ColumnsHeaderView: UIView {
                 Column.init(title: Text.date, occupation: dateW, alignment: .center),
                 Column.init(title: Text.match, occupation: matchW, alignment: .center),
                 Column.init(title: Text.bets, occupation: betsW, alignment: .right)
+            ]
+            setColumns(columns)
+            
+        case .forecasters:
+            let columns = [
+                Column.init(title: "№", occupation: 0.15, alignment: .center),
+                Column.init(title: Text.name, occupation: 0.40, alignment: .left),
+                Column.init(title: "W/L/D", occupation: 0.23, alignment: .center),
+                Column.init(title: Text.incomeWord, occupation: 0.22, alignment: .right)
             ]
             setColumns(columns)
         }

@@ -9,10 +9,11 @@
 import UIKit
 
 extension UIImageView {
-    func setImage(url: String) {
+    func setImage(url: String?) {
         //TODO: add placeholder image
 //        let fullURL = baseURL.appendingPathComponent(url)
         //TODO: change after migration to new server
+        guard let url = url, !url.isEmpty else  { return }
         let fullURL = URL(string: "http://xbethub.com")!.appendingPathComponent(url)
         DispatchQueue.global(qos: .background).async {
             guard

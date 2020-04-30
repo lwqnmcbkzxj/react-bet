@@ -126,7 +126,7 @@ class MainScreenCellsProvider {
                            forCellReuseIdentifier: MainSection.lastForecasts.cellId())
     }
     
-    private func columnsMode(for section: MainSection) -> ColumnsHeaderView.Mode? {
+    private func columnsMode(for section: MainSection) -> ColumnsView.Mode? {
         switch section {
         case .topBookmakers:
             return .bookmakers

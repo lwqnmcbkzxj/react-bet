@@ -70,7 +70,7 @@
 "football" = "Футбол";
 "tennis" = "Теннис";
 "basketball" = "Баскетбол";
-"hockey" = "Хокей";
+"hockey" = "Хоккей";
 "other" = "Другое";
 
 "subscribe" = "Подписаться";
@@ -93,3 +93,15 @@
 "fieldsEmptyError" = "Заполните все поля";
 "unmatchingPasswordsError" = "Пароли не сопадают";
 "unspecifiedError" = "Ошибка";
+
+"3h" = "3 часа";
+"6h" = "6 часов";
+"12h" = "12 часов";
+"day" = "День";
+"month" = "Месяц";
+"allTime" = "Все время";
+
+"forecastersRating" = "Рейтинг прогнозистов";
+
+"incomeWord" = "Прибыль";
+"name" = "Имя";

@@ -47,7 +47,7 @@ class MatchesViewController: UIViewController {
             if isSkeletonActive {
                 tableView.showAnimatedSkeleton()
             } else {
-                tableView.hideSkeleton(reloadDataAfter: false)
+                tableView.defaultHideSkeleton()
                 tableView.reloadData()
             }
         }
@@ -102,6 +102,7 @@ extension MatchesViewController: SkeletonTableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! MatchCell
         let item = viewModel.item(for: indexPath.row)
         cell.configure(with: item)
+        cell.hideSkeletonIfActive()
         return cell
     }
     

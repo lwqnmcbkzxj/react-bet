@@ -28,3 +28,12 @@ extension UITableView {
         }
     }
 }
+
+extension UITableViewCell {
+    
+    func hideSkeletonIfActive() {
+        if self.isSkeletonActive {
+            defaultHideSkeleton()
+        }
+    }
+}
