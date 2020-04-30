@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { AppStateType } from '../../types/types'
 import { UserType } from '../../types/users'
@@ -17,6 +17,19 @@ interface MatchParams {
 interface Props extends RouteComponentProps<MatchParams> { }
 
 const UsersContainer: FC<Props> = ({ ...props }) => {
+	const [settingsOpened, setSettingsOpened] = useState(false)
+	const toggleSettingOpened = () => {
+		setSettingsOpened(!settingsOpened)
+	}
+	let pathName = props.location.pathname
+	useEffect(() => {
+		if (pathName.includes('settings')) {
+			setSettingsOpened(true)
+		} else {
+			setSettingsOpened(false)
+		}
+	}, [pathName])
+
 	const currentUser = useSelector<AppStateType, UserType>(state => state.users.currentUser)
 	const loggedUser = useSelector<AppStateType, LoggedUserType>(state => state.user.userInfo)
 	const logged = useSelector<AppStateType, boolean>(state => state.user.logged)
@@ -38,8 +51,10 @@ const UsersContainer: FC<Props> = ({ ...props }) => {
 		dispatch(getForecastsFromServer(1, 15
 			// , { useFavourites: true }
 		))		
-
 	}
+	
+
+	
 	
 
 	return (
@@ -48,6 +63,7 @@ const UsersContainer: FC<Props> = ({ ...props }) => {
 				forecasts={forecasts}
 				isLoggedUserProfile={isLoggedUserProfile}
 				user={currentUser}
+				loggedUser={loggedUser}
 				getUserFavourites={getUserFavourites}
 				getUserForecasts={getUserForecasts}
 			/>

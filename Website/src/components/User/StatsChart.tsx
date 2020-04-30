@@ -1,13 +1,18 @@
 import React, { FC, useState, useEffect } from 'react';
 import s from './User.module.scss';
 import '../../App.scss'
+import classNames from 'classnames'
 import { Doughnut } from 'react-chartjs-2';
 import useMobile from '../../hooks/useMobile';
 
 
+type StatsChartPropsType = {
+	wins: number
+	loses: number
+	returns: number
+}
 
-
-const UserStats = ({ wins, loses, returns, ...props }) => {
+const StatsChart: FC<StatsChartPropsType> = ({ wins, loses, returns, ...props }) => {
 	const isMobile = useMobile(768)
 
 	const data = {
@@ -18,7 +23,7 @@ const UserStats = ({ wins, loses, returns, ...props }) => {
 		],
 		datasets: [{
 			data: [wins, loses, returns],
-			backgroundColor: ['#0F971D','#AA0F0F','#0F19AA'],
+			backgroundColor: ['#0F971D', '#AA0F0F', '#0F19AA'],
 		}]
 	};
 	const options = {
@@ -35,12 +40,11 @@ const UserStats = ({ wins, loses, returns, ...props }) => {
 			}
 		},
 		title: {
-            display: true,
+			display: true,
 			text: '188 Прогнозов',
 			fontFamily: 'Roboto',
 			fontSize: 20
 		}
-
 	}
 
 
@@ -51,4 +55,4 @@ const UserStats = ({ wins, loses, returns, ...props }) => {
 		/>
 	)
 }
-export default UserStats;
+export default StatsChart;

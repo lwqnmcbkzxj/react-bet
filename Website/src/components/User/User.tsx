@@ -3,11 +3,12 @@ import s from './User.module.scss';
 import classNames from 'classnames'
 import '../../App.scss'
 import { UserType } from '../../types/users'
+import { UserType as LoggedUserType } from '../../types/user'
 import { Link } from 'react-router-dom'
 import userNoImg from '../../assets/img/user-no-image.png'
 import ForecastsList from '../Forecasts/ForecastsList/ForecastsList';
 import UserStats from './UserStats'
-
+import Settings from './Settings/Settings'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
 import { ForecastType } from '../../types/forecasts';
@@ -19,13 +20,15 @@ enum selectors {
 
 type UsersPropsType = {
 	user: UserType
+	loggedUser: LoggedUserType
 	isLoggedUserProfile: boolean
 
 	forecasts: Array<ForecastType>
 	getUserForecasts: () => void
 	getUserFavourites: () => void
 }
-const User: FC<UsersPropsType> = ({ user, isLoggedUserProfile, forecasts, getUserForecasts, getUserFavourites, ...props }) => {
+
+const User: FC<UsersPropsType> = ({ user, loggedUser, isLoggedUserProfile, forecasts, getUserForecasts, getUserFavourites, ...props }) => {
 	const [visibleTab, setVisibleTab] = useState('statistics')
 	const changeVisibleTab = (tabName: string) => {
 		if (visibleTab !== tabName)
@@ -50,55 +53,50 @@ const User: FC<UsersPropsType> = ({ user, isLoggedUserProfile, forecasts, getUse
 		renderingTab = <ForecastsList forecasts={forecasts} />
 	}
 
+	// const [settingsOpened, setSettingsOpened] = useState(false)
+
+	// const toggleSettingOpened = () => {
+	// 	setSettingsOpened(!settingsOpened)
+	// }
+
 
 	let profileBtn
 	if (isLoggedUserProfile) {
 		profileBtn =
 			<button className={classNames(s.profileBtn, s.settings)}>
-				<Link to='/settings'>
+				<Link to={`/forecasters/${loggedUser.id}/settings`}>
 					<span><FontAwesomeIcon icon={faCog} className={s.settingIcon} /></span>
-					Настройки
-					</Link>
+					<p>Настройки</p>
+				</Link>
 			</button>
-
 	} else {
-		profileBtn = <button className={classNames(s.profileBtn, s.subscribe)}><span>+</span> Подписаться</button>
+		profileBtn = <button className={classNames(s.profileBtn, s.subscribe)}><span>+</span> <p>Подписаться</p></button>
 	}
 
+
+	let ROIBlock = <p className={s.roi}>
+		<span className={classNames({ [s.positive]: true, [s.negative]: false })}>+128.5%</span>
+		ROI за все время</p>
+
+
 	return (
-		<div className={s.userPage}>
+		<div className={classNames(s.userPage)}>
 			<div className={s.user}>
 				<div className={s.userInfo}>
-					
 					<div className={s.userDetails}>
 						<img src={userNoImg} alt="user-img" />
-						<div className={s.rightBlock}>
-							<div className={s.nickName}>Никнейм</div>
-							<div className={s.userBalance}>
-								<p className={s.bank}><span>Банк:</span> 166 500xB</p>
-								<p className={s.roi}>
-									<span className={classNames({ [s.positive]: true, [s.negative]: false })}>+128.5%</span>
-									ROI за все время</p>
-							</div>
-						</div>
-					</div>
-					{profileBtn}
+						<div className={s.nickName}>Никнейм</div>
 
+						{profileBtn}
 
-					{/* <img src={userNoImg} alt="user-img" />
-					<div className={s.userDetails}>
-						<div className={s.topRow}>
-							<div className={s.nickName}>Никнейм</div>
-							{profileBtn}
-						</div>
 						<div className={s.userBalance}>
 							<p className={s.bank}><span>Банк:</span> 166 500xB</p>
-							<p className={s.roi}>
-								<span className={classNames({ [s.positive]: true, [s.negative]: false })}>+128.5%</span>
-									ROI за все время</p>
+							{ROIBlock}
 						</div>
-					</div> */}
-
+						<div className={s.mobileRoi}>
+							{ROIBlock}
+						</div>
+					</div>
 				</div>
 
 				<div className={s.userStats}>

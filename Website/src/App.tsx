@@ -12,6 +12,7 @@ import ForecastContainer from './components/Forecast/ForecastContainer'
 
 import UsersContainer from './components/Users/UsersContainer'
 import UserContainer from './components/User/UserContainer'
+import SettingsContainer from './components/User/Settings/SettingsContainer'
 
 import BookmakersContainer from './components/Bookmakers/BookmakersContainer'
 import BookmakerContainer from './components/Bookmaker/BookmakerContainer'
@@ -60,12 +61,12 @@ const App = (props: any) => {
 
 						<Route exact path="/forecasters" render={() => <UsersContainer />} />
 						<Route exact path="/forecasters/:userId" render={() => <UserContainer />} />
+						<Route path="/forecasters/:userId/settings" render={() => <SettingsContainer />} />
 
 
 						<Route exact path="/forecasts" render={() => <ForecastsContainer />} />
 						<Route exact path="/forecasts/add" render={() => <AddForecastContainer />} />
-
-						<Route exact path="/forecasts/:forecastId" render={() => <ForecastContainer />} />
+						<Route path="/forecasts/:forecastId" render={() => <ForecastContainer />} />
 
 
 
