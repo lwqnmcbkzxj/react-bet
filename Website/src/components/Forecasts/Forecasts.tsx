@@ -2,7 +2,8 @@ import React, { FC, useState } from 'react';
 import s from './Forecasts.module.scss';
 import classNames from 'classnames'
 import '../../App.scss'
-import { ForecastType, ForecastsFiltersType } from '../../types/forecasts'
+import { ForecastType } from '../../types/forecasts'
+import { FiltersObjectType, FilterNames } from '../../types/filters'
 import Breadcrumbs from '../Common/Breadcrumbs/Breadcrumbs'
 
 import Selectors from '../Common/Selectors/Selectors'
@@ -15,8 +16,8 @@ import { faCog } from '@fortawesome/free-solid-svg-icons'
 
 type ForecastsPropsType = {
 	forecasts: Array<ForecastType>
-	filters: ForecastsFiltersType
-	toggleFilter: (filterName: string, filtersBlockName: string) => void
+	filters: FiltersObjectType
+	toggleFilter: (filterName: FilterNames, filtersBlockName: string) => void
 }
 const Forecasts: FC<ForecastsPropsType> = ({ forecasts, filters, toggleFilter, ...props }) => {
 

@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
 import s from './DesktopMenu.module.scss';
 import { NavLink } from 'react-router-dom';
+import { FilterNames } from '../../../types/filters'
 import SportsBlock from './SportsBlock';
 import MenuFooter from '../../Common/Footer/Footer';
 
 type MenuPropsType = {
-	toggleFilter: (filterName: string, filtersBlockName: string)=> void
+	toggleFilter: (filterName: FilterNames, filtersBlockName: string)=> void
 }
 
 const Menu: FC<MenuPropsType> = ({toggleFilter,  ...props }) => {

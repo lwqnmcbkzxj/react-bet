@@ -2,6 +2,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { createStore, combineReducers, applyMiddleware } from "redux"
 import thunkMiddleware from "redux-thunk"
 
+import meReducer from "./me-reducer"
 import userReducer from "./user-reducer"
 import usersReducer from "./users-reducer"
 import matchesReducer from "./matches-reducer"
@@ -24,6 +25,7 @@ let rootReducer = combineReducers({
 	articles: articlesReducer,
 	bookmakers: bookmakersReducer,
 	
+	me: meReducer,
 	user: userReducer,
 	users: usersReducer,
 	

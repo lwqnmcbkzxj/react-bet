@@ -2,7 +2,8 @@ import React, { FC, useState } from 'react';
 import s from './Users.module.scss';
 import '../../App.scss'
 import classNames from 'classnames'
-import { UsersFiltersType, UserType } from '../../types/users'
+import { FiltersObjectType, FilterNames }from '../../types/filters'
+import { UserType } from '../../types/users'
 import Breadcrumbs from '../Common/Breadcrumbs/Breadcrumbs'
 
 import Selectors from '../Common/Selectors/Selectors'
@@ -14,8 +15,8 @@ import { faCog } from '@fortawesome/free-solid-svg-icons'
 
 type UsersPropsType = {
 	users: Array<UserType>
-	filters: UsersFiltersType
-	toggleFilter: (filterName: string, filtersBlockName: string) => void
+	filters: FiltersObjectType
+	toggleFilter: (filterName: FilterNames, filtersBlockName: string) => void
 
 }
 const Users: FC<UsersPropsType> = ({ users, filters, toggleFilter, ...props }) => {

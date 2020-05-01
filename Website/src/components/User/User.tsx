@@ -2,8 +2,13 @@ import React, { FC, useState, useEffect } from 'react';
 import s from './User.module.scss';
 import classNames from 'classnames'
 import '../../App.scss'
-import { UserType } from '../../types/users'
-import { UserType as LoggedUserType } from '../../types/user'
+import { UserType } from '../../types/user'
+
+import { FiltersObjectType, FilterNames } from '../../types/filters'
+import { ForecastType } from '../../types/forecasts';
+
+import { UserType as LoggedUserType } from '../../types/me'
+
 import { Link } from 'react-router-dom'
 import userNoImg from '../../assets/img/user-no-image.png'
 import ForecastsList from '../Forecasts/ForecastsList/ForecastsList';
@@ -26,6 +31,7 @@ type UsersPropsType = {
 	forecasts: Array<ForecastType>
 	getUserForecasts: () => void
 	getUserFavourites: () => void
+	toggleFilter: (filterName: FilterNames, filtersBlockName: string) => void
 }
 
 const User: FC<UsersPropsType> = ({ user, loggedUser, isLoggedUserProfile, forecasts, getUserForecasts, getUserFavourites, ...props }) => {

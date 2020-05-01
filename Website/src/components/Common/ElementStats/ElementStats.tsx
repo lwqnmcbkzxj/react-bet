@@ -19,7 +19,7 @@ type ElementStatsPropsType = {
 	elementType: string
 }
 const ElementStats: FC<ElementStatsPropsType> = ({ comments, likes, favourites, id, elementType, ...props }) => {
-	const logged = useSelector<AppStateType, boolean>(state => state.user.logged)
+	const logged = useSelector<AppStateType, boolean>(state => state.me.logged)
 	const dispatch = useDispatch()
 	// Like - 1, dislike - 2
 	const rateDispatch = (id: number, rateType: number) => {

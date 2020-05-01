@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import userNoImg from '../../../assets/img/user-no-image.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
-import { UserType as LoggedUserType } from '../../../types/user'
+import { UserType as LoggedUserType } from '../../../types/me'
 
 type SettingsPropsType = {
 	loggedUser: LoggedUserType

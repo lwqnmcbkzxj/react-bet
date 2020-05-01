@@ -4,6 +4,13 @@ import '../../App.scss'
 import classNames from 'classnames'
 import StatsChart from './StatsChart';
 
+import { FiltersObjectType, timeFilterEnum, FilterNames } from '../../types/filters'
+type UserStatsPropsType = {
+	filters: FiltersObjectType
+	wins: number
+	loses: number
+	returns: number
+	toggleFilter: (filterName: FilterNames, filtersBlockName: string) => void
 
 const UserStats = ({ ...props }) => {
 	return (

@@ -1,10 +1,7 @@
 import { AppStateType } from '../types/types'
 
-import { ForecastType,
-	timeFilterEnum,
-	subscribtionFilterEnum,
-	sportTypeFilterEnum,
-	ForecastsFiltersType } from '../types/forecasts'
+import { ForecastType } from '../types/forecasts'
+import { timeFilterEnum, subscribtionFilterEnum, sportTypeFilterEnum, FilterNames, FiltersObjectType } from '../types/filters'
 
 import { ThunkAction } from 'redux-thunk'
 import { forecastsAPI } from '../api/api'
@@ -38,7 +35,7 @@ let initialState = {
 			{ index: 5, name: sportTypeFilterEnum.hockey, visibleText: 'Хоккей', active: false },
 			{ index: 6, name: sportTypeFilterEnum.another, visibleText: 'Другое', active: false },
 		]
-	} as ForecastsFiltersType,
+	} as FiltersObjectType,
 	currentForecast: {} as ForecastType,
 	isFetching: false
 }
@@ -67,11 +64,13 @@ const forecastsReducer = (state = initialState, action: ActionsTypes): InitialSt
 		}
 		case TOGGLE_FILTER: {
 			let filters = state.filters[action.filtersBlockName];
-			filters.map(filter => {
-				filter.active = false
-				if (filter.name === action.filterName)
-					filter.active = true
-			})
+			if (filters) {
+				filters.map(filter => {
+					filter.active = false
+					if (filter.name === action.filterName)
+						filter.active = true
+				})
+			}
 			
 			return {
 				...state,
@@ -94,8 +93,8 @@ type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes
 
 type ToggleFilterType = {
 	type: typeof TOGGLE_FILTER
-	filterName: timeFilterEnum | subscribtionFilterEnum | sportTypeFilterEnum
-	filtersBlockName: keyof ForecastsFiltersType
+	filterName: FilterNames
+	filtersBlockName: keyof FiltersObjectType
 }
 type SetForecastsType = {
 	type: typeof SET_FORECASTS
@@ -152,7 +151,7 @@ export const setForecast = (forecast: ForecastType): SetForecastType => {
 
 
 
-export const toggleFilter = (filterName: string, filtersBlockName: string) => {
+export const toggleFilter = (filterName: FilterNames, filtersBlockName: string) => {
 	return {
 		type: TOGGLE_FILTER,
 		filterName, 

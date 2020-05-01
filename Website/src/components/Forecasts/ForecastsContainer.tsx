@@ -4,7 +4,10 @@ import { AppStateType } from '../../types/types'
 import Forecasts from './Forecasts'
 
 import { toggleFilter, getForecastsFromServer } from '../../redux/forecasts-reducer'
-import { ForecastsFiltersType, ForecastType } from '../../types/forecasts'
+
+import { ForecastType } from '../../types/forecasts'
+import { FiltersObjectType, FilterNames } from '../../types/filters'
+
 import { withRouter, RouteComponentProps  } from 'react-router'
 
 import {getActiveFilter } from '../../utils/getActiveFilter'
@@ -16,7 +19,7 @@ interface Props extends RouteComponentProps<MatchParams> {}
 
 const ForecastsContainer: FC<Props> = ({ ...props }) => {
 	const forecasts = useSelector<AppStateType, Array<ForecastType>>(state => state.forecasts.forecasts)
-	const filters = useSelector<AppStateType, ForecastsFiltersType>(state => state.forecasts.filters)
+	const filters = useSelector<AppStateType, FiltersObjectType>(state => state.forecasts.filters)
 
 	const dispatch = useDispatch()
 
@@ -33,7 +36,7 @@ const ForecastsContainer: FC<Props> = ({ ...props }) => {
 		dispatch(getForecastsFromServer(1, 15, options))		
 	}, [filters]);
 
-	const toggleFilterDispatch = (filterName: string, filtersBlockName: string) => {
+	const toggleFilterDispatch = (filterName: FilterNames, filtersBlockName: string) => {
 		dispatch(toggleFilter(filterName, filtersBlockName))
 	}
 

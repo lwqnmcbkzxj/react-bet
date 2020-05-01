@@ -5,12 +5,12 @@ import AuthForm from './AuthForm'
 import { AppStateType } from '../../types/types'
 
 import { toggleAuthFormVisiblility, setShouldRedirect } from '../../redux/app-reducer' 
-import { login, register, resetPassword } from '../../redux/user-reducer'
+import { login, register, resetPassword } from '../../redux/me-reducer'
 import { Redirect } from 'react-router';
 
 const AuthFormContainer: FC = ({ ...props }) => {
 	const isAuthFormVisible = useSelector<AppStateType, boolean>(state => state.app.isAuthFormVisible);
-	const logged = useSelector<AppStateType, boolean>(state => state.user.logged);
+	const logged = useSelector<AppStateType, boolean>(state => state.me.logged);
 
 	const redirectLink = useSelector<AppStateType, string>(state => state.app.redirectLink);
 	const shouldRedirect = useSelector<AppStateType, boolean>(state => state.app.shouldRedirect);

@@ -9,7 +9,7 @@ import { toggleAuthFormVisiblility } from '../../../redux/app-reducer'
 
 
 const AddForecastContainer: FC = (props) => {
-	const logged = useSelector<AppStateType, boolean>(state => state.user.logged)
+	const logged = useSelector<AppStateType, boolean>(state => state.me.logged)
 	// const dispatch = useDispatch()
 
 

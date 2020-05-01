@@ -1,7 +1,7 @@
 import { AppStateType } from '../types/types'
 import { ThunkAction } from 'redux-thunk'
 
-import { timeFilterEnum, sportTypeFilterEnum, UsersFiltersType, }from '../types/users'
+import { timeFilterEnum, sportTypeFilterEnum, FiltersObjectType, }from '../types/filters'
 
 import { UserType } from '../types/users'
 
@@ -23,8 +23,8 @@ let initialState = {
 			{ index: 5, name: sportTypeFilterEnum.hockey, visibleText: 'Хоккей', active: false },
 			{ index: 6, name: sportTypeFilterEnum.another, visibleText: 'Другое', active: false },
 		]
-	} as UsersFiltersType,
-	currentUser: {},
+	} as FiltersObjectType,
+	currentUser: {	},
 }
 
 type InitialStateType = typeof initialState;
@@ -34,11 +34,13 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
 	switch (action.type) {
 		case TOGGLE_FILTER: {
 			let filters = state.filters[action.filtersBlockName];
-			filters.map(filter => {
-				filter.active = false
-				if (filter.name === action.filterName)
-					filter.active = true
-			})
+			if (filters) {
+				filters.map(filter => {
+					filter.active = false
+					if (filter.name === action.filterName)
+						filter.active = true
+				})
+			}
 			
 			return {
 				...state,
@@ -56,7 +58,7 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
 type ToggleFilterType = {
 	type: typeof TOGGLE_FILTER
 	filterName: timeFilterEnum | sportTypeFilterEnum
-	filtersBlockName: keyof UsersFiltersType
+	filtersBlockName: keyof FiltersObjectType
 }
 export const toggleFilter = (filterName: string, filtersBlockName: string) => {
 	return {

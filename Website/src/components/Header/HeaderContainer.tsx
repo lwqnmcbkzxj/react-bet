@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from '../../types/types'
 import { toggleAuthFormVisiblility, toggleCommentsBlockVisibility } from '../../redux/app-reducer'
-import { logout } from '../../redux/user-reducer'
+import { logout } from '../../redux/me-reducer'
 
 
 import DesktopHeader from './DesktopHeader/DesktopHeader'
@@ -11,9 +11,9 @@ import MobileHeader from './MobileHeader/MobileHeader'
 import useMobile from '../../hooks/useMobile'
 
 const HeaderConainer: FC = () => {
-	let loggedUserId = useSelector<AppStateType, number>(state => state.user.userInfo.id);
 	const isCommentsBlockVisible = useSelector<AppStateType, boolean>(state => state.app.isCommentsBlockVisible);
-	const logged = useSelector<AppStateType, boolean>(state => state.user.logged);
+	const logged = useSelector<AppStateType, boolean>(state => state.me.logged);
+	let loggedUserId = useSelector<AppStateType, number>(state => state.me.userInfo.id);
 
 	const dispatch = useDispatch();
 

@@ -3,13 +3,20 @@ import { useDispatch, useSelector } from "react-redux"
 import { AppStateType } from '../../types/types'
 import { UserType } from '../../types/users'
 import { UserType as LoggedUserType } from '../../types/user'
+import { UserType as LoggedUserType } from '../../types/me'
 
 import User from './User'
 import { withRouter, RouteComponentProps, Redirect } from 'react-router'
 import { toggleAuthFormVisiblility } from '../../redux/app-reducer'
 import { getForecastsFromServer } from '../../redux/forecasts-reducer'
 import { ForecastType } from '../../types/forecasts'
+import { FiltersObjectType, FilterNames } from '../../types/filters'
 
+
+
+import { getActiveFilter } from '../../utils/getActiveFilter'
+
+import { toggleFilter } from '../../redux/user-reducer'
 interface MatchParams {
 	userId: string;
 }

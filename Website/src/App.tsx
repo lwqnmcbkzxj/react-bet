@@ -42,9 +42,6 @@ import { toggleAuthFormVisiblility } from './redux/app-reducer'
 
 
 const App = (props: any) => {
-	const logged = useSelector<AppStateType, boolean>(state => state.user.logged)
-	const dispatch = useDispatch()
-
 
 	return (
 		<div className="app-wrapper">
