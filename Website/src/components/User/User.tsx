@@ -16,7 +16,6 @@ import UserStats from './UserStats'
 import Settings from './Settings/Settings'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
-import { ForecastType } from '../../types/forecasts';
 enum selectors {
 	forecasts = 'forecasts',
 	statistics = 'statistics',
@@ -31,10 +30,14 @@ type UsersPropsType = {
 	forecasts: Array<ForecastType>
 	getUserForecasts: () => void
 	getUserFavourites: () => void
+
+	subscribe: () => void
+
+	filters: FiltersObjectType
 	toggleFilter: (filterName: FilterNames, filtersBlockName: string) => void
 }
 
-const User: FC<UsersPropsType> = ({ user, loggedUser, isLoggedUserProfile, forecasts, getUserForecasts, getUserFavourites, ...props }) => {
+const User: FC<UsersPropsType> = ({ user, loggedUser,  isLoggedUserProfile, forecasts, getUserForecasts, getUserFavourites, subscribe, filters, toggleFilter, ...props }) => {
 	const [visibleTab, setVisibleTab] = useState('statistics')
 	const changeVisibleTab = (tabName: string) => {
 		if (visibleTab !== tabName)
@@ -54,17 +57,12 @@ const User: FC<UsersPropsType> = ({ user, loggedUser, isLoggedUserProfile, forec
 	if (visibleTab === 'forecasts') {
 		renderingTab = <ForecastsList forecasts={forecasts} />
 	} else if (visibleTab === 'statistics') {
-		renderingTab = <UserStats wins={10} loses={5} returns={2} />
+		renderingTab = <UserStats wins={10} loses={5} returns={2} filters={filters} toggleFilter={toggleFilter}/>
 	} else if (visibleTab === 'favourites') {
 		renderingTab = <ForecastsList forecasts={forecasts} />
 	}
 
-	// const [settingsOpened, setSettingsOpened] = useState(false)
-
-	// const toggleSettingOpened = () => {
-	// 	setSettingsOpened(!settingsOpened)
-	// }
-
+	
 
 	let profileBtn
 	if (isLoggedUserProfile) {
@@ -76,7 +74,7 @@ const User: FC<UsersPropsType> = ({ user, loggedUser, isLoggedUserProfile, forec
 				</Link>
 			</button>
 	} else {
-		profileBtn = <button className={classNames(s.profileBtn, s.subscribe)}><span>+</span> <p>Подписаться</p></button>
+		profileBtn = <button className={classNames(s.profileBtn, s.subscribe)} onClick={subscribe}><span>+</span> <p>Подписаться</p></button>
 	}
 
 
@@ -85,6 +83,10 @@ const User: FC<UsersPropsType> = ({ user, loggedUser, isLoggedUserProfile, forec
 		ROI за все время</p>
 
 
+	
+	
+	
+	
 	return (
 		<div className={classNames(s.userPage)}>
 			<div className={s.user}>
