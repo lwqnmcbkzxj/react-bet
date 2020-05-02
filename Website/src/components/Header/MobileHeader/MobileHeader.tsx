@@ -5,7 +5,6 @@ import { NavLink } from 'react-router-dom';
 
 import logo from '../../../assets/img/logo.png'
 
-import MobileSearch from './MobileSearch'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 

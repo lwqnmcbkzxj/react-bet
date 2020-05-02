@@ -12,6 +12,13 @@
 	margin: 40px 0;
 }
 
+@media screen and (max-width: 768px) {
+	.forecastsPage .actionBtnHoder {
+		margin-bottom: 0;
+	}
+}
+
+
 // @media screen and (max-width: 1124px) {
 // 	.filters {
 // 		flex-direction: column-reverse;

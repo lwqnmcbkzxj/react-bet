@@ -41,8 +41,6 @@ type MainPagePropsType = {
 }
 
 const MainPage: FC<MainPagePropsType> = ({ users, forecasts, matches, bookmakers, mainPageBlocksVisibility, setMainPageBlocksVisibility, changeMainPageBlockVisibility, ...props }) => {
-	let isMobile = useMobile(768)
-
 	// Force update for toggling blocks
 	const [, updateState] = useState();
 	const forceUpdate = useCallback(() => updateState({}), []);
@@ -100,11 +98,6 @@ const MainPage: FC<MainPagePropsType> = ({ users, forecasts, matches, bookmakers
 				<ForecastsList forecasts={forecasts} limit={5} />
 				<NavLink to="/forecasts" className={s.navLinkBtn}><ActionButton value="Все прогнозы" /></NavLink>
 			</div>
-
-
-
-
-			{isMobile && <MobileFooter />}
 		</div>
 	)
 }

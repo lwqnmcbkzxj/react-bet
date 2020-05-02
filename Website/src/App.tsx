@@ -6,9 +6,17 @@ import { withRouter } from 'react-router'
 
 
 import AuthFormContainer from './components/AuthForm/AuthFormContainer'
+import MainPageContainer from './components/MainPage/MainPageContainer'
+import HeaderContainer from './components/Header/HeaderContainer'
+import MenuContainer from './components/Menu/MenuContainer'
+import CommentsContainer from './components/Comments/CommentsContainer'
+import Footer from './components/Common/Footer/Footer'
+import NotFound from './components/NotFound/NotFound'
+
 
 import ForecastsContainer from './components/Forecasts/ForecastsContainer'
 import ForecastContainer from './components/Forecast/ForecastContainer'
+import AddForecastContainer from './components/Forecasts/AddForecast/AddForecastContainer'
 
 import UsersContainer from './components/Users/UsersContainer'
 import UserContainer from './components/User/UserContainer'
@@ -26,23 +34,15 @@ import NewsSingleContainer from './components/NewsSingle/NewsSingleContainer'
 import ArticleContainer from './components/Article/ArticleContainer'
 import ArticlesContainer from './components/Articles/ArticlesContainer'
 
-import MainPageContainer from './components/MainPage/MainPageContainer'
-import HeaderContainer from './components/Header/HeaderContainer'
-import MenuContainer from './components/Menu/MenuContainer'
-import CommentsContainer from './components/Comments/CommentsContainer'
-
-
-import NotFound from './components/NotFound/NotFound'
-import AddForecastContainer from './components/Forecasts/AddForecast/AddForecastContainer'
-
 import { useDispatch, useSelector } from "react-redux"
 import { AppStateType } from './types/types'
 
 import { toggleAuthFormVisiblility } from './redux/app-reducer'
+import useMobile from './hooks/useMobile'
 
 
 const App = (props: any) => {
-
+	const isMobile = useMobile(768)
 	return (
 		<div className="app-wrapper">
 
@@ -82,6 +82,8 @@ const App = (props: any) => {
 						<Route component={NotFound} />
 
 					</Switch>
+
+					{isMobile && <Footer />}
 				</div>
 				<CommentsContainer />
 

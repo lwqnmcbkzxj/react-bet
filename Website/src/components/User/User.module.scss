@@ -116,8 +116,8 @@
 	}
 
 	& .userStats {
-		padding-top: 20px;
-		padding-bottom: 20px;
+		padding-top: 10px;
+		padding-bottom: 10px;
 		box-sizing: border-box;
 		border-bottom: 1px solid #F4F4F4;
 		display: flex;
@@ -204,7 +204,6 @@
 
 .stats {
 	margin: 30px 10px 10px 10px;
-	
 	display: flex;
 	flex-direction: column;
 
@@ -241,11 +240,12 @@
 }
 .chartBlock {
 	display: grid;
-	grid-template-columns: 2fr 1fr;	
+	grid-template-columns: 1fr 1fr;	
 	width: 100%;
 	& canvas {
-		width: 100%!important;
-		height: auto!important;
+		height: 130px!important;
+		width: auto!important;
+		justify-self: flex-end;
 	}
 
 	.rightBlock {
@@ -302,6 +302,7 @@
 .infoBlock {
 	margin-top: 20px;
 }
+
 
 @media screen and (max-width: 480px) {
 	.user {

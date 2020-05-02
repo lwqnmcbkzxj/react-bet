@@ -13,7 +13,7 @@ const NewsList: FC<NewsPropsType> = ({ news, ...props }) => {
 		<div className={s.newsList}>
 			{
 				news.map(newsElement => 
-					<Link to="news/1" className={s.newsElement}>
+					<div className={s.newsElement}>
 						<div className={s.newsHeader}>
 							<div className={s.categoryName}>Название категории</div>
 							<div className={s.publishDate}>вчера в 16:58</div>
@@ -28,7 +28,7 @@ const NewsList: FC<NewsPropsType> = ({ news, ...props }) => {
 								Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
 							</div>
 						</div>
-					</Link>
+					</div>
 				)
 			}
 		</div>

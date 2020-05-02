@@ -9,7 +9,7 @@
 	}
 
 	& .navLinkBtn button {
-		margin: 22px 0 59px 0;
+		margin: 22px 0 59px 0;		
 	}
 
 	& .contentBlock {
@@ -51,5 +51,11 @@
 				transform: rotate(180deg);
 			}
 		}
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.mainBlock > div:last-child .navLinkBtn button {
+		margin-bottom: 0;		
 	}
 }

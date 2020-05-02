@@ -27,7 +27,7 @@ const StatsChart: FC<StatsChartPropsType> = ({ wins, loses, returns, ...props })
 	};
 
 	const options = {
-		cutoutPercentage: isMobile ? 90 : 90,
+		cutoutPercentage: isMobile ? 90 : 92,
 		responsive: true,
 		legend: {
 			display: false,

@@ -16,7 +16,7 @@ import UserStats from './UserStats'
 import Settings from './Settings/Settings'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
-enum selectors {
+export enum selectors {
 	forecasts = 'forecasts',
 	statistics = 'statistics',
 	favourites = 'favourites',
@@ -36,6 +36,7 @@ type UsersPropsType = {
 	filters: FiltersObjectType
 	toggleFilter: (filterName: FilterNames, filtersBlockName: string) => void
 }
+
 
 const User: FC<UsersPropsType> = ({ user, loggedUser,  isLoggedUserProfile, forecasts, getUserForecasts, getUserFavourites, subscribe, filters, toggleFilter, ...props }) => {
 	const [visibleTab, setVisibleTab] = useState('statistics')

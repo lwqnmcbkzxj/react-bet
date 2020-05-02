@@ -43,11 +43,6 @@
 				font-size: 15px;
 				line-height: 19px;
 				color: #4E525A;
-
-				overflow: hidden;
-				display: -webkit-box;
-				-webkit-line-clamp: 3;
-				-webkit-box-orient: vertical;
 			}
 		}
 	}
@@ -71,7 +66,6 @@
 				& .newsDescription {
 					font-size: 15px;
 					line-height: 21px;
-					-webkit-line-clamp: 8;
 				}
 			}
 		}
