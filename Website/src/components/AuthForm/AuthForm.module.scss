@@ -56,23 +56,25 @@
 		}
 	}
 
-	& .authForm {
+
+	& .authFormBlock {
 		padding-bottom: 65px;
 
-		&>div {
+		& .orLine,
+		& .actions {
 			padding: 0 65px;
 			box-sizing: border-box;
 		}
 
-		& form {
+		& .authForm {
 			position: relative;
-		}
 
-		& form>div {
-			padding: 0 65px;
+			&>div {
+				padding: 0 65px;
 
-			&.formError {
-				padding: 0;
+				&.formError {
+					padding: 0;
+				}
 			}
 		}
 	}
@@ -103,7 +105,7 @@
 		line-height: 29px;
 		letter-spacing: 0px;
 		color: #343638;
-		padding: 33px 0 26px 0;
+		padding: 33px 65px 26px 65px;
 	}
 
 	& .mobileClosePopup {
@@ -206,35 +208,37 @@
 		}
 	}
 
-	// .actions {
-	// 	position: absolute;
-	// 	bottom: 38px;
-	// 	padding-bottom: 50px!important;
-	// 	box-sizing: border-box;
-	// }
 
-	.authForm {
-		padding-bottom: 65px;
-
-		& form>div,
-		&>div {
+	& .authFormBlock {
+		& .actions {
 			padding: 0 38px !important;
-		}
-		.actions {
 			position: absolute;
 			bottom: 38px;
-			padding-bottom: 40px!important;
+			padding-bottom: 40px !important;
 			box-sizing: border-box;
 		}
 
-		.formError {
-			padding: 0 !important;
+		& .orLine {
+			padding: 0 38px !important;
+			width: calc(100% - 100px);
+		}
+
+		& h1  {
+			padding: 33px 38px 26px 38px !important;
+		}
+
+		& .authForm {
+			position: relative;
+			&>div {
+				padding: 0 38px !important;
+
+				&.formError {
+					padding: 0 !important;
+				}
+			}
 		}
 	}
 
-	.orLine {
-		width: calc(100% - 100px);
-	}
 
 	& .mobileClosePopup {
 		display: block !important;

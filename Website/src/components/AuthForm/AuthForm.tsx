@@ -5,6 +5,7 @@ import cn from 'classnames'
 import Login from './Login/Login'
 import Register from './Register/Register';
 import ResetPassword from './ResetPassword/ResetPassword';
+import ResetPasswordSuccessful from './ResetPassword/ResetPasswordSuccessful';
 
 import logo from '../../assets/img/logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -53,6 +54,10 @@ const AuthFormContainer: FC<AuthFormPropsType> = ({
 			resetPassword={resetPassword}
 			changeAuthFormPhase={changeAuthFormPhase}
 		/>
+	} else if (authFormPhase === 'reset-successful') {
+		visibleFormBlock = <ResetPasswordSuccessful
+			changeAuthFormPhase={changeAuthFormPhase}
+		/>
 	}
 	return (
 		<>
@@ -63,7 +68,7 @@ const AuthFormContainer: FC<AuthFormPropsType> = ({
 				</div>
 				<FontAwesomeIcon icon={faTimes} className={s.closePopup + ' ' + s.mobileClosePopup} onClick={toggleAuthFormVisiblility} />
 
-				<div className={s.authForm}>{visibleFormBlock}</div>
+				<div className={s.authFormBlock}>{visibleFormBlock}</div>
 
 			</div>
 			<div className={s.auth_bg} onClick={isAuthFormVisible ? toggleAuthFormVisiblility : () => { }}></div>

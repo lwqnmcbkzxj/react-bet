@@ -7,6 +7,7 @@ import { Redirect } from 'react-router';
 import { reduxForm, InjectedFormProps, SubmissionError } from 'redux-form'
 import { Input, createField } from '../../Common/FormComponents/FormComponents'
 import ActionButton from '../../Common/ActionButton/ActionButton'
+import { emailRegExp } from '../../../types/types'
 
 // import LoginThrough from './LoginThrough/LoginThrough'
 
@@ -26,7 +27,7 @@ type RegisterFormValuesType = {
 
 const RegisterForm = (props: any) => {
 	return (
-		<form onSubmit={props.handleSubmit}>
+		<form onSubmit={props.handleSubmit} className={s.authForm}>
 			<div className={classNames(s.formError, { [s.formError_active]: props.error })}>{props.error}</div>
 			<h1>Регистрация</h1>
 
@@ -46,9 +47,15 @@ const ReduxRegisterForm = reduxForm({ form: 'register' })(RegisterForm)
 
 const Register: FC<AuthFormPropsType> = ({ register, changeAuthFormPhase, ...props }) => {
 	const handleRegister = (formData: any) => {
-		if (formData.email === '' || formData.password === '' || formData.username === '')
+		if (!formData.email || !formData.password || !formData['password_repeat'] || !formData.username)
 			throw new SubmissionError({ _error: 'Заполните все поля' })
-		else {
+		else if (!formData.email.match(emailRegExp))
+			throw new SubmissionError({ _error: 'Введен некорректный email' })
+		else if (formData.password.length <= 8){
+			throw new SubmissionError({ _error: 'Длина пароля должна быть больше 8 символов' })
+		} else if (formData.password !== formData['password_repeat']){
+			throw new SubmissionError({ _error: 'Пароли должны совпадать' })
+		} else {
 			register(formData.username, formData.email, formData.password)
 			throw new SubmissionError({ _error: '' })
 		}

@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 export const withAuthRedirect = (Component) => {
 
 	const RedirectComponent = (props) => {
-		const logged = useSelector(state => state.user.logged)
+		const logged = useSelector(state => state.me.logged)
 
 		if (!logged) return <div>Вам нужно войти</div>
 		return <Component {...props} />

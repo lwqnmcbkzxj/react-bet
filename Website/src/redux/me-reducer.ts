@@ -5,7 +5,7 @@ import { ThunkAction } from 'redux-thunk'
 import { userAPI, setTokenForAPI } from '../api/api';
 import { Dispatch } from 'react';
 import { UserType } from '../types/me';
-import { stopSubmit, startSubmit } from 'redux-form';
+import { stopSubmit, FormAction } from 'redux-form';
 import { setShouldRedirect, SetShouldRedirectType, toggleAuthFormVisiblility } from './app-reducer';
 
 const SET_LOGGED = 'me/SET_LOGGED'
@@ -18,13 +18,13 @@ let initialState = {
 	token: "",
 	userInfo: {
 		id: 0
-	} as UserType
+	} as UserType,	
 }
 
 type InitialStateType = typeof initialState;
 type ActionsTypes = SetLoggedType | SetTokenType | SetUserInfo | SetShouldRedirectType;
 
-type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
+type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes | FormAction>
 
 const meReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
@@ -43,7 +43,7 @@ const meReducer = (state = initialState, action: ActionsTypes): InitialStateType
 		case SET_USER_INFO: {
 			return {
 				...state,
-				userInfo: action.userInfo
+				userInfo: {...action.userInfo}
 			}
 		}
 		default:
@@ -74,26 +74,42 @@ export const setLogged = (logged: boolean): SetLoggedType => {
 export const register = (username: string, email: string, password: string): ThunksType => async (dispatch) => {
 	let response = await userAPI.register(username, email, password)
 
+	if (!response.message) {
+		
+	} else {
+		dispatch(stopSubmit("register", { _error: response.message }))
+	}
 }
 
 export const login = (email: string, password: string): ThunksType => async (dispatch, getState) => {
 	let response = await userAPI.login(email, password)
-	if (!response.message) {
-		dispatch(setLogged(true))
-		dispatch(setAccessToken(response.access_token))
+	if (response) {
+		if (!response.message) {
+			dispatch(setLogged(true))
+			dispatch(setAccessToken(response.access_token))
 
-		dispatch(getUserInfo())
-		dispatch(setShouldRedirect(true))
-	}
+			dispatch(getUserInfo())
+			dispatch(setShouldRedirect(true))
+		} else {
+			dispatch(stopSubmit("login", { _error: response.message }))
+		}
+	} 
 }
 
 export const resetPassword = (email: string): ThunksType => async (dispatch) => {
-	// let response = await userAPI.resetPassword(email)
+	let response = await userAPI.resetPassword(email)
 }
 
+export const changePassword = (password: string): ThunksType => async (dispatch) => {
+	let response = await userAPI.changePassword(password)
+}
+export const changeEmail = (email: string): ThunksType => async (dispatch) => {
+	let response = await userAPI.changeEmail(email)
+}
 export const logout = (): ThunksType => async (dispatch) => {
 	dispatch(setLogged(false))
 	dispatch(setAccessToken(""))
+	dispatch(setUserInfo({}))
 }
 
 export const getUserInfo = (): ThunksType => async (dispatch) => {

@@ -7,12 +7,13 @@ import { Redirect } from 'react-router';
 import { reduxForm, InjectedFormProps, SubmissionError } from 'redux-form'
 import { Input, createField } from '../../Common/FormComponents/FormComponents';
 import ActionButton from '../../Common/ActionButton/ActionButton'
+import { emailRegExp } from '../../../types/types'
 
 // import LoginThrough from './LoginThrough/LoginThrough'
 
 const RegisterForm = (props: any) => {
 	return (
-		<form onSubmit={props.handleSubmit}>
+		<form onSubmit={props.handleSubmit} className={s.authForm}>
 			<div className={classNames(s.formError, { [s.formError_active]: props.error })}>{props.error}</div>
 			<h1>Восстановление пароля</h1>
 
@@ -33,10 +34,13 @@ type AuthFormPropsType = {
 
 const PasswordReset: FC<AuthFormPropsType> = ({ resetPassword, changeAuthFormPhase, ...props }) => {
 	const handleReset = (formData: any) => {
-		if (formData.email === '')
+		if (!formData.email)
 			throw new SubmissionError({ _error: 'Заполните все поля' })
+		else if (!formData.email.match(emailRegExp))
+			throw new SubmissionError({ _error: 'Введен некорректный email' })
 		else {
 			resetPassword(formData.email)
+			changeAuthFormPhase('reset-successful')
 			throw new SubmissionError({ _error: '' })
 		}
 	}
