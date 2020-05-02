@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import s from './Header.module.scss';
 import { NavLink, Link } from 'react-router-dom';
 
@@ -7,9 +7,10 @@ import userImg from '../../../assets/img/mainpage-users-img.png'
 import logo from '../../../assets/img/logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faCaretDown } from '@fortawesome/free-solid-svg-icons'
-
+import UserMobilePopup from './UserMobilePopup'
 import Search from './Search'
 import LiveBtn from '../LiveBtn/LiveBtn';
+
 type HeaderPropsType = {
 	logged: boolean
 	logout: () => void
@@ -21,6 +22,14 @@ type HeaderPropsType = {
 }
 
 const DesktopHeader: FC<HeaderPropsType> = ({ logged, logout, loggedUserId, isCommentsBlockVisible, toggleAuthFormVisiblility, toggleCommentsBlockVisibility, ...props }) => {
+	const [popupVisible, setPopupVisibility] = useState(false)
+	
+	const toggleUserPopupVisibility = () => {
+		setPopupVisibility(!popupVisible)
+	}
+	
+	
+	
 	let authedBlock
 	if (logged) {
 		authedBlock =
@@ -30,9 +39,16 @@ const DesktopHeader: FC<HeaderPropsType> = ({ logged, logout, loggedUserId, isCo
 					<Link to={`/forecasters/${loggedUserId}`}>
 						<img src={userImg} alt="user-img" />
 					</Link>
-					<button className={s.userBlockToggler} onClick={logout}>
+					<button className={s.userBlockToggler} onClick={toggleUserPopupVisibility}>
 						<FontAwesomeIcon icon={faCaretDown} />
 					</button>
+				{logged && popupVisible &&
+					<UserMobilePopup
+						logout={logout}
+						loggedUserId={loggedUserId}
+						toggleUserPopupVisibility={toggleUserPopupVisibility}
+					/>}
+
 				</div>
 			</div>
 	} else {
