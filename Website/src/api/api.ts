@@ -42,6 +42,30 @@ export const userAPI = {
 			}
 		);
 	},
+	changeEmail(email: string) {
+		console.log('Changing email: ' + email)
+		// return instance.post(`change-email`, { email })
+		// 	.then((response) => {
+		// 		return response.data
+		// 	}
+		// );
+	},
+	resetPassword(email: string) {		
+		// return instance.post(`reset-pass`, { email })
+		// 	.then((response) => {
+		// 		return response.data
+		// 	}
+		// );
+	},
+	changePassword(password: string) {
+		console.log('Changing password: ' + password)
+		// return instance.post(`change-pass`, { password })
+		// 	.then((response) => {
+		// 		return response.data
+		// 	}
+		// );
+	},
+
 	getUserInfo(){
 		return instance.get(`user`, )
 			.then((response) => {

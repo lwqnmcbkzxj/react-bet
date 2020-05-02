@@ -1,127 +1,347 @@
-.userInfo {
-	border: 1px solid #F4F4F4;
-	border-radius: 7px 7px 0 0;
-	padding: 15px 20px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+.userSettings {
+	.userInfo {
+		border: 1px solid #F4F4F4;
+		border-radius: 7px 7px 0 0;
+		padding: 15px 20px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 
+		& .userDetails {
+			display: grid;
+			grid-template-columns: 70px 1fr auto;
+			width: 100%;
 
-	& .userDetails {
-		display: grid;
-		grid-template-columns: 70px 1fr auto;
-		width: 100%;
+			& img {
+				width: 54px;
+				height: 54px;
+				display: block;
+				grid-row: 1/3;
+			}
 
-		& img {
-			width: 54px;
-			height: 54px;
-			display: block;
-			grid-row: 1/3;
-		}
-
-		& .nickName {
-			font-family: 'Roboto Medium';
-			font-size: 24px;
-			line-height: 29px;
-			color: #343638;
-			align-self: flex-end;
-		}
-
-		& .userBalance {
-			grid-column: 2/4;
-			display: flex;
-
-			& .bank {
-				margin-right: 20px;
-
-				font-size: 16px;
-				line-height: 19px;
+			& .nickName {
 				font-family: 'Roboto Medium';
-				letter-spacing: 0px;
-				color: #393F4D;
+				font-size: 24px;
+				line-height: 29px;
+				color: #343638;
+				align-self: flex-end;
+			}
 
-				& span {
-					font-family: 'Roboto';
-					text-transform: uppercase;
+			& .userBalance {
+				grid-column: 2/4;
+				display: flex;
+
+				& .bank {
+					margin-right: 20px;
+
+					font-size: 16px;
+					line-height: 19px;
+					font-family: 'Roboto Medium';
+					letter-spacing: 0px;
+					color: #393F4D;
+
+					& span {
+						font-family: 'Roboto';
+						text-transform: uppercase;
+					}
 				}
 			}
-		}
 
-		& .profileBtn {
-			border-radius: 5px;
-			padding: 8px 20px 8px 20px;
-			border: 1px solid #E5E2E2;
-			color: #343638;
-			font-family: 'Roboto Medium';
-			font-size: 14px;
-			line-height: 17px;
+			& .profileBtn {
+				border-radius: 5px;
+				padding: 8px 20px 8px 20px;
+				border: 1px solid #E5E2E2;
+				color: #343638;
+				font-family: 'Roboto Medium';
+				font-size: 14px;
+				line-height: 17px;
 
-			display: flex;
-			align-items: center;
-			align-self: flex-start;
-
-			&.active {
-				color: #F7971D;
-			}
-			& a {
 				display: flex;
 				align-items: center;
 				align-self: flex-start;
-			}
 
-			& span {
-				display: flex;
-				align-items: center;
-				font-size: 20px;
-				margin-right: 6px;
+				&.active {
+					color: #F7971D;
+				}
 
-				& .settingIcon {
-					font-size: 12px;
+				& a {
+					display: flex;
+					align-items: center;
+					align-self: flex-start;
+				}
+
+				& span {
+					display: flex;
+					align-items: center;
+					font-size: 20px;
+					margin-right: 6px;
+
+					& .settingIcon {
+						font-size: 12px;
+					}
 				}
 			}
 		}
 	}
+
+	.settings {
+		margin-top: 25px;
+
+		& .settingBlockHeader {
+			color: #343638;
+			font-family: 'Roboto Medium';
+			font-size: 20px;
+			line-height: 24px;
+			margin-bottom: 18px;
+			margin-top: 33px;
+		}
+
+
+		& .common {
+			display: grid;
+			grid-template-columns: 2fr 1fr;
+			grid-gap: 55px;
+			justify-items: center;
+			align-items: center;
+
+			& .rateBtn {
+				width: 100%;
+				padding: 12px 12px 11px 12px;
+				background: #FFFFFF;
+				box-shadow: 0px 0px 13px #00000029;
+				border-radius: 6px 6px 4px 4px;
+				color: #202E48;
+				font-family: 'Roboto Medium';
+				font-size: 18px;
+				line-height: 22px;
+				text-align: center;
+				box-sizing: border-box;
+			}
+		}
+
+		& .settingsForm {
+			& .formBlock {
+				& label {
+					color: #818181;
+					font-size: 15px;
+					line-height: 18px;
+				}
+
+				& .inputs {
+					display: grid;
+					grid-template-columns: 1fr 1fr;
+					grid-gap: 25px;
+				}
+
+				& input {
+					color: #343638;
+					font-size: 19px;
+					line-height: 23px;
+
+					&[type=password] {
+						font-size: 23px;
+					}
+				}
+
+				::-webkit-input-placeholder {
+					color: #343638;
+					font-size: 19px;
+					line-height: 23px;
+				}
+
+				::-moz-placeholder {
+					color: #343638;
+					font-size: 19px;
+					line-height: 23px;
+				}
+
+				:-ms-input-placeholder {
+					color: #343638;
+					font-size: 19px;
+					line-height: 23px;
+				}
+
+				:-moz-placeholder {
+					color: #343638;
+					font-size: 19px;
+					line-height: 23px;
+				}
+
+			}
+		}
+
+		& .notifications {
+			& .notification {
+				display: flex;
+				align-items: center;
+				justify-items: center;
+				margin-bottom: 20px;
+
+				& .toggler {
+					margin-right: 15px;
+
+					& input {
+						&[type=checkbox] {
+							position: relative;
+							width: 40px;
+							height: 15px;
+							-webkit-appearance: none;
+							outline: none;
+							transition: .5s;
+							box-shadow: 0px 1px 1px #00000036;
+							border-radius: 13px;
+							background: #F4F4F4;
+
+							&:hover {
+								cursor: pointer;
+							}
+
+							&:before {
+								content: '';
+								position: absolute;
+								width: 19px;
+								height: 19px;
+								border-radius: 20px;
+								top: -2px;
+								left: 0;
+								background: #A8ABAF;
+								transition: .5s;
+								transform: scale(1.1);
+								box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+							}
+						}
+
+						&:checked[type=checkbox]:before {
+							background: #0F971D;
+							left: 20px;
+						}
+					}
+				}
+
+				& .notificationText {
+					color: #343638;
+					font-size: 17px;
+					line-height: 20px;
+				}
+			}
+
+		}
+	}
+
+	& .logoutBtn {
+		display: none;
+		border: 1px solid #D5D8DD;
+		border-radius: 5px;
+		padding: 12.5px;
+		font-size: 16px;
+		line-height: 19px;
+		color: #AA0F0F;
+		font-family: 'Roboto Medium';
+		width: 100%;
+		box-sizing: border-box;
+	}
 }
 
 
+@media screen and (max-width: 640px) {
+	.userSettings {
+		& .logoutBtn {
+			display: block;
+			
+		}
+	}
+}
 @media screen and (max-width: 480px) {
-	& .userInfo {
-		padding: 8px 8px 15px 8px;
+	.userSettings {
+		.userInfo {
+			padding: 8px 8px 15px 8px;
 
-		& .userDetails {
-			& .userBalance {
-				grid-column: 2/3;
-				& .bank {
-					margin-right: 0px;
-					font-size: 14px;
-					line-height: 17px;
+			& .userDetails {
+				& .userBalance {
+					grid-column: 2/3;
+
+					& .bank {
+						margin-right: 0px;
+						font-size: 14px;
+						line-height: 17px;
+					}
+				}
+			}
+
+			& .profileBtn.settingsBtn {
+				grid-row: 1/3;
+				grid-column: 3/4;
+				border-radius: 5px;
+				padding: 0;
+				padding: 10px;
+
+
+
+				& span {
+					box-sizing: border-box;
+					font-size: 20px;
+					margin-right: 0;
+					padding: 0;
+
+					& .settingIcon {
+						padding: 0 2px;
+						font-size: inherit;
+					}
+				}
+
+				& p {
+					display: none;
 				}
 			}
 		}
 
-		& .profileBtn.settings {
-			grid-row: 1/3;
-			grid-column: 3/4;
-			border-radius: 5px;
-			padding: 0;
-			padding: 10px;
+		.settings {
+			& .settingBlockHeader {
+				font-size: 16px;
+				line-height: 22px;
+				margin-bottom: 12px;
+				margin-top: 30px;
+			}
 
-			
+			& .common {
+				grid-template-columns: 1fr;
+				grid-template-rows: 1fr 1fr;
+				grid-gap: 32px;
 
-			& span {
-				box-sizing: border-box;
-				font-size: 20px;
-				margin-right: 0;
-				padding: 0;
-
-				& .settingIcon {
-					padding: 0 2px;
-					font-size: inherit;
+				& .rateBtn {
+					padding: 12px 12px 11px 12px;
+					font-size: 16px;
+					line-height: 19px;
 				}
 			}
 
-			& p {
-				display: none;
+			& .settingsForm {
+				& .formBlock {
+					& .inputs {
+						display: grid;
+						grid-template-columns: 1fr;
+						grid-template-rows: 1fr 1fr;
+						grid-gap: 0;
+					}
+				}
+			}
+
+			& .notifications {
+				& .notification {
+					flex-direction: row-reverse;
+					justify-content: space-between;
+
+					& .toggler {
+						margin-left: 15px;
+						margin-right: 0;
+					}
+
+					& .notificationText {
+						font-size: 16px;
+						line-height: 19px;
+					}
+				}
+
 			}
 		}
 	}

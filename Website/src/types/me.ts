@@ -15,3 +15,7 @@ export type UserType = {
     // "created_at": "2020-04-26T13:53:55.000000Z",
     // "updated_at": "2020-04-26T13:53:55.000000Z"
 }
+
+export type SettingsType = {
+	
+}

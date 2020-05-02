@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import s from './Selectors.module.scss';
 import classNames from 'classnames'
 
-import { FilterType, FilterNames, FiltersObjectType } from '../../../types/filters'
+import { FilterType, FilterNames, FiltersObjectType, LanguageType, languageEnum } from '../../../types/filters'
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,14 +10,14 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 
 
 type SelectorsType = {
-	selectors: Array<FilterType> | undefined
+	selectors: Array<FilterType | LanguageType> | undefined
 	selectorsBlockName: string
-	onChangeFunc: (filterName: FilterNames, filtersBlockName: string) => void
+	onChangeFunc: (filterName: FilterNames | any, filtersBlockName: string) => void
 	isDropdown?: boolean
 	fillBg?: boolean
 }
 const Selectors: FC<SelectorsType> = ({ selectors = [], selectorsBlockName, onChangeFunc, isDropdown = false, fillBg = false, ...props }) => {
-	const handleChange = (filterName: FilterNames, isActive: boolean) => {
+	const handleChange = (filterName: FilterNames | languageEnum, isActive: boolean) => {
 		if (!isActive)
 			onChangeFunc(filterName, selectorsBlockName)
 	}
