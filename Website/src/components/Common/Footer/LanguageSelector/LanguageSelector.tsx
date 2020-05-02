@@ -1,19 +1,21 @@
 import React, { FC, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { AppStateType, languageEnum } from '../../../../types/types'
+import { AppStateType } from '../../../../types/types'
+import { languageEnum, LanguageType } from '../../../../types/filters'
 import { changeLanguage } from '../../../../redux/app-reducer'
 import s from '../Footer.module.scss';
 import classNames from 'classnames'
 
 import { getArrayFromEnum } from '../../../../utils/enumToArray'
-
+import { getActiveFilter } from '../../../../utils/getActiveFilter';
 type MenuFooterPropsType = { }
 
 
 const LanguageSelector: FC<MenuFooterPropsType> = ({ ...props }) => {
 	const dispatch = useDispatch();
-	const currentLanguage = useSelector<AppStateType, languageEnum>(state => state.app.language)
-
+	const languagesState = useSelector<AppStateType, Array<LanguageType>>(state => state.app.languages)
+	debugger
+	let currentLanguage = languagesState.filter(filter => filter.active === true)[0].visibleText
 
 	// Changing language
 	const handleChangeLanguage = (language: languageEnum) => {
@@ -21,11 +23,10 @@ const LanguageSelector: FC<MenuFooterPropsType> = ({ ...props }) => {
 		dispatch(changeLanguage(language))
 	}
 
-	let languagesArr = getArrayFromEnum(languageEnum)
 
-	let languages = languagesArr.map(language => {
-		if (language !== currentLanguage) {
-			return <p className={s.language} onClick={() => { handleChangeLanguage(language) }}>{language}</p>
+	let languages = languagesState.map(language => {
+		if (language.visibleText !== currentLanguage) {
+			return <p className={s.language} onClick={() => { handleChangeLanguage(language.name) }}>{language.visibleText}</p>
 		}
 	})
 

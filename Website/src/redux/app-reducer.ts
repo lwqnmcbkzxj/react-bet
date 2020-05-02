@@ -1,4 +1,5 @@
-import { AppStateType, languageEnum } from '../types/types'
+import { AppStateType } from '../types/types'
+import { languageEnum, LanguageType } from '../types/filters'
 import { ThunkAction } from 'redux-thunk'
 
 
@@ -16,7 +17,10 @@ let initialState = {
 	isAuthFormVisible: false,
 	isCommentsBlockVisible: true,
 	mainPageBlocksVisibility: {} as any,
-	language: languageEnum.rus
+	languages: [
+		{ index: 1, name: languageEnum.rus, visibleText: 'Русский', active: true},
+		{ index: 2, name: languageEnum.eng, visibleText: 'English', active: false},
+	],
 }
 
 type InitialStateType = typeof initialState;
@@ -87,11 +91,20 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 		}
 
 		case CHANGE_LANGUAGE: {
+			let languages = state.languages;
+			languages.map(language => {
+				language.active = false
+				if (language.name === action.language)
+					language.active = true
+			})
+
 			return {
 				...state,
-				language: action.language
+				languages: [...languages]
 			}
 		}
+			
+		
 		case SET_REDIRECT_LINK: {
 			return {
 				...state,

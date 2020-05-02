@@ -21,6 +21,7 @@ export enum sportTypeFilterEnum {
 	another = '5',
 }
 
+
 export type FilterType = {
 	index: number
 	name: timeFilterEnum | subscribtionFilterEnum | sportTypeFilterEnum
@@ -34,4 +35,17 @@ export type FiltersObjectType = {
 	sportTypeFilter?: Array<FilterType>
 }
 
-export type FilterNames = timeFilterEnum | sportTypeFilterEnum | subscribtionFilterEnum
+
+export type FilterNames = timeFilterEnum | sportTypeFilterEnum | subscribtionFilterEnum | languageEnum
+
+export enum languageEnum {
+	rus = 'rus',
+	eng = 'eng',
+}
+
+export type LanguageType = {
+	index: number
+	name: languageEnum,
+	visibleText: string
+	active: boolean
+}
