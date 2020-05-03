@@ -17,7 +17,7 @@ class ForecastsHeader: UIView {
         let view = UILabel()
         view.textColor = .titleBlack
         view.font = .robotoMedium(size: 20)
-        view.text = Text.forecasts
+        view.text = Text.FORECASTS
         return view
     }()
     

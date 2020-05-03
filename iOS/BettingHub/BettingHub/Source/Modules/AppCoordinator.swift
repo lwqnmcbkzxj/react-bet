@@ -85,4 +85,10 @@ class AppCoordinator {
         vc.viewModel = vm
         return vc
     }
+    
+    func selfProfile() -> UIViewController {
+        let vc = ProfileAssembly().module(coordinator: self)
+        let nav = NavigationController(rootViewController: vc)
+        return nav
+    }
 }

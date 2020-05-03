@@ -23,6 +23,8 @@
 		1C25F850244E191400A24F31 /* UIPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C25F84F244E191400A24F31 /* UIPreview.swift */; };
 		1C25F852244E195E00A24F31 /* TableViewPreviewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C25F851244E195E00A24F31 /* TableViewPreviewDataSource.swift */; };
 		1C2C6AB8245AF62E0044B5BC /* ColumnsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C6AB7245AF62E0044B5BC /* ColumnsView.swift */; };
+		1C2C6ABB245C27F50044B5BC /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C6ABA245C27F50044B5BC /* ProfileHeaderView.swift */; };
+		1C2C6ABD245C2A990044B5BC /* ProfileSegmenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C6ABC245C2A990044B5BC /* ProfileSegmenterView.swift */; };
 		1C2CFC082451D7E200E1071F /* TokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2CFC072451D7E200E1071F /* TokenService.swift */; };
 		1C2CFC0A2451D88600E1071F /* AuthToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2CFC092451D88600E1071F /* AuthToken.swift */; };
 		1C2CFC0F2451DD3F00E1071F /* BHError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2CFC0E2451DD3F00E1071F /* BHError.swift */; };
@@ -32,6 +34,11 @@
 		1C2CFC1D2451DFC300E1071F /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2CFC1C2451DFC300E1071F /* AuthService.swift */; };
 		1C36FDE0244CD6A7002A3601 /* LastForecastsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C36FDDF244CD6A7002A3601 /* LastForecastsView.swift */; };
 		1C36FDE2244CEE46002A3601 /* BigTitleHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C36FDE1244CEE46002A3601 /* BigTitleHeader.swift */; };
+		1C39EDA9245DC19600F405AB /* ProfileStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C39EDA8245DC19600F405AB /* ProfileStatistics.swift */; };
+		1C39EDAB245DE78000F405AB /* LinePieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C39EDAA245DE78000F405AB /* LinePieChartView.swift */; };
+		1C39EDAE245EEC9000F405AB /* ProfileForecastsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C39EDAD245EEC9000F405AB /* ProfileForecastsDataSource.swift */; };
+		1C39EDB1245EEF5E00F405AB /* UserForecastsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C39EDB0245EEF5E00F405AB /* UserForecastsViewModel.swift */; };
+		1C39EDB3245EF92A00F405AB /* UserFavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C39EDB2245EF92A00F405AB /* UserFavoritesViewModel.swift */; };
 		1C43E2CB244B90F3002CF7EB /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43E2CA244B90F3002CF7EB /* Match.swift */; };
 		1C43E2CD244B90FB002CF7EB /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43E2CC244B90FB002CF7EB /* Forecast.swift */; };
 		1C43E2CF244B9105002CF7EB /* Bookmaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43E2CE244B9105002CF7EB /* Bookmaker.swift */; };
@@ -68,6 +75,9 @@
 		1C6937B42450FEDD00AE01BE /* ITokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6937B32450FEDD00AE01BE /* ITokenService.swift */; };
 		1C6937B7245101F000AE01BE /* IRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6937B6245101F000AE01BE /* IRequestBuilder.swift */; };
 		1C6937B9245109D000AE01BE /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6937B8245109D000AE01BE /* RequestBuilder.swift */; };
+		1C703ED2245DA18100E27309 /* ProfileStatisticsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C703ED1245DA18100E27309 /* ProfileStatisticsDataSource.swift */; };
+		1C703ED5245DA24800E27309 /* ProfileStatisticsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C703ED4245DA24800E27309 /* ProfileStatisticsCell.swift */; };
+		1C703ED8245DA52000E27309 /* StatRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C703ED7245DA52000E27309 /* StatRowView.swift */; };
 		1C779B8C244F2F26008C1FDB /* FullForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C779B8B244F2F26008C1FDB /* FullForecastViewController.swift */; };
 		1C7A356C2448E15A00E3AB9B /* NavigationBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A356B2448E15A00E3AB9B /* NavigationBackView.swift */; };
 		1C7A356E2448E4F500E3AB9B /* BettingNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A356D2448E4F500E3AB9B /* BettingNavigationBar.swift */; };
@@ -75,6 +85,7 @@
 		1C833EB8245A0A470012F1F5 /* ForecastersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C833EB7245A0A470012F1F5 /* ForecastersView.swift */; };
 		1C833EBA245A0B7D0012F1F5 /* ForecasterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C833EB9245A0B7D0012F1F5 /* ForecasterCell.swift */; };
 		1C833EBC245A1EAD0012F1F5 /* TimeFrameSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C833EBB245A1EAD0012F1F5 /* TimeFrameSelector.swift */; };
+		1C882565245C553500D188C6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C882564245C553500D188C6 /* ProfileViewController.swift */; };
 		1C9134802447497E00AE4510 /* UIItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C91347F2447497E00AE4510 /* UIItems.swift */; };
 		1C91348224475A7B00AE4510 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C91348124475A7B00AE4510 /* UITextField.swift */; };
 		1C91348424476ABD00AE4510 /* BorderedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C91348324476ABD00AE4510 /* BorderedTextField.swift */; };
@@ -93,6 +104,10 @@
 		1CABD5E2244CB37E0039D99C /* LabeledIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABD5E1244CB37E0039D99C /* LabeledIconView.swift */; };
 		1CABD5E4244CB7570039D99C /* ArrowsStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABD5E3244CB7570039D99C /* ArrowsStepperView.swift */; };
 		1CABD5E7244CC9520039D99C /* ForecastCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABD5E6244CC9520039D99C /* ForecastCellPresenter.swift */; };
+		1CC39CB6245F02A2003CED00 /* ProfileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC39CB5245F02A2003CED00 /* ProfileDataSource.swift */; };
+		1CC39CB8245F09D9003CED00 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC39CB7245F09D9003CED00 /* ProfileRouter.swift */; };
+		1CC39CBC245F0E31003CED00 /* ProfileStatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC39CBB245F0E31003CED00 /* ProfileStatisticsViewModel.swift */; };
+		1CC39CBE245F11D7003CED00 /* ProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC39CBD245F11D7003CED00 /* ProfileAssembly.swift */; };
 		1CC4EF8A2447238D00D69C67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC4EF892447238D00D69C67 /* AppDelegate.swift */; };
 		1CC4EF932447239300D69C67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CC4EF922447239300D69C67 /* Assets.xcassets */; };
 		1CC4EF962447239300D69C67 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CC4EF942447239300D69C67 /* LaunchScreen.storyboard */; };
@@ -154,6 +169,8 @@
 		1C25F84F244E191400A24F31 /* UIPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPreview.swift; sourceTree = "<group>"; };
 		1C25F851244E195E00A24F31 /* TableViewPreviewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewPreviewDataSource.swift; sourceTree = "<group>"; };
 		1C2C6AB7245AF62E0044B5BC /* ColumnsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnsView.swift; sourceTree = "<group>"; };
+		1C2C6ABA245C27F50044B5BC /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		1C2C6ABC245C2A990044B5BC /* ProfileSegmenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSegmenterView.swift; sourceTree = "<group>"; };
 		1C2CFC072451D7E200E1071F /* TokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenService.swift; sourceTree = "<group>"; };
 		1C2CFC092451D88600E1071F /* AuthToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthToken.swift; sourceTree = "<group>"; };
 		1C2CFC0E2451DD3F00E1071F /* BHError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BHError.swift; sourceTree = "<group>"; };
@@ -163,6 +180,11 @@
 		1C2CFC1C2451DFC300E1071F /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		1C36FDDF244CD6A7002A3601 /* LastForecastsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastForecastsView.swift; sourceTree = "<group>"; };
 		1C36FDE1244CEE46002A3601 /* BigTitleHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigTitleHeader.swift; sourceTree = "<group>"; };
+		1C39EDA8245DC19600F405AB /* ProfileStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatistics.swift; sourceTree = "<group>"; };
+		1C39EDAA245DE78000F405AB /* LinePieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinePieChartView.swift; sourceTree = "<group>"; };
+		1C39EDAD245EEC9000F405AB /* ProfileForecastsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileForecastsDataSource.swift; sourceTree = "<group>"; };
+		1C39EDB0245EEF5E00F405AB /* UserForecastsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserForecastsViewModel.swift; sourceTree = "<group>"; };
+		1C39EDB2245EF92A00F405AB /* UserFavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFavoritesViewModel.swift; sourceTree = "<group>"; };
 		1C43E2CA244B90F3002CF7EB /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		1C43E2CC244B90FB002CF7EB /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 		1C43E2CE244B9105002CF7EB /* Bookmaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmaker.swift; sourceTree = "<group>"; };
@@ -199,6 +221,9 @@
 		1C6937B32450FEDD00AE01BE /* ITokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITokenService.swift; sourceTree = "<group>"; };
 		1C6937B6245101F000AE01BE /* IRequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRequestBuilder.swift; sourceTree = "<group>"; };
 		1C6937B8245109D000AE01BE /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
+		1C703ED1245DA18100E27309 /* ProfileStatisticsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatisticsDataSource.swift; sourceTree = "<group>"; };
+		1C703ED4245DA24800E27309 /* ProfileStatisticsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatisticsCell.swift; sourceTree = "<group>"; };
+		1C703ED7245DA52000E27309 /* StatRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatRowView.swift; sourceTree = "<group>"; };
 		1C779B8B244F2F26008C1FDB /* FullForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullForecastViewController.swift; sourceTree = "<group>"; };
 		1C7A356B2448E15A00E3AB9B /* NavigationBackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBackView.swift; sourceTree = "<group>"; };
 		1C7A356D2448E4F500E3AB9B /* BettingNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BettingNavigationBar.swift; sourceTree = "<group>"; };
@@ -206,6 +231,7 @@
 		1C833EB7245A0A470012F1F5 /* ForecastersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastersView.swift; sourceTree = "<group>"; };
 		1C833EB9245A0B7D0012F1F5 /* ForecasterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecasterCell.swift; sourceTree = "<group>"; };
 		1C833EBB245A1EAD0012F1F5 /* TimeFrameSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFrameSelector.swift; sourceTree = "<group>"; };
+		1C882564245C553500D188C6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		1C91347F2447497E00AE4510 /* UIItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIItems.swift; sourceTree = "<group>"; };
 		1C91348124475A7B00AE4510 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		1C91348324476ABD00AE4510 /* BorderedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedTextField.swift; sourceTree = "<group>"; };
@@ -224,6 +250,10 @@
 		1CABD5E1244CB37E0039D99C /* LabeledIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledIconView.swift; sourceTree = "<group>"; };
 		1CABD5E3244CB7570039D99C /* ArrowsStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowsStepperView.swift; sourceTree = "<group>"; };
 		1CABD5E6244CC9520039D99C /* ForecastCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCellPresenter.swift; sourceTree = "<group>"; };
+		1CC39CB5245F02A2003CED00 /* ProfileDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataSource.swift; sourceTree = "<group>"; };
+		1CC39CB7245F09D9003CED00 /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
+		1CC39CBB245F0E31003CED00 /* ProfileStatisticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatisticsViewModel.swift; sourceTree = "<group>"; };
+		1CC39CBD245F11D7003CED00 /* ProfileAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAssembly.swift; sourceTree = "<group>"; };
 		1CC4EF862447238D00D69C67 /* BettingHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BettingHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CC4EF892447238D00D69C67 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1CC4EF922447239300D69C67 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -298,6 +328,16 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		1C0FD4CF245EFC43003AE585 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				1C703ED4245DA24800E27309 /* ProfileStatisticsCell.swift */,
+				1C703ED7245DA52000E27309 /* StatRowView.swift */,
+				1C39EDAA245DE78000F405AB /* LinePieChartView.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		1C22EF3C245082D900A7543D /* CommentsList */ = {
 			isa = PBXGroup;
 			children = (
@@ -339,6 +379,20 @@
 			path = Preview;
 			sourceTree = "<group>";
 		};
+		1C2C6AB9245C27E80044B5BC /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				1C2C6ABC245C2A990044B5BC /* ProfileSegmenterView.swift */,
+				1C2C6ABA245C27F50044B5BC /* ProfileHeaderView.swift */,
+				1C882564245C553500D188C6 /* ProfileViewController.swift */,
+				1CC39CB5245F02A2003CED00 /* ProfileDataSource.swift */,
+				1CC39CB7245F09D9003CED00 /* ProfileRouter.swift */,
+				1C703ED0245DA16600E27309 /* DataSources */,
+				1CC39CBD245F11D7003CED00 /* ProfileAssembly.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		1C2CFC0B2451DC7100E1071F /* ErrorsHandler */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,6 +415,24 @@
 				1C2CFC182451DF7D00E1071F /* ServiceLocator.swift */,
 			);
 			path = ServiceLocator;
+			sourceTree = "<group>";
+		};
+		1C39EDAC245EE9BB00F405AB /* Forecasts */ = {
+			isa = PBXGroup;
+			children = (
+				1C39EDAD245EEC9000F405AB /* ProfileForecastsDataSource.swift */,
+				1C39EDAF245EEDA200F405AB /* ViewModels */,
+			);
+			path = Forecasts;
+			sourceTree = "<group>";
+		};
+		1C39EDAF245EEDA200F405AB /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				1C39EDB0245EEF5E00F405AB /* UserForecastsViewModel.swift */,
+				1C39EDB2245EF92A00F405AB /* UserFavoritesViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		1C47CC05245A056D0031BC27 /* ViewModelBase */ = {
@@ -514,6 +586,25 @@
 			path = RequestBuilder;
 			sourceTree = "<group>";
 		};
+		1C703ED0245DA16600E27309 /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+				1C39EDAC245EE9BB00F405AB /* Forecasts */,
+				1C703ED6245DA47D00E27309 /* Statistics */,
+			);
+			path = DataSources;
+			sourceTree = "<group>";
+		};
+		1C703ED6245DA47D00E27309 /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				1C703ED1245DA18100E27309 /* ProfileStatisticsDataSource.swift */,
+				1CC39CBB245F0E31003CED00 /* ProfileStatisticsViewModel.swift */,
+				1C0FD4CF245EFC43003AE585 /* Cell */,
+			);
+			path = Statistics;
+			sourceTree = "<group>";
+		};
 		1C779B88244F2EC3008C1FDB /* FullForecast */ = {
 			isa = PBXGroup;
 			children = (
@@ -629,6 +720,7 @@
 			isa = PBXGroup;
 			children = (
 				1CA01F6B2451FA6F0025FF4F /* AppCoordinator.swift */,
+				1C2C6AB9245C27E80044B5BC /* Profile */,
 				1C47CC06245A05920031BC27 /* Forecasters */,
 				1C5612272457C0AA00D02DBB /* TopMatches */,
 				1C5612202457755000D02DBB /* Bookmakers */,
@@ -781,6 +873,7 @@
 				1C083F4F244E687B0010D719 /* Sport.swift */,
 				1C97686B2453483500C11AF0 /* TimeFrame.swift */,
 				1C5612102456592D00D02DBB /* ForecastFilter.swift */,
+				1C39EDA8245DC19600F405AB /* ProfileStatistics.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -946,6 +1039,7 @@
 				1CF2C22E2449F3AA00A7B0B8 /* ButtonFooter.swift in Sources */,
 				1CE43F78245AF56E00E885EA /* ColumnsSectionHeader.swift in Sources */,
 				1CC4EFBE2447331C00D69C67 /* Fonts.swift in Sources */,
+				1CC39CBC245F0E31003CED00 /* ProfileStatisticsViewModel.swift in Sources */,
 				1CF2C235244A0E6800A7B0B8 /* TopBookmakersHeaderView.swift in Sources */,
 				1C2CFC0A2451D88600E1071F /* AuthToken.swift in Sources */,
 				1C56121B24575F5C00D02DBB /* MenuViewController.swift in Sources */,
@@ -953,11 +1047,13 @@
 				1C5612112456592D00D02DBB /* ForecastFilter.swift in Sources */,
 				1CC4EFA524472C8300D69C67 /* LoginView.swift in Sources */,
 				1CC4EFBA2447330600D69C67 /* Colors.swift in Sources */,
+				1C703ED2245DA18100E27309 /* ProfileStatisticsDataSource.swift in Sources */,
 				1CC4EFD82447375B00D69C67 /* String.swift in Sources */,
 				1CF2C230244A0A5500A7B0B8 /* UIImageView.swift in Sources */,
 				1CABD5E0244CA52D0039D99C /* ForecastCell.swift in Sources */,
 				1C43E2D1244B9415002CF7EB /* MainSection.swift in Sources */,
 				1C833EBA245A0B7D0012F1F5 /* ForecasterCell.swift in Sources */,
+				1CC39CB8245F09D9003CED00 /* ProfileRouter.swift in Sources */,
 				1CABD5E2244CB37E0039D99C /* LabeledIconView.swift in Sources */,
 				1C833EBC245A1EAD0012F1F5 /* TimeFrameSelector.swift in Sources */,
 				1C5B0C07244F90880075F95B /* SubscribeButton.swift in Sources */,
@@ -969,6 +1065,9 @@
 				1CF2C22C2449E57300A7B0B8 /* OrangeScrollIndicator.swift in Sources */,
 				1C833EB8245A0A470012F1F5 /* ForecastersView.swift in Sources */,
 				1C7A356E2448E4F500E3AB9B /* BettingNavigationBar.swift in Sources */,
+				1CC39CB6245F02A2003CED00 /* ProfileDataSource.swift in Sources */,
+				1C39EDB3245EF92A00F405AB /* UserFavoritesViewModel.swift in Sources */,
+				1C2C6ABD245C2A990044B5BC /* ProfileSegmenterView.swift in Sources */,
 				1C91348224475A7B00AE4510 /* UITextField.swift in Sources */,
 				1C4516CF244E6F6500D636BC /* PanelSegmentedControl.swift in Sources */,
 				1C25F84E244E16A000A24F31 /* MainScreenDataProvider.swift in Sources */,
@@ -988,16 +1087,21 @@
 				1C2CFC142451DF2A00E1071F /* AppInitializer.swift in Sources */,
 				1C2CFC192451DF7D00E1071F /* ServiceLocator.swift in Sources */,
 				1C25F848244DF56C00A24F31 /* ForecastsHeader.swift in Sources */,
+				1CC39CBE245F11D7003CED00 /* ProfileAssembly.swift in Sources */,
 				1C47CC0A245A05B80031BC27 /* ForecastersViewModel.swift in Sources */,
 				1C22EF422450838800A7543D /* CommentsTableViewModel.swift in Sources */,
 				1C25F850244E191400A24F31 /* UIPreview.swift in Sources */,
 				1C6608FB2449E388007E9BEB /* TopForecasterCell.swift in Sources */,
+				1C39EDB1245EEF5E00F405AB /* UserForecastsViewModel.swift in Sources */,
 				1CC4EF8A2447238D00D69C67 /* AppDelegate.swift in Sources */,
 				1CF2C239244A473600A7B0B8 /* BookmakerCell.swift in Sources */,
 				1CA01F6A2451F9E70025FF4F /* LoginRouter.swift in Sources */,
 				1C25F852244E195E00A24F31 /* TableViewPreviewDataSource.swift in Sources */,
 				1C91348424476ABD00AE4510 /* BorderedTextField.swift in Sources */,
+				1C703ED8245DA52000E27309 /* StatRowView.swift in Sources */,
+				1C703ED5245DA24800E27309 /* ProfileStatisticsCell.swift in Sources */,
 				1C47CC00245A05280031BC27 /* TableViewModel.swift in Sources */,
+				1C2C6ABB245C27F50044B5BC /* ProfileHeaderView.swift in Sources */,
 				1C56120F245646D300D02DBB /* IForecastService.swift in Sources */,
 				1C25F841244DE4A700A24F31 /* Device.swift in Sources */,
 				1C6937B9245109D000AE01BE /* RequestBuilder.swift in Sources */,
@@ -1043,14 +1147,18 @@
 				1C47CC10245A070D0031BC27 /* TimeFramePicker.swift in Sources */,
 				1CF225B6244B7D74005D510D /* MatchCell.swift in Sources */,
 				1CEE8BDA2448B4BF007F2FDB /* UIView.swift in Sources */,
+				1C39EDAB245DE78000F405AB /* LinePieChartView.swift in Sources */,
 				1C4BAD74244F35C2008889CB /* FullForecastHeader.swift in Sources */,
 				1C5612242457A17900D02DBB /* TitleWithColumnsHeader.swift in Sources */,
+				1C882565245C553500D188C6 /* ProfileViewController.swift in Sources */,
 				1C56120D245646BD00D02DBB /* ForecastService.swift in Sources */,
 				1C2CFC1D2451DFC300E1071F /* AuthService.swift in Sources */,
+				1C39EDAE245EEC9000F405AB /* ProfileForecastsDataSource.swift in Sources */,
 				1C5612292457C0CF00D02DBB /* MatchesViewController.swift in Sources */,
 				1CA01F6F24521B1F0025FF4F /* MainTabBarController.swift in Sources */,
 				1C43E2CD244B90FB002CF7EB /* Forecast.swift in Sources */,
 				1C91348A2447A39C00AE4510 /* ErrorView.swift in Sources */,
+				1C39EDA9245DC19600F405AB /* ProfileStatistics.swift in Sources */,
 				1C22EF442450884E00A7543D /* CommentsTableViewPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

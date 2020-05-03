@@ -64,7 +64,8 @@ class TeamsVersusView: UIView {
         let leftGuide = UILayoutGuide()
         addLayoutGuide(leftGuide)
         leftGuide.snp.makeConstraints { (make) in
-            make.top.bottom.leading.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+            make.leading.equalToSuperview().offset(4)
             make.trailing.equalTo(separator.snp.leading)
         }
         
@@ -84,7 +85,8 @@ class TeamsVersusView: UIView {
         let rightGuide = UILayoutGuide()
         addLayoutGuide(rightGuide)
         rightGuide.snp.makeConstraints { (make) in
-            make.top.bottom.trailing.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-4)
             make.leading.equalTo(separator.snp.trailing)
         }
         

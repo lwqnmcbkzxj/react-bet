@@ -11,8 +11,20 @@ import UIKit
 class TimeFrameSelector: PanelSegmenterControl {
     
     var selectedTimeFrame: TimeFrame? {
-        guard let index = selectedSegment else { return nil }
-        return timeFrameItems[index]
+        get {
+            guard let index = selectedSegment else { return nil }
+            return timeFrameItems[index]
+        }
+        set {
+            guard
+                let tf = newValue,
+                let index = timeFrameItems.firstIndex(of: tf)
+            else {
+                selectedSegment = nil
+                return
+            }
+            selectedSegment = index
+        }
     }
     
     private let timeFrameItems: [TimeFrame] = [.all, .month]

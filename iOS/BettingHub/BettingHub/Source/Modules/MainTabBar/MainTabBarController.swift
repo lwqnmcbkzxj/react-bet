@@ -48,7 +48,7 @@ class MainTabBarController: UITabBarController {
         let createImageSel = UIImage(named: "plusTabBarSelected")!.withRenderingMode(.alwaysOriginal)
         createScreen.tabBarItem = item(image: createImage, selectedImage: createImageSel)
         
-        let profileScreen = UIViewController()
+        let profileScreen = coordinator.selfProfile()
         profileScreen.view.backgroundColor = .white
         let profileImage = UIImage(named: "profileTabBar")!.withRenderingMode(.alwaysOriginal)
         let profileImageSel = UIImage(named: "profileTabBarSelected")!.withRenderingMode(.alwaysOriginal)

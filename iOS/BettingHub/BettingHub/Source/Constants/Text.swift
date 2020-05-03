@@ -48,7 +48,7 @@ class Text {
     static var coeficient: String { "coeficient".localized }
     static var income: String { "income".localized }
     static var lastForecasts: String { "lastForecasts".localized }
-    static var forecasts: String { "forecasts".localized }
+    static var FORECASTS: String { "FORECASTS".localized }
     static var subscribtions: String { "subscribtions".localized }
     static var allForecasts: String { "allForecasts".localized }
     static var paid: String { "paid".localized }
@@ -81,5 +81,23 @@ class Text {
     static var forecastersRating: String { "forecastersRating".localized }
     static var name: String { "name".localized }
     static var incomeWord: String { "incomeWord".localized }
+    static var forecasts: String { "forecasts".localized }
+    static var statistics: String { "statistics".localized }
+    static var favorites: String { "favorites".localized }
+    static var wins: String { "wins".localized }
+    static var loses: String { "loses".localized }
+    static var draws: String { "draws".localized }
+    static var subscribers: String { "subscribers".localized }
+    static var place: String { "place".localized }
+    static var netProfit: String { "netProfit".localized }
+    static var roiAllTime: String { "roiAllTime".localized }
+    static var legendWins: String { "legendWins".localized }
+    static var legendLoses: String { "legendLoses".localized }
+    static var legendDraws: String { "legendDraws".localized }
+    static var profileStatsROI: String { "profileStatsROI".localized }
+    static var profileStatsNetProfit: String { "profileStatsNetProfit".localized }
+    static var profileStatsPassing: String { "profileStatsPassing".localized }
+    static var profileStatsCoefficient: String { "profileStatsCoefficient".localized }
+    static var profileStatsForecasts: String { "profileStatsForecasts".localized }
 }
 

@@ -17,7 +17,9 @@ struct Forecaster: Codable {
     let loses: Int
     let draws: Int
     
+    let subscribers: Int
     let ratingPosition: Int
+    let netProfit: Double
     
     static func stub() -> Forecaster {
         return .init(username: "Никнейм",
@@ -26,6 +28,9 @@ struct Forecaster: Codable {
                      wins: 10,
                      loses: 8,
                      draws: 2,
-                     ratingPosition: 1)
+                     subscribers: 10,
+                     ratingPosition: 3,
+                     netProfit: 268)
+        
     }
 }

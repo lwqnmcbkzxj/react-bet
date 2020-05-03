@@ -60,7 +60,7 @@
 "coeficient" = "Коэффициент:";
 "income" = "Прибыль:";
 
-"forecasts" = "ПРОГНОЗЫ";
+"FORECASTS" = "ПРОГНОЗЫ";
 "subscribtions" = "Подписки";
 "allForecasts" = "Все прогнозы";
 "paid" = "Платные";
@@ -105,3 +105,26 @@
 
 "incomeWord" = "Прибыль";
 "name" = "Имя";
+
+"forecasts" = "Прогнозы";
+"statistics" = "Статистика";
+"favorites" = "Избранное";
+
+"wins" = "Побед";
+"loses" = "Поражений";
+"draws" = "Возвратов";
+"subscribers" = "Подписчиков";
+"place" = "Место";
+"netProfit" = "Чист. прибыль";
+
+"roiAllTime" = "ROI за все время";
+
+"legendWins" = "Ставка выиграла";
+"legendLoses" = "Ставка проиграла";
+"legendDraws" = "Возврат";
+
+"profileStatsROI" = "ROI";
+"profileStatsNetProfit" = "Чистая прибыль";
+"profileStatsPassing" = "Проходимость";
+"profileStatsCoefficient" = "Средний коэффициент";
+"profileStatsForecasts" = "Прогнозов";
