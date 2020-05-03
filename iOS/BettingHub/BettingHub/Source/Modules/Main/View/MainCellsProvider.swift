@@ -14,12 +14,16 @@ class MainScreenCellsProvider {
     
     weak var dataProvider: MainScreenDataProvider!
     weak var buttonFooterDelegate: ButtonFooterDelegate!
+    weak var forecastCellDelegate: ForecastCellDelegate!
     
-    init(tableView: UITableView, dataProvider: MainScreenDataProvider,
-         buttonFooterDelegate: ButtonFooterDelegate) {
+    init(tableView: UITableView,
+         dataProvider: MainScreenDataProvider,
+         buttonFooterDelegate: ButtonFooterDelegate,
+         forecastCellDelegate: ForecastCellDelegate) {
         self.tableView = tableView
         self.dataProvider = dataProvider
         self.buttonFooterDelegate = buttonFooterDelegate
+        self.forecastCellDelegate = forecastCellDelegate
         register()
     }
     
@@ -73,6 +77,7 @@ class MainScreenCellsProvider {
         let cell = tableView.dequeueReusableCell(withIdentifier: section.cellId()) as! ForecastCell
         let forecast = dataProvider.dataForForecast(row: row)
         cell.configure(with: forecast)
+        cell.delegate = forecastCellDelegate
         return cell
     }
     

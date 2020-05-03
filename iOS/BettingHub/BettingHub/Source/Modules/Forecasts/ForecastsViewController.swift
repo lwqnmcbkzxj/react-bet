@@ -104,7 +104,7 @@ extension ForecastsViewController: SkeletonTableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: forecastsView.cellId) as! ForecastCell
         let forecast = viewModel.forecast(at: indexPath)
         cell.configure(with: forecast)
-        
+        cell.delegate = self
         cell.hideSkeletonIfActive()
         
         return cell
@@ -139,6 +139,13 @@ extension ForecastsViewController: UITableViewDataSourcePrefetching {
         if (Double(lastCellIndex) / Double(viewModel.pageSize)) > Double(viewModel.loadedPages) {
             viewModel.currentPage += 1
         }
+    }
+}
+
+extension ForecastsViewController: ForecastCellDelegate {
+    
+    func userViewTapped(forecast: Forecast) {
+        router.showUserScreen(.stub())
     }
 }
 

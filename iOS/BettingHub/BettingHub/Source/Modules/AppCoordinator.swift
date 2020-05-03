@@ -55,6 +55,8 @@ class AppCoordinator {
     
     func fullForecastScreen(forecast: Forecast) -> UIViewController {
         let vc = FullForecastViewController()
+        let router = FullForecasterRouter(viewController: vc, coordinator: self)
+        vc.router = router
         vc.configure(with: forecast)
         return vc
     }
@@ -87,8 +89,13 @@ class AppCoordinator {
     }
     
     func selfProfile() -> UIViewController {
-        let vc = ProfileAssembly().module(coordinator: self)
+        let vc = ProfileAssembly().module(coordinator: self, isSelf: true)
         let nav = NavigationController(rootViewController: vc)
         return nav
+    }
+    
+    func guestProfile() -> UIViewController {
+        let vc = ProfileAssembly().module(coordinator: self, isSelf: false)
+        return vc
     }
 }

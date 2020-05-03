@@ -8,7 +8,16 @@
 
 import UIKit
 
+protocol ForecastCellDelegate: class {
+    
+    func userViewTapped(forecast: Forecast)
+}
+
 class ForecastCell: UITableViewCell {
+    
+    private var forecast: Forecast?
+    
+    weak var delegate: ForecastCellDelegate?
     
     private let panelView: UIView = {
         let view = UIView()
@@ -200,6 +209,7 @@ class ForecastCell: UITableViewCell {
     }
     
     func configure(with forecast: Forecast) {
+        self.forecast = forecast
         sportLabel.text = forecast.sportName
         seasonLabel.text = forecast.tournament
         matchLabel.text = forecast.text
@@ -405,6 +415,14 @@ class ForecastCell: UITableViewCell {
         incomeLabel.snp.contentCompressionResistanceHorizontalPriority = 1000
         stackView.addArrangedSubview(incomeLabel)
         
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(userLineTapped))
+        stackView.addGestureRecognizer(gesture)
+        
         return stackView
+    }
+    
+    @objc private func userLineTapped() {
+        guard let forecast = self.forecast else { return }
+        delegate?.userViewTapped(forecast: forecast)
     }
 }

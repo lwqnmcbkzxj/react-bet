@@ -10,6 +10,8 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    private let isSelf: Bool 
+    
     var router: IProfileRouter!
     
     var userForecastsViewModel: TableViewModel<Forecast, Any>!
@@ -35,13 +37,23 @@ class ProfileViewController: UIViewController {
     }()
     
     private lazy var profileHeader: ProfileHeaderView = {
-        let view = ProfileHeaderView()
+        let view = ProfileHeaderView(isSelf: isSelf)
         return view
     }()
     
+    init(isSelf: Bool) {
+        self.isSelf = isSelf
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func loadView() {
         super.loadView()
-        
+        if !isSelf { addBackView(text: nil) }
         view.backgroundColor = .white
         setView(tableView, insets: .init(top: 0, left: 15, bottom: 0, right: 15))
         profileHeader.frame = .init(x: 0, y: 0, width: tableView.frame.width, height: 323)

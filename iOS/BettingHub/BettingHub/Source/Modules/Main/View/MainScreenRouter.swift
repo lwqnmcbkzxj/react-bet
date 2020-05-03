@@ -12,6 +12,8 @@ protocol IMainScreenRouter: class {
     
     func showFullForecastScreen(_ forecast: Forecast)
     
+    func showForecaster(_ forecaster: Forecaster)
+    
     func showForecastsListScreen()
     
     func showBookmakersListScreen()
@@ -53,6 +55,11 @@ class MainScreenRouter: IMainScreenRouter {
     
     func showForecasters() {
         let vc = coordinator.forecastersScreen()
+        viewController.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func showForecaster(_ forecaster: Forecaster) {
+        let vc = coordinator.guestProfile()
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
 }

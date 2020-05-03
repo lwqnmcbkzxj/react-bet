@@ -51,6 +51,13 @@ class FullForecastHeader: UITableViewHeaderFooterView {
         return view
     }()
     
+    let userPanel: UIView = {
+        let view = UIView()
+        view.backgroundColor = .hex(0xFCFCFC)
+        view.layer.cornerRadius = 7
+        return view
+    }()
+    
     private let usernameLabel: UILabel = {
         let view = UILabel()
         view.textColor = .titleBlack
@@ -239,11 +246,7 @@ class FullForecastHeader: UITableViewHeaderFooterView {
     
     
     private func makeUserPanel() -> UIView {
-        let panel = UIView()
-        panel.backgroundColor = .hex(0xFCFCFC)
-        panel.layer.cornerRadius = 7
-        
-        panel.addSubview(profileImageView)
+        userPanel.addSubview(profileImageView)
         profileImageView.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(8)
             make.top.equalToSuperview().offset(12)
@@ -251,26 +254,26 @@ class FullForecastHeader: UITableViewHeaderFooterView {
             make.width.equalTo(profileImageView.snp.height)
         }
         
-        panel.addSubview(usernameLabel)
+        userPanel.addSubview(usernameLabel)
         usernameLabel.snp.makeConstraints { (make) in
             make.top.equalTo(profileImageView)
             make.leading.equalTo(profileImageView.snp.trailing).offset(7)
         }
         
-        panel.addSubview(incomeTitleLabel)
+        userPanel.addSubview(incomeTitleLabel)
         incomeTitleLabel.snp.makeConstraints { (make) in
             make.bottom.equalTo(profileImageView)
             make.leading.equalTo(usernameLabel)
             make.top.equalTo(usernameLabel.snp.bottom).offset(2)
         }
         
-        panel.addSubview(incomeLabel)
+        userPanel.addSubview(incomeLabel)
         incomeLabel.snp.makeConstraints { (make) in
             make.top.bottom.equalTo(incomeTitleLabel)
             make.leading.equalTo(incomeTitleLabel.snp.trailing).offset(5)
         }
         
-        panel.addSubview(subscribeButton)
+        userPanel.addSubview(subscribeButton)
         subscribeButton.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(12)
             make.bottom.equalToSuperview().offset(-11)
@@ -278,7 +281,7 @@ class FullForecastHeader: UITableViewHeaderFooterView {
             make.width.equalTo(130)
         }
         
-        return panel
+        return userPanel
     }
 }
 

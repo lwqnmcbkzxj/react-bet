@@ -11,6 +11,8 @@ import UIKit
 protocol IForecastsRouter: class {
     
     func showFullForecastScreen(_ forecast: Forecast)
+    
+    func showUserScreen(_ forecaster: Forecaster)
 }
 
 
@@ -26,6 +28,11 @@ class ForecastsRouter: IForecastsRouter {
     
     func showFullForecastScreen(_ forecast: Forecast) {
         let vc = coordinator.fullForecastScreen(forecast: forecast)
+        viewController.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func showUserScreen(_ forecaster: Forecaster) {
+        let vc = coordinator.guestProfile()
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
 }

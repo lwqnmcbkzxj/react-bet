@@ -103,11 +103,11 @@
 		1CABD5E0244CA52D0039D99C /* ForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABD5DF244CA52D0039D99C /* ForecastCell.swift */; };
 		1CABD5E2244CB37E0039D99C /* LabeledIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABD5E1244CB37E0039D99C /* LabeledIconView.swift */; };
 		1CABD5E4244CB7570039D99C /* ArrowsStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABD5E3244CB7570039D99C /* ArrowsStepperView.swift */; };
-		1CABD5E7244CC9520039D99C /* ForecastCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABD5E6244CC9520039D99C /* ForecastCellPresenter.swift */; };
 		1CC39CB6245F02A2003CED00 /* ProfileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC39CB5245F02A2003CED00 /* ProfileDataSource.swift */; };
 		1CC39CB8245F09D9003CED00 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC39CB7245F09D9003CED00 /* ProfileRouter.swift */; };
 		1CC39CBC245F0E31003CED00 /* ProfileStatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC39CBB245F0E31003CED00 /* ProfileStatisticsViewModel.swift */; };
 		1CC39CBE245F11D7003CED00 /* ProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC39CBD245F11D7003CED00 /* ProfileAssembly.swift */; };
+		1CC39CC1245F440F003CED00 /* FullForecastRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC39CC0245F440F003CED00 /* FullForecastRouter.swift */; };
 		1CC4EF8A2447238D00D69C67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC4EF892447238D00D69C67 /* AppDelegate.swift */; };
 		1CC4EF932447239300D69C67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CC4EF922447239300D69C67 /* Assets.xcassets */; };
 		1CC4EF962447239300D69C67 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CC4EF942447239300D69C67 /* LaunchScreen.storyboard */; };
@@ -249,11 +249,11 @@
 		1CABD5DF244CA52D0039D99C /* ForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCell.swift; sourceTree = "<group>"; };
 		1CABD5E1244CB37E0039D99C /* LabeledIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledIconView.swift; sourceTree = "<group>"; };
 		1CABD5E3244CB7570039D99C /* ArrowsStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowsStepperView.swift; sourceTree = "<group>"; };
-		1CABD5E6244CC9520039D99C /* ForecastCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCellPresenter.swift; sourceTree = "<group>"; };
 		1CC39CB5245F02A2003CED00 /* ProfileDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataSource.swift; sourceTree = "<group>"; };
 		1CC39CB7245F09D9003CED00 /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
 		1CC39CBB245F0E31003CED00 /* ProfileStatisticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatisticsViewModel.swift; sourceTree = "<group>"; };
 		1CC39CBD245F11D7003CED00 /* ProfileAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAssembly.swift; sourceTree = "<group>"; };
+		1CC39CC0245F440F003CED00 /* FullForecastRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullForecastRouter.swift; sourceTree = "<group>"; };
 		1CC4EF862447238D00D69C67 /* BettingHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BettingHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CC4EF892447238D00D69C67 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1CC4EF922447239300D69C67 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -382,13 +382,13 @@
 		1C2C6AB9245C27E80044B5BC /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				1CC39CBD245F11D7003CED00 /* ProfileAssembly.swift */,
 				1C2C6ABC245C2A990044B5BC /* ProfileSegmenterView.swift */,
 				1C2C6ABA245C27F50044B5BC /* ProfileHeaderView.swift */,
 				1C882564245C553500D188C6 /* ProfileViewController.swift */,
 				1CC39CB5245F02A2003CED00 /* ProfileDataSource.swift */,
 				1CC39CB7245F09D9003CED00 /* ProfileRouter.swift */,
 				1C703ED0245DA16600E27309 /* DataSources */,
-				1CC39CBD245F11D7003CED00 /* ProfileAssembly.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -610,6 +610,7 @@
 			children = (
 				1CD0F1C6244F8C44008436CD /* Header */,
 				1C779B8B244F2F26008C1FDB /* FullForecastViewController.swift */,
+				1CC39CC0245F440F003CED00 /* FullForecastRouter.swift */,
 			);
 			path = FullForecast;
 			sourceTree = "<group>";
@@ -665,7 +666,6 @@
 			isa = PBXGroup;
 			children = (
 				1CABD5DF244CA52D0039D99C /* ForecastCell.swift */,
-				1CABD5E6244CC9520039D99C /* ForecastCellPresenter.swift */,
 			);
 			path = ForecastCell;
 			sourceTree = "<group>";
@@ -1058,7 +1058,7 @@
 				1C833EBC245A1EAD0012F1F5 /* TimeFrameSelector.swift in Sources */,
 				1C5B0C07244F90880075F95B /* SubscribeButton.swift in Sources */,
 				1CA01F662451F6400025FF4F /* LoginPresenter.swift in Sources */,
-				1CABD5E7244CC9520039D99C /* ForecastCellPresenter.swift in Sources */,
+				1CC39CC1245F440F003CED00 /* FullForecastRouter.swift in Sources */,
 				1C7A356C2448E15A00E3AB9B /* NavigationBackView.swift in Sources */,
 				1C833EB6245A09F00012F1F5 /* ForecastersHeader.swift in Sources */,
 				1C779B8C244F2F26008C1FDB /* FullForecastViewController.swift in Sources */,

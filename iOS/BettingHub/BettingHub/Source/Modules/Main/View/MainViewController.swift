@@ -18,7 +18,8 @@ class MainViewController: UIViewController {
     
     private lazy var cellsProvider = MainScreenCellsProvider(tableView: mainView.tableView,
                                                              dataProvider: dataProvider,
-                                                             buttonFooterDelegate: self)
+                                                             buttonFooterDelegate: self,
+                                                             forecastCellDelegate: self)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -150,5 +151,12 @@ extension MainViewController: ButtonFooterDelegate {
         case .topMatches:
             router.showMatchesListScreen()
         }
+    }
+}
+
+extension MainViewController: ForecastCellDelegate {
+    
+    func userViewTapped(forecast: Forecast) {
+        router.showForecaster(.stub())
     }
 }

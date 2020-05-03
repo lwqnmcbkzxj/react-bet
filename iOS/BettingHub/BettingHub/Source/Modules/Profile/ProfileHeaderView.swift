@@ -107,15 +107,20 @@ class ProfileHeaderView: UIView {
     
     let segmenter: ProfileSegmenterView = {
         let view = ProfileSegmenterView()
-        view.setItems([Text.forecasts, Text.statistics, Text.favorites])
         view.layer.borderColor = UIColor.lineGray.cgColor
         view.layer.borderWidth = 1
         view.backgroundColor = .white
         return view
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(isSelf: Bool) {
+        super.init(frame: .zero)
+        if isSelf {
+            segmenter.setItems([Text.forecasts, Text.statistics, Text.favorites])
+        } else {
+            segmenter.setItems([Text.forecasts, Text.statistics])
+        }
+        
         makeLayout()
     }
     

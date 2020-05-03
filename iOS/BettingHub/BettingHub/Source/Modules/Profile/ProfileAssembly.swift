@@ -8,10 +8,11 @@
 
 import UIKit
 
+
 class ProfileAssembly {
     
-    func module(coordinator: AppCoordinator) -> UIViewController {
-        let vc = ProfileViewController()
+    func module(coordinator: AppCoordinator, isSelf: Bool) -> UIViewController {
+        let vc = ProfileViewController(isSelf: isSelf)
         let router = ProfileRouter(viewController: vc, coordinator: coordinator)
         let userForecasts = UserForecastsViewModel()
         let userFavorites = UserFavoritesViewModel()
