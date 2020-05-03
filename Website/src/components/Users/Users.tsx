@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react';
 import s from './Users.module.scss';
-import '../../App.scss'
 import classNames from 'classnames'
 import { FiltersObjectType, FilterNames }from '../../types/filters'
 import { UserType } from '../../types/users'

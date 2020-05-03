@@ -1,6 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
 import s from './User.module.scss';
-import '../../App.scss'
 import classNames from 'classnames'
 import StatsChart from './StatsChart';
 import Selectors from '../Common/Selectors/Selectors'

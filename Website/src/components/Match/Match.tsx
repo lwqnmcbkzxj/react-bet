@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import s from './Match.module.scss';
-import '../../App.scss'
+// import '../../assets/scss/CommonStyle.scss'
 import {  } from '../../types/forecasts'
 import Breadcrumbs from '../Common/Breadcrumbs/Breadcrumbs'
 

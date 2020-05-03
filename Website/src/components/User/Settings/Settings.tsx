@@ -1,7 +1,6 @@
 import React, { FC, useState, useEffect } from 'react';
 import s from './Settings.module.scss';
 import classNames from 'classnames'
-import '../../../App.scss'
 import { Link } from 'react-router-dom'
 import userNoImg from '../../../assets/img/user-no-image.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

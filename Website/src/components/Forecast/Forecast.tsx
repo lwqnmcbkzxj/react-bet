@@ -13,10 +13,11 @@ import { faBookmark, } from '@fortawesome/free-regular-svg-icons'
 import { ForecastType } from '../../types/forecasts';
 import { NavLink } from 'react-router-dom';
 import { getSportImg } from '../../utils/getSportImg';
-
+import GoBackBlock from '../Common/GoBackBlock/GoBackBlock'
 import ElementStats from '../Common/ElementStats/ElementStats'
 
 import moment from 'moment'
+import CommentsBlock from '../Common/CommentsBlock/CommentsBlock';
 
 type ForecastPropsType = {
 	forecast: ForecastType
@@ -48,13 +49,12 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 
 	return (
 		<div className={s.forecast}>
-			<div className={s.goBackBlock}>
-				<NavLink to="/forecasts" className={s.goBackPage}>
-					<button className={s.goBackBtn}><FontAwesomeIcon icon={faArrowLeft}/></button>
-					<p>Прогнозы</p>
-				</NavLink>
-				<button className={s.goBackBlockIcon}><FontAwesomeIcon icon={faBookmark}/></button>
-			</div>
+			<GoBackBlock
+				link={'forecasts'}
+				linkText={'Прогнозы'}
+				icon={faBookmark}
+				func={() => {console.log('s')}}
+			/>
 
 			<Breadcrumbs pathParams={['Главная', 'Прогнозы', `${forecast.Text} тотал больше 1.5`]} />
 
@@ -176,10 +176,8 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 				id={forecast.ForecastId}
 				elementType={'forecast'} />
 
-			<div className={s.comments}>
-				Forecast Comments
-					{/* comments={forecast.comments} */}
-			</div>
+			
+			<CommentsBlock />
 		</div>
 	)
 }

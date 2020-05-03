@@ -2,7 +2,6 @@ import React, { FC, useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from "react-redux"
 
 import classNames from 'classnames'
-import '../../../App.scss'
 import { UserType as LoggedUserType } from '../../../types/me'
 import { AppStateType } from '../../../types/types'
 

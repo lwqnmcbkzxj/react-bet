@@ -1,5 +1,6 @@
 import React, { FC, useState, useEffect } from 'react'
 import './App.scss'
+import './assets/scss/CommonStyle.scss'
 import { Route, NavLink } from "react-router-dom"
 import { Switch } from 'react-router'
 import { withRouter } from 'react-router'

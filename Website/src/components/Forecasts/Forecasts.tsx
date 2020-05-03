@@ -1,7 +1,8 @@
 import React, { FC, useState } from 'react';
 import s from './Forecasts.module.scss';
 import classNames from 'classnames'
-import '../../App.scss'
+// import '../../assets/scss/CommonStyle.scss'
+
 import { ForecastType } from '../../types/forecasts'
 import { FiltersObjectType, FilterNames } from '../../types/filters'
 import Breadcrumbs from '../Common/Breadcrumbs/Breadcrumbs'
