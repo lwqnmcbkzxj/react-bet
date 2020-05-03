@@ -7,6 +7,7 @@ import { setMainPageBlocksVisibility, changeMainPageBlockVisibility } from '../.
 import MainPage from './MainPage'
 
 import { getForecastsFromServer } from '../../redux/forecasts-reducer'
+import { getMatchesFromServer } from '../../redux/matches-reducer'
 import { getActiveFilter } from '../../utils/getActiveFilter'
 import { MatchType } from '../../types/matches';
 import { BookmakerType } from '../../types/bookmakers';
@@ -31,7 +32,8 @@ const MainPageContainer: FC = () => {
 
 
 	useEffect(() => {
-		dispatch(getForecastsFromServer(1, 5))		
+		dispatch(getForecastsFromServer(1, 5))	
+		dispatch(getMatchesFromServer())		
 	}, []);
 
 

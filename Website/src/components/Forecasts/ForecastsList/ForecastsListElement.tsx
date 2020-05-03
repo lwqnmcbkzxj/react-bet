@@ -13,8 +13,13 @@ import loseImg from '../../../assets/img/lose-img.png'
 import { getSportImg } from '../../../utils/getSportImg';
 import moment from 'moment'
 
+
+import { ForecastsListElementPlaceholder } from '../../Common/Placeholders/ForecastsPlaceholder'
+
+
 type ForecastPropsType = {
 	forecast: ForecastType
+	isFetching: boolean
 }
 
 const formatDateForForecastListElement = (createdAt: string) => {
@@ -23,10 +28,10 @@ const formatDateForForecastListElement = (createdAt: string) => {
 	let now = Date.now()
 
 	let startDate = ''
-	if ((now - createdDate ) / 86400 < 1) {
+	if ((now - createdDate) / 86400 < 1) {
 		startDate = 'Сегодня, ' + momentFormat.format("HH:MM")
 	} else if ((now - createdDate) / 86400 < 2) {
-		startDate = 'Вчера, '  + momentFormat.format("HH:MM")
+		startDate = 'Вчера, ' + momentFormat.format("HH:MM")
 	} else {
 		startDate = momentFormat.format("DD.MM.YYYY в HH:MM")
 	}
@@ -35,22 +40,29 @@ const formatDateForForecastListElement = (createdAt: string) => {
 }
 
 
-
-
-const Forecasts: FC<ForecastPropsType> = ({ forecast, ...props }) => {
-	let fullGameName = forecast.Tournament
-	let gameName = fullGameName.split('.').splice(1).join('.')
-
-	let sportImg = getSportImg(forecast.SportName)
-
-	// const serverUrl = "http://xbethub.com/"
+const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) => {
+	let fullGameName
+	let gameName
+	let sportImg
 	let userAvatar = ''
-	if (forecast.UserAvatar) {
-		userAvatar = 'http://xbethub.com/' + forecast.UserAvatar
-	} else {
-		userAvatar=''
+	if (forecast.Tournament) {
+		fullGameName = forecast.Tournament
+		gameName = fullGameName.split('.').splice(1).join('.')
+
+		sportImg = getSportImg(forecast.SportName)
+
+		// const serverUrl = "http://xbethub.com/"
+
+		if (forecast.UserAvatar) {
+			userAvatar = 'http://xbethub.com/' + forecast.UserAvatar
+		} else {
+			userAvatar = ''
+		}
 	}
-	
+
+	if (isFetching) {
+		return <ForecastsListElementPlaceholder />
+	}
 
 	return (
 		<div className={s.forecast}>
@@ -61,18 +73,19 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 					<Link to={`forecasts/${forecast.ForecastId}`}><p className={s.gameName}>{gameName}</p></Link>
 				</div>
 				<div className={s.matchDate}>
-						{formatDateForForecastListElement(forecast.CratedAt)}
+					{formatDateForForecastListElement(forecast.CratedAt)}
 				</div>
 			</div>
 
 			<div className={s.forecastContent}>
+
 				<div className={s.mathPreview}>
 					{forecast.ForecastId % 2 === 0 ?
 						<div className={classNames(s.profit, s.positive)}>+750 xB</div> :
 						<div className={classNames(s.profit, s.negative)}>-750 xB</div>}
-						
 					<Link to={`forecasts/${forecast.ForecastId}`}><div className={s.matchTitle}>{forecast.Text}</div></Link>
 				</div>
+
 				<div className={s.matchStats}>
 					<div className={s.profitStats}>
 						<Link to={`forecast${forecast.ForecastId}`} className={s.profitStat}><div>Прогноз: <span>Фора (-1.5)</span></div></Link>
@@ -80,6 +93,7 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 						<Link to={`forecast${forecast.ForecastId}`} className={s.profitStat}><div>Сумма ставки: <span>{forecast.BetValue}</span></div></Link>
 					</div>
 					<div className={s.matchStart}>Начало игры: -</div>
+
 				</div>
 				<div className={s.matchDescription}>
 					<NavLink to={`/forecasts/${forecast.ForecastId}`}>
@@ -121,14 +135,14 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 					</div>
 
 				</div>
-				
+
 				<ElementStats
-				comments={forecast.CommentsQuanity}
-				favourites={forecast.FavAmmount}
-				likes={forecast.Rating}
-				id={forecast.ForecastId}
-				elementType={'forecast'} />
-				
+					comments={forecast.CommentsQuanity}
+					favourites={forecast.FavAmmount}
+					likes={forecast.Rating}
+					id={forecast.ForecastId}
+					elementType={'forecast'} />
+
 			</div>
 		</div>
 	)

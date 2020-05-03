@@ -1,19 +1,27 @@
-import React, { FC } from 'react'
+import React, { FC } from 'react';
 import s from './Articles.module.scss';
+import { useDispatch, useSelector} from "react-redux"
+import { AppStateType } from '../../types/types'
 import { ArticleType } from '../../types/article'
 import { Link } from 'react-router-dom'
-
 import articleDefaultImg from '../../assets/img/article-img.png'
 import ElementStats from '../Common/ElementStats/ElementStats'
+import { ArticlesPlaceholder } from '../Common/Placeholders/ArticlesPlaceholder'
+
+
 type ArticlesPropsType = {
 	articles: Array<ArticleType>
 }
 
 const ArticlesList: FC<ArticlesPropsType> = ({ articles, ...props }) => {
+	const isFetching = useSelector<AppStateType, boolean>(state => state.articles.isFetching)
+
 	return (
 		<div className={s.articlesList}>
 			{
 				articles.map((article, counter) =>
+				isFetching ? <ArticlesPlaceholder /> :
+					
 					<div className={s.article}>
 						<Link to="articles/1" className="actileLink">
 							{counter % 2 === 0 && <img src={articleDefaultImg} alt="article-img" />}

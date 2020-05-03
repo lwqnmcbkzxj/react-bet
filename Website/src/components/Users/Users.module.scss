@@ -110,11 +110,20 @@
 			grid-template-columns: 1fr 4fr 2fr 3fr;
 			grid-gap: 5px;
 			padding: 7px 7px;
-			font-size: 15px;
-			line-height: 18px;
 			& .roiCoef, & .averageCoef {
 				display: none;
 			}
+		}
+		& .user {
+			& > div {
+				font-size: 15px;
+				line-height: 18px;
+			}
+			
+		}
+		& .listHeader > div {
+			font-size: 13px;
+			line-height: 15px;
 		}
 	}
 }

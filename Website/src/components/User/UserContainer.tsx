@@ -23,7 +23,7 @@ interface MatchParams {
 interface Props extends RouteComponentProps<MatchParams> { }
 
 const UsersContainer: FC<Props> = ({ ...props }) => {
-	const currentUser = useSelector<AppStateType, UserType>(state => state.users.currentUser)
+	const currentUser = useSelector<AppStateType, UserType>(state => state.user.currentUser)
 	const loggedUser = useSelector<AppStateType, LoggedUserType>(state => state.me.userInfo)
 	const logged = useSelector<AppStateType, boolean>(state => state.me.logged)
 	const forecasts = useSelector<AppStateType, Array<ForecastType>>(state => state.forecasts.forecasts)

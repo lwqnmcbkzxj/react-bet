@@ -6,14 +6,14 @@ import { timeFilterEnum, subscribtionFilterEnum, sportTypeFilterEnum, FilterName
 import { ThunkAction } from 'redux-thunk'
 import { forecastsAPI } from '../api/api'
 
-const TOGGLE_IS_FORECASTS_FETCHING = 'forecasts/TOGGLE_IS_FORECASTS_FETCHING'
+const TOGGLE_IS_FETCHING = 'forecasts/TOGGLE_IS_FETCHING'
 const TOGGLE_FILTER = 'forecasts/TOGGLE_FILTER'
 const SET_FORECASTS = 'forecasts/SET_FORECASTS'
 const SET_FORECAST = 'forecasts/SET_FORECAST'
 
 
 let initialState = {
-	forecasts: [] as Array<ForecastType>,
+	forecasts: [{}, {}, {}, {}, {}] as Array<ForecastType>,
 	filters: {
 		timeFilter: [
 			{index: 1, name: timeFilterEnum.allTime, visibleText: 'Все время', active: true},
@@ -45,7 +45,7 @@ type ActionsTypes =
 	ToggleFilterType |
 	SetForecastsType |
 	SetForecastType |
-	TypeToggleIsForecastsFetching;
+	ToggleIsFetchingType;
 
 const forecastsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
@@ -56,7 +56,6 @@ const forecastsReducer = (state = initialState, action: ActionsTypes): InitialSt
 			}
 		}
 		case SET_FORECAST: {
-			debugger
 			return {
 				...state,
 				currentForecast: action.forecast
@@ -78,7 +77,7 @@ const forecastsReducer = (state = initialState, action: ActionsTypes): InitialSt
 			}
 		}
 
-		case TOGGLE_IS_FORECASTS_FETCHING: {
+		case TOGGLE_IS_FETCHING: {
 			return {
 				...state,
 				isFetching: action.isFetching
@@ -104,8 +103,8 @@ type SetForecastType = {
 	type: typeof SET_FORECAST
 	forecast: ForecastType
 }
-type TypeToggleIsForecastsFetching = {
-	type: typeof TOGGLE_IS_FORECASTS_FETCHING
+type ToggleIsFetchingType = {
+	type: typeof TOGGLE_IS_FETCHING
 	isFetching: boolean
 }
 
@@ -159,9 +158,9 @@ export const toggleFilter = (filterName: FilterNames, filtersBlockName: string) 
 	}
 }
 
-export const toggleIsForecastsFetching = (isFetching: boolean): TypeToggleIsForecastsFetching => {
+export const toggleIsForecastsFetching = (isFetching: boolean): ToggleIsFetchingType => {
 	return {
-		type: TOGGLE_IS_FORECASTS_FETCHING,
+		type: TOGGLE_IS_FETCHING,
 		isFetching
 	}
 }

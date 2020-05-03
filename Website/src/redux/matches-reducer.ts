@@ -10,13 +10,13 @@ const TOGGLE_IS_FETCHING = 'matches/TOGGLE_IS_FETCHING'
 
 
 let initialState = {
-    isFetching: false,
 	matches: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}] as Array<MatchType>,
-	currentMatch: {} as MatchType
+	currentMatch: {} as MatchType,
+    isFetching: false,
 }
 
 type InitialStateType = typeof initialState;
-type ActionsTypes = SetMatchesType;
+type ActionsTypes = SetMatchesType | ToggleIsFetchingType;
 
 const matchesReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
@@ -26,7 +26,12 @@ const matchesReducer = (state = initialState, action: ActionsTypes): InitialStat
 				matches: action.matches
 			}
 		}
-
+		case TOGGLE_IS_FETCHING: {
+			return {
+				...state,
+				isFetching: action.isFetching
+			}
+		}
 		default:
 			return state;
 	}
@@ -35,6 +40,10 @@ const matchesReducer = (state = initialState, action: ActionsTypes): InitialStat
 type SetMatchesType = {
 	type: typeof SET_MATCHES,
 	matches: Array<MatchType>
+}
+type ToggleIsFetchingType = {
+	type: typeof TOGGLE_IS_FETCHING
+	isFetching: boolean
 }
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
@@ -45,8 +54,19 @@ export const setMatches = (matches: Array<MatchType>): SetMatchesType => {
 	}
 }
 
-export const getMatchesFromServer = ():ThunksType => async (dispatch) => {
-    // dispatch(setMatches(matches))
+export const getMatchesFromServer = (): ThunksType => async (dispatch) => {
+    dispatch(toggleIsFetching(true))
+	// let response = await matchesAPI.getNews()	
+	setTimeout(() => { dispatch(toggleIsFetching(false)) }, 2000)
+
+	// dispatch(setMatches(response))
+}
+
+export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingType => {
+	return {
+		type: TOGGLE_IS_FETCHING,
+		isFetching
+	}
 }
 
 

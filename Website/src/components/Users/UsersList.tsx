@@ -1,12 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
+import { useDispatch, useSelector} from "react-redux"
 import { NavLink } from 'react-router-dom'
 import s from './Users.module.scss';
 import classNames from 'classnames'
 import { UserType } from '../../types/users'
+import { AppStateType } from '../../types/types'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons'
-
+import { UsersPlaceholder } from '../Common/Placeholders/UsersPlaceholder'
 import userImg from '../../assets/img/users-list-img.png'
 
 type UsersListPropsType = {
@@ -14,6 +16,9 @@ type UsersListPropsType = {
 	limit?: number
 }
 const UsersList: FC<UsersListPropsType> = ({ users, limit = 0, ...props }) => {
+	const isFetching = useSelector<AppStateType, boolean>(state => state.users.isFetching)
+
+	
 	return (
 		<div className={s.userList}>
 			<div className={s.listHeader}>
@@ -28,6 +33,7 @@ const UsersList: FC<UsersListPropsType> = ({ users, limit = 0, ...props }) => {
 
 			{users.map((user, counter) =>
 				(counter < limit || limit === 0) &&
+				isFetching ? <UsersPlaceholder /> : 
 				<div className={s.user}>
 					<div className={s.position}>
 						<FontAwesomeIcon icon={faCaretUp} className={classNames(s.positionIcon, {

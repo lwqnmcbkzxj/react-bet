@@ -1,17 +1,21 @@
-import React, { FC } from 'react';
-import { NavLink } from 'react-router-dom'
+import React, { FC, useEffect, useState } from 'react';
+import { useDispatch, useSelector} from "react-redux"
+import { Link } from 'react-router-dom'
 import s from './Matches.module.scss';
 import classNames from 'classnames'
 import { MatchType } from '../../types/matches'
-
+import { AppStateType } from '../../types/types'
 import footballImg from '../../assets/img/football.png'
-
+import { MatchesPlaceholder  } from '../Common/Placeholders/MatchesPlaceholder'
 type MatchesListPropsType = {
 	matches: Array<MatchType>
 	limit?: number
 	isMainpage?: boolean
 }
 const UsersList: FC<MatchesListPropsType> = ({ matches, limit = 0, isMainpage = false, ...props }) => {
+	const isFetching = useSelector<AppStateType, boolean>(state => state.matches.isFetching)
+	console.log('isF ' + isFetching)
+
 	return (
 		<div className={classNames(s.matchList, {[s.isMainpage]: isMainpage }) }>
 			<div className={s.listHeader}>
@@ -24,6 +28,7 @@ const UsersList: FC<MatchesListPropsType> = ({ matches, limit = 0, isMainpage = 
 
 			{matches.map((match, counter) =>
 				(counter < limit || limit === 0) &&
+				(isFetching ? <MatchesPlaceholder/> :
 				<div className={s.match}>
 					<div className={s.date}>
 						<p className={s.dateDay}>Сегодня</p>
@@ -37,7 +42,7 @@ const UsersList: FC<MatchesListPropsType> = ({ matches, limit = 0, isMainpage = 
 						<p className={s.tournamentName}>LPL Pro League Season 4</p>
 					</div>
 					<div className={classNames(s.betValue, {[s.positive]: true})}>+122</div>
-				</div>
+				</div>)
 			)}
 
 		</div>

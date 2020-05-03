@@ -14,7 +14,6 @@ type MenuFooterPropsType = { }
 const LanguageSelector: FC<MenuFooterPropsType> = ({ ...props }) => {
 	const dispatch = useDispatch();
 	const languagesState = useSelector<AppStateType, Array<LanguageType>>(state => state.app.languages)
-	debugger
 	let currentLanguage = languagesState.filter(filter => filter.active === true)[0].visibleText
 
 	// Changing language

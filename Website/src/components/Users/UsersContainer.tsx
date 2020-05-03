@@ -1,22 +1,14 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { useDispatch, useSelector} from "react-redux"
 import { AppStateType } from '../../types/types'
 import { FilterNames, FiltersObjectType } from '../../types/filters'
 import { UserType } from '../../types/users'
-
-
-
 import Forecasters from './Users'
 import { toggleFilter } from '../../redux/users-reducer'
-import { withRouter, RouteComponentProps  } from 'react-router'
+import { withRouter, RouteComponentProps } from 'react-router'
+import { getUsersFromServer } from '../../redux/users-reducer'
 
-interface MatchParams {
-    userId: string;
-}
-
-interface Props extends RouteComponentProps<MatchParams> {}
-
-const UsersContainer: FC<Props> = ({ ...props }) => {
+const UsersContainer: FC = ({ ...props }) => {
 	const users = useSelector<AppStateType, Array<UserType>>(state => state.users.users)
 	const filters = useSelector<AppStateType, FiltersObjectType>(state => state.users.filters)
 
@@ -26,7 +18,9 @@ const UsersContainer: FC<Props> = ({ ...props }) => {
 		dispatch(toggleFilter(filterName, filtersBlockName))
 	}
 
-	let userId = props.match.params.userId ? props.match.params.userId : 1;
+	useEffect(() => {
+		dispatch(getUsersFromServer())
+	}, []);
 
 	return (
 		<Forecasters
@@ -37,4 +31,4 @@ const UsersContainer: FC<Props> = ({ ...props }) => {
 	)
 }
 
-export default withRouter(UsersContainer);
+export default UsersContainer;

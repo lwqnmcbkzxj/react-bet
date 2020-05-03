@@ -6,6 +6,8 @@ import { timeFilterEnum, sportTypeFilterEnum, FiltersObjectType, }from '../types
 import { UserType } from '../types/users'
 
 const TOGGLE_FILTER = 'users/TOGGLE_FILTER'
+const TOGGLE_IS_FETCHING = 'users/TOGGLE_IS_FETCHING'
+const SET_USERS = 'users/SET_USERS'
 
 let initialState = {
 	users: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}] as Array<UserType>,
@@ -24,14 +26,23 @@ let initialState = {
 			{ index: 6, name: sportTypeFilterEnum.another, visibleText: 'Другое', active: false },
 		]
 	} as FiltersObjectType,
-	currentUser: {	},
+	isFetching: false
 }
 
 type InitialStateType = typeof initialState;
-type ActionsTypes = ToggleFilterType;
+type ActionsTypes =
+	SetUsersType |
+	ToggleFilterType |
+	ToggleIsFetchingType;
 
 const usersReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
+		case SET_USERS: {
+			return {
+				...state,
+				users: [...action.users]
+			}
+		}
 		case TOGGLE_FILTER: {
 			let filters = state.filters[action.filtersBlockName];
 			if (filters) {
@@ -40,11 +51,16 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
 					if (filter.name === action.filterName)
 						filter.active = true
 				})
-			}
-			
+			}			
 			return {
 				...state,
 				filters: { ...state.filters, [action.filtersBlockName]: filters  }
+			}
+		}
+		case TOGGLE_IS_FETCHING: {
+			return {
+				...state,
+				isFetching: action.isFetching
 			}
 		}
 
@@ -55,11 +71,37 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
 
 
 
+type SetUsersType = {
+	type: typeof SET_USERS
+	users: Array<UserType>
+}
 type ToggleFilterType = {
 	type: typeof TOGGLE_FILTER
 	filterName: timeFilterEnum | sportTypeFilterEnum
 	filtersBlockName: keyof FiltersObjectType
 }
+type ToggleIsFetchingType = {
+	type: typeof TOGGLE_IS_FETCHING
+	isFetching: boolean
+}
+export const getUsersFromServer = (): ThunksType => async (dispatch) => {
+
+	dispatch(toggleIsFetching(true))
+	// let response = await usersAPI.getForecast(id)	
+	setTimeout(() => { dispatch(toggleIsFetching(false)) }, 2000)
+	
+
+	// dispatch(setUsers(response))
+}
+
+export const setUsers = (users: Array<UserType>): SetUsersType => {
+	return {
+		type: SET_USERS,
+		users
+	}
+}
+
+
 export const toggleFilter = (filterName: string, filtersBlockName: string) => {
 	return {
 		type: TOGGLE_FILTER,
@@ -67,7 +109,12 @@ export const toggleFilter = (filterName: string, filtersBlockName: string) => {
 		filtersBlockName
 	}
 }
-
+export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingType => {
+	return {
+		type: TOGGLE_IS_FETCHING,
+		isFetching
+	}
+}
 
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
