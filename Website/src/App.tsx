@@ -37,12 +37,18 @@ import ArticlesContainer from './components/Articles/ArticlesContainer'
 import { useDispatch, useSelector } from "react-redux"
 import { AppStateType } from './types/types'
 
-import { toggleAuthFormVisiblility } from './redux/app-reducer'
+import { authUser } from './redux/me-reducer'
 import useMobile from './hooks/useMobile'
 
 
 const App = (props: any) => {
 	const isMobile = useMobile(768)
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		dispatch(authUser())
+	}, [])
+
 	return (
 		<div className="app-wrapper">
 

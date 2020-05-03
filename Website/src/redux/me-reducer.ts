@@ -1,5 +1,5 @@
 import { AppStateType } from '../types/types'
-// import { br } from "react-router-dom";
+import Cookies from "js-cookie";
 
 import { ThunkAction } from 'redux-thunk'
 import { userAPI, setTokenForAPI } from '../api/api';
@@ -85,15 +85,28 @@ export const login = (email: string, password: string): ThunksType => async (dis
 	let response = await userAPI.login(email, password)
 	if (response) {
 		if (!response.message) {
-			dispatch(setLogged(true))
-			dispatch(setAccessToken(response.access_token))
+			Cookies.set('access-token', response.access_token, { expires: 10 / 24 });
+			dispatch(authUser())
+			// dispatch(setLogged(true))
+			// dispatch(setAccessToken(response.access_token))
 
-			dispatch(getUserInfo())
-			dispatch(setShouldRedirect(true))
+			// dispatch(getUserInfo())
+			// dispatch(setShouldRedirect(true))
 		} else {
 			dispatch(stopSubmit("login", { _error: response.message }))
 		}
 	} 
+}
+
+export const authUser = (): ThunksType => async (dispatch) => {
+	let token = Cookies.get('access-token');
+	
+	if (token) {
+		dispatch(setLogged(true))
+		dispatch(setAccessToken(token))
+		dispatch(setShouldRedirect(true))
+		dispatch(getUserInfo())
+	}
 }
 
 export const resetPassword = (email: string): ThunksType => async (dispatch) => {
@@ -110,6 +123,7 @@ export const logout = (): ThunksType => async (dispatch) => {
 	dispatch(setLogged(false))
 	dispatch(setAccessToken(""))
 	dispatch(setUserInfo({}))
+	Cookies.remove('access-token');
 }
 
 export const getUserInfo = (): ThunksType => async (dispatch) => {
