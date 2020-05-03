@@ -51,8 +51,8 @@ const Register: FC<AuthFormPropsType> = ({ register, changeAuthFormPhase, ...pro
 			throw new SubmissionError({ _error: 'Заполните все поля' })
 		else if (!formData.email.match(emailRegExp))
 			throw new SubmissionError({ _error: 'Введен некорректный email' })
-		else if (formData.password.length <= 8){
-			throw new SubmissionError({ _error: 'Длина пароля должна быть больше 8 символов' })
+		else if (formData.password.length < 8){
+			throw new SubmissionError({ _error: 'Длина пароля должна быть не меньше 8 символов' })
 		} else if (formData.password !== formData['password_repeat']){
 			throw new SubmissionError({ _error: 'Пароли должны совпадать' })
 		} else {
