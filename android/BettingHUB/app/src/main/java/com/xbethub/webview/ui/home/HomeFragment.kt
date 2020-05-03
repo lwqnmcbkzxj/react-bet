@@ -17,9 +17,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import com.xbethub.webview.App
 import com.xbethub.webview.R
+import com.xbethub.webview.backend.BettingHubBackend
+import com.xbethub.webview.backend.requests.ForecastsListRequest
+import com.xbethub.webview.enums.Sport
+import com.xbethub.webview.enums.TimeInterval
+import com.xbethub.webview.models.Forecast
 import com.xbethub.webview.ui.home.recycler_view_adapters.ItemDecoration
 import com.xbethub.webview.ui.home.recycler_view_adapters.LastForecastsTableAdapter
 import com.xbethub.webview.ui.home.recycler_view_adapters.TopUsersTableAdapter
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,6 +36,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
     lateinit var navController: NavController
     lateinit var topUsersTable: RecyclerView
     lateinit var lastForecastsTable: RecyclerView
+    private val forecasts = ArrayList<Forecast>()
     var searchBarState: Boolean = false //inactive
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -84,34 +92,16 @@ class HomeFragment : Fragment(), View.OnClickListener {
     }
 
     private fun getLastForecasts() {
-//        "page": "Номер получаемой страницы",
-//        "quanity": "Количество элементов на странице",
-//        "tf": "Нужный промежуток время",
-//        "sport": "Вид спорта",
-//        "useSubscribes": "Поиск среди подписок (только при наличии авторизации) ПРИНИМАЕТ 1 либо 0",
-//        "useFavorites": "Поиск среду избранного (только при наличии авторизации) ПРИНИМАЕТ 1 либо 0"
-//    }
-//    Возможные tf:
-//    3h – За последние 3 часа
-//    6h – за последние 6 часов
-//    12h – за последние 12 часов
-//    day – за последние 24 часа
-//    all – за все время
-        val body = JsonObject()
-        body.addProperty("page", 0)
-        body.addProperty("quanity", 5)
-        body.addProperty("tf", "3h")
-        body.addProperty("sport", "all")
-
-        (activity?.application as? App)?.getApi()?.getForeCasts(body)?.enqueue(object : Callback<String> {
-            override fun onFailure(call: Call<String>?, t: Throwable?) {
-                Log.e("LastForecasts", t?.message ?: "WTF")
-            }
-
-            override fun onResponse(call: Call<String>?, response: Response<String>?) {
-                Log.i("LastForecasts", response?.body().toString() + " " + response?.code().toString())
-            }
-        })
+        val forecastsListRequest = ForecastsListRequest(0, 5, timeInterval = TimeInterval.ALL.backendValue, sport = Sport.ALL.backendValue, useSubscribes = 0, useFavorites = 0)
+        BettingHubBackend().api.forecastList(forecastsListRequest)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                forecasts.addAll(it)
+//                forecastsLiveData.value = forecasts
+            }, {
+                it.printStackTrace()
+            })
     }
 
     override fun onClick(v: View?) {
