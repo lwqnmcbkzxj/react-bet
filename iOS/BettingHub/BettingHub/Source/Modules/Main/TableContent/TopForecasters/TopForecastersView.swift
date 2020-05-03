@@ -8,7 +8,14 @@
 
 import UIKit
 
+protocol TopForecasterViewDelegate: class {
+    
+    func forecasterTapped(_ forecaster: Forecaster)
+}
+
 class TopForecastersView: UIView {
+    
+    weak var delegate: TopForecasterViewDelegate?
     
     private let cellID = "fcCellID"
     
@@ -69,6 +76,7 @@ class TopForecastersView: UIView {
         scrollIndicator.attach(to: collectionView, direction: .horizontal)
         collectionView.register(TopForecasterCell.self, forCellWithReuseIdentifier: cellID)
         collectionView.dataSource = self
+        collectionView.delegate = self
     }
     
     private func makeLayout() {
@@ -112,5 +120,13 @@ extension TopForecastersView: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! TopForecasterCell
         cell.setupCell(forecaster: forecasters[indexPath.row])
         return cell
+    }
+}
+
+extension TopForecastersView: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let forecaster = Forecaster.stub()
+        delegate?.forecasterTapped(forecaster)
     }
 }

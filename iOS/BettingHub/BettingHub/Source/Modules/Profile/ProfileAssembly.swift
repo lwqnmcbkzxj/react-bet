@@ -12,7 +12,7 @@ import UIKit
 class ProfileAssembly {
     
     func module(coordinator: AppCoordinator, isSelf: Bool) -> UIViewController {
-        let vc = ProfileViewController(isSelf: isSelf)
+        let vc = ProfileViewController(isSelf: isSelf, forecaster: .stub())
         let router = ProfileRouter(viewController: vc, coordinator: coordinator)
         let userForecasts = UserForecastsViewModel()
         let userFavorites = UserFavoritesViewModel()

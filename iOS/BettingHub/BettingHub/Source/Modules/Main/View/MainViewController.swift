@@ -28,6 +28,7 @@ class MainViewController: UIViewController {
         setView(mainView)
         mainView.tableView.dataSource = self
         mainView.tableView.delegate = self
+        mainView.tableHeader.delegate = self
         
         mainView.tableHeader.button.addTarget(self, action: #selector(headerButtonTapped), for: .touchUpInside)
         
@@ -158,5 +159,12 @@ extension MainViewController: ForecastCellDelegate {
     
     func userViewTapped(forecast: Forecast) {
         router.showForecaster(.stub())
+    }
+}
+
+extension MainViewController: TopForecasterViewDelegate {
+    
+    func forecasterTapped(_ forecaster: Forecaster) {
+        router.showForecaster(forecaster)
     }
 }

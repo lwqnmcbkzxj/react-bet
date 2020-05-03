@@ -10,9 +10,11 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    private let isSelf: Bool 
-    
     var router: IProfileRouter!
+    
+    private let isSelf: Bool
+    
+    private let forecaster: Forecaster
     
     var userForecastsViewModel: TableViewModel<Forecast, Any>!
     var userStatsViewModel: TableViewModel<Forecaster, Any>!
@@ -41,8 +43,9 @@ class ProfileViewController: UIViewController {
         return view
     }()
     
-    init(isSelf: Bool) {
+    init(isSelf: Bool, forecaster: Forecaster) {
         self.isSelf = isSelf
+        self.forecaster = forecaster
         
         super.init(nibName: nil, bundle: nil)
     }
