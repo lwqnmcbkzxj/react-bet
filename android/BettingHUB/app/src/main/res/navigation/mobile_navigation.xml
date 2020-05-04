@@ -67,5 +67,9 @@
         android:id="@+id/menuFragment"
         android:name="com.xbethub.webview.ui.menu.MenuFragment"
         android:label="MenuFragment"
-        tools:layout="@layout/fragment_menu"/>
+        tools:layout="@layout/fragment_menu">
+        <action
+            android:id="@+id/toForecasterRatingFragment"
+            app:destination="@id/forecasterRatingFragment" />
+    </fragment>
 </navigation>

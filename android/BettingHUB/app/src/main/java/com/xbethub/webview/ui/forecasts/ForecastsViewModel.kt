@@ -3,6 +3,7 @@ package com.xbethub.webview.ui.forecasts
 import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.xbethub.webview.App
 import com.xbethub.webview.backend.BettingHubBackend
 import com.xbethub.webview.backend.requests.ForecastsListRequest
 import com.xbethub.webview.enums.ForecastType
@@ -16,8 +17,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ForecastsViewModel: ViewModel(), SportListener {
-    // TODO: сделать глобальным, даггер заюзать
-    private val backend: BettingHubBackend = BettingHubBackend()
+    private val backend: BettingHubBackend = App.appComponent.getBackend()
 
     private val forecasts = ArrayList<Forecast>()
     private val forecastFilter = ForecastFilter()

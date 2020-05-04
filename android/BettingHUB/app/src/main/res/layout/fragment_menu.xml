@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <variable
+            name="fragment"
+            type="com.xbethub.webview.ui.menu.MenuFragment" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,6 +40,7 @@
                 layout="@layout/element_menu_tile"
                 app:tileTitle="@{@string/topMatchesTileTittle}"
                 app:tileIcon="@{@drawable/field}"
+                app:clickListener="@{v -> fragment.onTopMatchesBtnClick()}"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tileHeight"
                 android:layout_marginBottom="14dp"
@@ -47,6 +54,7 @@
                 layout="@layout/element_menu_tile"
                 app:tileTitle="@{@string/forecasterRatingTileTitle}"
                 app:tileIcon="@{@drawable/cup}"
+                app:clickListener="@{v -> fragment.onForecasterRatingBtnClick()}"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/tileHeight"
                 android:layout_marginStart="7dp"
@@ -60,6 +68,7 @@
                 layout="@layout/element_menu_tile"
                 app:tileTitle="@{@string/bookmakersRatingTileTitle}"
                 app:tileIcon="@{@drawable/cup}"
+                app:clickListener="@{v -> fragment.onBookmakerRatingBtnClick()}"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/tileHeight"
                 android:layout_marginEnd="7dp"
@@ -75,6 +84,7 @@
                 layout="@layout/element_menu_tile"
                 app:tileTitle="@{@string/newsTileTitle}"
                 app:tileIcon="@{@drawable/paper}"
+                app:clickListener="@{v -> fragment.onNewsBtnClick()}"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/tileHeight"
                 android:layout_marginEnd="7dp"
@@ -88,6 +98,7 @@
                 layout="@layout/element_menu_tile"
                 app:tileTitle="@{@string/articlesTileTitle}"
                 app:tileIcon="@{@drawable/paper}"
+                app:clickListener="@{v -> fragment.onArticlesBtnClick()}"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/tileHeight"
                 android:layout_marginBottom="50dp"
@@ -96,36 +107,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 />
-
-
-
-<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                android:id="@+id/topMatchesBtn"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="110dp"-->
-<!--                android:background="@drawable/bg_tile"-->
-<!--                android:orientation="vertical"-->
-<!--                android:clickable="true"-->
-<!--                android:focusable="true">-->
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/topMatchesIcon"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:src="@drawable/field"-->
-<!--                    android:layout_marginTop="15dp"-->
-<!--                    android:layout_marginStart="15dp"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"/>-->
-
-<!--                <TextView-->
-<!--                    style="@style/MenuStyle"-->
-<!--                    android:text="@string/top_matches_label"-->
-<!--                    android:layout_marginBottom="15dp"-->
-<!--                    app:layout_constraintStart_toStartOf="@id/topMatchesIcon"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"/>-->
-
-<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -15,4 +15,7 @@
     <color name="frameColor">#E5E2E2</color>
     <color name="red_transparent_indicator">#20FF1111</color>
     <color name="lighter_gray">#f5f5f5</color>
+
+
+    <color name="loadingColor">#F1F1F1</color>
 </resources>

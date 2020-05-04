@@ -11,6 +11,10 @@
         <variable
             name="tileTitle"
             type="String" />
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +23,8 @@
         android:background="@drawable/bg_tile"
         android:orientation="vertical"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        android:onClick="@{clickListener}">
 
         <ImageView
             android:id="@+id/icon"

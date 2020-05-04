@@ -14,38 +14,50 @@ class ForecastViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     private val TIME_FORMAT = "yyyy.MM.dd в HH:mm"
 
     private var binding: ItemForecastBinding = ItemForecastBinding.bind(itemView)
-    lateinit var forecast: Forecast
+    var forecast: Forecast? = null
 
     fun setForecastItem(forecastItem: ForecastItem) {
         forecast = forecastItem.forecast
 
-        // TODO: делать это в лейауте
-        binding.userName.text = forecast.userName
-        binding.categoryName.text = forecast.sportName
-        binding.eventName.text = forecast.tournament
-        binding.teams.text = forecast.text
-        binding.betAmount.fieldValue = forecast.betValue
-        binding.coefficient.fieldValue = forecast.coefficient
-        binding.commentCount.text = forecast.commentCount.toString()
-        binding.rating.text = forecast.rating.toString()
-        binding.bookmarkCount.text = forecast.favAmmount.toString()
-        binding.gameStart.fieldValue = "-"
+        forecast?.let {
+            // TODO: делать это в лейауте
+            binding.userName.text = it.userName
+            binding.categoryName.text = it.sportName
+            binding.eventName.text = it.tournament
+            binding.teams.text = it.text
+            binding.betAmount.fieldValue = it.betValue
+            binding.coefficient.fieldValue = it.coefficient
+            binding.commentCount.text = it.commentCount.toString()
+            binding.rating.text = it.rating.toString()
+            binding.bookmarkCount.text = it.favAmmount.toString()
+            binding.gameStart.fieldValue = "-"
 
-        // TODO: вынести константы
-        try {
-            val date = SimpleDateFormat(SERVER_TIME_PATTERN).parse(forecast.time)
-            val time = SimpleDateFormat(TIME_FORMAT).format(date)
+            // TODO: вынести константы
+            try {
+                val date = SimpleDateFormat(SERVER_TIME_PATTERN).parse(it.time)
+                val time = SimpleDateFormat(TIME_FORMAT).format(date)
 
-            binding.gameStart.fieldValue = time
-        } catch (e: Exception) {
-            e.printStackTrace()
+                binding.gameStart.fieldValue = time
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+
+            Glide.with(binding.avatar).load("http://xbethub.com" + it.userAvatar).into(binding.avatar)
+
+            binding.loading.root.visibility = View.GONE
+        } ?: run {
+            binding.loading.root.visibility = View.VISIBLE
         }
 
 
-        Glide.with(binding.avatar).load("http://xbethub.com" + forecast.userAvatar).into(binding.avatar)
     }
 
     fun setListener(listener: ForecastListener) {
-        itemView.setOnClickListener { listener.onForecastClick(forecast, adapterPosition) }
+        itemView.setOnClickListener {
+            forecast?.let {
+                listener.onForecastClick(it, adapterPosition)
+            }
+        }
     }
 }
