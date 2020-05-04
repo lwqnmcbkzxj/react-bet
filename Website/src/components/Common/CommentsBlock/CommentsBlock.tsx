@@ -3,6 +3,7 @@ import s from './CommentsBlock.module.scss';
 import SendComment from './SendComment'
 import Comment from './Comment'
 type CommentsBlockPropsType = {
+	comments?: Array<any>
 }
 
 const getComemntsLength = (comments: any) => {
@@ -45,6 +46,7 @@ const CommentsBlock: FC<CommentsBlockPropsType> = ({ ...props }) => {
 		nickname: "Никнейм-5",
 	},]
 
+	
 	return (
 		<div className={s.commentsBlock}>
 			<div className={s.commentsHeader}>{getComemntsLength(comments)} комментариев</div>
@@ -58,7 +60,8 @@ const CommentsBlock: FC<CommentsBlockPropsType> = ({ ...props }) => {
 				/>
 			)}
 
-			{comments.length > 0 && <SendComment />}
+			{comments.length > 0 && <SendComment active={true} />}
+			{comments.length === 0 && <div className={s.noComments}>Дискуссия еще не началась,	оставьте первый комментарий</div>}
 		</div>
 	)
 }
