@@ -1,8 +1,10 @@
 package com.xbethub.webview.ui
 
+import android.annotation.SuppressLint
 import android.net.DnsResolver
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,7 +19,12 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.JsonObject
 import com.xbethub.webview.App
 import com.xbethub.webview.R
+import com.xbethub.webview.backend.BettingHubBackend
+import com.xbethub.webview.backend.requests.RegisterUserRequest
 import com.xbethub.webview.http_client.BetApi
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_registration.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,6 +33,7 @@ import retrofit2.Response
  * A simple [Fragment] subclass.
  */
 class RegistrationFragment : Fragment(), View.OnClickListener {
+    private val TAG = "RegistrationFragment"
     lateinit var navController: NavController
     lateinit var betApi: BetApi
     lateinit var passwordField: TextInputEditText
@@ -53,6 +61,7 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
             R.id.return_to_login_button -> navController.navigateUp()
         }
     }
+    @SuppressLint("CheckResult")
     private fun register() {
         //internal functions
         fun makeUser(name: String, email: String, password: String) : JsonObject {
@@ -123,22 +132,20 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
         if (!checkPasswords()) return
         val email = emailField.text.toString()
 //        val name = email.split("@", true, 0)[0]
-        val user = makeUser(name = email, email = email, password = passwordField.text.toString())
-        betApi.register(user = user).enqueue(object : Callback<Void> {
-            override fun onFailure(call: Call<Void>?, t: Throwable?) {
-                emailField.setBackgroundResource(R.drawable.bg_corned_frame_error)
-                view?.findViewById<TextView>(R.id.registration_label)?.text = t?.message
-            }
 
-            override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
-                view?.findViewById<TextView>(R.id.registration_label)?.text = response?.code().toString()
-                emailField.setBackgroundResource(R.drawable.bg_corned_frame_ok)
-            }
-
+        BettingHubBackend().api.registerUser(registerUserRequest = RegisterUserRequest(
+            username = email,
+            email = email,
+            password = password.text.toString()
+        ))
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({
+            Log.i(TAG, "OK: ")
+            navController.navigateUp()
+        }, {
+            Log.e(TAG, "registration: ${it.message}")
+            it.printStackTrace()
         })
-
-//        navController.navigate(R.id.action_registrationFragment_to_mainActivity)
     }
-
-
 }
