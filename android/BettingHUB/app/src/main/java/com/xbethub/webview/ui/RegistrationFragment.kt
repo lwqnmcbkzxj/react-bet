@@ -130,6 +130,9 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
         checkAndInitFields()
         if (!isEmailValid()) return
         if (!checkPasswords()) return
+
+
+
         val email = emailField.text.toString()
 //        val name = email.split("@", true, 0)[0]
 

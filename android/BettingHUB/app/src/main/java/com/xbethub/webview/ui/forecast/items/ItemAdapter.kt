@@ -52,7 +52,7 @@ class ItemAdapter(listener: ItemListener, private val viewModel: ForecastViewMod
                 .inflate(R.layout.item_comment_3_level, parent, false))
 
             ItemType.FOOTER -> return FooterViewHolder(LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_forecasts_footer, parent, false))
+                .inflate(R.layout.item_footer, parent, false))
 
             ItemType.NEW_COMMENT -> return NewCommentViewHolder(LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_comment_new, parent, false))

@@ -7,7 +7,7 @@
         android:title="@string/main_title" />
 
     <item
-        android:id="@+id/navigation_radiation"
+        android:id="@+id/forecastsFragment"
         android:icon="@drawable/ic_radiation"
         android:title="@string/vanga_title" />
 
@@ -20,7 +20,7 @@
         android:icon="@drawable/ic_profile"
         android:title="@string/profile_title"/>
     <item
-        android:id="@+id/navigation_settings"
+        android:id="@+id/menuFragment"
         android:icon="@drawable/ic_hamburger"
         android:title="@string/menu_title"/>
 </menu>

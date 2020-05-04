@@ -85,11 +85,32 @@
 
     <string name="reply">Ответить</string>
     <string name="newComment">Новый комментарий</string>
-	
+
 	<string name="invalid_email">Некорректный email!</string>
     <string name="too_short_password_hint">Слишком короткий пароль!</string>
     <string name="dismatch_passwords_hint">Пароли не сопадают!</string>
     <string name="email_hint">Введите email</string>
     <string name="email_label">Ваша почта</string>
     <string name="show_more_title">Показать больше</string>
+
+    <string name="forecastRating">Рейтинг прогнозистов</string>
+    <string name="month">Месяц</string>
+
+    <string name="numberColumn">№</string>
+    <string name="nameColumn">Имя</string>
+    <string name="wldColumn">W/L/D</string>
+    <string name="profitColumn">Прибыль</string>
+    <string name="wldTemplate"><![CDATA[
+    <font color=#0F971D>#W_VALUE</font>
+    <font color=#343638>/</font>
+    <font color=#AA0F0F>#L_VALUE</font>
+    <font color=#343638>/</font>
+    <font color=#0F19AA>#D_VALUE</font>
+    ]]></string>
+
+    <string name="topMatchesTileTittle">Топ матчи</string>
+    <string name="newsTileTitle">Новости</string>
+    <string name="bookmakersRatingTileTitle">Рейтинг\nбукмекеров</string>
+    <string name="forecasterRatingTileTitle">Рейтинг\nпрогнозистов</string>
+    <string name="articlesTileTitle">Статьи</string>
 </resources>

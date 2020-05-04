@@ -12,10 +12,8 @@ import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.JsonObject
 import com.xbethub.webview.App
 import com.xbethub.webview.R
 import com.xbethub.webview.backend.BettingHubBackend
@@ -77,6 +75,7 @@ class HomeFragment : Fragment(), View.OnClickListener, ForecastListener {
 //        }
         view?.findViewById<ImageButton>(R.id.search_button)?.setOnClickListener(this)
         view?.findViewById<Button>(R.id.see_all_forecasts)?.setOnClickListener(this)
+        view?.findViewById<Button>(R.id.see_all_top_users_button)?.setOnClickListener(this)
         getLastForecasts()
 //        getUser()
     }
@@ -113,7 +112,8 @@ class HomeFragment : Fragment(), View.OnClickListener, ForecastListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.search_button -> searchButton(v as ImageButton)
-            R.id.see_all_forecasts -> navController.navigate(R.id.action_navigation_home_to_navigation_radiation)
+            R.id.see_all_forecasts -> navController.navigate(R.id.toForecastFragment)
+            R.id.see_all_top_users_button -> navController.navigate(R.id.toForecasterRatingFragment)
         }
     }
     private fun searchButton(button: ImageButton) {
@@ -124,10 +124,6 @@ class HomeFragment : Fragment(), View.OnClickListener, ForecastListener {
             if (searchBarState) View.VISIBLE else View.GONE
     }
     override fun onForecastClick(forecast: Forecast, position: Int) {
-        val args = Bundle()
-
-        args.putSerializable("forecast", forecast)
-
-        navController.navigate(R.id.action_navigation_home_to_forecastFragment, args)
+        navController.navigate(HomeFragmentDirections.toForecastFragment(forecast))
     }
 }

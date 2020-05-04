@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="fragment"
+            type="com.xbethub.webview.ui.menu.MenuFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F1F1F1">
+
+
+        <include
+            android:id="@+id/topPanel"
+            layout="@layout/element_top_panel"/>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sideMargin"
+            android:layout_marginEnd="@dimen/sideMargin"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5"
+                />
+
+            <include
+                android:id="@+id/topMatchesBtn"
+                layout="@layout/element_menu_tile"
+                app:tileTitle="@{@string/topMatchesTileTittle}"
+                app:tileIcon="@{@drawable/field}"
+                app:clickListener="@{v -> fragment.onTopMatchesBtnClick()}"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tileHeight"
+                android:layout_marginBottom="14dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/bookmakerRatingBtn"
+                />
+
+            <include
+                android:id="@+id/forecasterRatingBtn"
+                layout="@layout/element_menu_tile"
+                app:tileTitle="@{@string/forecasterRatingTileTitle}"
+                app:tileIcon="@{@drawable/cup}"
+                app:clickListener="@{v -> fragment.onForecasterRatingBtnClick()}"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/tileHeight"
+                android:layout_marginStart="7dp"
+                app:layout_constraintStart_toStartOf="@id/center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/bookmakerRatingBtn"
+                />
+
+            <include
+                android:id="@+id/bookmakerRatingBtn"
+                layout="@layout/element_menu_tile"
+                app:tileTitle="@{@string/bookmakersRatingTileTitle}"
+                app:tileIcon="@{@drawable/cup}"
+                app:clickListener="@{v -> fragment.onBookmakerRatingBtnClick()}"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/tileHeight"
+                android:layout_marginEnd="7dp"
+                android:layout_marginBottom="14dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/center"
+                app:layout_constraintBottom_toTopOf="@id/newsBtn"
+                />
+
+
+            <include
+                android:id="@+id/newsBtn"
+                layout="@layout/element_menu_tile"
+                app:tileTitle="@{@string/newsTileTitle}"
+                app:tileIcon="@{@drawable/paper}"
+                app:clickListener="@{v -> fragment.onNewsBtnClick()}"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/tileHeight"
+                android:layout_marginEnd="7dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/center"
+                app:layout_constraintBottom_toBottomOf="@id/articlesBtn"
+                />
+
+            <include
+                android:id="@+id/articlesBtn"
+                layout="@layout/element_menu_tile"
+                app:tileTitle="@{@string/articlesTileTitle}"
+                app:tileIcon="@{@drawable/paper}"
+                app:clickListener="@{v -> fragment.onArticlesBtnClick()}"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/tileHeight"
+                android:layout_marginBottom="50dp"
+                android:layout_marginStart="7dp"
+                app:layout_constraintStart_toStartOf="@id/center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -384,7 +384,10 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+        <include
+            android:id="@+id/loading"
+            android:visibility="gone"
+            layout="@layout/item_forecast_loading"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

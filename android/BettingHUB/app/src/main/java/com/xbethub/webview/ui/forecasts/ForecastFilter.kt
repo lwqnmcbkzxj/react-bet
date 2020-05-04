@@ -1,4 +1,4 @@
-package com.xbethub.webview.models
+package com.xbethub.webview.ui.forecasts
 
 import com.xbethub.webview.enums.ForecastType
 import com.xbethub.webview.enums.Sport

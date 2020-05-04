@@ -11,6 +11,6 @@
     android:textColor="#202E48"
     android:padding="8dp"
     android:text="TEST"
-    android:background="@drawable/bg_forecast_filter"
+    android:background="@drawable/bg_filter"
     android:clickable="true"
     android:focusable="true"/>

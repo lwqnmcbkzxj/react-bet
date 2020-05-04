@@ -11,24 +11,27 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_navigation_home_to_navigation_radiation"
-            app:destination="@id/navigation_radiation"
+            android:id="@+id/toForecasterRatingFragment"
+            app:destination="@id/forecasterRatingFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
         <action
-            android:id="@+id/action_navigation_home_to_forecastFragment"
-            app:destination="@id/forecastFragment"
+            android:id="@+id/toForecastsFragment"
+            app:destination="@id/forecastsFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/toForecastFragment"
+            app:destination="@id/forecastFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_radiation"
+        android:id="@+id/forecastsFragment"
         android:name="com.xbethub.webview.ui.forecasts.ForecastsFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_forecasts">
         <action
-            android:id="@+id/action_navigation_radiation_to_forecastFragment"
+            android:id="@+id/toForecastFragment"
             app:destination="@id/forecastFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
@@ -57,5 +60,19 @@
         <argument
             android:name="forecast"
             app:argType="com.xbethub.webview.models.Forecast" />
+    </fragment>
+    <fragment
+        android:id="@+id/forecasterRatingFragment"
+        android:name="com.xbethub.webview.ui.forecasterRating.ForecasterRatingFragment"
+        android:label="ForecasterRatingFragment"
+        tools:layout="@layout/fragment_forecaster_rating"/>
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.xbethub.webview.ui.menu.MenuFragment"
+        android:label="MenuFragment"
+        tools:layout="@layout/fragment_menu">
+        <action
+            android:id="@+id/toForecasterRatingFragment"
+            app:destination="@id/forecasterRatingFragment" />
     </fragment>
 </navigation>
