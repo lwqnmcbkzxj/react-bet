@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,7 +38,7 @@ class ForecastsFragment : Fragment(), ForecastListener {
 
         navController = activity?.let { Navigation.findNavController(it, R.id.nav_host_fragment) }!!
 
-        vm = ViewModelProviders.of(this).get(ForecastsViewModel::class.java)
+        vm = ViewModelProvider(this).get(ForecastsViewModel::class.java)
         vm.forecastsLiveData.observe(viewLifecycleOwner, Observer { addForecasts(it) })
         vm.forecastsClearLiveData.observe(viewLifecycleOwner, Observer { removeAllForecasts() })
 
@@ -105,10 +105,6 @@ class ForecastsFragment : Fragment(), ForecastListener {
 
     // ForecastListener
     override fun onForecastClick(forecast: Forecast, position: Int) {
-        val args = Bundle()
-
-        args.putSerializable("forecast", forecast)
-
-        navController.navigate(R.id.action_navigation_radiation_to_forecastFragment, args)
+        navController.navigate(ForecastsFragmentDirections.toForecastFragment(forecast))
     }
 }

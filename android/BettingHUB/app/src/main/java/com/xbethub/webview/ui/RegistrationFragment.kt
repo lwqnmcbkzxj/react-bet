@@ -121,6 +121,9 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
         checkAndInitFields()
         if (!isEmailValid()) return
         if (!checkPasswords()) return
+
+
+
         val email = emailField.text.toString()
 //        val name = email.split("@", true, 0)[0]
         val user = makeUser(name = email, email = email, password = passwordField.text.toString())
@@ -137,7 +140,7 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
 
         })
 
-//        navController.navigate(R.id.action_registrationFragment_to_mainActivity)
+        navController.navigate(R.id.action_registrationFragment_to_mainActivity)
     }
 
 

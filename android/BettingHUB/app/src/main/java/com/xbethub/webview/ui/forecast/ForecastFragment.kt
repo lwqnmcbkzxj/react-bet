@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,7 +37,7 @@ class ForecastFragment: Fragment() {
 
         navController = activity?.let { Navigation.findNavController(it, R.id.nav_host_fragment) }!!
 
-        vm = ViewModelProviders.of(this).get(ForecastViewModel::class.java)
+        vm =  ViewModelProvider(this).get(ForecastViewModel::class.java)
         vm.commentsLiveData.observe(viewLifecycleOwner, Observer { addNewComments(it.first, it.second) })
 
         return binding.root
@@ -64,7 +64,7 @@ class ForecastFragment: Fragment() {
             )
         binding.forecastRV.adapter = adapter
 
-        items.add(HeaderItem(arguments!!.getSerializable("forecast") as Forecast))
+        items.add(HeaderItem(requireArguments().getSerializable("forecast") as Forecast))
         items.add(NewCommentItem())
         items.add(FooterItem())
 

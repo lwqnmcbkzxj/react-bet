@@ -1,7 +1,6 @@
 package com.xbethub.webview.ui.forecasts
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.xbethub.webview.backend.BettingHubBackend
@@ -10,10 +9,8 @@ import com.xbethub.webview.enums.ForecastType
 import com.xbethub.webview.enums.Sport
 import com.xbethub.webview.enums.TimeInterval
 import com.xbethub.webview.models.Forecast
-import com.xbethub.webview.models.ForecastFilter
 import com.xbethub.webview.ui.forecasts.sportItem.SportListener
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 import kotlin.collections.ArrayList
@@ -36,6 +33,7 @@ class ForecastsViewModel: ViewModel(), SportListener {
         reloadForecasts()
 
         forecastsLiveData.value = Collections.emptyList()
+
         forecastFilterLiveData.value = forecastFilter
     }
 

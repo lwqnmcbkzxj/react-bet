@@ -1,17 +1,31 @@
 package com.xbethub.webview
 
 import android.app.Application
+import androidx.multidex.MultiDexApplication
 import com.google.gson.GsonBuilder
+import com.xbethub.webview.di.AppComponent
+import com.xbethub.webview.di.AppModule
+import com.xbethub.webview.di.DaggerAppComponent
 import com.xbethub.webview.http_client.BetApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class App: Application() {
+class App: MultiDexApplication() {
+    companion object {
+        lateinit var appComponent: AppComponent
+    }
+
     private lateinit var betApi: BetApi
     private lateinit var retrofit: Retrofit
+
     override fun onCreate() {
         super.onCreate()
+
+        appComponent = DaggerAppComponent.builder()
+            .appModule(AppModule(this))
+            .build()
+
         initBetApi()
     }
     private fun initBetApi() {

@@ -1,9 +1,7 @@
 package com.xbethub.webview.ui.forecasts.items.viewHolders
 
-import android.app.Activity
 import android.content.Context
 import android.os.Build
-import android.os.IBinder
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
@@ -22,7 +20,7 @@ import com.xbethub.webview.databinding.ItemForecastsHeaderBinding
 import com.xbethub.webview.enums.ForecastType
 import com.xbethub.webview.enums.Sport
 import com.xbethub.webview.enums.TimeInterval
-import com.xbethub.webview.models.ForecastFilter
+import com.xbethub.webview.ui.forecasts.ForecastFilter
 import com.xbethub.webview.ui.forecasts.ForecastsViewModel
 import com.xbethub.webview.ui.forecasts.sportItem.SportAdapter
 import com.xbethub.webview.ui.forecasts.sportItem.SportItem

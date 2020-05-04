@@ -31,4 +31,8 @@
     <dimen name="commentItemTopSpace">27dp</dimen>
     <dimen name="commentItemSideSpace">20dp</dimen>
     <dimen name="commentItemSpace">20dp</dimen>
+
+    <dimen name="ratingTableTopMargin">25dp</dimen>
+
+    <dimen name="tileHeight">115dp</dimen>
 </resources>

@@ -67,6 +67,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         }
         view?.findViewById<ImageButton>(R.id.search_button)?.setOnClickListener(this)
         view?.findViewById<Button>(R.id.see_all_forecasts)?.setOnClickListener(this)
+        view?.findViewById<Button>(R.id.see_all_top_users_button)?.setOnClickListener(this)
         getLastForecasts()
         getUser()
     }
@@ -117,7 +118,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.search_button -> searchButton(v as ImageButton)
-            R.id.see_all_forecasts -> navController.navigate(R.id.action_navigation_home_to_navigation_radiation)
+            R.id.see_all_forecasts -> navController.navigate(R.id.toForecastFragment)
+            R.id.see_all_top_users_button -> navController.navigate(R.id.toForecasterRatingFragment)
         }
     }
     private fun searchButton(button: ImageButton) {

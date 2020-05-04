@@ -24,7 +24,7 @@ class SportViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         textView.setTypeface(if (sportItem.active) activeTypeFace else inactiveTypeFace)
 
         if (sportItem.active) {
-            textView.setBackgroundResource(R.drawable.bg_forecast_filter)
+            textView.setBackgroundResource(R.drawable.bg_filter)
         } else {
             textView.setBackgroundColor(Color.TRANSPARENT)
         }

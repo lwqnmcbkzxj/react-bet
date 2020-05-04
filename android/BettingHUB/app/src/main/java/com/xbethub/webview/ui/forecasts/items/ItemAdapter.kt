@@ -52,7 +52,7 @@ class ItemAdapter(listener: ForecastListener, private val viewModel: ForecastsVi
                                     )
 
             else -> return FooterViewHolder(LayoutInflater.from(parent.context)
-                                .inflate(R.layout.item_forecasts_footer, parent, false)
+                                .inflate(R.layout.item_footer, parent, false)
                             )
         }
     }

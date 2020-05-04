@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="com.xbethub.webview.enums.RatingTimeInterval"/>
+
+        <variable
+            name="viewHolder"
+            type="com.xbethub.webview.ui.forecasterRating.items.viewHolders.HeaderViewHolder" />
+
+        <variable
+            name="viewModel"
+            type="com.xbethub.webview.ui.forecasterRating.ForecasterRatingViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/TittleStyle"
+            android:id="@+id/title"
+            android:text="@string/forecastRating"
+            android:layout_marginStart="@dimen/sideMargin"
+            android:layout_marginTop="25dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/timeFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="@dimen/sideMargin"
+            android:layout_marginEnd="@dimen/sideMargin"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/bg_filter">
+
+            <Button
+                android:id="@+id/allTimeBtn"
+                style="@style/FilterStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/allTime"
+                android:paddingStart="25dp"
+                android:paddingEnd="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:onClick="@{v -> viewModel.onTimeIntervalClick(RatingTimeInterval.ALL_TIME)}"
+               />
+
+            <Button
+                android:id="@+id/monthBtn"
+                style="@style/FilterStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/month"
+                android:paddingStart="10dp"
+                android:paddingEnd="25dp"
+                app:layout_constraintStart_toEndOf="@id/allTimeBtn"
+                android:onClick="@{v -> viewModel.onTimeIntervalClick(RatingTimeInterval.MONTH)}"
+               />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageButton
+            android:id="@+id/extraFiltersBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_settings"
+            android:background="@android:color/transparent"
+            android:padding="@dimen/sideMargin"
+            app:layout_constraintTop_toTopOf="@id/timeFilter"
+            app:layout_constraintBottom_toBottomOf="@id/timeFilter"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:onClick="@{v -> viewHolder.onExtraFiltersBtnClick()}"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sportRV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="@dimen/sideMargin"
+            android:layout_marginEnd="@dimen/sideMargin"
+            app:layout_constraintTop_toBottomOf="@id/timeFilter"
+            />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
