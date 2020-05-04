@@ -12,10 +12,8 @@ import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.JsonObject
 import com.xbethub.webview.App
 import com.xbethub.webview.R
 import com.xbethub.webview.backend.BettingHubBackend
@@ -137,10 +135,6 @@ class HomeFragment : Fragment(), View.OnClickListener, ForecastListener {
             if (searchBarState) View.VISIBLE else View.GONE
     }
     override fun onForecastClick(forecast: Forecast, position: Int) {
-        val args = Bundle()
-
-        args.putSerializable("forecast", forecast)
-
-        navController.navigate(R.id.action_navigation_home_to_forecastFragment, args)
+        navController.navigate(HomeFragmentDirections.toForecastFragment(forecast))
     }
 }
