@@ -17,26 +17,35 @@
 			line-height: 18px;
 			font-family: 'Roboto Regular';
 			margin: 0 7px;
-			
 		}
 	}
-	& .likes {
-		color: #5E687B;
-		margin-right: 0;
-		& button {		
-			&:first-child:hover {
-				color: #AA0F0F;
-			}
-			&:last-child:hover {
-				color: #0F971D;
-			}
-		}
-	}
+	
 	& .favourites button.active {
 		color: #E84755;
 	}
 }
-
+.likes {
+	display: flex;
+	white-space: nowrap;
+	color: #5E687B;
+	margin-right: 0;
+	& span {
+		color: #202E48;
+		font-size: 15px;
+		line-height: 18px;
+		font-family: 'Roboto Regular';
+		margin: 0 7px;
+	}
+	& button {
+		color: #A8ABAF;
+		&:first-child:hover {
+			color: #AA0F0F;
+		}
+		&:last-child:hover {
+			color: #0F971D;
+		}
+	}
+}
 
 .positive {
 	color: #0F971D!important;
