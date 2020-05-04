@@ -20,6 +20,9 @@
             app:destination="@id/forecastsFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/toForecastFragment"
+            app:destination="@id/forecastFragment" />
     </fragment>
 
     <fragment

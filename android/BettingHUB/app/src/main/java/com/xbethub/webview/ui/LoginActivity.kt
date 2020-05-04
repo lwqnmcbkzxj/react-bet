@@ -10,7 +10,7 @@ import com.xbethub.webview.R
 class LoginActivity : AppCompatActivity() {
     lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme)
+        setTheme(R.style.LoginActivityStyle)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)

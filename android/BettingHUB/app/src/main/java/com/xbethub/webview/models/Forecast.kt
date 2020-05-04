@@ -57,4 +57,8 @@ data class Forecast (
     @SerializedName("FavAmmount")
     @Expose
     val favAmmount: Int
-): Serializable {}
+): Serializable {
+    override fun toString(): String {
+        return "Forecast(userName='$userName', userAvatar='$userAvatar', sportName='$sportName', tournament='$tournament', forecastId=$forecastId, time='$time', text='$text', betValue='$betValue', createdAt='$createdAt', coefficient='$coefficient', commentCount=$commentCount, rating=$rating, favAmmount=$favAmmount)"
+    }
+}
