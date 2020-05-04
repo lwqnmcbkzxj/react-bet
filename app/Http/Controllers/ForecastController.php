@@ -19,7 +19,7 @@ class ForecastController extends Controller
     public function getAll(GetAllForecastsRequest $request) {
          // taking sport
         $sport = $request->sport;
-        
+
         // taking needl tf
         switch ($request->tf) {
             case '3h': $to = date('yy-m-d H:i:s', strtotime('-3 hours', time())); break;
@@ -29,7 +29,7 @@ class ForecastController extends Controller
             case 'all': $to = date('yy-m-d H:i:s', strtotime('-5000 hours', time())); break;
         }
         $now = date('yy-m-d H:i:s', time());
-        
+
 
         // first stage of getting all forecast
         $forecasts = DB::table('forecasts')
@@ -48,7 +48,7 @@ class ForecastController extends Controller
                 'forecasts.forecast as Text',
                 'forecasts.bet as BetValue',
                 'forecasts.created_at as CratedAt',
-                'coefficients.coefficient as Coefficient',
+                'coefficients.coefficient as Coefficient'
             )
             ->whereBetween('forecasts.created_at', [$to, $now])
             ->when($request->sport != 'all', function ($query) use ($sport){
@@ -64,7 +64,7 @@ class ForecastController extends Controller
                     $fav[] = $item->forecast_id;
                 }
                 return $query->whereIn('forecasts.id', $fav);
-            }) 
+            })
             // using subs
             ->when($request->useSubscribes == 1, function($query) {
                 $subsR = DB::table('subscribers')
@@ -90,7 +90,7 @@ class ForecastController extends Controller
                 $forecasts[$i]->CommentsQuanity = $comments;
                 $i++;
             }
-            // getting likes 
+            // getting likes
             $i = 0;
             foreach ($forecasts as $item){
                 $likes = DB::table('forecast_votes')
@@ -121,9 +121,9 @@ class ForecastController extends Controller
                 $forecasts[$i]->FavAmmount = $likes;
                 $i++;
             }
-        
+
             // calculating small stat
-        
+
             return $forecasts;
     }
 
@@ -162,7 +162,7 @@ class ForecastController extends Controller
                 $i++;
             }
 
-            // getting likes 
+            // getting likes
             $i = 0;
             foreach ($forecasts as $item){
                 $likes = DB::table('forecast_votes')
@@ -195,7 +195,7 @@ class ForecastController extends Controller
               }
 
         return $forecasts;
-        
+
     }
 
 
@@ -212,8 +212,10 @@ class ForecastController extends Controller
                 'type' => $request->type,
                 'user_id' => auth('api')->user()->id
             ]);
-            return ['ОПА + голос', 'PS: В разработке нормальные ответы и коды)'];
-        } else return ['ТЫ ГАЛАСАВАЛ УЖЕ ЫААААААААА', 'PS: В разработке нормальные ответы и коды)'];
+            return response('Success', 200)
+                ->header('Content-Type', 'application/json');
+        } else return response('Already Reported', 208)
+            ->header('Content-Type', 'application/json');
     }
 
     public function makeFav(AddToFavRequest $request) {
@@ -228,8 +230,10 @@ class ForecastController extends Controller
                 'forecast_id' => $request->forecastId,
                 'user_id' => auth('api')->user()->id
             ]);
-            return ['ОПА + фаворит', 'PS: В разработке нормальные ответы и коды)'];
-        } else return ['ТЫ УЖЕ ДОБАВИЛ ЫААААААААА', 'PS: В разработке нормальные ответы и коды)'];
+            return response('Success', 200)
+                ->header('Content-Type', 'application/json');
+        } else response('Already Reported', 208)
+            ->header('Content-Type', 'application/json');
     }
 
     public function comment(CommentForecastReques $request) {
@@ -240,7 +244,8 @@ class ForecastController extends Controller
             'replying' => $request->replying,
             'user_id' => auth('api')->user()->id
         ]);
-        return ['ОПА + Коммент', 'PS: В разработке нормальные ответы и коды)'];
+        return response('Success', 200)
+            ->header('Content-Type', 'application/json');
     }
 
 }

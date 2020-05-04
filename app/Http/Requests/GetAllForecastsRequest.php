@@ -28,7 +28,7 @@ class GetAllForecastsRequest extends FormRequest
             'sport' => 'required',
             'useSubscribes' => 'required',
             'useFavorites' => 'required',
-            'quanity' => 'required',
+            'quantity' => 'required',
             'page' => 'required',
         ];
     }
