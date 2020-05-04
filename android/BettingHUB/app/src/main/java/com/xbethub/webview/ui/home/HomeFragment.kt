@@ -1,5 +1,6 @@
 package com.xbethub.webview.ui.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -22,6 +23,7 @@ import com.xbethub.webview.backend.requests.ForecastsListRequest
 import com.xbethub.webview.enums.Sport
 import com.xbethub.webview.enums.TimeInterval
 import com.xbethub.webview.models.Forecast
+import com.xbethub.webview.ui.forecasts.items.ForecastListener
 import com.xbethub.webview.ui.home.recycler_view_adapters.ItemDecoration
 import com.xbethub.webview.ui.home.recycler_view_adapters.LastForecastsTableAdapter
 import com.xbethub.webview.ui.home.recycler_view_adapters.TopUsersTableAdapter
@@ -31,7 +33,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeFragment : Fragment(), View.OnClickListener {
+class HomeFragment : Fragment(), View.OnClickListener, ForecastListener {
 
     lateinit var navController: NavController
     lateinit var topUsersTable: RecyclerView
@@ -63,20 +65,20 @@ class HomeFragment : Fragment(), View.OnClickListener {
         lastForecastsTable.addItemDecoration(ItemDecoration(resources.getDimensionPixelSize(R.dimen.homeForecastTopSpace)
             , resources.getDimensionPixelSize(R.dimen.homeForecastBottomSpace)))
 
-        lastForecastsTable.apply {
-            setHasFixedSize(true)
-            val manager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            manager.isAutoMeasureEnabled = true
-            layoutManager = manager
-//            layoutManager = SpanningLinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = LastForecastsTableAdapter(Array<String>(
-                5
-            ) { i -> i.toString()})
-        }
+//        lastForecastsTable.apply {
+//            setHasFixedSize(true)
+//            val manager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+//            manager.isAutoMeasureEnabled = true
+//            layoutManager = manager
+////            layoutManager = SpanningLinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+//            adapter = LastForecastsTableAdapter(Array<String>(
+//                5
+//            ) { i -> i.toString()})
+//        }
         view?.findViewById<ImageButton>(R.id.search_button)?.setOnClickListener(this)
         view?.findViewById<Button>(R.id.see_all_forecasts)?.setOnClickListener(this)
         getLastForecasts()
-        getUser()
+//        getUser()
     }
 
     fun getUser() {
@@ -91,6 +93,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         })
     }
 
+    @SuppressLint("CheckResult")
     private fun getLastForecasts() {
         val forecastsListRequest = ForecastsListRequest(0, 5, timeInterval = TimeInterval.ALL.backendValue, sport = Sport.ALL.backendValue, useSubscribes = 0, useFavorites = 0)
         BettingHubBackend().api.forecastList(forecastsListRequest)
@@ -98,10 +101,24 @@ class HomeFragment : Fragment(), View.OnClickListener {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 forecasts.addAll(it)
+                for (forecast in forecasts) {
+                    Log.i("Forecasts", forecast.toString())
+                }
+                lastForecastsTable.apply {
+                    setHasFixedSize(true)
+                    val manager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                    manager.isAutoMeasureEnabled = true
+                    layoutManager = manager
+//            layoutManager = SpanningLinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                    adapter = LastForecastsTableAdapter(forecasts, forecastListener = this@HomeFragment)
+
+                }
 //                forecastsLiveData.value = forecasts
             }, {
+                Log.e("Forecast", it.message ?: "WTF?!")
                 it.printStackTrace()
             })
+
     }
 
     override fun onClick(v: View?) {
@@ -116,5 +133,12 @@ class HomeFragment : Fragment(), View.OnClickListener {
                                 else R.drawable.ic_search_disabled)
         view?.findViewById<SearchView>(R.id.searchField)?.visibility =
             if (searchBarState) View.VISIBLE else View.GONE
+    }
+    override fun onForecastClick(forecast: Forecast, position: Int) {
+        val args = Bundle()
+
+        args.putSerializable("forecast", forecast)
+
+        navController.navigate(R.id.action_navigation_home_to_forecastFragment, args)
     }
 }
