@@ -23,7 +23,7 @@ const GoBackBlock: FC<GoBackPropTypes> = ({ link, linkText, icon, func = () => {
 					<button className={s.goBackBtn}><FontAwesomeIcon icon={faArrowLeft}/></button>
 					<p>{linkText}</p>
 				</NavLink>
-				<button className={s.goBackBlockIcon} onClick={func}><FontAwesomeIcon icon={faBookmark}/></button>
+				<button className={s.goBackBlockIcon} onClick={func}><FontAwesomeIcon icon={icon}/></button>
 			</div>
 	)
 }
