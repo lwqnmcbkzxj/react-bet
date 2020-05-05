@@ -1,8 +1,6 @@
 package com.xbethub.webview.ui
 
-import android.net.DnsResolver
 import android.os.Bundle
-import android.os.Handler
 import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -81,7 +79,7 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
         }
         fun validEmailAction() {
             emailField.setHint(R.string.login_field_hint)
-            emailField.setBackgroundResource(R.drawable.bg_corned_frame)
+            emailField.setBackgroundResource(R.drawable.bg_cornered_frame)
         }
         fun isEmailValid() : Boolean {
             val email = emailField.text.toString()
@@ -104,7 +102,7 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
                 passwordField.setHint(R.string.too_short_password_hint)
                 return false
             }
-            passwordField.setBackgroundResource(R.drawable.bg_corned_frame)
+            passwordField.setBackgroundResource(R.drawable.bg_cornered_frame)
             passwordField.setHint(R.string.password_hint)
             if (password != passwordRepeat) {
                 passwordRepeatField.setText("", TextView.BufferType.EDITABLE)
@@ -112,7 +110,7 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
                 passwordRepeatField.setHint(R.string.dismatch_passwords_hint)
                 return false
             }
-            passwordRepeatField.setBackgroundResource(R.drawable.bg_corned_frame)
+            passwordRepeatField.setBackgroundResource(R.drawable.bg_cornered_frame)
             passwordRepeatField.setHint(R.string.password_hint)
             return true
         }

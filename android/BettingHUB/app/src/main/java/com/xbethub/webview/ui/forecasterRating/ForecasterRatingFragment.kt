@@ -1,17 +1,16 @@
 package com.xbethub.webview.ui.forecasterRating
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xbethub.webview.R
+import com.xbethub.webview.Utils
 import com.xbethub.webview.databinding.FragmentForecasterRatingBinding
 import com.xbethub.webview.models.ForecasterRating
 import com.xbethub.webview.ui.forecasterRating.items.ItemListener
@@ -58,7 +57,7 @@ class ForecasterRatingFragment: Fragment(), ItemListener {
         val topSpace = resources.getDimensionPixelSize(R.dimen.ratingTableTopMargin)
         val sideSpace = resources.getDimensionPixelSize(R.dimen.sideMargin)
         val footerTopSpace = resources.getDimensionPixelSize(R.dimen.forecastsFooterTopSpace)
-        val bottomSpace = resources.getDimensionPixelSize(R.dimen.forecastsItemBottomSpace)
+        val bottomSpace = resources.getDimensionPixelSize(R.dimen.footerBottomMargin)
 
         binding.ratingRV.addItemDecoration(
             ItemDecoration(
@@ -103,13 +102,8 @@ class ForecasterRatingFragment: Fragment(), ItemListener {
 
         if (searchActive) {
             binding.topPanel.searchField.requestFocus()
-            showKeyboard()
+            Utils.showKeyboard(requireContext())
         }
-    }
-
-    fun showKeyboard() {
-        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_IMPLICIT_ONLY)
     }
 
     fun onSearchBtnClick() {

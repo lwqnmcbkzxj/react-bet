@@ -75,4 +75,9 @@
             android:id="@+id/toForecasterRatingFragment"
             app:destination="@id/forecasterRatingFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/profileSettingsFragment"
+        android:name="com.xbethub.webview.ui.profileSettings.ProfileSettingsFragment"
+        android:label="ProfileSettingsFragment"
+        tools:layout="@layout/fragment_profile_settings"/>
 </navigation>

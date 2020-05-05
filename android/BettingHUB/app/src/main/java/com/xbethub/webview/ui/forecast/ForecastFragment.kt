@@ -15,7 +15,6 @@ import com.xbethub.webview.R
 import com.xbethub.webview.databinding.FragmentForecastBinding
 import com.xbethub.webview.models.Forecast
 import com.xbethub.webview.ui.forecast.items.ItemAdapter
-import com.xbethub.webview.ui.forecast.items.ItemListener
 import com.xbethub.webview.ui.forecast.items.items.FooterItem
 import com.xbethub.webview.ui.forecast.items.items.HeaderItem
 import com.xbethub.webview.ui.forecast.items.items.Item
@@ -77,7 +76,7 @@ class ForecastFragment: Fragment() {
         val itemSpace = resources.getDimensionPixelSize(R.dimen.commentItemSpace)
         //val showMoreTopSpace = resources.getDimensionPixelSize(R.dimen.forecastsShowMoreTopSpace)
         val footerTopSpace = resources.getDimensionPixelSize(R.dimen.forecastsFooterTopSpace)
-        val bottomSpace = resources.getDimensionPixelSize(R.dimen.forecastsItemBottomSpace)
+        val bottomSpace = resources.getDimensionPixelSize(R.dimen.footerBottomMargin)
 
         binding.forecastRV.addItemDecoration(
             ItemDecoration(

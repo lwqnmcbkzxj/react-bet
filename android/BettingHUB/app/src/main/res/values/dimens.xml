@@ -11,7 +11,7 @@
     <dimen name="forecastFieldSpace">6dp</dimen>
 
     <dimen name="forecastsItemTopSpace">25dp</dimen>
-    <dimen name="forecastsItemBottomSpace">70dp</dimen>
+    <dimen name="footerBottomMargin">70dp</dimen>
     <dimen name="forecastsShowMoreTopSpace">44dp</dimen>
     <dimen name="forecastsFooterTopSpace">44dp</dimen>
     <dimen name="forecastsItemSpace">20dp</dimen>

@@ -18,4 +18,5 @@
 
 
     <color name="loadingColor">#F1F1F1</color>
+    <color name="textColor1">#343638</color>
 </resources>

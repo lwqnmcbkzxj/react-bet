@@ -236,7 +236,7 @@
                         tools:ignore="HardcodedText" />
 
                     <TextView
-                        android:textColor="#343638"
+                        android:textColor="@color/textColor1"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:layout_marginStart="10dp"
@@ -291,7 +291,7 @@
                         tools:ignore="HardcodedText" />
 
                     <TextView
-                        android:textColor="#343638"
+                        android:textColor="@color/textColor1"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:layout_marginStart="10dp"
@@ -346,7 +346,7 @@
                         tools:ignore="HardcodedText" />
 
                     <TextView
-                        android:textColor="#343638"
+                        android:textColor="@color/textColor1"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:layout_marginStart="10dp"

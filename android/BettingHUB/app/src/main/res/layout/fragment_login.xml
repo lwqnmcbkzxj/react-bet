@@ -36,7 +36,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="30dp"
-        android:background="@drawable/bg_corned_frame"
+        android:background="@drawable/bg_cornered_frame"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:ems="10"
@@ -79,7 +79,7 @@
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:inputType="textPassword"
-            android:background="@drawable/bg_corned_frame"/>
+            android:background="@drawable/bg_cornered_frame"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

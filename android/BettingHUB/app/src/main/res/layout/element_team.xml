@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium"
             android:textSize="17sp"
-            android:textColor="#343638"
+            android:textColor="@color/textColor1"
             android:text="FlyToMoon"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"

@@ -6,6 +6,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.xbethub.webview.Utils
 import com.xbethub.webview.databinding.ItemForecastHeaderBinding
 import com.xbethub.webview.ui.forecast.ForecastViewModel
 import com.xbethub.webview.ui.forecast.items.items.HeaderItem
@@ -61,15 +62,9 @@ class HeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         if (searchActive) {
             binding.topPanel.searchField.requestFocus()
-            showKeyboard()
+            Utils.showKeyboard(context)
         }
     }
-
-    fun showKeyboard() {
-        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_IMPLICIT_ONLY)
-    }
-
     fun onSearchBtnClick() {
         searchActive = !searchActive
         updateSearchFieldVisibility()

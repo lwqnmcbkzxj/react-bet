@@ -113,4 +113,24 @@
     <string name="bookmakersRatingTileTitle">Рейтинг\nбукмекеров</string>
     <string name="forecasterRatingTileTitle">Рейтинг\nпрогнозистов</string>
     <string name="articlesTileTitle">Статьи</string>
+
+    <string name="rateApp">Оценить мобильное приложение</string>
+    <string name="russian" translatable="false">Русский</string>
+    <string name="english" translatable="false">English</string>
+    <string name="personalDataBlockTitle">Персональные данные:</string>
+    <string name="emailField">E-mail</string>
+    <string name="linkedAccountBlockTitle">Связанные аккаунты:</string>
+    <string name="changePasswordBlockTitle">Изменить пароль:</string>
+    <string name="facebook" translatable="false">Facebook</string>
+    <string name="google" translatable="false">Google</string>
+    <string name="vk" translatable="false">ВКонтакте</string>
+    <string name="newPassword">Новый пароль</string>
+    <string name="saveChanges">Сохранить изменения</string>
+    <string name="setupNotificationsBlockTitle">Настройка уведомлений:</string>
+    <string name="emailNotifications">Уведомления на почту</string>
+    <string name="pushNotifications">Пуш-уведомления</string>
+    <string name="commentReplyNotifications">Ответы на комментарии</string>
+
+    <string name="signOut">Выйти</string>
+
 </resources>

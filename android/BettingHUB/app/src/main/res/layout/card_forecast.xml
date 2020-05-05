@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_corned_frame"
+        android:background="@drawable/bg_cornered_frame"
         android:clickable="true"
         android:focusable="true">
 
@@ -238,7 +238,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_regular"
                     android:textSize="14sp"
-                    android:textColor="#343638"
+                    android:textColor="@color/textColor1"
                     android:gravity="center"
                     android:text="Username"
                     android:layout_marginStart="8dp"

@@ -54,7 +54,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/roboto_regular"
                 android:textSize="15sp"
-                android:textColor="#343638"
+                android:textColor="@color/textColor1"
                 android:gravity="center_vertical"
                 android:text="Никнейм"
                 android:layout_marginStart="8dp"

@@ -56,7 +56,7 @@ class ForecastsFragment : Fragment(), ForecastListener {
         val itemSpace = resources.getDimensionPixelSize(R.dimen.forecastsItemSpace)
         val showMoreTopSpace = resources.getDimensionPixelSize(R.dimen.forecastsShowMoreTopSpace)
         val footerTopSpace = resources.getDimensionPixelSize(R.dimen.forecastsFooterTopSpace)
-        val bottomSpace = resources.getDimensionPixelSize(R.dimen.forecastsItemBottomSpace)
+        val bottomSpace = resources.getDimensionPixelSize(R.dimen.footerBottomMargin)
 
         binding.forecastRV.addItemDecoration(
             ItemDecoration(

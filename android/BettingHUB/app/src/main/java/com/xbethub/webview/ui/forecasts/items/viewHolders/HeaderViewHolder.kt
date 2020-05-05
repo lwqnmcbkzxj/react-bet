@@ -16,6 +16,7 @@ import com.google.android.flexbox.FlexboxItemDecoration
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.xbethub.webview.R
+import com.xbethub.webview.Utils
 import com.xbethub.webview.databinding.ItemForecastsHeaderBinding
 import com.xbethub.webview.enums.ForecastType
 import com.xbethub.webview.enums.Sport
@@ -128,13 +129,8 @@ class HeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         if (searchActive) {
             binding.topPanel.searchField.requestFocus()
-            showKeyboard()
+            Utils.showKeyboard(context)
         }
-    }
-
-    fun showKeyboard() {
-        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_IMPLICIT_ONLY)
     }
 
     fun onExtraFiltersBtnClick() {

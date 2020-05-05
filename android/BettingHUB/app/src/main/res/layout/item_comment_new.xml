@@ -9,7 +9,7 @@
     android:textAllCaps="false"
     android:textSize="18sp"
     android:textColor="#202E48"
-    android:background="@drawable/bg_corned_frame"
+    android:background="@drawable/bg_cornered_frame"
     android:layout_marginStart="@dimen/sideMargin"
     android:layout_marginEnd="@dimen/sideMargin"
     />

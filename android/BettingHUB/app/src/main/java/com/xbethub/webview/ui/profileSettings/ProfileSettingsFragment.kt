@@ -1,23 +1,20 @@
-package com.xbethub.webview.ui.menu
+package com.xbethub.webview.ui.profileSettings
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.xbethub.webview.R
 import com.xbethub.webview.Utils
-import com.xbethub.webview.databinding.FragmentMenuBinding
+import com.xbethub.webview.databinding.FragmentProfileSettingsBinding
 
-class MenuFragment: Fragment() {
+class ProfileSettingsFragment: Fragment() {
 
     private lateinit var navController: NavController
-    private lateinit var binding: FragmentMenuBinding
+    private lateinit var binding: FragmentProfileSettingsBinding
 
     private var searchActive = false
 
@@ -26,35 +23,39 @@ class MenuFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMenuBinding.inflate(inflater)
+        binding = FragmentProfileSettingsBinding.inflate(inflater)
         binding.fragment = this
 
         binding.topPanel.searchBtn.setOnClickListener { onSearchBtnClick() }
 
-        navController = activity?.let { Navigation.findNavController(it, R.id.nav_host_fragment) }!!
-
         updateSearchFieldVisibility()
+
+        navController = activity?.let { Navigation.findNavController(it, R.id.nav_host_fragment) }!!
 
         return binding.root
     }
 
-    fun onTopMatchesBtnClick() {
+    fun onBackBtnClick() {
 
     }
 
-    fun onBookmakerRatingBtnClick() {
+    fun onRateAppBtnClick() {
 
     }
 
-    fun onForecasterRatingBtnClick() {
-        navController.navigate(MenuFragmentDirections.toForecasterRatingFragment())
-    }
-
-    fun onNewsBtnClick() {
+    fun onRussianBtnClick() {
 
     }
 
-    fun onArticlesBtnClick() {
+    fun onEnglishBtnClick() {
+
+    }
+
+    fun onSaveChangesBtnClick() {
+
+    }
+
+    fun onSignOutBtnClick() {
 
     }
 
