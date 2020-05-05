@@ -80,18 +80,6 @@ class HomeFragment : Fragment(), View.OnClickListener, ForecastListener {
 //        getUser()
     }
 
-    fun getUser() {
-        (activity?.application as? App)?.getApi()?.getUser()?.enqueue(object: Callback<String> {
-            override fun onFailure(call: Call<String>?, t: Throwable?) {
-                Log.e("GET_USER", t?.message ?: "FUCK")
-            }
-
-            override fun onResponse(call: Call<String>?, response: Response<String>?) {
-                Log.i("GET_USER", response?.body().toString() + " " + response?.code().toString())
-            }
-        })
-    }
-
     @SuppressLint("CheckResult")
     private fun getLastForecasts() {
         val forecastsListRequest = ForecastsListRequest(0, 5, timeInterval = TimeInterval.ALL.backendValue, sport = Sport.ALL.backendValue, useSubscribes = 0, useFavorites = 0)
@@ -99,6 +87,7 @@ class HomeFragment : Fragment(), View.OnClickListener, ForecastListener {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+                forecasts.clear()
                 forecasts.addAll(it)
                 for (forecast in forecasts) {
                     Log.i("Forecasts", forecast.toString())
