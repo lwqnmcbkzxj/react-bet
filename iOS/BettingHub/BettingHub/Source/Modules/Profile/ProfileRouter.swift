@@ -31,6 +31,7 @@ class ProfileRouter: IProfileRouter {
     }
     
     func showSettings() {
-        
+        let vc = coordinator.settingsScreen()
+        viewController.navigationController?.pushViewController(vc, animated: true)
     }
 }

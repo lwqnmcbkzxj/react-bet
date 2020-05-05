@@ -61,6 +61,7 @@ class ProfileViewController: UIViewController {
         setView(tableView, insets: .init(top: 0, left: 15, bottom: 0, right: 15))
         profileHeader.frame = .init(x: 0, y: 0, width: tableView.frame.width, height: 323)
         tableView.tableHeaderView = profileHeader
+        profileHeader.settingsButton.addTarget(self, action: #selector(settingsTapped), for: .touchUpInside)
     }
     
     override func viewDidLoad() {
@@ -90,5 +91,9 @@ class ProfileViewController: UIViewController {
         tableView.delegate = delegate
         tableView.reloadData()
         delegate.start()
+    }
+    
+    @objc private func settingsTapped() {
+        router.showSettings()
     }
 }

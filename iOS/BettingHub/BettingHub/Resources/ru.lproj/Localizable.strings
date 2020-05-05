@@ -128,3 +128,18 @@
 "profileStatsPassing" = "Проходимость";
 "profileStatsCoefficient" = "Средний коэффициент";
 "profileStatsForecasts" = "Прогнозов";
+
+"rateApp" = "Оценить мобильное приложение";
+
+"rus" = "Русский";
+"eng" = "English";
+"settingsPersonalData" = "Персональные данные:";
+"settingsAttachedAccounts" = "Связанные аккаунты:";
+"settingsChangePassword" = "Изменить пароль:";
+"newPassword" = "Новый пароль";
+"settingsSaveChanges" = "Сохранить изменения";
+"settingsNotifications" = "Настройка уведомлений:";
+"settingsEmailNotifications" = "Уведомления на почту";
+"settingsPushNotifications" = "Пуш-уведомления";
+"settingsReplies" = "Ответы на комментарии";
+"exit" = "Выйти";

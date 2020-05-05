@@ -10,10 +10,10 @@ import Foundation
 
 enum BHError: Int, Error {
     
+    case unspecified
     case userAlreadyRegistered
     case userUnauthorized
     case tokenExpired
-    case unspecified
     case unexpectedContent
 }
 

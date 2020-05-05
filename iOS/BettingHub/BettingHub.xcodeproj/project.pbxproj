@@ -108,6 +108,13 @@
 		1CC39CBC245F0E31003CED00 /* ProfileStatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC39CBB245F0E31003CED00 /* ProfileStatisticsViewModel.swift */; };
 		1CC39CBE245F11D7003CED00 /* ProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC39CBD245F11D7003CED00 /* ProfileAssembly.swift */; };
 		1CC39CC1245F440F003CED00 /* FullForecastRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC39CC0245F440F003CED00 /* FullForecastRouter.swift */; };
+		1CC39CC424601395003CED00 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC39CC324601395003CED00 /* SettingsViewController.swift */; };
+		1CC39CC624601AB1003CED00 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC39CC524601AB1003CED00 /* Language.swift */; };
+		1CC39CC824601ADD003CED00 /* LanguageSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC39CC724601ADD003CED00 /* LanguageSelector.swift */; };
+		1CC39CCA246022D1003CED00 /* SocialAccountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC39CC9246022D1003CED00 /* SocialAccountButton.swift */; };
+		1CC39CCC246024F0003CED00 /* SocialNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC39CCB246024F0003CED00 /* SocialNetwork.swift */; };
+		1CC39CCE24606DBE003CED00 /* SettingsSwitcherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC39CCD24606DBE003CED00 /* SettingsSwitcherView.swift */; };
+		1CC39CD024609D89003CED00 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC39CCF24609D89003CED00 /* SettingsView.swift */; };
 		1CC4EF8A2447238D00D69C67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC4EF892447238D00D69C67 /* AppDelegate.swift */; };
 		1CC4EF932447239300D69C67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CC4EF922447239300D69C67 /* Assets.xcassets */; };
 		1CC4EF962447239300D69C67 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CC4EF942447239300D69C67 /* LaunchScreen.storyboard */; };
@@ -254,6 +261,13 @@
 		1CC39CBB245F0E31003CED00 /* ProfileStatisticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatisticsViewModel.swift; sourceTree = "<group>"; };
 		1CC39CBD245F11D7003CED00 /* ProfileAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAssembly.swift; sourceTree = "<group>"; };
 		1CC39CC0245F440F003CED00 /* FullForecastRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullForecastRouter.swift; sourceTree = "<group>"; };
+		1CC39CC324601395003CED00 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		1CC39CC524601AB1003CED00 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
+		1CC39CC724601ADD003CED00 /* LanguageSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSelector.swift; sourceTree = "<group>"; };
+		1CC39CC9246022D1003CED00 /* SocialAccountButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialAccountButton.swift; sourceTree = "<group>"; };
+		1CC39CCB246024F0003CED00 /* SocialNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialNetwork.swift; sourceTree = "<group>"; };
+		1CC39CCD24606DBE003CED00 /* SettingsSwitcherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSwitcherView.swift; sourceTree = "<group>"; };
+		1CC39CCF24609D89003CED00 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		1CC4EF862447238D00D69C67 /* BettingHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BettingHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CC4EF892447238D00D69C67 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1CC4EF922447239300D69C67 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -463,6 +477,7 @@
 				1C4516CE244E6F6500D636BC /* PanelSegmentedControl.swift */,
 				1C47CC0C245A068E0031BC27 /* ForecastsFilterControl.swift */,
 				1C833EBB245A1EAD0012F1F5 /* TimeFrameSelector.swift */,
+				1CC39CC724601ADD003CED00 /* LanguageSelector.swift */,
 			);
 			path = PanelSegmentedControl;
 			sourceTree = "<group>";
@@ -678,6 +693,16 @@
 			path = Footers;
 			sourceTree = "<group>";
 		};
+		1CC39CC22460137C003CED00 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				1CC39CCF24609D89003CED00 /* SettingsView.swift */,
+				1CC39CCD24606DBE003CED00 /* SettingsSwitcherView.swift */,
+				1CC39CC324601395003CED00 /* SettingsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		1CC4EF7D2447238D00D69C67 = {
 			isa = PBXGroup;
 			children = (
@@ -721,6 +746,7 @@
 			children = (
 				1CA01F6B2451FA6F0025FF4F /* AppCoordinator.swift */,
 				1C2C6AB9245C27E80044B5BC /* Profile */,
+				1CC39CC22460137C003CED00 /* Settings */,
 				1C47CC06245A05920031BC27 /* Forecasters */,
 				1C5612272457C0AA00D02DBB /* TopMatches */,
 				1C5612202457755000D02DBB /* Bookmakers */,
@@ -792,6 +818,7 @@
 				1C5E3A1A244E4169007F5E0E /* SelectionControll.swift */,
 				1CE43F73245A318C00E885EA /* StatsLabel.swift */,
 				1CE43F75245A354C00E885EA /* RatingArrow.swift */,
+				1CC39CC9246022D1003CED00 /* SocialAccountButton.swift */,
 				1C47CC0E245A06FB0031BC27 /* TimePicker */,
 				1C47CC0B245A06700031BC27 /* PanelSegmentedControl */,
 			);
@@ -874,6 +901,8 @@
 				1C97686B2453483500C11AF0 /* TimeFrame.swift */,
 				1C5612102456592D00D02DBB /* ForecastFilter.swift */,
 				1C39EDA8245DC19600F405AB /* ProfileStatistics.swift */,
+				1CC39CC524601AB1003CED00 /* Language.swift */,
+				1CC39CCB246024F0003CED00 /* SocialNetwork.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1036,13 +1065,16 @@
 				1C083F50244E687B0010D719 /* Sport.swift in Sources */,
 				1C9768702453712900C11AF0 /* ForecastsViewModel.swift in Sources */,
 				1C47CC08245A05AB0031BC27 /* ForecastersViewController.swift in Sources */,
+				1CC39CC624601AB1003CED00 /* Language.swift in Sources */,
 				1CF2C22E2449F3AA00A7B0B8 /* ButtonFooter.swift in Sources */,
 				1CE43F78245AF56E00E885EA /* ColumnsSectionHeader.swift in Sources */,
 				1CC4EFBE2447331C00D69C67 /* Fonts.swift in Sources */,
 				1CC39CBC245F0E31003CED00 /* ProfileStatisticsViewModel.swift in Sources */,
+				1CC39CC424601395003CED00 /* SettingsViewController.swift in Sources */,
 				1CF2C235244A0E6800A7B0B8 /* TopBookmakersHeaderView.swift in Sources */,
 				1C2CFC0A2451D88600E1071F /* AuthToken.swift in Sources */,
 				1C56121B24575F5C00D02DBB /* MenuViewController.swift in Sources */,
+				1CC39CCE24606DBE003CED00 /* SettingsSwitcherView.swift in Sources */,
 				1CF2C22A2449E41E00A7B0B8 /* Forecaster.swift in Sources */,
 				1C5612112456592D00D02DBB /* ForecastFilter.swift in Sources */,
 				1CC4EFA524472C8300D69C67 /* LoginView.swift in Sources */,
@@ -1083,6 +1115,7 @@
 				1C43E2CF244B9105002CF7EB /* Bookmaker.swift in Sources */,
 				1C5612132456744200D02DBB /* UITableView.swift in Sources */,
 				1C56122224579EE400D02DBB /* BookmakersViewController.swift in Sources */,
+				1CC39CC824601ADD003CED00 /* LanguageSelector.swift in Sources */,
 				1C97686C2453483500C11AF0 /* TimeFrame.swift in Sources */,
 				1C2CFC142451DF2A00E1071F /* AppInitializer.swift in Sources */,
 				1C2CFC192451DF7D00E1071F /* ServiceLocator.swift in Sources */,
@@ -1093,6 +1126,7 @@
 				1C25F850244E191400A24F31 /* UIPreview.swift in Sources */,
 				1C6608FB2449E388007E9BEB /* TopForecasterCell.swift in Sources */,
 				1C39EDB1245EEF5E00F405AB /* UserForecastsViewModel.swift in Sources */,
+				1CC39CCC246024F0003CED00 /* SocialNetwork.swift in Sources */,
 				1CC4EF8A2447238D00D69C67 /* AppDelegate.swift in Sources */,
 				1CF2C239244A473600A7B0B8 /* BookmakerCell.swift in Sources */,
 				1CA01F6A2451F9E70025FF4F /* LoginRouter.swift in Sources */,
@@ -1113,11 +1147,13 @@
 				1C91348D2448B07D00AE4510 /* MainView.swift in Sources */,
 				1CABD5E4244CB7570039D99C /* ArrowsStepperView.swift in Sources */,
 				1C22EF462450899C00A7543D /* CommentCell.swift in Sources */,
+				1CC39CD024609D89003CED00 /* SettingsView.swift in Sources */,
 				1C25F84D244E16A000A24F31 /* MainCellsProvider.swift in Sources */,
 				1C56121F245767E900D02DBB /* MenuView.swift in Sources */,
 				1C56121524567EA300D02DBB /* ForecastsRouter.swift in Sources */,
 				1C47CC0D245A068E0031BC27 /* ForecastsFilterControl.swift in Sources */,
 				1CD0F1C5244F8A49008436CD /* ForecastInfoStackView.swift in Sources */,
+				1CC39CCA246022D1003CED00 /* SocialAccountButton.swift in Sources */,
 				1C56121D24575F8900D02DBB /* MenuPannel.swift in Sources */,
 				1C5E3A1B244E4169007F5E0E /* SelectionControll.swift in Sources */,
 				1C6937B22450FEB900AE01BE /* IHttpClient.swift in Sources */,

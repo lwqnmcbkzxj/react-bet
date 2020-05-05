@@ -10,17 +10,13 @@ import UIKit
 
 class SocialButton: UIButton {
     
-    private(set) var network: Network
+    private(set) var network: SocialNetwork
     
-    enum Network {
-        case google, facebook, vk
-    }
-    
-    init(network: Network) {
+    init(network: SocialNetwork) {
         self.network = network
         super.init(frame: .zero)
         
-        let names: [Network: String] = [
+        let names: [SocialNetwork: String] = [
             .google : "google",
             .facebook: "facebook",
             .vk: "vk"

@@ -49,6 +49,13 @@ class UIItems {
         view.layer.shadowRadius = 5
         return view
     }
+    
+    static var settingsSectionLabel: UILabel {
+        let view = UILabel()
+        view.textColor = .titleBlack
+        view.font = .robotoMedium(size: 18)
+        return view 
+    }
 }
 
 #if canImport(SwiftUI) && DEBUG

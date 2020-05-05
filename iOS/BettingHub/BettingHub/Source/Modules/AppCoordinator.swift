@@ -98,4 +98,9 @@ class AppCoordinator {
         let vc = ProfileAssembly().module(coordinator: self, isSelf: false)
         return vc
     }
+    
+    func settingsScreen() -> UIViewController {
+        let vc = SettingsViewController()
+        return vc
+    }
 }

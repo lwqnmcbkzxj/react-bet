@@ -11,7 +11,6 @@ import UIKit
 class ProfileHeaderView: UIView {
     
     private let profileImageView: UIImageView = {
-//        let image = UIImage(named: "")
         let view = UIImageView()
         view.makeBordered()
         view.layer.masksToBounds = true
@@ -39,6 +38,17 @@ class ProfileHeaderView: UIView {
         let view = UILabel()
         view.textColor = .titleBlack
         view.font = .robotoMedium(size: 14)
+        return view
+    }()
+    
+    let settingsButton: UIButton = {
+        let view = UIButton()
+        let image = UIImage(named: "filtersIcon")?.withRenderingMode(.alwaysTemplate)
+        view.tintColor = .titleBlack
+        view.setImage(image, for: .normal)
+        view.layer.borderColor = UIColor.lineGray.cgColor
+        view.layer.cornerRadius = 3
+        view.layer.borderWidth = 1
         return view
     }()
     
@@ -165,6 +175,13 @@ class ProfileHeaderView: UIView {
         bankStack.snp.makeConstraints { (make) in
             make.leading.equalTo(usernameLabel)
             make.bottom.equalTo(profileImageView)
+        }
+        
+        panel.addSubview(settingsButton)
+        settingsButton.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(14)
+            make.trailing.equalToSuperview().offset(-8)
+            make.width.height.equalTo(45)
         }
         
         let roiStack = UIStackView()

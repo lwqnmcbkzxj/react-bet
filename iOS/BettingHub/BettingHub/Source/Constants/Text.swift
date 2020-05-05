@@ -99,5 +99,16 @@ class Text {
     static var profileStatsPassing: String { "profileStatsPassing".localized }
     static var profileStatsCoefficient: String { "profileStatsCoefficient".localized }
     static var profileStatsForecasts: String { "profileStatsForecasts".localized }
+    static var rateApp: String { "rateApp".localized }
+    static var settingsPersonalData: String { "settingsPersonalData".localized }
+    static var settingsAttachedAccounts: String { "settingsAttachedAccounts".localized }
+    static var settingsChangePassword: String { "settingsChangePassword".localized }
+    static var newPassword: String { "newPassword".localized }
+    static var settingsSaveChanges: String { "settingsSaveChanges".localized }
+    static var settingsNotifications: String { "settingsNotifications".localized }
+    static var settingsEmailNotifications: String { "settingsEmailNotifications".localized }
+    static var settingsPushNotifications: String { "settingsPushNotifications".localized }
+    static var settingsReplies: String { "settingsReplies".localized }
+    static var exit: String { "exit".localized }
 }
 

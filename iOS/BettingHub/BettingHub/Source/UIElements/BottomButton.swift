@@ -28,6 +28,10 @@ class BottomButton: UIButton {
         backgroundColor = backgroundColorNormal
         titleLabel?.font = UIFont.robotoMedium(size: 18)
         layer.cornerRadius = 6
+        if whiteStyle {
+            layer.borderColor = UIColor.lineGray.cgColor
+            layer.borderWidth = 1
+        }
     }
     
     required init?(coder: NSCoder) {
