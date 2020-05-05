@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\User;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
@@ -10,9 +10,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/register', 'RegisterController@register');
 
 // Прогнозы
-Route::post('/forecastList', 'ForecastController@getAll');
-Route::get('/forecast/{id}', 'ForecastController@getOne');
-
+Route::post('/forecastList', 'ForecastControllerOld@getAll');
+Route::get('/forecast/{id}', 'ForecastControllerOld@getOne');
+Route::post('/news', 'NewsControllerOld@get');
+Route::get('/news/{id}', 'NewsControllerOld@detail');
 Route::middleware('auth:api')->post('/forecastLike', 'ForecastController@like');
 Route::middleware('auth:api')->post('/forecastComment', 'ForecastController@comment');
 Route::middleware('auth:api')->post('/forecastFav', 'ForecastController@makeFav');
@@ -36,19 +37,48 @@ Route::middleware('auth:api')->prefix('/forecasts')->group(function() {
 //Доступ к профилям пользователей
 Route::middleware('auth:api')->prefix('/users')->group(function()
 {
-    Route::prefix('/{id}')->group(function() // Можно поправить, вместо ID использовать логин
+    Route::get('', 'Admin\UserController@index');
+    Route::get('/statistic', 'Api\InfoController@userStatistic');
+    Route::get('/forecasts', 'Api\InfoController@userForecasts');
+    Route::prefix('/{user}')->group(function() // Можно поправить, вместо ID использовать логин
     {
-        Route::get('/', 'UserController@get');
+        Route::get('', 'Admin\UserController@show');
         Route::post('/subscription', 'UserSubscriptionController@create');
-        Route::get('/subscription', 'UserSubscriptionController@get');
+        Route::get('/subscription', 'UserSubscriptionController@getSubscriptions');
+        Route::get('/subscribers', 'UserSubscriptionController@getSubscribers');
         Route::delete('/subscription', 'UserSubscriptionController@delete');
     });
-    Route::get('/', 'UserController@get');
-});
 
-Route::post('/news', 'NewsController@get');
-Route::get('/news/{id}', 'NewsController@detail');
+    Route::get('/profile', 'ProfileController@index')->name('profile');
+    Route::post('/update/login', 'ProfileController@updateLogin')->name('update.login');
+    Route::post('/update/email', 'ProfileController@updateEmail')->name('update.email');
+    Route::post('/update/notification', 'ProfileController@updateNotification')->name('update.notification');
+});
+/*
+
 Route::get('/sports', 'SportsController@get');
 Route::get('/options', 'OptionsController@get');
 Route::get('/roles', 'RolesController@get');
 
+Route::get('/parser/add/users', 'Api\ForecastController@addUsers');
+Route::get('/parser/add/forecasts', 'Api\ForecastController@addForecast');
+Route::get('/parser/get/forecasts/status', 'Api\ForecastController@getForecastStatus');
+Route::get('/get/news', 'Api\NewsController@getNews');
+
+Route::post('/feedback/send', 'Api\FeedbackController@sendMail');
+
+Route::post('/user/subscriptions/update', 'Api\UpdateController@updateUserSubscriptions');
+
+// Api for mobile app
+Route::group([
+    'middleware' => 'api.auth',
+], function (){
+    Route::get('/forecasts/get', 'Api\InfoController@forecasts');
+    Route::get('/forecasters/top', 'Api\InfoController@topForecasters');
+    Route::get('/forecasters/rating', 'Api\InfoController@ratingForecasters');
+
+    Route::get('/posts/', 'Api\InfoController@posts');
+    Route::get('/posts/{id}', 'Api\InfoController@post');
+    Route::get('/news/', 'Api\InfoController@news');
+});
+*/

@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class comment extends Model
+class Subscriber extends Model
 {
-    //
+    protected $guarded = ['id'];
+
 }

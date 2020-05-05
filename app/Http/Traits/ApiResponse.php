@@ -3,9 +3,9 @@
 
 namespace App\Http\Traits;
 
-use Illuminate\Support\Facades\Response;
+use Response;
 
-trait ResponseAPI
+trait ApiResponse
 {
     /**
      * @param $result
@@ -38,8 +38,8 @@ trait ResponseAPI
     public static function makeResponse($message, $data)
     {
         return [
-            'success' => true,
             'data'    => $data,
+            'success' => true,
             'message' => $message,
         ];
     }

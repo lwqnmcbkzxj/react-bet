@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use DateTime;
 
-class ForecastController extends Controller
+class ForecastControllerOld extends Controller
 {
     public function getAll(GetAllForecastsRequest $request) {
          // taking sport

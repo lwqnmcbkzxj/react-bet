@@ -7,7 +7,7 @@ use App\Http\Requests\GetAllNewsRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class NewsController extends Controller
+class NewsControllerOld extends Controller
 {
     public function get(GetAllNewsRequest $request)
     {
@@ -19,6 +19,7 @@ class NewsController extends Controller
                             ->offset($page*$quantity)
                             ->limit($quantity)
                             ->get();
+        $num =  DB::table('news')->count('id');
         return $news->jsonSerialize();
     }
     public function detail(int $id)
