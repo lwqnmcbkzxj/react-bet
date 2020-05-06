@@ -23,8 +23,10 @@ const Article: FC<ArticlePropsType> = ({ article, ...props }) => {
 			<Breadcrumbs pathParams={['Главная', 'Статьи', 'Рекомендации от опытного игрока']} />
 			<div className={s.article}>
 				<div className={s.articleHeader}>
-					<div className={s.categoryName}>Название категории</div>
-					<div className={s.nickname}>Никнейм</div>
+					<div className={s.rightBlock}>
+						<div className={s.categoryName}>Название категории</div>
+						<div className={s.nickname}>Никнейм</div>
+					</div>
 					<div className={s.date}>вчера в 16:58</div>
 				</div>
 				<div className={s.articleTitle}>Рекомендации от опытного игрока</div>

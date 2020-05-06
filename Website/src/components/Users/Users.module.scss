@@ -67,7 +67,7 @@
 		& .nickName {
 			display: flex;
 			align-items: center;
-			justify-self: center;
+			// justify-self: center;
 			& img {
 				border-radius: 4px;
 				width: 30px;
@@ -107,15 +107,16 @@
 	.userList  {		
 		& .listHeader,
 		& .user {
-			grid-template-columns: 1fr 4fr 2fr 3fr;
-			grid-gap: 5px;
+			grid-template-columns: 1fr 4fr 1fr 2fr;
+			grid-gap: 10px;
 			padding: 7px 7px;
 			& .roiCoef, & .averageCoef {
 				display: none;
 			}
+
 		}
 		& .user {
-			& > div {
+			& > div,a  {
 				font-size: 15px;
 				line-height: 18px;
 			}

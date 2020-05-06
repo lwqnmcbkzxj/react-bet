@@ -3,7 +3,8 @@ import { ThunkAction } from 'redux-thunk'
 
 import { ArticleType } from '../types/article'
 
-const SET_ARTICLES = 'articles/SET_ARTICLE'
+const SET_ARTICLES = 'articles/SET_ARTICLES'
+const SET_ARTICLE = 'articles/SET_ARTICLE'
 const TOGGLE_IS_FETCHING = 'articles/TOGGLE_IS_FETCHING'
 
 
@@ -16,7 +17,10 @@ let initialState = {
 }
 
 type InitialStateType = typeof initialState;
-type ActionsTypes = SetArticlesType | ToggleIsFetchingType;
+type ActionsTypes =
+	SetArticlesType |
+	SetArticleType |
+	ToggleIsFetchingType;
 
 const articlesReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
@@ -26,6 +30,13 @@ const articlesReducer = (state = initialState, action: ActionsTypes): InitialSta
 				articles: action.articles
 			}
 		}
+		case SET_ARTICLE: {
+			return {
+				...state,
+				currentArticle: action.article
+			}
+		}
+		
 		case TOGGLE_IS_FETCHING: {
 			return {
 				...state,
@@ -41,19 +52,25 @@ type SetArticlesType = {
 	type: typeof SET_ARTICLES,
 	articles: Array<ArticleType>
 }
+type SetArticleType = {
+	type: typeof SET_ARTICLE,
+	article: ArticleType
+}
+
 type ToggleIsFetchingType = {
 	type: typeof TOGGLE_IS_FETCHING
 	isFetching: boolean
 }
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
-export const setArticles = (articles: Array<ArticleType>): SetArticlesType => {
+
+
+export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingType => {
 	return {
-		type: SET_ARTICLES,
-		articles
+		type: TOGGLE_IS_FETCHING,
+		isFetching
 	}
 }
-
 
 export const getArticlesFromServer = ():ThunksType => async (dispatch) => {
 	
@@ -64,12 +81,31 @@ export const getArticlesFromServer = ():ThunksType => async (dispatch) => {
 	// dispatch(setArticles(response))
 }
 
-export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingType => {
+
+export const getArticleFromServer = (id: number): ThunksType => async (dispatch) => {
+
+	dispatch(toggleIsFetching(true))
+	// let response = await forecastsAPI.getForecast(id)	
+	dispatch(toggleIsFetching(false))
+
+	// dispatch(setArticle(response[0]))
+}
+
+export const setArticles = (articles: Array<ArticleType>): SetArticlesType => {
 	return {
-		type: TOGGLE_IS_FETCHING,
-		isFetching
+		type: SET_ARTICLES,
+		articles
 	}
 }
+
+export const setArticle = (article: ArticleType): SetArticleType => {
+	return {
+		type: SET_ARTICLE,
+		article
+	}
+}
+
+
 
 
 export default articlesReducer;

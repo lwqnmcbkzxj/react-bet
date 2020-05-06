@@ -44,3 +44,23 @@ export const UsersPlaceholder = () => {
 
 	)
 }
+
+export const MainPageUsersPlaceholder = () => {
+	const isMobile = useMobile(480)
+	return (
+		<ContentLoader
+			speed={2}
+			width={75}
+			height={120}
+			viewBox="0 0 75 120"
+			backgroundColor="#f3f3f3"
+			foregroundColor="#ecebeb"
+		>
+			<rect x="2" y="2" rx="0" ry="0" width="70" height="70" />
+			<rect x="2" y="80" rx="0" ry="0" width="70" height="15" />
+			<rect x="2" y="103" rx="0" ry="0" width="70" height="15" />
+			<rect x="63" y="140" rx="0" ry="0" width="70" height="15" />
+		</ContentLoader>
+
+	)
+}

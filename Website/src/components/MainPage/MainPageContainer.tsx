@@ -8,6 +8,7 @@ import MainPage from './MainPage'
 
 import { getForecastsFromServer } from '../../redux/forecasts-reducer'
 import { getMatchesFromServer } from '../../redux/matches-reducer'
+import { getUsersFromServer } from '../../redux/users-reducer'
 import { getActiveFilter } from '../../utils/getActiveFilter'
 import { MatchType } from '../../types/matches';
 import { BookmakerType } from '../../types/bookmakers';
@@ -33,6 +34,7 @@ const MainPageContainer: FC = () => {
 
 	useEffect(() => {
 		dispatch(getForecastsFromServer(1, 5))	
+		dispatch(getUsersFromServer(1, 15))	
 		dispatch(getMatchesFromServer())		
 	}, []);
 

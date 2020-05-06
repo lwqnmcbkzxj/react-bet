@@ -1,18 +1,28 @@
 import React, { FC, useState, createRef } from 'react';
+import { useDispatch, useSelector } from "react-redux"
+import { AppStateType } from '../../../types/types'
 import s from './CommentsBlock.module.scss';
 import classNames from 'classnames'
 import attachFileImg from '../../../assets/img/attach-icon.png'
+import { toggleAuthFormVisiblility } from '../../../redux/app-reducer'
 
 type SendComemntPropsType = {
 	active?: boolean
 	replyCommentId?: number
 	toggleReplyVisible?: () => void
 }
-const SendComemnt: FC<SendComemntPropsType> = ({ active = false, replyCommentId, toggleReplyVisible = () =>{}, ...props }) => {
+const SendComemnt: FC<SendComemntPropsType> = ({ active = false, replyCommentId, toggleReplyVisible = () => { }, ...props }) => {
+	const logged = useSelector<AppStateType, boolean>(state => state.me.logged)
+	const dispatch = useDispatch()
+	
 	const [inputActive, setInputActive] = useState(active)
 	let inputRef = createRef() as any
 	const sendComment = (text: string) => {
-		if(text !== "")
+		if (!logged) {
+			dispatch(toggleAuthFormVisiblility())
+			return 0
+		}
+		if (text !== "")
 			toggleReplyVisible()
 		
 	}
@@ -23,7 +33,9 @@ const SendComemnt: FC<SendComemntPropsType> = ({ active = false, replyCommentId,
 				placeholder="Написать комментарий"
 				className={s.sendCommentInput}
 				onFocus={() => { setInputActive(true) }}
-				onBlur={() => { setInputActive(active) }}
+				onBlur={() => {
+					// setInputActive(active)
+				}}
 				ref={inputRef}
 			/>
 			<div className={s.sendBlock}>
