@@ -9,7 +9,7 @@ data class ForecastsListRequest (
     @Expose
     var page: Int,
 
-    @SerializedName("quanity")
+    @SerializedName("quantity")
     @Expose
     var quantity: Int,
 

@@ -16,7 +16,7 @@
         android:icon="@drawable/ic_swiss"
         android:title="@string/add_vanga_title" />
     <item
-        android:id="@+id/profileSettingsFragment"
+        android:id="@+id/profileFragment"
         android:icon="@drawable/ic_profile"
         android:title="@string/profile_title"/>
     <item

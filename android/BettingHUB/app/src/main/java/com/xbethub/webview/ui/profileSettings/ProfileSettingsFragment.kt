@@ -1,5 +1,6 @@
 package com.xbethub.webview.ui.profileSettings
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,7 @@ class ProfileSettingsFragment: Fragment() {
         binding = FragmentProfileSettingsBinding.inflate(inflater)
         binding.fragment = this
 
+        binding.userBlock.settingsBtn.setColorFilter(Utils.getColor(requireContext(), R.color.color4))
         binding.topPanel.searchBtn.setOnClickListener { onSearchBtnClick() }
 
         updateSearchFieldVisibility()

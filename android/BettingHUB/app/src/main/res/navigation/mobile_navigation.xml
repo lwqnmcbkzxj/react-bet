@@ -43,11 +43,6 @@
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
     <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.xbethub.webview.ui.ProfileNavigationFragment"
-        android:label="fragment_profile_navigation"
-        tools:layout="@layout/fragment_profile_navigation" />
-    <fragment
         android:id="@+id/navigation_settings"
         android:name="com.xbethub.webview.ui.SettingsNavigationFragment"
         android:label="fragment_settings_navigation"
@@ -80,4 +75,17 @@
         android:name="com.xbethub.webview.ui.profileSettings.ProfileSettingsFragment"
         android:label="ProfileSettingsFragment"
         tools:layout="@layout/fragment_profile_settings"/>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.xbethub.webview.ui.profile.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/toProfileSettingsFragment"
+            app:destination="@id/profileSettingsFragment" />
+        <argument
+            android:name="currentUser"
+            app:argType="boolean"
+            android:defaultValue="true" />
+    </fragment>
 </navigation>

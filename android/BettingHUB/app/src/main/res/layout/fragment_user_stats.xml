@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="27dp"
+                />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/sideMargin"
+                />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/sideMargin"
+                />
+
+            <com.xbethub.webview.ui.views.CircularDiagram
+                android:id="@+id/diagram"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                app:strokeWidth="3dp"
+                android:layout_marginStart="15dp"
+                app:layout_constraintStart_toStartOf="@id/start"
+                app:layout_constraintTop_toTopOf="@id/top"
+                />
+
+            <TextView
+                android:id="@+id/forecastCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="30sp"
+                android:text="188"
+                android:textColor="@android:color/black"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="@id/diagram"
+                app:layout_constraintEnd_toEndOf="@id/diagram"
+                app:layout_constraintTop_toTopOf="@id/diagram"
+                app:layout_constraintBottom_toTopOf="@id/forecastsText"
+                />
+
+            <TextView
+                android:id="@+id/forecastsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="16sp"
+                android:text="@string/forecasts1"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="@id/forecastCount"
+                app:layout_constraintEnd_toEndOf="@id/forecastCount"
+                app:layout_constraintTop_toBottomOf="@id/forecastCount"
+                app:layout_constraintBottom_toBottomOf="@id/diagram"
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="25dp"
+                app:layout_constraintStart_toEndOf="@id/diagram"
+                app:layout_constraintEnd_toEndOf="@id/end"
+                app:layout_constraintTop_toTopOf="@id/diagram"
+                app:layout_constraintBottom_toBottomOf="@id/diagram">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@drawable/bg_filter_f2">
+
+                    <Button
+                        android:id="@+id/subscriptionsBtn"
+                        style="@style/FilterStyle"
+                        android:textSize="14sp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/allTime"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/allForecastsBtn"
+                        />
+
+                    <Button
+                        android:id="@+id/allForecastsBtn"
+                        style="@style/FilterStyle"
+                        android:textSize="14sp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/month"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/subscriptionsBtn"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <include
+                    android:id="@+id/bitWinLegend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/element_legend"
+                    app:color="@{@color/color1}"
+                    app:text="@{@string/bitWinLegend}"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintVertical_chainStyle="spread_inside"
+                    app:layout_constraintTop_toBottomOf="@id/filter"
+                    app:layout_constraintBottom_toTopOf="@id/bitLoseLegend"
+                    />
+
+                <include
+                    android:id="@+id/bitLoseLegend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/element_legend"
+                    app:color="@{@color/color2}"
+                    app:text="@{@string/bitLoseLegend}"
+                    app:layout_constraintTop_toBottomOf="@id/bitWinLegend"
+                    app:layout_constraintBottom_toTopOf="@id/returnLegend"
+                    />
+
+                <include
+                    android:id="@+id/returnLegend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/element_legend"
+                    app:color="@{@color/color3}"
+                    app:text="@{@string/returnLegend}"
+                    app:layout_constraintTop_toBottomOf="@id/bitLoseLegend"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/statsBlock"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="25dp"
+                app:layout_constraintTop_toBottomOf="@id/diagram"
+                app:layout_constraintStart_toStartOf="@id/start"
+                app:layout_constraintEnd_toEndOf="@id/end">
+
+                <include
+                    android:id="@+id/roi"
+                    layout="@layout/element_user_stat_line"
+                    app:title="@{@string/roi}"
+                    app:valueColor="@{@color/textColor2}"
+                    />
+
+                <include
+                    android:id="@+id/netProfit"
+                    layout="@layout/element_user_stat_line"
+                    app:title="@{@string/netProfitStat1}"
+                    app:valueColor="@{@color/textColor2}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    />
+
+                <include
+                    android:id="@+id/passability"
+                    layout="@layout/element_user_stat_line"
+                    app:title="@{@string/passability}"
+                    app:valueColor="@{@color/textColor2}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    />
+
+                <include
+                    android:id="@+id/avgCoeff"
+                    layout="@layout/element_user_stat_line"
+                    app:title="@{@string/avgCoeff}"
+                    app:valueColor="@{@color/textColor1}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    />
+
+            </LinearLayout>
+
+            <include
+                layout="@layout/item_footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="@dimen/footerBottomMargin"
+                app:layout_constraintTop_toBottomOf="@id/statsBlock"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</layout>

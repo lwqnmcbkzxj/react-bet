@@ -79,10 +79,10 @@
                 style="@style/FilterStyle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="@string/allForecasts"
-                app:layout_constraintStart_toEndOf="@id/subscriptionsBtn"
-                app:layout_constraintEnd_toStartOf="@id/paidBtn"
                 android:onClick="@{v -> viewModel.onForecastTypeBtnClick(ForecastType.ALL)}"
+                android:text="@string/allForecasts"
+                app:layout_constraintEnd_toStartOf="@id/paidBtn"
+                app:layout_constraintStart_toEndOf="@id/subscriptionsBtn"
                 />
 
             <Button

@@ -82,6 +82,7 @@
     <string name="possibleWinField">Возможный выигрыш</string>
 
     <string name="subscribe">+ Подписаться</string>
+    <string name="unsubscribe">- Отписаться</string>
 
     <string name="reply">Ответить</string>
     <string name="newComment">Новый комментарий</string>
@@ -132,5 +133,25 @@
     <string name="commentReplyNotifications">Ответы на комментарии</string>
 
     <string name="signOut">Выйти</string>
+
+    <string name="statistics">Статистика</string>
+    <string name="favorites">Избранное</string>
+
+    <string name="allTimeROI">ROI за все время</string>
+
+    <string name="winsStat">Побед</string>
+    <string name="lesionsStat">Поражений</string>
+    <string name="returnsStat">Возвратов</string>
+    <string name="subsStat">Подписчиков</string>
+    <string name="seatsStat">Мест</string>
+    <string name="netProfitStat">Чист. прибыль</string>
+    <string name="forecasts1">Прогнозов</string>
+    <string name="bitWinLegend">Ставка Выиграла</string>
+    <string name="bitLoseLegend">Ставка Проиграла</string>
+    <string name="returnLegend">Возврат</string>
+    <string name="roi" translatable="false">ROI</string>
+    <string name="netProfitStat1">Чистая прибыль</string>
+    <string name="passability">Проходимость</string>
+    <string name="avgCoeff">Средний коэффициент</string>
 
 </resources>

@@ -15,14 +15,14 @@ import com.xbethub.webview.ui.forecasts.items.viewHolders.ForecastViewHolder
 import com.xbethub.webview.ui.forecasts.items.viewHolders.HeaderViewHolder
 import com.xbethub.webview.ui.forecasts.items.viewHolders.ShowMoreViewHolder
 
-class ItemAdapter(listener: ForecastListener, private val viewModel: ForecastsViewModel, private val lifecycleOwner: LifecycleOwner)
+class ItemAdapter(listener: ForecastListener, private val viewModel: ForecastsViewModel?, private val lifecycleOwner: LifecycleOwner?)
     : RecyclerViewAdapterBase<ForecastListener, Item, RecyclerView.ViewHolder>(listener) {
 
     override fun setListener(holder: RecyclerView.ViewHolder, listener: ForecastListener) {
         when (holder) {
             is ForecastViewHolder -> holder.setListener(listener)
-            is HeaderViewHolder -> holder.setViewModel(viewModel, lifecycleOwner)
-            is ShowMoreViewHolder -> holder.setViewModel(viewModel)
+            is HeaderViewHolder -> holder.setViewModel(viewModel!!, lifecycleOwner!!)
+            is ShowMoreViewHolder -> holder.setViewModel(viewModel!!)
         }
     }
 
