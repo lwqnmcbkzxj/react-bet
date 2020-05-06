@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -20,12 +20,12 @@ class ProfileController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Contracts\Auth\Authenticatable
      */
     public function index()
     {
-        $response['user'] = Auth::user();
-        return $response;
+        $user = Auth::user();
+        return $user;
     }
 
     public function updateLogin(Request $request) {

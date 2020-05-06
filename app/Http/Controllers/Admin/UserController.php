@@ -22,6 +22,9 @@ class UserController extends Controller
         if ($request->has('role') && $request['role'] !== 'all') {
             $users = $users->where('role_id', $request['role']);
         }
+        if ($request->has('role') && $request['role'] !== 'all') {
+            $users = $users->where('role_id', $request['role']);
+        }
         return $this->sendResponse($users->paginate(10),'Success',200);
 
     }

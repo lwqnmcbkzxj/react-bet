@@ -24,7 +24,7 @@ class UserSubscriptionController extends Controller
         else {
             return $this->sendError('Unauthorized', 402);
         }
-        return $this->sendResponse([], 'Успешно подписан', 200);
+        return $this->sendResponse([], 'Success', 200);
     }
     public function getSubscribers(User $user)
     {

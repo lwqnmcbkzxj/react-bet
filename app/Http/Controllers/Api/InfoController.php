@@ -1,23 +1,25 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
+use App\Http\Resources\User as UserResource;
 use App\Forecast;
 use App\News;
 use App\Post;
-use Auth;
+use DateTime;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\Types\Resource_;
 
 class InfoController extends Controller
 {
     public function forecasts(Request $request) {
-        $date = new \DateTime(null, new \DateTimeZone('Europe/Moscow'));
+        $date = new DateTime(null, new \DateTimeZone('Europe/Moscow'));
 
         $forecasts = Forecast::leftJoin('events', 'forecasts.event_id', '=', 'events.id')
             ->with('user')
-            ->where('start', '>=', $date->format('Y-m-d H:i:s'))
+          //  ->where('start', '>=', $date->format('Y-m-d H:i:s'))
             ->where('status', 1);
 
         if ($request->has('kind_sport') && $request['kind_sport'] !== 'all') {
@@ -40,15 +42,46 @@ class InfoController extends Controller
 
 
         $forecasts = $forecasts->get();
-
-        return json_encode($forecasts);
+        return $this->sendResponse($forecasts, 'Success',200);
     }
+    public function forecasters(Request $request)
+    {
+        $response = DB::table('user_stats_view');
 
+        if(!$request->has('limit'))
+        {
+            $request['limit'] = 15;
+        }
+        if(!$request->has('order_by'))
+        {
+            $request['order_by'] = 'roi';
+        }
+        if(!$request->has('direction'))
+        {
+            $request['direction'] = 'desc';
+        }
+        return $this->sendResponse($response->select(['users.id as id',
+            'users.avatar as avatar',
+            'users.login as login',
+            'user_stats_view.roi as roi',
+            'user_stats_view.pure_profit as pure_profit',
+            'user_stats_view.count_subscribers as count_subscribers',
+            'user_stats_view.count_subscriptions as count_subscriptions',
+            'user_stats_view.count_win as count_win',
+            'user_stats_view.count_loss as count_loss'])
+            ->orderBy($request['order_by'],$request['direction'])
+            ->join('users', 'id', '=', 'user_id')
+            ->paginate($request['limit']), 'Success', 200);
+    }
+    public function forecaster(User $user)
+    {
+        return $this->sendResponse(new UserResource($user),'Success',200);
+    }
     public function topForecasters() {
         // Get 9 users who have more than 10 forecasts
-        $query = "SELECT DISTINCT users.*, 
-                (SELECT SUM(forecasts.bet * forecasts.coefficient) - SUM(forecasts.bet) FROM forecasts, events where users.id = forecasts.user_id AND events.id = forecasts.event_id AND events.status = 2 AND users.role_id = 2) / SUM(forecasts.bet) as roi
-                FROM users, forecasts, events
+        $query = "SELECT DISTINCT users.*,
+                (SELECT SUM(forecasts.bet * coefficients.coefficient) - SUM(forecasts.bet) FROM forecasts, events where users.id = forecasts.user_id AND events.id = forecasts.event_id AND events.status = 2 AND users.role_id = 2) / SUM(forecasts.bet) as roi
+                FROM users, (forecasts LEFT JOIN coefficients ON forecasts.coefficient_id = coefficients.id), events
                 WHERE users.id = forecasts.user_id
                 AND events.id = forecasts.event_id
                 AND users.role_id = 2
@@ -66,18 +99,18 @@ class InfoController extends Controller
             $date->modify('-1 month');
 
             // Get all users with information by last month
-            $query = "SELECT DISTINCT users.*, 
-                (SELECT SUM(forecasts.bet * forecasts.coefficient) - SUM(forecasts.bet) 
-                            FROM forecasts, events 
-                            WHERE users.id = forecasts.user_id 
-                                AND events.id = forecasts.event_id 
-                                AND events.status = 2 AND users.role_id = 2 
-                                AND events.created_at > '".$date->format('Y-m-d H:i:s')."') 
-                        / 
-                        (SELECT SUM(forecasts.bet) 
-                                FROM forecasts, events 
-                                WHERE users.id = forecasts.user_id 
-                                  AND events.created_at > '".$date->format('Y-m-d H:i:s')."') 
+            $query = "SELECT DISTINCT users.*,
+                (SELECT SUM(forecasts.bet * coefficients.coefficient) - SUM(forecasts.bet)
+                            FROM (forecasts LEFT JOIN coefficients ON forecasts.coefficient_id = coefficients.id), events
+                            WHERE users.id = forecasts.user_id
+                                AND events.id = forecasts.event_id
+                                AND events.status = 2 AND users.role_id = 2
+                                AND events.created_at > '".$date->format('Y-m-d H:i:s')."')
+                        /
+                        (SELECT SUM(forecasts.bet)
+                                FROM forecasts, events
+                                WHERE users.id = forecasts.user_id
+                                  AND events.created_at > '".$date->format('Y-m-d H:i:s')."')
                     as roi,
                 (SELECT COUNT(forecasts.id) FROM forecasts, events WHERE  users.id = forecasts.user_id AND events.id = forecasts.event_id AND events.created_at > '".$date->format('Y-m-d H:i:s')."') AS `count_forecasts`,
                 (SELECT COUNT(events.id) FROM events, forecasts WHERE users.id = forecasts.user_id AND events.id = forecasts.event_id AND events.status = 2 AND events.created_at > '".$date->format('Y-m-d H:i:s')."') as `count_win`,
@@ -91,13 +124,13 @@ class InfoController extends Controller
                 GROUP BY users.id
                 ORDER BY roi DESC";
 
-            return json_encode(DB::select($query));
+            return $this->sendResponse(DB::select($query),'Success', 200);
         }
 
         else {
             // Get all users with information
-            $query = "SELECT DISTINCT users.*, 
-                (SELECT SUM(forecasts.bet * forecasts.coefficient) - SUM(forecasts.bet) FROM forecasts, events where users.id = forecasts.user_id AND events.id = forecasts.event_id AND events.status = 2 AND users.role_id = 2) / SUM(forecasts.bet) as roi,
+            $query = "SELECT DISTINCT users.*,
+                (SELECT SUM(forecasts.bet * coefficients.coefficient) - SUM(forecasts.bet) FROM (forecasts LEFT JOIN coefficients ON forecasts.coefficient_id = coefficients.id), events where users.id = forecasts.user_id AND events.id = forecasts.event_id AND events.status = 2 AND users.role_id = 2) / SUM(forecasts.bet) as roi,
                 COUNT(forecasts.id) AS `count_forecasts`,
                 (SELECT COUNT(events.id) FROM events, forecasts WHERE users.id = forecasts.user_id AND events.id = forecasts.event_id AND events.status = 2) as `count_win`,
                 (SELECT COUNT(events.id) FROM events, forecasts WHERE users.id = forecasts.user_id AND events.id = forecasts.event_id AND events.status = 3) as `count_lose`,
@@ -110,40 +143,58 @@ class InfoController extends Controller
                 GROUP BY users.id
                 ORDER BY roi DESC";
 
-            return json_encode(DB::select($query));
+            return  $this->sendResponse(DB::select($query),'Success',200);
         }
     }
 
-    public function userStatistic(Request $request) {
-        if ($request->has('user_id')) {
-            $user = User::where('id', $request->get('user_id'))->first();
-            $user->roi = $user->roi($user->id);
-            $user->pure_profit = $user->pureProfit($user->id);
-            $user->stats = $user->stats($user->id);
-            $user->rating_position = $user->ratingPosition($user->id);
-            $user->subscribers_count = $user->subscribers()->count();
-
-            return json_encode($user);
-        }
+    public function userStatistic(User $user) {
+        $user['stats'] = $user->stats;
+        return $this->sendResponse($user,'Success',200);;
     }
 
-    public function userForecasts(Request $request) {
-        if ($request->has('user_id')) {
-            $user = User::where('id', $request->get('user_id'))->first();
-            $forecasts = $user->forecasts()->leftJoin('events', 'forecasts.event_id', '=', 'events.id')->get();
-            return json_encode($forecasts);
-        }
+    public function userForecasts(User $user) {
+        $forecasts = $user->forecasts()->leftJoin('events', 'forecasts.event_id', '=', 'events.id')->get();
+        return $this->sendResponse($forecasts,'Success',200);
     }
 
-    public function posts() {
-        return json_decode(Post::orderBy('created_at', 'DESC')->get());
+    public function posts(Request $request) {
+        if(!$request->has('limit'))
+        {
+            $request['limit'] = 15;
+        }
+        if(!$request->has('order_by'))
+        {
+            $request['order_by'] = 'created_at';
+        }
+        if(!$request->has('direction'))
+        {
+            $request['direction'] = 'desc';
+        }
+        $posts = Post::orderBy($request['order_by'],$request['direction'])->paginate( $request['limit']);
+        return $this->sendResponse($posts, 'Success', 200);
     }
 
     public function post(Request $request, $id) {
         return json_decode(Post::where('id', $id)->first());
     }
 
-    public function news() {
-        return json_decode(News::orderBy('created_at', 'DESC')->get());
+    public function news(Request $request) {
+        if(!$request->has('limit'))
+        {
+            $request['limit'] = 15;
+        }
+        if(!$request->has('order_by'))
+        {
+            $request['order_by'] = 'created_at';
+        }
+        if(!$request->has('direction'))
+        {
+            $request['direction'] = 'desc';
+        }
+        $posts = News::orderBy($request['order_by'],$request['direction'])->paginate( $request['limit']);
+        return $this->sendResponse($posts, 'Success', 200);
+    }
+    public function newsOne(News $news) {
+        return json_decode($news);
     }
 }

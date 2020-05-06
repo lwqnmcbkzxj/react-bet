@@ -4,9 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class News extends Model
+class Comment extends Model
 {
-    protected $guarded = ['id'];
+    protected $fillable = ['text','referenced_to','referent_id'];
+
     protected $appends = ['comments', 'count_comments', 'count_likes', 'count_dislikes'];
     protected $hidden = ['comments'];
     public function getCommentsAttribute()
@@ -21,21 +22,26 @@ class News extends Model
     {
         return $this->count_likes = $this->votes()->where('type','=','like')->count();
     }
+
     public function getCountDislikesAttribute()
     {
-        return $this->count_likes = $this->votes()->where('type','=','dislike')->count();
+        return $this->count_dislikes = $this->votes()->where('type','=','dislike')->count();
     }
     public function votes()
     {
         return $this->hasMany('App\Vote','referent_id', 'id')
-            ->where('reference_to', '=', "news");
+            ->where('reference_to', '=', "comments");
+    }
+    public function parent()
+    {
+        return $this->hasOne($this->reference_to,'id','referent_id');
     }
     public function comments()
     {
         return $this->hasMany('App\Comment','referent_id', 'id')
-            ->where('reference_to', '=', 'news');
+            ->where('reference_to', '=', "comments");
     }
-    public static function search($search) {
-        return News::where('title','LIKE','%'.$search.'%')->orWhere('content','LIKE','%'.$search.'%');
+    public function user() {
+        return $this->hasOne('App\User', 'id', 'user_id');
     }
 }

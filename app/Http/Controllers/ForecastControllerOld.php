@@ -67,16 +67,16 @@ class ForecastControllerOld extends Controller
             })
             // using subs
             ->when($request->useSubscribes == 1, function($query) {
-                $subsR = DB::table('subscribers')
+                $subs = DB::table('subscribers')
                 ->select('*')
                 ->where('subscriber_id', auth('api')->user()->id)
                 ->get();
-                foreach ($subsR as $item) {
+                foreach ($subs as $item) {
                     $subs[] = $item->user_id;
                 }
                 return $query->whereIn('forecasts.user_id', $subs);
             })
-            ->limit($request->quanity)->offset($request->quanity*$request->page)
+            ->limit($request->quantity)->offset($request->quantity*$request->page)
             ->get();
 
             // getting comments quanity
@@ -195,7 +195,6 @@ class ForecastControllerOld extends Controller
               }
 
         return $forecasts;
-
     }
 
 

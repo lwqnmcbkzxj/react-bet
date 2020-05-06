@@ -43,7 +43,7 @@ class ForecastController extends Controller
                 'accept-language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
                 'referer: https://vprognoze.ru/statalluser/3/',
                 'sec-fetch-mode: cors',
-                'sec-fetch-site: same-origin',
+                'sec-fetch-site: same-orxxigin',
                 'x-requested-with: XMLHttpRequest'
             ),
         );
@@ -549,8 +549,8 @@ class ForecastController extends Controller
                 "Ставка: " . $forecast->bet . "<br>" .
                 "Начало игры: " . $event->start . "<br>" .
                 "<a href='https://xbethub.com/users/".$user->id."'>Перейти в профиль пользователя</a>" . "<br><br><br>" .
-                "Пожалуйста, не отвечайте на это письмо. 
-                        Оно отправлено автоматически с адреса, который не принимает обратную почту. 
+                "Пожалуйста, не отвечайте на это письмо.
+                        Оно отправлено автоматически с адреса, который не принимает обратную почту.
                         Если вы хотите с нами связаться, воспользуйтесь ссылкой \"<a href='https://xbethub.com/feedback/'>Контакты</a>\" ";
             $headers = array(
                 'content-type: text/html',
