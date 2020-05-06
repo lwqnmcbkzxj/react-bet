@@ -78,10 +78,10 @@ export const userAPI = {
 
 
 export const forecastsAPI = {
-	getForecasts(page: number, quanity: number, options: any) {
+	getForecasts(page: number, quantity: number, options: any) {
 		return instance.post(`forecastList`, {
 			page,
-			quanity,
+			quantity,
 			tf: options.tf || 'all',
 			sport: options.sport || 'all',
 			useSubscribes: options.useSubscribes || false,
@@ -120,5 +120,24 @@ export const forecastsAPI = {
 			}
 		);
 	}
+}
+
+
+export const usersAPI = {
+	getUsers(page: number, quantity: number, options: any) {
+		return instance.post(`users`, {
+			page,
+			quantity,
+			tf: options.tf || 'all',
+			sport: options.sport || 'all',
+			useSubscribes: options.useSubscribes || false,
+			useFavorites: options.useFavorites || false
+		})
+			.then((response) => {
+				return response.data
+			}
+		);
+	},
+	
 }
 

@@ -7,20 +7,27 @@ import Forecasters from './Users'
 import { toggleFilter } from '../../redux/users-reducer'
 import { withRouter, RouteComponentProps } from 'react-router'
 import { getUsersFromServer } from '../../redux/users-reducer'
-
+import { getActiveFilter } from '../../utils/getActiveFilter'
 const UsersContainer: FC = ({ ...props }) => {
 	const users = useSelector<AppStateType, Array<UserType>>(state => state.users.users)
 	const filters = useSelector<AppStateType, FiltersObjectType>(state => state.users.filters)
-
-
 	const dispatch = useDispatch()
 	const toggleFilterDispatch = (filterName: FilterNames, filtersBlockName: string) => {
 		dispatch(toggleFilter(filterName, filtersBlockName))
 	}
 
+	let activeSportFilter = getActiveFilter(filters, 'sportTypeFilter')
+	let activeTimeFilter = 	getActiveFilter(filters, 'timeFilter')
+
+	let options = {
+		sport: activeSportFilter,
+		tf: activeTimeFilter
+	}
+
 	useEffect(() => {
-		dispatch(getUsersFromServer())
-	}, []);
+		dispatch(getUsersFromServer(1, 15, options))		
+	}, [filters]);
+
 
 	return (
 		<Forecasters

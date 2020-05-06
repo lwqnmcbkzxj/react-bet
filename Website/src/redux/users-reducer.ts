@@ -1,9 +1,9 @@
 import { AppStateType } from '../types/types'
 import { ThunkAction } from 'redux-thunk'
-
 import { timeFilterEnum, sportTypeFilterEnum, FiltersObjectType, }from '../types/filters'
 
 import { UserType } from '../types/users'
+import { usersAPI } from '../api/api'
 
 const TOGGLE_FILTER = 'users/TOGGLE_FILTER'
 const TOGGLE_IS_FETCHING = 'users/TOGGLE_IS_FETCHING'
@@ -84,13 +84,28 @@ type ToggleIsFetchingType = {
 	type: typeof TOGGLE_IS_FETCHING
 	isFetching: boolean
 }
-export const getUsersFromServer = (): ThunksType => async (dispatch) => {
+// export const getUsersFromServer = (): ThunksType => async (dispatch) => {
 
-	dispatch(toggleIsFetching(true))
-	// let response = await usersAPI.getForecast(id)	
-	setTimeout(() => { dispatch(toggleIsFetching(false)) }, 2000)
+// 	dispatch(toggleIsFetching(true))
+// 	let response = await usersAPI.getUsers(1, 15)	
+// 	setTimeout(() => { dispatch(toggleIsFetching(false)) }, 2000)
 	
 
+// 	dispatch(setUsers(response))
+// }
+
+
+export const getUsersFromServer = (page: number, quanity: number, options = {} as any): ThunksType => async (dispatch) => {	
+	let optionsObj = {
+		tf: options.tf || 'all',
+		sport: options.sport || 'all',
+		useSubscribes: options.useSubscribes || false,
+		useFavorites: options.useFavorites || false
+	}
+	dispatch(toggleIsFetching(true))
+	// let response = await usersAPI.getUsers(page, quanity, optionsObj)	
+	dispatch(toggleIsFetching(false))
+	
 	// dispatch(setUsers(response))
 }
 

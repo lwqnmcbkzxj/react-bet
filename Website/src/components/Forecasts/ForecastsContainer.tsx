@@ -24,7 +24,7 @@ const ForecastsContainer: FC<Props> = ({ ...props }) => {
 	const dispatch = useDispatch()
 
 	let activeSportFilter = getActiveFilter(filters, 'sportTypeFilter')
-	let activesubscribtionFilter = getActiveFilter(filters, 'subscribtionFilter')
+	let activeSubscribtionFilter = getActiveFilter(filters, 'subscribtionFilter')
 	let activeTimeFilter = 	getActiveFilter(filters, 'timeFilter')
 
 	let options = {
