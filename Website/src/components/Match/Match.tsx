@@ -8,7 +8,8 @@ import { MatchType } from '../../types/matches';
 import CommentsBlock from '../Common/CommentsBlock/CommentsBlock';
 import MatchChart from './MatchChart'
 import { getSportImg } from '../../utils/getSportImg';
-
+import GoBackBlock from '../Common/GoBackBlock/GoBackBlock';
+import { faShareAlt } from '@fortawesome/free-solid-svg-icons'
 
 type MatchPropsType = {
 	match: MatchType
@@ -17,6 +18,11 @@ const Match: FC<MatchPropsType> = ({ match, ...props }) => {
 	let sportImg = getSportImg('Футбол')
 	return (
 		<div className={s.match}>
+			<GoBackBlock
+				link={'matches'}
+				linkText={'Топ матчи'}
+				icon={faShareAlt}
+			/>
 			<Breadcrumbs pathParams={['Главная', 'Лучшие матчи', 'Mousesports - Virtus.pro']} />
 
 			<div className={s.matchStats}>
@@ -43,13 +49,6 @@ const Match: FC<MatchPropsType> = ({ match, ...props }) => {
 					<MatchChart />
 				</div>
 				<div className={s.betsTable}>
-					<div className={s.tableHeader}>
-						<div className={s.forecaster}>Прогнозист</div>
-						<div className={s.betType}>Ставка</div>
-						<div className={s.passability}>Проходимость</div>
-						<div className={s.profit}>Прибыль</div>
-					</div>
-
 					<BetsList bets={[{},{},{},{},{}]}/>
 				</div>
 			</div>
