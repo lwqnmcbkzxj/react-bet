@@ -24,7 +24,7 @@ Route::post('/register', 'RegisterController@register');
 
 
 // Прогнозы
-Route::post('/forecast', '\Api\InfoController@forecasts');
+Route::get('/forecast', 'Api\InfoController@forecasts');
 Route::get('/forecast/{forecast}', '\Api\InfoController@forecast');
 Route::get('/comments', 'CommentController@get');
 Route::get('/comments/{comment}', 'CommentController@getOne');

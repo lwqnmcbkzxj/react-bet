@@ -10,39 +10,35 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\Types\Collection;
 use phpDocumentor\Reflection\Types\Resource_;
 
 class InfoController extends Controller
 {
     public function forecasts(Request $request) {
-        $date = new DateTime(null, new \DateTimeZone('Europe/Moscow'));
+        $date = new DateTime('now', new \DateTimeZone('Europe/Moscow'));
 
-        $forecasts = Forecast::leftJoin('events', 'forecasts.event_id', '=', 'events.id')
-            ->with('user')
-          //  ->where('start', '>=', $date->format('Y-m-d H:i:s'))
+        $forecasts = Forecast::query()->join('events', 'forecasts.event_id', '=', 'events.id')
+           // ->where('start', '>=', $date->format('Y-m-d H:i:s'))
             ->where('status', 1);
 
-        if ($request->has('kind_sport') && $request['kind_sport'] !== 'all') {
-            $forecasts = $forecasts->where('kind_sport', $request['kind_sport']);
+        if ($request->has('sport_id') && $request['sport_id'] !== 'all') {
+            $forecasts = $forecasts->where('sport_id', $request['sport_id']);
         }
 
         if ($request->has('time') && $request['time'] !== 'all') {
             $filter_date = $date->modify('+' . $request['time'] . ' hours');
             $forecasts = $forecasts->where('start', '<=', $filter_date);
         }
-
-        if ($request->has('subscriptions') && $request['subscriptions'] !== 'false' ) {
-            $auth_user = $request->get('user_id');
-            $ids = [];
-            foreach ($auth_user->subscriptions()->get() as $subscriptions) {
-                $ids[] = $subscriptions->id;
-            }
-            $forecasts = $forecasts->whereIn('user_id', $ids);
+        if (!$request->has('limit')) {
+            $request['limit'] = 15;
         }
-
-
-        $forecasts = $forecasts->get();
-        return $this->sendResponse($forecasts, 'Success',200);
+        $tmp = "";
+        $forecasts = Collect($forecasts->paginate($request['limit']));
+        foreach ( as $index => $item) {
+            
+        }
+        return $this->sendResponse(['test'=>$tmp, 'release'=>$forecasts], 'Success',200);
     }
     public function forecasters(Request $request)
     {

@@ -3,12 +3,22 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Http\Resources\User as UserResource;
 class Forecast extends Model
 {
+    public const MAX_DESCRIPTION_SIZE = 297;
     protected $guarded = ['id'];
-    protected $appends = ['comments', 'count_comments', 'count_likes', 'count_dislikes'];
-    protected $hidden = ['comments'];
+    protected $appends = ['comments', 'count_comments', 'count_likes', 'count_dislikes', 'description', 'user_data'];
+    protected $hidden = ['comments', 'forecast', 'user_data'];
+
+    public function getUserDataAttribute()
+    {
+        return $this->user_data = new UserResource($this->user()->first());
+    }
+    public function getDescriptionAttribute()
+    {
+        return $this->description = substr($this->forecast,$this->MAX_DESCRIPTION_SIZE) . "...";
+    }
     public function getCommentsAttribute()
     {
         return $this->children = $this->comments()->get();

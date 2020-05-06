@@ -10,6 +10,7 @@ class Comment extends Model
 
     protected $appends = ['comments', 'count_comments', 'count_likes', 'count_dislikes'];
     protected $hidden = ['comments'];
+
     public function getCommentsAttribute()
     {
         return $this->children = $this->comments()->get();
