@@ -1,99 +1,141 @@
-.matchList {
-	width: 100%;
-	border-radius: 7px;
+.matchStats {
+	margin-top: 30px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-gap: 10px;
 	border: 1px solid #E5E2E2;
+	border-radius: 7px;
+	padding: 16px;
 
-	&.isMainpage {
-		border: none;
-		border-top: 1px solid #E5E2E2;
-		border-radius: 0px;
+	& .team {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+		& img {
+			width: 35px;
+			height: 35px;
+			margin-bottom: 15px;
+		}
+
+		& .teamName {
+			font-size: 22px;
+			line-height: 27px;
+			font-family: 'Roboto Medium';
+			color: #343638;
+		}
 	}
 
-	& .listHeader,
-	& .match {
-		display: grid;
-		grid-template-columns: 5fr 1fr 10fr 3fr;
-		grid-gap: 20px;
-		justify-items: center;
+	& .statsInfo {
+		display: flex;
+		flex-direction: column;
 		align-items: center;
+		justify-content: space-between;
 
-		& div {
+		& .hours {
+			font-size: 31px;
+			line-height: 37px;
+			font-family: 'Roboto Medium';
+			color: #343638;
+			text-transform: uppercase;
+		}
+
+		& .date {
+			font-size: 14px;
+			line-height: 17px;
+			color: #5E687B;
+			text-transform: uppercase;
+		}
+
+		& .tournament {
+			font-size: 12px;
+			line-height: 14px;
+			color: #5E687B;
+			margin: 15px 0 11px 0;
+			overflow: hidden;
+			display: -webkit-box;
+			-webkit-line-clamp: 1;
+			-webkit-box-orient: vertical;
+		}
+
+		& .timeBeforeStart {
+			white-space: nowrap;
+			font-size: 19px;
+			line-height: 23px;
+			font-family: 'Roboto Medium';
+			color: #343638;
+		}
+	}
+}
+
+.betsBlock {
+	margin-top: 40px;
+
+	& .betsTitle {
+		text-align: center;
+		font-size: 22px;
+		line-height: 27px;
+		font-family: 'Roboto Medium';
+		color: #343638;
+		text-transform: uppercase;
+	}
+
+	& .betsChart {
+		margin: 0 0 20px 0;	
+	}
+
+	& .betsTable {
+		width: 100%;
+		border-radius: 7px;
+		border: 1px solid #E5E2E2;
+
+		& .tableHeader,
+		& .bet {
+			display: grid;
+			grid-template-columns: 4fr 1fr 2fr 2fr;
+			grid-gap: 10px;
+			justify-items: center;
+			align-items: center;
+
 			font-size: 16px;
 			line-height: 19px;
 			color: #343638;
-		}
-		& .matchInfo {  
-			justify-self: start;
-		}
-	}
 
-	& .listHeader {
-		padding: 7px 16px;
-		background: #F5F5F5;
-		& div {
-			opacity: 0.76;
-			& > div:first-child {
-				margin-bottom: 3px;
+			& .forecaster {
+				justify-self: flex-start;
 			}
 		}
-	}
 
-	& .match {
-		padding: 7px 16px;
-		border-bottom: 1px solid #E5E2E2;	
+		& .tableHeader {
+			padding: 7px 24px;
+			background: #F5F5F5;
 
-		&:last-child {
-			border-bottom: none;	
-		}
-		& .date {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			text-align: center;
-			& .dateDay {
-				font-size: 13px;
-				line-height: 15px;
-				color: #5E687B;
-				text-transform: uppercase;
-			}
-			& .dateTime {
-				font-size: 18px;
-				line-height: 22px;
-				color: #5E687B;
+			& div {
+				opacity: 0.76;
 			}
 		}
-		& .sportImg img{
-			width: 20px;
-		}
-		& .matchInfo {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			& .matchName, & .tournamentName {
-				overflow: hidden;
-				display: -webkit-box;
-				-webkit-line-clamp: 1;
-				-webkit-box-orient: vertical; 
-			}
-			& .matchName {
-				color: #343638;
-				font-size: 18px;
-				line-height: 22px;
-				font-family: 'Roboto Medium';
-			}
-			& .tournamentName {
-				font-size: 12px;
-				line-height: 14px;
-				color: #5E687B;
-			}
-		}
-		& .betValue {
-			font-size: 18px;
-			line-height: 22px;
-		}
-	
 
+		& .bet {
+			padding: 18px 24px;
+			border-bottom: 1px solid #E5E2E2;			
+
+			&:last-child {
+				border-bottom: 0px solid #E5E2E2;				
+			}
+
+			& .forecaster {
+				display: flex;
+				align-items: center;
+				
+				& img {
+					margin-right: 10px;
+					border-radius: 4px;
+					width: 30px;
+					height: 30px;
+				}
+			}
+		}
 	}
 }
 
@@ -105,61 +147,137 @@
 	color: #AA0F0F !important;
 }
 
+@media screen and (max-width: 1224px) {
+	.matchStats {
+		& .team {
+			& img {
+				width: 30px;
+				height: 30px;
+			}
 
-@media screen and (max-width: 768px) {
-	.matchList {
-		& .listHeader,
-		& .match {
-			grid-gap: 10px;
-			padding: 7px 12px;
+			& .teamName {
+				font-size: 18px;
+				line-height: 20px;
+			}
 		}
-		
+
+		& .statsInfo {
+			& .hours {
+				font-size: 26px;
+				line-height: 30px;
+			}
+
+			& .date {
+				font-size: 12px;
+				line-height: 15px;
+			}
+
+			& .tournament {
+				margin: 8px 0 6px 0;
+			}
+
+			& .timeBeforeStart {
+				font-size: 17px;
+				line-height: 20px;
+			}
+		}
+	}
+
+	.betsBlock {
+		& .betsTable {
+			& .tableHeader,
+			& .bet {
+				display: grid;
+				grid-template-columns: 4fr 1fr 2fr 2fr;
+				font-size: 14px;
+				line-height: 16px;
+			}
+
+			& .tableHeader {
+				padding: 8px 12px;
+			}
+
+			& .bet {
+				padding: 14px 12px;
+			}
+		}
 	}
 }
 
-@media screen and (max-width: 480px) {
-	.matchList {
-		& .listHeader,
-		& .match {
-			grid-gap: 6px;
-			padding: 7px 10px;
-			& div {
+@media screen and (max-width: 768px) {
+	.matchStats {
+		& .team {
+			& img {
+				width: 20px;
+				height: 20px;
+			}
+
+			& .teamName {
 				font-size: 13px;
 				line-height: 15px;
 			}
 		}
-		& .listHeader .date {
-			& span {
-				display: none;
+
+		& .statsInfo {
+			& .hours {
+				font-size: 21px;
+				line-height: 25px;
+			}
+
+			& .date {
+				font-size: 10px;
+				line-height: 13px;
+			}
+
+			& .tournament {
+				font-size: 9px;
+				line-height: 11px;
+				margin: 8px 0 6px 0;
+			}
+
+			& .timeBeforeStart {
+				font-size: 15px;
+				line-height: 18px;
 			}
 		}
-		& .match {
-			& .date {
-				& .dateDay {
-					font-size: 10px;
-					line-height: 13px;
-				}
-				& .dateTime {
-					font-size: 14px;
-					line-height: 17px;
+	}
+
+	.betsBlock {
+		margin-top: 22px;
+
+		& .betsTitle {
+			text-align: center;
+			font-size: 17px;
+			line-height: 20px;
+		}
+
+		& .betsTable {
+			& .tableHeader,
+			& .bet {
+				display: grid;
+				grid-template-columns: 3fr 1fr 2fr;
+				font-size: 13px;
+				line-height: 15px;
+
+				& .profit {
+					display: none;
 				}
 			}
-			& .sportImg img{
-				width: 15px;
+
+			& .tableHeader {
+				padding: 5px 8px;
 			}
-			& .matchInfo {
-				& .matchName {
-					font-size: 13px;
-					line-height: 15px;
+
+			& .bet {
+				font-size: 16px;
+				line-height: 19px;
+				padding: 12px 8px;
+
+				& .forecaster {
+					& img {
+						margin-right: 7px;
+					}
 				}
-				& .tournamentName {
-					font-size: 10px;
-					line-height: 13px;
-				}
-			}
-			& .betValue {
-				font-size: 14px;
-				line-height: 17px;
 			}
 		}
 	}

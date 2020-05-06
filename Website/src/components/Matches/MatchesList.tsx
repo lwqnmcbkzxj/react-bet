@@ -37,10 +37,10 @@ const UsersList: FC<MatchesListPropsType> = ({ matches, limit = 0, isMainpage = 
 					<div className={s.sportImg}>
 						<img src={footballImg} alt="sport-img"/>				
 					</div>
-					<div className={s.matchInfo}>
+					<Link to="/matches/1" className={s.matchInfo}>
 						<p className={s.matchName}>Mousesports - Virtus.pro</p>
 						<p className={s.tournamentName}>LPL Pro League Season 4</p>
-					</div>
+					</Link>
 					<div className={classNames(s.betValue, {[s.positive]: true})}>+122</div>
 				</div>)
 			)}
