@@ -122,7 +122,6 @@ export const getForecastsFromServer = (page: number, quanity: number, options = 
 	dispatch(toggleIsForecastsFetching(false))
 	
 	dispatch(setForecasts(response))
-
 }
 
 export const getForecastFromServer = (id: number): ThunksType => async (dispatch) => {

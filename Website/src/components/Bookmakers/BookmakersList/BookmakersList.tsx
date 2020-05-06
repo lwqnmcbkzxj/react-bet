@@ -40,8 +40,7 @@ const BookmakersList: FC<BookmakersListPropsType> = ({ bookmakers, limit = 0, is
 			{bookmakers.map((bookmaker, counter) =>
 				(counter < limit || limit === 0) &&
 				<BookmakersListElement
-
-					// key={bookmaker.id}
+					key={bookmaker.id}
 					position={counter + 1}
 					bookmaker={bookmaker}
 				/>

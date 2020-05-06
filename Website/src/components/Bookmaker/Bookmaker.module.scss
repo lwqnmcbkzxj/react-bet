@@ -1,0 +1,164 @@
+.bookmakerInfo {
+	width: 100%;
+
+	& .bookmakerHeader {
+		border: 1px solid #E5E2E2;
+		border-radius: 4px 4px 0 0;
+
+		padding: 12px 15px 11px 15px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		& .bookmakerDetails {
+			display: flex;
+
+			& img {
+				height: 40px;
+				margin-right: 20px;
+			}
+
+			& .siteLink {
+				display: flex;
+				align-self: flex-start;
+				border: 1px solid #5E687B;
+				border-radius: 7px;
+				padding: 11px 11px 10px 11px;
+
+				& p {
+					margin-left: 5px;
+					font-size: 14px;
+					line-height: 17px;
+
+					color: #222A39;
+					text-transform: uppercase;
+				}
+			}
+		}
+	}
+
+	& .contentImg {
+		width: 100%;
+	}
+
+}
+
+.bookmakerStats {
+	margin: 30px 0;
+	display: flex;
+	flex-direction: column;
+	& .statBlock {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		margin-bottom: 14px;
+		& p {
+			font-size: 17px;
+			line-height: 20px;
+			font-family: 'Roboto Medium';
+			color: #343638;
+			text-align: left;			
+		} 	
+		&.bonus {
+			& p:last-child {
+				color: #D57F11!important;
+				& span {
+					font-size: 14.5px;
+					margin-left: 3px;
+				}
+			}
+		}	
+		& .splitter {
+			height: 100%;
+			border-bottom: 1px dotted #A8ABAF;
+			flex: auto;
+			margin: 0 9px 3px 9px;
+			box-sizing: border-box;
+		}
+	}
+}
+
+.bookmakerText {
+	margin: 30px 0;
+
+	& p {
+		font-size: 18px;
+		line-height: 26px;
+		color: #232324;
+		margin-bottom: 20px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.positive {
+	color: #0F971D !important;
+}
+
+.negative {
+	color: #AA0F0F !important;
+}
+
+@media screen and (max-width: 768px) {
+	.bookmaker {
+		margin-top: 40px;
+	}
+}
+
+
+@media screen and (max-width: 480px) {
+	.bookmaker {
+		& .bookmakerInfo {
+			& .bookmakerDetails {
+				& img {
+					 margin-right: 10px;
+				}
+				& .siteLink {
+					& span {
+						display: none;
+					}
+				}
+			}
+		}
+
+		& .bookmakerStats {
+			margin: 20px 0;
+			& .statBlock {
+				& p {
+					font-size: 14px;
+					line-height: 17px;
+					font-family: 'Roboto';
+					&:last-child {
+						font-family: 'Roboto Medium';
+					}
+				} 	
+				&.bonus {
+					& p:last-child {
+						color: #D57F11!important;
+						& span {
+							font-size: 12.5px;
+						}
+					}
+				}	
+				& .splitter {
+					height: 100%;
+					border-bottom: 1px dotted #A8ABAF;
+					flex: auto;
+					margin: 0 9px 3px 9px;
+					box-sizing: border-box;
+				}
+			}
+		}
+		& .bookmakerText {
+			margin: 10px;
+		
+			& p {
+				font-size: 17px;
+				line-height: 24px;
+			}
+		}
+		
+	}
+}

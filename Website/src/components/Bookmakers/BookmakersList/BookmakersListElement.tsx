@@ -1,13 +1,7 @@
 import React, { FC } from 'react';
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import s from '../Bookmakers.module.scss';
 import classNames from 'classnames'
-// import { BookmakerType } from '../../types/bookmakers'
-
-import bookmakerImg1 from '../../../assets/img/bookmaker-img-1.png'
-import bookmakerImg2 from '../../../assets/img/bookmaker-img-2.png'
-import bookmakerImg3 from '../../../assets/img/bookmaker-img-3.png'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRubleSign, faCheck, faTimes, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
 import { BookmakerType } from '../../../types/bookmakers';
@@ -43,9 +37,9 @@ const BookmakersListElement: FC<BookmakersListElementPropsType> = ({ bookmaker, 
 	return (
 		<div className={s.bookmaker}>
 			<div className={s.position}>{position}</div>
-			<div className={s.company}>
-				<img src={bookmaker.companyImg} alt="bookmaker-img" />
-			</div>
+			<Link to={`bookmakers/${bookmaker.id}`} className={s.company}>
+				<img src={bookmaker.companyLogo} alt="bookmaker-img" />
+			</Link>
 			<div className={s.isChecked}>
 				<FontAwesomeIcon icon={checkedIcon} className={checkedClass}/>
 			</div>
@@ -60,7 +54,7 @@ const BookmakersListElement: FC<BookmakersListElementPropsType> = ({ bookmaker, 
 				<span><FontAwesomeIcon icon={faRubleSign} /></span>
 			</div>
 			<div className={s.review}>
-				<NavLink to={`bookmakers/${bookmaker.id}`}>Обзор</NavLink>
+				<Link to={`bookmakers/${bookmaker.id}`}>Обзор</Link>
 			</div>
 			<div className={s.link}>
 				<button>

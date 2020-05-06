@@ -1,7 +1,8 @@
 export type BookmakerType = {
 	id: number
+	name: string
 	position: number
-	companyImg: string
+	companyLogo: string
 	isChecked: boolean
 	rating: number
 	bonus: number

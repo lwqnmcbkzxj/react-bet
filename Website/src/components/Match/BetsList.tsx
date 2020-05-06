@@ -13,6 +13,13 @@ type BetsListPropsType = {
 const BetsList: FC<BetsListPropsType> = ({ bets, ...props }) => {
 	return (
 		<div className={s.betsList}>
+			<div className={s.tableHeader}>
+				<div className={s.forecaster}>Прогнозист</div>
+				<div className={s.betType}>Ставка</div>
+				<div className={s.passability}>Проходимость</div>
+				<div className={s.profit}>Прибыль</div>
+			</div>
+
 			{bets.map(bet =>
 				<div className={s.bet}>
 					<div className={s.forecaster}>
