@@ -204,7 +204,7 @@
                 },
                 "security": [
                     {
-                        "BearToken": []
+                        "bearer": []
                     }
                 ],
                 "operationId": "Api\\InfoController@forecasters",
@@ -218,6 +218,16 @@
             "get": {
                 "tags": [
                     "User"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/UserResponse"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
                 ],
                 "operationId": "Api\\InfoController@forecaster",
                 "summary": "Получить информацию о конкретном пользователе",
@@ -1720,6 +1730,113 @@
                     "count_win": 2,
                     "count_loss": 0
                 }
+            },
+            "UserResponse": {
+                "title": "Root Type for UserResponse",
+                "description": "Ответ на GET запрос к /users/{id}",
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/UserData",
+                        "properties": {
+                            "id": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "role": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "label": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "avatar": {
+                                "type": "string"
+                            },
+                            "login": {
+                                "type": "string"
+                            },
+                            "stats": {
+                                "type": "object",
+                                "properties": {
+                                    "user_id": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "roi": {
+                                        "type": "string"
+                                    },
+                                    "pure_profit": {
+                                        "type": "string"
+                                    },
+                                    "count_win": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "count_loss": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "count_wait": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "count_back": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "count_subscribers": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "count_subscriptions": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "data": {
+                        "id": 3,
+                        "role": {
+                            "id": 2,
+                            "name": "forecaster_robot",
+                            "label": "Прогнозист робот"
+                        },
+                        "avatar": "/storage/users/3/1584626844-ava.jpg",
+                        "login": "Maritalayt",
+                        "stats": {
+                            "user_id": 3,
+                            "roi": "0.98842486",
+                            "pure_profit": "683.9900",
+                            "count_win": 4,
+                            "count_loss": 0,
+                            "count_wait": 0,
+                            "count_back": 0,
+                            "count_subscribers": 0,
+                            "count_subscriptions": 0
+                        }
+                    },
+                    "success": true,
+                    "message": "Success"
+                }
             }
         },
         "responses": {
@@ -2051,11 +2168,57 @@
                 "description": "Отправляется на простой post запрос"
             },
             "UsersResponse": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/UsersResponse"
+                        }
+                    }
+                },
                 "description": "Возвращается при запросе /users"
+            },
+            "UserResponse": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/UserResponse"
+                        },
+                        "examples": {
+                            "/users/3": {
+                                "value": {
+                                    "data": {
+                                        "id": 3,
+                                        "role": {
+                                            "id": 2,
+                                            "name": "forecaster_robot",
+                                            "label": "Прогнозист робот"
+                                        },
+                                        "avatar": "/storage/users/3/1584626844-ava.jpg",
+                                        "login": "Maritalayt",
+                                        "stats": {
+                                            "user_id": 3,
+                                            "roi": "0.98842486",
+                                            "pure_profit": "683.9900",
+                                            "count_win": 4,
+                                            "count_loss": 0,
+                                            "count_wait": 0,
+                                            "count_back": 0,
+                                            "count_subscribers": 0,
+                                            "count_subscriptions": 0
+                                        }
+                                    },
+                                    "success": true,
+                                    "message": "Success"
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Ответ на /users/{id}"
             }
         },
         "securitySchemes": {
-            "BearToken": {
+            "bearer": {
                 "flows": {},
                 "type": "oauth2"
             }
