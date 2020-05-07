@@ -154,4 +154,11 @@
     <string name="passability">Проходимость</string>
     <string name="avgCoeff">Средний коэффициент</string>
 
+    <string name="passwordRecovery">Восстановление пароля</string>
+    <string name="recover">Восстановить</string>
+    <string name="withGoogle">С помощью Google</string>
+    <string name="byGoogle">Войти через Google</string>
+    <string name="wrongLoginOrPassword">Неверный пароль или логин!</string>
+    <string name="fillAllFields">Заполните все поля</string>
+
 </resources>

@@ -2,95 +2,95 @@ package com.xbethub.webview.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.HandlerThread
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.google.android.material.textfield.TextInputEditText
-import com.google.gson.JsonObject
 import com.xbethub.webview.App
 import com.xbethub.webview.R
+import com.xbethub.webview.Settings
+import com.xbethub.webview.Utils
 import com.xbethub.webview.backend.BettingHubBackend
-import com.xbethub.webview.backend.requests.GetTokenRequest
+import com.xbethub.webview.backend.requests.TokenRequest
+import com.xbethub.webview.databinding.FragmentLoginBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.lang.reflect.Field
+import kotlin.math.log
 
-/**
- * A simple [Fragment] subclass.
- */
-class LoginFragment : Fragment(), View.OnClickListener {
-    lateinit var navController: NavController
-    lateinit var loginField: EditText
-    lateinit var passwordField: TextInputEditText
-    private val TAG = "LoginFragment"
+class LoginFragment : Fragment() {
+    private lateinit var navController: NavController
+    private lateinit var binding: FragmentLoginBinding
+
+    private val backend = App.appComponent.getBackend()
+    private val settings = App.appComponent.getSettings()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
-    }
+        binding = FragmentLoginBinding.inflate(inflater)
+        binding.fragment = this
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+        binding.error.root.visibility = View.GONE
+
         navController = activity?.let { Navigation.findNavController(it, R.id.nav_host_fragment) }!!
-        view?.findViewById<Button>(R.id.return_to_login_button)?.setOnClickListener(this)
-        view?.findViewById<Button>(R.id.forgot_password_button)?.setOnClickListener(this)
-        view?.findViewById<Button>(R.id.login_button)?.setOnClickListener(this)
 
+        return binding.root
+    }
+
+    fun onGoogleBtnClick() {
 
     }
 
-    override fun onClick(v: View?) {
-        when(v?.id) {
-            R.id.login_button -> login()
-            R.id.forgot_password_button -> {
-                navController.navigate(R.id.action_loginFragment2_to_forgotPasswordFragment)
-            }
-            R.id.return_to_login_button -> {
-                navController.navigate(R.id.action_loginFragment2_to_registrationFragment)
-            }
-        }
+    fun onFBBtnClick() {
+
     }
+
+    fun onVKBtnClick() {
+
+    }
+
+    fun onLoginBtnClick() {
+        binding.error.root.visibility = View.GONE
+        activity?.let { Utils.hideKeyboard(it)}
+        login()
+    }
+
+    fun onForgotPasswordBtnClick() {
+        navController.navigate(LoginFragmentDirections.toForgotPasswordFragment())
+    }
+
+    fun onRegisterBtnClick() {
+        navController.navigate(LoginFragmentDirections.toRegistrationFragment())
+    }
+
     @SuppressLint("CheckResult")
     private fun login() {
-        if (!this::loginField.isInitialized) {
-            loginField = view?.findViewById<EditText>(R.id.login_field)!!
-        }
-        if (!this::passwordField.isInitialized) {
-            passwordField = view?.findViewById<TextInputEditText>(R.id.password)!!
-        }
-        val login = loginField.text.toString()
-        val password = passwordField.text.toString()
+        val login = binding.loginField.text.toString()
+        val password = binding.passwordField.text.toString()
 
-        //я не знаю, что этому запросу надо
-        //сейчас(4.05.2020) сервер отвечает 400
-        val getTokenRequest = GetTokenRequest(
-            username = login,
-            password = password
-        )
+        if (login.isEmpty() || password.isEmpty()) {
+            binding.error.errorText = getString(R.string.fillAllFields)
+            binding.error.root.visibility = View.VISIBLE
+            return
+        }
 
-        BettingHubBackend().api.getToken(getTokenRequest)
+        BettingHubBackend().api.token(TokenRequest(username = login, password = password))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                Log.i(TAG, "token: $it")
+                settings.setString(Settings.accessTokenKey, it.accessToken)
+                settings.setString(Settings.refreshTokenKey, it.refreshToken)
+
+                navController.navigate(LoginFragmentDirections.toMainActivity())
+                activity?.finish()
             }, {
-                Log.i(TAG, "token: ${it.message}")
+                binding.error.errorText = getString(R.string.wrongLoginOrPassword)
+                binding.error.root.visibility = View.VISIBLE
                 it.printStackTrace()
             })
-        //todo: move to successfully result of request when it starts work
-        navController.navigate(R.id.action_loginFragment2_to_mainActivity)
-        activity?.finish()
     }
 }

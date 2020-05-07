@@ -71,6 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_settings"
+            android:tint="@color/color6"
             android:background="@android:color/transparent"
             android:padding="@dimen/sideMargin"
             app:layout_constraintTop_toTopOf="@id/timeFilter"

@@ -5,5 +5,5 @@ import com.xbethub.webview.enums.Sport
 
 class RatingFilter {
     var sport: Sport = Sport.ALL
-    var timeInterval: RatingTimeInterval = RatingTimeInterval.ALL_TIME
+    var timeInterval: RatingTimeInterval = RatingTimeInterval.MONTH
 }

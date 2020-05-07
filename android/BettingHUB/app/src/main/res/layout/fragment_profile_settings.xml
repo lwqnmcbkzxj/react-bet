@@ -12,7 +12,8 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clipToPadding="false">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
@@ -28,16 +29,22 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipToPadding="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipToPadding="false"
                 android:background="@android:color/white">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/titleBlock"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
+                    app:elevation="1dp"
+                    android:translationZ="2dp"
+                    android:background="@android:color/white"
                     app:layout_constraintTop_toBottomOf="@id/topPanel">
 
                     <ImageButton
@@ -244,15 +251,15 @@
 
                         <include
                             layout="@layout/element_account"
-                            app:icon="@{@drawable/ic_google}"
+                            app:icon="@{@drawable/ic_google_logo}"
                             app:title="@{@string/google}"/>
                         <include
                             layout="@layout/element_account"
-                            app:icon="@{@drawable/ic_fb}"
+                            app:icon="@{@drawable/ic_fb_logo}"
                             app:title="@{@string/facebook}"/>
                         <include
                             layout="@layout/element_account"
-                            app:icon="@{@drawable/ic_vk}"
+                            app:icon="@{@drawable/ic_vk_logo}"
                             app:title="@{@string/vk}"/>
 
 
@@ -368,7 +375,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="15dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -378,6 +385,7 @@
                             android:textSize="16sp"
                             android:textColor="@color/textColor1"
                             android:text="@string/emailNotifications"
+                            android:layout_centerVertical="true"
                             />
 
                         <Switch
@@ -387,7 +395,11 @@
                             android:thumb="@drawable/switch_thumb"
                             android:switchMinWidth="39dp"
                             android:checked="true"
-                            android:elevation="1dp"
+                            android:track="@drawable/switch_track"
+                            app:elevation="1dp"
+                            android:translationZ="2dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:layout_alignParentEnd="true"
                             />
 
@@ -396,7 +408,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -406,6 +418,7 @@
                             android:textSize="16sp"
                             android:textColor="@color/textColor1"
                             android:text="@string/pushNotifications"
+                            android:layout_centerVertical="true"
                             />
 
                         <Switch
@@ -415,7 +428,11 @@
                             android:thumb="@drawable/switch_thumb"
                             android:switchMinWidth="39dp"
                             android:checked="true"
-                            android:elevation="1dp"
+                            app:elevation="1dp"
+                            android:translationZ="2dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:track="@drawable/switch_track"
                             android:layout_alignParentEnd="true"
                             />
 
@@ -424,7 +441,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -434,6 +451,7 @@
                             android:textSize="16sp"
                             android:textColor="@color/textColor1"
                             android:text="@string/commentReplyNotifications"
+                            android:layout_centerVertical="true"
                             />
 
                         <Switch
@@ -443,7 +461,11 @@
                             android:thumb="@drawable/switch_thumb"
                             android:switchMinWidth="39dp"
                             android:checked="true"
-                            android:elevation="1dp"
+                            app:elevation="1dp"
+                            android:translationZ="2dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:track="@drawable/switch_track"
                             android:layout_alignParentEnd="true"
                             />
 

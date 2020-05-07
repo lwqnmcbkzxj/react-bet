@@ -57,13 +57,14 @@
                 app:layout_constraintTop_toTopOf="@id/bottom" />
 
             <ImageView
+                android:id="@+id/logo"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:padding="5dp"
-                android:scaleType="fitStart"
-                android:src="@drawable/img_small_logo"
+                android:layout_height="wrap_content"
+                android:src="@drawable/small_logo"
+                android:layout_marginStart="@dimen/sideMargin"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/bottom"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView

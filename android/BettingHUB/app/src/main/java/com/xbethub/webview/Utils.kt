@@ -1,8 +1,10 @@
 package com.xbethub.webview
 
+import android.app.Activity
 import android.content.Context
 import android.os.Build
 import android.view.inputmethod.InputMethodManager
+
 
 class Utils {
     companion object {
@@ -10,6 +12,16 @@ class Utils {
         fun showKeyboard(context: Context) {
             val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_IMPLICIT_ONLY)
+        }
+
+        @JvmStatic
+        fun hideKeyboard(activity: Activity) {
+            (activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager)?.let { inputMethodManager ->
+                activity.currentFocus?.let { currentFocus ->
+                    inputMethodManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
+                    currentFocus.clearFocus()
+                }
+            }
         }
 
         @JvmStatic

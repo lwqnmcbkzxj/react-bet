@@ -10,19 +10,19 @@
         android:label="fragment_login2"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment2_to_forgotPasswordFragment"
+            android:id="@+id/toForgotPasswordFragment"
             app:destination="@id/forgotPasswordFragment" />
         <action
-            android:id="@+id/action_loginFragment2_to_registrationFragment"
+            android:id="@+id/toRegistrationFragment"
             app:destination="@id/registrationFragment" />
         <action
-            android:id="@+id/action_loginFragment2_to_mainActivity"
+            android:id="@+id/toMainActivity"
             app:destination="@id/mainActivity"
             app:launchSingleTop="true" />
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="com.xbethub.webview.ui.ForgotPasswordFragment"
+        android:name="com.xbethub.webview.ui.forgotPassword.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
     <fragment
@@ -31,7 +31,7 @@
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" >
         <action
-            android:id="@+id/action_registrationFragment_to_mainActivity"
+            android:id="@+id/toMainActivity"
             app:destination="@id/mainActivity" />
     </fragment>
     <action android:id="@+id/action_global_loginFragment2" app:destination="@id/loginFragment2" />

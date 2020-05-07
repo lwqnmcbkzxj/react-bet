@@ -23,10 +23,17 @@
     <color name="textColor3">#393F4D</color>
     <color name="textColor4">#AA0F0F</color>
     <color name="textColor5">#0F19AA</color>
+    <color name="textColor6">#202E48</color>
+    <color name="textColor7">#818283</color>
+    <color name="textColor8">#222A39</color>
+    <color name="textColor9">#F7971D</color>
 
     <color name="color1">#0F971D</color>
     <color name="color2">#AA0F0F</color>
     <color name="color3">#0F19AA</color>
     <color name="color4">#F7971D</color>
     <color name="color5">#393F4D</color>
+    <color name="color6">#A8ABAF</color>
+    <color name="color7">#E5E2E2</color>
+    <color name="color8">#D5D8DD</color>
 </resources>

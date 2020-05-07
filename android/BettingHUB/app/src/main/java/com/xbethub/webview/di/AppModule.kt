@@ -1,6 +1,7 @@
 package com.xbethub.webview.di
 
 import android.content.Context
+import com.xbethub.webview.Settings
 import com.xbethub.webview.backend.BettingHubBackend
 import com.xbethub.webview.di.scopes.AppScope
 import dagger.Module
@@ -18,5 +19,11 @@ class AppModule(val appContext: Context) {
     @AppScope
     fun provideBackend(): BettingHubBackend {
         return BettingHubBackend()
+    }
+
+    @Provides
+    @AppScope
+    fun provideSettings(): Settings {
+        return Settings(appContext)
     }
 }
