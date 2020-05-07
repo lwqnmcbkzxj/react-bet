@@ -135,6 +135,105 @@
                     "required": true
                 }
             ]
+        },
+        "/users": {
+            "description": "Вывод ранжированного списка прогнозистов",
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "examples": {
+                            "Показать 3 элемента": {
+                                "value": "3"
+                            }
+                        },
+                        "name": "limit",
+                        "description": "Количество элементов на странице",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query",
+                        "required": false
+                    },
+                    {
+                        "examples": {
+                            "Показать 5 страницу": {
+                                "value": "5"
+                            }
+                        },
+                        "name": "page",
+                        "description": "Номер отображаемой страницы",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "examples": {
+                            "Сортировать по логину": {
+                                "value": "/users?order_by=login"
+                            }
+                        },
+                        "name": "order_by",
+                        "description": "Ранжировать пользователей по показателю",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "required": false
+                    },
+                    {
+                        "name": "direction",
+                        "description": "Порядок ранжирования",
+                        "schema": {
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ],
+                            "type": "string"
+                        },
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/UsersResponse"
+                    }
+                },
+                "security": [
+                    {
+                        "BearToken": []
+                    }
+                ],
+                "operationId": "Api\\InfoController@forecasters",
+                "summary": "Получить ранжированный список прогнозистов",
+                "description": "Получить ранжированный список прогнозистов"
+            }
+        },
+        "/users/{id}": {
+            "summary": "Операции с пользователем",
+            "description": "Операции с пользователем",
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "operationId": "Api\\InfoController@forecaster",
+                "summary": "Получить информацию о конкретном пользователе",
+                "description": "Получить информацию о конкретном пользователе"
+            },
+            "parameters": [
+                {
+                    "name": "id",
+                    "description": "id пользователя",
+                    "schema": {
+                        "type": "integer"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
         }
     },
     "components": {
@@ -1417,6 +1516,210 @@
                     "success": true,
                     "message": "Success"
                 }
+            },
+            "UsersResponse": {
+                "title": "Root Type for UsersResponse",
+                "description": "Список пользователей возращаемый при GET запросе /users",
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/UserStats"
+                        },
+                        "properties": {
+                            "current_page": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "data": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "format": "int32",
+                                            "type": "integer"
+                                        },
+                                        "avatar": {
+                                            "type": "string"
+                                        },
+                                        "login": {
+                                            "type": "string"
+                                        },
+                                        "roi": {
+                                            "type": "string"
+                                        },
+                                        "pure_profit": {
+                                            "type": "string"
+                                        },
+                                        "count_subscribers": {
+                                            "format": "int32",
+                                            "type": "integer"
+                                        },
+                                        "count_subscriptions": {
+                                            "format": "int32",
+                                            "type": "integer"
+                                        },
+                                        "count_win": {
+                                            "format": "int32",
+                                            "type": "integer"
+                                        },
+                                        "count_loss": {
+                                            "format": "int32",
+                                            "type": "integer"
+                                        }
+                                    }
+                                }
+                            },
+                            "first_page_url": {
+                                "type": "string"
+                            },
+                            "from": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "last_page": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "last_page_url": {
+                                "type": "string"
+                            },
+                            "next_page_url": {
+                                "type": "string"
+                            },
+                            "path": {
+                                "type": "string"
+                            },
+                            "per_page": {
+                                "type": "string"
+                            },
+                            "prev_page_url": {
+                                "type": "string"
+                            },
+                            "to": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "total": {
+                                "format": "int32",
+                                "type": "integer"
+                            }
+                        }
+                    },
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "data": {
+                        "current_page": 1,
+                        "data": [
+                            {
+                                "id": 29,
+                                "avatar": "/storage/users/29/1584628631-Screenshot from 2020-02-15 13-32-44.png",
+                                "login": "1",
+                                "pure_profit": "0.0000",
+                                "count_subscribers": 0,
+                                "count_subscriptions": 0,
+                                "count_win": 0,
+                                "count_loss": 0
+                            },
+                            {
+                                "id": 35,
+                                "avatar": "/storage/users/35/1584629090-ava.jpg",
+                                "login": "36nomer",
+                                "roi": "1.28081925",
+                                "pure_profit": "5456.2900",
+                                "count_subscribers": 0,
+                                "count_subscriptions": 0,
+                                "count_win": 14,
+                                "count_loss": 0
+                            },
+                            {
+                                "id": 44,
+                                "avatar": "/storage/users/44/1584630202-ava.jpg",
+                                "login": "Abaz21",
+                                "roi": "1.79872528",
+                                "pure_profit": "35375.5300",
+                                "count_subscribers": 0,
+                                "count_subscriptions": 0,
+                                "count_win": 91,
+                                "count_loss": 0
+                            }
+                        ],
+                        "first_page_url": "http://betting-hub.sixhands.co/api/users?page=1",
+                        "from": 1,
+                        "last_page": 69,
+                        "last_page_url": "http://betting-hub.sixhands.co/api/users?page=69",
+                        "next_page_url": "http://betting-hub.sixhands.co/api/users?page=2",
+                        "path": "http://betting-hub.sixhands.co/api/users",
+                        "per_page": "3",
+                        "to": 3,
+                        "total": 205
+                    },
+                    "success": true,
+                    "message": "Success"
+                }
+            },
+            "UsersRequestItem": {
+                "title": "Root Type for UsersRequestItem",
+                "description": "Представление пользователя оптимизированное для ранжирования и поиска",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "avatar": {
+                        "type": "string"
+                    },
+                    "login": {
+                        "type": "string"
+                    },
+                    "role_id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "roi": {
+                        "type": "string"
+                    },
+                    "pure_profit": {
+                        "type": "string"
+                    },
+                    "count_subscribers": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "count_subscriptions": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "count_win": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "count_loss": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "id": 144,
+                    "avatar": "/storage/users/144/1584702073-avatar1516.jpg",
+                    "login": "Lionjar",
+                    "role_id": 2,
+                    "roi": "1.84947368",
+                    "pure_profit": "983.9200",
+                    "count_subscribers": 0,
+                    "count_subscriptions": 0,
+                    "count_win": 2,
+                    "count_loss": 0
+                }
             }
         },
         "responses": {
@@ -1746,6 +2049,15 @@
                     }
                 },
                 "description": "Отправляется на простой post запрос"
+            },
+            "UsersResponse": {
+                "description": "Возвращается при запросе /users"
+            }
+        },
+        "securitySchemes": {
+            "BearToken": {
+                "flows": {},
+                "type": "oauth2"
             }
         }
     }
