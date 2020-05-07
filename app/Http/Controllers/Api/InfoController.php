@@ -61,6 +61,7 @@ class InfoController extends Controller
         return $this->sendResponse($response->select(['users.id as id',
             'users.avatar as avatar',
             'users.login as login',
+            'users.role_id as role_id',
             'user_stats_view.roi as roi',
             'user_stats_view.pure_profit as pure_profit',
             'user_stats_view.count_subscribers as count_subscribers',
