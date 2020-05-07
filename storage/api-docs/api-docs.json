@@ -1,0 +1,1752 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Betting-hub",
+        "version": "1.0.0",
+        "description": "API for betting-hub"
+    },
+    "paths": {
+        "/register": {
+            "summary": "Все, что касается регистрации",
+            "post": {
+                "requestBody": {
+                    "description": "Передаем JSON с необходимыми полями для регистрации",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "authorization"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/SuccessResponse"
+                    }
+                },
+                "operationId": "RegisterController@register",
+                "summary": "Регистрирует нового пользователя",
+                "description": "Регистрация нового пользователя"
+            }
+        },
+        "/forecasts": {
+            "summary": "Основные операции над прогнозами",
+            "description": "Вывод прогнозов с различными фильтрами и разным ранжированием\n",
+            "get": {
+                "tags": [
+                    "Forecasts"
+                ],
+                "parameters": [
+                    {
+                        "examples": {
+                            "Вывести 15 элементов": {
+                                "value": "15"
+                            }
+                        },
+                        "name": "limit",
+                        "description": "Количество элементов, отображаемых в запросе",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "examples": {
+                            "Футбол": {
+                                "value": "1"
+                            },
+                            "Теннис": {
+                                "value": "2"
+                            }
+                        },
+                        "name": "sport_id",
+                        "description": "ID спорта, прогнозы по которому, мы хотим получить",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "examples": {
+                            "Получить прогнозы на текущий час": {
+                                "value": "1"
+                            }
+                        },
+                        "name": "time",
+                        "description": "Отображает прогнозы на time следующих часов",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query",
+                        "required": false
+                    },
+                    {
+                        "examples": {
+                            "Отобразить 2 страницу": {
+                                "value": "2"
+                            }
+                        },
+                        "name": "page",
+                        "description": "Номер страницы списка",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ForecastsResponse"
+                    }
+                },
+                "operationId": "Api\\InfoController@forecasts",
+                "summary": "Запрос на получение списка прогнозов",
+                "description": "Запрос на получение списка прогнозов. Реализует laravel pagenation"
+            }
+        },
+        "/forecasts/{id}": {
+            "summary": "Операции для конкретного прогноза",
+            "get": {
+                "tags": [
+                    "Forecasts"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ForecastResponse"
+                    }
+                },
+                "operationId": "Api\\InfoController@forecast",
+                "summary": "Получение прогноза с id = {id}",
+                "description": "Получение прогноза с id = {id}"
+            },
+            "parameters": [
+                {
+                    "name": "id",
+                    "description": "ID прогноза",
+                    "schema": {
+                        "type": "integer"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        }
+    },
+    "components": {
+        "schemas": {
+            "RegisterRequest": {
+                "description": "Набор данных отправляемый на /register\n",
+                "required": [
+                    "username",
+                    "email",
+                    "password"
+                ],
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "description": "Имя пользователя - показывается всем",
+                        "type": "string"
+                    },
+                    "email": {
+                        "format": "email",
+                        "description": "E-mail пользователя",
+                        "type": "string"
+                    },
+                    "password": {
+                        "format": "password",
+                        "description": "Пароль пользователя",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "username": "user0",
+                    "email": "user0@email.com",
+                    "password": "**********"
+                }
+            },
+            "Event": {
+                "title": "Root Type for Event",
+                "description": "Событие в мире ставок",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "sport_id": {
+                        "format": "int32",
+                        "description": "ID спорта. Узнать доступные виды спорта /sports",
+                        "type": "integer"
+                    },
+                    "championship_id": {
+                        "format": "int32",
+                        "description": "ID чемпионата",
+                        "type": "integer"
+                    },
+                    "title": {
+                        "description": "Название события",
+                        "type": "string"
+                    },
+                    "start": {
+                        "format": "date-time",
+                        "description": "TIMESTAMP начала события",
+                        "type": "string"
+                    },
+                    "status": {
+                        "format": "int32",
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "created_at": {
+                        "description": "TIMESTAMP создания",
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "description": "TIMESTAMP обновления",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "id": 1,
+                    "sport_id": 5,
+                    "championship_id": 1,
+                    "title": "Клубе К - Лейшойнш",
+                    "start": "2019-12-01 17:00:00",
+                    "status": 2,
+                    "created_at": "2020-03-19T15:01:11.000000Z",
+                    "updated_at": "2020-03-20T12:58:44.000000Z"
+                }
+            },
+            "ForecastsResponse": {
+                "title": "Root Type for ForecastResponse",
+                "description": "JSON схема возвращающася при GET запросе /forecasts",
+                "type": "object",
+                "allOf": [
+                    {
+                        "type": "object",
+                        "properties": {
+                            "data": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/ForecastDataItem"
+                                },
+                                "properties": {
+                                    "current_page": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "data": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "format": "int32",
+                                                    "type": "integer"
+                                                },
+                                                "user_id": {
+                                                    "format": "int32",
+                                                    "type": "integer"
+                                                },
+                                                "event_id": {
+                                                    "format": "int32",
+                                                    "type": "integer"
+                                                },
+                                                "coefficient_id": {
+                                                    "format": "int32",
+                                                    "type": "integer"
+                                                },
+                                                "parent_id": {
+                                                    "type": "string"
+                                                },
+                                                "bet": {
+                                                    "type": "string"
+                                                },
+                                                "created_at": {
+                                                    "type": "string"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string"
+                                                },
+                                                "sport_id": {
+                                                    "format": "int32",
+                                                    "type": "integer"
+                                                },
+                                                "championship_id": {
+                                                    "format": "int32",
+                                                    "type": "integer"
+                                                },
+                                                "title": {
+                                                    "type": "string"
+                                                },
+                                                "start": {
+                                                    "format": "date-time",
+                                                    "type": "string"
+                                                },
+                                                "status": {
+                                                    "format": "int32",
+                                                    "type": "integer"
+                                                },
+                                                "count_comments": {
+                                                    "format": "int32",
+                                                    "type": "integer"
+                                                },
+                                                "count_likes": {
+                                                    "format": "int32",
+                                                    "type": "integer"
+                                                },
+                                                "count_dislikes": {
+                                                    "format": "int32",
+                                                    "type": "integer"
+                                                },
+                                                "description": {
+                                                    "type": "string"
+                                                },
+                                                "user_data": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "format": "int32",
+                                                            "type": "integer"
+                                                        },
+                                                        "role": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "id": {
+                                                                    "format": "int32",
+                                                                    "type": "integer"
+                                                                },
+                                                                "name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "label": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        },
+                                                        "avatar": {
+                                                            "type": "string"
+                                                        },
+                                                        "login": {
+                                                            "type": "string"
+                                                        },
+                                                        "stats": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "user_id": {
+                                                                    "format": "int32",
+                                                                    "type": "integer"
+                                                                },
+                                                                "roi": {
+                                                                    "type": "string"
+                                                                },
+                                                                "pure_profit": {
+                                                                    "type": "string"
+                                                                },
+                                                                "count_win": {
+                                                                    "format": "int32",
+                                                                    "type": "integer"
+                                                                },
+                                                                "count_loss": {
+                                                                    "format": "int32",
+                                                                    "type": "integer"
+                                                                },
+                                                                "count_wait": {
+                                                                    "format": "int32",
+                                                                    "type": "integer"
+                                                                },
+                                                                "count_back": {
+                                                                    "format": "int32",
+                                                                    "type": "integer"
+                                                                },
+                                                                "count_subscribers": {
+                                                                    "format": "int32",
+                                                                    "type": "integer"
+                                                                },
+                                                                "count_subscriptions": {
+                                                                    "format": "int32",
+                                                                    "type": "integer"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "first_page_url": {
+                                        "type": "string"
+                                    },
+                                    "from": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "last_page": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "last_page_url": {
+                                        "type": "string"
+                                    },
+                                    "next_page_url": {
+                                        "type": "string"
+                                    },
+                                    "path": {
+                                        "type": "string"
+                                    },
+                                    "per_page": {
+                                        "type": "string"
+                                    },
+                                    "prev_page_url": {
+                                        "type": "string"
+                                    },
+                                    "to": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "total": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "success": {
+                                "type": "boolean"
+                            },
+                            "message": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "example": {
+                    "data": {
+                        "current_page": 1,
+                        "data": [
+                            {
+                                "id": 1803,
+                                "user_id": 59,
+                                "event_id": 1803,
+                                "coefficient_id": 1782,
+                                "bet": "3702.00",
+                                "created_at": "2020-03-19T20:31:25.000000Z",
+                                "updated_at": "2020-03-20T12:58:54.000000Z",
+                                "sport_id": 2,
+                                "championship_id": 1797,
+                                "title": "М.Кресси - В.Игнатик",
+                                "start": "2019-10-16 12:30:00",
+                                "status": 1,
+                                "count_comments": 0,
+                                "count_likes": 0,
+                                "count_dislikes": 0,
+                                "description": "М.Кресси - В.Игнатик...",
+                                "user_data": {
+                                    "id": 59,
+                                    "role": {
+                                        "id": 2,
+                                        "name": "forecaster_robot",
+                                        "label": "Прогнозист робот"
+                                    },
+                                    "login": "IEXAZORO",
+                                    "stats": {
+                                        "user_id": 59,
+                                        "roi": "0.89526502",
+                                        "pure_profit": "319842.3800",
+                                        "count_win": 88,
+                                        "count_loss": 0,
+                                        "count_wait": 1,
+                                        "count_back": 0,
+                                        "count_subscribers": 0,
+                                        "count_subscriptions": 0
+                                    }
+                                }
+                            }
+                        ],
+                        "first_page_url": "http://localhost:8000/api/forecasts?page=1",
+                        "from": 1,
+                        "last_page": 34,
+                        "last_page_url": "http://localhost:8000/api/forecasts?page=34",
+                        "next_page_url": "http://localhost:8000/api/forecasts?page=2",
+                        "path": "http://localhost:8000/api/forecasts",
+                        "per_page": "1",
+                        "to": 1,
+                        "total": 34
+                    },
+                    "success": true,
+                    "message": "Success"
+                }
+            },
+            "UserStats": {
+                "title": "Root Type for UserStats",
+                "description": "Статистика пользователя",
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "roi": {
+                        "type": "string"
+                    },
+                    "pure_profit": {
+                        "type": "string"
+                    },
+                    "count_win": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "count_loss": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "count_wait": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "count_back": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "count_subscribers": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "count_subscriptions": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "user_id": 2,
+                    "roi": "0.90799239",
+                    "pure_profit": "193220.7800",
+                    "count_win": 11,
+                    "count_loss": 0,
+                    "count_wait": 0,
+                    "count_back": 0,
+                    "count_subscribers": 0,
+                    "count_subscriptions": 7
+                }
+            },
+            "Comment": {
+                "title": "Root Type for Comment",
+                "description": "",
+                "required": [
+                    "reference_to"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "user_id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "text": {
+                        "description": "Текст комментария",
+                        "type": "string"
+                    },
+                    "reference_to": {
+                        "description": "Тип объекта под которым оставляется комментарий ",
+                        "enum": [
+                            "forecasts",
+                            "posts",
+                            "news",
+                            ""
+                        ],
+                        "type": "string"
+                    },
+                    "referent_id": {
+                        "description": "ID объекта под которым оставляется комментарий",
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "count_likes": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "count_dislikes": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "id": 1,
+                    "user_id": 0,
+                    "text": "0",
+                    "reference_to": "forecast",
+                    "count_likes": 0,
+                    "count_dislikes": 0
+                }
+            },
+            "ForecastDataItem": {
+                "title": "Root Type for ForecastDataItem",
+                "description": "Элемент списка прогнозов",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "user_id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "event_id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "coefficient_id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "parent_id": {
+                        "type": "string"
+                    },
+                    "forecast_text": {
+                        "description": "Полный текст прогноза",
+                        "type": "string"
+                    },
+                    "bet": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    },
+                    "sport_id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "championship_id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "start": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "status": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "count_comments": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "count_likes": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "count_dislikes": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "description": {
+                        "description": "Отрывок из полного текста длинной 300 символов",
+                        "type": "string"
+                    },
+                    "user_data": {
+                        "$ref": "#/components/schemas/UserData",
+                        "properties": {
+                            "id": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "role": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "label": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "avatar": {
+                                "type": "string"
+                            },
+                            "login": {
+                                "type": "string"
+                            },
+                            "stats": {
+                                "type": "object",
+                                "properties": {
+                                    "user_id": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "roi": {
+                                        "type": "string"
+                                    },
+                                    "pure_profit": {
+                                        "type": "string"
+                                    },
+                                    "count_win": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "count_loss": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "count_wait": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "count_back": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "count_subscribers": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "count_subscriptions": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "id": 1803,
+                    "user_id": 59,
+                    "event_id": 1803,
+                    "coefficient_id": 1782,
+                    "forecast_text": "М.Кресси - В.Игнатик",
+                    "bet": "3702.00",
+                    "created_at": "2020-03-19T20:31:25.000000Z",
+                    "updated_at": "2020-03-20T12:58:54.000000Z",
+                    "sport_id": 2,
+                    "championship_id": 1797,
+                    "title": "М.Кресси - В.Игнатик",
+                    "start": "2019-10-16 12:30:00",
+                    "status": 1,
+                    "count_comments": 0,
+                    "count_likes": 0,
+                    "count_dislikes": 0,
+                    "description": "М.Кресси - В.Игнатик...",
+                    "user_data": {
+                        "id": 59,
+                        "role": {
+                            "id": 2,
+                            "name": "forecaster_robot",
+                            "label": "Прогнозист робот"
+                        },
+                        "login": "IEXAZORO",
+                        "stats": {
+                            "user_id": 59,
+                            "roi": "0.89526502",
+                            "pure_profit": "319842.3800",
+                            "count_win": 88,
+                            "count_loss": 0,
+                            "count_wait": 1,
+                            "count_back": 0,
+                            "count_subscribers": 0,
+                            "count_subscriptions": 0
+                        }
+                    }
+                }
+            },
+            "UserData": {
+                "title": "Root Type for UserData",
+                "description": "Основная информация пользователя, включая статистику",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "role": {
+                        "$ref": "#/components/schemas/UserRole",
+                        "properties": {
+                            "id": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "label": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "avatar": {
+                        "type": "string"
+                    },
+                    "login": {
+                        "type": "string"
+                    },
+                    "stats": {
+                        "$ref": "#/components/schemas/UserStats",
+                        "properties": {
+                            "user_id": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "roi": {
+                                "type": "string"
+                            },
+                            "pure_profit": {
+                                "type": "string"
+                            },
+                            "count_win": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "count_loss": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "count_wait": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "count_back": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "count_subscribers": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "count_subscriptions": {
+                                "format": "int32",
+                                "type": "integer"
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "id": 59,
+                    "role": {
+                        "id": 2,
+                        "name": "forecaster_robot",
+                        "label": "Прогнозист робот"
+                    },
+                    "login": "IEXAZORO",
+                    "stats": {
+                        "user_id": 59,
+                        "roi": "0.89526502",
+                        "pure_profit": "319842.3800",
+                        "count_win": 88,
+                        "count_loss": 0,
+                        "count_wait": 1,
+                        "count_back": 0,
+                        "count_subscribers": 0,
+                        "count_subscriptions": 0
+                    }
+                }
+            },
+            "UserRole": {
+                "title": "Root Type for Role",
+                "description": "Роль пользователя",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "format": "int32",
+                        "description": "ID роли",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "Формальное имя роли",
+                        "type": "string"
+                    },
+                    "label": {
+                        "description": "Подпись для отображения",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "id": 2,
+                    "name": "forecaster_robot",
+                    "label": "Прогнозист робот"
+                }
+            },
+            "ForecastData": {
+                "title": "Root Type for ForecastData",
+                "description": "Полная информация о прогнозе",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "user_id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "event_id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "coefficient_id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "parent_id": {
+                        "type": "string"
+                    },
+                    "forecast_text": {
+                        "type": "string"
+                    },
+                    "bet": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    },
+                    "count_comments": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "count_likes": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "count_dislikes": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "user_data": {
+                        "$ref": "#/components/schemas/UserData",
+                        "properties": {
+                            "id": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "role": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "label": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "avatar": {
+                                "type": "string"
+                            },
+                            "login": {
+                                "type": "string"
+                            },
+                            "stats": {
+                                "type": "object",
+                                "properties": {
+                                    "user_id": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "roi": {
+                                        "type": "string"
+                                    },
+                                    "pure_profit": {
+                                        "type": "string"
+                                    },
+                                    "count_win": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "count_loss": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "count_wait": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "count_back": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "count_subscribers": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "count_subscriptions": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "event": {
+                        "$ref": "#/components/schemas/Event",
+                        "properties": {
+                            "id": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "sport_id": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "championship_id": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "title": {
+                                "type": "string"
+                            },
+                            "start": {
+                                "format": "date-time",
+                                "type": "string"
+                            },
+                            "status": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "created_at": {
+                                "type": "string"
+                            },
+                            "updated_at": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "comments": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Comment"
+                        }
+                    }
+                },
+                "example": {
+                    "id": 2,
+                    "user_id": 2,
+                    "event_id": 2,
+                    "coefficient_id": 2,
+                    "forecast_text": "Mexico (w) - Cuba (w)",
+                    "bet": "4174.00",
+                    "created_at": "2019-11-07T19:00:31.000000Z",
+                    "updated_at": "2020-03-19T15:03:18.000000Z",
+                    "count_comments": 1,
+                    "count_likes": 0,
+                    "count_dislikes": 0,
+                    "description": "Mexico (w) - Cuba (w)...",
+                    "user_data": {
+                        "id": 2,
+                        "role": {
+                            "id": 2,
+                            "name": "forecaster_robot",
+                            "label": "Прогнозист робот"
+                        },
+                        "avatar": "/storage/users/2/1584626425-ava.jpg",
+                        "login": "PRоFeSSoR",
+                        "stats": {
+                            "user_id": 2,
+                            "roi": "0.90799239",
+                            "pure_profit": "193220.7800",
+                            "count_win": 11,
+                            "count_loss": 0,
+                            "count_wait": 0,
+                            "count_back": 0,
+                            "count_subscribers": 0,
+                            "count_subscriptions": 7
+                        }
+                    },
+                    "event": {
+                        "id": 2,
+                        "sport_id": 5,
+                        "championship_id": 2,
+                        "title": "Mexico (w) - Cuba (w)",
+                        "start": "2019-10-13 20:00:00",
+                        "status": 2,
+                        "created_at": "2020-03-19T15:02:26.000000Z",
+                        "updated_at": "2020-03-20T12:58:44.000000Z"
+                    },
+                    "comments": [
+                        {
+                            "id": 3,
+                            "user_id": 220,
+                            "text": "Testing Comments",
+                            "reference_to": "forecasts",
+                            "referent_id": 2,
+                            "updated_at": "2020-05-06T07:24:12.000000Z",
+                            "created_at": "2020-05-06T07:24:12.000000Z",
+                            "count_comments": 0,
+                            "count_likes": 0,
+                            "count_dislikes": 0
+                        }
+                    ]
+                }
+            },
+            "ForecastResponse": {
+                "title": "Root Type for ForecastResponse",
+                "description": "Ответ на /forecasts/{id}",
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/ForecastData",
+                        "properties": {
+                            "id": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "user_id": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "event_id": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "coefficient_id": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "parent_id": {
+                                "type": "string"
+                            },
+                            "forecast_text": {
+                                "type": "string"
+                            },
+                            "bet": {
+                                "type": "string"
+                            },
+                            "created_at": {
+                                "type": "string"
+                            },
+                            "updated_at": {
+                                "type": "string"
+                            },
+                            "count_comments": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "count_likes": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "count_dislikes": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "user_data": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "role": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "label": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "avatar": {
+                                        "type": "string"
+                                    },
+                                    "login": {
+                                        "type": "string"
+                                    },
+                                    "stats": {
+                                        "type": "object",
+                                        "properties": {
+                                            "user_id": {
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            "roi": {
+                                                "type": "string"
+                                            },
+                                            "pure_profit": {
+                                                "type": "string"
+                                            },
+                                            "count_win": {
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            "count_loss": {
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            "count_wait": {
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            "count_back": {
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            "count_subscribers": {
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            "count_subscriptions": {
+                                                "format": "int32",
+                                                "type": "integer"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "event": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "sport_id": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "championship_id": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "start": {
+                                        "format": "date-time",
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "created_at": {
+                                        "type": "string"
+                                    },
+                                    "updated_at": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "comments": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "format": "int32",
+                                            "type": "integer"
+                                        },
+                                        "user_id": {
+                                            "format": "int32",
+                                            "type": "integer"
+                                        },
+                                        "text": {
+                                            "type": "string"
+                                        },
+                                        "reference_to": {
+                                            "type": "string"
+                                        },
+                                        "referent_id": {
+                                            "format": "int32",
+                                            "type": "integer"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "count_comments": {
+                                            "format": "int32",
+                                            "type": "integer"
+                                        },
+                                        "count_likes": {
+                                            "format": "int32",
+                                            "type": "integer"
+                                        },
+                                        "count_dislikes": {
+                                            "format": "int32",
+                                            "type": "integer"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "data": {
+                        "id": 2,
+                        "user_id": 2,
+                        "event_id": 2,
+                        "coefficient_id": 2,
+                        "forecast_text": "Mexico (w) - Cuba (w)",
+                        "bet": "4174.00",
+                        "created_at": "2019-11-07T19:00:31.000000Z",
+                        "updated_at": "2020-03-19T15:03:18.000000Z",
+                        "count_comments": 1,
+                        "count_likes": 0,
+                        "count_dislikes": 0,
+                        "description": "Mexico (w) - Cuba (w)...",
+                        "user_data": {
+                            "id": 2,
+                            "role": {
+                                "id": 2,
+                                "name": "forecaster_robot",
+                                "label": "Прогнозист робот"
+                            },
+                            "avatar": "/storage/users/2/1584626425-ava.jpg",
+                            "login": "PRоFeSSoR",
+                            "stats": {
+                                "user_id": 2,
+                                "roi": "0.90799239",
+                                "pure_profit": "193220.7800",
+                                "count_win": 11,
+                                "count_loss": 0,
+                                "count_wait": 0,
+                                "count_back": 0,
+                                "count_subscribers": 0,
+                                "count_subscriptions": 7
+                            }
+                        },
+                        "event": {
+                            "id": 2,
+                            "sport_id": 5,
+                            "championship_id": 2,
+                            "title": "Mexico (w) - Cuba (w)",
+                            "start": "2019-10-13 20:00:00",
+                            "status": 2,
+                            "created_at": "2020-03-19T15:02:26.000000Z",
+                            "updated_at": "2020-03-20T12:58:44.000000Z"
+                        },
+                        "comments": [
+                            {
+                                "id": 3,
+                                "user_id": 220,
+                                "text": "Testing Comments",
+                                "reference_to": "forecasts",
+                                "referent_id": 2,
+                                "updated_at": "2020-05-06T07:24:12.000000Z",
+                                "created_at": "2020-05-06T07:24:12.000000Z",
+                                "count_comments": 0,
+                                "count_likes": 0,
+                                "count_dislikes": 0
+                            }
+                        ]
+                    },
+                    "success": true,
+                    "message": "Success"
+                }
+            },
+            "ResponseInfo": {
+                "title": "Root Type for ResponseInfo",
+                "description": "Дополнительная информация к ответу",
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "success": true,
+                    "message": "Success"
+                }
+            },
+            "ResponseCommonIndo": {
+                "title": "Root Type for ResponseCommonIndo",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "success": true,
+                    "message": "Success"
+                }
+            }
+        },
+        "responses": {
+            "ForecastsResponse": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ForecastsResponse"
+                        },
+                        "examples": {
+                            "/forecasts?limit=1": {
+                                "value": {
+                                    "data": {
+                                        "current_page": 1,
+                                        "data": [
+                                            {
+                                                "id": 1803,
+                                                "user_id": 59,
+                                                "event_id": 1803,
+                                                "coefficient_id": 1782,
+                                                "forecast_text": "М.Кресси - В.Игнатик",
+                                                "bet": "3702.00",
+                                                "created_at": "2020-03-19T20:31:25.000000Z",
+                                                "updated_at": "2020-03-20T12:58:54.000000Z",
+                                                "sport_id": 2,
+                                                "championship_id": 1797,
+                                                "title": "М.Кресси - В.Игнатик",
+                                                "start": "2019-10-16 12:30:00",
+                                                "status": 1,
+                                                "comments": [],
+                                                "count_comments": 0,
+                                                "count_likes": 0,
+                                                "count_dislikes": 0,
+                                                "description": "М.Кресси - В.Игнатик...",
+                                                "user_data": {
+                                                    "id": 59,
+                                                    "role": {
+                                                        "id": 2,
+                                                        "name": "forecaster_robot",
+                                                        "label": "Прогнозист робот"
+                                                    },
+                                                    "login": "IEXAZORO",
+                                                    "stats": {
+                                                        "user_id": 59,
+                                                        "roi": "0.89526502",
+                                                        "pure_profit": "319842.3800",
+                                                        "count_win": 88,
+                                                        "count_loss": 0,
+                                                        "count_wait": 1,
+                                                        "count_back": 0,
+                                                        "count_subscribers": 0,
+                                                        "count_subscriptions": 0
+                                                    }
+                                                },
+                                                "event": {
+                                                    "id": 1803,
+                                                    "sport_id": 2,
+                                                    "championship_id": 1797,
+                                                    "title": "М.Кресси - В.Игнатик",
+                                                    "start": "2019-10-16 12:30:00",
+                                                    "status": 1,
+                                                    "created_at": "2020-03-19T20:31:25.000000Z",
+                                                    "updated_at": "2020-03-20T12:58:54.000000Z"
+                                                }
+                                            },
+                                            {
+                                                "id": 2318,
+                                                "user_id": 93,
+                                                "event_id": 2318,
+                                                "coefficient_id": 2307,
+                                                "forecast_text": "4% поставил. В этой паре конечно шансов мало что удод победит, но они есть. По крайней мере +6.5 это не маленькая фора и если 1 партию возьмёт Удод, то ыооа может легко пройти. С этом году эти ребята между собой играли 7 встреч и пока Удод ведёт 4/3. Но последние 2 лички он слил. У него был спад. Зато сегодня он показывает отличный теннис, хорошо держит свою и шикарен на приеме. 2 из 2 сегодня выиграл. Гайсин же мучался против слабого Удьянчича, только в 5 партии смог 10:12 победить. Оба клуба играют агрессивно. Уровень примерно равный, в очных Удод часто цеплял плюс, да и пора уже побеждать. Тем более у него сегодня идёт игра, посмотрел по 1 матчу сегодня каждого",
+                                                "bet": "191.00",
+                                                "created_at": "2020-03-20T14:47:35.000000Z",
+                                                "updated_at": "2020-03-20T14:47:35.000000Z",
+                                                "sport_id": 5,
+                                                "championship_id": 2317,
+                                                "title": "Илья Удод (Укр) - Иван Гайсин (Укр)",
+                                                "start": "2020-03-20 12:30:00",
+                                                "status": 1,
+                                                "comments": [],
+                                                "count_comments": 0,
+                                                "count_likes": 0,
+                                                "count_dislikes": 0,
+                                                "description": "4% поставил. В этой паре конечно шансов мало что удод победит, но они есть. По крайней мере +6.5 это не маленькая фора и если 1 партию возьмёт Удод, то ыооа может легко пройти. С этом году эти ребята между собой играли 7 встреч и пока Удод ведёт 4/3. Но последние 2 лички он слил. У него был спад. Зато сегодня он показывает отличный теннис, хорошо держит свою и шикарен на приеме. 2 из 2 сегодня выиграл. Гайсин же мучался против слабого Удьянчича, только в 5 партии смог 10:12 победить. Оба клуба играют агрессивно. Уровень примерно равный, в очных Удод часто цеплял плюс, да и пора уже побеждать. Тем более у него сегодня идёт игра, посмотрел по 1 матчу сегодня каждого...",
+                                                "user_data": {
+                                                    "id": 93,
+                                                    "role": {
+                                                        "id": 2,
+                                                        "name": "forecaster_robot",
+                                                        "label": "Прогнозист робот"
+                                                    },
+                                                    "avatar": "/storage/users/93/1584701432-avatar1477.jpg",
+                                                    "login": "krasav4eg",
+                                                    "stats": {
+                                                        "user_id": 93,
+                                                        "roi": "0.28893507",
+                                                        "pure_profit": "2349.6200",
+                                                        "count_win": 18,
+                                                        "count_loss": 0,
+                                                        "count_wait": 22,
+                                                        "count_back": 0,
+                                                        "count_subscribers": 0,
+                                                        "count_subscriptions": 0
+                                                    }
+                                                },
+                                                "event": {
+                                                    "id": 2318,
+                                                    "sport_id": 5,
+                                                    "championship_id": 2317,
+                                                    "title": "Илья Удод (Укр) - Иван Гайсин (Укр)",
+                                                    "start": "2020-03-20 12:30:00",
+                                                    "status": 1,
+                                                    "created_at": "2020-03-20T14:47:35.000000Z",
+                                                    "updated_at": "2020-03-20T14:47:35.000000Z"
+                                                }
+                                            },
+                                            {
+                                                "id": 2326,
+                                                "user_id": 93,
+                                                "event_id": 2326,
+                                                "coefficient_id": 2317,
+                                                "forecast_text": "В лиге про Москвы я не силен. Но этих ребят знаю. Поставлю формально 1.5% от банка 2500 руб. Всё-таки опасный турнир. У Саянова преимущество в очных, 3 из 3 он выиграл, но в большинстве игр была борьба. Здесь на мой взгляд основным аргументом будет то, что с 18 числа Саянов не играл, в то время как его соперник 19 играл много матчей и 21 была игра, где он легко победил. Бесспорно Саянов выше классом,но такая пауза всегда сказывается отрицательно. Тем более он не подаван и его легко брейковать на его можно. Третьяков на приеме последнее время играл здорово, 19 числа 3 из 3 в лайв зашло на играх с его участием. Думаю что если второй и победит,то не просто. Такого уровня игроки защитного плана всегда ему проблемы доставляли",
+                                                "bet": "161.00",
+                                                "created_at": "2020-03-21T00:17:34.000000Z",
+                                                "updated_at": "2020-03-21T00:17:34.000000Z",
+                                                "sport_id": 5,
+                                                "championship_id": 152,
+                                                "title": "Третьяков А. - Саянов Д.",
+                                                "start": "2020-03-21 01:30:00",
+                                                "status": 1,
+                                                "comments": [],
+                                                "count_comments": 0,
+                                                "count_likes": 0,
+                                                "count_dislikes": 0,
+                                                "description": "В лиге про Москвы я не силен. Но этих ребят знаю. Поставлю формально 1.5% от банка 2500 руб. Всё-таки опасный турнир. У Саянова преимущество в очных, 3 из 3 он выиграл, но в большинстве игр была борьба. Здесь на мой взгляд основным аргументом будет то, что с 18 числа Саянов не играл, в то время как его соперник 19 играл много матчей и 21 была игра, где он легко победил. Бесспорно Саянов выше классом,но такая пауза всегда сказывается отрицательно. Тем более он не подаван и его легко брейковать на его можно. Третьяков на приеме последнее время играл здорово, 19 числа 3 из 3 в лайв зашло на играх с его участием. Думаю что если второй и победит,то не просто. Такого уровня игроки защитного плана всегда ему проблемы доставляли...",
+                                                "user_data": {
+                                                    "id": 93,
+                                                    "role": {
+                                                        "id": 2,
+                                                        "name": "forecaster_robot",
+                                                        "label": "Прогнозист робот"
+                                                    },
+                                                    "avatar": "/storage/users/93/1584701432-avatar1477.jpg",
+                                                    "login": "krasav4eg",
+                                                    "stats": {
+                                                        "user_id": 93,
+                                                        "roi": "0.28893507",
+                                                        "pure_profit": "2349.6200",
+                                                        "count_win": 18,
+                                                        "count_loss": 0,
+                                                        "count_wait": 22,
+                                                        "count_back": 0,
+                                                        "count_subscribers": 0,
+                                                        "count_subscriptions": 0
+                                                    }
+                                                },
+                                                "event": {
+                                                    "id": 2326,
+                                                    "sport_id": 5,
+                                                    "championship_id": 152,
+                                                    "title": "Третьяков А. - Саянов Д.",
+                                                    "start": "2020-03-21 01:30:00",
+                                                    "status": 1,
+                                                    "created_at": "2020-03-21T00:17:34.000000Z",
+                                                    "updated_at": "2020-03-21T00:17:34.000000Z"
+                                                }
+                                            },
+                                            {
+                                                "id": 2327,
+                                                "user_id": 93,
+                                                "event_id": 2327,
+                                                "coefficient_id": 2318,
+                                                "forecast_text": "4% от банка летит на фору первого. Мягков один из сильнейших игроков лиги, давно не проигрывает, но в любом случае у него давно не было практики. Зюзиков 21 числа играл и находится сейчас в хорошей форме. Тем более у него мотивация взять реванш за все очные поражения и на мой взгляд он не станет дарить игру. Тем более между собой они обычно плотно играют и огромных фон нет. Тем более это два агрессивных игрока, которые обычно больше 3-4 ударов за гейм не делают. Думаю что переоценили второго",
+                                                "bet": "178.00",
+                                                "created_at": "2020-03-21T00:47:28.000000Z",
+                                                "updated_at": "2020-03-21T00:47:28.000000Z",
+                                                "sport_id": 5,
+                                                "championship_id": 152,
+                                                "title": "Зюзиков П. - Мягков С.",
+                                                "start": "2020-03-21 02:00:00",
+                                                "status": 1,
+                                                "comments": [],
+                                                "count_comments": 0,
+                                                "count_likes": 0,
+                                                "count_dislikes": 0,
+                                                "description": "4% от банка летит на фору первого. Мягков один из сильнейших игроков лиги, давно не проигрывает, но в любом случае у него давно не было практики. Зюзиков 21 числа играл и находится сейчас в хорошей форме. Тем более у него мотивация взять реванш за все очные поражения и на мой взгляд он не станет дарить игру. Тем более между собой они обычно плотно играют и огромных фон нет. Тем более это два агрессивных игрока, которые обычно больше 3-4 ударов за гейм не делают. Думаю что переоценили второго...",
+                                                "user_data": {
+                                                    "id": 93,
+                                                    "role": {
+                                                        "id": 2,
+                                                        "name": "forecaster_robot",
+                                                        "label": "Прогнозист робот"
+                                                    },
+                                                    "avatar": "/storage/users/93/1584701432-avatar1477.jpg",
+                                                    "login": "krasav4eg",
+                                                    "stats": {
+                                                        "user_id": 93,
+                                                        "roi": "0.28893507",
+                                                        "pure_profit": "2349.6200",
+                                                        "count_win": 18,
+                                                        "count_loss": 0,
+                                                        "count_wait": 22,
+                                                        "count_back": 0,
+                                                        "count_subscribers": 0,
+                                                        "count_subscriptions": 0
+                                                    }
+                                                },
+                                                "event": {
+                                                    "id": 2327,
+                                                    "sport_id": 5,
+                                                    "championship_id": 152,
+                                                    "title": "Зюзиков П. - Мягков С.",
+                                                    "start": "2020-03-21 02:00:00",
+                                                    "status": 1,
+                                                    "created_at": "2020-03-21T00:47:28.000000Z",
+                                                    "updated_at": "2020-03-21T00:47:28.000000Z"
+                                                }
+                                            }
+                                        ],
+                                        "first_page_url": "http://localhost:8000/api/forecasts?page=1",
+                                        "from": 1,
+                                        "last_page": 9,
+                                        "last_page_url": "http://localhost:8000/api/forecasts?page=9",
+                                        "next_page_url": "http://localhost:8000/api/forecasts?page=2",
+                                        "path": "http://localhost:8000/api/forecasts",
+                                        "per_page": "4",
+                                        "to": 4,
+                                        "total": 34
+                                    },
+                                    "success": true,
+                                    "message": "Success"
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Возвращается при GET запросе к /forecasts"
+            },
+            "ForecastResponse": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ForecastsResponse"
+                        },
+                        "examples": {
+                            "/forecasts/2": {
+                                "value": {
+                                    "data": {
+                                        "id": 2,
+                                        "user_id": 2,
+                                        "event_id": 2,
+                                        "coefficient_id": 2,
+                                        "forecast_text": "Mexico (w) - Cuba (w)",
+                                        "bet": "4174.00",
+                                        "created_at": "2019-11-07T19:00:31.000000Z",
+                                        "updated_at": "2020-03-19T15:03:18.000000Z",
+                                        "count_comments": 1,
+                                        "count_likes": 0,
+                                        "count_dislikes": 0,
+                                        "description": "Mexico (w) - Cuba (w)...",
+                                        "user_data": {
+                                            "id": 2,
+                                            "role": {
+                                                "id": 2,
+                                                "name": "forecaster_robot",
+                                                "label": "Прогнозист робот"
+                                            },
+                                            "avatar": "/storage/users/2/1584626425-ava.jpg",
+                                            "login": "PRоFeSSoR",
+                                            "stats": {
+                                                "user_id": 2,
+                                                "roi": "0.90799239",
+                                                "pure_profit": "193220.7800",
+                                                "count_win": 11,
+                                                "count_loss": 0,
+                                                "count_wait": 0,
+                                                "count_back": 0,
+                                                "count_subscribers": 0,
+                                                "count_subscriptions": 7
+                                            }
+                                        },
+                                        "event": {
+                                            "id": 2,
+                                            "sport_id": 5,
+                                            "championship_id": 2,
+                                            "title": "Mexico (w) - Cuba (w)",
+                                            "start": "2019-10-13 20:00:00",
+                                            "status": 2,
+                                            "created_at": "2020-03-19T15:02:26.000000Z",
+                                            "updated_at": "2020-03-20T12:58:44.000000Z"
+                                        },
+                                        "comments": [
+                                            {
+                                                "id": 3,
+                                                "user_id": 220,
+                                                "text": "Testing Comments",
+                                                "reference_to": "forecasts",
+                                                "referent_id": 2,
+                                                "updated_at": "2020-05-06T07:24:12.000000Z",
+                                                "created_at": "2020-05-06T07:24:12.000000Z",
+                                                "count_comments": 0,
+                                                "count_likes": 0,
+                                                "count_dislikes": 0
+                                            }
+                                        ]
+                                    },
+                                    "success": true,
+                                    "message": "Success"
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Возвращается при /forecast/{id}"
+            },
+            "SuccessResponse": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "examples": {
+                            "Success Response": {
+                                "value": "    {\r\n        \"success\": true,\r\n    \"message\": \"Success\"\r\n    }"
+                            }
+                        }
+                    }
+                },
+                "description": "Отправляется на простой post запрос"
+            }
+        }
+    }
+}

@@ -1,19 +1,8 @@
 <?php
 
-use App\User;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-/**
- * @SWG\Swagger(
- *   schemes={"http"},
- *   host="betting-hub.sixhands.co",
- *   basePath="/",
- *   @SWG\Info(
- *     title="Betting hub back-end API",
- *     version="0.2.0"
- *   )
- * )
- */
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -31,9 +20,10 @@ Route::get('/comments/{comment}', 'CommentController@getOne');
 Route::get('/votes', 'VotesController@get');
 Route::get('/news', 'Api\InfoController@news');
 Route::get('/news/{news}', 'Api\InfoController@news');
-Route::get('/sports', 'SportsController@get');
-Route::get('/options', 'OptionsController@get');
-Route::get('/roles', 'RolesController@get');
+Route::get('/sports', function () { return \App\Sport::all(); } );
+Route::get('/options',  function () { return \App\Option::all(); });
+Route::get('/roles', function () { return \App\Role::all(); });
+Route::get('/events',  function () { return \App\Event::all(); });
 Route::get('/posts', 'Api\InfoController@posts');
 Route::get('/posts/{post}', 'Api\InfoController@post');
 

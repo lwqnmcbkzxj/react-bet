@@ -10,7 +10,6 @@ use DateTime;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class InfoController extends Controller
@@ -32,11 +31,8 @@ class InfoController extends Controller
         if (!$request->has('limit')) {
             $request['limit'] = 15;
         }
-        $forecasts->
         $forecasts = $forecasts->paginate($request['limit']);
-        foreach ($forecasts->all() as $index => $item) {
-            unset($forecasts['data'][$index]['comments']);
-        }
+
         return $this->sendResponse(($forecasts), 'Success',200);
 
     }

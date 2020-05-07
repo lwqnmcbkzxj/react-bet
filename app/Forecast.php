@@ -9,7 +9,7 @@ class Forecast extends Model
     public const MAX_DESCRIPTION_SIZE = 297;
     protected $guarded = ['id'];
     protected $appends = ['comments', 'count_comments', 'count_likes', 'count_dislikes', 'description', 'user_data','event'];
-    protected $hidden = [];
+    protected $hidden = ['comments','event'];
 
     public function getUserDataAttribute()
     {
