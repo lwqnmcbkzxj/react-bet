@@ -24,10 +24,11 @@ Route::post('/register', 'RegisterController@register');
 
 
 // Прогнозы
-Route::get('/forecast', 'Api\InfoController@forecasts');
-Route::get('/forecast/{forecast}', '\Api\InfoController@forecast');
+Route::get('/forecasts', 'Api\InfoController@forecasts');
+Route::get('/forecasts/{forecast}', 'Api\InfoController@forecast');
 Route::get('/comments', 'CommentController@get');
 Route::get('/comments/{comment}', 'CommentController@getOne');
+Route::get('/votes', 'VotesController@get');
 Route::get('/news', 'Api\InfoController@news');
 Route::get('/news/{news}', 'Api\InfoController@news');
 Route::get('/sports', 'SportsController@get');
@@ -41,6 +42,8 @@ Route::middleware('auth:api')->group(function()
 {
     Route::post('/comments', 'CommentController@post');
     Route::delete('/comments/{comment}', 'CommentController@delete');
+    Route::post('/votes', 'VotesController@post');
+    Route::delete('/votes/{vote}', 'VotesController@delete');
 
   Route::prefix('/users')->group(function(){
         Route::get('', 'Api\InfoController@forecasters');

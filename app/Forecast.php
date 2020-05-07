@@ -8,20 +8,24 @@ class Forecast extends Model
 {
     public const MAX_DESCRIPTION_SIZE = 297;
     protected $guarded = ['id'];
-    protected $appends = ['comments', 'count_comments', 'count_likes', 'count_dislikes', 'description', 'user_data'];
-    protected $hidden = ['comments', 'forecast', 'user_data'];
+    protected $appends = ['comments', 'count_comments', 'count_likes', 'count_dislikes', 'description', 'user_data','event'];
+    protected $hidden = [];
 
     public function getUserDataAttribute()
     {
         return $this->user_data = new UserResource($this->user()->first());
     }
+    public function getEventAttribute()
+    {
+        return $this->event = $this->event()->first();
+    }
     public function getDescriptionAttribute()
     {
-        return $this->description = substr($this->forecast,$this->MAX_DESCRIPTION_SIZE) . "...";
+        return $this->description = substr($this->forecast_text, $this->MAX_DESCRIPTION_SIZE) . "...";
     }
     public function getCommentsAttribute()
     {
-        return $this->children = $this->comments()->get();
+        return $this->comments = $this->comments()->get();
     }
     public function getCountCommentsAttribute()
     {
@@ -43,18 +47,22 @@ class Forecast extends Model
     public function user() {
         return $this->hasOne('App\User', 'id', 'user_id');
     }
+
     public function event() {
         return $this->hasOne('App\Event', 'id', 'event_id');
     }
+
     public function comments()
     {
         return $this->hasMany('App\Comment','referent_id', 'id')
             ->where('reference_to', '=', 'forecasts');
     }
+
     public function coefficient() {
         return $this->hasOne('App\Coefficient', 'id', 'coefficient_id');
     }
+
     public static function search($search) {
-        return Forecast::where('forecast','LIKE','%'.$search.'%');
+        return Forecast::query()->where('forecast','LIKE','%'.$search.'%');
     }
 }

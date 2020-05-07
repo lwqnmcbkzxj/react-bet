@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 use App\Http\Resources\User as UserResource;
+use App\Http\Resources\Forecast as ForecastResource;
 use App\Forecast;
 use App\News;
 use App\Post;
@@ -9,23 +10,21 @@ use DateTime;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-use phpDocumentor\Reflection\Types\Collection;
-use phpDocumentor\Reflection\Types\Resource_;
 
 class InfoController extends Controller
 {
-    public function forecasts(Request $request) {
+    public function forecasts(Request $request)
+    {
         $date = new DateTime('now', new \DateTimeZone('Europe/Moscow'));
 
-        $forecasts = Forecast::query()->join('events', 'forecasts.event_id', '=', 'events.id')
-           // ->where('start', '>=', $date->format('Y-m-d H:i:s'))
+        $forecasts = Forecast::join('events', 'forecasts.event_id', '=', 'events.id')
+            //->where('start', '>=', $date->format('Y-m-d H:i:s'))
             ->where('status', 1);
-
-        if ($request->has('sport_id') && $request['sport_id'] !== 'all') {
+        if ($request->has('sport_id')) {
             $forecasts = $forecasts->where('sport_id', $request['sport_id']);
         }
-
         if ($request->has('time') && $request['time'] !== 'all') {
             $filter_date = $date->modify('+' . $request['time'] . ' hours');
             $forecasts = $forecasts->where('start', '<=', $filter_date);
@@ -33,12 +32,19 @@ class InfoController extends Controller
         if (!$request->has('limit')) {
             $request['limit'] = 15;
         }
-        $tmp = "";
-        $forecasts = Collect($forecasts->paginate($request['limit']));
-        foreach ( as $index => $item) {
-            
+        $forecasts->
+        $forecasts = $forecasts->paginate($request['limit']);
+        foreach ($forecasts->all() as $index => $item) {
+            unset($forecasts['data'][$index]['comments']);
         }
-        return $this->sendResponse(['test'=>$tmp, 'release'=>$forecasts], 'Success',200);
+        return $this->sendResponse(($forecasts), 'Success',200);
+
+    }
+    public function forecast(Forecast $forecast)
+    {
+
+        return $this->sendResponse(new ForecastResource($forecast), 'Success',200);
+
     }
     public function forecasters(Request $request)
     {

@@ -16,6 +16,10 @@ class Event extends Model
     {
         return $this->hasMany('App\Coefficient');
     }
+    public function forecasts()
+    {
+        return $this->hasMany('App\Forecast');
+    }
 
     public function championship() {
         return $this->hasOne('App\Championship', 'id', 'championship_id');
