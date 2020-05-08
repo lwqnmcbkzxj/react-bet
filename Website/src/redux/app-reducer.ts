@@ -10,6 +10,7 @@ const SET_MAIN_PAGE_BLOCKS_VISIBILITY = 'app/SET_MAIN_PAGE_BLOCKS_VISIBILITY'
 const CHANGE_LANGUAGE = 'app/CHANGE_LANGUAGE'
 const SET_REDIRECT_LINK = 'app/SET_REDIRECT_LINK'
 const SET_SHOULD_REDIRECT = 'app/SET_SHOULD_REDIRECT'
+const CHANGE_USER_PAGE_TAB = 'app/CHANGE_USER_PAGE_TAB'
 
 let initialState = {
 	redirectLink: "",
@@ -17,6 +18,7 @@ let initialState = {
 	isAuthFormVisible: false,
 	isCommentsBlockVisible: true,
 	mainPageBlocksVisibility: {} as any,
+	activeProfileTab: "statistics",
 	languages: [
 		{ index: 1, name: languageEnum.rus, visibleText: 'Русский', active: true},
 		{ index: 2, name: languageEnum.eng, visibleText: 'English', active: false},
@@ -31,7 +33,7 @@ type ActionsTypes =
 	ToggleCommentsBlockVisibilityType | 
 	SetMainPageBlockVisibilityType | 
 	ChangeMainPageBlockVisibilityType |
-	ChangeLanguageType;
+	ChangeLanguageType | ChangeUserPageActiveTabType;
 
 const appReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
@@ -58,7 +60,7 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 			if (mainPageVisibility) {
 				mainPageVisibility = JSON.parse(mainPageVisibility)
 			} else {
-				let mainPageVisibilityNew = { } as any
+				let mainPageVisibilityNew = {} as any
 				for (let blockName of action.blocksNames) {
 					mainPageVisibilityNew[blockName] = true
 				}
@@ -117,6 +119,13 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 				shouldRedirect: action.shouldRedirect
 			}
 		}
+		case CHANGE_USER_PAGE_TAB: {
+			console.log(action.tabName)
+			return {
+				...state,
+				activeProfileTab: action.tabName
+			}
+		}
 		default:
 			return state;
 	}
@@ -149,7 +158,10 @@ export type SetShouldRedirectType = {
 	type: typeof SET_SHOULD_REDIRECT
 	shouldRedirect: boolean
 }
-
+type ChangeUserPageActiveTabType = {
+	type: typeof CHANGE_USER_PAGE_TAB
+	tabName: string
+}
 export const toggleAuthFormVisiblility = (value?: boolean): ToggleAuthFormVisiblilityType => {
 	return {
 		type: TOGGLE_AUTH_FORM_VISIBILITY,
@@ -180,6 +192,14 @@ export const changeLanguage = (language: languageEnum): ChangeLanguageType => {
 		language
 	}
 }
+
+export const changeUserPageActiveTab = (tabName: string): ChangeUserPageActiveTabType => {
+	return {
+		type: CHANGE_USER_PAGE_TAB,
+		tabName
+	}
+}
+
 
 export const setRedirectLink = (redirectLink: string): SetRedirectLinkType => {
 	return {

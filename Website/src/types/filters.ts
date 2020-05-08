@@ -13,7 +13,7 @@ export enum subscribtionFilterEnum {
 }
 
 export enum sportTypeFilterEnum {
-	allSports = 'all',
+	allSports = '',
 	football = '1',
 	tennis = '2',
 	basketball = '3',

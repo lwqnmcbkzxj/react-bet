@@ -12,7 +12,7 @@
 	& .listHeader,
 	& .bookmaker {
 		display: grid;
-		grid-template-columns: 1fr 125px 1fr 3fr 2fr 2fr 5fr;
+		grid-template-columns: 1fr 125px 1fr 2fr 2fr 2fr 5fr;
 		grid-gap: 10px;
 		justify-items: center;
 		align-items: center;
@@ -102,7 +102,7 @@
 	.bookmakersList {
 		
 		& .listHeader, & .bookmaker {
-			grid-template-columns: 1fr 125px 1fr 3fr 2fr 2fr 20px;
+			grid-template-columns: 1fr 125px 1fr 2fr 2fr 2fr 20px;
 
 		}
 
@@ -124,7 +124,7 @@
 		& .listHeader,
 		& .bookmaker {
 			display: grid;
-			grid-template-columns: 110px 1fr 1fr 1fr 20px;
+			grid-template-columns: 100px 1fr 1fr 1fr 20px;
 
 			grid-gap: 6px;
 			padding: 8px;
@@ -147,7 +147,7 @@
 
 		& .bookmaker {
 			& .company img {
-				height: 45px;
+				height: 40px;
 			}
 			& .rating {
 				& .ratingNumber {

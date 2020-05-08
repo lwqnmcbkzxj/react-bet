@@ -26,14 +26,12 @@ const Settings: FC<SettingsPropsType> = ({ loggedUser, languages, changeLanguage
 					<img src={userNoImg} alt="user-img" />
 					<div className={s.nickName}>Никнейм</div>
 
-
-					<button className={classNames(s.profileBtn, s.settingsBtn, s.active)}>
-						<Link to={`/forecasters/${loggedUser.id}`}>
+					<Link to={`/forecasters/${loggedUser.id}`}>
+						<button className={classNames(s.profileBtn, s.settingsBtn, s.active)}>
 							<span><FontAwesomeIcon icon={faCog} className={s.settingIcon} /></span>
 							<p>Настройки</p>
-						</Link>
-					</button>
-
+						</button>
+					</Link>
 					<div className={s.userBalance}>
 						<p className={s.bank}><span>Банк:</span> 166 500xB</p>
 
@@ -80,8 +78,8 @@ const Settings: FC<SettingsPropsType> = ({ loggedUser, languages, changeLanguage
 				</div>
 
 			</div>
-		
-					
+
+
 			<button onClick={logout} className={s.logoutBtn}>Выйти</button>
 		</div>
 	)

@@ -12,9 +12,9 @@ import { Link } from 'react-router-dom'
 import userNoImg from '../../assets/img/user-no-image.png'
 import ForecastsList from '../Forecasts/ForecastsList/ForecastsList';
 import UserStats from './UserStats'
-import Settings from './Settings/Settings'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faCheck } from '@fortawesome/free-solid-svg-icons'
+
 export enum selectors {
 	forecasts = 'forecasts',
 	statistics = 'statistics',
@@ -34,66 +34,97 @@ type UsersPropsType = {
 
 	filters: FiltersObjectType
 	toggleFilter: (filterName: FilterNames, filtersBlockName: string) => void
+
+	visibleTab: string
+	changeVisibleTab: (tabName: string) => void
 }
 
 
-const User: FC<UsersPropsType> = ({ user, loggedUser,  isLoggedUserProfile, forecasts, getUserForecasts, getUserFavourites, subscribe, filters, toggleFilter, ...props }) => {
-	const [visibleTab, setVisibleTab] = useState('statistics')
-	const changeVisibleTab = (tabName: string) => {
-		if (visibleTab !== tabName)
-			setVisibleTab(tabName)
-	}
+const User: FC<UsersPropsType> = ({
+	user, loggedUser, isLoggedUserProfile,
+	forecasts, getUserForecasts, getUserFavourites,
+	subscribe,
+	filters, toggleFilter,
+	visibleTab, changeVisibleTab,
+	...props }) => {
 
 	const handleTabChange = (tabName: string) => {
 		changeVisibleTab(tabName)
-		if (tabName === 'forecasts') {
+		if (tabName === selectors.forecasts) {
 			getUserForecasts()
-		} else if (tabName === 'favourites') {
+		} else if (tabName === selectors.favourites) {
 			getUserFavourites()
 		}
 	}
 
 	let renderingTab
-	if (visibleTab === 'forecasts') {
+	if (visibleTab === selectors.forecasts) {
 		renderingTab = <ForecastsList forecasts={forecasts} />
-	} else if (visibleTab === 'statistics') {
-		renderingTab = <UserStats wins={10} loses={5} returns={2} filters={filters} toggleFilter={toggleFilter}/>
-	} else if (visibleTab === 'favourites') {
+	} else if (visibleTab === selectors.statistics) {
+		renderingTab = <UserStats wins={10} loses={5} returns={2} filters={filters} toggleFilter={toggleFilter} />
+	} else if (visibleTab === selectors.favourites) {
 		renderingTab = <ForecastsList forecasts={forecasts} />
 	}
 
-	
 
+	const [subscribed, setSubscribed] = useState(false)
+	const subscribeToggle = () => {
+		setSubscribed(!subscribed)
+	}
+
+		
+		
 	let profileBtn
 	if (isLoggedUserProfile) {
 		profileBtn =
-			<button className={classNames(s.profileBtn, s.settings)}>
-				<Link to={`/forecasters/${loggedUser.id}/settings`}>
+			<Link to={`/forecasters/${loggedUser.id}/settings`}>
+				<button className={classNames(s.profileBtn, s.settings)}>
 					<span><FontAwesomeIcon icon={faCog} className={s.settingIcon} /></span>
 					<p>Настройки</p>
-				</Link>
-			</button>
+				</button>
+			</Link>
 	} else {
-		profileBtn = <button className={classNames(s.profileBtn, s.subscribe)} onClick={subscribe}><span>+</span> <p>Подписаться</p></button>
+		if (subscribed) {
+			profileBtn =
+				<button className={classNames(s.profileBtn, s.subscribe)} onClick={subscribeToggle}>
+					<span>+</span> <p>Подписаться</p>
+				</button>
+		} else {
+			profileBtn =
+				<button className={classNames(s.profileBtn, s.subscribe)} onClick={subscribeToggle}>
+				<FontAwesomeIcon icon={faCheck} className={s.checkedIcon + ' ' + s.positive}/>
+					<p>Подписан</p>
+				</button>
+		}
 	}
 
 
-	let ROIBlock = <p className={s.roi}>
-		<span className={classNames({ [s.positive]: true, [s.negative]: false })}>+128.5%</span>
-		ROI за все время</p>
+	let ROIBlock =
+		<div className={s.roi}>
+			<span className={classNames({ [s.positive]: true, [s.negative]: false })}>+128.5%</span>
+			<div className={s.roiSplitter}>|</div>
+			<span className={classNames({ [s.positive]: true, [s.negative]: false })}>+128.5%</span> ROI
+		</div>
 
 
-	
-	
-	
-	
+
+
+
+
 	return (
 		<div className={classNames(s.userPage)}>
 			<div className={s.user}>
 				<div className={s.userInfo}>
 					<div className={s.userDetails}>
 						<img src={userNoImg} alt="user-img" />
-						<div className={s.nickName}>Никнейм</div>
+						<div className={s.nickName}>
+							<p>Никнейм</p>
+								<div className={s.userStats}>
+									<p className={s.positive}>10</p>/
+									<p className={s.negative}>5</p>/
+									<p className={s.neutral}>2</p>
+								</div>
+						</div>
 
 						{profileBtn}
 
@@ -108,7 +139,7 @@ const User: FC<UsersPropsType> = ({ user, loggedUser,  isLoggedUserProfile, fore
 				</div>
 
 				<div className={s.userStats}>
-					<div className={s.wins}>
+					{/* <div className={s.wins}>
 						<p>Побед</p>
 						<p className={s.positive}>10</p>
 					</div>
@@ -119,7 +150,7 @@ const User: FC<UsersPropsType> = ({ user, loggedUser,  isLoggedUserProfile, fore
 					<div className={s.returns}>
 						<p>Возвратов</p>
 						<p className={s.neutral}>2</p>
-					</div>
+					</div> */}
 					<div className={s.subscribers}>
 						<p>Подписчиков</p>
 						<p>10</p>

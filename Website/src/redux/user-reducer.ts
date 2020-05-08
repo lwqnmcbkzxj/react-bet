@@ -1,8 +1,8 @@
 import { AppStateType } from '../types/types'
 import { ThunkAction } from 'redux-thunk'
-
 import { UserType } from '../types/user'
 import { timeFilterEnum, FiltersObjectType, FilterNames } from '../types/filters'
+import { usersAPI } from '../api/api'
 
 
 const TOGGLE_FILTER = 'users/TOGGLE_FILTER'
@@ -58,6 +58,15 @@ export const toggleFilter = (filterName: FilterNames, filtersBlockName: any): To
 		filtersBlockName
 	}
 }
+
+export const getUserFromServer = (id: number): ThunksType => async (dispatch) => {		
+	// dispatch(toggleIsFetching(true))
+	let response = await usersAPI.getUser(id)	
+	// dispatch(toggleIsFetching(false))
+	
+	// dispatch(setUser(response))
+}
+
 
 
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>

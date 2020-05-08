@@ -29,7 +29,7 @@ const ForecastsContainer: FC<Props> = ({ ...props }) => {
 
 	let options = {
 		sport: activeSportFilter,
-		tf: activeTimeFilter
+		time: activeTimeFilter
 	}
 
 	useEffect(() => {

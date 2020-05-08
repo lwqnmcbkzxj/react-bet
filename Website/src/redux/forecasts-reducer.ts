@@ -111,17 +111,11 @@ type ToggleIsFetchingType = {
 
 
 export const getForecastsFromServer = (page: number, quanity: number, options = {} as any): ThunksType => async (dispatch) => {	
-	let optionsObj = {
-		tf: options.tf || 'all',
-		sport: options.sport || 'all',
-		useSubscribes: options.useSubscribes || false,
-		useFavorites: options.useFavorites || false
-	}
 	dispatch(toggleIsForecastsFetching(true))
-	let response = await forecastsAPI.getForecasts(page, quanity, optionsObj)
+	let response = await forecastsAPI.getForecasts(page, quanity, options)
 	dispatch(toggleIsForecastsFetching(false))
 	
-	dispatch(setForecasts(response))
+	dispatch(setForecasts(response.data.data))
 }
 
 export const getForecastFromServer = (id: number): ThunksType => async (dispatch) => {
@@ -130,7 +124,7 @@ export const getForecastFromServer = (id: number): ThunksType => async (dispatch
 	let response = await forecastsAPI.getForecast(id)	
 	dispatch(toggleIsForecastsFetching(false))
 
-	dispatch(setForecast(response[0]))
+	dispatch(setForecast(response.data))
 }
 
 export const setForecasts = (forecasts: Array<ForecastType>): SetForecastsType => {

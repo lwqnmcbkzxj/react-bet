@@ -29,10 +29,37 @@
 
 			& .nickName {
 				font-family: 'Roboto Medium';
-				font-size: 24px;
-				line-height: 29px;
+				font-size: 20px;
+				line-height: 25px;
 				color: #343638;
-				align-self: flex-end;
+				align-self: flex-start;
+				display: flex;
+
+				& .userStats {
+					padding: 0;
+					margin-left: 5px;
+					align-self: flex-start;
+					display: flex;
+					justify-content: flex-start;
+					font-size: 12px;
+					line-height: 14px;
+				}
+			}
+
+			& .roi {
+				font-family: 'Roboto';
+				font-size: 16px;
+				line-height: 19px;
+				color: #393F4D;
+				display: flex;
+				& .roiSplitter {
+					margin-right: 5px;
+				}
+
+				& span {
+					margin-right: 5px;
+					font-family: 'Roboto Medium';
+				}
 			}
 
 			& .userBalance {
@@ -54,22 +81,12 @@
 					}
 				}
 
-				& .roi {
-					font-family: 'Roboto';
-					font-size: 16px;
-					line-height: 19px;
-					color: #393F4D;
-
-					& span {
-						margin-right: 5px;
-						font-family: 'Roboto Medium';
-					}
-				}
+			
 			}
 
 			& .profileBtn {
 				border-radius: 5px;
-				padding: 8px 20px 8px 20px;
+				padding: 7px 20px 6px 20px;
 				border: 1px solid #E5E2E2;
 				color: #343638;
 				font-family: 'Roboto Medium';
@@ -90,10 +107,13 @@
 					align-items: center;
 					font-size: 20px;
 					margin-right: 6px;
-
+					
 					& .settingIcon {
 						font-size: 12px;
 					}
+				}
+				& .checkedIcon {
+					margin-right: 6px;
 				}
 			}
 
@@ -125,7 +145,7 @@
 		justify-content: space-between;
 
 		display: grid;
-		grid-template-columns: repeat(6, 1fr);
+		grid-template-columns: repeat(3, 1fr);
 		grid-gap: 10px;
 		align-items: center;
 		justify-items: center;
@@ -366,7 +386,7 @@
 				margin-left: -8px;
 				border: none;
 				border-radius: 0;
-				box-shadow: 0px 0px 10px 0px #c7c7c7;
+				box-shadow: 0px 0px 10px 0px #c7c7c7;				
 			}
 		}
 

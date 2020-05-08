@@ -10,12 +10,10 @@ import { toggleAuthFormVisiblility } from '../../redux/app-reducer'
 import { getForecastsFromServer } from '../../redux/forecasts-reducer'
 import { ForecastType } from '../../types/forecasts'
 import { FiltersObjectType, FilterNames } from '../../types/filters'
-
-
+import { changeUserPageActiveTab } from '../../redux/app-reducer'
 
 import { getActiveFilter } from '../../utils/getActiveFilter'
-
-import { toggleFilter } from '../../redux/user-reducer'
+import { toggleFilter, getUserFromServer } from '../../redux/user-reducer'
 interface MatchParams {
 	userId: string;
 }
@@ -23,6 +21,7 @@ interface MatchParams {
 interface Props extends RouteComponentProps<MatchParams> { }
 
 const UsersContainer: FC<Props> = ({ ...props }) => {
+	const activeUserProfileTab = useSelector<AppStateType, string>(state => state.app.activeProfileTab)
 	const currentUser = useSelector<AppStateType, UserType>(state => state.user.currentUser)
 	const loggedUser = useSelector<AppStateType, LoggedUserType>(state => state.me.userInfo)
 	const logged = useSelector<AppStateType, boolean>(state => state.me.logged)
@@ -37,22 +36,28 @@ const UsersContainer: FC<Props> = ({ ...props }) => {
 	// 	tf: activeTimeFilter
 	// }
 
-	// useEffect(() => {
-	// 	dispatch(getUserDataFromServer(userId, options))		
-	// }, [filters]);
 
 	const toggleFilterDispatch = (filterName: FilterNames, filtersBlockName: string) => {
 		dispatch(toggleFilter(filterName, filtersBlockName))
 	}
 
-
+	const changeVisibleTab = (tabName: string) => {
+		dispatch(changeUserPageActiveTab(tabName))
+	}
 
 
 	let userId = props.match.params.userId ? props.match.params.userId : 1;
+	useEffect(() => {
+		dispatch(getUserFromServer(+userId))		
+	}, [filters]);
+
 	if (+userId === 0)
 		return <Redirect to={`/forecasters/${loggedUser.id}`} />
 	
 	let isLoggedUserProfile = (+userId === loggedUser.id)
+
+
+
 
 
 
@@ -93,6 +98,8 @@ const UsersContainer: FC<Props> = ({ ...props }) => {
 
 				filters={filters}
 				toggleFilter={toggleFilterDispatch}
+				visibleTab={activeUserProfileTab}
+				changeVisibleTab={changeVisibleTab}
 			/>
 			: <div></div>
 	)

@@ -12,7 +12,7 @@ const Comment: FC<CommentPropsType> = ({ comment, ...props }) => {
 	return (
 		<div className={s.comment}>
 			<div className={s.commentInfo}>
-				<NavLink className={s.commentatorInfo} to={`/users/${comment.userId}`}>
+				<NavLink className={s.commentatorInfo} to={`/forecasters/${comment.userId}`}>
 					<img src={comment.userImg} alt="comentatorImg" />
 					<div className={s.comentatorName}>{comment.userName}</div>
 
