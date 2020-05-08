@@ -24,8 +24,12 @@ type HeaderPropsType = {
 const DesktopHeader: FC<HeaderPropsType> = ({ logged, logout, loggedUserId, isCommentsBlockVisible, toggleAuthFormVisiblility, toggleCommentsBlockVisibility, ...props }) => {
 	const [popupVisible, setPopupVisibility] = useState(false)
 	
-	const toggleUserPopupVisibility = () => {
-		setPopupVisibility(!popupVisible)
+	const toggleUserPopupVisibility = (value?: boolean | any) => {
+
+		if (value === true || value === false) 
+			setPopupVisibility(value)
+		else 
+			setPopupVisibility(!popupVisible)
 	}
 	
 	

@@ -1,37 +1,72 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect, createRef } from 'react';
+import { useDispatch } from 'react-redux';
+
 import s from './Header.module.scss';
 import classNames from 'classnames'
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faBookmark, faCog, faDoorClosed } from '@fortawesome/free-solid-svg-icons'
-import doorImg from '../../../assets/img/door.png'
-import { selectors } from '../../User/User';
 
+import exitIcon from '../../../assets/img/exit-icon.png'
+import bookmarkIcon from '../../../assets/img/popup-bookmark-icon.png'
+import plusIcon from '../../../assets/img/plus-icon.png'
+import userImg from '../../../assets/img/user-img.png'
 
+import { changeUserPageActiveTab } from '../../../redux/app-reducer'
+import { create } from 'domain';
 
 type UserPopupPropsType = {
 	logout: () => void
 	loggedUserId: number
-	toggleUserPopupVisibility: () => void
+	toggleUserPopupVisibility: (value?: boolean | any) => void
 }
 
 const UserMobilePopup: FC<UserPopupPropsType> = ({ logout, loggedUserId, toggleUserPopupVisibility, ...props }) => {
+	const dispatch = useDispatch()
+	let popupRef = createRef<HTMLDivElement>()
+	useEffect(() => {
+		window.addEventListener('click', (e) => {
+			// toggleUserPopupVisibility(false)
+		})
+		return (
+			window.removeEventListener('click', ()=>{})
+		)
+	}, [])
 
 	return (
-		<div className={s.userPopup} onClick={toggleUserPopupVisibility}>
-			{/* <Link to={`/forecasters/${loggedUserId}`} className={s.popupRow} >
-				<FontAwesomeIcon icon={faBookmark} className={s.icon}/>
+		<div className={s.userPopup} ref={popupRef} onClick={toggleUserPopupVisibility}>
+			<div className={s.popupHeader}>Профиль</div>
+
+			<NavLink to={`/forecasters/${loggedUserId}`} className={s.popupRow + ' ' + s.userRow}>
+				<img src={userImg} alt="user-img" />
+				<p>Никнейм</p>
+			</NavLink>
+
+			<NavLink
+				to={`/forecasters/${loggedUserId}`}
+				className={s.popupRow}
+				onClick={() => { dispatch(changeUserPageActiveTab('favourites')) }}>
+				
+				<img src={bookmarkIcon} alt="fav-icon" />
 				<p>Избранное</p>
-			</Link> */}
-			<Link to={`/forecasters/${loggedUserId}/settings`} className={s.popupRow}>
-				<FontAwesomeIcon icon={faCog} className={s.icon}/>
-				<p>Настройки</p>
+			</NavLink>
+
+			<NavLink to={`/forecasts/add/forecast`} className={s.popupRow}>
+				<img src={plusIcon} alt="plus-icon" />
+				<p>Добавить прогноз</p>
+			</NavLink>
+			<NavLink to={`/forecasts/add/express`} className={s.popupRow}>
+				<img src={plusIcon} alt="plus-icon" />
+				<p>Добавить экспресс</p>
+			</NavLink>
+
+			<Link to="/" className={s.popupRow + ' ' + s.logoutRow} onClick={logout}>
+				{/* <button > */}
+					<img src={exitIcon} alt="door-img" />
+					<p>Выйти</p>
+				{/* </button> */}
 			</Link>
-			<button className={s.popupRow} onClick={logout}>
-				<img src={doorImg} alt="door-img"/>
-				<p>Выйти</p>
-			</button>
 		</div>
 	)
 }
