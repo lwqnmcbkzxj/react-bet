@@ -37,11 +37,7 @@ trait ApiResponse
      */
     public static function makeResponse($message, $data)
     {
-        return [
-            'data'    => $data,
-            'success' => true,
-            'message' => $message,
-        ];
+        return $data;
     }
 
     /**
