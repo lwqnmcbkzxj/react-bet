@@ -217,7 +217,8 @@
             "description": "Операции с пользователем",
             "get": {
                 "tags": [
-                    "User"
+                    "User",
+                    "Users"
                 ],
                 "responses": {
                     "200": {
@@ -244,6 +245,107 @@
                     "required": true
                 }
             ]
+        },
+        "/users/profile": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ProfileResponse"
+                    }
+                },
+                "operationId": "ProfileController@index",
+                "summary": "Личный профиль пользователя",
+                "description": "Включает приватную информацию не доступную другим"
+            }
+        },
+        "/users/update/login": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Login"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Profile"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/SuccessResponse"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "operationId": "ProfileController@updateLogin",
+                "summary": "Обновление логина",
+                "description": "Обновление логина"
+            }
+        },
+        "/users/update/notification": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Notification"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "profile",
+                    "settings"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/SuccessResponse"
+                    }
+                },
+                "operationId": "ProfileController@updateNotification",
+                "summary": "Обновление уведомлений",
+                "description": "Обновление уведомлений"
+            }
+        },
+        "/users/update/email": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Email"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Profile"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/SuccessResponse"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "operationId": "ProfileController@updateEmail",
+                "summary": "Обновление почты",
+                "description": "Обновление почты"
+            }
         }
     },
     "components": {
@@ -340,254 +442,66 @@
                         "type": "object",
                         "properties": {
                             "data": {
-                                "type": "array",
-                                "items": {
-                                    "$ref": "#/components/schemas/ForecastDataItem"
-                                },
-                                "properties": {
-                                    "current_page": {
-                                        "format": "int32",
-                                        "type": "integer"
-                                    },
-                                    "data": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "object",
-                                            "properties": {
-                                                "id": {
-                                                    "format": "int32",
-                                                    "type": "integer"
-                                                },
-                                                "user_id": {
-                                                    "format": "int32",
-                                                    "type": "integer"
-                                                },
-                                                "event_id": {
-                                                    "format": "int32",
-                                                    "type": "integer"
-                                                },
-                                                "coefficient_id": {
-                                                    "format": "int32",
-                                                    "type": "integer"
-                                                },
-                                                "parent_id": {
-                                                    "type": "string"
-                                                },
-                                                "bet": {
-                                                    "type": "string"
-                                                },
-                                                "created_at": {
-                                                    "type": "string"
-                                                },
-                                                "updated_at": {
-                                                    "type": "string"
-                                                },
-                                                "sport_id": {
-                                                    "format": "int32",
-                                                    "type": "integer"
-                                                },
-                                                "championship_id": {
-                                                    "format": "int32",
-                                                    "type": "integer"
-                                                },
-                                                "title": {
-                                                    "type": "string"
-                                                },
-                                                "start": {
-                                                    "format": "date-time",
-                                                    "type": "string"
-                                                },
-                                                "status": {
-                                                    "format": "int32",
-                                                    "type": "integer"
-                                                },
-                                                "count_comments": {
-                                                    "format": "int32",
-                                                    "type": "integer"
-                                                },
-                                                "count_likes": {
-                                                    "format": "int32",
-                                                    "type": "integer"
-                                                },
-                                                "count_dislikes": {
-                                                    "format": "int32",
-                                                    "type": "integer"
-                                                },
-                                                "description": {
-                                                    "type": "string"
-                                                },
-                                                "user_data": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "id": {
-                                                            "format": "int32",
-                                                            "type": "integer"
-                                                        },
-                                                        "role": {
-                                                            "type": "object",
-                                                            "properties": {
-                                                                "id": {
-                                                                    "format": "int32",
-                                                                    "type": "integer"
-                                                                },
-                                                                "name": {
-                                                                    "type": "string"
-                                                                },
-                                                                "label": {
-                                                                    "type": "string"
-                                                                }
-                                                            }
-                                                        },
-                                                        "avatar": {
-                                                            "type": "string"
-                                                        },
-                                                        "login": {
-                                                            "type": "string"
-                                                        },
-                                                        "stats": {
-                                                            "type": "object",
-                                                            "properties": {
-                                                                "user_id": {
-                                                                    "format": "int32",
-                                                                    "type": "integer"
-                                                                },
-                                                                "roi": {
-                                                                    "type": "string"
-                                                                },
-                                                                "pure_profit": {
-                                                                    "type": "string"
-                                                                },
-                                                                "count_win": {
-                                                                    "format": "int32",
-                                                                    "type": "integer"
-                                                                },
-                                                                "count_loss": {
-                                                                    "format": "int32",
-                                                                    "type": "integer"
-                                                                },
-                                                                "count_wait": {
-                                                                    "format": "int32",
-                                                                    "type": "integer"
-                                                                },
-                                                                "count_back": {
-                                                                    "format": "int32",
-                                                                    "type": "integer"
-                                                                },
-                                                                "count_subscribers": {
-                                                                    "format": "int32",
-                                                                    "type": "integer"
-                                                                },
-                                                                "count_subscriptions": {
-                                                                    "format": "int32",
-                                                                    "type": "integer"
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
-                                    "first_page_url": {
-                                        "type": "string"
-                                    },
-                                    "from": {
-                                        "format": "int32",
-                                        "type": "integer"
-                                    },
-                                    "last_page": {
-                                        "format": "int32",
-                                        "type": "integer"
-                                    },
-                                    "last_page_url": {
-                                        "type": "string"
-                                    },
-                                    "next_page_url": {
-                                        "type": "string"
-                                    },
-                                    "path": {
-                                        "type": "string"
-                                    },
-                                    "per_page": {
-                                        "type": "string"
-                                    },
-                                    "prev_page_url": {
-                                        "type": "string"
-                                    },
-                                    "to": {
-                                        "format": "int32",
-                                        "type": "integer"
-                                    },
-                                    "total": {
-                                        "format": "int32",
-                                        "type": "integer"
-                                    }
-                                }
-                            },
-                            "success": {
-                                "type": "boolean"
-                            },
-                            "message": {
-                                "type": "string"
+                                "$ref": "#/components/schemas/ForecastDataItem",
+                                "description": ""
                             }
                         }
+                    },
+                    {
+                        "$ref": "#/components/schemas/PaginationInfo"
                     }
                 ],
                 "example": {
-                    "data": {
-                        "current_page": 1,
-                        "data": [
-                            {
-                                "id": 1803,
-                                "user_id": 59,
-                                "event_id": 1803,
-                                "coefficient_id": 1782,
-                                "bet": "3702.00",
-                                "created_at": "2020-03-19T20:31:25.000000Z",
-                                "updated_at": "2020-03-20T12:58:54.000000Z",
-                                "sport_id": 2,
-                                "championship_id": 1797,
-                                "title": "М.Кресси - В.Игнатик",
-                                "start": "2019-10-16 12:30:00",
-                                "status": 1,
-                                "count_comments": 0,
-                                "count_likes": 0,
-                                "count_dislikes": 0,
-                                "description": "М.Кресси - В.Игнатик...",
-                                "user_data": {
-                                    "id": 59,
-                                    "role": {
-                                        "id": 2,
-                                        "name": "forecaster_robot",
-                                        "label": "Прогнозист робот"
-                                    },
-                                    "login": "IEXAZORO",
-                                    "stats": {
-                                        "user_id": 59,
-                                        "roi": "0.89526502",
-                                        "pure_profit": "319842.3800",
-                                        "count_win": 88,
-                                        "count_loss": 0,
-                                        "count_wait": 1,
-                                        "count_back": 0,
-                                        "count_subscribers": 0,
-                                        "count_subscriptions": 0
-                                    }
+                    "current_page": 1,
+                    "data": [
+                        {
+                            "id": 1803,
+                            "user_id": 59,
+                            "event_id": 1803,
+                            "coefficient_id": 1782,
+                            "bet": "3702.00",
+                            "created_at": "2020-03-19T20:31:25.000000Z",
+                            "updated_at": "2020-03-20T12:58:54.000000Z",
+                            "sport_id": 2,
+                            "championship_id": 1797,
+                            "title": "М.Кресси - В.Игнатик",
+                            "start": "2019-10-16 12:30:00",
+                            "status": 1,
+                            "count_comments": 0,
+                            "count_likes": 0,
+                            "count_dislikes": 0,
+                            "description": "М.Кресси - В.Игнатик...",
+                            "user_data": {
+                                "id": 59,
+                                "role": {
+                                    "id": 2,
+                                    "name": "forecaster_robot",
+                                    "label": "Прогнозист робот"
+                                },
+                                "login": "IEXAZORO",
+                                "stats": {
+                                    "user_id": 59,
+                                    "roi": "0.89526502",
+                                    "pure_profit": "319842.3800",
+                                    "count_win": 88,
+                                    "count_loss": 0,
+                                    "count_wait": 1,
+                                    "count_back": 0,
+                                    "count_subscribers": 0,
+                                    "count_subscriptions": 0
                                 }
                             }
-                        ],
-                        "first_page_url": "http://localhost:8000/api/forecasts?page=1",
-                        "from": 1,
-                        "last_page": 34,
-                        "last_page_url": "http://localhost:8000/api/forecasts?page=34",
-                        "next_page_url": "http://localhost:8000/api/forecasts?page=2",
-                        "path": "http://localhost:8000/api/forecasts",
-                        "per_page": "1",
-                        "to": 1,
-                        "total": 34
-                    },
-                    "success": true,
-                    "message": "Success"
+                        }
+                    ],
+                    "first_page_url": "http://localhost:8000/api/forecasts?page=1",
+                    "from": 1,
+                    "last_page": 34,
+                    "last_page_url": "http://localhost:8000/api/forecasts?page=34",
+                    "next_page_url": "http://localhost:8000/api/forecasts?page=2",
+                    "path": "http://localhost:8000/api/forecasts",
+                    "per_page": "1",
+                    "to": 1,
+                    "total": 34
                 }
             },
             "UserStats": {
@@ -998,7 +912,271 @@
                     "label": "Прогнозист робот"
                 }
             },
-            "ForecastData": {
+            "ResponseInfo": {
+                "title": "Root Type for ResponseInfo",
+                "description": "Дополнительная информация к ответу",
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "success": true,
+                    "message": "Success"
+                }
+            },
+            "ResponseCommonIndo": {
+                "title": "Root Type for ResponseCommonIndo",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "success": true,
+                    "message": "Success"
+                }
+            },
+            "UsersRequestItem": {
+                "title": "Root Type for UsersRequestItem",
+                "description": "Представление пользователя оптимизированное для ранжирования и поиска",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "avatar": {
+                        "type": "string"
+                    },
+                    "login": {
+                        "type": "string"
+                    },
+                    "role_id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "roi": {
+                        "type": "string"
+                    },
+                    "pure_profit": {
+                        "type": "string"
+                    },
+                    "count_subscribers": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "count_subscriptions": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "count_win": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "count_loss": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "id": 144,
+                    "avatar": "/storage/users/144/1584702073-avatar1516.jpg",
+                    "login": "Lionjar",
+                    "role_id": 2,
+                    "roi": "1.84947368",
+                    "pure_profit": "983.9200",
+                    "count_subscribers": 0,
+                    "count_subscriptions": 0,
+                    "count_win": 2,
+                    "count_loss": 0
+                }
+            },
+            "ProfileData": {
+                "title": "Root Type for ProfileData",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "role_id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "login": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "email_verified_at": {
+                        "type": "string"
+                    },
+                    "uid": {
+                        "type": "string"
+                    },
+                    "balance": {
+                        "type": "string"
+                    },
+                    "avatar": {
+                        "type": "string"
+                    },
+                    "provider_id": {
+                        "type": "string"
+                    },
+                    "provider": {
+                        "type": "string"
+                    },
+                    "is_email_notification": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "is_push_notification": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "platform": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    },
+                    "stats": {
+                        "$ref": "#/components/schemas/UserStats",
+                        "properties": {
+                            "user_id": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "roi": {
+                                "type": "string"
+                            },
+                            "pure_profit": {
+                                "type": "string"
+                            },
+                            "count_win": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "count_loss": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "count_wait": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "count_back": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "count_subscribers": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "count_subscriptions": {
+                                "format": "int32",
+                                "type": "integer"
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "id": 220,
+                    "role_id": 1,
+                    "login": "lpvmak444",
+                    "email": "lpvmak444@mail.ru",
+                    "balance": "5000.00",
+                    "is_email_notification": 0,
+                    "is_push_notification": 0,
+                    "platform": "PC",
+                    "created_at": "2020-05-04T22:27:46.000000Z",
+                    "updated_at": "2020-05-04T22:27:46.000000Z",
+                    "stats": {
+                        "user_id": 220,
+                        "pure_profit": "0.0000",
+                        "count_win": 0,
+                        "count_loss": 0,
+                        "count_wait": 0,
+                        "count_back": 0,
+                        "count_subscribers": 0,
+                        "count_subscriptions": 0
+                    }
+                }
+            },
+            "PaginationInfo": {
+                "title": "Root Type for PaginationInfo",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "current_page": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "first_page_url": {
+                        "type": "string"
+                    },
+                    "from": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "last_page": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "last_page_url": {
+                        "type": "string"
+                    },
+                    "next_page_url": {
+                        "type": "string"
+                    },
+                    "path": {
+                        "type": "string"
+                    },
+                    "per_page": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "prev_page_url": {
+                        "type": "string"
+                    },
+                    "to": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "total": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "current_page": 1,
+                    "first_page_url": "http://betting-hub.sixhands.co/api/users?page=1",
+                    "from": 1,
+                    "last_page": 14,
+                    "last_page_url": "http://betting-hub.sixhands.co/api/users?page=14",
+                    "next_page_url": "http://betting-hub.sixhands.co/api/users?page=2",
+                    "path": "http://betting-hub.sixhands.co/api/users",
+                    "per_page": 15,
+                    "to": 15,
+                    "total": 206
+                }
+            },
+            "ForecastResponse": {
                 "title": "Root Type for ForecastData",
                 "description": "Полная информация о прогнозе",
                 "type": "object",
@@ -1219,623 +1397,262 @@
                     ]
                 }
             },
-            "ForecastResponse": {
-                "title": "Root Type for ForecastResponse",
-                "description": "Ответ на /forecasts/{id}",
+            "UsersResponse": {
+                "title": "Root Type for UsersInfo",
+                "description": "",
                 "type": "object",
+                "allOf": [
+                    {
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/PaginationInfo"
+                    }
+                ],
                 "properties": {
                     "data": {
-                        "$ref": "#/components/schemas/ForecastData",
-                        "properties": {
-                            "id": {
-                                "format": "int32",
-                                "type": "integer"
-                            },
-                            "user_id": {
-                                "format": "int32",
-                                "type": "integer"
-                            },
-                            "event_id": {
-                                "format": "int32",
-                                "type": "integer"
-                            },
-                            "coefficient_id": {
-                                "format": "int32",
-                                "type": "integer"
-                            },
-                            "parent_id": {
-                                "type": "string"
-                            },
-                            "forecast_text": {
-                                "type": "string"
-                            },
-                            "bet": {
-                                "type": "string"
-                            },
-                            "created_at": {
-                                "type": "string"
-                            },
-                            "updated_at": {
-                                "type": "string"
-                            },
-                            "count_comments": {
-                                "format": "int32",
-                                "type": "integer"
-                            },
-                            "count_likes": {
-                                "format": "int32",
-                                "type": "integer"
-                            },
-                            "count_dislikes": {
-                                "format": "int32",
-                                "type": "integer"
-                            },
-                            "description": {
-                                "type": "string"
-                            },
-                            "user_data": {
-                                "type": "object",
-                                "properties": {
-                                    "id": {
-                                        "format": "int32",
-                                        "type": "integer"
-                                    },
-                                    "role": {
-                                        "type": "object",
-                                        "properties": {
-                                            "id": {
-                                                "format": "int32",
-                                                "type": "integer"
-                                            },
-                                            "name": {
-                                                "type": "string"
-                                            },
-                                            "label": {
-                                                "type": "string"
-                                            }
-                                        }
-                                    },
-                                    "avatar": {
-                                        "type": "string"
-                                    },
-                                    "login": {
-                                        "type": "string"
-                                    },
-                                    "stats": {
-                                        "type": "object",
-                                        "properties": {
-                                            "user_id": {
-                                                "format": "int32",
-                                                "type": "integer"
-                                            },
-                                            "roi": {
-                                                "type": "string"
-                                            },
-                                            "pure_profit": {
-                                                "type": "string"
-                                            },
-                                            "count_win": {
-                                                "format": "int32",
-                                                "type": "integer"
-                                            },
-                                            "count_loss": {
-                                                "format": "int32",
-                                                "type": "integer"
-                                            },
-                                            "count_wait": {
-                                                "format": "int32",
-                                                "type": "integer"
-                                            },
-                                            "count_back": {
-                                                "format": "int32",
-                                                "type": "integer"
-                                            },
-                                            "count_subscribers": {
-                                                "format": "int32",
-                                                "type": "integer"
-                                            },
-                                            "count_subscriptions": {
-                                                "format": "int32",
-                                                "type": "integer"
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "event": {
-                                "type": "object",
-                                "properties": {
-                                    "id": {
-                                        "format": "int32",
-                                        "type": "integer"
-                                    },
-                                    "sport_id": {
-                                        "format": "int32",
-                                        "type": "integer"
-                                    },
-                                    "championship_id": {
-                                        "format": "int32",
-                                        "type": "integer"
-                                    },
-                                    "title": {
-                                        "type": "string"
-                                    },
-                                    "start": {
-                                        "format": "date-time",
-                                        "type": "string"
-                                    },
-                                    "status": {
-                                        "format": "int32",
-                                        "type": "integer"
-                                    },
-                                    "created_at": {
-                                        "type": "string"
-                                    },
-                                    "updated_at": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "comments": {
-                                "type": "array",
-                                "items": {
-                                    "type": "object",
-                                    "properties": {
-                                        "id": {
-                                            "format": "int32",
-                                            "type": "integer"
-                                        },
-                                        "user_id": {
-                                            "format": "int32",
-                                            "type": "integer"
-                                        },
-                                        "text": {
-                                            "type": "string"
-                                        },
-                                        "reference_to": {
-                                            "type": "string"
-                                        },
-                                        "referent_id": {
-                                            "format": "int32",
-                                            "type": "integer"
-                                        },
-                                        "updated_at": {
-                                            "type": "string"
-                                        },
-                                        "created_at": {
-                                            "type": "string"
-                                        },
-                                        "count_comments": {
-                                            "format": "int32",
-                                            "type": "integer"
-                                        },
-                                        "count_likes": {
-                                            "format": "int32",
-                                            "type": "integer"
-                                        },
-                                        "count_dislikes": {
-                                            "format": "int32",
-                                            "type": "integer"
-                                        }
-                                    }
-                                }
-                            }
+                        "$ref": "#/components/schemas/UsersRequestItem",
+                        "description": ""
+                    }
+                },
+                "example": {
+                    "current_page": 1,
+                    "data": [
+                        {
+                            "id": 147,
+                            "login": "Andrel",
+                            "role_id": 4,
+                            "roi": "1100.00000000",
+                            "pure_profit": "2200.0000",
+                            "count_subscribers": 0,
+                            "count_subscriptions": 0,
+                            "count_win": 1,
+                            "count_loss": 0
+                        },
+                        {
+                            "id": 1,
+                            "login": "quas1",
+                            "role_id": 5,
+                            "roi": "664.15094340",
+                            "pure_profit": "3168.0000",
+                            "count_subscribers": 1,
+                            "count_subscriptions": 0,
+                            "count_win": 2,
+                            "count_loss": 0
+                        },
+                        {
+                            "id": 127,
+                            "avatar": "/storage/users/127/1584701858-avatar1504.jpg",
+                            "login": "Brwlteam",
+                            "role_id": 2,
+                            "roi": "415.56852248",
+                            "pure_profit": "3881.4100",
+                            "count_subscribers": 0,
+                            "count_subscriptions": 0,
+                            "count_win": 8,
+                            "count_loss": 0
+                        },
+                        {
+                            "id": 72,
+                            "login": "Zephilanda",
+                            "role_id": 2,
+                            "roi": "319.74522293",
+                            "pure_profit": "1004.0000",
+                            "count_subscribers": 0,
+                            "count_subscriptions": 0,
+                            "count_win": 2,
+                            "count_loss": 0
+                        },
+                        {
+                            "id": 141,
+                            "avatar": "/storage/users/141/1584702033-avatar1514.jpg",
+                            "login": "Oxinc",
+                            "role_id": 2,
+                            "roi": "286.07725322",
+                            "pure_profit": "3999.3600",
+                            "count_subscribers": 0,
+                            "count_subscriptions": 0,
+                            "count_win": 9,
+                            "count_loss": 0
+                        },
+                        {
+                            "id": 96,
+                            "avatar": "/storage/users/96/1584701469-avatar1479-1.jpg",
+                            "login": "Jarov_1",
+                            "role_id": 2,
+                            "roi": "232.29002320",
+                            "pure_profit": "2002.3400",
+                            "count_subscribers": 0,
+                            "count_subscriptions": 0,
+                            "count_win": 7,
+                            "count_loss": 0
+                        },
+                        {
+                            "id": 58,
+                            "login": "Olanieven",
+                            "role_id": 2,
+                            "roi": "230.90528634",
+                            "pure_profit": "2096.6200",
+                            "count_subscribers": 0,
+                            "count_subscriptions": 0,
+                            "count_win": 9,
+                            "count_loss": 0
+                        },
+                        {
+                            "id": 5,
+                            "avatar": "/storage/users/5/1584626852-ava.jpg",
+                            "login": "Wassie",
+                            "role_id": 2,
+                            "roi": "230.08020374",
+                            "pure_profit": "30264.7500",
+                            "count_subscribers": 0,
+                            "count_subscriptions": 5,
+                            "count_win": 33,
+                            "count_loss": 0
+                        },
+                        {
+                            "id": 30,
+                            "avatar": "/storage/users/30/1584628669-ava.jpg",
+                            "login": "Чебурашка",
+                            "role_id": 2,
+                            "roi": "194.72126773",
+                            "pure_profit": "29920.8700",
+                            "count_subscribers": 0,
+                            "count_subscriptions": 1,
+                            "count_win": 33,
+                            "count_loss": 0
+                        },
+                        {
+                            "id": 144,
+                            "avatar": "/storage/users/144/1584702073-avatar1516.jpg",
+                            "login": "Lionjar",
+                            "role_id": 2,
+                            "roi": "184.94736842",
+                            "pure_profit": "983.9200",
+                            "count_subscribers": 0,
+                            "count_subscriptions": 0,
+                            "count_win": 2,
+                            "count_loss": 0
+                        },
+                        {
+                            "id": 44,
+                            "avatar": "/storage/users/44/1584630202-ava.jpg",
+                            "login": "Abaz21",
+                            "role_id": 2,
+                            "roi": "179.87252758",
+                            "pure_profit": "35375.5300",
+                            "count_subscribers": 0,
+                            "count_subscriptions": 0,
+                            "count_win": 91,
+                            "count_loss": 0
+                        },
+                        {
+                            "id": 21,
+                            "avatar": "/storage/users/21/1584627676-ava.jpg",
+                            "login": "Siyamar",
+                            "role_id": 2,
+                            "roi": "166.19804699",
+                            "pure_profit": "5446.3100",
+                            "count_subscribers": 0,
+                            "count_subscriptions": 0,
+                            "count_win": 21,
+                            "count_loss": 0
+                        },
+                        {
+                            "id": 88,
+                            "avatar": "/storage/users/88/1584701367-avatar1474.jpg",
+                            "login": "maliwdrew",
+                            "role_id": 2,
+                            "roi": "153.42827869",
+                            "pure_profit": "748.7300",
+                            "count_subscribers": 0,
+                            "count_subscriptions": 0,
+                            "count_win": 3,
+                            "count_loss": 0
+                        },
+                        {
+                            "id": 131,
+                            "avatar": "/storage/users/131/1584701909-avatar1509.jpg",
+                            "login": "Trankvilizor",
+                            "role_id": 2,
+                            "roi": "148.86483254",
+                            "pure_profit": "1244.5100",
+                            "count_subscribers": 0,
+                            "count_subscriptions": 0,
+                            "count_win": 6,
+                            "count_loss": 0
+                        },
+                        {
+                            "id": 39,
+                            "avatar": "/storage/users/39/1584629872-ava.jpg",
+                            "login": "fafaforza",
+                            "role_id": 2,
+                            "roi": "137.24198602",
+                            "pure_profit": "11388.3400",
+                            "count_subscribers": 0,
+                            "count_subscriptions": 0,
+                            "count_win": 11,
+                            "count_loss": 0
                         }
-                    },
-                    "success": {
-                        "type": "boolean"
-                    },
-                    "message": {
-                        "type": "string"
-                    }
-                },
-                "example": {
-                    "data": {
-                        "id": 2,
-                        "user_id": 2,
-                        "event_id": 2,
-                        "coefficient_id": 2,
-                        "forecast_text": "Mexico (w) - Cuba (w)",
-                        "bet": "4174.00",
-                        "created_at": "2019-11-07T19:00:31.000000Z",
-                        "updated_at": "2020-03-19T15:03:18.000000Z",
-                        "count_comments": 1,
-                        "count_likes": 0,
-                        "count_dislikes": 0,
-                        "description": "Mexico (w) - Cuba (w)...",
-                        "user_data": {
-                            "id": 2,
-                            "role": {
-                                "id": 2,
-                                "name": "forecaster_robot",
-                                "label": "Прогнозист робот"
-                            },
-                            "avatar": "/storage/users/2/1584626425-ava.jpg",
-                            "login": "PRоFeSSoR",
-                            "stats": {
-                                "user_id": 2,
-                                "roi": "0.90799239",
-                                "pure_profit": "193220.7800",
-                                "count_win": 11,
-                                "count_loss": 0,
-                                "count_wait": 0,
-                                "count_back": 0,
-                                "count_subscribers": 0,
-                                "count_subscriptions": 7
-                            }
-                        },
-                        "event": {
-                            "id": 2,
-                            "sport_id": 5,
-                            "championship_id": 2,
-                            "title": "Mexico (w) - Cuba (w)",
-                            "start": "2019-10-13 20:00:00",
-                            "status": 2,
-                            "created_at": "2020-03-19T15:02:26.000000Z",
-                            "updated_at": "2020-03-20T12:58:44.000000Z"
-                        },
-                        "comments": [
-                            {
-                                "id": 3,
-                                "user_id": 220,
-                                "text": "Testing Comments",
-                                "reference_to": "forecasts",
-                                "referent_id": 2,
-                                "updated_at": "2020-05-06T07:24:12.000000Z",
-                                "created_at": "2020-05-06T07:24:12.000000Z",
-                                "count_comments": 0,
-                                "count_likes": 0,
-                                "count_dislikes": 0
-                            }
-                        ]
-                    },
-                    "success": true,
-                    "message": "Success"
+                    ],
+                    "first_page_url": "http://betting-hub.sixhands.co/api/users?page=1",
+                    "from": 1,
+                    "last_page": 14,
+                    "last_page_url": "http://betting-hub.sixhands.co/api/users?page=14",
+                    "next_page_url": "http://betting-hub.sixhands.co/api/users?page=2",
+                    "path": "http://betting-hub.sixhands.co/api/users",
+                    "per_page": 15,
+                    "to": 15,
+                    "total": 206
                 }
             },
-            "ResponseInfo": {
-                "title": "Root Type for ResponseInfo",
-                "description": "Дополнительная информация к ответу",
+            "Login": {
+                "title": "Root Type for Login",
+                "description": "",
+                "required": [
+                    "login"
+                ],
                 "type": "object",
                 "properties": {
-                    "success": {
-                        "type": "boolean"
-                    },
-                    "message": {
+                    "login": {
                         "type": "string"
                     }
                 },
                 "example": {
-                    "success": true,
-                    "message": "Success"
+                    "login": "Sasha"
                 }
             },
-            "ResponseCommonIndo": {
-                "title": "Root Type for ResponseCommonIndo",
+            "Email": {
+                "title": "Root Type for Email",
+                "description": "",
+                "required": [
+                    "email"
+                ],
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "email": "1@mail.ru"
+                }
+            },
+            "Notification": {
+                "title": "Root Type for Notification",
                 "description": "",
                 "type": "object",
                 "properties": {
-                    "success": {
+                    "email_notification": {
                         "type": "boolean"
                     },
-                    "message": {
-                        "type": "string"
-                    }
-                },
-                "example": {
-                    "success": true,
-                    "message": "Success"
-                }
-            },
-            "UsersResponse": {
-                "title": "Root Type for UsersResponse",
-                "description": "Список пользователей возращаемый при GET запросе /users",
-                "type": "object",
-                "properties": {
-                    "data": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/UserStats"
-                        },
-                        "properties": {
-                            "current_page": {
-                                "format": "int32",
-                                "type": "integer"
-                            },
-                            "data": {
-                                "type": "array",
-                                "items": {
-                                    "type": "object",
-                                    "properties": {
-                                        "id": {
-                                            "format": "int32",
-                                            "type": "integer"
-                                        },
-                                        "avatar": {
-                                            "type": "string"
-                                        },
-                                        "login": {
-                                            "type": "string"
-                                        },
-                                        "roi": {
-                                            "type": "string"
-                                        },
-                                        "pure_profit": {
-                                            "type": "string"
-                                        },
-                                        "count_subscribers": {
-                                            "format": "int32",
-                                            "type": "integer"
-                                        },
-                                        "count_subscriptions": {
-                                            "format": "int32",
-                                            "type": "integer"
-                                        },
-                                        "count_win": {
-                                            "format": "int32",
-                                            "type": "integer"
-                                        },
-                                        "count_loss": {
-                                            "format": "int32",
-                                            "type": "integer"
-                                        }
-                                    }
-                                }
-                            },
-                            "first_page_url": {
-                                "type": "string"
-                            },
-                            "from": {
-                                "format": "int32",
-                                "type": "integer"
-                            },
-                            "last_page": {
-                                "format": "int32",
-                                "type": "integer"
-                            },
-                            "last_page_url": {
-                                "type": "string"
-                            },
-                            "next_page_url": {
-                                "type": "string"
-                            },
-                            "path": {
-                                "type": "string"
-                            },
-                            "per_page": {
-                                "type": "string"
-                            },
-                            "prev_page_url": {
-                                "type": "string"
-                            },
-                            "to": {
-                                "format": "int32",
-                                "type": "integer"
-                            },
-                            "total": {
-                                "format": "int32",
-                                "type": "integer"
-                            }
-                        }
-                    },
-                    "success": {
+                    "push_notification": {
                         "type": "boolean"
-                    },
-                    "message": {
-                        "type": "string"
                     }
                 },
                 "example": {
-                    "data": {
-                        "current_page": 1,
-                        "data": [
-                            {
-                                "id": 29,
-                                "avatar": "/storage/users/29/1584628631-Screenshot from 2020-02-15 13-32-44.png",
-                                "login": "1",
-                                "pure_profit": "0.0000",
-                                "count_subscribers": 0,
-                                "count_subscriptions": 0,
-                                "count_win": 0,
-                                "count_loss": 0
-                            },
-                            {
-                                "id": 35,
-                                "avatar": "/storage/users/35/1584629090-ava.jpg",
-                                "login": "36nomer",
-                                "roi": "1.28081925",
-                                "pure_profit": "5456.2900",
-                                "count_subscribers": 0,
-                                "count_subscriptions": 0,
-                                "count_win": 14,
-                                "count_loss": 0
-                            },
-                            {
-                                "id": 44,
-                                "avatar": "/storage/users/44/1584630202-ava.jpg",
-                                "login": "Abaz21",
-                                "roi": "1.79872528",
-                                "pure_profit": "35375.5300",
-                                "count_subscribers": 0,
-                                "count_subscriptions": 0,
-                                "count_win": 91,
-                                "count_loss": 0
-                            }
-                        ],
-                        "first_page_url": "http://betting-hub.sixhands.co/api/users?page=1",
-                        "from": 1,
-                        "last_page": 69,
-                        "last_page_url": "http://betting-hub.sixhands.co/api/users?page=69",
-                        "next_page_url": "http://betting-hub.sixhands.co/api/users?page=2",
-                        "path": "http://betting-hub.sixhands.co/api/users",
-                        "per_page": "3",
-                        "to": 3,
-                        "total": 205
-                    },
-                    "success": true,
-                    "message": "Success"
-                }
-            },
-            "UsersRequestItem": {
-                "title": "Root Type for UsersRequestItem",
-                "description": "Представление пользователя оптимизированное для ранжирования и поиска",
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "format": "int32",
-                        "type": "integer"
-                    },
-                    "avatar": {
-                        "type": "string"
-                    },
-                    "login": {
-                        "type": "string"
-                    },
-                    "role_id": {
-                        "format": "int32",
-                        "type": "integer"
-                    },
-                    "roi": {
-                        "type": "string"
-                    },
-                    "pure_profit": {
-                        "type": "string"
-                    },
-                    "count_subscribers": {
-                        "format": "int32",
-                        "type": "integer"
-                    },
-                    "count_subscriptions": {
-                        "format": "int32",
-                        "type": "integer"
-                    },
-                    "count_win": {
-                        "format": "int32",
-                        "type": "integer"
-                    },
-                    "count_loss": {
-                        "format": "int32",
-                        "type": "integer"
-                    }
-                },
-                "example": {
-                    "id": 144,
-                    "avatar": "/storage/users/144/1584702073-avatar1516.jpg",
-                    "login": "Lionjar",
-                    "role_id": 2,
-                    "roi": "1.84947368",
-                    "pure_profit": "983.9200",
-                    "count_subscribers": 0,
-                    "count_subscriptions": 0,
-                    "count_win": 2,
-                    "count_loss": 0
-                }
-            },
-            "UserResponse": {
-                "title": "Root Type for UserResponse",
-                "description": "Ответ на GET запрос к /users/{id}",
-                "type": "object",
-                "properties": {
-                    "data": {
-                        "$ref": "#/components/schemas/UserData",
-                        "properties": {
-                            "id": {
-                                "format": "int32",
-                                "type": "integer"
-                            },
-                            "role": {
-                                "type": "object",
-                                "properties": {
-                                    "id": {
-                                        "format": "int32",
-                                        "type": "integer"
-                                    },
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "label": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "avatar": {
-                                "type": "string"
-                            },
-                            "login": {
-                                "type": "string"
-                            },
-                            "stats": {
-                                "type": "object",
-                                "properties": {
-                                    "user_id": {
-                                        "format": "int32",
-                                        "type": "integer"
-                                    },
-                                    "roi": {
-                                        "type": "string"
-                                    },
-                                    "pure_profit": {
-                                        "type": "string"
-                                    },
-                                    "count_win": {
-                                        "format": "int32",
-                                        "type": "integer"
-                                    },
-                                    "count_loss": {
-                                        "format": "int32",
-                                        "type": "integer"
-                                    },
-                                    "count_wait": {
-                                        "format": "int32",
-                                        "type": "integer"
-                                    },
-                                    "count_back": {
-                                        "format": "int32",
-                                        "type": "integer"
-                                    },
-                                    "count_subscribers": {
-                                        "format": "int32",
-                                        "type": "integer"
-                                    },
-                                    "count_subscriptions": {
-                                        "format": "int32",
-                                        "type": "integer"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "success": {
-                        "type": "boolean"
-                    },
-                    "message": {
-                        "type": "string"
-                    }
-                },
-                "example": {
-                    "data": {
-                        "id": 3,
-                        "role": {
-                            "id": 2,
-                            "name": "forecaster_robot",
-                            "label": "Прогнозист робот"
-                        },
-                        "avatar": "/storage/users/3/1584626844-ava.jpg",
-                        "login": "Maritalayt",
-                        "stats": {
-                            "user_id": 3,
-                            "roi": "0.98842486",
-                            "pure_profit": "683.9900",
-                            "count_win": 4,
-                            "count_loss": 0,
-                            "count_wait": 0,
-                            "count_back": 0,
-                            "count_subscribers": 0,
-                            "count_subscriptions": 0
-                        }
-                    },
-                    "success": true,
-                    "message": "Success"
+                    "email_notification": true,
+                    "push_notification": true
                 }
             }
         },
@@ -2181,7 +1998,7 @@
                 "content": {
                     "application/json": {
                         "schema": {
-                            "$ref": "#/components/schemas/UserResponse"
+                            "$ref": "#/components/schemas/UserData"
                         },
                         "examples": {
                             "/users/3": {
@@ -2215,6 +2032,16 @@
                     }
                 },
                 "description": "Ответ на /users/{id}"
+            },
+            "ProfileResponse": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ProfileData"
+                        }
+                    }
+                },
+                "description": ""
             }
         },
         "securitySchemes": {

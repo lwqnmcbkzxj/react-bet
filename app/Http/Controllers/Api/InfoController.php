@@ -21,14 +21,14 @@ class InfoController extends Controller
         $forecasts = Forecast::join('events', 'forecasts.event_id', '=', 'events.id')
             //->where('start', '>=', $date->format('Y-m-d H:i:s'))
             ->where('status', 1);
-        if ($request->has('sport_id')) {
+        if ($request->has('sport_id') && $request['sport_id'] != 0) {
             $forecasts = $forecasts->where('sport_id', $request['sport_id']);
         }
-        if ($request->has('time') && $request['time'] !== 'all') {
+        if ($request->has('time') && $request['time'] != '0') {
             $filter_date = $date->modify('+' . $request['time'] . ' hours');
             $forecasts = $forecasts->where('start', '<=', $filter_date);
         }
-        if (!$request->has('limit')) {
+        if (!$request->has('limit') || $request['limit']==0) {
             $request['limit'] = 15;
         }
         $forecasts = $forecasts->paginate($request['limit']);
@@ -46,7 +46,7 @@ class InfoController extends Controller
     {
         $response = DB::table('user_stats_view');
 
-        if(!$request->has('limit'))
+        if(!$request->has('limit') || $request['limit']==0)
         {
             $request['limit'] = 15;
         }

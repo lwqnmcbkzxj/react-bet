@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\User;
+use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,8 +27,10 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $user['role'] = Role::find($user['role_id']);
         return $user;
     }
+
 
     public function updateLogin(Request $request) {
         $valid_data = $request->validate([
@@ -56,7 +60,7 @@ class ProfileController extends Controller
         return $this->sendResponse([],'Email успешно обновлен!', 200);
     }
 
-    public function updateNotification(Request $request) {
+        public function updateNotification(Request $request) {
         if ($request->has('push_notification')) {
             $push_notification = true;
         }
