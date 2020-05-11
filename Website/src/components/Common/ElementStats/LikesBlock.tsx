@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, createRef } from 'react';
 import s from './ElementStats.module.scss';
 import classNames from 'classnames'
 import { useDispatch, useSelector } from "react-redux"
@@ -18,6 +18,7 @@ type LikesBlockPropsType = {
 const LikesBlock: FC<LikesBlockPropsType> = ({ likes, id, elementType, ...props }) => {
 	const logged = useSelector<AppStateType, boolean>(state => state.me.logged)
 	const dispatch = useDispatch()
+	let likesRef = createRef<HTMLDivElement>()
 	// Like - 1, dislike - 2
 	const rateDispatch = (id: number, rateType: number) => {
 		if (elementType === 'forecast')
@@ -30,10 +31,32 @@ const LikesBlock: FC<LikesBlockPropsType> = ({ likes, id, elementType, ...props 
 	// Получение ISLIKED
 	const [elementLiked, setLiked] = useState(false)
 	const [elementDisliked, setDisliked] = useState(false)
-	const [likesCount, setLikesCount] = useState(likes)
+	const [likesCount, setLikesCountHook] = useState(likes)
+
+	const [likesArray, setLikesArray] = useState([likesCount + 1, likesCount, likesCount - 1])
+	const [likesBlockStyle, setLikesBlockStyle] = useState({})
+	const setLikesCount = (likes: number) => {
+		let transition = 300
+		let likesDiff = likes - likesCount
+		// Sliding array
+		if (likesDiff < 0) 
+			setLikesBlockStyle({marginTop: -58, transition: transition / 100 + 's'})
+		 else 
+			setLikesBlockStyle({marginTop: 58, transition: 0.3 + 's'})
+
+		likesDiff = Math.abs(likesDiff)
+		setLikesArray([likesCount + likesDiff, likesCount, likesCount - likesDiff])
+
+		// After 0.3s changing numbers and removing margin
+		setTimeout(() => {
+			setLikesCountHook(likes)
+			setLikesArray([likes + 1, likes, likes - 1])
+			setLikesBlockStyle({})
+		}, transition);
+	}
 
 	useEffect(() => {
-		setLikesCount(likes)
+		setLikesCountHook(likes)
 	}, [likes]);
 
 	const likeElement = (id: number) => {
@@ -49,6 +72,7 @@ const LikesBlock: FC<LikesBlockPropsType> = ({ likes, id, elementType, ...props 
 		} else {
 			// if disliked - like gives + 2 rating
 			if (elementDisliked) {
+				setLikesCount(likesCount + 2)
 				setLikesCount(likesCount + 2)
 			} else {
 				setLikesCount(likesCount + 1)
@@ -78,20 +102,31 @@ const LikesBlock: FC<LikesBlockPropsType> = ({ likes, id, elementType, ...props 
 			setLiked(false)
 		}
 		rateDispatch(id, 2)
-	}
-
+	}	
 
 	return (
-		<div className={s.likes}>
+		<div className={classNames(s.likes)}>
 			<button
 				onClick={() => { dislikeElement(id) }}
 				className={classNames({ [s.negative]: elementDisliked })}
 			><FontAwesomeIcon icon={faChevronDown} /></button>
 
-			<span className={classNames({
-				[s.positive]: likesCount > 0,
-				[s.negative]: likesCount < 0,
-			})}>{likesCount}</span>
+			<div className={s.likesCountBlock} style={{...likesBlockStyle}}>
+				{likesArray.map(number => 
+					<div
+						className={classNames(
+						s.likesNumber, {
+						[s.positive]: number > 0,
+						[s.negative]: number < 0,
+						})}>{number}
+					</div>	
+				)}
+
+							
+			</div>
+
+
+
 
 			<button
 				className={classNames({ [s.positive]: elementLiked })}
