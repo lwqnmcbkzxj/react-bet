@@ -34,9 +34,7 @@ const Settings: FC<SettingsPropsType> = ({ loggedUser, languages, changeLanguage
 					</Link>
 					<div className={s.userBalance}>
 						<p className={s.bank}><span>Банк:</span> 166 500xB</p>
-
 					</div>
-
 				</div>
 			</div>
 

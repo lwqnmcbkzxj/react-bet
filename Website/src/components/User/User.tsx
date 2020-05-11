@@ -13,7 +13,7 @@ import userNoImg from '../../assets/img/user-no-image.png'
 import ForecastsList from '../Forecasts/ForecastsList/ForecastsList';
 import UserStats from './UserStats'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 
 export enum selectors {
 	forecasts = 'forecasts',
@@ -69,11 +69,12 @@ const User: FC<UsersPropsType> = ({
 
 	const [subscribed, setSubscribed] = useState(false)
 	const subscribeToggle = () => {
+		// setSubBtnHoverCounter(0)
 		setSubscribed(!subscribed)
 	}
+	const [subBtnHovered, setSubscribedBtnHovered] = useState(false)
+	const [subBtnHoverCounter, setSubBtnHoverCounter] = useState(0)
 
-		
-		
 	let profileBtn
 	if (isLoggedUserProfile) {
 		profileBtn =
@@ -85,16 +86,33 @@ const User: FC<UsersPropsType> = ({
 			</Link>
 	} else {
 		if (subscribed) {
+			let icon
+			let subBtnText
+			debugger
+			if (subBtnHovered && subBtnHoverCounter !== 1) {
+				icon = <FontAwesomeIcon icon={faTimes} className={s.checkedIcon + ' ' + s.negative} />
+				subBtnText = 'Отписаться'
+			} else {
+				icon = <FontAwesomeIcon icon={faCheck} className={s.checkedIcon + ' ' + s.positive} />
+				subBtnText = 'Подписан'
+			}
+
 			profileBtn =
-				<button className={classNames(s.profileBtn, s.subscribe)} onClick={subscribeToggle}>
-					<span>+</span> <p>Подписаться</p>
+				<button
+					className={classNames(s.profileBtn, s.subscribe)}
+					onClick={subscribeToggle}
+					onMouseOver={() => { setSubscribedBtnHovered(true); setSubBtnHoverCounter(subBtnHoverCounter + 1) }}
+					onMouseLeave={() => { setSubscribedBtnHovered(false) }}>
+					{icon}
+					<p>{subBtnText}</p>
 				</button>
 		} else {
 			profileBtn =
 				<button className={classNames(s.profileBtn, s.subscribe)} onClick={subscribeToggle}>
-				<FontAwesomeIcon icon={faCheck} className={s.checkedIcon + ' ' + s.positive}/>
-					<p>Подписан</p>
+					<span>+</span> <p>Подписаться</p>
 				</button>
+
+
 		}
 	}
 
@@ -119,11 +137,11 @@ const User: FC<UsersPropsType> = ({
 						<img src={userNoImg} alt="user-img" />
 						<div className={s.nickName}>
 							<p>Никнейм</p>
-								<div className={s.userStats}>
-									<p className={s.positive}>10</p>/
+							<div className={s.userStats}>
+								<p className={s.positive}>10</p>/
 									<p className={s.negative}>5</p>/
 									<p className={s.neutral}>2</p>
-								</div>
+							</div>
 						</div>
 
 						{profileBtn}
