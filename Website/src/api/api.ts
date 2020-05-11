@@ -87,13 +87,12 @@ export const forecastsAPI = {
 		})
 			.then((response) => {
 				return response.data
-			}
-			);
+			});
 	},
 
 
 	getForecast(id: number) {
-		return instance.get(`forecasts/${id}`)
+		return instance.get(`/forecasts/${id}`)
 			.then((response) => {
 				return response.data
 			}

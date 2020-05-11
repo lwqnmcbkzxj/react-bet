@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import s from './CommentsBlock.module.scss';
 import { Link } from 'react-router-dom'
 import classNames from 'classnames'
-import userImg from '../../../assets/img/mainpage-users-img.png'
+import userImg from '../../../assets/img/user-img.png'
 import replyIcon from '../../../assets/img/reply-icon.png'
 import LikesBlock from '../ElementStats/LikesBlock'
 import SendComemnt from './SendComment';

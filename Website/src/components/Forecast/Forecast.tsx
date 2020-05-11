@@ -32,23 +32,31 @@ const formatDateForForecastPage = (createdAt: string) => {
 
 
 
-const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
-	let sportImg = getSportImg(forecast.SportName)
-	// let tournament = forecast.Tournament.split('.')
-	let teams = ['','']
-	if (forecast.Text) {
-		teams = forecast.Text.split(' - ')
+const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => { 
+	debugger
+	let sportImg = ""
+	let teams = ['', '']
+	let userAvatar = ""
+	let userRoi = 0
+
+	let title = forecast.forecast_text
+	// TO DO на forecast.title
+
+	if (forecast.id) {
+		sportImg = getSportImg(forecast.sport_id)
+		teams = title.split(' - ')
+		userAvatar = forecast.user_data.avatar
+		if (userAvatar) {
+			userAvatar = 'http://xbethub.com/' + userAvatar
+		} else {
+			userAvatar = ''
+		}
+	
+		userRoi = +forecast.user_data.stats.roi
 	}
 	
-	let userAvatar = ''
-	if (forecast.UserAvatar) {
-		userAvatar = 'http://xbethub.com/' + forecast.UserAvatar
-	} else {
-		userAvatar=''
-	}
-
 	return (
-		<div className={s.forecast}>
+		 <div className={s.forecast}>
 			<GoBackBlock
 				link={'forecasts'}
 				linkText={'Прогнозы'}
@@ -56,15 +64,15 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 				func={() => {console.log('s')}}
 			/>
 
-			<Breadcrumbs pathParams={['Главная', 'Прогнозы', `${forecast.Text} тотал больше 1.5`]} />
+			<Breadcrumbs pathParams={['Главная', 'Прогнозы', `${title} тотал больше 1.5`]} />
 
 			<div className={s.forecastHeader}>
 				<div className={s.headerDetails}>
-					<div className={s.disciplineName}>{forecast.Tournament}</div>
-					{/* <div className={s.matchDate}>03.04.2020 в 12:03</div> */}
-					<div className={s.matchDate}>{formatDateForForecastPage(forecast.CratedAt)}</div>
+					<div className={s.disciplineName}>{""}</div>
+					{/* TO DO */}
+					<div className={s.matchDate}>{formatDateForForecastPage(forecast.created_at)}</div>
 				</div>
-				<div className={s.forecastName}>{forecast.Text} тотал больше 1.5</div>
+				<div className={s.forecastName}>{title} тотал больше 1.5</div>
 			</div>
 
 			<div className={s.teams}>
@@ -88,7 +96,7 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 				<div>
 					<p>Дата и время</p>
 					<p className={s.splitter}></p>
-					<p>{formatDateForForecastPage(forecast.Time)}</p>
+					<p>{formatDateForForecastPage(forecast.start)}</p>
 				</div>
 				<div className={s.details_forecast}>
 					<p>Прогноз</p>
@@ -98,21 +106,24 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 				<div>
 					<p>Коэффициент</p>
 					<p className={s.splitter}></p>
-					<p>{forecast.Coefficient}</p>
+					{/* TO DO */}
+					{/* <p>{forecast.Coefficient}</p> */}
 				</div>
 				<div className={s.details_cash}>
 					<p>Ставка</p>
 					<p className={s.splitter}></p>
-					<p>{forecast.BetValue}
+					<p>{forecast.bet}
 						<span><FontAwesomeIcon icon={faRubleSign} /></span>
 					</p>
 				</div>
 				<div className={s.details_cash}>
 					<p>Чистая прибыль</p>
 					<p className={s.splitter}></p>
-					<p>{(forecast.BetValue * forecast.Coefficient - forecast.BetValue).toFixed(2)}
+					{/* TO DO */}
+
+					{/* <p>{(forecast.bet * forecast.Coefficient - forecast.bet).toFixed(2)}
 						<span><FontAwesomeIcon icon={faRubleSign} /></span>
-					</p>
+					</p> */}
 				</div>
 			</div>
 
@@ -121,8 +132,12 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 				<div className={s.userInfo}>
 					<img src={userAvatar} alt="forecastUserImg" />
 					<div className={s.userDetails}>
-						<p className={s.userNickName}>{forecast.UserName}</p>
-						<p className={s.mobileUserProfit}>Прибыль: <span className={classNames(s.mobileUserProfit, { [s.positive]: true })}>+20%</span></p>
+						<p className={s.userNickName}>{forecast.user_data.login}</p>
+						<p className={s.mobileUserProfit}>Прибыль:
+								{+userRoi < 0 ? 
+								<span className={classNames(s.mobileUserProfit, s.positive)}>+{userRoi}%</span> :
+								<span className={classNames(s.mobileUserProfit, s.negative)}>-{userRoi}%</span> }
+						</p>
 					</div>
 				</div>
 				<div className={s.userStats}>
@@ -136,10 +151,10 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 					</div>
 					<div className={s.statBlock}>
 						<p>ROI, %</p>
-						<p className={classNames({
-							[s.positive]: true,
-							[s.negative]: false
-						})}>+122.48</p>
+						{+userRoi < 0 ? 
+								<p className={s.positive}>+{userRoi}</p> :
+								<p className={s.negative}>-{userRoi}</p> }
+
 					</div>
 					<div className={s.statBlock}>
 						<p>Ср. кф</p>
@@ -170,10 +185,12 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 			</div>
 
 			<ElementStats
-				comments={0}
-				favourites={forecast.FavAmmount}
-				likes={forecast.Rating}
-				id={forecast.ForecastId}
+				comments={forecast.count_comments}
+				favourites={0}
+				// favourites={forecast.FavAmmount}
+				// likes={forecast.Rating}
+				likes={forecast.count_likes - forecast.count_dislikes}
+				id={forecast.id}
 				elementType={'forecast'} />
 
 			

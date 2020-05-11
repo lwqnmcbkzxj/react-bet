@@ -17,7 +17,7 @@ import NotFound from './components/NotFound/NotFound'
 
 import ForecastsContainer from './components/Forecasts/ForecastsContainer'
 import ForecastContainer from './components/Forecast/ForecastContainer'
-import AddForecastContainer from './components/Forecasts/AddForecast/AddForecastContainer'
+import AddElementContainer from './components/Forecasts/AddElement/AddElementContainer'
 
 import UsersContainer from './components/Users/UsersContainer'
 import UserContainer from './components/User/UserContainer'
@@ -67,10 +67,10 @@ const App = (props: any) => {
 						<Route exact path="/forecasters/:userId" render={() => <UserContainer />} />
 						<Route path="/forecasters/:userId/settings" render={() => <SettingsContainer />} />
 
-
+						
 						<Route exact path="/forecasts" render={() => <ForecastsContainer />} />
-						<Route exact path="/forecasts/add" render={() => <AddForecastContainer />} />
-						<Route path="/forecasts/:forecastId" render={() => <ForecastContainer />} />
+						<Route exact path="/forecasts/:forecastId" render={() => <ForecastContainer />} />
+						<Route path="/forecasts/add" render={() => <AddElementContainer />} />
 
 
 

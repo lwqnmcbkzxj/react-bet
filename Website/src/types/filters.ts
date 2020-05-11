@@ -1,5 +1,5 @@
 export enum timeFilterEnum {
-	allTime = 'all',
+	allTime = '0',
 	period_3_hours = '3h',
 	period_6_hours = '6h',
 	period_12_hours = '12h',
@@ -13,7 +13,7 @@ export enum subscribtionFilterEnum {
 }
 
 export enum sportTypeFilterEnum {
-	allSports = '',
+	allSports = '0',
 	football = '1',
 	tennis = '2',
 	basketball = '3',

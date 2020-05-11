@@ -43,23 +43,22 @@ const formatDateForForecastListElement = (createdAt: string) => {
 const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) => {
 	let fullGameName
 	let gameName
-	let sportImg
-	let userAvatar = ''
-	if (forecast.Tournament) {
-		fullGameName = forecast.Tournament
-		gameName = fullGameName.split('.').splice(1).join('.')
+	let sportImg = getSportImg(forecast.sport_id)
 
-		sportImg = getSportImg(forecast.SportName)
+	// if (forecast.Tournament) {
+	// 	fullGameName = forecast.Tournament
+	// 	gameName = fullGameName.split('.').splice(1).join('.')
 
-		// const serverUrl = "http://xbethub.com/"
+	// 	// const serverUrl = "http://xbethub.com/"		
+	// }
 
-		if (forecast.UserAvatar) {
-			userAvatar = 'http://xbethub.com/' + forecast.UserAvatar
-		} else {
-			userAvatar = ''
-		}
+	let userAvatar 
+	if (forecast.user_data.avatar) {
+		userAvatar = 'http://xbethub.com/' + forecast.user_data.avatar
+	} else {
+		userAvatar = ''
 	}
-
+	
 	if (isFetching) {
 		return <ForecastsListElementPlaceholder />
 	}
@@ -69,34 +68,38 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 			<div className={s.forecastHeader}>
 				<div className={s.gameInfo}>
 					<img src={sportImg} alt="gameImg" />
-					<Link to={`forecasts/${forecast.ForecastId}`}><p className={s.sportName}>{forecast.SportName}. </p></Link>
-					<Link to={`forecasts/${forecast.ForecastId}`}><p className={s.gameName}>{gameName}</p></Link>
+					<Link to={`forecasts/${forecast.id}`}><p className={s.sportName}>{forecast.sport_id}. </p></Link>
+					<Link to={`forecasts/${forecast.id}`}><p className={s.gameName}>{gameName}</p></Link>
 				</div>
 				<div className={s.matchDate}>
-					{formatDateForForecastListElement(forecast.CratedAt)}
+					{formatDateForForecastListElement(forecast.created_at)}
 				</div>
 			</div>
 
 			<div className={s.forecastContent}>
 
 				<div className={s.mathPreview}>
-					{forecast.ForecastId % 2 === 0 ?
+					{forecast.id % 2 === 0 ?
 						<div className={classNames(s.profit, s.positive)}>+750 xB</div> :
 						<div className={classNames(s.profit, s.negative)}>-750 xB</div>}
-					<Link to={`forecasts/${forecast.ForecastId}`}><div className={s.matchTitle}>{forecast.Text}</div></Link>
+					<Link to={`forecasts/${forecast.id}`}><div className={s.matchTitle}>{forecast.title}</div></Link>
 				</div>
 
 				<div className={s.matchStats}>
 					<div className={s.profitStats}>
-						<Link to={`forecast${forecast.ForecastId}`} className={s.profitStat}><div>Прогноз: <span>Фора (-1.5)</span></div></Link>
-						<Link to={`forecast${forecast.ForecastId}`} className={s.profitStat}><div>Коэффициент: <span>{forecast.Coefficient}</span></div></Link>
-						<Link to={`forecast${forecast.ForecastId}`} className={s.profitStat}><div>Сумма ставки: <span>{forecast.BetValue}</span></div></Link>
+						<Link to={`forecast${forecast.id}`} className={s.profitStat}><div>Прогноз: <span>Фора (-1.5)</span></div></Link>
+						<Link to={`forecast${forecast.id}`} className={s.profitStat}><div>Коэффициент: <span>
+							{/* {forecast.Coefficient} */}
+							{0}
+							{/* TO DO */}
+						</span></div></Link>
+						<Link to={`forecast${forecast.id}`} className={s.profitStat}><div>Сумма ставки: <span>{forecast.bet}</span></div></Link>
 					</div>
-					<div className={s.matchStart}>Начало игры: -</div>
+					<div className={s.matchStart}>Начало игры: {formatDateForForecastListElement(forecast.start)}</div>
 
 				</div>
 				<div className={s.matchDescription}>
-					<NavLink to={`/forecasts/${forecast.ForecastId}`}>
+					<NavLink to={`/forecasts/${forecast.id}`}>
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing
 						elit, sed do eiusmod tempor incididunt ut labore et dolore
 						magna aliqua. Bibendum est ultricies integer quis.
@@ -110,9 +113,9 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 
 			<div className={s.forecastFooter}>
 				<div className={s.userStats}>
-					<NavLink to="/forecasters/5" className={s.userInfo}>
+					<NavLink to={`/forecasters/${forecast.user_data.id}`} className={s.userInfo}>
 						<img src={userAvatar} alt="userImg" />
-						<p className={s.userNickName}>{forecast.UserName}</p>
+						<p className={s.userNickName}>{forecast.user_data.login}</p>
 					</NavLink>
 					<div className={s.userMatches}>
 						<div className={s.slash}>|</div>
@@ -137,10 +140,11 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 				</div>
 
 				<ElementStats
-					comments={forecast.CommentsQuanity}
-					favourites={forecast.FavAmmount}
-					likes={forecast.Rating}
-					id={forecast.ForecastId}
+					comments={forecast.count_comments}
+					// favourites={forecast.FavAmmount}
+					favourites={0}
+					likes={forecast.count_likes - forecast.count_dislikes}
+					id={forecast.id}
 					elementType={'forecast'} />
 
 			</div>

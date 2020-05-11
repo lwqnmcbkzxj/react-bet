@@ -109,7 +109,7 @@
 		& .user {
 			grid-template-columns: 1fr 4fr 1fr 2fr;
 			grid-gap: 10px;
-			padding: 7px 7px;
+			padding: 10px;
 			& .roiCoef, & .averageCoef {
 				display: none;
 			}

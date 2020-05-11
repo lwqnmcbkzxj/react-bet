@@ -11,17 +11,18 @@ const SportsImagesObj = {
 	hockey: hockeyImg,
 }
 
-export const getSportImg = (sport) => {
+export const getSportImg = (sport_id) => {
+	debugger
 	let sportImg = ""
-	if (sport === 'Футбол') {
+	if (+sport_id === 1) {
 		sportImg = SportsImagesObj.football
-	} else if (sport === 'Теннис') {
+	} else if (+sport_id === 2) {
 		sportImg = SportsImagesObj.tennis
-	} else if (sport === 'Баскетбол') {
+	} else if (+sport_id === 3) {
 		sportImg = SportsImagesObj.basketball
-	} else if (sport === 'Хоккей') {
+	} else if (+sport_id === 4) {
 		sportImg = SportsImagesObj.hockey
-	} else if (sport === 'Другое') {
+	} else if (+sport_id === 5) {
 		sportImg = SportsImagesObj.football
 	}
 	return sportImg;

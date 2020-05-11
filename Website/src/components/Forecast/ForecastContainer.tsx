@@ -25,6 +25,10 @@ const ForecastsContainer: FC<Props> = ({ ...props }) => {
 	useEffect(() => {
 		dispatch(getForecastFromServer(+forecastId))		
 	}, []);
+ 
+	if (!forecast.id) {
+		return <div></div>
+	} else 
 
 	return (
 		<Forecast

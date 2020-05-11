@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import s from './Header.module.scss';
 import { NavLink, Link } from 'react-router-dom';
 
-import userImg from '../../../assets/img/mainpage-users-img.png'
+import userImg from '../../../assets/img/user-img.png'
 
 import logo from '../../../assets/img/logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

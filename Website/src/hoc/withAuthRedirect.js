@@ -10,7 +10,7 @@ export const withAuthRedirect = (Component) => {
 	const RedirectComponent = (props) => {
 		const logged = useSelector(state => state.me.logged)
 
-		if (!logged) return <div>Вам нужно войти</div>
+		if (!logged) return <Redirect to="/"/>
 		return <Component {...props} />
 	}
 

@@ -62,10 +62,8 @@ const UserMobilePopup: FC<UserPopupPropsType> = ({ logout, loggedUserId, toggleU
 			</NavLink>
 
 			<Link to="/" className={s.popupRow + ' ' + s.logoutRow} onClick={logout}>
-				{/* <button > */}
-					<img src={exitIcon} alt="door-img" />
-					<p>Выйти</p>
-				{/* </button> */}
+				<img src={exitIcon} alt="door-img" />
+				<p>Выйти</p>
 			</Link>
 		</div>
 	)
