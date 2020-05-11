@@ -1,0 +1,43 @@
+.groupedInputs {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 24px;
+}
+
+.searchBlock {
+	width: 100%;
+	position: relative;
+	border: 1px solid #D5D8DD;
+	border-radius: 5px;
+	box-sizing: border-box;
+	padding: 1px;
+	margin: 25px 0;
+
+	& input {
+		font-family: 'Roboto';
+		box-sizing: border-box;
+		width: 100%;
+		padding: 12px 13px 13px 13px;
+		border: none;
+		font-size: 19px;
+		line-height: 23px;
+		font-style: italic;
+		color: #818181;
+	}
+	& .searcBtn {
+		position: absolute;
+		top: 14px;
+		right: 15px;
+		color: #818181;
+		font-size: 19px;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.groupedInputs {
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr 1fr;
+		grid-gap: 0px;
+	}
+}

@@ -1,0 +1,60 @@
+.infoTable {
+	margin: 12.5px 0;
+	border: 1px solid #E5E2E2;
+	border-radius: 6px;
+
+	& .tableHeader, & .tableBody .infoTableRow {
+		display: grid;
+		grid-template-columns: 70px repeat(auto-fit, minmax(50px, 1fr));
+
+		& div {
+			font-size: 16px;
+			line-height: 19px;
+			text-align: center;
+			width: 100%;
+			box-sizing: border-box;
+			border-right: 1px solid #E5E2E2;
+			&:last-child {
+				border-right: none;
+			}
+			&.bookmakerBlock {
+				padding: 8px 0 4px 0!important;
+				text-align: center;
+				& img {
+					width: 54px;
+					height: 22px;
+				}
+			}
+		}
+	}
+
+	& .tableHeader {
+		& div {
+			background: #F5F5F5;
+			padding: 8px 10px 4px 10px;
+			color: #343638;
+			opacity: 0.76;
+		}
+	}
+	& .tableBody {
+		& .infoTableRow {
+			border-top: 1px solid #E5E2E2;
+			& div {			
+				padding: 8px 10px 4px 10px;
+				color: #0F971D;
+			}
+		}
+	}
+}
+
+
+@media screen and (max-width: 480px) {
+	.infoTable {
+		& .tableHeader, & .tableBody .infoTableRow {
+			& div {
+				font-size: 14px;
+				line-height: 17px;
+			}
+		}
+	}
+}
