@@ -21,7 +21,7 @@ type MatchPropsType = {
 const Match: FC<MatchPropsType> = ({ match, ...props }) => {
 	const isFetching = useSelector<AppStateType, boolean>(state => state.matches.isFetching)
 
-	let sportImg = getSportImg('Футбол')
+	let sportImg = getSportImg(1)
 	return (
 		<div className={s.match}>
 			<GoBackBlock

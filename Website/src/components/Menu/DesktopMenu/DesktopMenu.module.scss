@@ -30,22 +30,26 @@
 			justify-content: center;
 
 			& .link {
-				margin-top: 8px;
-				padding: 8px 15px 5px 10px;
+				margin-top: 2px;
+				padding: 10px 15px 9px 10px;
 				color: #5E687B;
 				font-size: 15px;
 				line-height: 18px;
-
+				&:hover {
+					background: #F9F9F9;
+					color: #202E48;
+				}
 				&.activeLink {
 					background: #F9F9F9;
 					color: #202E48;
 					font-family: "Roboto Medium";
 					position: relative;
 
+					
 					&::before {
 						content: "";
 						background: #F7971D;
-						width: 3px;
+						width: 4px;
 						height: 100%;
 						position: absolute;
 						right: -2px;

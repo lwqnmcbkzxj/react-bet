@@ -51,6 +51,10 @@
 			font-family: 'Roboto Light';
 			text-transform: uppercase;
 			vertical-align: middle;
+			&:hover {
+				background: #F7971D;
+				color: #242426;
+			}
 
 			& span {
 				margin-left: 3px;
@@ -88,8 +92,7 @@
 				background: #fff;
 				box-shadow: 0px 0px 6px rgba(3, 3, 3, 0.31);
 				border-radius: 6px;
-				
-
+				overflow: hidden;
 				
 				& .popupHeader {
 					font-size: 11px;
@@ -301,7 +304,7 @@
 
 @media screen and (max-width: 1024px) {
 	.desktopHeader header {
-		grid-template-columns: 180px auto auto;
+		grid-template-columns: 180px auto 1fr;
 		grid-gap: 10px;
 
 		& .headerUserBlock {

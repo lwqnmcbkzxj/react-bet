@@ -35,10 +35,10 @@ const UserMobilePopup: FC<UserPopupPropsType> = ({ logout, loggedUserId, toggleU
 	}, [])
 
 	return (
-		<div className={s.userPopup} ref={popupRef} onClick={toggleUserPopupVisibility}>
+		<div className={s.userPopup} ref={popupRef}>
 			<div className={s.popupHeader}>Профиль</div>
 
-			<NavLink to={`/forecasters/${loggedUserId}`} className={s.popupRow + ' ' + s.userRow}>
+			<NavLink to={`/forecasters/${loggedUserId}`} className={s.popupRow + ' ' + s.userRow} onClick={toggleUserPopupVisibility}>
 				<img src={userImg} alt="user-img" />
 				<p>Никнейм</p>
 			</NavLink>
@@ -46,22 +46,22 @@ const UserMobilePopup: FC<UserPopupPropsType> = ({ logout, loggedUserId, toggleU
 			<NavLink
 				to={`/forecasters/${loggedUserId}`}
 				className={s.popupRow}
-				onClick={() => { dispatch(changeUserPageActiveTab('favourites')) }}>
+				onClick={() => { dispatch(changeUserPageActiveTab('favourites')); toggleUserPopupVisibility() }}>
 				
 				<img src={bookmarkIcon} alt="fav-icon" />
 				<p>Избранное</p>
 			</NavLink>
 
-			<NavLink to={`/forecasts/add/forecast`} className={s.popupRow}>
+			<NavLink to={`/forecasts/add/forecast`} className={s.popupRow} onClick={toggleUserPopupVisibility}>
 				<img src={plusIcon} alt="plus-icon" />
 				<p>Добавить прогноз</p>
 			</NavLink>
-			<NavLink to={`/forecasts/add/express`} className={s.popupRow}>
+			<NavLink to={`/forecasts/add/express`} className={s.popupRow} onClick={toggleUserPopupVisibility}>
 				<img src={plusIcon} alt="plus-icon" />
 				<p>Добавить экспресс</p>
 			</NavLink>
 
-			<Link to="/" className={s.popupRow + ' ' + s.logoutRow} onClick={logout}>
+			<Link to="/" className={s.popupRow + ' ' + s.logoutRow} onClick={() => { logout(); toggleUserPopupVisibility() }}>
 				<img src={exitIcon} alt="door-img" />
 				<p>Выйти</p>
 			</Link>

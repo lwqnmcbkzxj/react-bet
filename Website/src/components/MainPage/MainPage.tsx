@@ -11,7 +11,6 @@ import UsersList from '../Users/MainPageUsersList/MainPageUsersList'
 
 
 import ActionButton from '../Common/ActionButton/ActionButton'
-import MobileFooter from '../Common/Footer/Footer'
 
 import { ForecastType } from '../../types/forecasts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

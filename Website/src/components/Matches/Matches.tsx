@@ -5,6 +5,8 @@ import Breadcrumbs from '../Common/Breadcrumbs/Breadcrumbs'
 
 import MatchesList from './MatchesList'
 import { MatchType } from '../../types/matches';
+import { NavLink } from 'react-router-dom';
+import ActionButton from '../Common/ActionButton/ActionButton'
 
 type MatchesPropsType = {
 	matches: Array<MatchType>
@@ -17,7 +19,9 @@ const Matches: FC<MatchesPropsType> = ({matches, ...props }) => {
 				<h1 className="pageName">Топ матчи</h1>
 			</div>
 
-			<MatchesList matches={matches}/>
+			<MatchesList matches={matches} />
+			<ActionButton value="Показать дальше" func={()=>{console.log('Get more matches')}}/>
+			
 		</div>
 	)
 }

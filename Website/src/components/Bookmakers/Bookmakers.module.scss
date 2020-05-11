@@ -66,6 +66,9 @@
 			line-height: 17px;
 			text-transform: uppercase;
 			color: #343638;
+			&:hover {
+				color: #F7971D;;
+			}
 		}
 
 		& .link button {
@@ -97,7 +100,42 @@
 	color: #AA0F0F !important;
 }
 
-
+@media screen and (max-width: 1700px) {
+	.bookmakersList {
+		& .listHeader,
+		& .bookmaker {
+			grid-template-columns: 1fr 125px 1fr 2fr 2fr 2fr 30px;
+		}
+		& .bookmaker {
+			& .link button {
+				& .desktopLink {
+					display: none;
+				}	
+				& .mobileLink {
+					display: block;
+				}
+			}
+		}
+	}
+}
+@media screen and (max-width: 1600px) {
+	.bookmakersList {
+		& .listHeader,
+		& .bookmaker {
+			grid-template-columns: 1fr 125px 1fr 2fr 2fr 2fr 5fr;
+		}
+		& .bookmaker {
+			& .link button {
+				& .desktopLink {
+					display: block;
+				}	
+				& .mobileLink {
+					display: none;
+				}
+			}
+		}
+	}
+}
 @media screen and (max-width: 768px) {
 	.bookmakersList {
 		
