@@ -28,7 +28,7 @@ class InfoController extends Controller
                 $query->where('start', '<=', $filter_date);
             }
             if ($request->has('sport_id') && $request['sport_id'] != 0) {
-                $query->where('sport_id', '=', 1);
+                $query->where('sport_id', '=',  $request['sport_id'] );
             }
         });
 
