@@ -17,15 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/user', function () {
-    return json_encode([
-        'massege'=> 401,
-    ]);
-});
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');

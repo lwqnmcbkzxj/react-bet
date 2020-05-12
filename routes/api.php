@@ -3,9 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 // Регистрация
 
 Route::post('/register', 'RegisterController@register');
@@ -44,6 +41,12 @@ Route::get('/forecasts/{forecast}/comments', function (Request $Request, \App\Fo
     $Request['referent_id']=$forecast->id;
     return app()->call('App\Http\Controllers\CommentController@getAll',[$Request]);
 });
+Route::get('/users', 'Api\InfoController@forecasters');
+Route::get('/users/{user}/stats', 'Api\InfoController@userStatistic');
+Route::get('/users/{user}/forecasts', 'Api\InfoController@userForecasts');
+Route::get('/users/{user}/subscription', 'UserSubscriptionController@getSubscriptions');
+Route::get('/users/{user}/subscribers', 'UserSubscriptionController@getSubscribers');
+
 //Доступ к профилям пользователей
 Route::middleware('auth:api')->group(function()
 {
@@ -52,18 +55,13 @@ Route::middleware('auth:api')->group(function()
     Route::delete('/comments/{comment}', 'CommentController@delete');
     Route::post('/votes', 'VoteController@post');
     Route::delete('/votes/{vote}', 'VoteController@delete');
-
   Route::prefix('/users')->group(function(){
-        Route::get('', 'Api\InfoController@forecasters');
+
         Route::get('/profile', 'ProfileController@index')->name('profile');
         Route::post('/update/login', 'ProfileController@updateLogin')->name('update.login');
         Route::post('/update/email', 'ProfileController@updateEmail')->name('update.email');
         Route::post('/update/notification', 'ProfileController@updateNotification')->name('update.notification');
-        Route::get('/{user}/stats', 'Api\InfoController@userStatistic');
-        Route::get('/{user}/forecasts', 'Api\InfoController@userForecasts');
         Route::post('/{user}/subscription', 'UserSubscriptionController@create');
-        Route::get('/{user}/subscription', 'UserSubscriptionController@getSubscriptions');
-        Route::get('/{user}/subscribers', 'UserSubscriptionController@getSubscribers');
         Route::delete('/{user}/subscription', 'UserSubscriptionController@delete');
         Route::get('/{user}', 'Api\InfoController@forecaster');
     });

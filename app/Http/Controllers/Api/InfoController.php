@@ -6,13 +6,14 @@ use App\Http\Resources\ForecastCollection;
 use App\Http\Resources\User as UserResource;
 use App\Http\Resources\Forecast as ForecastResource;
 use App\Forecast;
+use App\Http\Resources\UserCollection;
 use App\News;
 use App\Post;
 use DateTime;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\User as UserModel;
+use App\User;
 use Illuminate\Support\Facades\DB;
 
 class InfoController extends Controller
@@ -22,13 +23,13 @@ class InfoController extends Controller
         $date = new DateTime('now', new \DateTimeZone('Europe/Moscow'));
         $forecasts = Forecast::query()->whereHas('event', function (Builder $query) use ($date, $request) {
             $query//->where('start', '>=', $date->format('Y-m-d H:i:s'))
-            ->where('status','=',1);
+            ->where('status', '=', 1);
             if ($request->has('time') && $request['time'] != '0') {
                 $filter_date = $date->modify('+' . $request['time'] . ' hours');
                 $query->where('start', '<=', $filter_date);
             }
             if ($request->has('sport_id') && $request['sport_id'] != 0) {
-                $query->where('sport_id', '=',  $request['sport_id'] );
+                $query->where('sport_id', '=', $request['sport_id']);
             }
         });
 
@@ -51,30 +52,19 @@ class InfoController extends Controller
 
     public function forecasters(Request $request)
     {
-        $response = DB::table('user_stats_view');
+        $response = User::query();
 
         if (!$request->has('limit') || $request['limit'] == 0) {
             $request['limit'] = 15;
         }
-        if (!$request->has('order_by')) {
+        if (true or !$request->has('order_by')) {
             $request['order_by'] = 'roi';
         }
         if (!$request->has('direction')) {
             $request['direction'] = 'desc';
         }
-        return $this->sendResponse($response->select(['users.id as id',
-            'users.avatar as avatar',
-            'users.login as login',
-            'users.role_id as role_id',
-            'user_stats_view.roi as roi',
-            'user_stats_view.pure_profit as pure_profit',
-            'user_stats_view.count_subscribers as count_subscribers',
-            'user_stats_view.count_subscriptions as count_subscriptions',
-            'user_stats_view.count_win as count_win',
-            'user_stats_view.count_loss as count_loss'])
-            ->orderBy($request['order_by'], $request['direction'])
-            ->join('users', 'id', '=', 'user_id')
-            ->paginate($request['limit']), 'Success', 200);
+
+        return (new UserCollection(User::paginate( $request['limit'])));
     }
 
     public function forecaster(Request $request, UserModel $user)
