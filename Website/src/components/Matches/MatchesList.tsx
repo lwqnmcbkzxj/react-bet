@@ -14,7 +14,6 @@ type MatchesListPropsType = {
 }
 const UsersList: FC<MatchesListPropsType> = ({ matches, limit = 0, isMainpage = false, ...props }) => {
 	const isFetching = useSelector<AppStateType, boolean>(state => state.matches.isFetching)
-	console.log('isF ' + isFetching)
 
 	return (
 		<div className={classNames(s.matchList, {[s.isMainpage]: isMainpage }) }>

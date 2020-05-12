@@ -31,7 +31,6 @@ const AuthFormContainer: FC = ({ ...props }) => {
 		dispatch(resetPassword(email))
 	}
 
-	// 
 	useEffect(() => {
 		if (isAuthFormVisible)
 			toggleAuthFormVisibleDispatch()
@@ -40,7 +39,6 @@ const AuthFormContainer: FC = ({ ...props }) => {
 
 
 	useEffect(() => {
-		console.log(shouldRedirect)
 		if (shouldRedirect) {
 			setShouldRedirect(false)
 		}

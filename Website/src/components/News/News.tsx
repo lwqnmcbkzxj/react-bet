@@ -1,7 +1,5 @@
 import React, { FC } from 'react'
 import s from './News.module.scss';
-import { useDispatch, useSelector} from "react-redux"
-import { AppStateType } from '../../types/types'
 import { NewsType } from '../../types/news'
 import Breadcrumbs from '../Common/Breadcrumbs/Breadcrumbs'
 import NewsList from './NewsList'

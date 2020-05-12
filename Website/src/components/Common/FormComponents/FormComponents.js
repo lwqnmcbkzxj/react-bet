@@ -27,14 +27,15 @@ export function createField(
 
 
 export const Input = (props) => {
-	const { input, meta, mask = "", ...restProps } = props;
+	debugger
+	const { input, meta, mask = "", canSeeInputValue, ...restProps } = props;
 	const hasError = meta.touched && meta.error;
 
 	let type = props.type;
 
 	const [passwordVisibilty, setPasswordVisibilty] = useState(false)
 
-	if (props.canSeeInputValue) {
+	if (canSeeInputValue) {
 		if (passwordVisibilty) {
 			type = "text"
 		} else {
@@ -47,18 +48,17 @@ export const Input = (props) => {
 	}
 
 	return (
-		<div className={cn(s.inputBlock, { [s.canSeeContent]: props.canSeeInputValue })}>
+		<div className={cn(s.inputBlock, { [s.canSeeContent]: canSeeInputValue })}>
 			<label>{props.label}</label>
 			<div>
 				<input {...input} {...restProps} className={hasError ? s.errorInput : null} type={type} /> 				
 
-				{props.canSeeInputValue ?
+				{canSeeInputValue &&
 					<FontAwesomeIcon
 						icon={passwordVisibilty ? faEyeSlash : faEye}
 						className={s.inputEye}
 						onClick={togglePasswordVisibilty}
-					/>
-					: null}
+					/>}
 			</div>
 		</div>
 

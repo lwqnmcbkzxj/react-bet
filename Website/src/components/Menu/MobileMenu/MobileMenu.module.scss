@@ -57,7 +57,6 @@
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		grid-gap: 18px;
-		transition: .4s;
 
 		& .menuBlock {
 			background: #fff;
@@ -85,11 +84,9 @@
 	}
 
 	& .menuContentBg {
-		transition: .2s;
 		z-index: -1;
 		background: #F1F1F1;
 		opacity: 0;
-		transition: .4s;
 		z-index: -5;	
 		position: fixed;
 		top: 0;

@@ -40,9 +40,9 @@ const LikesBlock: FC<LikesBlockPropsType> = ({ likes, id, elementType, ...props 
 		let likesDiff = likes - likesCount
 		// Sliding array
 		if (likesDiff < 0) 
-			setLikesBlockStyle({marginTop: -58, transition: transition / 100 + 's'})
+			setLikesBlockStyle({marginTop: -58, transition: transition / 1000 + 's'})
 		 else 
-			setLikesBlockStyle({marginTop: 58, transition: 0.3 + 's'})
+			setLikesBlockStyle({marginTop: 58, transition: transition / 1000 + 's'})
 
 		likesDiff = Math.abs(likesDiff)
 		setLikesArray([likesCount + likesDiff, likesCount, likesCount - likesDiff])
@@ -112,8 +112,9 @@ const LikesBlock: FC<LikesBlockPropsType> = ({ likes, id, elementType, ...props 
 			><FontAwesomeIcon icon={faChevronDown} /></button>
 
 			<div className={s.likesCountBlock} style={{...likesBlockStyle}}>
-				{likesArray.map(number => 
+				{likesArray.map((number, counter) => 
 					<div
+						key={counter}
 						className={classNames(
 						s.likesNumber, {
 						[s.positive]: number > 0,

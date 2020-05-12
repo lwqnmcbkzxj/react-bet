@@ -25,7 +25,12 @@ const LanguageSelector: FC<MenuFooterPropsType> = ({ ...props }) => {
 
 	let languages = languagesState.map(language => {
 		if (language.visibleText !== currentLanguage) {
-			return <p className={s.language} onClick={() => { handleChangeLanguage(language.name) }}>{language.visibleText}</p>
+			return <p
+				className={s.language}
+				onClick={() => { handleChangeLanguage(language.name) }}
+				key={language.index}>
+				{language.visibleText}
+			</p>
 		}
 	})
 

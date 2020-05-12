@@ -22,9 +22,9 @@ const BetsList: FC<BetsListPropsType> = ({ bets, ...props }) => {
 				<div className={s.profit}>Прибыль</div>
 			</div>
 
-			{bets.map(bet =>
+			{bets.map((bet, counter) =>
 				isFetching ? <BetsListItemPlaceholder /> :
-					<div className={s.bet}>
+					<div className={s.bet} key={counter}>
 						<div className={s.forecaster}>
 							<img src={userImg} alt="user-img" />
 							<div className={s.userName}>Никнейм</div>
