@@ -52,7 +52,6 @@ class InfoController extends Controller
 
     public function forecasters(Request $request)
     {
-        $response = User::query();
 
         if (!$request->has('limit') || $request['limit'] == 0) {
             $request['limit'] = 15;
@@ -63,8 +62,9 @@ class InfoController extends Controller
         if (!$request->has('direction')) {
             $request['direction'] = 'desc';
         }
+        $response = User::query()->join('user_stats_view', 'user_id', '=', 'id')->orderBy($request['order_by'],$request['direction']);
 
-        return (new UserCollection(User::paginate( $request['limit'])));
+        return (new UserCollection($response->paginate( $request['limit'])));
     }
 
     public function forecaster(Request $request, User $user)
