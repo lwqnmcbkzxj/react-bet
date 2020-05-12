@@ -5,7 +5,8 @@ import { timeFilterEnum, FiltersObjectType, FilterNames } from '../types/filters
 import { usersAPI } from '../api/api'
 
 
-const TOGGLE_FILTER = 'users/TOGGLE_FILTER'
+const TOGGLE_FILTER = 'user/TOGGLE_FILTER'
+const SET_USER = 'user/SET_USER'
 
 let initialState = {
 	filters: {
@@ -18,7 +19,7 @@ let initialState = {
 }
 
 type InitialStateType = typeof initialState;
-type ActionsTypes = ToggleFilterType;
+type ActionsTypes = ToggleFilterType | SetUserType;
 
 const usersReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
@@ -31,14 +32,17 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
 						filter.active = true
 				})
 			}
-
-
 			return {
 				...state,
 				filters: { ...state.filters, [action.filtersBlockName]: filters }
 			}
 		}
-
+		case SET_USER: {
+			return {
+				...state,
+				currentUser: {...action.user}
+			}
+		}
 		default:
 			return state;
 	}
@@ -51,6 +55,12 @@ type ToggleFilterType = {
 	filterName: FilterNames
 	filtersBlockName: keyof FiltersObjectType
 }
+type SetUserType = {
+	type: typeof SET_USER
+	user: UserType
+}
+
+
 export const toggleFilter = (filterName: FilterNames, filtersBlockName: any): ToggleFilterType => {
 	return {
 		type: TOGGLE_FILTER,
@@ -60,14 +70,24 @@ export const toggleFilter = (filterName: FilterNames, filtersBlockName: any): To
 }
 
 export const getUserFromServer = (id: number): ThunksType => async (dispatch) => {		
+	debugger
+
 	// dispatch(toggleIsFetching(true))
 	let response = await usersAPI.getUser(id)	
 	// dispatch(toggleIsFetching(false))
-	
-	// dispatch(setUser(response))
+	dispatch(setUser(response))
 }
 
+export const setUser = (user: UserType): SetUserType => {
+	return {
+		type: SET_USER,
+		user
+	}
+}
 
+export const subscribeUser = (id: number): ThunksType => async (dispatch) => {
+	let response = await usersAPI.subscribeUser(id)
+}
 
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 

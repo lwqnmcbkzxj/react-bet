@@ -67,12 +67,19 @@
 		& .nickName {
 			display: flex;
 			align-items: center;
+			
 			// justify-self: center;
 			& img {
 				border-radius: 4px;
 				width: 30px;
 				height: 30px;
 				margin-right: 10px;
+			}
+			& p {
+				overflow: hidden;
+    			display: -webkit-box;
+    			-webkit-line-clamp: 1;
+    			-webkit-box-orient: vertical;
 			}
 		}
 
@@ -107,7 +114,7 @@
 	.userList  {		
 		& .listHeader,
 		& .user {
-			grid-template-columns: 1fr 4fr 1fr 2fr;
+			grid-template-columns: 30px 3fr 1fr 2fr;
 			grid-gap: 10px;
 			padding: 10px;
 			& .roiCoef, & .averageCoef {

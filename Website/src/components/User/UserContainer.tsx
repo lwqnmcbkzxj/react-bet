@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { AppStateType } from '../../types/types'
-import { UserType } from '../../types/users'
+import { UserType } from '../../types/user'
 import { UserType as LoggedUserType } from '../../types/me'
 
 import User from './User'
@@ -13,7 +13,7 @@ import { FiltersObjectType, FilterNames } from '../../types/filters'
 import { changeUserPageActiveTab } from '../../redux/app-reducer'
 
 import { getActiveFilter } from '../../utils/getActiveFilter'
-import { toggleFilter, getUserFromServer } from '../../redux/user-reducer'
+import { toggleFilter, getUserFromServer, subscribeUser } from '../../redux/user-reducer'
 interface MatchParams {
 	userId: string;
 }
@@ -72,15 +72,14 @@ const UsersContainer: FC<Props> = ({ ...props }) => {
 
 	
 
-	const subscribe = () => {
+	const subscribe = (id: number) => {
 		if (!logged) {
 			dispatch(toggleAuthFormVisiblility())
 			return 0
 		} else {
-			console.log('sub')
+			dispatch(subscribeUser(id))
 		}
 	}
-
 
 
 

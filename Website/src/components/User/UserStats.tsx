@@ -7,23 +7,26 @@ import Selectors from '../Common/Selectors/Selectors'
 import { FiltersObjectType, timeFilterEnum, FilterNames } from '../../types/filters'
 type UserStatsPropsType = {
 	filters: FiltersObjectType
-	wins: number
-	loses: number
-	returns: number
+	stats: {
+		count_win: number
+		count_loss: number
+		count_back: number
+		roi: string
+		average_cofficient: string
+		pure_profit: string
+	}
 	toggleFilter: (filterName: FilterNames, filtersBlockName: string) => void
 
 }
 
-const UserStats: FC<UserStatsPropsType> = ({ filters, toggleFilter, ...props }) => {
+const UserStats: FC<UserStatsPropsType> = ({ stats, filters, toggleFilter, ...props }) => {
 	return (
 		<div>
-
-
 			<div className={s.chartBlock}>
 				<StatsChart
-					wins={props.wins}
-					loses={props.loses}
-					returns={props.returns}
+					wins={stats.count_win}
+					loses={stats.count_loss}
+					returns={stats.count_back}
 				/>
 				<div className={s.rightBlock}>
 					<Selectors
@@ -32,7 +35,6 @@ const UserStats: FC<UserStatsPropsType> = ({ filters, toggleFilter, ...props }) 
 						onChangeFunc={toggleFilter}
 						fillBg={true}
 					/>
-
 
 					<div className={s.customLegend}>
 						<div className={s.legendBlock}>
@@ -55,12 +57,12 @@ const UserStats: FC<UserStatsPropsType> = ({ filters, toggleFilter, ...props }) 
 				<div className={s.roi}>
 					<p>ROI</p>
 					<p className={s.splitter}></p>
-					<p className={classNames({ [s.positive]: true, [s.negative]: false })}>128.5%</p>
+					<p className={classNames({ [s.positive]: true, [s.negative]: false })}>{(+stats.roi).toFixed(2)}%</p>
 				</div>
 				<div>
 					<p>Чистая Прибыль</p>
 					<p className={s.splitter}></p>
-					<p className={classNames({ [s.positive]: true, [s.negative]: false })}>28%</p>
+					<p className={classNames({ [s.positive]: true, [s.negative]: false })}>{(+stats.pure_profit).toFixed(2)}</p>
 				</div>
 				<div className={s.successPercent}>
 					<p>Проходимость</p>
@@ -70,7 +72,7 @@ const UserStats: FC<UserStatsPropsType> = ({ filters, toggleFilter, ...props }) 
 				<div>
 					<p>Средний коэффициент</p>
 					<p className={s.splitter}></p>
-					<p>1.78</p>
+					<p>{(+stats.average_cofficient).toFixed(2)}</p>
 				</div>
 			</div>
 

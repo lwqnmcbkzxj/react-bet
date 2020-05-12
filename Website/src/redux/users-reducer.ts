@@ -84,23 +84,13 @@ type ToggleIsFetchingType = {
 	type: typeof TOGGLE_IS_FETCHING
 	isFetching: boolean
 }
-// export const getUsersFromServer = (): ThunksType => async (dispatch) => {
-
-// 	dispatch(toggleIsFetching(true))
-// 	let response = await usersAPI.getUsers(1, 15)	
-// 	setTimeout(() => { dispatch(toggleIsFetching(false)) }, 2000)
-	
-
-// 	dispatch(setUsers(response))
-// }
-
 
 export const getUsersFromServer = (page: number, quanity: number, options = {} as any): ThunksType => async (dispatch) => {		
 	dispatch(toggleIsFetching(true))
-	// let response = await usersAPI.getUsers(page, quanity, options)	
+	let response = await usersAPI.getUsers(page, quanity, options)	
 	dispatch(toggleIsFetching(false))
 	
-	// dispatch(setUsers(response))
+	dispatch(setUsers(response.data))
 }
 
 export const setUsers = (users: Array<UserType>): SetUsersType => {

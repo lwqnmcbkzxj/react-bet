@@ -7,8 +7,7 @@ import { AppStateType } from '../../../types/types'
 import { MainPageUsersPlaceholder } from '../../Common/Placeholders/UsersPlaceholder'
 
 import statsImg from '../../../assets/img/Icon ionic-md-stats.png'
-import userImg from '../../../assets/img/user-img.png'
-
+import userImgPlaceholder from '../../../assets/img/user-no-image.png'
 import Swiper from 'react-id-swiper';
 import 'swiper/css/swiper.css';
 
@@ -18,6 +17,7 @@ type UsersListPropsType = {
 }
 const UsersList: FC<UsersListPropsType> = ({ users, limit = 0, ...props }) => {
 	const isFetching = useSelector<AppStateType, boolean>(state => state.users.isFetching)
+	let serverUrl = 'http://xbethub.com/'
 
 	const params = {
 		scrollbar: {
@@ -65,11 +65,11 @@ const UsersList: FC<UsersListPropsType> = ({ users, limit = 0, ...props }) => {
 				isFetching ? <div className={s.user}><MainPageUsersPlaceholder /></div>
 					:
 					<div className={s.user}>
-						<img className={s.userImg} src={userImg} alt="user-img" />
-						<div className={s.nickName}>Никнейм</div>
+						<img className={s.userImg} src={user.avatar ? serverUrl + user.avatar : userImgPlaceholder} alt="user-img" />
+						<div className={s.nickName}>{user.login}</div>
 						<div className={s.stats}>
 							<img src={statsImg} alt="stats-img" />
-							<p className={classNames(s.profit, { [s.positive]: true, [s.negative]: false })}>+250.4%</p>
+							<p className={classNames(s.profit, s.positive)}>{user.stats && (+user.stats.roi).toFixed(2)}</p>
 						</div>
 					</div>)
 		}

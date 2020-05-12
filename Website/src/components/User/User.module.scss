@@ -86,7 +86,6 @@
 
 			& .profileBtn {
 				width: 140px;
-
 				border-radius: 5px;
 				padding: 7px 20px 6px 20px;
 				border: 1px solid #E5E2E2;
@@ -364,6 +363,7 @@
 				border-radius: 5px;
 				padding: 0;
 				padding: 10px;
+				width: auto;
 
 				&.active {
 					color: #F7971D;
@@ -434,7 +434,7 @@
 	}
 	
 
-	& .userListsSelector {
+	.userListsSelector {
 		padding: 0 !important;
 		display: flex;
 		align-items: center;
@@ -450,6 +450,24 @@
 				justify-content: center;
 				flex: 1;
 				width: auto;
+			}
+		}
+	}
+
+	.chartBlock {
+		display: grid;
+		grid-template-columns: auto 1fr;	
+		align-items: center;
+		& canvas {
+			height: 90px!important;
+		}
+	
+		.rightBlock {
+			& .customLegend {
+				& .legendBlock p {
+					font-size: 14px;
+					line-height: 15px;
+				}
 			}
 		}
 	}
