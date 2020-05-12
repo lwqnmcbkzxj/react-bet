@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:paddingStart="@dimen/sideMargin"
+        android:paddingEnd="@dimen/sideMargin"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="20sp"
+            android:textColor="@color/textColor1"
+            android:textAllCaps="true"
+            android:text="@string/topMatches"
+            android:paddingStart="8dp"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <View
+            android:id="@+id/topFrame"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_top_cornered_frame_7dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/matchesRV"
+            />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@android:color/white"
+            app:layout_constraintStart_toStartOf="@id/topFrame"
+            app:layout_constraintEnd_toEndOf="@id/topFrame"
+            app:layout_constraintBottom_toTopOf="@id/matchesRV"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/matchesRV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:fadeScrollbars="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_match_rating_table_header"
+            tools:itemCount="1"
+            android:overScrollMode="never"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/seeAllBookmakersBtn"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/bg_gradient_button"
+            android:shadowColor="@android:color/transparent"
+            android:text="@string/showMore"
+            android:textSize="18sp"
+            app:elevation="0dp"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="@color/textColor6"
+            app:layout_constraintTop_toBottomOf="@id/matchesRV"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

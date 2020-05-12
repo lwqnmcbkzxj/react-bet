@@ -27,6 +27,8 @@
     <color name="textColor7">#818283</color>
     <color name="textColor8">#222A39</color>
     <color name="textColor9">#F7971D</color>
+    <color name="textColor10">#D57F11</color>
+    <color name="textColor11">#5E687B</color>
 
     <color name="color1">#0F971D</color>
     <color name="color2">#AA0F0F</color>
@@ -36,4 +38,5 @@
     <color name="color6">#A8ABAF</color>
     <color name="color7">#E5E2E2</color>
     <color name="color8">#D5D8DD</color>
+    <color name="color9">#F5F5F5</color>
 </resources>

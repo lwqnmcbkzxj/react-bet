@@ -73,7 +73,7 @@
                             android:fontFamily="@font/roboto_regular"
                             android:textSize="15sp"
                             android:textColor="#393F4D"
-                            android:text="@string/allTimeROI"
+                            android:text="@string/roi"
                             android:layout_marginStart="8dp"
                             />
 
@@ -161,16 +161,6 @@
                             app:layout_constraintEnd_toEndOf="@id/column1Center">
 
                             <include
-                                android:id="@+id/wins"
-                                layout="@layout/element_stat"
-                                app:title="@{@string/winsStat}"
-                                app:valueColor="@{@color/textColor2}"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                />
-
-                            <include
                                 android:id="@+id/subs"
                                 layout="@layout/element_stat"
                                 app:title="@{@string/subsStat}"
@@ -178,7 +168,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="15dp"
                                 />
 
                         </LinearLayout>
@@ -192,24 +181,13 @@
                             app:layout_constraintEnd_toEndOf="@id/column2Center">
 
                             <include
-                                android:id="@+id/lesions"
+                                android:id="@+id/position"
                                 layout="@layout/element_stat"
-                                app:title="@{@string/lesionsStat}"
-                                app:valueColor="@{@color/textColor4}"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                />
-
-                            <include
-                                android:id="@+id/seats"
-                                layout="@layout/element_stat"
-                                app:title="@{@string/seatsStat}"
+                                app:title="@{@string/positionStat}"
                                 app:valueColor="@{@color/textColor2}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="15dp"
                                 />
 
                         </LinearLayout>
@@ -223,16 +201,6 @@
                             app:layout_constraintEnd_toEndOf="@id/column3Center">
 
                             <include
-                                android:id="@+id/returns"
-                                layout="@layout/element_stat"
-                                app:title="@{@string/returnsStat}"
-                                app:valueColor="@{@color/textColor5}"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                />
-
-                            <include
                                 android:id="@+id/netProfit"
                                 layout="@layout/element_stat"
                                 app:title="@{@string/netProfitStat}"
@@ -240,7 +208,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="15dp"
                                 />
 
                         </LinearLayout>

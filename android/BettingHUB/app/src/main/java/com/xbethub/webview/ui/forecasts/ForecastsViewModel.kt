@@ -5,11 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.xbethub.webview.App
 import com.xbethub.webview.backend.BettingHubBackend
-import com.xbethub.webview.backend.requests.ForecastsListRequest
+import com.xbethub.webview.backend.requests.ForecastsRequest
 import com.xbethub.webview.enums.ForecastType
-import com.xbethub.webview.enums.Sport
 import com.xbethub.webview.enums.TimeInterval
 import com.xbethub.webview.models.Forecast
+import com.xbethub.webview.models.Sport
 import com.xbethub.webview.ui.forecasts.sportItem.SportListener
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -19,61 +19,78 @@ import kotlin.collections.ArrayList
 class ForecastsViewModel: ViewModel(), SportListener {
     private val backend: BettingHubBackend = App.appComponent.getBackend()
 
-    private val forecasts = ArrayList<Forecast>()
+    private val forecasts = ArrayList<Forecast?>()
     private val forecastFilter = ForecastFilter()
 
-    val forecastsLiveData = MutableLiveData<List<Forecast>>()
+    val forecastsLiveData = MutableLiveData<List<Forecast?>>()
     val forecastsClearLiveData = MutableLiveData<Void?>()
     val forecastFilterLiveData = MutableLiveData<ForecastFilter>()
 
-    private val forecastListRequest = ForecastsListRequest(0, 5, Sport.ALL.backendValue
-        , TimeInterval.ALL.backendValue,0, 0)
+    private val forecastListRequest = ForecastsRequest(1, 0
+        , TimeInterval.ALL.backendValue, 15)
 
     fun onCreate() {
         reloadForecasts()
-
-        forecastsLiveData.value = Collections.emptyList()
+        //forecastsLiveData.value = Collections.emptyList()
 
         forecastFilterLiveData.value = forecastFilter
     }
 
+
     @SuppressLint("CheckResult")
     private fun reloadForecasts() {
-        forecastListRequest.page = 0
         forecasts.clear()
-        forecastsClearLiveData.value = null
 
-        backend.api.forecastList(forecastListRequest)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                forecasts.addAll(it)
-                forecastsLiveData.value = forecasts
-            }, {
-                it.printStackTrace()
-            })
+        for (i in 1..5) {
+            forecasts.add(null)
+        }
+
+        forecastsLiveData.value = forecasts
+
+//        forecastListRequest.page = 1
+//        forecasts.clear()
+//        forecastsClearLiveData.value = null
+//
+//        backend.api.forecasts(forecastListRequest.limit, forecastListRequest.sportId, forecastListRequest.time, forecastListRequest.page)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({
+//                forecasts.addAll(it.data)
+//                forecastsLiveData.value = forecasts
+//            }, {
+//                it.printStackTrace()
+//            })
     }
 
     @SuppressLint("CheckResult")
     fun onShowMoreBtnClick() {
         forecastListRequest.page++
 
-        backend.api.forecastList(forecastListRequest)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                forecasts.addAll(it)
-                forecastsLiveData.value = it
-            }, {
-                it.printStackTrace()
-            })
+//        backend.api.forecasts(forecastListRequest.limit, forecastListRequest.sportId, forecastListRequest.time, forecastListRequest.page)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({
+//                forecasts.addAll(it.data)
+//                forecastsLiveData.value = forecasts
+//            }, {
+//                it.printStackTrace()
+//            })
 
+        val newForecasts = ArrayList<Forecast?>()
+
+        for (i in 1..5) {
+            newForecasts.add(null)
+        }
+
+        forecasts.addAll(newForecasts)
+
+        forecastsLiveData.value = newForecasts
     }
 
     fun onTimeIntervalSelected(timeInterval: TimeInterval) {
         if (timeInterval != forecastFilter.timeInterval) {
             forecastFilter.timeInterval = timeInterval
-            forecastListRequest.timeInterval = timeInterval.backendValue
+            forecastListRequest.time = timeInterval.backendValue
 
             reloadForecasts()
         }
@@ -89,12 +106,16 @@ class ForecastsViewModel: ViewModel(), SportListener {
     // SportListener
     override fun onSportItemClick(sport: Sport) {
         if (sport != forecastFilter.sport) {
+            val isNull = forecastFilter.sport == null
+
             forecastFilter.sport = sport
             forecastFilterLiveData.value = forecastFilter
 
-            forecastListRequest.sport = sport.backendValue
+            forecastListRequest.sportId = sport.id
 
-            reloadForecasts()
+            if (!isNull) {
+                reloadForecasts()
+            }
         }
     }
 }

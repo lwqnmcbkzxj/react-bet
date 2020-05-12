@@ -15,12 +15,13 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxItemDecoration
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import com.xbethub.webview.App
 import com.xbethub.webview.R
 import com.xbethub.webview.Utils
 import com.xbethub.webview.databinding.ItemForecastsHeaderBinding
 import com.xbethub.webview.enums.ForecastType
-import com.xbethub.webview.enums.Sport
 import com.xbethub.webview.enums.TimeInterval
+import com.xbethub.webview.models.Sport
 import com.xbethub.webview.ui.forecasts.ForecastFilter
 import com.xbethub.webview.ui.forecasts.ForecastsViewModel
 import com.xbethub.webview.ui.forecasts.sportItem.SportAdapter
@@ -31,24 +32,21 @@ class HeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     private val context = itemView.context
 
     private var extraFiltersVisible = false
-    private var searchActive = false
 
     private var activeSport: Sport? = null
     private var activeTimeInterval: TimeInterval? = null
 
     init {
         updateExtraFiltersVisibility()
-        updateSearchFieldVisibility()
 
         binding.viewHolder = this
-        binding.topPanel.searchBtn.setOnClickListener { onSearchBtnClick() }
         binding.timeIntervalSpinner.adapter = ArrayAdapter(context!!, R.layout.row_time_interval, R.id.text
             , TimeInterval.values().map { itemView.resources.getString(it.stringRes) })
     }
 
     fun setViewModel(viewModel: ForecastsViewModel, viewLifecycleOwner: LifecycleOwner) {
         binding.viewModel = viewModel
-        addSportItems(viewModel)
+        addSportItems(viewModel, viewLifecycleOwner)
         viewModel.forecastFilterLiveData.observe(viewLifecycleOwner, Observer { updateFilterViews(it) })
 
         binding.timeIntervalSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
@@ -66,7 +64,7 @@ class HeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         }
     }
 
-    private fun addSportItems(viewModel: ForecastsViewModel) {
+    private fun addSportItems(viewModel: ForecastsViewModel, viewLifecycleOwner: LifecycleOwner) {
         val flexboxLayoutManager = FlexboxLayoutManager(context!!, FlexDirection.ROW)
 
         flexboxLayoutManager.justifyContent = JustifyContent.FLEX_START
@@ -85,7 +83,20 @@ class HeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         val adapter = SportAdapter(viewModel)
         binding.sportRV.adapter = adapter
-        adapter.addAll(Sport.values().map { SportItem(it) })
+
+        val constants = App.appComponent.getConstants()
+
+        constants.sports.value?.let { sports ->
+            adapter.addAll(sports.map { SportItem(it) })
+            viewModel.onSportItemClick(sports[0])
+        } ?: run {
+            constants.sports.observe(viewLifecycleOwner, Observer {
+                it?.let {
+                    sports -> adapter.addAll(sports.map { SportItem(it) })
+                    viewModel.onSportItemClick(sports[0])
+                }
+            })
+        }
     }
 
     private fun updateFilterViews(forecastFilter: ForecastFilter) {
@@ -104,16 +115,19 @@ class HeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         }
 
         // Sport
-        val sportAdapter = binding.sportRV.adapter as SportAdapter
+        (binding.sportRV.adapter as? SportAdapter)?.let { sportAdapter ->
+            activeSport?.let {
+                sportAdapter.getItem(it.id).active = false
+                sportAdapter.notifyItemChanged(it.id)
+            }
 
-        activeSport?.let {
-            sportAdapter.getItem(it.ordinal).active = false
-            sportAdapter.notifyItemChanged(it.ordinal)
+            activeSport = forecastFilter.sport
+
+            activeSport?.let {
+                sportAdapter.getItem(it.id).active = true
+                sportAdapter.notifyItemChanged(it.id)
+            }
         }
-
-        activeSport = forecastFilter.sport
-        sportAdapter.getItem(activeSport!!.ordinal).active = true
-        sportAdapter.notifyItemChanged(activeSport!!.ordinal)
 
         // TimeInterval
         activeTimeInterval = forecastFilter.timeInterval
@@ -124,22 +138,8 @@ class HeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         binding.extraFilterFields.visibility = if (extraFiltersVisible) View.VISIBLE else View.GONE
     }
 
-    private fun updateSearchFieldVisibility() {
-        binding.topPanel.searchField.visibility = if (searchActive) View.VISIBLE else View.GONE
-
-        if (searchActive) {
-            binding.topPanel.searchField.requestFocus()
-            Utils.showKeyboard(context)
-        }
-    }
-
     fun onExtraFiltersBtnClick() {
         extraFiltersVisible = !extraFiltersVisible;
         updateExtraFiltersVisibility()
-    }
-
-    fun onSearchBtnClick() {
-        searchActive = !searchActive
-        updateSearchFieldVisibility()
     }
 }

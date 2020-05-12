@@ -29,10 +29,9 @@
             android:text="@string/bankField"/>
 
         <TextView
-            android:id="@+id/balance"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:fontFamily="@font/roboto_regular"
+            android:fontFamily="@font/roboto_medium"
             android:textSize="13sp"
             android:gravity="center"
             android:textColor="@android:color/white"

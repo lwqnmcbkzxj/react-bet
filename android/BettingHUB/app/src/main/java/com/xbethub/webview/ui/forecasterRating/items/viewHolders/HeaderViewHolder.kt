@@ -10,10 +10,11 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxItemDecoration
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import com.xbethub.webview.App
 import com.xbethub.webview.R
 import com.xbethub.webview.databinding.ItemForecasterRatingHeaderBinding
 import com.xbethub.webview.enums.RatingTimeInterval
-import com.xbethub.webview.enums.Sport
+import com.xbethub.webview.models.Sport
 import com.xbethub.webview.ui.forecasterRating.ForecasterRatingViewModel
 import com.xbethub.webview.ui.forecasterRating.RatingFilter
 import com.xbethub.webview.ui.forecasterRating.items.ItemListener
@@ -37,7 +38,7 @@ class HeaderViewHolder(itemView: View): BaseViewHolder(itemView) {
         viewLifecycleOwner: LifecycleOwner
     ) {
         binding.viewModel = viewModel
-        addSportItems(viewModel)
+        addSportItems(viewModel, viewLifecycleOwner)
         viewModel.filterLiveData.observe(viewLifecycleOwner, Observer { updateFilterViews(it) })
     }
 
@@ -63,19 +64,22 @@ class HeaderViewHolder(itemView: View): BaseViewHolder(itemView) {
         }
 
         // Sport
-        (binding.sportRV.adapter as? SportAdapter)?.let {sportAdapter ->
+        (binding.sportRV.adapter as? SportAdapter)?.let { sportAdapter ->
             activeSport?.let {
-                sportAdapter.getItem(it.ordinal).active = false
-                sportAdapter.notifyItemChanged(it.ordinal)
+                sportAdapter.getItem(it.id).active = false
+                sportAdapter.notifyItemChanged(it.id)
             }
 
             activeSport = filter.sport
-            sportAdapter.getItem(activeSport!!.ordinal).active = true
-            sportAdapter.notifyItemChanged(activeSport!!.ordinal)
+
+            activeSport?.let {
+                sportAdapter.getItem(it.id).active = true
+                sportAdapter.notifyItemChanged(it.id)
+            }
         }
     }
 
-    private fun addSportItems(viewModel: ForecasterRatingViewModel) {
+    private fun addSportItems(viewModel: ForecasterRatingViewModel, viewLifecycleOwner: LifecycleOwner) {
         val flexboxLayoutManager = FlexboxLayoutManager(context!!, FlexDirection.ROW)
 
         flexboxLayoutManager.justifyContent = JustifyContent.FLEX_START
@@ -91,10 +95,22 @@ class HeaderViewHolder(itemView: View): BaseViewHolder(itemView) {
         }
 
         binding.sportRV.addItemDecoration(paddingDecoration)
-
         val adapter = SportAdapter(viewModel)
         binding.sportRV.adapter = adapter
-        adapter.addAll(Sport.values().map { SportItem(it) })
+
+        val constants = App.appComponent.getConstants()
+
+        constants.sports.value?.let { sports ->
+            adapter.addAll(sports.map { SportItem(it) })
+            viewModel.onSportItemClick(sports[0])
+        } ?: run {
+            constants.sports.observe(viewLifecycleOwner, Observer {
+                it?.let { sports ->
+                    adapter.addAll(sports.map { SportItem(it) })
+                    viewModel.onSportItemClick(it[0])
+                }
+            })
+        }
     }
 
     fun onExtraFiltersBtnClick() {

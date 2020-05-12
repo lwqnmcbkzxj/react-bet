@@ -3,7 +3,6 @@ package com.xbethub.webview.ui.forecasts.sportItem
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.xbethub.webview.R
-import com.xbethub.webview.enums.Sport
 import com.xbethub.webview.ui.RecyclerViewAdapterBase
 
 class SportAdapter(var listener: SportListener): RecyclerViewAdapterBase<SportListener, SportItem, SportViewHolder>(listener) {

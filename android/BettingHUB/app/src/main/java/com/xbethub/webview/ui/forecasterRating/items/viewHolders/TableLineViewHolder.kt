@@ -4,6 +4,7 @@ import android.os.Build
 import android.text.Html
 import android.view.View
 import com.xbethub.webview.R
+import com.xbethub.webview.Utils
 import com.xbethub.webview.databinding.ItemForecasterRatingLineBinding
 import com.xbethub.webview.ui.forecasterRating.items.ItemListener
 import com.xbethub.webview.ui.forecasterRating.items.items.Item
@@ -33,11 +34,7 @@ class TableLineViewHolder(itemView: View): BaseViewHolder(itemView) {
             .replace("#L_VALUE", "2")
             .replace("#D_VALUE", "0")
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            binding.wld.text = Html.fromHtml(wdlHtml, Html.FROM_HTML_MODE_LEGACY)
-        } else {
-            binding.wld.text = Html.fromHtml(wdlHtml)
-        }
+        binding.wld.text = Utils.fromHtml(wdlHtml)
     }
 
     override fun setListener(listener: ItemListener) {

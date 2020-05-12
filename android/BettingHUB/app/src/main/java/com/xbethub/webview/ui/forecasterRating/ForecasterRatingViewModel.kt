@@ -3,10 +3,9 @@ package com.xbethub.webview.ui.forecasterRating
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.xbethub.webview.enums.RatingTimeInterval
-import com.xbethub.webview.enums.Sport
+import com.xbethub.webview.models.Sport
 import com.xbethub.webview.models.ForecasterRating
 import com.xbethub.webview.ui.forecasts.sportItem.SportListener
-import java.util.*
 import kotlin.collections.ArrayList
 
 class ForecasterRatingViewModel: ViewModel(), SportListener {

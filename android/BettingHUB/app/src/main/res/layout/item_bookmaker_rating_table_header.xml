@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/color9">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/column1Begin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="8dp"
+            />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/column2Begin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="104dp"
+            />
+
+
+        <TextView
+            android:id="@+id/bookmaker"
+            android:layout_height="match_parent"
+            style="@style/TableHeaderStyle"
+            android:text="@string/bookmakerColumn"
+            app:layout_constraintStart_toStartOf="@id/column1Begin"
+            />
+
+        <TextView
+            android:id="@+id/rating"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            style="@style/TableHeaderStyle"
+            android:text="@string/ratingColumn"
+            app:layout_constraintStart_toStartOf="@id/column2Begin"
+            app:layout_constraintEnd_toStartOf="@id/bonus"
+            />
+
+        <TextView
+            android:id="@+id/bonus"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            style="@style/TableHeaderStyle"
+            android:text="@string/bonus_label"
+            app:layout_constraintStart_toEndOf="@id/rating"
+            app:layout_constraintEnd_toStartOf="@id/overview"
+            />
+
+        <View
+            android:id="@+id/overview"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toEndOf="@id/bonus"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/borders"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/leftBorder"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="#E5E2E2"
+                />
+
+            <View
+                android:id="@+id/rightBorder"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="#E5E2E2"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+
+

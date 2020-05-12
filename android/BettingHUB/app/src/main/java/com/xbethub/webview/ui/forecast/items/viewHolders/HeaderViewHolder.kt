@@ -31,27 +31,27 @@ class HeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val forecast = headerItem.forecast
 
         // TODO: делать это в лейауте
-        binding.eventName.text = forecast.tournament
-        binding.teams.text = forecast.text
-        binding.coefficient.text = forecast.coefficient
-        binding.bet.text = forecast.betValue
-        binding.forecasterName.text = forecast.userName
-        binding.bookmarkCount.text = forecast.favAmmount.toString()
-        binding.commentCount1.text = forecast.commentCount.toString()
-        binding.commentCount2.text = forecast.commentCount.toString()
-        binding.rating.text = forecast.rating.toString()
-        Glide.with(binding.forecasterAvatar).load("http://xbethub.com" + forecast.userAvatar).into(binding.forecasterAvatar)
+//        binding.eventName.text = forecast.tournament
+//        binding.teams.text = forecast.text
+//        binding.coefficient.text = forecast.coefficient
+//        binding.bet.text = forecast.betValue
+//        binding.forecasterName.text = forecast.userName
+//        binding.bookmarkCount.text = forecast.favAmmount.toString()
+//        binding.commentCount1.text = forecast.commentCount.toString()
+//        binding.commentCount2.text = forecast.commentCount.toString()
+//        binding.rating.text = forecast.rating.toString()
+//        Glide.with(binding.forecasterAvatar).load("http://xbethub.com" + forecast.userAvatar).into(binding.forecasterAvatar)
 
         // TODO: вынести константы
-        try {
-            val date = SimpleDateFormat(SERVER_TIME_PATTERN).parse(forecast.time)
-            val time = SimpleDateFormat(TIME_FORMAT).format(date)
-
-            binding.dateAndTime.text = time
-            binding.eventTime.text = time
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+//        try {
+//            val date = SimpleDateFormat(SERVER_TIME_PATTERN).parse(forecast.time)
+//            val time = SimpleDateFormat(TIME_FORMAT).format(date)
+//
+//            binding.dateAndTime.text = time
+//            binding.eventTime.text = time
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
     }
 
     fun setViewModel(viewModel: ForecastViewModel, viewLifecycleOwner: LifecycleOwner) {

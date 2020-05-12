@@ -1,9 +1,9 @@
 package com.xbethub.webview.ui.forecasterRating
 
 import com.xbethub.webview.enums.RatingTimeInterval
-import com.xbethub.webview.enums.Sport
+import com.xbethub.webview.models.Sport
 
 class RatingFilter {
-    var sport: Sport = Sport.ALL
+    var sport: Sport? = null
     var timeInterval: RatingTimeInterval = RatingTimeInterval.MONTH
 }

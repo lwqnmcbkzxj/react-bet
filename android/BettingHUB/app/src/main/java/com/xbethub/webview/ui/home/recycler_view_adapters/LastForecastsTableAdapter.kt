@@ -37,25 +37,25 @@ class LastForecastsTableAdapter (private val myDataset: ArrayList<Forecast>, pri
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val binding = ItemForecastBinding.bind(holder.forecastCard)
         val forecast = myDataset[position]
-        binding.userName.text = forecast.userName
-        binding.categoryName.text = forecast.sportName
-        binding.eventName.text = forecast.tournament
-        binding.teams.text = forecast.text
-        binding.betAmount.fieldValue = forecast.betValue
-        binding.coefficient.fieldValue = forecast.coefficient
-        binding.commentCount.text = forecast.commentCount.toString()
-        binding.rating.text = forecast.rating.toString()
-        binding.bookmarkCount.text = forecast.favAmmount.toString()
-        binding.gameStart.fieldValue = "-"
-        try {
-            val date = SimpleDateFormat(SERVER_TIME_PATTERN).parse(forecast.time)
-            val time = SimpleDateFormat(TIME_FORMAT).format(date)
-
-            binding.gameStart.fieldValue = time
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        Glide.with(binding.avatar).load("http://xbethub.com" + forecast.userAvatar).into(binding.avatar)
+//        binding.userName.text = forecast.userName
+//        binding.categoryName.text = forecast.sportName
+//        binding.eventName.text = forecast.tournament
+//        binding.teams.text = forecast.text
+//        binding.betAmount.fieldValue = forecast.betValue
+//        binding.coefficient.fieldValue = forecast.coefficient
+//        binding.commentCount.text = forecast.commentCount.toString()
+//        binding.rating.text = forecast.rating.toString()
+//        binding.bookmarkCount.text = forecast.favAmmount.toString()
+//        binding.gameStart.fieldValue = "-"
+//        try {
+//            val date = SimpleDateFormat(SERVER_TIME_PATTERN).parse(forecast.time)
+//            val time = SimpleDateFormat(TIME_FORMAT).format(date)
+//
+//            binding.gameStart.fieldValue = time
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
+//        Glide.with(binding.avatar).load("http://xbethub.com" + forecast.userAvatar).into(binding.avatar)
         val IDK_why_this_need = 0
         holder.forecastCard.setOnClickListener { forecastListener.onForecastClick(forecast = forecast, position = IDK_why_this_need) }
     }

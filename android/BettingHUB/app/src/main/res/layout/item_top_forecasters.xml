@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="20sp"
+            android:textColor="@color/textColor1"
+            android:textAllCaps="true"
+            android:text="@string/topForecasters"
+            android:gravity="center"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/forecasterRV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="@dimen/sideMargin"
+            android:layout_marginEnd="@dimen/sideMargin"
+            android:orientation="horizontal"
+            android:scrollbars="horizontal"
+            android:fadeScrollbars="false"
+            android:scrollbarThumbHorizontal="@drawable/horizontal_scroll_thumb"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_forecaster"
+            tools:itemCount="10"
+            android:scrollbarAlwaysDrawHorizontalTrack="true"
+            android:scrollbarStyle="insideInset"
+            android:scrollbarSize="8dp"
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/seeAllForecasters"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="@dimen/sideMargin"
+            android:layout_marginEnd="@dimen/sideMargin"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/bg_gradient_button"
+            android:shadowColor="@android:color/transparent"
+            android:text="@string/see_all_label_text"
+            android:textSize="18sp"
+            app:elevation="0dp"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="@color/textColor6"/>
+
+    </LinearLayout>
+
+</layout>

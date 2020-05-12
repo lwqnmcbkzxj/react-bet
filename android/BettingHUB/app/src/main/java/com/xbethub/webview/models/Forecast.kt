@@ -6,59 +6,75 @@ import java.io.Serializable
 
 
 data class Forecast (
-    @SerializedName("UserName")
+    @SerializedName("id")
     @Expose
-    val userName: String,
+    val id: Int,
 
-    @SerializedName("UserAvatar")
+    @SerializedName("user_id")
     @Expose
-    val userAvatar: String,
+    val userId: Int,
 
-    @SerializedName("SportName")
+    @SerializedName("event_id")
     @Expose
-    val sportName: String,
+    val eventId: Int,
 
-    @SerializedName("Tournament")
+    @SerializedName("coefficient_id")
     @Expose
-    val tournament: String,
+    val coefficientId: Int,
 
-    @SerializedName("ForecastId")
+    @SerializedName("forecast_text")
     @Expose
-    val forecastId: Int,
+    val forecastText: String,
 
-    @SerializedName("Time")
+    @SerializedName("bet")
     @Expose
-    val time: String,
+    val bet: String,
 
-    @SerializedName("Text")
-    @Expose
-    val text: String,
-
-    @SerializedName("BetValue")
-    @Expose
-    val betValue: String,
-
-    @SerializedName("CratedAt")
+    @SerializedName("created_at")
     @Expose
     val createdAt: String,
 
-    @SerializedName("Coefficient")
+    @SerializedName("updated_at")
     @Expose
-    val coefficient: String,
+    val updatedAt: String,
 
-    @SerializedName("CommentsQuanity")
+    @SerializedName("sport_id")
     @Expose
-    val commentCount: Int,
+    val sportId: Int,
 
-    @SerializedName("Rating")
+    @SerializedName("championship_id")
     @Expose
-    val rating: Int,
+    val championship_id: Int,
 
-    @SerializedName("FavAmmount")
+    @SerializedName("title")
     @Expose
-    val favAmmount: Int
-): Serializable {
-    override fun toString(): String {
-        return "Forecast(userName='$userName', userAvatar='$userAvatar', sportName='$sportName', tournament='$tournament', forecastId=$forecastId, time='$time', text='$text', betValue='$betValue', createdAt='$createdAt', coefficient='$coefficient', commentCount=$commentCount, rating=$rating, favAmmount=$favAmmount)"
-    }
-}
+    val title: String,
+
+    @SerializedName("start")
+    @Expose
+    val start: String,
+
+    @SerializedName("status")
+    @Expose
+    val status: Int,
+
+    @SerializedName("count_comments")
+    @Expose
+    val commentsCount: Int,
+
+    @SerializedName("count_likes")
+    @Expose
+    val likesCount: Int,
+
+    @SerializedName("count_dislikes")
+    @Expose
+    val dislikesCount: Int,
+
+    @SerializedName("description")
+    @Expose
+    val description: String,
+
+    @SerializedName("user_data")
+    @Expose
+    val user: User
+): Serializable {}

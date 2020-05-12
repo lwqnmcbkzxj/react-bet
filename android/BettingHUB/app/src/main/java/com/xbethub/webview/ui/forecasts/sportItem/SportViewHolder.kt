@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.xbethub.webview.R
-import com.xbethub.webview.enums.Sport
+import com.xbethub.webview.models.Sport
 
 class SportViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     private lateinit var sport: Sport
@@ -16,7 +16,7 @@ class SportViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         val textView = itemView as TextView
 
-        textView.setText(sportItem.sport.stringRes)
+        textView.text = sportItem.sport.name
 
         val activeTypeFace = ResourcesCompat.getFont(itemView.context, R.font.roboto_medium)
         val inactiveTypeFace = ResourcesCompat.getFont(itemView.context, R.font.roboto_regular)

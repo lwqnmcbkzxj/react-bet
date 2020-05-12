@@ -11,7 +11,9 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.xbethub.webview.App
 import com.xbethub.webview.R
+import com.xbethub.webview.Utils
 import com.xbethub.webview.databinding.FragmentForecastsBinding
 import com.xbethub.webview.models.Forecast
 import com.xbethub.webview.ui.forecasts.items.ItemDecoration
@@ -26,6 +28,8 @@ class ForecastsFragment : Fragment(), ForecastListener {
     private lateinit var binding: FragmentForecastsBinding
     private lateinit var vm: ForecastsViewModel
 
+    private var searchActive = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,6 +38,11 @@ class ForecastsFragment : Fragment(), ForecastListener {
         binding = FragmentForecastsBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
+
+        binding.topPanel.bankBalance.balance = "1 500 xB"
+        binding.topPanel.bankBalance.root.visibility = if (App.appComponent.getAppData().activeUser == null) View.GONE else View.VISIBLE
+        binding.topPanel.searchBtn.setOnClickListener { onSearchBtnClick() }
+
         addItemDecoration()
 
         navController = activity?.let { Navigation.findNavController(it, R.id.nav_host_fragment) }!!
@@ -41,6 +50,8 @@ class ForecastsFragment : Fragment(), ForecastListener {
         vm = ViewModelProvider(this).get(ForecastsViewModel::class.java)
         vm.forecastsLiveData.observe(viewLifecycleOwner, Observer { addForecasts(it) })
         vm.forecastsClearLiveData.observe(viewLifecycleOwner, Observer { removeAllForecasts() })
+
+        updateSearchFieldVisibility()
 
         return binding.root
     }
@@ -71,14 +82,16 @@ class ForecastsFragment : Fragment(), ForecastListener {
     }
 
     private fun removeAllForecasts() {
-        (binding.forecastRV.adapter as? ItemAdapter)?.let {
-            if (it.itemCount - 3 > 0) {
-                it.removeItems(1, it.itemCount - 3)
+        binding.forecastRV.post {
+            (binding.forecastRV.adapter as? ItemAdapter)?.let {
+                if (it.itemCount - 3 > 0) {
+                    it.removeItems(1, it.itemCount - 3)
+                }
             }
         }
     }
 
-    private fun addForecasts(forecasts: List<Forecast>) {
+    private fun addForecasts(forecasts: List<Forecast?>) {
         if (binding.forecastRV.adapter == null) {
             val items = ArrayList<Item>()
 
@@ -97,10 +110,28 @@ class ForecastsFragment : Fragment(), ForecastListener {
 
             (binding.forecastRV.adapter as ItemAdapter).addAll(items)
         } else {
-            (binding.forecastRV.adapter as ItemAdapter).let { itemAdapter ->
-                itemAdapter.addAll(itemAdapter.itemCount - 2, forecasts.map { ForecastItem(it) })
+            binding.forecastRV.post {
+                (binding.forecastRV.adapter as ItemAdapter).let { itemAdapter ->
+                    itemAdapter.addAll(itemAdapter.itemCount - 2, forecasts.map { ForecastItem(it) })
+                }
             }
+
         }
+    }
+
+    private fun updateSearchFieldVisibility() {
+        binding.topPanel.searchField.visibility = if (searchActive) View.VISIBLE else View.GONE
+
+        if (searchActive) {
+            binding.topPanel.searchField.requestFocus()
+            Utils.showKeyboard(requireContext())
+        }
+    }
+
+
+    fun onSearchBtnClick() {
+        searchActive = !searchActive
+        updateSearchFieldVisibility()
     }
 
     // ForecastListener

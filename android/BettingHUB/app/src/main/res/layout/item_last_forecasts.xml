@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="20sp"
+            android:textColor="@color/textColor1"
+            android:textAllCaps="true"
+            android:text="@string/last_forecasts_label"
+            android:gravity="center"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/forecastRV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical"
+             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_forecast"
+            tools:itemCount="1"
+            android:overScrollMode="never"
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/seeAllBookmakersBtn"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginStart="@dimen/sideMargin"
+            android:layout_marginEnd="@dimen/sideMargin"
+            android:background="@drawable/bg_gradient_button"
+            android:shadowColor="@android:color/transparent"
+            android:text="@string/allForecasts"
+            android:textSize="18sp"
+            app:elevation="0dp"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="@color/textColor6"
+            app:layout_constraintTop_toBottomOf="@id/forecastRV"/>
+
+
+    </LinearLayout>
+
+</layout>

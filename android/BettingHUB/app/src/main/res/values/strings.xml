@@ -4,6 +4,19 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <string name="topForecasters">Лучшие прогнозисты</string>
+    <string name="topBookmakers">Рейтинг букмекеров</string>
+    <string name="topMatches">Топ матчи</string>
+
+    <string name="bookmakerColumn">Контора</string>
+    <string name="ratingColumn">Рейтинг</string>
+    <string name="bonusColumn">Бонус</string>
+    <string name="overview">Обзор</string>
+
+    <string name="dateColumn">Дата</string>
+    <string name="matchColumn">Матч</string>
+    <string name="betsColumn">Ставки</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="main_title">Главная</string>
@@ -101,13 +114,7 @@
     <string name="nameColumn">Имя</string>
     <string name="wldColumn">W/L/D</string>
     <string name="profitColumn">Прибыль</string>
-    <string name="wldTemplate"><![CDATA[
-    <font color=#0F971D>#W_VALUE</font>
-    <font color=#343638>/</font>
-    <font color=#AA0F0F>#L_VALUE</font>
-    <font color=#343638>/</font>
-    <font color=#0F19AA>#D_VALUE</font>
-    ]]></string>
+    <string name="wldTemplate"><![CDATA[<font color=#0F971D>#W_VALUE</font><font color=#343638>/</font><font color=#AA0F0F>#L_VALUE</font><font color=#343638>/</font><font color=#0F19AA>#D_VALUE</font>]]></string>
 
     <string name="topMatchesTileTittle">Топ матчи</string>
     <string name="newsTileTitle">Новости</string>
@@ -137,13 +144,11 @@
     <string name="statistics">Статистика</string>
     <string name="favorites">Избранное</string>
 
-    <string name="allTimeROI">ROI за все время</string>
-
     <string name="winsStat">Побед</string>
     <string name="lesionsStat">Поражений</string>
     <string name="returnsStat">Возвратов</string>
     <string name="subsStat">Подписчиков</string>
-    <string name="seatsStat">Мест</string>
+    <string name="positionStat">Место</string>
     <string name="netProfitStat">Чист. прибыль</string>
     <string name="forecasts1">Прогнозов</string>
     <string name="bitWinLegend">Ставка Выиграла</string>
@@ -160,5 +165,7 @@
     <string name="byGoogle">Войти через Google</string>
     <string name="wrongLoginOrPassword">Неверный пароль или логин!</string>
     <string name="fillAllFields">Заполните все поля</string>
+
+
 
 </resources>

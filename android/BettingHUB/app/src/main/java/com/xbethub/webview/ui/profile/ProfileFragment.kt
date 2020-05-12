@@ -28,6 +28,7 @@ class ProfileFragment: Fragment() {
         binding = FragmentProfileBinding.inflate(inflater)
         binding.fragment = this
 
+        binding.topPanel.bankBalance.root.visibility = View.GONE
         binding.topPanel.searchBtn.setOnClickListener { onSearchBtnClick() }
         binding.userBlock.settingsBtn.setColorFilter(Utils.getColor(requireContext(), R.color.color5))
         binding.userBlock.settingsBtn.setOnClickListener { onSettingBtnClick() }
@@ -35,11 +36,15 @@ class ProfileFragment: Fragment() {
         binding.subscribeBtnBlock.visibility = View.GONE
 
         // TODO: временнно
-        binding.wins.value = "10"
-        binding.lesions.value = "5"
-        binding.returns.value = "2"
+        val wdlHtml = requireContext().getString(R.string.wldTemplate)
+            .replace("#W_VALUE", "10")
+            .replace("#L_VALUE", "2")
+            .replace("#D_VALUE", "0")
+
+        binding.userBlock.wld.text = Utils.fromHtml(wdlHtml)
+
         binding.subs.value = "10"
-        binding.seats.value = "3"
+        binding.position.value = "3"
         binding.netProfit.value = "268%"
 
         binding.pager.adapter = PageAdapter(3, childFragmentManager)

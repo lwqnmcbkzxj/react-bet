@@ -3,24 +3,24 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/p_home"
         android:title="@string/main_title" />
 
     <item
         android:id="@+id/forecastsFragment"
-        android:icon="@drawable/ic_radiation"
+        android:icon="@drawable/ic_forecasts"
         android:title="@string/vanga_title" />
 
     <item
-        android:id="@+id/navigation_plus"
+        android:id="@+id/plusFragment"
         android:icon="@drawable/ic_swiss"
         android:title="@string/add_vanga_title" />
     <item
-        android:id="@+id/profileFragment"
+        android:id="@+id/profileSubFragment"
         android:icon="@drawable/ic_profile"
         android:title="@string/profile_title"/>
     <item
         android:id="@+id/menuFragment"
-        android:icon="@drawable/ic_hamburger"
+        android:icon="@drawable/ic_menu"
         android:title="@string/menu_title"/>
 </menu>

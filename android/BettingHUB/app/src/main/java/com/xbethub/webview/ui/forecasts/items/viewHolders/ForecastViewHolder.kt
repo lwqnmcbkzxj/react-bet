@@ -3,8 +3,10 @@ package com.xbethub.webview.ui.forecasts.items.viewHolders
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.xbethub.webview.App
 import com.xbethub.webview.databinding.ItemForecastBinding
 import com.xbethub.webview.models.Forecast
+import com.xbethub.webview.models.User
 import com.xbethub.webview.ui.forecasts.items.ForecastListener
 import com.xbethub.webview.ui.forecasts.items.items.ForecastItem
 import java.text.SimpleDateFormat
@@ -19,35 +21,35 @@ class ForecastViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     fun setForecastItem(forecastItem: ForecastItem) {
         forecast = forecastItem.forecast
 
-        forecast?.let {
+        forecast?.let { f ->
             // TODO: делать это в лейауте
-            binding.userName.text = it.userName
-            binding.categoryName.text = it.sportName
-            binding.eventName.text = it.tournament
-            binding.teams.text = it.text
-            binding.betAmount.fieldValue = it.betValue
-            binding.coefficient.fieldValue = it.coefficient
-            binding.commentCount.text = it.commentCount.toString()
-            binding.rating.text = it.rating.toString()
-            binding.bookmarkCount.text = it.favAmmount.toString()
-            binding.gameStart.fieldValue = "-"
+//            binding.userName.text = f.user.login
+//            binding.categoryName.text = "?" // TODO: название спорта
+//            binding.eventName.text = f.title
+//            binding.teams.text = f.text
+//            binding.betAmount.fieldValue = f.betValue
+//            binding.coefficient.fieldValue = f.coefficient
+//            binding.commentCount.text = f.commentCount.toString()
+//            binding.rating.text = f.rating.toString()
+//            binding.bookmarkCount.text = f.favAmmount.toString()
+//            binding.gameStart.fieldValue = "-"
+//
+//            // TODO: вынести константы
+//            try {
+//                val date = SimpleDateFormat(SERVER_TIME_PATTERN).parse(f.time)
+//                val time = SimpleDateFormat(TIME_FORMAT).format(date)
+//
+//                binding.gameStart.fieldValue = time
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
 
-            // TODO: вынести константы
-            try {
-                val date = SimpleDateFormat(SERVER_TIME_PATTERN).parse(it.time)
-                val time = SimpleDateFormat(TIME_FORMAT).format(date)
+            f.user.avatar?.let {Glide.with(binding.avatar).load("http://xbethub.com" + it).into(binding.avatar)}
 
-                binding.gameStart.fieldValue = time
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-
-
-            Glide.with(binding.avatar).load("http://xbethub.com" + it.userAvatar).into(binding.avatar)
 
             binding.loading.root.visibility = View.GONE
         } ?: run {
-            binding.loading.root.visibility = View.VISIBLE
+            //binding.loading.root.visibility = View.VISIBLE
         }
 
 
@@ -55,9 +57,16 @@ class ForecastViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
     fun setListener(listener: ForecastListener) {
         itemView.setOnClickListener {
-            forecast?.let {
-                listener.onForecastClick(it, adapterPosition)
-            }
+            listener.onForecastClick(
+                Forecast(0, 0, 0, 0, ""
+                    , "", "", "", 0, 0, "", ""
+                    , 0, 0, 0, 0, "", User(0, "", ""))
+                , adapterPosition)
+
+            // TODO: раскоментить
+//            forecast?.let {
+//                listener.onForecastClick(it, adapterPosition)
+//            }
         }
     }
 }

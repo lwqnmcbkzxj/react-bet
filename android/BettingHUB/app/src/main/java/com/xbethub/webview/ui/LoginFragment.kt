@@ -16,6 +16,7 @@ import com.xbethub.webview.Utils
 import com.xbethub.webview.backend.BettingHubBackend
 import com.xbethub.webview.backend.requests.TokenRequest
 import com.xbethub.webview.databinding.FragmentLoginBinding
+import com.xbethub.webview.models.ActiveUser
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlin.math.log
@@ -64,33 +65,43 @@ class LoginFragment : Fragment() {
     }
 
     fun onRegisterBtnClick() {
-        navController.navigate(LoginFragmentDirections.toRegistrationFragment())
+       navController.navigate(LoginFragmentDirections.toRegistrationFragment(requireArguments().getInt("nextFragmentId")))
     }
 
     @SuppressLint("CheckResult")
     private fun login() {
-        val login = binding.loginField.text.toString()
-        val password = binding.passwordField.text.toString()
+// TODO: раскоментить
+//        val login = binding.loginField.text.toString()
+//        val password = binding.passwordField.text.toString()
+//
+//        if (login.isEmpty() || password.isEmpty()) {
+//            binding.error.errorText = getString(R.string.fillAllFields)
+//            binding.error.root.visibility = View.VISIBLE
+//            return
+//        }
+//
+//        BettingHubBackend().api.token(TokenRequest(username = login, password = password))
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({
+//                settings.setString(Settings.accessTokenKey, it.accessToken)
+//                settings.setString(Settings.refreshTokenKey, it.refreshToken)
+//
+//                navController.navigate(LoginFragmentDirections.toMainActivity())
+//                activity?.finish()
+//            }, {
+//                binding.error.errorText = getString(R.string.wrongLoginOrPassword)
+//                binding.error.root.visibility = View.VISIBLE
+//                it.printStackTrace()
+//            })
+       // navController.navigate(LoginFragmentDirections.toMainActivity())
+        //activity?.finish()
 
-        if (login.isEmpty() || password.isEmpty()) {
-            binding.error.errorText = getString(R.string.fillAllFields)
-            binding.error.root.visibility = View.VISIBLE
-            return
-        }
+        val nextFragmentId = requireArguments().getInt("nextFragmentId")
 
-        BettingHubBackend().api.token(TokenRequest(username = login, password = password))
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                settings.setString(Settings.accessTokenKey, it.accessToken)
-                settings.setString(Settings.refreshTokenKey, it.refreshToken)
+        App.appComponent.getAppData().activeUser = ActiveUser("", "")
 
-                navController.navigate(LoginFragmentDirections.toMainActivity())
-                activity?.finish()
-            }, {
-                binding.error.errorText = getString(R.string.wrongLoginOrPassword)
-                binding.error.root.visibility = View.VISIBLE
-                it.printStackTrace()
-            })
+        navController.navigate(nextFragmentId)
+
     }
 }

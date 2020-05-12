@@ -95,7 +95,7 @@
             android:fadeScrollbars="false"
             android:scrollbarThumbHorizontal="@drawable/horizontal_scroll_thumb"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/card_avatar"
+            tools:listitem="@layout/item_forecaster"
             tools:itemCount="5"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
