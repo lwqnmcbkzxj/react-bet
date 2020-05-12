@@ -42,6 +42,7 @@ Route::get('/forecasts/{forecast}/comments', function (Request $Request, \App\Fo
     return app()->call('App\Http\Controllers\CommentController@getAll',[$Request]);
 });
 Route::get('/users', 'Api\InfoController@forecasters');
+Route::get('/users/{user}', 'Api\InfoController@forecaster');
 Route::get('/users/{user}/stats', 'Api\InfoController@userStatistic');
 Route::get('/users/{user}/forecasts', 'Api\InfoController@userForecasts');
 Route::get('/users/{user}/subscription', 'UserSubscriptionController@getSubscriptions');
@@ -62,7 +63,7 @@ Route::middleware('auth:api')->group(function()
         Route::post('/users/update/notification', 'ProfileController@updateNotification')->name('update.notification');
         Route::post('/users/{user}/subscription', 'UserSubscriptionController@create');
         Route::delete('/users/{user}/subscription', 'UserSubscriptionController@delete');
-        Route::get('/users/{user}', 'Api\InfoController@forecaster');
+
 
     Route::post('/news/{news}/like', function (Request $Request, \App\News $news){
         $Request['type']='like';
