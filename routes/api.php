@@ -55,16 +55,14 @@ Route::middleware('auth:api')->group(function()
     Route::delete('/comments/{comment}', 'CommentController@delete');
     Route::post('/votes', 'VoteController@post');
     Route::delete('/votes/{vote}', 'VoteController@delete');
-  Route::prefix('/users')->group(function(){
 
-        Route::get('/profile', 'ProfileController@index')->name('profile');
-        Route::post('/update/login', 'ProfileController@updateLogin')->name('update.login');
-        Route::post('/update/email', 'ProfileController@updateEmail')->name('update.email');
-        Route::post('/update/notification', 'ProfileController@updateNotification')->name('update.notification');
-        Route::post('/{user}/subscription', 'UserSubscriptionController@create');
-        Route::delete('/{user}/subscription', 'UserSubscriptionController@delete');
-        Route::get('/{user}', 'Api\InfoController@forecaster');
-    });
+        Route::get('/users/profile', 'ProfileController@index')->name('profile');
+        Route::post('/users/update/login', 'ProfileController@updateLogin')->name('update.login');
+        Route::post('/users/update/email', 'ProfileController@updateEmail')->name('update.email');
+        Route::post('/users/update/notification', 'ProfileController@updateNotification')->name('update.notification');
+        Route::post('/users/{user}/subscription', 'UserSubscriptionController@create');
+        Route::delete('/users/{user}/subscription', 'UserSubscriptionController@delete');
+        Route::get('/users/{user}', 'Api\InfoController@forecaster');
 
     Route::post('/news/{news}/like', function (Request $Request, \App\News $news){
         $Request['type']='like';
