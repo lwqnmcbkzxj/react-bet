@@ -43,7 +43,6 @@ class OrangeScrollIndicator: UIView {
     func attach(to scrollView: UIScrollView, direction: UIScrollView.ScrollDirection) {
         self.scrollView = scrollView
         self.direction = direction
-        scrollView.delegate = self
     }
     
     func deattachScrollView() {
@@ -80,11 +79,7 @@ class OrangeScrollIndicator: UIView {
     }
 }
 
-extension OrangeScrollIndicator: UIScrollViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        useScrollViewData(scrollView: scrollView)
-    }
+extension OrangeScrollIndicator {
     
     private func useScrollViewData(scrollView: UIScrollView) {
         let offset = direction == .horizontal

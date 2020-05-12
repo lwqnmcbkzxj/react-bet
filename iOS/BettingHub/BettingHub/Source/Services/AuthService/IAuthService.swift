@@ -15,4 +15,6 @@ protocol IAuthService: class {
     func register(username: String, email: String, password: String, callback: @escaping ((BHError?) -> Void))
     
     func logIn(usernameOrMail: String, password: String, callback: @escaping ((BHError?) -> Void))
+    
+    func logOut()
 }

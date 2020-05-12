@@ -16,7 +16,7 @@ class TimeFramePicker: TimePicker {
     }
     
     let timeFrames: [TimeFrame] = [
-        .h3, .h6, .h12, .day, .all
+        .month, .all
     ]
     
     init() {

@@ -27,18 +27,20 @@ class ForecastService: IForecastService {
                       subscribers: Bool,
                       callback: ((Result<[Forecast], BHError>) -> Void)?) {
         
-        if subscribers,
-            let authError = authService.isAuthorized {
-            
-            callback?(.failure(authError))
-            return
-        }
-        
-        let req = reqBuilder.forecastsList(page: page, quantity: count,
-                                           timeFrame: timeFrame, sport: sport,
-                                           subscribers: subscribers, favorites: false)
-        
-        requestList(req: req, callback: callback)
+        let forecasts = (0..<count).map { _ in Forecast.stub() }
+        callback?(.success(forecasts))
+//        if subscribers,
+//            let authError = authService.isAuthorized {
+//
+//            callback?(.failure(authError))
+//            return
+//        }
+//
+//        let req = reqBuilder.forecastsList(page: page, quantity: count,
+//                                           timeFrame: timeFrame, sport: sport,
+//                                           subscribers: subscribers, favorites: false)
+//
+//        requestList(req: req, callback: callback)
     }
     
     func getForecast(id: Int, callback: ((Result<Forecast, BHError>) -> Void)?) {
@@ -55,9 +57,9 @@ private extension ForecastService {
                     callback?(.failure(.unexpectedContent))
                     return
                 }
-                
+
                 callback?(.success(forecasts))
-                
+
             case .failure(let error):
                 callback?(.failure(error.asBHError()))
             }

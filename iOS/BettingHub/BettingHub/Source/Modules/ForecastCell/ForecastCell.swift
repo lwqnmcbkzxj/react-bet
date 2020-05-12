@@ -135,6 +135,7 @@ class ForecastCell: UITableViewCell {
         view.layer.cornerRadius = 2
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
+        view.makeBordered()
         return view
     }()
     

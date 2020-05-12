@@ -129,4 +129,8 @@ extension TopForecastersView: UICollectionViewDelegate {
         let forecaster = Forecaster.stub()
         delegate?.forecasterTapped(forecaster)
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollIndicator.reload()
+    }
 }

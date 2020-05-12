@@ -8,22 +8,21 @@
 
 import Foundation
 
-enum TimeFrame: String {
-    case h3 = "3h"
-    case h6 = "6h"
-    case h12 = "12h"
-    case day = "day"
-    case month = "m"
-    case all = "all"
+enum TimeFrame {
+    case month
+    case all
     
     var localized: String {
         switch self {
         case .month:
-            return Text.month
+            return Text.month.localized
         case .all:
             return Text.allTime
-        default:
-            return rawValue.localized
         }
+    }
+    
+    func getLengthInHours() -> Int {
+        [.month: 24 * 30,
+         .all: 0][self]!
     }
 }

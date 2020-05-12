@@ -62,7 +62,7 @@ class SwitchView: UIControl {
     private let backView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.hex(0xF4F4F4)
-        view.layer.shadowOpacity = 0.3
+        view.layer.shadowOpacity = 0.25
         view.layer.shadowOffset = .init(width: 0, height: 1.5)
         view.layer.shadowRadius = 0.5
         return view
@@ -71,7 +71,7 @@ class SwitchView: UIControl {
     private let circleView: UIView = {
         let view = UIView()
         view.backgroundColor = SwitchView.unselectedColor
-        view.layer.shadowOpacity = 0.3
+        view.layer.shadowOpacity = 0.25
         view.layer.shadowOffset = .init(width: 0, height: 1.5)
         view.layer.shadowRadius = 0.5
         return view

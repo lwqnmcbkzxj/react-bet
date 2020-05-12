@@ -50,14 +50,17 @@ class RequestBuilder: IRequestBuilder {
                        subscribers: Bool, favorites: Bool) -> URLRequest {
         let url = baseURL.appendingPathComponent("api/forecastList")
         
-        let params: [String: String] = [
+        var params: [String: String] = [
                 "page": String(page),
-                "quanity": String(quantity),
-                "tf": timeFrame.rawValue,
-                "sport": sport.rawValue,
-                "useSubscribes": subscribers ? "1" : "0",
-                "useFavorites": favorites ? "1" : "0"
+                "limit": String(quantity),
+//                "time": timeFrame.rawValue,
+//                "sport_id": sport.rawValue,
+//                "useSubscribes": subscribers ? "1" : "0",
+//                "useFavorites": favorites ? "1" : "0"
         ]
+        
+        if timeFrame != .all { params["time"] = String(timeFrame.getLengthInHours()) }
+        if sport != .all { params["sport_id"] = String(sport.rawValue) }
         
         let req = jsonPostRequest(url: url, params: params)
         

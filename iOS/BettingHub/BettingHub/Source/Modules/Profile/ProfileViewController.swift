@@ -59,9 +59,10 @@ class ProfileViewController: UIViewController {
         if !isSelf { addBackView(text: nil) }
         view.backgroundColor = .white
         setView(tableView, insets: .init(top: 0, left: 15, bottom: 0, right: 15))
-        profileHeader.frame = .init(x: 0, y: 0, width: tableView.frame.width, height: 323)
+        profileHeader.frame = .init(x: 0, y: 0, width: tableView.frame.width, height: 253)
         tableView.tableHeaderView = profileHeader
         profileHeader.settingsButton.addTarget(self, action: #selector(settingsTapped), for: .touchUpInside)
+        profileHeader.settingsButton.isHidden = !isSelf
     }
     
     override func viewDidLoad() {

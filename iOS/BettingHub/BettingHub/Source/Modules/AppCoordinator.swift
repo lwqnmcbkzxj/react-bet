@@ -101,6 +101,12 @@ class AppCoordinator {
     
     func settingsScreen() -> UIViewController {
         let vc = SettingsViewController()
+        let presenter = SettingsPresenter(authService: ServiceLocator.shared.authService)
+        let router = SettingsRouter()
+        vc.presenter = presenter
+        presenter.router = router
+        router.viewController = vc
+        router.coordinator = self
         return vc
     }
 }

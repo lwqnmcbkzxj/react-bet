@@ -32,6 +32,10 @@ class TokenService: ITokenService {
         guard let serialized = try? JSONEncoder().encode(token) else { return }
         UserDefaults.standard.setValue(serialized, forKey: tokenKey)
     }
+    
+    func deleteToken() {
+        UserDefaults.standard.setValue(nil, forKey: tokenKey)
+    }
 }
 
 private extension TokenService {

@@ -6,13 +6,13 @@
 //  Copyright © 2020 Maxim Bezdenezhnykh. All rights reserved.
 //
 
-enum Sport: String {
-    case all = "all"
-    case football = "1"
-    case tennis = "2"
-    case basketball = "3"
-    case hockey = "4"
-    case other = "5"
+enum Sport: Int {
+    case all = 0
+    case football = 1
+    case tennis = 2
+    case basketball = 3
+    case hockey = 4
+    case other = 5
     
     var sportName: String {
         [

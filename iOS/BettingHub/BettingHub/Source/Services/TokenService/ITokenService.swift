@@ -15,4 +15,6 @@ protocol ITokenService: class {
     func refreshToken() -> Result<String, BHError>
     
     func saveAuthToken(_ token: AuthToken)
+    
+    func deleteToken()
 }

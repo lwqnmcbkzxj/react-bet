@@ -20,9 +20,17 @@ class ProfileHeaderView: UIView {
     
     private let usernameLabel: UILabel = {
         let view = UILabel()
+        view.minimumScaleFactor = 0.5
         view.textColor = .titleBlack
         view.font = .robotoMedium(size: 24)
         view.text = "Usename"
+        return view
+    }()
+    
+    private let statsLabel: StatsLabel = {
+        let view = StatsLabel()
+        view.font = .robotoRegular(size: 13)
+        view.set(wins: 10, loses: 8, draws: 2)
         return view
     }()
     
@@ -38,6 +46,7 @@ class ProfileHeaderView: UIView {
         let view = UILabel()
         view.textColor = .titleBlack
         view.font = .robotoMedium(size: 14)
+        view.text =  "166 500 xB"
         return view
     }()
     
@@ -58,6 +67,7 @@ class ProfileHeaderView: UIView {
         view.showingSign = true
         view.units = .percent
         view.font = .robotoMedium(size: 15)
+        view.setNumber(to: 128.5)
         return view
     }()
     
@@ -77,23 +87,23 @@ class ProfileHeaderView: UIView {
     
     // Stats table /////
     
-    private let winsView: StatsView = {
-        let view = StatsView()
-        view.set(title: Text.wins, value: "0", color: .positiveGreen)
-        return view
-    }()
-    
-    private let losesView: StatsView = {
-        let view = StatsView()
-        view.set(title: Text.loses, value: "0", color: .negativeRed)
-        return view
-    }()
-    
-    private let drawsView: StatsView = {
-        let view = StatsView()
-        view.set(title: Text.draws, value: "0", color: .drawBlue)
-        return view
-    }()
+//    private let winsView: StatsView = {
+//        let view = StatsView()
+//        view.set(title: Text.wins, value: "0", color: .positiveGreen)
+//        return view
+//    }()
+//
+//    private let losesView: StatsView = {
+//        let view = StatsView()
+//        view.set(title: Text.loses, value: "0", color: .negativeRed)
+//        return view
+//    }()
+//
+//    private let drawsView: StatsView = {
+//        let view = StatsView()
+//        view.set(title: Text.draws, value: "0", color: .drawBlue)
+//        return view
+//    }()
     
     private let subscribersView: StatsView = {
         let view = StatsView()
@@ -164,6 +174,12 @@ class ProfileHeaderView: UIView {
             make.top.equalTo(profileImageView)
         }
         
+        panel.addSubview(statsLabel)
+        statsLabel.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(10)
+            make.leading.equalTo(usernameLabel.snp.trailing).offset(10)
+        }
+        
         let bankStack = UIStackView()
         bankStack.axis = .horizontal
         bankStack.spacing = 5
@@ -204,34 +220,34 @@ class ProfileHeaderView: UIView {
             make.top.equalTo(roiStack.snp.bottom).offset(16)
         }
         
-        panel.addSubview(winsView)
-        winsView.snp.makeConstraints { (make) in
-            make.width.equalToSuperview().dividedBy(3)
-            make.top.equalTo(topSeparator.snp.bottom).offset(10)
-            make.leading.equalToSuperview()
-            make.height.equalTo(55)
-        }
-
-        panel.addSubview(losesView)
-        losesView.snp.makeConstraints { (make) in
-            make.width.equalToSuperview().dividedBy(3)
-            make.top.equalTo(topSeparator.snp.bottom).offset(10)
-            make.leading.equalTo(winsView.snp.trailing)
-            make.height.equalTo(55)
-        }
-
-        panel.addSubview(drawsView)
-        drawsView.snp.makeConstraints { (make) in
-            make.width.equalToSuperview().dividedBy(3)
-            make.top.equalTo(topSeparator.snp.bottom).offset(10)
-            make.leading.equalTo(losesView.snp.trailing)
-            make.height.equalTo(55)
-        }
+//        panel.addSubview(winsView)
+//        winsView.snp.makeConstraints { (make) in
+//            make.width.equalToSuperview().dividedBy(3)
+//            make.top.equalTo(topSeparator.snp.bottom).offset(10)
+//            make.leading.equalToSuperview()
+//            make.height.equalTo(55)
+//        }
+//
+//        panel.addSubview(losesView)
+//        losesView.snp.makeConstraints { (make) in
+//            make.width.equalToSuperview().dividedBy(3)
+//            make.top.equalTo(topSeparator.snp.bottom).offset(10)
+//            make.leading.equalTo(winsView.snp.trailing)
+//            make.height.equalTo(55)
+//        }
+//
+//        panel.addSubview(drawsView)
+//        drawsView.snp.makeConstraints { (make) in
+//            make.width.equalToSuperview().dividedBy(3)
+//            make.top.equalTo(topSeparator.snp.bottom).offset(10)
+//            make.leading.equalTo(losesView.snp.trailing)
+//            make.height.equalTo(55)
+//        }
 
         panel.addSubview(subscribersView)
         subscribersView.snp.makeConstraints { (make) in
             make.width.equalToSuperview().dividedBy(3)
-            make.top.equalTo(winsView.snp.bottom).offset(5)
+            make.top.equalTo(topSeparator.snp.bottom).offset(10)
             make.leading.equalToSuperview()
             make.height.equalTo(55)
         }
@@ -239,7 +255,7 @@ class ProfileHeaderView: UIView {
         panel.addSubview(placeView)
         placeView.snp.makeConstraints { (make) in
             make.width.equalToSuperview().dividedBy(3)
-            make.top.equalTo(winsView.snp.bottom).offset(5)
+            make.top.equalTo(subscribersView)
             make.leading.equalTo(subscribersView.snp.trailing)
             make.height.equalTo(55)
         }
@@ -247,7 +263,7 @@ class ProfileHeaderView: UIView {
         panel.addSubview(netProfitView)
         netProfitView.snp.makeConstraints { (make) in
             make.width.equalToSuperview().dividedBy(3)
-            make.top.equalTo(winsView.snp.bottom).offset(5)
+            make.top.equalTo(subscribersView)
             make.leading.equalTo(placeView.snp.trailing)
             make.height.equalTo(55)
         }

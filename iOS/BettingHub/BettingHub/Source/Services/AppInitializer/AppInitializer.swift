@@ -19,8 +19,14 @@ class AppInitializer {
     }
     
     func start(with window: UIWindow) {
-//        window.rootViewController = coordinator.loginVC()
-        window.rootViewController = coordinator.mainTabBarScreen
+        let vc = coordinator.mainTabBarScreen
+        window.rootViewController = vc
         window.makeKeyAndVisible()
+        
+        if let authErr = authService.isAuthorized {
+            coordinator.mainTabBar.setState(isAuthorized: false)
+        } else {
+            coordinator.mainTabBar.setState(isAuthorized: true)
+        }
     }
 }

@@ -110,7 +110,7 @@ extension BookmakersViewController: SkeletonTableViewDataSource {
 extension BookmakersViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if tableView.numberOfRows(inSection: section) == 0 { return 0 }
+//        if tableView.numberOfRows(inSection: section) == 0 { return 0 }
         return 108
     }
     

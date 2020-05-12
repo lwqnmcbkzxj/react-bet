@@ -12,11 +12,16 @@ class SettingsViewController: UIViewController {
     
     private lazy var settingsView = SettingsView()
     
+    var presenter: ISettingsPresenter!
+    
     override func loadView() {
         super.loadView()
         view.backgroundColor = .white
         addBackView(text: nil)
         setView(settingsView)
+        
+        settingsView.exitButton.addTarget(self, action: #selector(exitTapped), for: .touchUpInside)
+        
     }
     
     private func attachTapped(network: SocialNetwork) {
@@ -25,6 +30,10 @@ class SettingsViewController: UIViewController {
     
     private func deattachTapped(network: SocialNetwork) {
         
+    }
+    
+    @objc private func exitTapped() {
+        presenter.logOut()
     }
     
 }

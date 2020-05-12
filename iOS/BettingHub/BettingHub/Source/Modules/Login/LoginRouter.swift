@@ -24,7 +24,8 @@ class LoginRouter: ILoginRouter {
     }
     
     func proceed() {
-        let tabBar = coordinator.mainTabBarScreen
-        viewController?.present(tabBar, animated: true, completion: nil)
+//        let tabBar = coordinator.mainTabBarScreen
+//        viewController?.present(tabBar, animated: true, completion: nil)
+        coordinator.mainTabBar.setState(isAuthorized: true)
     }
 }

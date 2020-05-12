@@ -57,4 +57,8 @@ class AuthService: IAuthService {
             }
         }
     }
+    
+    func logOut() {
+        tokenService.deleteToken()
+    }
 }
