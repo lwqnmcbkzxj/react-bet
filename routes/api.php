@@ -41,12 +41,6 @@ Route::get('/forecasts/{forecast}/comments', function (Request $Request, \App\Fo
     $Request['referent_id']=$forecast->id;
     return app()->call('App\Http\Controllers\CommentController@getAll',[$Request]);
 });
-Route::get('/users', 'Api\InfoController@forecasters');
-Route::get('/users/{user}', 'Api\InfoController@forecaster');
-Route::get('/users/{user}/stats', 'Api\InfoController@userStatistic');
-Route::get('/users/{user}/forecasts', 'Api\InfoController@userForecasts');
-Route::get('/users/{user}/subscription', 'UserSubscriptionController@getSubscriptions');
-Route::get('/users/{user}/subscribers', 'UserSubscriptionController@getSubscribers');
 
 //Доступ к профилям пользователей
 Route::middleware('auth:api')->group(function()
@@ -57,13 +51,12 @@ Route::middleware('auth:api')->group(function()
     Route::post('/votes', 'VoteController@post');
     Route::delete('/votes/{vote}', 'VoteController@delete');
 
-        Route::get('/users/profile', 'ProfileController@index')->name('profile');
-        Route::post('/users/update/login', 'ProfileController@updateLogin')->name('update.login');
-        Route::post('/users/update/email', 'ProfileController@updateEmail')->name('update.email');
-        Route::post('/users/update/notification', 'ProfileController@updateNotification')->name('update.notification');
-        Route::post('/users/{user}/subscription', 'UserSubscriptionController@create');
-        Route::delete('/users/{user}/subscription', 'UserSubscriptionController@delete');
-
+    Route::get('/users/profile', 'ProfileController@index')->name('profile');
+    Route::post('/users/update/login', 'ProfileController@updateLogin')->name('update.login');
+    Route::post('/users/update/email', 'ProfileController@updateEmail')->name('update.email');
+    Route::post('/users/update/notification', 'ProfileController@updateNotification')->name('update.notification');
+    Route::post('/users/{user}/subscription', 'UserSubscriptionController@create');
+    Route::delete('/users/{user}/subscription', 'UserSubscriptionController@delete');
 
     Route::post('/news/{news}/like', function (Request $Request, \App\News $news){
         $Request['type']='like';
@@ -137,15 +130,13 @@ Route::middleware('auth:api')->group(function()
         return app()->call('App\Http\Controllers\FollowForecastController@delete',[$forecast]);
     });
 
-
-
-
-
-
-
-
-
 });
+Route::get('/users', 'Api\InfoController@forecasters');
+Route::get('/users/{user}', 'Api\InfoController@forecaster');
+Route::get('/users/{user}/stats', 'Api\InfoController@userStatistic');
+Route::get('/users/{user}/forecasts', 'Api\InfoController@userForecasts');
+Route::get('/users/{user}/subscription', 'UserSubscriptionController@getSubscriptions');
+Route::get('/users/{user}/subscribers', 'UserSubscriptionController@getSubscribers');
 
 
 /*
