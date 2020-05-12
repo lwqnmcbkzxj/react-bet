@@ -6,7 +6,7 @@ use App\User as UserModel;
 use http\Env\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class User extends JsonResource
+class UserData extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,14 +17,12 @@ class User extends JsonResource
     public function toArray($request)
     {
         return [
-            "id"=>$this->id,
-    "role"=>$this->role()->first(),
-    "login"=> $this->login,
-    "balance"=> $this->balance,
-    "avatar"=> $this->avatar,
-    "rating_position"=> 1,
-    "stats"=> $this->stats,
-    "last_five"=> $this->last_five
+            'id' => $this->id,
+            'role' => $this->role,
+            'avatar' => $this->avatar,
+            'login' => $this->login,
+            'stats' => $this->stats,
+            'last_five'=> $this->last_five
         ];
     }
 

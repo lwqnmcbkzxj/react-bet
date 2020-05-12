@@ -21,9 +21,18 @@ class CommentController extends Controller
         $comment->save();
         return $this->sendResponse($comment, 'Success', 200);
     }
-    public function get($request = null)
+    public function getAll(Request $request)
     {
-        return Comment::all();
+        $res = Comment::all();
+        if($request->has('reference_to') && $request->has('referent_id'))
+        {
+            $res = $res->where('reference_to', '=', $request['reference_to'])->where('referent_id', '=',  $request['referent_id']);
+        }
+        return $this->sendResponse(collect($res)->flatten(), 'Success', 200);
+    }
+    public function get(Comment $comment)
+    {
+        return $comment;
     }
     public function delete(Comment $comment)
     {
@@ -31,7 +40,7 @@ class CommentController extends Controller
             $comment->delete();
             return $this->sendResponse('', 'Success', 200);
         } catch (\Exception $e) {
-            return $this->sendError('Deletion ERROE', 400);
+            return $this->sendError('Deletion ERROR', 400);
         }
     }
     //

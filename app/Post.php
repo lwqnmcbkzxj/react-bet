@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $guarded = ['id'];
-    protected $appends = ['comments', 'count_comments', 'count_likes', 'count_dislikes'];
+    protected $appends = ['comments', 'rating', 'count_dislikes'];
     protected $hidden = ['comments'];
     public function getCommentsAttribute()
     {
@@ -17,13 +17,10 @@ class Post extends Model
     {
         return $this->count_comments = $this->comments()->count();
     }
-    public function getCountLikesAttribute()
+
+    public function getRatingAttribute()
     {
-        return $this->count_likes = $this->votes()->where('type','=','like')->count();
-    }
-    public function getCountDislikesAttribute()
-    {
-        return $this->count_likes = $this->votes()->where('type','=','dislike')->count();
+        return $this->rating = $this->votes()->where('type','=','like')->count() - $this->votes()->where('type','=','dislike')->count();
     }
     public function votes()
     {

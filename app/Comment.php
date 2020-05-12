@@ -8,25 +8,16 @@ class Comment extends Model
 {
     protected $fillable = ['text','referenced_to','referent_id'];
 
-    protected $appends = ['comments', 'count_comments', 'count_likes', 'count_dislikes'];
+    protected $appends = ['rating'];
     protected $hidden = ['comments'];
 
     public function getCommentsAttribute()
     {
         return $this->children = $this->comments()->get();
     }
-    public function getCountCommentsAttribute()
+    public function getRatingAttribute()
     {
-        return $this->count_comments = $this->comments()->count();
-    }
-    public function getCountLikesAttribute()
-    {
-        return $this->count_likes = $this->votes()->where('type','=','like')->count();
-    }
-
-    public function getCountDislikesAttribute()
-    {
-        return $this->count_dislikes = $this->votes()->where('type','=','dislike')->count();
+        return $this->rating = $this->votes()->where('type','=','like')->count() - $this->votes()->where('type','=','dislike')->count();
     }
     public function votes()
     {
