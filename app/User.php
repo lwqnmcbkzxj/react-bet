@@ -107,8 +107,8 @@ WHERE `forecasts`.`user_id` = ? and ( `coefficients`.status = 3 or `coefficients
         return $this->hasManyThrough('App\Event', 'App\Forecast', 'user_id', 'id');
     }
     public function ratingPosition() {
-        $query = "SELECT `rating_position` FROM user_rating_view" ;
-        return (int) DB::select($query)[0]->rating_position;
+        $query = "SELECT `rating_position` FROM `user_rating_view` WHERE `user_id` = ?" ;
+        return (int) DB::select($query, [$this->id])[0]->rating_position;
     }
     public function subscriptions() {
         return $this->belongsToMany('App\User', 'subscribers', 'user_id', 'subscriber_id');
