@@ -67,7 +67,7 @@ class InfoController extends Controller
         return (new UserCollection(User::paginate( $request['limit'])));
     }
 
-    public function forecaster(Request $request, UserModel $user)
+    public function forecaster(Request $request, User $user)
     {
         return $this->sendResponse(new UserResource($user), 'Success', 200);
     }
