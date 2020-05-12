@@ -26,3 +26,6 @@ Route::get('/user', function () {
         'massege'=> 401,
     ]);
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

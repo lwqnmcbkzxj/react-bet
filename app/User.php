@@ -6,7 +6,7 @@ use ErrorException;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
@@ -39,13 +39,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
     protected $appends = [
-        'stats'
+       'rating_position', 'stats', 'last_five'
     ];
-    public function  getRoiAttribute()
-    {
-        return $this->roi($this->id);
-    }
     public function getCountSubscribersAttribute()
     {
         return $this->subscribers()->count();
@@ -53,6 +50,10 @@ class User extends Authenticatable
     public function getRatingPositionAttribute()
     {
         return $this->ratingPosition();
+    }
+    public function hasSubscription(int $id)
+    {
+        return !is_null($this->forecasts()->find($id));
     }
     public function getPureProfitAttribute()
     {
@@ -62,6 +63,10 @@ class User extends Authenticatable
     {
         return $this->forecasts()->count();
     }
+    public function getStatsAttribute()
+    {
+        return $this->stats()->first();
+    }
     public function getCountFollowForecastsAttribute()
     {
         return $this->follow_forecasts()->count();
@@ -70,16 +75,25 @@ class User extends Authenticatable
     {
         return $this->follow_forecasts();
     }
-    public function getStatsAttribute()
-    {
-        return $this->stats($this->id);
-    }
 
     public function role()
     {
         return $this->hasOne('App\Role', 'id', 'role_id');
     }
 
+    public function getLastFiveAttribute()
+    {
+        $query = 'SELECT (`status` = 2) as status
+FROM `forecasts` LEFT JOIN `coefficients`
+on `forecasts`.`coefficient_id` = `coefficients`.`id`
+WHERE `forecasts`.`user_id` = ? and ( `coefficients`.status = 3 or `coefficients`.status = 2) LIMIT 5';
+        $response = collect(DB::select($query, [$this->id]));
+        $res = [];
+        foreach ($response as $index => $item) {
+            $res[] = $item->status == 1;
+        }
+        return $res;
+    }
     public function forecasts()
     {
         return $this->hasMany('App\Forecast');
@@ -92,32 +106,10 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough('App\Event', 'App\Forecast', 'user_id', 'id');
     }
-
-    public static function roi($user_id)
-    {
-        $query = "SELECT roi FROM user_stats_view WHERE user_id = ".$user_id;
-        return (float)(DB::select($query)[0]->roi);
-    }
-
-    public static function pureProfit($user_id) {
-        $query = "SELECT SUM(bet*(coefficient-1)) as pure_profit
-                        FROM (`forecasts` LEFT JOIN `events` on `events`.`id` = `forecasts`.`event_id`)
-                                            LEFT JOIN `coefficients` on `forecasts`.`coefficient_id` = `coefficients`.`id`
-                        WHERE events.status = 2 AND forecasts.user_id =". $user_id;
-        return (float)(DB::select($query)[0]->pure_profit);
-    }
-
-    public static function stats($user_id) {
-        $query = "SELECT * FROM user_stats_view
-                WHERE user_id = " . $user_id;
-        return DB::select($query)[0];
-    }
-
     public function ratingPosition() {
-        $query = "SELECT count(*) as rating_position FROM user_stats_view WHERE roi >" .$this->roi;
+        $query = "SELECT `rating_position` FROM user_rating_view" ;
         return (int) DB::select($query)[0]->rating_position;
     }
-
     public function subscriptions() {
         return $this->belongsToMany('App\User', 'subscribers', 'user_id', 'subscriber_id');
     }
@@ -127,5 +119,9 @@ class User extends Authenticatable
     public function votes()
     {
         return $this->hasMany('App\Vote', 'user_id');
+    }
+    public function stats()
+    {
+        return $this->hasOne('App\UserStats', 'user_id');
     }
 }

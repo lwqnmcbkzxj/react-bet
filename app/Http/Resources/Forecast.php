@@ -25,8 +25,12 @@ class Forecast extends JsonResource
                 //'rating_position' => $this->user_data->rating_position,
                 'last_five'=>$this->user_data->last_five],
             'event_data'=>[
-                'championship_id'=>$this->event->championship->id,
-                'championship'=>$this->event->championship->name,
+                'championship_data'=>[
+                        'championship_id'=>$this->event->championship->id,
+                        'championship'=>$this->event->championship->name,
+                        'sport_id' => $this->event->sport->id,
+                        'sport_name' => $this->event->sport->name,
+                ],
                 'event_id'=>$this->event->id,
                 'event'=>$this->event->title,
                 'event_start'=>$this->event->start,

@@ -1,15 +1,17 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+use App\Http\Resources\ForecastCollection;
 use App\Http\Resources\User as UserResource;
 use App\Http\Resources\Forecast as ForecastResource;
 use App\Forecast;
 use App\News;
 use App\Post;
 use DateTime;
+use http\Client\Curl\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\User;
+use App\User as UserModel;
 use Illuminate\Support\Facades\DB;
 
 class InfoController extends Controller
@@ -17,10 +19,13 @@ class InfoController extends Controller
     public function forecasts(Request $request)
     {
         $date = new DateTime('now', new \DateTimeZone('Europe/Moscow'));
-
-        $forecasts = Forecast::join('events', 'forecasts.event_id', '=', 'events.id')
-            //->where('start', '>=', $date->format('Y-m-d H:i:s'))
+        $forecasts = Forecast::query()->whereHas('event', function ($query)
+        {
+            $date = new DateTime('now', new \DateTimeZone('Europe/Moscow'));
+            $query//->where('start', '>=', $date->format('Y-m-d H:i:s'))
             ->where('status', 1);
+        });
+
         if ($request->has('sport_id') && $request['sport_id'] != 0) {
             $forecasts = $forecasts->where('sport_id', $request['sport_id']);
         }
@@ -29,10 +34,11 @@ class InfoController extends Controller
             $forecasts = $forecasts->where('start', '<=', $filter_date);
         }
         if (!$request->has('limit') || $request['limit']==0) {
-            $request['limit'] = 15;
+            $request['limit'] = 6;
         }
-        $forecasts = $forecasts->paginate($request['limit']);
 
+        $forecasts = $forecasts->paginate($request['limit']);
+        $forecasts = new ForecastCollection($forecasts);
         return $this->sendResponse(($forecasts), 'Success',200);
 
     }
@@ -72,7 +78,7 @@ class InfoController extends Controller
             ->join('users', 'id', '=', 'user_id')
             ->paginate($request['limit']), 'Success', 200);
     }
-    public function forecaster(User $user)
+    public function forecaster(Request $request, UserModel $user)
     {
         return $this->sendResponse(new UserResource($user),'Success',200);
     }
