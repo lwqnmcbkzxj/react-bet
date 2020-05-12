@@ -1,10 +1,10 @@
 export enum timeFilterEnum {
 	allTime = '0',
-	period_3_hours = '3h',
-	period_6_hours = '6h',
-	period_12_hours = '12h',
-	period_24_hours = 'day',
-	month = 'month'
+	period_3_hours = '3',
+	period_6_hours = '6',
+	period_12_hours = '12',
+	period_24_hours = '24',
+	month = '720'
 }
 export enum subscribtionFilterEnum {
 	allForecasts = 'allForesacts',

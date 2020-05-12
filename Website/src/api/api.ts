@@ -67,11 +67,10 @@ export const userAPI = {
 	},
 
 	getUserInfo() {
-		return instance.get(`user`)
+		return instance.get(`users/profile`)
 			.then((response) => {
 				return response.data
-			}
-			);
+			});
 	}
 }
 
@@ -95,29 +94,32 @@ export const forecastsAPI = {
 		return instance.get(`/forecasts/${id}`)
 			.then((response) => {
 				return response.data
-			}
-			);
+			});
 	},
-	rateForecast(forecastId: number, type: number) {
-		return instance.post(`forecastLike`, { forecastId, type })
+	likeForecast(id: number) {
+		return instance.post(`forecasts/${id}/like`)
 			.then((response) => {
 				return response.data
-			}
-			);
+			});
 	},
-	commentForecast(forecastId: number, text: string, replying: boolean) {
-		return instance.post(`forecastComment`, { forecastId, text, replying })
+	dislikeForecast(id: number) {
+		return instance.post(`forecasts/${id}/dislike`)
 			.then((response) => {
 				return response.data
-			}
-			);
+			});
+	},
+
+	commentForecast(id: number, text: string) {
+		return instance.post(`forecasts/${id}/comment`, { text })
+			.then((response) => {
+				return response.data
+			});
 	},
 	favouriteForecast(forecastId: number) {
 		return instance.post(`forecastFav`, { forecastId })
 			.then((response) => {
 				return response.data
-			}
-			);
+			});
 	}
 }
 
@@ -126,15 +128,19 @@ export const usersAPI = {
 		return instance.get(`users`)
 			.then((response) => {
 				return response.data
-			}
-			);
+			});
 	},
 	getUser(id: number) {
 		return instance.get(`users/${id}`)
 			.then((response) => {
 				return response.data
-			}
-			);
+			});
 	},
+	subscribeUser(id: number) {
+		return instance.post(`users/${id}/subscription`)
+			.then((response) => {
+				return response.data
+			});
+	}
 }
 

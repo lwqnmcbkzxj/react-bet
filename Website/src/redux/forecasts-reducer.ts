@@ -114,8 +114,7 @@ export const getForecastsFromServer = (page: number, quanity: number, options = 
 	dispatch(toggleIsForecastsFetching(true))
 	let response = await forecastsAPI.getForecasts(page, quanity, options)
 	dispatch(toggleIsForecastsFetching(false))
-	
-	dispatch(setForecasts(response.data))
+	dispatch(setForecasts(response))
 }
 
 export const getForecastFromServer = (id: number): ThunksType => async (dispatch) => {
@@ -158,8 +157,12 @@ export const toggleIsForecastsFetching = (isFetching: boolean): ToggleIsFetching
 	}
 }
 
-export const rateForecast = (id: number, type: number): ThunksType => async (dispatch) =>{
-	let response = await forecastsAPI.rateForecast(id, type)	
+export const rateForecast = (id: number, type: number): ThunksType => async (dispatch) => {
+	if (type === 1) {
+		let response = await forecastsAPI.likeForecast(id)	
+	} else if (type === 2){
+		let response = await forecastsAPI.dislikeForecast(id)	
+	}
 }
 export const favouriteForecast = (id: number): ThunksType => async (dispatch) =>{
 	let response = await forecastsAPI.favouriteForecast(id)	

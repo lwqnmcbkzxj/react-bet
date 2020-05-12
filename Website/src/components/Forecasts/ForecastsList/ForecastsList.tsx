@@ -18,7 +18,7 @@ const ForecastsList: FC<ForecastsListPropsType> = ({ forecasts, limit = 0, ...pr
 	return (
 		<div className={s.forecastList}>
 			{forecasts.map((forecast, counter) => 
-				(counter < limit || limit === 0) ? <ForecastsListElement forecast={forecast} isFetching={isFetching}/> : null
+				(counter < limit || limit === 0) ? <ForecastsListElement forecast={forecast} isFetching={isFetching} key={forecast.id}/> : null
 			)}
 			
 		</div>

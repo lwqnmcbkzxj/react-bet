@@ -12,7 +12,6 @@ const SportsImagesObj = {
 }
 
 export const getSportImg = (sport_id) => {
-	debugger
 	let sportImg = ""
 	if (+sport_id === 1) {
 		sportImg = SportsImagesObj.football
@@ -23,7 +22,7 @@ export const getSportImg = (sport_id) => {
 	} else if (+sport_id === 4) {
 		sportImg = SportsImagesObj.hockey
 	} else if (+sport_id === 5) {
-		sportImg = SportsImagesObj.football
+		sportImg = ""
 	}
 	return sportImg;
 }

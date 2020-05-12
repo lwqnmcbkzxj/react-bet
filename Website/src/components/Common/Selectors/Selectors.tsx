@@ -46,7 +46,7 @@ const Selectors: FC<SelectorsType> = ({ selectors = [], selectorsBlockName, onCh
 		let selctorName = `${selectorsBlockName}-${counter}`;
 
 		renderSelectors.push(
-			<div className={s.selector} data-active={selector.active}>
+			<div className={s.selector} data-active={selector.active} key={selctorName}>
 				<input
 					type="radio"
 					checked={selector.active}

@@ -13,6 +13,7 @@ import loseImg from '../../../assets/img/lose-img.png'
 import { getSportImg } from '../../../utils/getSportImg';
 import moment from 'moment'
 
+import userImgHolder from '../../../assets/img/user-no-image.png'
 
 import { ForecastsListElementPlaceholder } from '../../Common/Placeholders/ForecastsPlaceholder'
 
@@ -41,114 +42,104 @@ const formatDateForForecastListElement = (createdAt: string) => {
 
 
 const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) => {
-	let fullGameName
-	let gameName
-	let sportImg = getSportImg(forecast.sport_id)
+	let sportImg
+	let userAvatar = ''
+	let tournamentName
+	if (forecast.id) {
+		sportImg = getSportImg(forecast.event_data.championship_data.sport_id)
 
-	// if (forecast.Tournament) {
-	// 	fullGameName = forecast.Tournament
-	// 	gameName = fullGameName.split('.').splice(1).join('.')
+		if (forecast.user_data.avatar) {
+			userAvatar = 'http://xbethub.com/' + forecast.user_data.avatar
+		} else {
+			userAvatar = userImgHolder
+		}
 
-	// 	// const serverUrl = "http://xbethub.com/"		
-	// }
-
-	let userAvatar 
-	if (forecast.user_data.avatar) {
-		userAvatar = 'http://xbethub.com/' + forecast.user_data.avatar
-	} else {
-		userAvatar = ''
+		if (forecast.event_data.championship_data.sport_id !== 5) {
+			tournamentName = forecast.event_data.championship_data.championship.split('.').slice(1).join('.')
+		} else {
+			tournamentName = forecast.event_data.championship_data.championship
+		}
 	}
-	
+
 	if (isFetching) {
 		return <ForecastsListElementPlaceholder />
 	}
 
 	return (
-		<div className={s.forecast}>
-			<div className={s.forecastHeader}>
-				<div className={s.gameInfo}>
-					<img src={sportImg} alt="gameImg" />
-					<Link to={`forecasts/${forecast.id}`}><p className={s.sportName}>{forecast.sport_id}. </p></Link>
-					<Link to={`forecasts/${forecast.id}`}><p className={s.gameName}>{gameName}</p></Link>
-				</div>
-				<div className={s.matchDate}>
-					{formatDateForForecastListElement(forecast.created_at)}
-				</div>
-			</div>
-
-			<div className={s.forecastContent}>
-
-				<div className={s.mathPreview}>
-					{forecast.id % 2 === 0 ?
-						<div className={classNames(s.profit, s.positive)}>+750 xB</div> :
-						<div className={classNames(s.profit, s.negative)}>-750 xB</div>}
-					<Link to={`forecasts/${forecast.id}`}><div className={s.matchTitle}>{forecast.title}</div></Link>
-				</div>
-
-				<div className={s.matchStats}>
-					<div className={s.profitStats}>
-						<Link to={`forecast${forecast.id}`} className={s.profitStat}><div>Прогноз: <span>Фора (-1.5)</span></div></Link>
-						<Link to={`forecast${forecast.id}`} className={s.profitStat}><div>Коэффициент: <span>
-							{/* {forecast.Coefficient} */}
-							{0}
-							{/* TO DO */}
-						</span></div></Link>
-						<Link to={`forecast${forecast.id}`} className={s.profitStat}><div>Сумма ставки: <span>{forecast.bet}</span></div></Link>
+		forecast.id ?
+			<div className={s.forecast}>
+				<div className={s.forecastHeader}>
+					<div className={s.gameInfo}>
+						{forecast.event_data.championship_data.sport_id !== 5 && <img src={sportImg} alt="gameImg" /> }
+						<Link to={`forecasts/${forecast.id}`}><p className={s.sportName}>{forecast.event_data.championship_data.sport_name}. </p></Link>
+						<Link to={`forecasts/${forecast.id}`}><p className={s.gameName} >{tournamentName}</p></Link>
 					</div>
-					<div className={s.matchStart}>Начало игры: {formatDateForForecastListElement(forecast.start)}</div>
-
-				</div>
-				<div className={s.matchDescription}>
-					<NavLink to={`/forecasts/${forecast.id}`}>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing
-						elit, sed do eiusmod tempor incididunt ut labore et dolore
-						magna aliqua. Bibendum est ultricies integer quis.
-						Iaculis urna id volutpat lacus laoreet. Mauris vitae
-						ultricies leo integer malesuada.
-					Ac odio tempor orci dapibus ultrices</p>
-					</NavLink>
-				</div>
-			</div>
-
-
-			<div className={s.forecastFooter}>
-				<div className={s.userStats}>
-					<NavLink to={`/forecasters/${forecast.user_data.id}`} className={s.userInfo}>
-						<img src={userAvatar} alt="userImg" />
-						<p className={s.userNickName}>{forecast.user_data.login}</p>
-					</NavLink>
-					<div className={s.userMatches}>
-						<div className={s.slash}>|</div>
-						<img src={winImg} alt="winImg" />
-						<img src={loseImg} alt="loseImg" />
-						<img src={winImg} alt="winImg" />
-						<img src={winImg} alt="winImg" />
-						<img src={loseImg} alt="loseImg" />
-						<div className={s.slash}>|</div>
-
+					<div className={s.matchDate}>
+						{formatDateForForecastListElement(forecast.event_data.event_start)}
 					</div>
-					<div className={s.userProfit}>
-						<p>Прибыль: </p>
-						<span className={classNames(
-							{
-								[s.positive]: true,
-								[s.negative]: false,
+				</div>
+
+				<div className={s.forecastContent}>
+					<div className={s.mathPreview}>
+						{forecast.bet_data.pure_profit > 0 ?
+							<div className={classNames(s.profit, s.positive)}>+{(forecast.bet_data.pure_profit * +forecast.bet_data.bet).toFixed(2)} xB</div> :
+							<div className={classNames(s.profit, s.negative)}>-{forecast.bet_data.pure_profit.toFixed(2)} xB</div>}
+						<Link to={`forecasts/${forecast.id}`}><div className={s.matchTitle}>{forecast.event_data.event}</div></Link>
+					</div>
+
+					<div className={s.matchStats}>
+						<div className={s.profitStats}>
+							<Link to={`forecasts/${forecast.id}`} className={s.profitStat}><div>Прогноз: <span>{forecast.bet_data.type}</span></div></Link>
+							<Link to={`forecasts/${forecast.id}`} className={s.profitStat}>
+								<div>Коэффициент: <span>{forecast.bet_data.coefficient}</span></div>
+							</Link>
+							<Link to={`forecasts/${forecast.id}`} className={s.profitStat}><div>Сумма ставки: <span>{forecast.bet_data.bet}</span></div></Link>
+						</div>
+						<div className={s.matchStart}>Начало игры: {formatDateForForecastListElement(forecast.event_data.event_start)}</div>
+					</div>
+					<div className={s.matchDescription}>
+						<NavLink to={`/forecasts/${forecast.id}`}>
+							<p>{forecast.forecast_text}</p>
+						</NavLink>
+					</div>
+				</div>
+
+
+				<div className={s.forecastFooter}>
+					<div className={s.userStats}>
+						<NavLink to={`/forecasters/${forecast.user_data.id}`} className={s.userInfo}>
+							<img src={userAvatar} alt="userImg" />
+							<p className={s.userNickName}>{forecast.user_data.login}</p>
+						</NavLink>
+						<div className={s.userMatches}>
+							<div className={s.slash}>|</div>
+							{forecast.user_data.last_five.map(predict =>
+								predict ? <img src={winImg} alt="winImg" /> : <img src={loseImg} alt="loseImg" />
+							)}
+							<div className={s.slash}>|</div>
+
+						</div>
+						<div className={s.userProfit}>
+							<p>Прибыль: </p>
+
+							{+forecast.user_data.stats.pure_profit > 0 ?
+								<span className={classNames(s.positive)}>+{(+forecast.user_data.stats.pure_profit).toFixed(2)}%</span> :
+								<span className={classNames(s.negative)}>-{(+forecast.user_data.stats.pure_profit).toFixed(2)}%</span>
 							}
-						)}>+50.4%</span>
+						</div>
 					</div>
 
+					<ElementStats
+						comments={forecast.forecast_stats.count_comments}
+						favourites={forecast.forecast_stats.count_subscribers}
+						likes={forecast.forecast_stats.rating}
+						id={forecast.id}
+						elementType={'forecast'} />
+
 				</div>
-
-				<ElementStats
-					comments={forecast.count_comments}
-					// favourites={forecast.FavAmmount}
-					favourites={0}
-					likes={forecast.count_likes - forecast.count_dislikes}
-					id={forecast.id}
-					elementType={'forecast'} />
-
 			</div>
-		</div>
+
+			: <div></div>
 	)
 }
 export default Forecasts;
