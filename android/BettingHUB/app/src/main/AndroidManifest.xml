@@ -18,6 +18,7 @@
         <activity
             android:name="com.xbethub.webview.ui.MainActivity"
             android:theme="@style/AppTheme.Launcher"
+            android:configChanges="orientation|screenSize"
             android:label="@string/app_name"
             >
 

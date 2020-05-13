@@ -120,11 +120,13 @@
                 android:background="@color/loadingColor">
 
                 <include
+                    android:visibility="invisible"
                     android:id="@+id/forecast"
                     layout="@layout/element_forecast_field"
                     />
 
                 <include
+                    android:visibility="invisible"
                     android:id="@+id/coefficient"
                     layout="@layout/element_forecast_field"
                     android:layout_width="wrap_content"
@@ -133,6 +135,7 @@
                     />
 
                 <include
+                    android:visibility="invisible"
                     android:id="@+id/betAmount"
                     layout="@layout/element_forecast_field"
                     android:layout_width="wrap_content"
@@ -141,6 +144,7 @@
                     />
 
                 <include
+                    android:visibility="invisible"
                     android:id="@+id/gameStart"
                     layout="@layout/element_forecast_field"
                     android:layout_width="wrap_content"

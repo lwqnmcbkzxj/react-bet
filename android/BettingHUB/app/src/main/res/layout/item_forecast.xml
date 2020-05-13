@@ -43,7 +43,7 @@
 
             <TextView
                 android:id="@+id/eventName"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_regular"
                 android:textSize="11sp"
@@ -52,9 +52,11 @@
                 android:ellipsize="end"
                 android:text="Dota 2. StayHome Challenge (матчи из 3-х карт)"
                 android:layout_marginStart="3dp"
+                android:layout_marginEnd="@dimen/forecastSideMargin"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/categoryName"
+                app:layout_constraintEnd_toEndOf="parent"
                 />
 
             <View

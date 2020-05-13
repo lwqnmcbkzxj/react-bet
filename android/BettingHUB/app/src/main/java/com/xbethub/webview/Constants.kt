@@ -7,6 +7,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class Constants(val context: Context) {
+    val homeForecasterCount = 15
+    val forecastsPerPage = 10
+    val serverTimePattern = "yyyy-MM-dd HH:mm:ss"
+    val appTimePattern = "yyyy.MM.dd в HH:mm"
+
     val sports = MutableLiveData<List<Sport>?>(null)
 
     init {

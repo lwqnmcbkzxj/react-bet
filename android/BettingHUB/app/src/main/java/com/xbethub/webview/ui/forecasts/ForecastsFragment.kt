@@ -15,6 +15,7 @@ import com.xbethub.webview.App
 import com.xbethub.webview.R
 import com.xbethub.webview.Utils
 import com.xbethub.webview.databinding.FragmentForecastsBinding
+import com.xbethub.webview.enums.Status
 import com.xbethub.webview.models.Forecast
 import com.xbethub.webview.ui.forecasts.items.ItemDecoration
 import com.xbethub.webview.ui.forecasts.items.ForecastListener
@@ -23,6 +24,7 @@ import com.xbethub.webview.ui.forecasts.items.items.*
 
 
 class ForecastsFragment : Fragment(), ForecastListener {
+    private val consts = App.appComponent.getConstants()
 
     private lateinit var navController: NavController
     private lateinit var binding: FragmentForecastsBinding
@@ -48,8 +50,16 @@ class ForecastsFragment : Fragment(), ForecastListener {
         navController = activity?.let { Navigation.findNavController(it, R.id.nav_host_fragment) }!!
 
         vm = ViewModelProvider(this).get(ForecastsViewModel::class.java)
-        vm.forecastsLiveData.observe(viewLifecycleOwner, Observer { addForecasts(it) })
-        vm.forecastsClearLiveData.observe(viewLifecycleOwner, Observer { removeAllForecasts() })
+
+        vm.forecastsLiveData.observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.LOADING -> onPageLoading()
+                Status.SUCCESS -> onPageLoaded(it.data)
+                Status.ERROR -> onPageLoadingError(it.error)
+            }
+        })
+
+        vm.clearForecastsLiveData.observe(viewLifecycleOwner,  Observer { removeAllForecasts() })
 
         updateSearchFieldVisibility()
 
@@ -59,6 +69,75 @@ class ForecastsFragment : Fragment(), ForecastListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         vm.onCreate()
+    }
+
+    private fun onPageLoading() {
+        (binding.forecastRV.adapter as? ItemAdapter)?.let { adapter ->
+            binding.forecastRV.post {
+                if (adapter.getItem(adapter.itemCount - 2).getType() == ItemType.SHOW_MORE_BTN) {
+                    adapter.removeItem(adapter.itemCount - 2)
+                }
+            }
+
+            binding.forecastRV.post { adapter.addAll(adapter.itemCount - 1,  List(consts.forecastsPerPage) {ForecastItem(null)}) }
+        } ?: run {
+            val items = ArrayList<Item>()
+
+            binding.forecastRV.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            val adapter = ItemAdapter(this, vm, this)
+            binding.forecastRV.adapter = adapter
+
+            items.add(HeaderItem())
+            items.addAll(List(consts.forecastsPerPage) {ForecastItem(null)})
+            items.add(FooterItem())
+
+            adapter.addAll(items)
+        }
+    }
+
+    private fun onPageLoaded(forecasts: List<Forecast>?) {
+        forecasts?.let {
+            if (it.size == consts.forecastsPerPage) {
+                (binding.forecastRV.adapter as? ItemAdapter)?.let { adapter ->
+                    binding.forecastRV.post {
+                        adapter.replaceItems(
+                            adapter.itemCount - consts.forecastsPerPage - 1,
+                            forecasts.map { ForecastItem(it) })
+                    }
+
+                    binding.forecastRV.post { adapter.insertItem(adapter.itemCount - 1, ShowMoreBtnItem()) }
+                }
+            } else {
+                (binding.forecastRV.adapter as? ItemAdapter)?.let { adapter ->
+                    val diff = consts.forecastsPerPage - it.size
+
+                    binding.forecastRV.post {
+                        adapter.replaceItems(
+                            adapter.itemCount - consts.forecastsPerPage - 1,
+                            forecasts.map { ForecastItem(it) })
+                    }
+
+                    binding.forecastRV.post { adapter.removeItems(adapter.itemCount - diff - 1, diff) }
+                }
+            }
+        }
+
+    }
+
+    private fun onPageLoadingError(error: Throwable?) {
+
+    }
+
+    private fun removeAllForecasts() {
+        (binding.forecastRV.adapter as? ItemAdapter)?.let {
+            binding.forecastRV.post {
+
+                if (it.itemCount > 2) {
+                    it.removeItems(1, it.itemCount - 2)
+                }
+            }
+        }
+
     }
 
     private fun addItemDecoration() {
@@ -79,44 +158,6 @@ class ForecastsFragment : Fragment(), ForecastListener {
                 , bottomSpace
             )
         )
-    }
-
-    private fun removeAllForecasts() {
-        binding.forecastRV.post {
-            (binding.forecastRV.adapter as? ItemAdapter)?.let {
-                if (it.itemCount - 3 > 0) {
-                    it.removeItems(1, it.itemCount - 3)
-                }
-            }
-        }
-    }
-
-    private fun addForecasts(forecasts: List<Forecast?>) {
-        if (binding.forecastRV.adapter == null) {
-            val items = ArrayList<Item>()
-
-            binding.forecastRV.layoutManager =
-                LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            val adapter =
-                ItemAdapter(
-                    this, vm, this
-                )
-            binding.forecastRV.adapter = adapter
-
-            items.add(HeaderItem())
-            items.addAll(forecasts.map { ForecastItem(it) })
-            items.add(ShowMoreBtnItem())
-            items.add(FooterItem())
-
-            (binding.forecastRV.adapter as ItemAdapter).addAll(items)
-        } else {
-            binding.forecastRV.post {
-                (binding.forecastRV.adapter as ItemAdapter).let { itemAdapter ->
-                    itemAdapter.addAll(itemAdapter.itemCount - 2, forecasts.map { ForecastItem(it) })
-                }
-            }
-
-        }
     }
 
     private fun updateSearchFieldVisibility() {

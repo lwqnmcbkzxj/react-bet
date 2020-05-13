@@ -26,6 +26,12 @@ abstract class RecyclerViewAdapterBase<L, M, VH: RecyclerView.ViewHolder>(privat
         notifyItemRangeChanged(position, addedSize)
     }
 
+    fun clearAndAddAll(data: Collection<M>) {
+        models.clear()
+        models.addAll(data)
+        notifyDataSetChanged()
+    }
+
     fun moveItem(fromPosition: Int, toPosition: Int) {
         val item = models.removeAt(fromPosition)
         models.add(toPosition, item)
@@ -55,6 +61,15 @@ abstract class RecyclerViewAdapterBase<L, M, VH: RecyclerView.ViewHolder>(privat
     fun replaceItem(position: Int, item: M) {
         models[position] = item
         notifyItemChanged(position)
+    }
+
+    fun replaceItems(position: Int, items: List<M>) {
+        val count = items.size
+
+        models.subList(position, (position + count).coerceAtMost(models.size)).clear()
+        models.addAll(position, items)
+
+        notifyItemRangeChanged(position, count)
     }
 
     fun removeItems(position: Int, count: Int) {

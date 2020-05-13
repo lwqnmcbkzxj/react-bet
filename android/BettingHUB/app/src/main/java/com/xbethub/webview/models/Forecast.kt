@@ -10,71 +10,28 @@ data class Forecast (
     @Expose
     val id: Int,
 
-    @SerializedName("user_id")
+    @SerializedName("user_data")
     @Expose
-    val userId: Int,
+    val user: User,
 
-    @SerializedName("event_id")
+    @SerializedName("event_data")
     @Expose
-    val eventId: Int,
-
-    @SerializedName("coefficient_id")
-    @Expose
-    val coefficientId: Int,
+    val event: Event,
 
     @SerializedName("forecast_text")
     @Expose
-    val forecastText: String,
+    val text: String,
 
-    @SerializedName("bet")
-    @Expose
-    val bet: String,
-
-    @SerializedName("created_at")
+    @SerializedName("forecast_created_at")
     @Expose
     val createdAt: String,
 
-    @SerializedName("updated_at")
+    @SerializedName("bet_data")
     @Expose
-    val updatedAt: String,
+    val bet: Bet,
 
-    @SerializedName("sport_id")
+    @SerializedName("forecast_stats")
     @Expose
-    val sportId: Int,
+    val stats: ForecastStats
 
-    @SerializedName("championship_id")
-    @Expose
-    val championship_id: Int,
-
-    @SerializedName("title")
-    @Expose
-    val title: String,
-
-    @SerializedName("start")
-    @Expose
-    val start: String,
-
-    @SerializedName("status")
-    @Expose
-    val status: Int,
-
-    @SerializedName("count_comments")
-    @Expose
-    val commentsCount: Int,
-
-    @SerializedName("count_likes")
-    @Expose
-    val likesCount: Int,
-
-    @SerializedName("count_dislikes")
-    @Expose
-    val dislikesCount: Int,
-
-    @SerializedName("description")
-    @Expose
-    val description: String,
-
-    @SerializedName("user_data")
-    @Expose
-    val user: User
 ): Serializable {}

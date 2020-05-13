@@ -33,7 +33,7 @@
                     android:id="@+id/avatar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/img_test_avatar"/>
+                    android:src="@drawable/default_avatar"/>
 
             </androidx.cardview.widget.CardView>
 
@@ -79,6 +79,14 @@
                     android:text="+50%"/>
 
             </LinearLayout>
+
+            <View
+                android:id="@+id/loading"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/loadingColor"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

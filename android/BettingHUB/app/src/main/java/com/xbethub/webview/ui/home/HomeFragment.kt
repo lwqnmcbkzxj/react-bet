@@ -7,22 +7,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.RecyclerView
+import com.xbethub.webview.App
 import com.xbethub.webview.R
 import com.xbethub.webview.Utils
-import com.xbethub.webview.backend.requests.ForecastsRequest
 import com.xbethub.webview.databinding.FragmentHomeNewBinding
-import com.xbethub.webview.enums.TimeInterval
+import com.xbethub.webview.enums.Status
 import com.xbethub.webview.models.Forecast
+import com.xbethub.webview.models.User
 import com.xbethub.webview.ui.forecasts.items.ForecastListener
 import com.xbethub.webview.ui.forecasts.items.items.ForecastItem
 import com.xbethub.webview.ui.home.bookmakerItem.*
 import com.xbethub.webview.ui.home.bookmakerItem.items.BookmakerItem
 import com.xbethub.webview.ui.home.bookmakerItem.items.BookmakerTableItemBase
 import com.xbethub.webview.ui.home.bookmakerItem.items.HeaderBookmakerTableItem
-import com.xbethub.webview.ui.home.forecasterItem.ForecasterItem
 import com.xbethub.webview.ui.home.forecasterItem.ForecasterItemAdapter
 import com.xbethub.webview.ui.home.forecasterItem.ForecasterItemDecoration
 import com.xbethub.webview.ui.home.forecasterItem.ForecasterItemListener
@@ -31,15 +32,14 @@ import com.xbethub.webview.ui.home.matchItem.MatchItemListener
 import com.xbethub.webview.ui.home.matchItem.items.HeaderMatchTableItem
 import com.xbethub.webview.ui.home.matchItem.items.MatchItem
 import com.xbethub.webview.ui.home.matchItem.items.MatchTableItemBase
-import com.xbethub.webview.ui.home.recycler_view_adapters.ItemDecoration
 import com.xbethub.webview.ui.profile.forecasts.ForecastAdapter
 
 class HomeFragment : Fragment(), View.OnClickListener, ForecastListener, ForecasterItemListener
     , BookmakerItemListener, MatchItemListener {
+    private val constants = App.appComponent.getConstants()
     lateinit var binding: FragmentHomeNewBinding
     lateinit var navController: NavController
-    lateinit var lastForecastsTable: RecyclerView
-    private val forecasts = ArrayList<Forecast>()
+    lateinit var vm: HomeViewModel
 
     private var searchActive = false
 
@@ -56,31 +56,82 @@ class HomeFragment : Fragment(), View.OnClickListener, ForecastListener, Forecas
 
         updateSearchFieldVisibility()
 
+        navController = activity?.let { Navigation.findNavController(it, R.id.nav_host_fragment) }!!
+
+        vm = ViewModelProvider(this).get(HomeViewModel::class.java)
+
+        vm.forecastersLiveData.observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.LOADING -> onForecastersLoading()
+                Status.SUCCESS -> onForecastersLoaded(it.data)
+                Status.ERROR -> onForecastersLoadingError(it.error)
+            }
+        })
+
+
         return binding.root
     }
 
-    private fun initTopForecasters() {
-        val itemSpace = resources.getDimensionPixelSize(R.dimen.forecaterItemSpace)
-        val sideSpace= resources.getDimensionPixelSize(R.dimen.sideMargin)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        vm.onDestroy()
+    }
 
-        binding.topForecasters.forecasterRV
-            .addItemDecoration(ForecasterItemDecoration(itemSpace))
+    private fun onForecastersLoading() {
+        (binding.topForecasters.forecasterRV.adapter as? ForecasterItemAdapter)?.let { adapter ->
+            adapter.clearAndAddAll(List(constants.homeForecasterCount) {null})
+        } ?: run {
+            val itemSpace = resources.getDimensionPixelSize(R.dimen.forecaterItemSpace)
+            val sideSpace= resources.getDimensionPixelSize(R.dimen.sideMargin)
 
-        val displayMetrics = DisplayMetrics()
-        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
+            binding.topForecasters.forecasterRV
+                .addItemDecoration(ForecasterItemDecoration(itemSpace))
 
-        val itemWidth = (displayMetrics.widthPixels - itemSpace * 3 - 2 * sideSpace) / 4
+            val displayMetrics = DisplayMetrics()
+            requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
 
-        val adapter = ForecasterItemAdapter(itemWidth,this)
-        binding.topForecasters.forecasterRV.adapter = adapter
+            val itemWidth = (displayMetrics.widthPixels - itemSpace * 3 - 2 * sideSpace) / 4
 
-        val items = ArrayList<ForecasterItem>()
-
-        for (i in 1..10) {
-            items.add(ForecasterItem())
+            val adapter = ForecasterItemAdapter(itemWidth, this)
+            binding.topForecasters.forecasterRV.adapter = adapter
+            adapter.addAll(List(constants.homeForecasterCount) {null})
         }
+    }
 
-        adapter.addAll(items)
+    private fun onForecastersLoaded(forecasters: List<User>?) {
+        forecasters?.let { users ->
+            (binding.topForecasters.forecasterRV.adapter as? ForecasterItemAdapter)?.let { adapter ->
+                adapter.replaceItems(0, users)
+            }
+        }
+    }
+
+    private fun onForecastersLoadingError(error: Throwable?) {
+
+    }
+
+    private fun initTopForecasters() {
+//        val itemSpace = resources.getDimensionPixelSize(R.dimen.forecaterItemSpace)
+//        val sideSpace= resources.getDimensionPixelSize(R.dimen.sideMargin)
+//
+//        binding.topForecasters.forecasterRV
+//            .addItemDecoration(ForecasterItemDecoration(itemSpace))
+//
+//        val displayMetrics = DisplayMetrics()
+//        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
+//
+//        val itemWidth = (displayMetrics.widthPixels - itemSpace * 3 - 2 * sideSpace) / 4
+//
+//        val adapter = ForecasterItemAdapter(itemWidth,this)
+//        binding.topForecasters.forecasterRV.adapter = adapter
+//
+//        val items = ArrayList<ForecasterItem>()
+//
+//        for (i in 1..10) {
+//            items.add(ForecasterItem(null))
+//        }
+//
+//        adapter.addAll(items)
     }
 
     private fun initTopBookmakers() {
@@ -124,11 +175,11 @@ class HomeFragment : Fragment(), View.OnClickListener, ForecastListener, Forecas
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        initTopForecasters()
+        vm.onCreate()
+
+        //initTopForecasters()
         initTopBookmakers()
         initTopMatches()
-
-        navController = activity?.let { Navigation.findNavController(it, R.id.nav_host_fragment) }!!
 
 //        lastForecastsTable.apply {
 //            setHasFixedSize(true)

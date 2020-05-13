@@ -6,6 +6,8 @@ import android.os.Build
 import android.text.Html
 import android.text.Spanned
 import android.view.inputmethod.InputMethodManager
+import kotlin.math.ceil
+import kotlin.math.pow
 
 
 class Utils {
@@ -40,6 +42,18 @@ class Utils {
             return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                 Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
                 else Html.fromHtml(html)
+        }
+
+        @JvmStatic
+        fun round(value: Double, decimalPlaces: Int): Double {
+            val c = 10.0.pow(decimalPlaces.toDouble())
+            return if (decimalPlaces <= 0) value else ceil(value * c) / c
+        }
+
+        @JvmStatic
+        fun round(value: Float, decimalPlaces: Int): Float {
+            val c = 10.0.pow(decimalPlaces.toDouble()).toFloat()
+            return if (decimalPlaces <= 0) value else ceil(value * c.toDouble()).toFloat() / c
         }
     }
 }

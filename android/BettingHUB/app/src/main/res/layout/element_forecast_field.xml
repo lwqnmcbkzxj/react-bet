@@ -21,14 +21,40 @@
         <TextView
             style="@style/ForecastFieldStyle"
             android:text="@{fieldName}"
+            android:layout_gravity="center_vertical"
             />
 
-        <TextView
-            style="@style/ForecastFieldStyle"
-            android:fontFamily="@font/roboto_medium"
-            android:layout_marginStart="10dp"
-            android:text="@{fieldValue}"
-            />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_bet_data"
+                android:alpha="0.07"
+                app:layout_constraintTop_toTopOf="@id/valueTV"
+                app:layout_constraintBottom_toBottomOf="@id/valueTV"
+                app:layout_constraintStart_toStartOf="@id/valueTV"
+                app:layout_constraintEnd_toEndOf="@id/valueTV"
+                />
+
+            <TextView
+                android:id="@+id/valueTV"
+                style="@style/ForecastFieldStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@{fieldValue}"
+                android:padding="5dp"
+                android:includeFontPadding="false"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 </layout>
