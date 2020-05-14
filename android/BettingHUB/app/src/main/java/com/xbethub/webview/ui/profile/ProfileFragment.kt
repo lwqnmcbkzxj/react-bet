@@ -9,12 +9,15 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
+import com.xbethub.webview.App
 import com.xbethub.webview.R
 import com.xbethub.webview.Utils
 import com.xbethub.webview.databinding.FragmentProfileBinding
+import com.xbethub.webview.models.User
 
 class ProfileFragment: Fragment() {
 
+    private val appData = App.appComponent.getAppData()
     private lateinit var navController: NavController
     private lateinit var binding: FragmentProfileBinding
 
@@ -86,8 +89,23 @@ class ProfileFragment: Fragment() {
 
         navController = activity?.let { Navigation.findNavController(it, R.id.nav_host_fragment) }!!
 
+        fillUserInfo()
+
         return binding.root
     }
+
+    private fun fillUserInfo() {
+        (requireArguments().getSerializable("user") as? User)?.let {user ->
+
+        } ?: run {
+            appData.activeUser?.let {
+
+            } ?: run {
+                navController.navigate(R.id.loginFragment)
+            }
+        }
+    }
+
 
     private fun updateSearchFieldVisibility() {
         binding.topPanel.searchField.visibility = if (searchActive) View.VISIBLE else View.GONE

@@ -12,6 +12,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.xbethub.webview.App
 import com.xbethub.webview.R
+import com.xbethub.webview.Utils
 import com.xbethub.webview.databinding.ItemForecastBinding
 import com.xbethub.webview.models.Forecast
 import com.xbethub.webview.models.User
@@ -52,7 +53,7 @@ class ForecastViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
                 e.printStackTrace()
             }
 
-            loadAvatar(f)
+            Utils.loadAvatar(binding.avatar, f.user.avatar)
 
             binding.loading.root.visibility = View.GONE
         } ?: run {
@@ -62,66 +63,9 @@ class ForecastViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
     }
 
-    private fun loadAvatar(forecast: Forecast) {
-        forecast.user.avatar?.let {
-            Glide.with(binding.avatar).load("http://xbethub.com" + it).addListener(object :
-                RequestListener<Drawable> {
-
-                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?,
-                                          isFirstResource: Boolean): Boolean {
-                    binding.avatar.scaleType = ImageView.ScaleType.FIT_CENTER
-                    binding.avatar.setImageResource(R.drawable.default_avatar)
-
-                    return true
-                }
-                override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?,
-                                             dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                    resource?.let {
-                        val w = resource.intrinsicWidth.toFloat()
-                        val h = resource.intrinsicHeight.toFloat()
-                        val matrix = Matrix()
-
-                        if (binding.avatar.width == 0) {
-                            binding.avatar.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
-                                val scale =
-                                    Math.max(binding.avatar.width / w, binding.avatar.height / h)
-
-                                matrix.setScale(scale, scale)
-
-                                binding.avatar.scaleType = ImageView.ScaleType.MATRIX
-                                binding.avatar.imageMatrix = matrix
-                            }
-                        } else {
-                            val scale =
-                                Math.max(binding.avatar.width / w, binding.avatar.height / h)
-
-                            matrix.setScale(scale, scale)
-
-                            binding.avatar.scaleType = ImageView.ScaleType.MATRIX
-                            binding.avatar.imageMatrix = matrix
-                        }
-                    }
-
-                    return false
-                }
-            }).into(binding.avatar)
-        } ?: run {
-            binding.avatar.scaleType = ImageView.ScaleType.FIT_CENTER
-            binding.avatar.setImageResource(R.drawable.default_avatar)
-        }
-    }
-
     fun setListener(listener: ForecastListener) {
-//        itemView.setOnClickListener {
-//            listener.onForecastClick(
-//                Forecast(0, 0, 0, 0, ""
-//                    , "", "", "", 0, 0, "", ""
-//                    , 0, 0, 0, 0, "", User(0, "", ""))
-//                , adapterPosition)
-
-            // TODO: раскоментить
-//            forecast?.let {
-//                listener.onForecastClick(it, adapterPosition)
-//            }
+        forecast?.let {
+            listener.onForecastClick(it, adapterPosition)
+        }
     }
 }

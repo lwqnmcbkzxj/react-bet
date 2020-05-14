@@ -11,7 +11,6 @@ import com.xbethub.webview.ui.forecasts.items.viewHolders.ForecastViewHolder
 
 class ForecastAdapter(listener: ForecastListener): RecyclerViewAdapterBase<ForecastListener, ForecastItem, ForecastViewHolder>(listener) {
 
-
     override fun setListener(holder: ForecastViewHolder, listener: ForecastListener) {
         holder.setListener(listener)
     }

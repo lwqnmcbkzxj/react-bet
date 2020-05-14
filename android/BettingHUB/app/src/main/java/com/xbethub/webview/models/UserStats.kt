@@ -2,6 +2,7 @@ package com.xbethub.webview.models
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class UserStats (
     @SerializedName("roi")
@@ -39,5 +40,5 @@ data class UserStats (
     @SerializedName("count_subscriptions")
     @Expose
     val subscriptionCount: Int
-) {
+): Serializable {
 }

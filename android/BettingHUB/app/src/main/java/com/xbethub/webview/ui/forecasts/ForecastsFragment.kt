@@ -17,9 +17,9 @@ import com.xbethub.webview.Utils
 import com.xbethub.webview.databinding.FragmentForecastsBinding
 import com.xbethub.webview.enums.Status
 import com.xbethub.webview.models.Forecast
-import com.xbethub.webview.ui.forecasts.items.ItemDecoration
+import com.xbethub.webview.ui.forecasts.items.ForecastItemDecoration
 import com.xbethub.webview.ui.forecasts.items.ForecastListener
-import com.xbethub.webview.ui.forecasts.items.ItemAdapter
+import com.xbethub.webview.ui.forecasts.items.ForecastItemAdapter
 import com.xbethub.webview.ui.forecasts.items.items.*
 
 
@@ -72,7 +72,7 @@ class ForecastsFragment : Fragment(), ForecastListener {
     }
 
     private fun onPageLoading() {
-        (binding.forecastRV.adapter as? ItemAdapter)?.let { adapter ->
+        (binding.forecastRV.adapter as? ForecastItemAdapter)?.let { adapter ->
             binding.forecastRV.post {
                 if (adapter.getItem(adapter.itemCount - 2).getType() == ItemType.SHOW_MORE_BTN) {
                     adapter.removeItem(adapter.itemCount - 2)
@@ -84,7 +84,7 @@ class ForecastsFragment : Fragment(), ForecastListener {
             val items = ArrayList<Item>()
 
             binding.forecastRV.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            val adapter = ItemAdapter(this, vm, this)
+            val adapter = ForecastItemAdapter(this, vm, this)
             binding.forecastRV.adapter = adapter
 
             items.add(HeaderItem())
@@ -98,7 +98,7 @@ class ForecastsFragment : Fragment(), ForecastListener {
     private fun onPageLoaded(forecasts: List<Forecast>?) {
         forecasts?.let {
             if (it.size == consts.forecastsPerPage) {
-                (binding.forecastRV.adapter as? ItemAdapter)?.let { adapter ->
+                (binding.forecastRV.adapter as? ForecastItemAdapter)?.let { adapter ->
                     binding.forecastRV.post {
                         adapter.replaceItems(
                             adapter.itemCount - consts.forecastsPerPage - 1,
@@ -108,7 +108,7 @@ class ForecastsFragment : Fragment(), ForecastListener {
                     binding.forecastRV.post { adapter.insertItem(adapter.itemCount - 1, ShowMoreBtnItem()) }
                 }
             } else {
-                (binding.forecastRV.adapter as? ItemAdapter)?.let { adapter ->
+                (binding.forecastRV.adapter as? ForecastItemAdapter)?.let { adapter ->
                     val diff = consts.forecastsPerPage - it.size
 
                     binding.forecastRV.post {
@@ -129,7 +129,7 @@ class ForecastsFragment : Fragment(), ForecastListener {
     }
 
     private fun removeAllForecasts() {
-        (binding.forecastRV.adapter as? ItemAdapter)?.let {
+        (binding.forecastRV.adapter as? ForecastItemAdapter)?.let {
             binding.forecastRV.post {
 
                 if (it.itemCount > 2) {
@@ -149,7 +149,7 @@ class ForecastsFragment : Fragment(), ForecastListener {
         val bottomSpace = resources.getDimensionPixelSize(R.dimen.footerBottomMargin)
 
         binding.forecastRV.addItemDecoration(
-            ItemDecoration(
+            ForecastItemDecoration(
                 topSpace
                 , sideSpace
                 , itemSpace

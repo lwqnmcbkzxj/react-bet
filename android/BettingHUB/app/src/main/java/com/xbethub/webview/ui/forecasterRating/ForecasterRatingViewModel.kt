@@ -1,29 +1,33 @@
 package com.xbethub.webview.ui.forecasterRating
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.xbethub.webview.BaseViewModel
+import com.xbethub.webview.Event
+import com.xbethub.webview.enums.Direction
 import com.xbethub.webview.enums.RatingTimeInterval
 import com.xbethub.webview.models.Sport
-import com.xbethub.webview.models.ForecasterRating
+import com.xbethub.webview.models.User
 import com.xbethub.webview.ui.forecasts.sportItem.SportListener
-import kotlin.collections.ArrayList
 
-class ForecasterRatingViewModel: ViewModel(), SportListener {
-    val ratingsLiveData = MutableLiveData<List<ForecasterRating>>()
+class ForecasterRatingViewModel: BaseViewModel(), SportListener {
+    val ratingsLiveData = MutableLiveData<Event<List<User>>>()
     val clearRatingsLiveData = MutableLiveData<Void?>()
     val filterLiveData = MutableLiveData<RatingFilter>()
-
-    private val ratings = ArrayList<ForecasterRating>()
     private var filter = RatingFilter()
 
-    fun onCreate() {
-        val max = 15
+    override fun onCreate() {
 
-        for (i in 1..max) {
-            ratings.add(ForecasterRating(i, max))
+        appData.lastTopForecasters?.let {
+            ratingsLiveData.value = Event.success(it)
+        } ?: run {
+            requestWithLiveData(ratingsLiveData
+                , { backendAPI.users(consts.topForecastersCount, 1, Direction.DESC.backendValue) }
+                , {
+                    appData.lastTopForecasters = it.data
+                    it.data
+                })
         }
 
-        ratingsLiveData.value = ratings
         filterLiveData.value = filter
     }
 

@@ -23,6 +23,9 @@
         <action
             android:id="@+id/toForecastFragment"
             app:destination="@id/forecastFragment" />
+        <action
+            android:id="@+id/toProfileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 
     <fragment
@@ -42,11 +45,6 @@
         android:name="com.xbethub.webview.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
-    <fragment
-        android:id="@+id/navigation_settings"
-        android:name="com.xbethub.webview.ui.SettingsNavigationFragment"
-        android:label="fragment_settings_navigation"
-        tools:layout="@layout/fragment_settings_navigation" />
     <fragment
         android:id="@+id/forecastFragment"
         android:name="com.xbethub.webview.ui.forecast.ForecastFragment"
@@ -84,9 +82,10 @@
             android:id="@+id/toProfileSettingsFragment"
             app:destination="@id/profileSettingsFragment" />
         <argument
-            android:name="currentUser"
-            app:argType="boolean"
-            android:defaultValue="true" />
+            android:name="user"
+            app:argType="com.xbethub.webview.models.User"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/plusFragment"

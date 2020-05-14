@@ -9,10 +9,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.xbethub.webview.App
 import com.xbethub.webview.R
 import com.xbethub.webview.Utils
 import com.xbethub.webview.databinding.FragmentForecasterRatingBinding
-import com.xbethub.webview.models.ForecasterRating
+import com.xbethub.webview.enums.Status
+import com.xbethub.webview.models.User
 import com.xbethub.webview.ui.forecasterRating.items.ItemListener
 import com.xbethub.webview.ui.forecasterRating.items.ItemAdapter
 import com.xbethub.webview.ui.forecasterRating.items.ItemDecoration
@@ -22,7 +24,7 @@ import com.xbethub.webview.ui.forecasterRating.items.items.TableHeaderItem
 import com.xbethub.webview.ui.forecasterRating.items.items.TableLineItem
 
 class ForecasterRatingFragment: Fragment(), ItemListener {
-
+    private val consts = App.appComponent.getConstants()
     private lateinit var vm: ForecasterRatingViewModel
     private lateinit var binding: FragmentForecasterRatingBinding
 
@@ -36,7 +38,13 @@ class ForecasterRatingFragment: Fragment(), ItemListener {
         binding = FragmentForecasterRatingBinding.inflate(inflater)
         vm = ViewModelProvider(this).get(ForecasterRatingViewModel::class.java)
 
-        vm.ratingsLiveData.observe(viewLifecycleOwner, Observer { setRatings(it) })
+        vm.ratingsLiveData.observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.LOADING -> onForecastersLoading()
+                Status.SUCCESS -> onForecastersLoaded(it.data)
+                Status.ERROR -> onForecastersLoadingError(it.error)
+            }
+        })
         vm.clearRatingsLiveData.observe(viewLifecycleOwner, Observer { clearRatings() })
 
         binding.topPanel.searchBtn.setOnClickListener { onSearchBtnClick() }
@@ -51,6 +59,42 @@ class ForecasterRatingFragment: Fragment(), ItemListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         vm.onCreate()
+    }
+
+    private fun onForecastersLoading() {
+        clearRatings()
+
+        binding.ratingRV.post {
+            (binding.ratingRV.adapter as? ItemAdapter)?.let { adapter ->
+                adapter.addAll(2
+                    , List(consts.topForecastersCount) { i ->
+                        TableLineItem(ForecasterRating(null, i, i + 1 == consts.topForecastersCount))
+                    }
+                )
+            }
+        }
+    }
+
+    private fun onForecastersLoaded(forecasters: List<User>?) {
+        forecasters?.let {
+            binding.ratingRV.post {
+                (binding.ratingRV.adapter as? ItemAdapter)?.let { adapter ->
+                    val items = List(forecasters.size) { i ->
+                        TableLineItem(ForecasterRating(forecasters[i], i, i + 1 == consts.topForecastersCount))
+                    }
+
+                    if (adapter.itemCount > 3) {
+                        adapter.replaceItems(2, items)
+                    } else {
+                        adapter.insertItems(items, 2)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun onForecastersLoadingError(error: Throwable?) {
+
     }
 
     private fun addItemDecoration() {
@@ -73,6 +117,7 @@ class ForecasterRatingFragment: Fragment(), ItemListener {
 
     private fun initRatingRV() {
         addItemDecoration()
+        binding.ratingRV.itemAnimator = null
         binding.ratingRV.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         val adapter = ItemAdapter(this, vm, this)
         binding.ratingRV.adapter = adapter
@@ -80,19 +125,23 @@ class ForecasterRatingFragment: Fragment(), ItemListener {
     }
 
     private fun setRatings(ratings: List<ForecasterRating>) {
-        (binding.ratingRV.adapter as? ItemAdapter)?.let {
-            if (it.itemCount != 3) {
-                it.removeItems(2, it.itemCount - 3)
-            }
+        binding.ratingRV.post {
+            (binding.ratingRV.adapter as? ItemAdapter)?.let {
+                if (it.itemCount != 3) {
+                    it.removeItems(2, it.itemCount - 3)
+                }
 
-            it.addAll(2, ratings.map { TableLineItem(it) })
+                it.addAll(2, ratings.map { TableLineItem(it) })
+            }
         }
     }
 
     private fun clearRatings() {
-        (binding.ratingRV.adapter as? ItemAdapter)?.let {
-            if (it.itemCount != 2) {
-                it.removeItems(1, it.itemCount - 2)
+        binding.ratingRV.post {
+            (binding.ratingRV.adapter as? ItemAdapter)?.let {
+                if (it.itemCount > 3) {
+                    it.removeItems(2, it.itemCount - 3)
+                }
             }
         }
     }

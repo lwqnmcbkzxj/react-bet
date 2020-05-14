@@ -11,8 +11,8 @@ import com.xbethub.webview.R
 import com.xbethub.webview.databinding.FragmentProfileForecastsBinding
 import com.xbethub.webview.models.Forecast
 import com.xbethub.webview.ui.forecasts.items.ForecastListener
-import com.xbethub.webview.ui.forecasts.items.ItemAdapter
-import com.xbethub.webview.ui.forecasts.items.ItemDecoration
+import com.xbethub.webview.ui.forecasts.items.ForecastItemAdapter
+import com.xbethub.webview.ui.forecasts.items.ForecastItemDecoration
 import com.xbethub.webview.ui.forecasts.items.items.FooterItem
 import com.xbethub.webview.ui.forecasts.items.items.ForecastItem
 import com.xbethub.webview.ui.forecasts.items.items.Item
@@ -31,7 +31,7 @@ class ForecastsFragment: Fragment(), ForecastListener {
         addItemDecoration()
 
         binding.rv.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        val adapter = ItemAdapter(this, null, null)
+        val adapter = ForecastItemAdapter(this, null, null)
         binding.rv.adapter = adapter
 
         val items = ArrayList<Item>()
@@ -56,7 +56,7 @@ class ForecastsFragment: Fragment(), ForecastListener {
         val bottomSpace = resources.getDimensionPixelSize(R.dimen.footerBottomMargin)
 
         binding.rv.addItemDecoration(
-            ItemDecoration(
+            ForecastItemDecoration(
                 topSpace
                 , sideSpace
                 , itemSpace

@@ -3,11 +3,10 @@ package com.xbethub.webview.ui.forecasts.items
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.xbethub.webview.ui.forecasts.items.ItemAdapter
 import com.xbethub.webview.ui.forecasts.items.items.ItemType
 
-class ItemDecoration(val topSpace: Int, val sideSpace: Int, val itemSpace: Int
-                     , val showMoreTopSpace: Int, val footerTopSpace: Int, val bottomSpace: Int): RecyclerView.ItemDecoration() {
+class ForecastItemDecoration(val topSpace: Int, val sideSpace: Int, val itemSpace: Int
+                             , val showMoreTopSpace: Int, val footerTopSpace: Int, val bottomSpace: Int): RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(
         outRect: Rect,
@@ -21,7 +20,7 @@ class ItemDecoration(val topSpace: Int, val sideSpace: Int, val itemSpace: Int
             return
         }
 
-        (parent.adapter as? ItemAdapter)?.let {
+        (parent.adapter as? ForecastItemAdapter)?.let {
             val itemType = it.getItem(pos).getType()
 
             when (itemType) {

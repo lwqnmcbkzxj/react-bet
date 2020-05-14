@@ -6,6 +6,21 @@
     android:layout_height="30dp"
     android:background="@drawable/bg_rating_header">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_top_cornered_frame_6dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/color9"
+        />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/column1End"
         android:layout_width="wrap_content"

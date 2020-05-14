@@ -38,11 +38,11 @@
             app:layout_constraintStart_toStartOf="@id/column2End"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <ImageView
+        <View
             android:id="@+id/changeIndicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_green_triangle"
+            android:layout_width="10dp"
+            android:layout_height="6dp"
+            android:background="@color/loadingColor"
             app:layout_constraintTop_toTopOf="@id/number"
             app:layout_constraintBottom_toBottomOf="@id/number"
             app:layout_constraintStart_toStartOf="@id/indicatorStart"
@@ -51,13 +51,16 @@
         <TextView
             android:id="@+id/number"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_regular"
             android:textSize="16sp"
-            android:textColor="@color/textColor1"
+            android:textColor="@android:color/transparent"
             android:gravity="center_vertical"
             android:text="1"
+            android:background="@color/loadingColor"
             android:layout_marginStart="6dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/changeIndicator"
             />
 
@@ -71,104 +74,65 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/column1End">
 
-            <ImageView
-                android:id="@+id/avatar"
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/img_test_avatar"/>
+                android:background="@color/loadingColor"/>
 
         </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/userName"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_regular"
             android:textSize="16sp"
-            android:textColor="@color/textColor1"
+            android:textColor="@android:color/transparent"
             android:gravity="center_vertical"
             android:text="Никнейм"
             android:layout_marginStart="6dp"
             android:ellipsize="end"
+            android:background="@color/loadingColor"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/avatarCV"
             app:layout_constraintEnd_toEndOf="@id/column2End"
             />
 
         <TextView
             android:id="@+id/wld"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_regular"
             android:textSize="15sp"
-            android:textColor="@color/textColor1"
+            android:textColor="@android:color/transparent"
             android:gravity="center"
             android:text="10/2/0"
             android:ellipsize="end"
+            android:background="@color/loadingColor"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/column2End"
             app:layout_constraintEnd_toEndOf="@id/column3End"
             />
 
         <TextView
             android:id="@+id/profit"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_regular"
             android:textSize="15sp"
-            android:textColor="#0F971D"
+            android:textColor="@android:color/transparent"
             android:gravity="center"
             android:text="+120%"
             android:ellipsize="end"
+            android:background="@color/loadingColor"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/column3End"
             app:layout_constraintEnd_toEndOf="parent"
             />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/borders"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <View
-                android:id="@+id/leftBorder"
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:background="#E5E2E2"
-                />
-
-            <View
-                android:id="@+id/rightBorder"
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:background="#E5E2E2"
-                />
-
-            <View
-                android:id="@+id/bottomBorder"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:background="#E5E2E2"
-                />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@android:color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="1dp"
-            android:layout_marginEnd="1dp"
-            />
-
-        <include
-            android:id="@+id/loading"
-            android:visibility="gone"
-            layout="@layout/item_forecaster_rating_line_loading"
-            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,23 +18,27 @@ class TableLineViewHolder(itemView: View): BaseViewHolder(itemView) {
     override fun setItem(item: Item) {
         val tableLineItem = item as TableLineItem
         val rating = tableLineItem.forecasterRating
+        val user = rating.user
 
-        binding.number.text = rating.number.toString()
+        user?.let {
+            Utils.loadAvatar(binding.avatar, user.avatar)
 
-        if (rating.number == rating.max) {
+            binding.userName.text = user.login
+            binding.wld.text = Utils.getWLDString(context, user.stats.winCount, user.stats.lossCount, user.stats.returnCount)
+            binding.profit.text = Utils.round(user.stats.netProfit.toDouble(), 2).toString()
+            binding.number.text = (rating.number + 1).toString()
+            binding.loading.root.visibility = View.GONE
+        } ?: run {
+            binding.loading.root.visibility = View.VISIBLE
+        }
+
+        if (rating.last) {
             itemView.setBackgroundResource(R.drawable.bg_last_rating)
             itemView.borders.visibility = View.GONE
         } else {
             itemView.background = null
             itemView.borders.visibility = View.VISIBLE
         }
-
-        val wdlHtml = context.getString(R.string.wldTemplate)
-            .replace("#W_VALUE", "10")
-            .replace("#L_VALUE", "2")
-            .replace("#D_VALUE", "0")
-
-        binding.wld.text = Utils.fromHtml(wdlHtml)
     }
 
     override fun setListener(listener: ItemListener) {
