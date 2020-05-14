@@ -10,7 +10,7 @@ class ForecasterAdapter(val itemWidth: Int, listener: ForecasterListener)
     : RecyclerViewAdapterBase<ForecasterListener, User?, ForecasterViewHolder>(listener) {
 
     override fun setListener(holder: ForecasterViewHolder, listener: ForecasterListener) {
-
+        holder.setListener(listener)
     }
 
     override fun setModel(holder: ForecasterViewHolder, model: User?) {

@@ -38,7 +38,7 @@ class ProfileFragment: Fragment() {
 
         binding.subscribeBtnBlock.visibility = View.GONE
 
-        // TODO: временнно
+        // TODO: временно, юзать Utils.getWLDString()
         val wdlHtml = requireContext().getString(R.string.wldTemplate)
             .replace("#W_VALUE", "10")
             .replace("#L_VALUE", "2")

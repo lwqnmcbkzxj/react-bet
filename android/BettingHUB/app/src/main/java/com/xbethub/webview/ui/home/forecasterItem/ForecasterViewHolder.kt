@@ -39,8 +39,10 @@ class ForecasterViewHolder(val width: Int, itemView: View): RecyclerView.ViewHol
     }
 
     fun setListener(listener: ForecasterListener) {
-        user?.let {
-            listener.onForecasterClick(it, adapterPosition)
+        binding.root.setOnClickListener {
+            user?.let {
+                listener.onForecasterClick(it, adapterPosition)
+            }
         }
     }
 }

@@ -64,8 +64,11 @@ class ForecastViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     }
 
     fun setListener(listener: ForecastListener) {
-        forecast?.let {
-            listener.onForecastClick(it, adapterPosition)
+        binding.root.setOnClickListener {
+            forecast?.let {
+                listener.onForecastClick(it, adapterPosition)
+            }
         }
+
     }
 }
