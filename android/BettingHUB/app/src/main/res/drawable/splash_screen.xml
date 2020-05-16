@@ -1,35 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Атрибут android:opacity=”opaque” крайне важен для предотвращения черных миганий при переходе к вашей теме -->
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
-    android:opacity="opaque"
-    android:paddingStart="300dp"
-    android:paddingEnd="300dp"
-    >
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Цвет фона, предпочтительно как в главной теме -->
     <item android:drawable="@android:color/white"/>
-    <item
-
-        android:left="75dp"
-        android:right="75dp">
+    <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/betting_hub_small"
-            android:tileMode="disabled"
+            android:src="@drawable/logo"
             />
     </item>
     <!-- Лого приложения - 144dp версия иконки приложения -->
-<!--    <item>-->
-<!--        <inset android:drawable="@drawable/btm_main_logo"-->
-<!--            android:insetRight="150dp"-->
-<!--            android:insetTop="150dp"-->
-<!--            android:insetLeft="150dp"-->
-<!--            android:insetBottom="150dp"/>-->
-<!--&lt;!&ndash;        <bitmap&ndash;&gt;-->
-<!--&lt;!&ndash;            android:src="@drawable/img_main_logo"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:gravity="center"&ndash;&gt;-->
-<!--&lt;!&ndash;            />&ndash;&gt;-->
+    <!--    <item>-->
+    <!--        <inset android:drawable="@drawable/btm_main_logo"-->
+    <!--            android:insetRight="150dp"-->
+    <!--            android:insetTop="150dp"-->
+    <!--            android:insetLeft="150dp"-->
+    <!--            android:insetBottom="150dp"/>-->
+    <!--&lt;!&ndash;        <bitmap&ndash;&gt;-->
+    <!--&lt;!&ndash;            android:src="@drawable/img_main_logo"&ndash;&gt;-->
+    <!--&lt;!&ndash;            android:gravity="center"&ndash;&gt;-->
+    <!--&lt;!&ndash;            />&ndash;&gt;-->
 
-<!--    </item>-->
+    <!--    </item>-->
 
 </layer-list>
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+    <!--&lt;!&ndash; Атрибут android:opacity=”opaque” крайне важен для предотвращения черных миганий при переходе к вашей теме &ndash;&gt;-->
+    <!--<layer-list xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--    android:opacity="opaque"-->
+    <!--    android:paddingStart="300dp"-->
+    <!--    android:paddingEnd="300dp"-->
+    <!--    >-->
+
+    <!--    &lt;!&ndash; Цвет фона, предпочтительно как в главной теме &ndash;&gt;-->
+    <!--    <item android:drawable="@android:color/white"/>-->
+    <!--    <item-->
+
+    <!--        android:left="75dp"-->
+    <!--        android:right="75dp">-->
+    <!--        <bitmap-->
+    <!--            android:gravity="center"-->
+    <!--            android:src="@drawable/betting_hub_small"-->
+    <!--            android:tileMode="disabled"-->
+    <!--            />-->
+    <!--    </item>-->
+    <!--    &lt;!&ndash; Лого приложения - 144dp версия иконки приложения &ndash;&gt;-->
+    <!--&lt;!&ndash;    <item>&ndash;&gt;-->
+    <!--&lt;!&ndash;        <inset android:drawable="@drawable/btm_main_logo"&ndash;&gt;-->
+    <!--&lt;!&ndash;            android:insetRight="150dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;            android:insetTop="150dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;            android:insetLeft="150dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;            android:insetBottom="150dp"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;        <bitmap&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;            android:src="@drawable/img_main_logo"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;            android:gravity="center"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;            />&ndash;&gt;&ndash;&gt;-->
+
+    <!--&lt;!&ndash;    </item>&ndash;&gt;-->
+
+    <!--</layer-list>-->

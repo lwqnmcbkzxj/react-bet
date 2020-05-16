@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.net.DnsResolver
 import android.os.Bundle
 import android.os.Handler
+import android.text.InputType
 import android.util.Log
 import android.util.Patterns
 import androidx.fragment.app.Fragment
@@ -52,6 +53,27 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
         navController = activity?.let { Navigation.findNavController(it, R.id.nav_host_fragment) }!!
         view?.findViewById<Button>(R.id.registration_button)?.setOnClickListener(this)
         view?.findViewById<Button>(R.id.return_to_login_button)?.setOnClickListener(this)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        password_field.setEndIconOnClickListener {
+            var selectionStart = password.selectionStart
+            password.inputType = if (password.inputType == InputType.TYPE_CLASS_TEXT) InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD else InputType.TYPE_CLASS_TEXT
+            password.setSelection(selectionStart)
+
+            selectionStart = password_repeat.selectionStart
+            password_repeat.inputType = if (password_repeat.inputType == InputType.TYPE_CLASS_TEXT) InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD else InputType.TYPE_CLASS_TEXT
+            password_repeat.setSelection(selectionStart)
+        }
+        password_field_repeat.setEndIconOnClickListener {
+            var selectionStart = password.selectionStart
+            password.inputType = if (password.inputType == InputType.TYPE_CLASS_TEXT) InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD else InputType.TYPE_CLASS_TEXT
+            password.setSelection(selectionStart)
+
+            selectionStart = password_repeat.selectionStart
+            password_repeat.inputType = if (password_repeat.inputType == InputType.TYPE_CLASS_TEXT) InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD else InputType.TYPE_CLASS_TEXT
+            password_repeat.setSelection(selectionStart)
+        }
     }
 
     override fun onClick(v: View?) {

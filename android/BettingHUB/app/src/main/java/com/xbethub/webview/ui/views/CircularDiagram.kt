@@ -13,12 +13,11 @@ class CircularDiagram: View {
     private val values = ArrayList<Pair<Float, Int>>()
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val rect = RectF()
-    private val anglePadding = 5f
+    private val anglePadding = 2f
     private var strokeWidth = 10
 
     init {
         paint.style = Paint.Style.STROKE
-        paint.strokeCap = Paint.Cap.ROUND
         paint.strokeWidth = strokeWidth.toFloat()
     }
 

@@ -55,6 +55,7 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
         binding.topPanel.searchBtn.setOnClickListener { onSearchBtnClick() }
         binding.topForecasters.seeAllForecasters.setOnClickListener { onSeeAllForecastersBtnClick() }
         binding.lastForecasts.seeAllForecastsBtn.setOnClickListener { onSeeAllForecastsBtnClick() }
+        binding.topBookmakers.seeAllBookmakersBtn.setOnClickListener { onSeeAllBookmakersBtnClick() }
 
         binding.topPanel.bankBalance.root.visibility = View.GONE
 
@@ -247,6 +248,10 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
 
     private fun onSeeAllForecastsBtnClick() {
         navController.navigate(HomeFragmentDirections.toForecastsFragment())
+    }
+
+    private fun onSeeAllBookmakersBtnClick() {
+        navController.navigate(HomeFragmentDirections.toBookmakerFragment())
     }
 
     // ForecastListener

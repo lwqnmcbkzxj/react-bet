@@ -19,14 +19,6 @@ class HeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     private val binding = ItemForecastHeaderBinding.bind(itemView)
     private val context = itemView.context
 
-    private var searchActive = false
-
-    init {
-        updateSearchFieldVisibility()
-
-        binding.topPanel.searchBtn.setOnClickListener { onSearchBtnClick() }
-    }
-
     fun setHeaderItem(headerItem: HeaderItem) {
         val forecast = headerItem.forecast
 
@@ -55,18 +47,5 @@ class HeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     }
 
     fun setViewModel(viewModel: ForecastViewModel, viewLifecycleOwner: LifecycleOwner) {
-    }
-
-    private fun updateSearchFieldVisibility() {
-        binding.topPanel.searchField.visibility = if (searchActive) View.VISIBLE else View.GONE
-
-        if (searchActive) {
-            binding.topPanel.searchField.requestFocus()
-            Utils.showKeyboard(context)
-        }
-    }
-    fun onSearchBtnClick() {
-        searchActive = !searchActive
-        updateSearchFieldVisibility()
     }
 }

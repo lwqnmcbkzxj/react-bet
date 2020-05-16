@@ -12,6 +12,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xbethub.webview.R
+import com.xbethub.webview.Utils
 import com.xbethub.webview.databinding.FragmentForecastBinding
 import com.xbethub.webview.models.Forecast
 import com.xbethub.webview.ui.forecast.items.ItemAdapter
@@ -48,6 +49,20 @@ class ForecastFragment: Fragment() {
         initRV()
 
         vm.onCreate()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val searchField = binding.topPanel.searchField
+        searchField.visibility = View.GONE
+        binding.topPanel.searchBtn.setOnClickListener {
+            searchField.visibility = if (searchField.visibility == View.GONE) {
+                searchField.requestFocus()
+                Utils.showKeyboard(requireContext())
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
+        }
     }
 
     private fun initRV() {

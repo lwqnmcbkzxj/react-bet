@@ -108,6 +108,7 @@
     <string name="show_more_title">Показать больше</string>
 
     <string name="forecastRating">Рейтинг прогнозистов</string>
+    <string name="bookmakerRating">Рейтинг букмекеров</string>
     <string name="month">Месяц</string>
 
     <string name="numberColumn">№</string>

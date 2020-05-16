@@ -4,14 +4,77 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/forecastRV"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/white"
-        tools:itemCount="1"
-        tools:listitem="@layout/item_forecast_header"
-        />
+        android:layout_height="match_parent">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+                <include
+                    android:id="@+id/topPanel"
+                    layout="@layout/element_top_panel"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/titleBlock"
+                    android:layout_width="match_parent"
+                    android:background="@color/white"
+                    android:layout_height="36dp">
+
+                    <ImageButton
+                        android:id="@+id/backBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/ic_arrow_left"
+                        android:paddingStart="@dimen/sideMargin"
+                        android:paddingEnd="@dimen/sideMargin"
+                        android:background="@android:color/transparent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="17sp"
+                        android:textColor="@color/textColor1"
+                        android:gravity="center"
+                        android:text="@string/forecasts"
+                        app:layout_constraintStart_toEndOf="@id/backBtn"
+                        />
+
+                    <ImageButton
+                        android:id="@+id/bookmarkBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/ic_bookmark"
+                        android:background="@android:color/transparent"
+                        android:paddingEnd="@dimen/sideMargin"
+                        android:paddingStart="@dimen/sideMargin"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/forecastRV"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            tools:itemCount="1"
+            tools:listitem="@layout/item_forecast_header"
+            />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
 

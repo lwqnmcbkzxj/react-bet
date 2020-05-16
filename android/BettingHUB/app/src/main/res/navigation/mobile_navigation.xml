@@ -26,6 +26,11 @@
         <action
             android:id="@+id/toProfileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/to_bookmakerFragment"
+            app:destination="@id/bookmakerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
 
     <fragment
@@ -140,4 +145,8 @@
             android:id="@+id/toProfileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/bookmakerFragment"
+        android:name="com.xbethub.webview.ui.bookmakerRating.BookmakerRatingFragment"
+        android:label="BookmakerFragment" />
 </navigation>
