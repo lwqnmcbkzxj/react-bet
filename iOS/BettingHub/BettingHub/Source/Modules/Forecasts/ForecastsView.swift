@@ -25,8 +25,9 @@ class ForecastsView: UIView {
         table.backgroundColor = .clear
         table.clipsToBounds = false
         table.separatorColor = .clear
-        table.rowHeight = 422
         table.isSkeletonable = true
+        table.rowHeight = UITableView.automaticDimension
+        table.estimatedRowHeight = 422
         return table
     }()
     
@@ -71,24 +72,4 @@ class ForecastsView: UIView {
         }
     }
 }
-
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-@available(iOS 13.0.0, *)
-struct ForecastsViewPreview: PreviewProvider {
-    
-    private static var dataSource: TableViewPreviewDataSource!
-    
-    static var previews: some View {
-        UIViewPreview {
-            let view = ForecastsView()
-            dataSource = TableViewPreviewDataSource(tableView: view.tableView,
-                                                    cellTypes: [ForecastCell.self],
-                                                    cells: [10])
-            view.tableView.dataSource = dataSource
-            return view
-        }
-    }
-}
-#endif
 

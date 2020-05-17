@@ -132,16 +132,6 @@ extension ForecastsViewController: UITableViewDelegate {
     }
 }
 
-extension ForecastsViewController: UITableViewDataSourcePrefetching {
-    
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        guard let lastCellIndex = indexPaths.last?.row else { return }
-        if (Double(lastCellIndex) / Double(viewModel.pageSize)) > Double(viewModel.loadedPages) {
-            viewModel.currentPage += 1
-        }
-    }
-}
-
 extension ForecastsViewController: ForecastCellDelegate {
     
     func userViewTapped(forecast: Forecast) {

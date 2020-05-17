@@ -91,7 +91,7 @@
 "menuArticles" = "Статьи";
 
 "fieldsEmptyError" = "Заполните все поля";
-"unmatchingPasswordsError" = "Пароли не сопадают";
+"unmatchingPasswordsError" = "Пароли не совпадают";
 "unspecifiedError" = "Ошибка";
 
 "3h" = "3 часа";
@@ -143,3 +143,9 @@
 "settingsPushNotifications" = "Пуш-уведомления";
 "settingsReplies" = "Ответы на комментарии";
 "exit" = "Выйти";
+
+"bookmakerFirm" = "БУКМЕКЕРСКАЯ КОНТОРА";
+"site" = "САЙТ";
+"line" = "Линия";
+"reliability" = "Надежность";
+"payingSystems" = "Платежные системы";

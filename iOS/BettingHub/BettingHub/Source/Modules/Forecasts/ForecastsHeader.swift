@@ -126,15 +126,3 @@ class ForecastsHeader: UIView {
         }
     }
 }
-
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-@available(iOS 13, *)
-struct ForecastsHeaderPreview: PreviewProvider {
-    static var previews: some View {
-        UIViewPreview {
-            ForecastsHeader()
-        }
-    }
-}
-#endif

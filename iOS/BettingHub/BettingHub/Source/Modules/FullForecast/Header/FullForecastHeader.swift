@@ -41,11 +41,10 @@ class FullForecastHeader: UITableViewHeaderFooterView {
     
     private let teamsView  = TeamsVersusView()
     
-    private let infoStack = ForecastInfoStackView()
+    private let infoStack = InfoStackView()
     
     private let profileImageView: UIImageView = {
         let view = UIImageView()
-        view.makeBordered()
         view.layer.cornerRadius = 5
         view.layer.masksToBounds = true
         return view
@@ -129,7 +128,6 @@ class FullForecastHeader: UITableViewHeaderFooterView {
         super.init(reuseIdentifier: reuseIdentifier)
         backgroundColor = .white
         makeLayout()
-        infoStack.configure(forecast: Forecast.stub())
     }
     
     required init?(coder: NSCoder) {
@@ -137,23 +135,73 @@ class FullForecastHeader: UITableViewHeaderFooterView {
     }
     
     func configure(with forecast: Forecast) {
-        matchTitleLabel.text = forecast.text
-        seasonLabel.text = forecast.tournament
-        forecastDateLabel.text = forecast.cratedAt
-        configureTeamsView(with: forecast.text)
-        commentsView.setText("\(forecast.commentsQuanity)")
-        bookMarksView.setText("\(forecast.favAmmount)")
-        profileImageView.setImage(url: forecast.userAvatar)
-        usernameLabel.text = forecast.userName
-        infoStack.configure(forecast: forecast)
+        let vm = ForecastViewModel(forecast: forecast)
+        
+        matchTitleLabel.text = forecast.event.name
+        descLabel.text = forecast.text
+        seasonLabel.text = forecast.event.championship.name
+        forecastDateLabel.text = vm.creationDateText
+        teamsView.leftTeamLabel.text = forecast.event.team1.name
+        teamsView.rightTeamLabel.text = forecast.event.team2.name
+        commentsView.setText("\(forecast.comments)")
+        bookMarksView.setText("\(forecast.bookmarks)")
+        profileImageView.setImage(url: forecast.user.avatar)
+        usernameLabel.text = forecast.user.login
+        infoStack.populateStack(labels: rowsForInfoStack(forecast: forecast, viewModel: vm))
         ratingView.setNumber(forecast.rating)
     }
     
-    //TODO: delete after creation of viewModelItem for forecast
-    private func configureTeamsView(with title: String) {
-        let teams = title.components(separatedBy: " - ")
-        teamsView.leftTeamLabel.text = teams[0]
-        teamsView.rightTeamLabel.text = teams[1]
+    private func rowsForInfoStack(forecast: Forecast, viewModel: ForecastViewModel) -> [(UILabel, UILabel)] {
+        return [
+            plainRow(title: Text.tournament,
+                     value: forecast.event.championship.name),
+            plainRow(title: Text.dateTime,
+                     value: viewModel.startDateText),
+            boldRow(title: Text.forecastWord,
+                    value: forecast.bet.type),
+            plainRow(title: Text.coeficientWord,
+                     value: "\(forecast.bet.coefficient)"),
+            positivityRow(title: Text.bet,
+                          value: forecast.bet.value),
+            positivityRow(title: Text.possibleWin,
+                          value: forecast.bet.value * forecast.bet.pureProfit)
+        ]
+    }
+    
+    private func plainRow(title: String, value: String) -> (UILabel, UILabel) {
+        let titleLabel = label(text: title, weight: .regular)
+        let valueLabel = label(text: value, weight: .regular)
+        return (titleLabel, valueLabel)
+    }
+
+    private func boldRow(title: String, value: String) -> (UILabel, UILabel) {
+        let titleLabel = label(text: title, weight: .regular)
+        let valueLabel = label(text: value, weight: .bold)
+        return (titleLabel, valueLabel)
+    }
+
+    private func positivityRow(title: String, value: Double) -> (UILabel, UILabel) {
+        let titleLabel = label(text: title, weight: .regular)
+        let valueLabel = positivityLabel(value: value)
+        valueLabel.font = .robotoMedium(size: 14)
+        return (titleLabel, valueLabel)
+    }
+    
+    private func label(text: String, weight: UIFont.Weight) -> UILabel {
+        let label = UILabel()
+        label.textColor = .titleBlack
+        label.font = weight == .bold ? .robotoBold(size: 14) : .robotoRegular(size: 14)
+        label.text = text
+        return label
+    }
+    
+    private func positivityLabel(value: Double) -> UILabel {
+        let label = PositivityLabel()
+        label.showingSign = false
+        label.units = .rubles
+        label.rounding = .integer
+        label.setNumber(to: value)
+        return label
     }
     
     private func makeLayout() {
@@ -284,15 +332,3 @@ class FullForecastHeader: UITableViewHeaderFooterView {
         return userPanel
     }
 }
-
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-@available(iOS 13, *)
-struct FullForecastHeaderPreview: PreviewProvider {
-    static var previews: some View {
-        UIViewPreview {
-            FullForecastHeader()
-        }
-    }
-}
-#endif

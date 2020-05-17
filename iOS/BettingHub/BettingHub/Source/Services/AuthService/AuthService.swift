@@ -8,17 +8,46 @@
 
 import Foundation
 
-class AuthService: IAuthService {
+class AuthService {
     
-    let tokenService: ITokenService
-    let httpClient: IHttpClient
-    let reqBuilder: IRequestBuilder
+    @LazyInjected private var tokenService: ITokenService
+    @LazyInjected private var httpClient: IHttpClient
+    @LazyInjected private var reqBuilder: IRequestBuilder
     
-    init(tokenService: ITokenService, httpClient: IHttpClient, reqBuilder: IRequestBuilder) {
-        self.tokenService = tokenService
-        self.httpClient = httpClient
-        self.reqBuilder = reqBuilder
+    func registerRequest(username: String, email: String, password: String) -> (RequestContent, URLRequest) {
+        let endpoint = "api/register"
+        
+        let paramsDict: [String: String] = [
+            "username": username,
+            "email": email,
+            "password": password
+        ]
+        
+        let content = (endpoint, paramsDict)
+        let req = reqBuilder.jsonPostRequest(content: content)
+        
+        return (content, req)
     }
+    
+    func loginRequest(usernameOrEmail: String, password: String) -> (RequestContent, URLRequest) {
+        let endpoint = "oauth/token"
+        
+        let paramsDict: [String: String] = [
+            "grant_type": "password",
+            "client_id": "2",
+            "client_secret": "V79SdKGIlqFgbmlRGLNIm5r8wPevKerRePbqwzDT",
+            "username": usernameOrEmail,
+            "password": password
+        ]
+        
+        let content = (endpoint, paramsDict)
+        let req = reqBuilder.jsonPostRequest(content: content)
+        
+        return (content, req)
+    }
+}
+
+extension AuthService: IAuthService {
     
     var isAuthorized: BHError? {
         let authToken = tokenService.authToken()
@@ -32,20 +61,19 @@ class AuthService: IAuthService {
     }
     
     func register(username: String, email: String, password: String, callback: @escaping ((BHError?) -> Void)) {
-        let req = reqBuilder.registerRequest(username: username, email: email, password: password)
+        let req = registerRequest(username: username, email: email, password: password).1
         httpClient.authRequest(request: req) { (error) in
             callback(error)
         }
     }
     
     func logIn(usernameOrMail: String, password: String, callback: @escaping ((BHError?) -> Void)) {
-        let req = reqBuilder.loginRequest(usernameOrEmail: usernameOrMail,
-                                          password: password)
+        let req = loginRequest(usernameOrEmail: usernameOrMail, password: password).1
         httpClient.request(request: req) { (result) in
             switch result {
             case .success(let data):
                 guard let authToken = try? JSONDecoder().decode(AuthToken.self, from: data) else {
-                    callback(.unspecified)
+                    callback(.unexpectedContent)
                     return
                 }
                 

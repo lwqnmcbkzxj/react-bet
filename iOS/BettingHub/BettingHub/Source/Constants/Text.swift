@@ -110,5 +110,10 @@ class Text {
     static var settingsPushNotifications: String { "settingsPushNotifications".localized }
     static var settingsReplies: String { "settingsReplies".localized }
     static var exit: String { "exit".localized }
+    static var bookmakerFirm: String { "bookmakerFirm".localized }
+    static var site: String { "site".localized }
+    static var line: String { "line".localized }
+    static var reliability: String { "reliability".localized }
+    static var payingSystems: String { "payingSystems".localized }
 }
 

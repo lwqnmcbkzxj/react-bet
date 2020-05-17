@@ -73,9 +73,9 @@ class ProfileStatisticsCell: UITableViewCell {
     
     private func populateChart(_ item: Forecaster) {
         chartView.configure(with: [
-            .init(value: Double(item.wins), color: .positiveGreen),
-            .init(value: Double(item.draws), color: .drawBlue),
-            .init(value: Double(item.loses), color: .negativeRed)
+            .init(value: Double(item.stats.wins), color: .positiveGreen),
+            .init(value: Double(item.stats.back), color: .drawBlue),
+            .init(value: Double(item.stats.loss), color: .negativeRed)
         ])
     }
     

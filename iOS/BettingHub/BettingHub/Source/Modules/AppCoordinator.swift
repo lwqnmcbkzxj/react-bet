@@ -23,7 +23,7 @@ class AppCoordinator {
     func mainScreen() -> UIViewController {
         let vc = MainViewController()
         let router = MainScreenRouter(coordinator: self)
-        let interactor = MainScreenInteractor(forecastService: ServiceLocator.shared.forecastService)
+        let interactor = MainScreenInteractor()
         let dataProvider = MainScreenDataProvider(interactor: interactor)
         vc.dataProvider = dataProvider
         vc.router = router
@@ -33,7 +33,7 @@ class AppCoordinator {
     }
     
     func forecastsScreen() -> UIViewController {
-        let vm = ForecastsViewModel(forecastService: ServiceLocator.shared.forecastService)
+        let vm = ForecastsViewModel()
         let vc = ForecastsViewController(viewModel: vm)
         let router = ForecastsRouter(coordinator: self)
         vc.router = router
@@ -43,7 +43,7 @@ class AppCoordinator {
     }
     
     func loginVC() -> UIViewController {
-        let presenter = LoginPresenter(authService: ServiceLocator.shared.authService)
+        let presenter = LoginPresenter()
         let vc = LoginViewController()
         let router = LoginRouter(coordinator: self)
         vc.presenter = presenter
@@ -70,7 +70,11 @@ class AppCoordinator {
     func bookmakersScreen() -> UIViewController {
         let vc = BookmakersViewController()
         let vm = BookmakersViewModel()
+        let router = BookmakersRouter()
+        router.viewController = vc
+        router.coordinator = self
         vc.viewModel = vm
+        vc.router = router
         return vc
     }
     
@@ -101,12 +105,18 @@ class AppCoordinator {
     
     func settingsScreen() -> UIViewController {
         let vc = SettingsViewController()
-        let presenter = SettingsPresenter(authService: ServiceLocator.shared.authService)
+        let presenter = SettingsPresenter()
         let router = SettingsRouter()
         vc.presenter = presenter
         presenter.router = router
         router.viewController = vc
         router.coordinator = self
+        return vc
+    }
+    
+    func bookmakerScreen(_ bookmaker: Bookmaker) -> UIViewController {
+        let vc = BookmakerViewController()
+        vc.configure(with: bookmaker)
         return vc
     }
 }

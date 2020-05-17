@@ -21,6 +21,8 @@ protocol IMainScreenRouter: class {
     func showMatchesListScreen()
     
     func showForecasters()
+    
+    func showBookmaker(_ bookmaker: Bookmaker)
 }
 
 
@@ -60,6 +62,11 @@ class MainScreenRouter: IMainScreenRouter {
     
     func showForecaster(_ forecaster: Forecaster) {
         let vc = coordinator.guestProfile()
+        viewController.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func showBookmaker(_ bookmaker: Bookmaker) {
+        let vc = coordinator.bookmakerScreen(bookmaker)
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
 }

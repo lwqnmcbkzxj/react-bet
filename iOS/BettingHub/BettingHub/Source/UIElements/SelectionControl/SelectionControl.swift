@@ -8,25 +8,6 @@
 
 import UIKit
 
-class SportsControl: SelectionControl {
-    
-    var selectedSport: Sport? {
-        guard let index = selectedIndex else { return nil }
-        return sports[index]
-    }
-    
-    private let sports = Sport.getAll()
-    
-    init() {
-        let items = sports.map {$0.sportName.localized}
-        super.init(items: items)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
 class SelectionControl: UIControl {
     
     var selectedIndex: Int? {
@@ -45,7 +26,7 @@ class SelectionControl: UIControl {
         }
     }
     
-    private(set) var items: [String]
+    private(set) var items: [String] = []
     
     private let cellId = "selectionItemCell"
     
@@ -61,16 +42,8 @@ class SelectionControl: UIControl {
     }()
     
     init(items: [String]) {
-        self.items = items
         super.init(frame: .zero)
-        configure()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func configure() {
+        
         addSubview(collection)
         collection.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -79,6 +52,17 @@ class SelectionControl: UIControl {
         collection.register(SelectionControllItem.self, forCellWithReuseIdentifier: cellId)
         collection.dataSource = self
         collection.delegate = self
+        
+        configure(with: items)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(with items: [String]) {
+        self.items = items
+        collection.reloadData()
     }
 }
 
@@ -154,20 +138,3 @@ fileprivate class SelectionControllItem: UICollectionViewCell {
         }
     }
 }
-
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-@available(iOS 13, *)
-struct SelectionControlPreview: PreviewProvider {
-    
-    static var previews: some View {
-        VStack(spacing: 20) {
-            UIViewPreview {
-                let controll = SelectionControl(items: ["Hello", "SECOND TITLE", "there", "last title", "sadfasdf"])
-                controll.selectedIndex = 1
-                return controll
-            }
-        }
-    }
-}
-#endif

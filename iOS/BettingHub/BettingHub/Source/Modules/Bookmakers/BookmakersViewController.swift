@@ -10,6 +10,9 @@ import UIKit
 import SkeletonView
 
 class BookmakersViewController: UIViewController {
+    
+    var router: IBookmakersRouter!
+    
     // Views
     private lazy var tableView: UITableView = {
         let view = UITableView(frame: .zero, style: .grouped)
@@ -130,6 +133,7 @@ extension BookmakersViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let bookmaker = viewModel.item(for: indexPath.row)
+        router.showBookmaker(bookmaker)
     }
 }

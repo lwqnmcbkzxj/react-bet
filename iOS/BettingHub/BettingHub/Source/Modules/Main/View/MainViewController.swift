@@ -70,6 +70,9 @@ class MainViewController: UIViewController {
         case .lastForecasts:
             let forecast = dataProvider.dataForForecast(row: row)
             router.showFullForecastScreen(forecast)
+        case .topBookmakers:
+            let bookmaker = dataProvider.dataForBookmaker(row: row)
+            router.showBookmaker(bookmaker)
         default:
             break
         }
@@ -130,7 +133,7 @@ extension MainViewController: UITableViewDelegate {
         [
             .topBookmakers: 64,
             .topMatches: 53,
-            .lastForecasts: 422
+            .lastForecasts: UITableView.automaticDimension
         ]
         return heights[sec]!
     }

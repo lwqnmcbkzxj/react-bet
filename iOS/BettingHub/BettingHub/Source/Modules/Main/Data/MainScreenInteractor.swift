@@ -10,16 +10,14 @@ import Foundation
 
 protocol IMainScreenInteractor: class {
     
-    func getForecasts(callback: @escaping ([Forecast])->Void) 
+    func getForecasts(callback: @escaping ([Forecast])->Void)
+    func getForecasters(callback: @escaping ([Forecaster])->Void)
 }
 
 class MainScreenInteractor: IMainScreenInteractor {
     
-    private let forecastService: IForecastService
-    
-    init(forecastService: IForecastService) {
-        self.forecastService = forecastService
-    }
+    @LazyInjected private var forecastService: IForecastService
+    @LazyInjected private var forecasterService: IForecasterService
     
     func getForecasts(callback: @escaping ([Forecast])->Void) {
         forecastService.getForecasts(count: 5, page: 1,
@@ -32,6 +30,19 @@ class MainScreenInteractor: IMainScreenInteractor {
                 
             case .failure(let error):
                 print("error loading main forecasts: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func getForecasters(callback: @escaping ([Forecaster]) -> Void) {
+        forecasterService.topForecasters(count: 15)
+        { (result) in
+            switch result {
+            case .success(let forecasters):
+                callback(forecasters)
+                
+            case .failure(let err):
+                print("error loading main top forecasters: \(err.localizedDescription)")
             }
         }
     }

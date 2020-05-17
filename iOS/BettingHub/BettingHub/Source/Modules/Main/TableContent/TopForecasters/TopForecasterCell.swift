@@ -15,7 +15,6 @@ class TopForecasterCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 4
         imageView.clipsToBounds = true
-        imageView.makeBordered()
         return imageView
     }()
     
@@ -55,9 +54,10 @@ class TopForecasterCell: UICollectionViewCell {
     }
     
     func setupCell(forecaster: Forecaster) {
-        setupIncomeLabel(income: forecaster.income)
-        userLabel.text = forecaster.username
-        imageView.setImage(url: forecaster.profilePicture)
+        let income = round(forecaster.stats.roi * 100)
+        setupIncomeLabel(income: income)
+        userLabel.text = forecaster.login
+        imageView.setImage(url: forecaster.avatar)
     }
     
     private func setupIncomeLabel(income: Double) {

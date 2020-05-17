@@ -131,15 +131,3 @@ private class PickerTextField: UITextField {
                      height: height)
     }
 }
-
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-@available(iOS 13, *)
-struct TimePickerPreview: PreviewProvider {
-    static var previews: some View {
-        UIViewPreview {
-            TimePicker(items: ["1", "2"])
-        }.frame(maxWidth: 100, maxHeight: 40)
-    }
-}
-#endif

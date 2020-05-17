@@ -21,8 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        let appInitializer = AppInitializer(coordinator: appCoordinator,
-                                            authService: ServiceLocator.shared.authService)
+        let appInitializer = AppInitializer(coordinator: appCoordinator)
 
         appInitializer.start(with: window!)
         

@@ -141,15 +141,3 @@ class TeamsVersusView: UIView {
         return view
     }
 }
-
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-@available(iOS 13, *)
-struct TeamsVersusViewPreview: PreviewProvider {
-    static var previews: some View {
-        UIViewPreview {
-            TeamsVersusView()
-        }.frame(maxWidth: 345, maxHeight: 74)
-    }
-}
-#endif

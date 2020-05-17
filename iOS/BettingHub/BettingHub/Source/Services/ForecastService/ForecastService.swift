@@ -8,40 +8,47 @@
 
 import Foundation
 
-class ForecastService: IForecastService {
+class ForecastService {
     
-    private let authService: IAuthService
-    private let client: IHttpClient
-    private let reqBuilder: IRequestBuilder
+    @LazyInjected private var authService: IAuthService
+    @LazyInjected private var client: IHttpClient
+    @LazyInjected private var reqBuilder: IRequestBuilder
     
-    init(authService: IAuthService,
-         client: IHttpClient,
-         requestBuilder: IRequestBuilder) {
-        self.authService = authService
-        self.client = client
-        self.reqBuilder = requestBuilder
+    
+    func forecstsRequest(page: Int, quantity: Int,
+                         timeFrame: TimeFrame, sport: Sport) -> (RequestContent, URLRequest) {
+        let url = "api/forecasts"
+        
+        var params: [String: String] = [
+                "page": String(page),
+                "limit": String(quantity)
+        ]
+        
+        if timeFrame != .all { params["time"] = String(timeFrame.getLengthInHours()) }
+        if sport.id != Sport.all.id { params["sport_id"] = String(sport.id) }
+    
+        let content = (url, params)
+        let req = reqBuilder.getRequest(content: content)
+        
+        return (content, req)
     }
+}
+
+extension ForecastService: IForecastService {
     
     func getForecasts(count: Int, page: Int,
-                      sport: Sport, timeFrame: TimeFrame,
-                      subscribers: Bool,
-                      callback: ((Result<[Forecast], BHError>) -> Void)?) {
-        
-        let forecasts = (0..<count).map { _ in Forecast.stub() }
-        callback?(.success(forecasts))
-//        if subscribers,
-//            let authError = authService.isAuthorized {
-//
-//            callback?(.failure(authError))
-//            return
-//        }
-//
-//        let req = reqBuilder.forecastsList(page: page, quantity: count,
-//                                           timeFrame: timeFrame, sport: sport,
-//                                           subscribers: subscribers, favorites: false)
-//
-//        requestList(req: req, callback: callback)
-    }
+                          sport: Sport, timeFrame: TimeFrame,
+                          subscribers: Bool,
+                          callback: ((Result<[Forecast], BHError>) -> Void)?) {
+
+            let req = forecstsRequest(page: page,
+                                      quantity: count,
+                                      timeFrame: timeFrame,
+                                      sport: sport).1
+            
+
+            requestList(req: req, callback: callback)
+        }
     
     func getForecast(id: Int, callback: ((Result<Forecast, BHError>) -> Void)?) {
         fatalError("Not implemented in ForecastService")

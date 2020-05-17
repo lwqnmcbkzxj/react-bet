@@ -12,6 +12,7 @@ class NavigationController: UINavigationController {
     
     override init(rootViewController: UIViewController) {
         super.init(navigationBarClass: BettingNavigationBar.self, toolbarClass: nil)
+        navigationBar.tintColor = .clear
         pushViewController(rootViewController, animated: false)
     }
     
@@ -21,11 +22,6 @@ class NavigationController: UINavigationController {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        viewController.navigationItem.hidesBackButton = true
-        super.pushViewController(viewController, animated: animated)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {

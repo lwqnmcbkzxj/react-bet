@@ -87,8 +87,8 @@ class MainScreenDataProvider {
     
     func getData() {
         DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0) {
-            self.forecasters = (0..<15).map { (_) -> Forecaster in
-                .stub()
+            self.interactor.getForecasters { (forecasters) in
+                self.forecasters = forecasters
             }
             
             self.bookmakers = (0..<3).map({ (_) -> Bookmaker in
@@ -96,11 +96,7 @@ class MainScreenDataProvider {
             })
 
             self.matches = (0..<5).map { (_) -> Match in
-                Match(date: Date(),
-                      sport: .football,
-                      name: "Mousesports - Virtus.pro",
-                      season: "LPL Pro League Season 4",
-                      bets: 122)
+                Match.stub()
             }
             
             self.interactor.getForecasts { [weak self] (forecasts) in

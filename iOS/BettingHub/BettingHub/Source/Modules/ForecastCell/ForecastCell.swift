@@ -135,7 +135,6 @@ class ForecastCell: UITableViewCell {
         view.layer.cornerRadius = 2
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
-        view.makeBordered()
         return view
     }()
     
@@ -210,21 +209,23 @@ class ForecastCell: UITableViewCell {
     }
     
     func configure(with forecast: Forecast) {
+        let vm = ForecastViewModel(forecast: forecast)
+        
         self.forecast = forecast
-        sportLabel.text = forecast.sportName
-        seasonLabel.text = forecast.tournament
-        matchLabel.text = forecast.text
-        descLabel.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Bibendum est ultricies integer quis. Iaculis urna id volutpat lacus laoreet. Mauris vitae ultricies leo integer malesuada. Ac odio"
-        forecastLabel.text = "ФОРА1 (-1.5)"
-        coeficientLabel.text = String(forecast.coefficient)
-        betAmountLabel.text = String(forecast.betValue)
-        matchStartLabel.text = forecast.time
-        usernameLabel.text = forecast.userName
-        userImageView.setImage(url: forecast.userAvatar)
-        lastForecastsView.populate(with: [true, false, true, true, false])
-        incomeLabel.setNumber(to: 50.4)
-        commentsView.setNumber(forecast.commentsQuanity)
-        bookmarksView.setNumber(forecast.favAmmount)
+        sportLabel.text = forecast.event.championship.sport.name
+        seasonLabel.text = forecast.event.championship.name
+        matchLabel.text = forecast.event.name
+        descLabel.text = forecast.text
+        forecastLabel.text = forecast.bet.type
+        coeficientLabel.text = String(forecast.bet.coefficient)
+        betAmountLabel.text = String(forecast.bet.value)
+        matchStartLabel.text = vm.startDateText
+        usernameLabel.text = forecast.user.login
+        userImageView.setImage(url: forecast.user.avatar)
+        lastForecastsView.populate(with: forecast.user.lastForecasts)
+        incomeLabel.setNumber(to: forecast.bet.value * forecast.bet.pureProfit)
+        commentsView.setNumber(forecast.comments)
+        bookmarksView.setNumber(forecast.bookmarks)
         stepperView.setNumber(forecast.rating)
     }
     
@@ -233,7 +234,8 @@ class ForecastCell: UITableViewCell {
         contentView.addSubview(panelView)
         panelView.snp.makeConstraints { (make) in
             make.leading.trailing.top.equalToSuperview()
-            make.height.equalTo(402)
+//            make.height.equalTo(402)
+            make.bottom.equalToSuperview().offset(-20)
         }
         
         contentView.addSubview(cornerIcon)
@@ -296,6 +298,7 @@ class ForecastCell: UITableViewCell {
         }
         
         contentView.addSubview(coeficientLabel)
+        coeficientLabel.snp.contentCompressionResistanceHorizontalPriority = 1000
         coeficientLabel.snp.makeConstraints { (make) in
             make.top.bottom.equalTo(forecastLabel)
             make.leading.equalTo(coeficientTitleLabel.snp.trailing).offset(3)
@@ -336,7 +339,7 @@ class ForecastCell: UITableViewCell {
             make.leading.equalTo(panelView).offset(9)
             make.trailing.equalTo(panelView).offset(-9)
             make.top.equalTo(matchStartTitleLabel.snp.bottom).offset(20)
-            make.height.equalTo(132)
+//            make.height.equalTo(132)
         }
         
         let userLine = buildUserLine()
@@ -360,6 +363,7 @@ class ForecastCell: UITableViewCell {
             make.top.equalTo(bottomSeparator).offset(11)
             make.leading.equalTo(panelView).offset(11)
             make.height.equalTo(16)
+            make.bottom.equalTo(panelView).offset(-11)
         }
         
         contentView.addSubview(bookmarksView)

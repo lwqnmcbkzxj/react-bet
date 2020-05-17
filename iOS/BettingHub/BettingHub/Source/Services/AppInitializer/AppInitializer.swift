@@ -10,15 +10,19 @@ import UIKit
 
 class AppInitializer {
     
-    private let authService: IAuthService
-    private let coordinator: AppCoordinator
+    @LazyInjected private var authService: IAuthService
+    @LazyInjected private var sportsService: ISportService
     
-    init(coordinator: AppCoordinator, authService: IAuthService) {
-        self.authService = authService
+    private let coordinator: AppCoordinator
+
+    init(coordinator: AppCoordinator) {
         self.coordinator = coordinator
     }
     
     func start(with window: UIWindow) {
+        
+        initialConfiguration()
+        
         let vc = coordinator.mainTabBarScreen
         window.rootViewController = vc
         window.makeKeyAndVisible()
@@ -28,5 +32,10 @@ class AppInitializer {
         } else {
             coordinator.mainTabBar.setState(isAuthorized: true)
         }
+        
+    }
+    
+    private func initialConfiguration() {
+        sportsService.updateKnownSports {}
     }
 }

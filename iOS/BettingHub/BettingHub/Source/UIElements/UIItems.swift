@@ -57,18 +57,3 @@ class UIItems {
         return view 
     }
 }
-
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-@available(iOS 13, *)
-struct UIItemsPreview: PreviewProvider {
-    static var previews: some View {
-        VStack(spacing: 10) {
-            UIViewPreview { UIItems.authTextButton }
-            UIViewPreview { UIItems.forecastTitleLabel }
-            UIViewPreview { UIItems.forecastValueLabel }
-            UIViewPreview { UIItems.grayPanel }.frame(maxWidth: 200, maxHeight: 33)
-        }
-    }
-}
-#endif

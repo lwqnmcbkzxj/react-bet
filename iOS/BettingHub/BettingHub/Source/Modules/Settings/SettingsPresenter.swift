@@ -15,11 +15,7 @@ class SettingsPresenter: ISettingsPresenter {
     
     var router: ISettingsRouter!
     
-    private let authService: IAuthService
-    
-    init(authService: IAuthService) {
-        self.authService = authService
-    }
+    @LazyInjected private var authService: IAuthService
     
     func logOut() {
         authService.logOut()

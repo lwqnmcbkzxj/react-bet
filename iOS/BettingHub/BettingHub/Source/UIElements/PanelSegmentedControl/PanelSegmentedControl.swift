@@ -111,15 +111,3 @@ private extension PanelSegmenterControl {
         }
     }
 }
-
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-@available(iOS 13, *)
-struct PanelSegmenterControlPreview: PreviewProvider {
-    static var previews: some View {
-        UIViewPreview {
-            PanelSegmenterControl(items: ["Title1", "Second title", "Title3"])
-        }.frame(maxWidth: 300, maxHeight: 33)
-    }
-}
-#endif

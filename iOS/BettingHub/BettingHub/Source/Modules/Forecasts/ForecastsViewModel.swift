@@ -12,10 +12,6 @@ class ForecastsViewModel {
     
     let pageSize: Int = 10
     
-    init(forecastService: IForecastService) {
-        self.forecastService = forecastService
-    }
-    
     //Options
     var currentPage: Int = 0 {
         didSet {
@@ -62,7 +58,7 @@ class ForecastsViewModel {
     
     //Private
     
-    private let forecastService: IForecastService
+    @LazyInjected private var forecastService: IForecastService
     
     private var isLoading: Bool = false {
         didSet {

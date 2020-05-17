@@ -20,13 +20,9 @@ class LoginPresenter: ILoginPresenter {
     weak var vc: ILoginViewController!
     var router: ILoginRouter!
     
-    let authService: IAuthService
+    @LazyInjected private var authService: IAuthService
     
     private var isLoading: Bool = false
-    
-    init(authService: IAuthService) {
-        self.authService = authService
-    }
     
     func register(username: String, email: String, password: String, confirmPassword: String) {
         if isLoading { return }

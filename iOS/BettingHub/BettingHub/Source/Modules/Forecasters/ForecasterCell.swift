@@ -72,10 +72,14 @@ class ForecasterCell: UITableViewCell {
     }
     
     func configure(with forecaster: Forecaster) {
-        userImageView.setImage(url: forecaster.profilePicture)
-        userLabel.text = forecaster.username
-        statsLabel.set(wins: forecaster.wins, loses: forecaster.loses, draws: forecaster.draws)
-        incomeLabel.setNumber(to: forecaster.income)
+        userImageView.setImage(url: forecaster.avatar)
+        userLabel.text = forecaster.login
+        statsLabel.set(wins: forecaster.stats.wins,
+                       loses: forecaster.stats.loss,
+                       draws: forecaster.stats.back)
+        
+        let income = round(forecaster.stats.roi * 100)
+        incomeLabel.setNumber(to: income)
     }
     
     private func makeLayout() {

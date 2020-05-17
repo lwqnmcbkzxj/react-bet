@@ -8,13 +8,17 @@
 
 import Foundation
 
+
+let baseURL = URL(string: "http://betting-hub.sixhands.co")!
+
+typealias RequestContent = (endpoint: String, params: [String: String])
+
+
 protocol IRequestBuilder: class {
     
-    func registerRequest(username: String, email: String, password: String) -> URLRequest
+    var baseURL: URL { get }
     
-    func loginRequest(usernameOrEmail: String, password: String) -> URLRequest
+    func getRequest(content: RequestContent) -> URLRequest
     
-    func forecastsList(page: Int, quantity: Int,
-                       timeFrame: TimeFrame, sport: Sport,
-                       subscribers: Bool, favorites: Bool) -> URLRequest
+    func jsonPostRequest(content: RequestContent) -> URLRequest
 }

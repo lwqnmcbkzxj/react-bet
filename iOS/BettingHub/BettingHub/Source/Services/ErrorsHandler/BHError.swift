@@ -15,6 +15,7 @@ enum BHError: Int, Error {
     case userUnauthorized
     case tokenExpired
     case unexpectedContent
+    
 }
 
 extension Error {
