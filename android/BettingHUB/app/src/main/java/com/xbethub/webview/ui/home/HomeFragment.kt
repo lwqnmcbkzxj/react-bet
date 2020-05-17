@@ -15,7 +15,9 @@ import com.xbethub.webview.R
 import com.xbethub.webview.Utils
 import com.xbethub.webview.databinding.FragmentHomeNewBinding
 import com.xbethub.webview.enums.Status
+import com.xbethub.webview.models.Bookmaker
 import com.xbethub.webview.models.Forecast
+import com.xbethub.webview.models.Match
 import com.xbethub.webview.models.User
 import com.xbethub.webview.ui.forecasts.items.ForecastListener
 import com.xbethub.webview.ui.forecasts.items.items.ForecastItem
@@ -188,7 +190,7 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
 
         for (i in 0..2) {
             items.add(
-                BookmakerItem(i == 2)
+                BookmakerItem(Bookmaker(), i == 2)
             )
         }
 
@@ -207,7 +209,7 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
 
         for (i in 0..4) {
             items.add(
-                MatchItem(i == 4)
+                MatchItem(Match(), i == 4)
             )
         }
 
@@ -251,7 +253,7 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
     }
 
     private fun onSeeAllBookmakersBtnClick() {
-        navController.navigate(HomeFragmentDirections.toBookmakerFragment())
+        navController.navigate(HomeFragmentDirections.toBookmakerRatingFragment())
     }
 
     // ForecastListener
@@ -262,5 +264,14 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
     // ForecasterListener
     override fun onForecasterClick(user: User, position: Int) {
         navController.navigate(HomeFragmentDirections.toProfileFragment(user))
+    }
+
+    // BookmakerItemListener
+    override fun onBookmakerClick(bookmaker: Bookmaker, position: Int) {
+        navController.navigate(HomeFragmentDirections.toBookmakerFragment(bookmaker))
+    }
+
+    override fun onMatchClick(match: Match, position: Int) {
+        navController.navigate(HomeFragmentDirections.toMatchFragment(match))
     }
 }

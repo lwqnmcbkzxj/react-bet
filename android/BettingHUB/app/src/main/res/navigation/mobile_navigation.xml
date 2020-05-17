@@ -27,8 +27,18 @@
             android:id="@+id/toProfileFragment"
             app:destination="@id/profileFragment" />
         <action
+            android:id="@+id/to_bookmakerRatingFragment"
+            app:destination="@id/bookmakerRatingFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
             android:id="@+id/to_bookmakerFragment"
             app:destination="@id/bookmakerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/to_matchFragment"
+            app:destination="@id/matchFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
@@ -146,7 +156,22 @@
             app:destination="@id/profileFragment" />
     </fragment>
     <fragment
-        android:id="@+id/bookmakerFragment"
+        android:id="@+id/bookmakerRatingFragment"
         android:name="com.xbethub.webview.ui.bookmakerRating.BookmakerRatingFragment"
         android:label="BookmakerFragment" />
+    <fragment
+        android:id="@+id/bookmakerFragment"
+        android:name="com.xbethub.webview.ui.bookmaker.BookmakerFragment"
+        android:label="BookmakerFragment" >
+        <argument
+            android:name="bookmaker"
+            app:argType="com.xbethub.webview.models.Bookmaker" />
+    </fragment>
+    <fragment
+        android:id="@+id/matchFragment"
+        android:name="com.xbethub.webview.ui.match.MatchFragment"
+        android:label="MatchFragment" >
+        <argument android:name="match"
+            app:argType="com.xbethub.webview.models.Match" />
+    </fragment>
 </navigation>

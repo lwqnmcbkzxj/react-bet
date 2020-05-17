@@ -15,7 +15,7 @@
                 <include
                     android:id="@+id/topPanel"
                     layout="@layout/element_top_panel"
-                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:layout_scrollFlags="scroll|enterAlways|snap"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 

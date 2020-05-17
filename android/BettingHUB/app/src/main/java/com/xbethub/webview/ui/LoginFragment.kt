@@ -1,12 +1,17 @@
 package com.xbethub.webview.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.xbethub.webview.App
@@ -40,6 +45,31 @@ class LoginFragment : Fragment() {
         navController = activity?.let { Navigation.findNavController(it, R.id.nav_host_fragment) }!!
 
         return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        requireActivity().window.let {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                it.statusBarColor = Color.WHITE
+                it.decorView.systemUiVisibility = it.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            }
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        requireActivity().window.let {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                it.statusBarColor = ContextCompat.getColor(it.context, R.color.main_blue)
+                it.decorView.systemUiVisibility = it.decorView.systemUiVisibility xor View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            }
+        }
     }
 
     fun onGoogleBtnClick() {

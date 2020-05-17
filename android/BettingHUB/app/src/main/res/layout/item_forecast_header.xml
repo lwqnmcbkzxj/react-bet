@@ -516,7 +516,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         app:srcCompat="@drawable/ic_arrow_down"
-                        android:background="@android:color/transparent"
+                        android:background="?attr/selectableItemBackground"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
                         />
@@ -535,7 +535,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         app:srcCompat="@drawable/ic_arrow_up"
-                        android:background="@android:color/transparent"
+                        android:background="?attr/selectableItemBackground"
                         android:paddingStart="8dp"
                         android:paddingEnd="@dimen/forecastSideMargin"
                         />

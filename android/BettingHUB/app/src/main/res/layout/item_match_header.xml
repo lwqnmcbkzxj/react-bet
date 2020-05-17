@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:paddingStart="@dimen/sideMargin"
+        android:paddingEnd="@dimen/sideMargin"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_marginTop="25dp"
+            android:padding="10dp"
+            android:background="@drawable/bg_cornered_frame_7dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:gravity="center_horizontal"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/team_1_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_football" />
+
+                <TextView
+                    android:id="@+id/team_1_name"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="13sp"
+                    android:textColor="@color/textColor1"
+                    android:layout_marginTop="12dp"
+                    android:text="Mousesports"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/time"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="21sp"
+                    android:textColor="@color/textColor1"
+                    android:text="19:00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/date"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="12sp"
+                    android:textColor="@color/textColor1"
+                    android:text="26.07.2020"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/league"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:textColor="@color/textColor1"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="12sp"
+                    android:text="LPL Pro League Season 4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="19sp"
+                    android:textColor="@color/textColor1"
+                    android:text="1ч : 35м : 34с"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center_horizontal"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/team_2_image"
+                    app:srcCompat="@drawable/ic_football"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/team_2_name"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="13sp"
+                    android:textColor="@color/textColor1"
+                    android:layout_marginTop="12dp"
+                    android:text="Mousesports"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/TittleStyle"
+            android:id="@+id/title"
+            android:gravity="center_horizontal"
+            android:text="@string/top_bets_label"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
+            android:layout_width="match_parent"
+            android:layout_height="140dp" />
+
+    </LinearLayout>
+</layout>

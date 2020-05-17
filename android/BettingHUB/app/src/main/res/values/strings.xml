@@ -46,6 +46,7 @@
     <string name="rating_label">Рейтинг</string>
     <string name="bonus_label">Бонус</string>
     <string name="top_matches_label">Топ матчи</string>
+    <string name="top_bets_label">Топ матчи</string>
     <string name="date">Дата</string>
     <string name="match">Матч</string>
     <string name="bets">Ставки</string>
@@ -166,7 +167,12 @@
     <string name="byGoogle">Войти через Google</string>
     <string name="wrongLoginOrPassword">Неверный пароль или логин!</string>
     <string name="fillAllFields">Заполните все поля</string>
-
+    <string name="factor">Коэффициент</string>
+    <string name="site">Сайт</string>
+    <string name="line">Линия</string>
+    <string name="reliability">Надежность</string>
+    <string name="pay_methods">Платежные системы</string>
+    <string name="bonus">Бонус</string>
 
 
 </resources>

@@ -16,10 +16,10 @@ import com.xbethub.webview.Utils
 import com.xbethub.webview.databinding.FragmentForecastBinding
 import com.xbethub.webview.models.Forecast
 import com.xbethub.webview.ui.forecast.items.ItemAdapter
+import com.xbethub.webview.ui.forecast.items.ItemDecoration
 import com.xbethub.webview.ui.forecast.items.items.FooterItem
 import com.xbethub.webview.ui.forecast.items.items.HeaderItem
 import com.xbethub.webview.ui.forecast.items.items.Item
-import com.xbethub.webview.ui.forecast.items.ItemDecoration
 import com.xbethub.webview.ui.forecast.items.items.NewCommentItem
 
 class ForecastFragment: Fragment() {
@@ -115,8 +115,6 @@ class ForecastFragment: Fragment() {
                     it.removeItem(position + comments.size)
                 }
             }
-
-
         }
     }
 }

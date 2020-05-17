@@ -13,7 +13,7 @@ class MatchItemAdapter(listener: MatchItemListener)
     : RecyclerViewAdapterBase<MatchItemListener, MatchTableItemBase, RecyclerView.ViewHolder>(listener) {
 
     override fun setListener(holder: RecyclerView.ViewHolder, listener: MatchItemListener) {
-
+        if (holder is MatchItemViewHolder) holder.setListener(listener)
     }
 
     override fun setModel(holder: RecyclerView.ViewHolder, model: MatchTableItemBase) {
