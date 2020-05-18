@@ -384,7 +384,7 @@ class ForecastController extends Controller
                     'user_id' => $user->id,
                     'event_id' => $event->id,
                     'coefficient_id' => $coefficient_object->id,
-                    'forecast' => $post_content,
+                    'forecast_text' => $post_content,
                     'bet' => $bet,
                 ]);
 
