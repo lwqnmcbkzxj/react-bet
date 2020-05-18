@@ -14,6 +14,7 @@ extension ColumnsView {
         case bookmakers
         case matches
         case forecasters
+        case lastBets
     }
     
     struct Column {
@@ -48,9 +49,9 @@ class ColumnsView: UIView {
         switch mode {
         case .bookmakers:
             let columns = [
-                Column.init(title: Text.firm, occupation: 0.3125, alignment: .left),
-                Column.init(title: Text.rating, occupation: 0.2),
-                Column.init(title: Text.bonus, occupation: 0.2),
+                Column(title: Text.firm, occupation: 0.3125, alignment: .left),
+                Column(title: Text.rating, occupation: 0.2),
+                Column(title: Text.bonus, occupation: 0.2),
                 Column.spacer
             ]
             setColumns(columns)
@@ -60,18 +61,26 @@ class ColumnsView: UIView {
             let matchW = 0.47
             let betsW = 1 - dateW - matchW
             let columns = [
-                Column.init(title: Text.date, occupation: dateW, alignment: .center),
-                Column.init(title: Text.match, occupation: matchW, alignment: .center),
-                Column.init(title: Text.bets, occupation: betsW, alignment: .right)
+                Column(title: Text.date, occupation: dateW, alignment: .center),
+                Column(title: Text.match, occupation: matchW, alignment: .center),
+                Column(title: Text.bets, occupation: betsW, alignment: .right)
             ]
             setColumns(columns)
             
         case .forecasters:
             let columns = [
-                Column.init(title: "№", occupation: 0.15, alignment: .center),
-                Column.init(title: Text.name, occupation: 0.40, alignment: .left),
-                Column.init(title: "W/L/D", occupation: 0.23, alignment: .center),
-                Column.init(title: Text.incomeWord, occupation: 0.22, alignment: .right)
+                Column(title: "№", occupation: 0.15, alignment: .center),
+                Column(title: Text.name, occupation: 0.40, alignment: .left),
+                Column(title: "W/L/D", occupation: 0.23, alignment: .center),
+                Column(title: Text.incomeWord, occupation: 0.22, alignment: .right)
+            ]
+            setColumns(columns)
+            
+        case.lastBets:
+            let columns = [
+                Column(title: Text.forecaster, occupation: 0.46, alignment: .left),
+                Column(title: Text.bet, occupation: 0.24),
+                Column(title: Text.passability, occupation: 0.3)
             ]
             setColumns(columns)
         }

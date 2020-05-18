@@ -29,6 +29,8 @@ class PositivityLabel: UILabel {
     
     var rounding: Rounding = .decimal(1)
     
+    var dividingValue: Double = 0
+    
     init() {
         super.init(frame: .zero)
         setNumber(to: 0)
@@ -39,9 +41,9 @@ class PositivityLabel: UILabel {
     }
     
     func setNumber(to number: Double) {
-        if number == 0 {
+        if number == dividingValue {
             textColor = .titleBlack
-        } else if number > 0 {
+        } else if number > dividingValue {
             textColor = .positiveGreen
         } else {
             textColor = .negativeRed

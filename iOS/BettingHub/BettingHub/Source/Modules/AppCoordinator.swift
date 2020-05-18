@@ -119,4 +119,10 @@ class AppCoordinator {
         vc.configure(with: bookmaker)
         return vc
     }
+    
+    func matchScreen(_ match: Match) -> UIViewController {
+        let vc = MatchViewController()
+        vc.configure(with: match)
+        return vc
+    }
 }

@@ -115,5 +115,8 @@ class Text {
     static var line: String { "line".localized }
     static var reliability: String { "reliability".localized }
     static var payingSystems: String { "payingSystems".localized }
+    static var topBets: String { "topBets".localized }
+    static var forecaster: String { "forecaster".localized }
+    static var passability: String { "passability".localized }
 }
 

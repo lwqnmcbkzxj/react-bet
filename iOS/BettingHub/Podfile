@@ -12,5 +12,6 @@ target 'BettingHub' do
   pod 'IQKeyboardManagerSwift'
   pod 'Alamofire'
   pod "SkeletonView"
+  pod 'Charts'
 
 end

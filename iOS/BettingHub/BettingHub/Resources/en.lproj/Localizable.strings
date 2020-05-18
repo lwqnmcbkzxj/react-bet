@@ -149,3 +149,7 @@
 "line" = "Линия";
 "reliability" = "Надежность";
 "payingSystems" = "Платежные системы";
+
+"topBets" = "ТОП СТАВКИ";
+"forecaster" = "Прогнозист";
+"passability" = "Проходимость";

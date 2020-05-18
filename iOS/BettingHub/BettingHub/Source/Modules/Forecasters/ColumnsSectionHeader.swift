@@ -10,9 +10,16 @@ import UIKit
 
 class ColumnsSectionHeader: UITableViewHeaderFooterView {
     
-    private let columnsView: ColumnsView = {
+    let columnsView: ColumnsView = {
         let view = ColumnsView()
         view.setMode(.forecasters)
+        view.backgroundColor = .clear
+        return view
+    }()
+    
+    private let backView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
         view.layer.cornerRadius = 7
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.lineGray.cgColor
@@ -30,10 +37,16 @@ class ColumnsSectionHeader: UITableViewHeaderFooterView {
     }
     
     private func makeLayout() {
+        addSubview(backView)
+        backView.snp.makeConstraints { (make) in
+            make.leading.top.trailing.equalToSuperview()
+            make.bottom.equalToSuperview().offset(7)
+        }
+        
         addSubview(columnsView)
         columnsView.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().offset(4) //to hide botton round corners
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-2)
         }
     }
 }
