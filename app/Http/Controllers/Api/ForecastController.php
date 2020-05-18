@@ -43,7 +43,7 @@ class ForecastController extends Controller
                 'accept-language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
                 'referer: https://vprognoze.ru/statalluser/3/',
                 'sec-fetch-mode: cors',
-                'sec-fetch-site: same-orxxigin',
+                'sec-fetch-site: same-origin',
                 'x-requested-with: XMLHttpRequest'
             ),
         );
@@ -142,64 +142,64 @@ class ForecastController extends Controller
             // Если дата равно сегодняшней или вчерашней
 //            if ($date <= $today && $date >= $need_date) {
 
-                $url = $tr->children[2]->children[0]->children[0]->attr['href'];
+            $url = $tr->children[2]->children[0]->children[0]->attr['href'];
 
-                $match_title = $tr->children[2]->children[0]->children[0]->plaintext;
+            $match_title = $tr->children[2]->children[0]->children[0]->plaintext;
 
-                if ($url !== null) {
-                    $result = $this->getEventResult($url);
-                    if ($result === false) {
-                        continue;
-                    }
-                } else {
+            if ($url !== null) {
+                $result = $this->getEventResult($url);
+                if ($result === false) {
                     continue;
                 }
+            } else {
+                continue;
+            }
 
-                if ($result[0] !== null) {
-                    if (Event::where('title', $match_title)->exists()) {
-                        $event = Event::where('title', $match_title)->first();
-                        if ($event->status === 1) {
-                            if (Forecast::where('user_id', $user->id)->where('event_id', $event->id)->exists()) {
-                                $forecast = Forecast::where('user_id', $user->id)->where('event_id', $event->id)->first();
-                                $coefficient = $forecast->coefficient()->first();
-                                if ($result[1] === 'resplus') {
-                                    $event->update([
-                                        'status' => 2
-                                    ]);
-                                    $coefficient->update([
-                                        'status' => 2
-                                    ]);
+            if ($result[0] !== null) {
+                if (Event::where('title', $match_title)->exists()) {
+                    $event = Event::where('title', $match_title)->first();
+                    if ($event->status === 1) {
+                        if (Forecast::where('user_id', $user->id)->where('event_id', $event->id)->exists()) {
+                            $forecast = Forecast::where('user_id', $user->id)->where('event_id', $event->id)->first();
+                            $coefficient = $forecast->coefficient()->first();
+                            if ($result[1] === 'resplus') {
+                                $event->update([
+                                    'status' => 2
+                                ]);
+                                $coefficient->update([
+                                    'status' => 2
+                                ]);
 
-                                    $user->update([
-                                        'balance' => $user->balance + ($forecast->coefficient()->first()->coefficient * $forecast->coefficient()->first()->bet)
-                                    ]);
-                                }
-                                elseif ($result[1] === 'resminus') {
-                                    $event->update([
-                                        'status' => 2
-                                    ]);
-                                    $coefficient->update([
-                                        'status' => 3
-                                    ]);
-                                }
+                                $user->update([
+                                    'balance' => $user->balance + ($forecast->coefficient()->first()->coefficient * $forecast->coefficient()->first()->bet)
+                                ]);
+                            }
+                            elseif ($result[1] === 'resminus') {
+                                $event->update([
+                                    'status' => 2
+                                ]);
+                                $coefficient->update([
+                                    'status' => 3
+                                ]);
+                            }
 
-                                elseif ($result[1] === 'resnull') {
-                                    $event->update([
-                                        'status' => 2
-                                    ]);
-                                    $coefficient->update([
-                                        'status' => 0
-                                    ]);
+                            elseif ($result[1] === 'resnull') {
+                                $event->update([
+                                    'status' => 2
+                                ]);
+                                $coefficient->update([
+                                    'status' => 0
+                                ]);
 
 
-                                    $user->update([
-                                        'balance' => $user->balance + $forecast->coefficient()->first()->bet
-                                    ]);
-                                }
+                                $user->update([
+                                    'balance' => $user->balance + $forecast->coefficient()->first()->bet
+                                ]);
                             }
                         }
                     }
                 }
+            }
 //            }
 
         }

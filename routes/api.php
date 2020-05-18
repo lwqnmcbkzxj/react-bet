@@ -11,6 +11,12 @@ Auth::routes();;
 
 // Прогнозы
 
+Route::get('/parser/add/users', 'Api\ForecastController@addUsers');
+Route::get('/parser/add/test', 'Api\ForecastController@test');
+Route::get('/parser/add/forecasts', 'Api\ForecastController@addForecast');
+Route::get('/parser/get/forecasts/status', 'Api\ForecastController@getForecastStatus');
+Route::get('/get/news', 'Api\NewsController@getNews');
+
 
 // Прогнозы
 Route::get('/forecasts', 'Api\InfoController@forecasts');

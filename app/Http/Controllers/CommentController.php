@@ -18,6 +18,10 @@ class CommentController extends Controller
         $comment->user_id = $user->id;
         $comment->reference_to = $request->reference_to;
         $comment->referent_id = $request->referent_id;
+        if($request->has('replies_to'))
+        {
+            $comment->replies_to = $request->replies_to;
+        }
         $comment->save();
         return $this->sendResponse($comment, 'Success', 200);
     }
