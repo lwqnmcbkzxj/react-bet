@@ -11,11 +11,12 @@ use Illuminate\Support\Facades\Log;
 
 class RegisterController extends Controller
 {
-    public function register (StoreUserRequest $request) {
+    public function register ($request) {
         $user  = new User;
         $user->login = $request->username;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
+        return $this->sendResponse($user, "success",200);
     }
 }
