@@ -9,9 +9,13 @@ class Event extends Model
     const EVENT_STATUS_CANCELED = 0;
     const EVENT_STATUS_WAIT = 1;
     const EVENT_STATUS_FINISHED = 2;
-
+    protected $appends = ['forecasts_count'];
     protected $guarded = ['id'];
 
+    public function getForecastsCountAttribute()
+    {
+        return $this->forecasts()->count();
+    }
     public function coefficients()
     {
         return $this->hasMany('App\Coefficient');

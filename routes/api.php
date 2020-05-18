@@ -12,7 +12,6 @@ Auth::routes();;
 // Прогнозы
 
 Route::get('/parser/add/users', 'Api\ForecastController@addUsers');
-Route::get('/parser/add/test', 'Api\ForecastController@test');
 Route::get('/parser/add/forecasts', 'Api\ForecastController@addForecast');
 Route::get('/parser/get/forecasts/status', 'Api\ForecastController@getForecastStatus');
 Route::get('/get/news', 'Api\NewsController@getNews');
@@ -29,7 +28,7 @@ Route::get('/news/{news}', 'Api\InfoController@news');
 Route::get('/sports', function () { return \App\Sport::all(); } );
 Route::get('/options',  function () { return \App\Option::all(); });
 Route::get('/roles', function () { return \App\Role::all(); });
-Route::get('/events',  function () { return \App\Event::all(); });
+Route::get('/events',  'EventController@get');
 Route::get('/posts', 'Api\InfoController@posts');
 Route::get('/posts/{post}', 'Api\InfoController@post');
 Route::get('/posts/{post}/comments', function (Request $Request, \App\Comment $comment){

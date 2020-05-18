@@ -9,9 +9,11 @@ use App\Forecast;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use KubAT\PhpSimple\HtmlDomParser;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpKernel\Log\Logger;
 
 class ForecastController extends Controller
 {
@@ -54,14 +56,16 @@ class ForecastController extends Controller
         curl_close( $ch );
 
         $html = HtmlDomParser::str_get_html($content);
-
+        if(!$html)
+        {
+            return;
+        }
         // get uid of all users and start to parsing them
         foreach ($html->find('tr') as $tr) {
             if ($tr->children[7]->children[0]->plaintext > 60 && $tr->children[4]->children[0]->plaintext > 15 && $tr->children[8]->children[0]->plaintext > 4 ) {
                 $link_with_id = $tr->children[5]->children[0]->attr['href'];
                 $link_parametrs_array = explode('&', $link_with_id);
                 $uid = substr($link_parametrs_array[3], 4);
-
 
                 if (!User::where('uid', $uid)->exists()) {
                     $this->createNewUser($uid);
@@ -127,7 +131,10 @@ class ForecastController extends Controller
         curl_close( $ch );
 
         $html = HtmlDomParser::str_get_html($content);
-
+        if(!$html)
+        {
+            return;
+        }
         // Get match title and sport type
         foreach ($html->find('.news_boxing > .user_info > table > tbody > tr') as $tr) {
             if (!isset($tr->children[1])) {
@@ -238,14 +245,12 @@ class ForecastController extends Controller
         curl_setopt_array( $ch, $options );
         $content = curl_exec( $ch );
         curl_close( $ch );
-
         $html = HtmlDomParser::str_get_html($content);
         if (!isset($html->find('.predict_data', 0)->children[1]->children[0])){
             return false;
         }
         $result[] = $html->find('.predict_data', 0)->children[1]->children[0]->plaintext;
         $result[] = $html->find('.predict_data', 0)->children[1]->children[0]->attr['class'];
-
         return $result;
     }
 
@@ -440,7 +445,8 @@ class ForecastController extends Controller
         $header['content'] = $content;
 
         $html = HtmlDomParser::str_get_html($content);
-
+        if(!$html)
+            return;
         if (!isset($html->find('.predict_data', 0)->children[0])) {
             return false;
         }
