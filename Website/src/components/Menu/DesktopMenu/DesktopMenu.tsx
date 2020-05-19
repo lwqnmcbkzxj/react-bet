@@ -2,14 +2,17 @@ import React, { FC } from 'react';
 import s from './DesktopMenu.module.scss';
 import { NavLink } from 'react-router-dom';
 import { FilterNames } from '../../../types/filters'
+import { SportType } from '../../../types/types'
+
 import SportsBlock from './SportsBlock';
 import MenuFooter from '../../Common/Footer/Footer';
 
 type MenuPropsType = {
-	toggleFilter: (filterName: FilterNames, filtersBlockName: string)=> void
+	toggleFilter: (filterName: FilterNames, filtersBlockName: string) => void
+	sports: Array<SportType>
 }
 
-const Menu: FC<MenuPropsType> = ({toggleFilter,  ...props }) => {
+const Menu: FC<MenuPropsType> = ({toggleFilter, sports, ...props }) => {
 	return (
 		<div className={s.menuHolder}>
 			<div className={s.menu}>
@@ -23,7 +26,7 @@ const Menu: FC<MenuPropsType> = ({toggleFilter,  ...props }) => {
 						<NavLink to="/articles" className={s.link} activeClassName={s.activeLink}>Статьи</NavLink>
 						<NavLink to="/news" className={s.link} activeClassName={s.activeLink}>Новости</NavLink>
 					</div>
-					<SportsBlock toggleFilter={toggleFilter}/>
+					<SportsBlock toggleFilter={toggleFilter} sports={sports}/>
 				</div>
 
 				<MenuFooter />

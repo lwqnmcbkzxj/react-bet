@@ -1,7 +1,8 @@
 import { AppStateType } from '../types/types'
 import { ThunkAction } from 'redux-thunk'
-import { UserType } from '../types/user'
-import { timeFilterEnum, FiltersObjectType, FilterNames } from '../types/filters'
+import { UserType } from '../types/users'
+import { timeFilterEnum, FiltersObjectType, FilterNames, FilterType } from '../types/filters'
+
 import { usersAPI } from '../api/api'
 
 
@@ -24,17 +25,18 @@ type ActionsTypes = ToggleFilterType | SetUserType;
 const usersReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
 		case TOGGLE_FILTER: {
-			let filters = state.filters[action.filtersBlockName];
+			let filters = [] as any
+			filters = state.filters[action.filtersBlockName] as FilterType[];
 			if (filters) {
-				filters.map(filter => {
+				filters.map((filter: any) => {
 					filter.active = false
 					if (filter.name === action.filterName)
 						filter.active = true
 				})
-			}
+			}			
 			return {
 				...state,
-				filters: { ...state.filters, [action.filtersBlockName]: filters }
+				filters: { ...state.filters, [action.filtersBlockName]: filters  }
 			}
 		}
 		case SET_USER: {

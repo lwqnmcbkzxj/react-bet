@@ -21,7 +21,7 @@ const UsersContainer: FC = ({ ...props }) => {
 
 	let options = {
 		sport: activeSportFilter,
-		tf: activeTimeFilter
+		time: activeTimeFilter
 	}
 
 	useEffect(() => {

@@ -1,7 +1,13 @@
 import { AppStateType } from '../types/types'
 import { languageEnum, LanguageType } from '../types/filters'
 import { ThunkAction } from 'redux-thunk'
+import { SportType } from '../types/types'
+import { appAPI } from '../api/api'
 
+
+
+import { setUsersSports, SetUsersSportsType } from './users-reducer'
+import { setForecastsSports, SetForecastsSportsType } from './forecasts-reducer'
 
 const TOGGLE_AUTH_FORM_VISIBILITY = 'app/TOGGLE_AUTH_FORM_VISIBILITY'
 const TOGGLE_COMMENTS_BLOCK_VISIBILITY = 'app/TOGGLE_COMMENTS_BLOCK_VISIBILITY'
@@ -11,6 +17,7 @@ const CHANGE_LANGUAGE = 'app/CHANGE_LANGUAGE'
 const SET_REDIRECT_LINK = 'app/SET_REDIRECT_LINK'
 const SET_SHOULD_REDIRECT = 'app/SET_SHOULD_REDIRECT'
 const CHANGE_USER_PAGE_TAB = 'app/CHANGE_USER_PAGE_TAB'
+const SET_SPORTS = 'app/SET_SPORTS'
 
 let initialState = {
 	redirectLink: "",
@@ -20,20 +27,25 @@ let initialState = {
 	mainPageBlocksVisibility: {} as any,
 	activeProfileTab: "statistics",
 	languages: [
-		{ index: 1, name: languageEnum.rus, visibleText: 'Русский', active: true},
-		{ index: 2, name: languageEnum.eng, visibleText: 'English', active: false},
+		{ index: 1, name: languageEnum.rus, visibleText: 'Русский', active: true },
+		{ index: 2, name: languageEnum.eng, visibleText: 'English', active: false },
 	],
+	sports: [] as Array<SportType>
 }
 
 type InitialStateType = typeof initialState;
 type ActionsTypes =
-	SetRedirectLinkType | 
+	SetRedirectLinkType |
 	SetShouldRedirectType |
 	ToggleAuthFormVisiblilityType |
-	ToggleCommentsBlockVisibilityType | 
-	SetMainPageBlockVisibilityType | 
+	ToggleCommentsBlockVisibilityType |
+	SetMainPageBlockVisibilityType |
 	ChangeMainPageBlockVisibilityType |
-	ChangeLanguageType | ChangeUserPageActiveTabType;
+	ChangeLanguageType |
+	ChangeUserPageActiveTabType |
+	SetSportsType
+	
+	| SetUsersSportsType | SetForecastsSportsType;
 
 const appReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
@@ -47,14 +59,14 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 				isAuthFormVisible: value
 			}
 		}
-			
+
 		case TOGGLE_COMMENTS_BLOCK_VISIBILITY: {
 			return {
 				...state,
 				isCommentsBlockVisible: !state.isCommentsBlockVisible
 			}
 		}
-			
+
 		case SET_MAIN_PAGE_BLOCKS_VISIBILITY: {
 			let mainPageVisibility = localStorage.getItem('mainPageVisibility')
 			if (mainPageVisibility) {
@@ -74,7 +86,7 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 				mainPageBlocksVisibility: mainPageVisibility
 			}
 		}
-			
+
 		case CHANGE_MAIN_PAGE_BLOCK_VISIBILITY: {
 			let mainPageVisibility = localStorage.getItem('mainPageVisibility') as any
 			mainPageVisibility = JSON.parse(mainPageVisibility)
@@ -84,8 +96,8 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 
 			let customHiddenBlockForState = state.mainPageBlocksVisibility;
 			customHiddenBlockForState[action.blockName] = !customHiddenBlockForState[action.blockName]
-			
-		
+
+
 			return {
 				...state,
 				mainPageBlocksVisibility: customHiddenBlockForState
@@ -105,8 +117,8 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 				languages: [...languages]
 			}
 		}
-			
-		
+
+
 		case SET_REDIRECT_LINK: {
 			return {
 				...state,
@@ -120,10 +132,15 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 			}
 		}
 		case CHANGE_USER_PAGE_TAB: {
-			console.log(action.tabName)
 			return {
 				...state,
 				activeProfileTab: action.tabName
+			}
+		}
+		case SET_SPORTS: {
+			return {
+				...state,
+				sports: action.sports
 			}
 		}
 		default:
@@ -162,6 +179,16 @@ type ChangeUserPageActiveTabType = {
 	type: typeof CHANGE_USER_PAGE_TAB
 	tabName: string
 }
+type SetSportsType = {
+	type: typeof SET_SPORTS
+	sports: Array<SportType>
+}
+
+export const initApp = (): ThunksType => async (dispatch) => {
+	dispatch(getSportsFromServer())
+}
+
+
 export const toggleAuthFormVisiblility = (value?: boolean): ToggleAuthFormVisiblilityType => {
 	return {
 		type: TOGGLE_AUTH_FORM_VISIBILITY,
@@ -212,6 +239,34 @@ export const setShouldRedirect = (shouldRedirect: boolean): SetShouldRedirectTyp
 		type: SET_SHOULD_REDIRECT,
 		shouldRedirect
 	}
+}
+const setSports = (sports: Array<SportType>): ThunksType => async (dispatch) => {
+	let customSports = [{ id: 1, index: 1, name: '0', visibleText: 'Все', active: true, img: '' }] as Array<SportType>
+	sports.map((sport, index = 1) => {
+		customSports.push({
+			id: sport.id,
+			index: index,
+			name: sport.id,
+			visibleText: sport.name,
+			active: false,
+			img: sport.img
+		})
+	})
+
+	dispatch(setUsersSports(customSports))
+	dispatch(setForecastsSports(customSports))
+
+	dispatch({
+		type: SET_SPORTS,
+		sports
+	})
+	
+}
+
+export const getSportsFromServer = (): ThunksType => async (dispatch) => {
+	let response = await appAPI.getSports()
+
+	dispatch(setSports(response))
 }
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 

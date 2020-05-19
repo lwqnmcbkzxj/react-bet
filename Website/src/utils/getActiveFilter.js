@@ -1,3 +1,6 @@
 export const getActiveFilter = (filters, filterName) => {
-	return filters[filterName].filter(filter => filter.active === true)[0].name
+	let activeFilter = filters[filterName].filter(filter => filter.active === true)[0]
+	if (activeFilter)
+		return activeFilter.name
+	return ''
 }

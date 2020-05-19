@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import s from './FormComponents.module.scss';
 import cn from 'classnames'
 import { Field } from 'redux-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import { faEye, faEyeSlash, faCaretDown } from '@fortawesome/free-solid-svg-icons'
 
 export function createField(
 	name,
 	component,
 	label = "",
-	props = {}) {	
+	props = {}) {
 	return (
 		<div>
 			<Field
@@ -27,7 +27,6 @@ export function createField(
 
 
 export const Input = (props) => {
-	debugger
 	const { input, meta, mask = "", canSeeInputValue, ...restProps } = props;
 	const hasError = meta.touched && meta.error;
 
@@ -51,7 +50,7 @@ export const Input = (props) => {
 		<div className={cn(s.inputBlock, { [s.canSeeContent]: canSeeInputValue })}>
 			<label>{props.label}</label>
 			<div>
-				<input {...input} {...restProps} className={hasError ? s.errorInput : null} type={type} /> 				
+				<input {...input} {...restProps} className={hasError ? s.errorInput : null} type={type} />
 
 				{canSeeInputValue &&
 					<FontAwesomeIcon
@@ -67,14 +66,65 @@ export const Input = (props) => {
 
 
 
-export const DropDownSelect = (props) => {
+export const DropDownSelect = ({ elements, listName, ...props }) => {
 	const { input, label } = props;
+
+	const dropDownRef = createRef()
+
+	const [dropdownVisible, setDropdownVisible] = useState(false)
+	const toggleDropdownVisibility = () => {
+		setDropdownVisible(!dropdownVisible)
+	}
+
+	useEffect(() => {
+		document.addEventListener('click', (e) => {
+			if (dropDownRef.current && !dropDownRef.current.contains(e.target)) {
+				setDropdownVisible(false)
+				e.stopPropagation()
+			}
+		})
+		return () => {
+			document.removeEventListener('click', () => { })
+		};
+	}, [dropdownVisible]);
+
+	const [activeElement, setActiveElement] = useState(elements[0])
+
+	const getListElementFromValue = (value, key = 0) => {
+		let isActive = value === activeElement
+		return (
+			<div
+				className={cn(s.dropDownElement, { [s.activeDropdownElement]: isActive })}
+				key={key}
+				onClick={() => {
+					setActiveElement(value)
+					toggleDropdownVisibility()
+				}}>
+				<input type="radio" id={listName} name={listName} checked={isActive} />
+				<label htmlFor={listName}> {value} </label>
+				{isActive && <FontAwesomeIcon className={cn(s.dropDownArrow, { ["fa-rotate-180"]: dropdownVisible })} icon={faCaretDown} />}
+			</div>
+		)
+	}
+	let activeElementBlock = getListElementFromValue(activeElement)
+
+
+	let elementsList = elements.map((element, counter = 1) =>
+		element !== activeElement &&
+		getListElementFromValue(element, counter)
+	)
+
+
 	return (
-		<div>
+		<div className={s.inputBlock} ref={dropDownRef}>
 			<label htmlFor={label}>{label}</label>
-			<select {...input}>
-				{props.elements.map(element => <option key={element} value={element}>{element}</option>)}
-			</select>
+
+			{activeElementBlock}
+
+			{dropdownVisible &&
+				<div className={s.elementsList}>
+					{elementsList}
+				</div>}
 		</div>
 	);
 }

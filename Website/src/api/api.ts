@@ -115,20 +115,40 @@ export const forecastsAPI = {
 				return response.data
 			});
 	},
-	favouriteForecast(forecastId: number) {
-		return instance.post(`forecastFav`, { forecastId })
+	favouriteForecast(id: number) {
+		return instance.post(`forecasts/${id}/follow`)
 			.then((response) => {
 				return response.data
 			});
 	}
 }
 
-export const usersAPI = {
-	getUsers(page: number, limit: number, options: any) {
-		return instance.get(`users`)
+export const matchesAPI = {
+	getMatches() {
+		return instance.get(`/events`)
 			.then((response) => {
 				return response.data
 			});
+	},
+	getMatch(id: number) {
+		return instance.get(`/events/${id}`)
+			.then((response) => {
+				return response.data
+			});
+	}
+}
+
+
+export const usersAPI = {
+	getUsers(page: number, limit: number, options: any) {
+		return instance.get(`users`, {
+			params: {
+				sport_id: options.sport,
+				time: options.time
+			}
+		}).then((response) => {
+			return response.data
+		});
 	},
 	getUser(id: number) {
 		return instance.get(`users/${id}`)
@@ -144,3 +164,11 @@ export const usersAPI = {
 	}
 }
 
+export const appAPI = {
+	getSports() {
+		return instance.get(`sports`)
+			.then((response) => {
+				return response.data
+			});
+	},
+}

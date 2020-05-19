@@ -1,13 +1,15 @@
-import { AppStateType } from '../types/types'
+import { AppStateType, SportType } from '../types/types'
 import { ThunkAction } from 'redux-thunk'
-import { timeFilterEnum, sportTypeFilterEnum, FiltersObjectType, }from '../types/filters'
+import { timeFilterEnum, sportTypeFilterEnum, FiltersObjectType, FilterType }from '../types/filters'
 
 import { UserType } from '../types/users'
 import { usersAPI } from '../api/api'
+import { useSelector } from 'react-redux'
 
 const TOGGLE_FILTER = 'users/TOGGLE_FILTER'
 const TOGGLE_IS_FETCHING = 'users/TOGGLE_IS_FETCHING'
 const SET_USERS = 'users/SET_USERS'
+const SET_SPORTS = 'users/SET_SPORTS'
 
 let initialState = {
 	users: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}] as Array<UserType>,
@@ -16,15 +18,7 @@ let initialState = {
 			{index: 1, name: timeFilterEnum.allTime, visibleText: 'Все время', active: true},
 			{index: 2, name: timeFilterEnum.month, visibleText: 'Месяц', active: false},
 		],
-		
-		sportTypeFilter: [
-			{ index: 1, name: sportTypeFilterEnum.allSports, visibleText: 'Все', active: true },
-			{ index: 2, name: sportTypeFilterEnum.football, visibleText: 'Футбол', active: false },
-			{ index: 3, name: sportTypeFilterEnum.tennis, visibleText: 'Теннис', active: false },
-			{ index: 4, name: sportTypeFilterEnum.basketball, visibleText: 'Баскетбол', active: false },
-			{ index: 5, name: sportTypeFilterEnum.hockey, visibleText: 'Хоккей', active: false },
-			{ index: 6, name: sportTypeFilterEnum.another, visibleText: 'Другое', active: false },
-		]
+		sportTypeFilter: []
 	} as FiltersObjectType,
 	isFetching: false
 }
@@ -33,7 +27,8 @@ type InitialStateType = typeof initialState;
 type ActionsTypes =
 	SetUsersType |
 	ToggleFilterType |
-	ToggleIsFetchingType;
+	ToggleIsFetchingType |
+	SetUsersSportsType;
 
 const usersReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
@@ -44,9 +39,10 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
 			}
 		}
 		case TOGGLE_FILTER: {
-			let filters = state.filters[action.filtersBlockName];
+			let filters = [] as any
+			filters = state.filters[action.filtersBlockName] as FilterType[] | SportType[];
 			if (filters) {
-				filters.map(filter => {
+				filters.map((filter: { active: boolean; name: any }) => {
 					filter.active = false
 					if (filter.name === action.filterName)
 						filter.active = true
@@ -63,26 +59,40 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
 				isFetching: action.isFetching
 			}
 		}
+		case SET_SPORTS: {
+			let filters = state.filters
+			if (action.sports.length > 0) {
+				filters.sportTypeFilter = [...action.sports]
+			}
+			return {
+				...state,
+				filters: {...filters}
+			}
+		}
 
 		default:
 			return state;
 	}
 }
 
-
-
 type SetUsersType = {
 	type: typeof SET_USERS
 	users: Array<UserType>
 }
+
 type ToggleFilterType = {
 	type: typeof TOGGLE_FILTER
-	filterName: timeFilterEnum | sportTypeFilterEnum
+	filterName: timeFilterEnum | typeof sportTypeFilterEnum
 	filtersBlockName: keyof FiltersObjectType
 }
 type ToggleIsFetchingType = {
 	type: typeof TOGGLE_IS_FETCHING
 	isFetching: boolean
+}
+
+export type SetUsersSportsType = {
+	type: typeof SET_SPORTS
+	sports: Array<SportType>
 }
 
 export const getUsersFromServer = (page: number, quanity: number, options = {} as any): ThunksType => async (dispatch) => {		
@@ -112,6 +122,12 @@ export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingType => {
 	return {
 		type: TOGGLE_IS_FETCHING,
 		isFetching
+	}
+}
+export const setUsersSports = (sports: Array<SportType>): SetUsersSportsType => {
+	return {
+		type: SET_SPORTS,
+		sports
 	}
 }
 

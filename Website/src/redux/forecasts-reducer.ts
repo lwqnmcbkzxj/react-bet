@@ -1,7 +1,8 @@
 import { AppStateType } from '../types/types'
 
 import { ForecastType } from '../types/forecasts'
-import { timeFilterEnum, subscribtionFilterEnum, sportTypeFilterEnum, FilterNames, FiltersObjectType } from '../types/filters'
+import { timeFilterEnum, subscriptionFilterEnum, sportTypeFilterEnum, FilterNames, FiltersObjectType, FilterType} from '../types/filters'
+import { SportType } from '../types/types'
 
 import { ThunkAction } from 'redux-thunk'
 import { forecastsAPI } from '../api/api'
@@ -10,6 +11,7 @@ const TOGGLE_IS_FETCHING = 'forecasts/TOGGLE_IS_FETCHING'
 const TOGGLE_FILTER = 'forecasts/TOGGLE_FILTER'
 const SET_FORECASTS = 'forecasts/SET_FORECASTS'
 const SET_FORECAST = 'forecasts/SET_FORECAST'
+const SET_SPORTS = 'forecasts/SET_SPORTS'
 
 
 let initialState = {
@@ -22,19 +24,13 @@ let initialState = {
 			{index: 4, name: timeFilterEnum.period_12_hours, visibleText: '12 часов', active: false},
 			{index: 5, name: timeFilterEnum.period_24_hours, visibleText: '24 часа', active: false},
 		],
-		subscribtionFilter: [
-			{index: 1, name: subscribtionFilterEnum.mySubscribtions, visibleText: 'Подписки', active: false},
-			{index: 2, name: subscribtionFilterEnum.allForecasts, visibleText: 'Все прогнозы', active: true},
-			{index: 3, name: subscribtionFilterEnum.prepaid, visibleText: 'Платные', active: false},
+		subscriptionFilter: [
+			{index: 1, name: subscriptionFilterEnum.mySubscriptions, visibleText: 'Подписки', active: false},
+			{index: 2, name: subscriptionFilterEnum.allForecasts, visibleText: 'Все прогнозы', active: true},
+			{index: 3, name: subscriptionFilterEnum.prepaid, visibleText: 'Платные', active: false},
 		],
-		sportTypeFilter: [
-			{ index: 1, name: sportTypeFilterEnum.allSports, visibleText: 'Все', active: true },
-			{ index: 2, name: sportTypeFilterEnum.football, visibleText: 'Футбол', active: false },
-			{ index: 3, name: sportTypeFilterEnum.tennis, visibleText: 'Теннис', active: false },
-			{ index: 4, name: sportTypeFilterEnum.basketball, visibleText: 'Баскетбол', active: false },
-			{ index: 5, name: sportTypeFilterEnum.hockey, visibleText: 'Хоккей', active: false },
-			{ index: 6, name: sportTypeFilterEnum.another, visibleText: 'Другое', active: false },
-		]
+		sportTypeFilter: []
+
 	} as FiltersObjectType,
 	currentForecast: {} as ForecastType,
 	isFetching: false
@@ -45,7 +41,8 @@ type ActionsTypes =
 	ToggleFilterType |
 	SetForecastsType |
 	SetForecastType |
-	ToggleIsFetchingType;
+	ToggleIsFetchingType |
+	SetForecastsSportsType;
 
 const forecastsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
@@ -62,15 +59,15 @@ const forecastsReducer = (state = initialState, action: ActionsTypes): InitialSt
 			}
 		}
 		case TOGGLE_FILTER: {
-			let filters = state.filters[action.filtersBlockName];
+			let filters = [] as any
+			filters = state.filters[action.filtersBlockName] as FilterType[] | SportType[];
 			if (filters) {
-				filters.map(filter => {
+				filters.map((filter: { active: boolean; name: any }) => {
 					filter.active = false
 					if (filter.name === action.filterName)
 						filter.active = true
 				})
-			}
-			
+			}			
 			return {
 				...state,
 				filters: { ...state.filters, [action.filtersBlockName]: filters  }
@@ -81,6 +78,16 @@ const forecastsReducer = (state = initialState, action: ActionsTypes): InitialSt
 			return {
 				...state,
 				isFetching: action.isFetching
+			}
+		}
+		case SET_SPORTS: {
+			let filters = state.filters
+			if (action.sports.length > 0) {
+				filters.sportTypeFilter = [...action.sports]
+			}
+			return {
+				...state,
+				filters: {...filters}
 			}
 		}
 		default:
@@ -108,6 +115,10 @@ type ToggleIsFetchingType = {
 	isFetching: boolean
 }
 
+export type SetForecastsSportsType = {
+	type: typeof SET_SPORTS
+	sports: Array<SportType>
+}
 
 
 export const getForecastsFromServer = (page: number, quanity: number, options = {} as any): ThunksType => async (dispatch) => {	
@@ -139,7 +150,12 @@ export const setForecast = (forecast: ForecastType): SetForecastType => {
 	}
 }
 
-
+export const setForecastsSports = (sports: Array<SportType>): SetForecastsSportsType => {
+	return {
+		type: SET_SPORTS,
+		sports
+	}
+}
 
 
 export const toggleFilter = (filterName: FilterNames, filtersBlockName: string) => {

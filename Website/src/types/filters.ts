@@ -1,3 +1,5 @@
+import { SportType } from "./types"
+
 export enum timeFilterEnum {
 	allTime = '0',
 	period_3_hours = '3',
@@ -6,37 +8,41 @@ export enum timeFilterEnum {
 	period_24_hours = '24',
 	month = '720'
 }
-export enum subscribtionFilterEnum {
+export enum subscriptionFilterEnum {
 	allForecasts = 'allForesacts',
-	mySubscribtions = 'mySubscribtions',
+	mySubscriptions = 'mySubscriptions',
 	prepaid = 'prepaid'
 }
 
-export enum sportTypeFilterEnum {
-	allSports = '0',
-	football = '1',
-	tennis = '2',
-	basketball = '3',
-	hockey = '4',
-	another = '5',
-}
+export const setSportFiltersEnum = (sports: Array<SportType>) => {
+	// sportTypeFilterEnum.allSports = "asdas"
+ }
+
+export const sportTypeFilterEnum = {
+	allSports: '0',
+	football: '1',
+	tennis: '2',
+	basketball: '3',
+	hockey: '4',
+	another: '5',
+} as any
 
 
 export type FilterType = {
 	index: number
-	name: timeFilterEnum | subscribtionFilterEnum | sportTypeFilterEnum
+	name: timeFilterEnum | subscriptionFilterEnum | typeof sportTypeFilterEnum
 	visibleText: string
 	active: boolean
 }
 
 export type FiltersObjectType = {
 	timeFilter?: Array<FilterType>
-	subscribtionFilter?: Array<FilterType>
-	sportTypeFilter?: Array<FilterType>
+	subscriptionFilter?: Array<FilterType>
+	sportTypeFilter?: Array<SportType>
 }
 
 
-export type FilterNames = timeFilterEnum | sportTypeFilterEnum | subscribtionFilterEnum | languageEnum
+export type FilterNames = timeFilterEnum | typeof sportTypeFilterEnum | subscriptionFilterEnum | languageEnum
 
 export enum languageEnum {
 	rus = 'rus',

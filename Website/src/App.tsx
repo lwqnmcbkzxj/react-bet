@@ -38,6 +38,7 @@ import ArticlesContainer from './components/Articles/ArticlesContainer'
 import { useDispatch, useSelector } from "react-redux"
 import { AppStateType } from './types/types'
 
+import { initApp } from './redux/app-reducer'
 import { authUser } from './redux/me-reducer'
 import useMobile from './hooks/useMobile'
 
@@ -47,6 +48,7 @@ const App = (props: any) => {
 	const dispatch = useDispatch()
 
 	useEffect(() => {
+		dispatch(initApp())
 		dispatch(authUser())
 	}, [])
 

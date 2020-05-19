@@ -5,11 +5,12 @@ import footballImg from '../../../assets/img/football.png'
 import tennisImg from '../../../assets/img/table-tennis.png'
 import basketballImg from '../../../assets/img/basketball.png'
 import hockeyImg from '../../../assets/img/hockey.png'
-
+import { SportType } from '../../../types/types'
 import { sportTypeFilterEnum, FilterNames } from '../../../types/filters'
 
 type SportsBlockPropsType = {
-	toggleFilter: (filterName: FilterNames, filtersBlockName: string)=> void
+	toggleFilter: (filterName: FilterNames, filtersBlockName: string) => void
+	sports: Array<SportType>
 }
 
 const SportsBlock: FC<SportsBlockPropsType> = ({toggleFilter, ...props }) => {

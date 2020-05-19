@@ -46,3 +46,67 @@ label {
 	color: #818283;
 	margin-bottom: 6px;
 }
+
+
+.inputBlock {
+	position: relative;
+
+	
+	& .dropDownElement {
+		padding: 12px 13px 13px 13px;
+		height: 48px;
+		border-radius: 0px;
+		box-sizing: border-box;
+		display: flex;
+		justify-content: flex-start;
+		transition: .3s;
+		background: #fff;
+
+		&:hover {
+			background: #F5F5F5;
+			cursor: pointer;
+		}
+		&.activeDropdownElement {
+			border: 1px solid #D5D8DD;
+			border-radius: 5px;
+			display: flex;
+			justify-content: space-between;
+			& .dropDownArrow {
+				transition: .3s;
+			}
+		}
+		& label {
+			color: #343638;
+			font-size: 19px;
+			line-height: 23px;
+			margin: 0;
+		}
+		& input[type=radio] {
+			display: none;
+		}
+	}
+	& .elementsList {
+		position: absolute;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		overflow: hidden;
+		top: 66px;
+		z-index: 6;
+		& .dropDownElement {
+			z-index: 7;
+			width: 100%;
+			border: 1px solid #D5D8DD;
+			border-bottom: none;
+
+			
+
+			&:last-child {
+				border-bottom: 1px solid #D5D8DD;
+				border-radius: 0 0 5px 5px;
+			}
+		}
+	}
+}
