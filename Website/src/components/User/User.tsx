@@ -1,12 +1,13 @@
 import React, { FC, useState, useEffect } from 'react';
 import s from './User.module.scss';
 import classNames from 'classnames'
-import { UserType } from '../../types/user'
+import { UserType } from '../../types/users'
 
 import { FiltersObjectType, FilterNames } from '../../types/filters'
 import { ForecastType } from '../../types/forecasts';
 
 import { UserType as LoggedUserType } from '../../types/me'
+import { toggleAuthFormVisiblility } from '../../redux/app-reducer'
 
 import { Link } from 'react-router-dom'
 import userNoImg from '../../assets/img/user-no-image.png'
@@ -14,6 +15,7 @@ import ForecastsList from '../Forecasts/ForecastsList/ForecastsList';
 import UserStats from './UserStats'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { useDispatch } from 'react-redux';
 
 export enum selectors {
 	forecasts = 'forecasts',
@@ -23,6 +25,7 @@ export enum selectors {
 
 type UsersPropsType = {
 	user: UserType
+	logged: boolean
 	loggedUser: LoggedUserType
 	isLoggedUserProfile: boolean
 
@@ -41,17 +44,23 @@ type UsersPropsType = {
 
 
 const User: FC<UsersPropsType> = ({
-	user, loggedUser, isLoggedUserProfile,
+	user, logged, loggedUser, isLoggedUserProfile,
 	forecasts, getUserForecasts, getUserFavourites,
 	subscribe,
 	filters, toggleFilter,
 	visibleTab, changeVisibleTab,
 	...props }) => {
-
+		const dispatch = useDispatch()
+	
 	const [subscribed, setSubscribed] = useState(false)
 	const subscribeToggle = (id: number) => {
-		setSubscribed(!subscribed)
-		subscribe(id)
+		if (!logged) {
+			dispatch(toggleAuthFormVisiblility())
+			return 0
+		} else {
+			setSubscribed(!subscribed)
+			subscribe(id)
+		}
 	}
 	const [subBtnHovered, setSubscribedBtnHovered] = useState(false)
 	const [subBtnHoverCounter, setSubBtnHoverCounter] = useState(0)

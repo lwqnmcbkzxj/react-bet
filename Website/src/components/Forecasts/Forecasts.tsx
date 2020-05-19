@@ -34,8 +34,8 @@ const Forecasts: FC<ForecastsPropsType> = ({ forecasts, filters, toggleFilter, .
 				</div>
 
 				<Selectors
-					selectors={filters.subscribtionFilter}
-					selectorsBlockName={'subscribtionFilter'}
+					selectors={filters.subscriptionFilter}
+					selectorsBlockName={'subscriptionFilter'}
 					onChangeFunc={toggleFilter}
 					fillBg={true}
 				/>

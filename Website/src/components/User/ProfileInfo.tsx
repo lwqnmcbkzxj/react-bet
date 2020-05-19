@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
 import s from './User.module.scss';
 import classNames from 'classnames'
-import { UserType } from '../../types/user'
+import { UserType } from '../../types/users'
 
 import { FiltersObjectType, FilterNames } from '../../types/filters'
 import { ForecastType } from '../../types/forecasts';

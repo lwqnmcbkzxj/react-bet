@@ -1,12 +1,11 @@
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { AppStateType } from '../../types/types'
-import { UserType } from '../../types/user'
+import { UserType } from '../../types/users'
 import { UserType as LoggedUserType } from '../../types/me'
 
 import User from './User'
 import { withRouter, RouteComponentProps, Redirect } from 'react-router'
-import { toggleAuthFormVisiblility } from '../../redux/app-reducer'
 import { getForecastsFromServer } from '../../redux/forecasts-reducer'
 import { ForecastType } from '../../types/forecasts'
 import { FiltersObjectType, FilterNames } from '../../types/filters'
@@ -73,12 +72,7 @@ const UsersContainer: FC<Props> = ({ ...props }) => {
 	
 
 	const subscribe = (id: number) => {
-		if (!logged) {
-			dispatch(toggleAuthFormVisiblility())
-			return 0
-		} else {
-			dispatch(subscribeUser(id))
-		}
+		dispatch(subscribeUser(id))
 	}
 
 
@@ -90,6 +84,7 @@ const UsersContainer: FC<Props> = ({ ...props }) => {
 				forecasts={forecasts}
 				isLoggedUserProfile={isLoggedUserProfile}
 				user={currentUser}
+				logged={logged}
 				loggedUser={loggedUser}
 				getUserFavourites={getUserFavourites}
 				getUserForecasts={getUserForecasts}
