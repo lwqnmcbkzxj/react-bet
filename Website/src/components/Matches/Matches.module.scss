@@ -13,7 +13,7 @@
 	& .listHeader,
 	& .match {
 		display: grid;
-		grid-template-columns: 5fr 1fr 10fr 3fr;
+		grid-template-columns: 105px 1fr 10fr 3fr;
 		grid-gap: 20px;
 		justify-items: center;
 		align-items: center;
@@ -122,6 +122,7 @@
 	.matchList {
 		& .listHeader,
 		& .match {
+			grid-template-columns: 70px 1fr 10fr 3fr;
 			grid-gap: 6px;
 			padding: 7px 10px;
 			& div {
