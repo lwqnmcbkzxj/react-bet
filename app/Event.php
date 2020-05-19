@@ -22,12 +22,10 @@ class Event extends Model
     {
         return $this->hasMany('App\Coefficient');
     }
-
     public function forecasts()
     {
         return $this->hasMany('App\Forecast', 'event_id','id');
     }
-
     public function championship() {
         return $this->hasOne('App\Championship', 'id', 'championship_id');
     }

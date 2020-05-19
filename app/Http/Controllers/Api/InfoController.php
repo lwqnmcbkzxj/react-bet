@@ -21,7 +21,7 @@ class InfoController extends Controller
     public function forecasts(Request $request)
     {
         $date = new DateTime('now', new \DateTimeZone('Europe/Moscow'));
-        $forecasts = Forecast::query()->whereHas('event', function (Builder $query) use ($date, $request) {
+        $forecasts = Forecast::query()->orderBy('created_at','desc')->whereHas('event', function (Builder $query) use ($date, $request) {
             $query//->where('start', '>=', $date->format('Y-m-d H:i:s'))
             ->where('status', '=', 1);
             if ($request->has('time') && $request['time'] != '0') {
