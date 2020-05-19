@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\Http\Resources\EventProfile;
 use App\Http\Resources\ForecastCollection;
 use App\Forecast;
 use DateTime;
@@ -11,7 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\EventCollection;
 class EventController extends Controller
 {
-    public function get(Request $request)
+    public function getAll(Request $request)
     {
         $date = new DateTime('now', new \DateTimeZone('Europe/Moscow'));
 
@@ -22,5 +23,8 @@ class EventController extends Controller
         $events = new EventCollection($events);
         return $this->sendResponse(($events), 'Success', 200);
     }
-
+    public function get(Event $event)
+    {
+        return $this->sendResponse(new EventProfile($event), 'Success', 200);
+    }
 }

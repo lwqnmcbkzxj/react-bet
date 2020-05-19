@@ -28,12 +28,18 @@ Route::get('/news/{news}', 'Api\InfoController@news');
 Route::get('/sports', function () { return \App\Sport::all(); } );
 Route::get('/options',  function () { return \App\Option::all(); });
 Route::get('/roles', function () { return \App\Role::all(); });
-Route::get('/events',  'EventController@get');
+Route::get('/events',  'EventController@getAll');
+Route::get('/events/{event}', 'EventController@get');
+Route::get('/events/{event}/comments', function (Request $Request, \App\Event $event){
+    $Request['reference_to']='comments';
+    $Request['referent_id']=$event->id;
+    return app()->call('App\Http\Controllers\CommentController@getAll',[$Request]);
+});
 Route::get('/posts', 'Api\InfoController@posts');
 Route::get('/posts/{post}', 'Api\InfoController@post');
-Route::get('/posts/{post}/comments', function (Request $Request, \App\Comment $comment){
+Route::get('/posts/{post}/comments', function (Request $Request, \App\Post $post){
     $Request['reference_to']='posts';
-    $Request['referent_id']=$comment->id;
+    $Request['referent_id']=$post->id;
     return app()->call('App\Http\Controllers\CommentController@getAll',[$Request]);
 });
 Route::get('/news/{news}/comments', function (Request $Request, \App\News $news){

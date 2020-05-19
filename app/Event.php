@@ -2,10 +2,12 @@
 
 namespace App;
 
+use App\Http\Traits\Commentable;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
+    use Commentable;
     const EVENT_STATUS_CANCELED = 0;
     const EVENT_STATUS_WAIT = 1;
     const EVENT_STATUS_FINISHED = 2;
@@ -23,7 +25,7 @@ class Event extends Model
 
     public function forecasts()
     {
-        return $this->hasMany('App\Forecast');
+        return $this->hasMany('App\Forecast', 'event_id','id');
     }
 
     public function championship() {
