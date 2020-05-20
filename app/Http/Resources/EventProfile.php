@@ -22,6 +22,7 @@ class EventProfile extends JsonResource
                 'championship' => $this->championship->name,
                 'sport_id' => $this->sport->id,
                 'sport_name' => $this->sport->name,
+                'sport_image'=>$this->sport->image,
             ],
             'event' => $this->title,
             'event_start' => $this->start,

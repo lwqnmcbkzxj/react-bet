@@ -31,7 +31,7 @@ class Forecast extends JsonResource
                     'championship' => $this->event->championship->name,
                     'sport_id' => $this->event->sport->id,
                     'sport_name' => $this->event->sport->name,
-                    'sport_logo' => Storage::url('sport/'.$this->event->sport->image),
+                    'sport_image'=>$this->sport->image,
                 ],
                 'event_id' => $this->event->id,
                 'event' => $this->event->title,
