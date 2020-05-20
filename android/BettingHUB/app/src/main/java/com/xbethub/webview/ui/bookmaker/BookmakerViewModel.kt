@@ -1,15 +1,22 @@
 package com.xbethub.webview.ui.bookmaker
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.xbethub.webview.BaseViewModel
+import com.xbethub.webview.Event
+import com.xbethub.webview.models.Bookmaker
 import com.xbethub.webview.models.Comment
 import com.xbethub.webview.ui.bookmaker.items.ItemListener
 import com.xbethub.webview.ui.bookmaker.items.items.CommentItem
 import com.xbethub.webview.ui.bookmaker.items.items.Item
 import com.xbethub.webview.ui.bookmaker.items.items.ShowMoreItem
 
-class BookmakerViewModel: ViewModel(), ItemListener {
+class BookmakerViewModel: BaseViewModel(), ItemListener {
     val commentsLiveData = MutableLiveData<Pair<Int, List<Item>>>()
+
+    val linkClick = MutableLiveData<String>()
+
+    val id = MutableLiveData<Int>()
+    val bookmaker = MediatorLiveData<Event<Bookmaker>>()
 
     init {
         val comments = arrayListOf<Item>(
@@ -41,10 +48,23 @@ class BookmakerViewModel: ViewModel(), ItemListener {
         )
 
         commentsLiveData.value = Pair(-1, comments)
+
+        bookmaker.addSource(id) {
+            requestWithLiveData(bookmaker
+                , { backendAPI.bookmaker(it) }
+                , {
+                    it
+                }
+            )
+        }
     }
 
     // ItemListener
     override fun onShowMoreBtnClick(showMoreItem: ShowMoreItem, position: Int) {
         commentsLiveData.value = Pair(position, showMoreItem.items)
+    }
+
+    override fun onLinkClick(link: String) {
+        linkClick.value = link
     }
 }

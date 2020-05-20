@@ -59,6 +59,7 @@
                     android:layout_height="0dp" />
 
                 <Button
+                    android:id="@+id/link"
                     android:textColor="@color/textColor8"
                     android:fontFamily="@font/roboto_medium"
                     android:text="@string/site"
@@ -279,6 +280,7 @@
             />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/commentCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

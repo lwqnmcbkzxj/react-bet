@@ -26,9 +26,8 @@
 
                 <ImageView
                     android:id="@+id/team_1_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_football" />
+                    android:layout_width="24dp"
+                    android:layout_height="24dp" />
 
                 <TextView
                     android:id="@+id/team_1_name"
@@ -107,9 +106,8 @@
 
                 <ImageView
                     android:id="@+id/team_2_image"
-                    app:srcCompat="@drawable/ic_football"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="24dp"
+                    android:layout_height="24dp" />
 
                 <TextView
                     android:id="@+id/team_2_name"

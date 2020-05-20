@@ -4,8 +4,11 @@ import android.view.View
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.xbethub.webview.databinding.ItemBookmakerHeaderBinding
+import com.xbethub.webview.models.Bookmaker
 import com.xbethub.webview.ui.bookmaker.BookmakerViewModel
+import com.xbethub.webview.ui.bookmaker.items.ItemListener
 import com.xbethub.webview.ui.bookmaker.items.items.HeaderItem
 
 class HeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -14,14 +17,22 @@ class HeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
     private val binding = ItemBookmakerHeaderBinding.bind(itemView)
     private val context = itemView.context
+    private var bookmaker: Bookmaker? = null
 
     fun setHeaderItem(headerItem: HeaderItem) {
-        val bookmaker = headerItem.bookmaker
+        bookmaker = headerItem.bookmaker
 
         binding.factor.text = HtmlCompat.fromHtml("<font color=\"#0F971D\">8.35</font>/10", HtmlCompat.FROM_HTML_MODE_COMPACT)
         binding.line.text = HtmlCompat.fromHtml("<font color=\"#0F971D\">8.35</font>/10", HtmlCompat.FROM_HTML_MODE_COMPACT)
         binding.reliability.text = HtmlCompat.fromHtml("<font color=\"#0F971D\">8.35</font>/10", HtmlCompat.FROM_HTML_MODE_COMPACT)
         binding.payMethods.text = HtmlCompat.fromHtml("<font color=\"#0F971D\">8.35</font>/10", HtmlCompat.FROM_HTML_MODE_COMPACT)
+
+        bookmaker?.let {
+            binding.title.text = it.title
+            Glide.with(binding.bookmakerLogo).load("http://betting-hub.sixhands.co/" + it.image).into(binding.bookmakerLogo)
+            binding.description.text = it.content
+            binding.bet.text = "${it.bonus} ₽"
+        }
 
         // TODO: делать это в лейауте
 //        binding.eventName.text = forecast.tournament
@@ -48,5 +59,13 @@ class HeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     }
 
     fun setViewModel(viewModel: BookmakerViewModel, viewLifecycleOwner: LifecycleOwner) {
+    }
+
+    fun setListener(listener: ItemListener) {
+        binding.link.setOnClickListener {
+            bookmaker?.let {
+                listener.onLinkClick(it.link)
+            }
+        }
     }
 }

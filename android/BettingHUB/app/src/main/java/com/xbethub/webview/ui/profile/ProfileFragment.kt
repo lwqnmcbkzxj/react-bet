@@ -29,8 +29,6 @@ class ProfileFragment: Fragment() {
 
     private var searchActive = false
 
-    val args by navArgs<ProfileFragmentArgs>()
-
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(

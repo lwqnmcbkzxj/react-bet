@@ -1,5 +1,7 @@
 package com.xbethub.webview.ui.bookmaker
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xbethub.webview.R
 import com.xbethub.webview.Utils
+import com.xbethub.webview.enums.Status
 import com.xbethub.webview.ui.bookmaker.items.ItemAdapter
 import com.xbethub.webview.ui.bookmaker.items.ItemDecoration
 import com.xbethub.webview.ui.bookmaker.items.items.FooterItem
@@ -21,7 +24,7 @@ import com.xbethub.webview.ui.bookmaker.items.items.NewCommentItem
 import kotlinx.android.synthetic.main.element_top_panel.*
 import kotlinx.android.synthetic.main.fragment_bookmaker.*
 
-class BookmakerFragment: Fragment() {
+class BookmakerFragment : Fragment() {
 
     private val vm by viewModels<BookmakerViewModel>()
     private val args by navArgs<BookmakerFragmentArgs>()
@@ -70,26 +73,42 @@ class BookmakerFragment: Fragment() {
 
         val items = ArrayList<Item>()
 
-        items.add(HeaderItem(args.bookmaker))
-        items.add(NewCommentItem())
-        items.add(FooterItem())
+        vm.linkClick.observe(viewLifecycleOwner, Observer {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it)))
+        })
+        vm.bookmaker.observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.LOADING -> {
 
-        (bookmakerRV.adapter as ItemAdapter).addAll(items)
+                }
+                Status.SUCCESS -> {
+                    items.add(HeaderItem(it.data!!))
+//                    items.add(NewCommentItem())
+                    items.add(FooterItem())
 
-        vm.commentsLiveData.observe(viewLifecycleOwner, Observer { addNewComments(it.first, it.second) })
-    }
+                    (bookmakerRV.adapter as ItemAdapter).addAll(items)
+                }
+                Status.ERROR -> {
 
-    private fun addNewComments(position: Int, comments: List<Item>) {
-        (bookmakerRV.adapter as ItemAdapter).let {
-            val insertPos = if (position == -1) it.itemCount - 2 else position
-
-            (bookmakerRV.adapter as ItemAdapter).let {
-                it.addAll(insertPos, comments)
-
-                if (position != -1) {
-                    it.removeItem(position + comments.size)
                 }
             }
-        }
+        })
+        vm.id.value = args.bookmaker
+//        vm.commentsLiveData.observe(viewLifecycleOwner, Observer { addNewComments(it.first, it.second) })
+    }
+
+
+    private fun addNewComments(position: Int, comments: List<Item>) {
+//        (bookmakerRV.adapter as ItemAdapter).let {
+//            val insertPos = if (position == -1) it.itemCount - 2 else position
+//
+//            (bookmakerRV.adapter as ItemAdapter).let {
+//                it.addAll(insertPos, comments)
+//
+//                if (position != -1) {
+//                    it.removeItem(position + comments.size)
+//                }
+//            }
+//        }
     }
 }
