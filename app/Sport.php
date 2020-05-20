@@ -12,6 +12,6 @@ class Sport extends Model
     protected $appends = ['image'];
     function getImageAttribute()
     {
-        return Storage::url('bookmakers/'. $this->logo);
+        return Storage::url('sports/'. $this->logo);
     }
 }
