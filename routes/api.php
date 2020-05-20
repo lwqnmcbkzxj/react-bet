@@ -83,6 +83,7 @@ Route::middleware('auth:api')->group(function()
     Route::get('/users/profile', 'ProfileController@index')->name('profile');
     Route::post('/users/update/login', 'ProfileController@updateLogin')->name('update.login');
     Route::post('/users/update/email', 'ProfileController@updateEmail')->name('update.email');
+    Route::post('/users/update/password', 'ProfileController@updatePassword')->name('update.password');
     Route::post('/users/update/notification', 'ProfileController@updateNotification')->name('update.notification');
     Route::post('/users/{user}/subscription', 'UserSubscriptionController@create');
     Route::delete('/users/{user}/subscription', 'UserSubscriptionController@delete');
