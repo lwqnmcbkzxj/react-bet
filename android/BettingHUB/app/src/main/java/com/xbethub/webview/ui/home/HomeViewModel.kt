@@ -6,6 +6,7 @@ import com.xbethub.webview.Event
 import com.xbethub.webview.models.Event as Match
 import com.xbethub.webview.enums.Direction
 import com.xbethub.webview.enums.TimeInterval
+import com.xbethub.webview.models.Bookmaker
 import com.xbethub.webview.models.Forecast
 import com.xbethub.webview.models.User
 
@@ -14,6 +15,7 @@ class HomeViewModel: BaseViewModel() {
     val forecastersLiveData = MutableLiveData<Event<List<User>>>()
     val forecastsLiveData = MutableLiveData<Event<List<Forecast>>>()
     val matchesLiveData = MutableLiveData<Event<List<Match>>>()
+    val bookmakersLiveData = MutableLiveData<Event<List<Bookmaker>>>()
 
     override fun onCreate() {
         appData.lastTopForecasters?.let {
@@ -47,6 +49,17 @@ class HomeViewModel: BaseViewModel() {
                 , { backendAPI.matches() }
                 , {
                     appData.lastMatches = it
+                    it
+                }
+            )
+        }
+        appData.lastBookmakers?.let {
+            bookmakersLiveData.value = Event.success(appData.lastBookmakers)
+        } ?: run {
+            requestWithLiveData(bookmakersLiveData
+                , { backendAPI.bookmakers() }
+                , {
+                    appData.lastBookmakers = it
                     it
                 }
             )

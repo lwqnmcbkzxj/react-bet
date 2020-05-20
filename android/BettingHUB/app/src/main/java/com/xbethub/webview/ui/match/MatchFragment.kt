@@ -7,25 +7,25 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xbethub.webview.App
 import com.xbethub.webview.R
 import com.xbethub.webview.Utils
 import com.xbethub.webview.enums.Status
+import com.xbethub.webview.models.Event
 import com.xbethub.webview.models.User
-import com.xbethub.webview.ui.forecasterRating.ForecasterRating
 import com.xbethub.webview.ui.match.items.ItemAdapter
 import com.xbethub.webview.ui.match.items.ItemDecoration
-import com.xbethub.webview.ui.match.items.items.*
+import com.xbethub.webview.ui.match.items.items.FooterItem
+import com.xbethub.webview.ui.match.items.items.HeaderItem
+import com.xbethub.webview.ui.match.items.items.Item
 import kotlinx.android.synthetic.main.element_top_panel.*
 import kotlinx.android.synthetic.main.fragment_match.*
 
-class MatchFragment: Fragment() {
+class MatchFragment : Fragment() {
 
     val vm by viewModels<MatchViewModel>()
-    val args by navArgs<MatchFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -80,14 +80,16 @@ class MatchFragment: Fragment() {
 
         val items = ArrayList<Item>()
 
-        items.add(HeaderItem(args.match))
+        items.add(HeaderItem((requireArguments().getSerializable("match") as Event)))
 //        items.add(ForecasterTableHeaderItem())
 //        items.add(NewCommentItem())
         items.add(FooterItem())
 
         (matchRV.adapter as ItemAdapter).addAll(items)
 
-        vm.commentsLiveData.observe(viewLifecycleOwner, Observer { addNewComments(it.first, it.second) })
+        vm.commentsLiveData.observe(
+            viewLifecycleOwner,
+            Observer { addNewComments(it.first, it.second) })
     }
 
     private fun clearRatings() {

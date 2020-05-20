@@ -29,8 +29,6 @@ class ProfileFragment: Fragment() {
 
     private var searchActive = false
 
-    val args by navArgs<ProfileFragmentArgs>()
-
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -48,7 +46,7 @@ class ProfileFragment: Fragment() {
 
         binding.subscribeBtnBlock.visibility = View.GONE
 
-        args.user.let {
+        (requireArguments().getSerializable("User") as? User).let {
             if (it != null) {
                 init(it)
                 binding.userBlock.settingsBtn.visibility = View.GONE

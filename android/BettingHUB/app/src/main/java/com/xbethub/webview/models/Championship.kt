@@ -18,6 +18,10 @@ data class Championship (
 
     @SerializedName("sport_name")
     @Expose
-    val sportName: String
+    val sportName: String,
+
+    @SerializedName("sport_image")
+    @Expose
+    val sportImage: String
 ) {
 }

@@ -6,10 +6,7 @@ import com.xbethub.webview.backend.requests.RegisterUserRequest
 import com.xbethub.webview.backend.responses.ForecastsResponse
 import com.xbethub.webview.backend.responses.TokenResponse
 import com.xbethub.webview.backend.responses.UsersResponse
-import com.xbethub.webview.models.Event
-import com.xbethub.webview.models.Forecast
-import com.xbethub.webview.models.Sport
-import com.xbethub.webview.models.User
+import com.xbethub.webview.models.*
 import io.reactivex.Completable
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -19,6 +16,12 @@ interface BettingHubApi {
     @GET("forecasts")
     fun forecasts(@Query("limit") limit: Int, @Query("sport_id") sportId: Int
                   , @Query("time") time: Int, @Query("page") page: Int): Observable<List<Forecast>>
+
+    @GET("bookmakers")
+    fun bookmakers(): Observable<List<Bookmaker>>
+
+    @GET("bookmakers/{id}")
+    fun bookmaker(@Path("id") id: Int): Observable<Bookmaker>
 
     @GET("events")
     fun matches(): Observable<List<Event>>

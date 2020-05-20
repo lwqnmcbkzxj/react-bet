@@ -42,6 +42,7 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
     lateinit var forecastRVAdapter: ForecastAdapter
     lateinit var forecasterRVAdapter: ForecasterAdapter
     lateinit var matchRVAdapter: MatchItemAdapter
+    lateinit var bookmakerRVAdapter: BookmakerItemAdapter
 
     private var searchActive = false
 
@@ -56,6 +57,7 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
         binding.topForecasters.seeAllForecasters.setOnClickListener { onSeeAllForecastersBtnClick() }
         binding.lastForecasts.seeAllForecastsBtn.setOnClickListener { onSeeAllForecastsBtnClick() }
         binding.topBookmakers.seeAllBookmakersBtn.setOnClickListener { onSeeAllBookmakersBtnClick() }
+        binding.topMatches.seeAllBookmakersBtn.setOnClickListener { onSeeAllMatchesBtnClick() }
 
         binding.topPanel.bankBalance.root.visibility = View.GONE
 
@@ -87,11 +89,20 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
             }
         })
 
+        vm.bookmakersLiveData.observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.LOADING -> onBookmakersLoading()
+                Status.SUCCESS -> onBookmakersLoaded(it.data)
+                Status.ERROR -> onBookmakersLoadingError(it.error)
+            }
+        })
+
         updateSearchFieldVisibility()
 
         initForecasterRV()
         initForecastRV()
         initMatchesRV()
+        initBookmakersRV()
 
         return binding.root
     }
@@ -190,6 +201,31 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
 
     }
 
+    private fun onBookmakersLoading() {
+        binding.topBookmakers.bookmakerRV.post {
+            bookmakerRVAdapter.addAll(List(3) { BookmakerItem(null, it == 3 - 1) })
+        }
+    }
+
+    private fun onBookmakersLoaded(bookmakers: List<Bookmaker>?) {
+        bookmakers?.let {
+            binding.topBookmakers.bookmakerRV.post {
+                bookmakerRVAdapter.replaceItems(1, bookmakers.mapIndexed { index, bookmaker -> BookmakerItem(bookmaker, index == 3 - 1) }.take(3))
+            }
+
+            if (bookmakers.size < 3) {
+                binding.topBookmakers.bookmakerRV.post {
+                    val diff = consts.topBookmakerCount - bookmakers.size
+                    bookmakerRVAdapter.removeItems(bookmakerRVAdapter.itemCount - diff, diff)
+                }
+            }
+        }
+    }
+
+    private fun onBookmakersLoadingError(error: Throwable?) {
+
+    }
+
     private fun initForecastRV() {
         val topSpace = resources.getDimensionPixelSize(R.dimen.forecastsItemTopSpace)
         val sideSpace = resources.getDimensionPixelSize(R.dimen.forecastSideMargin)
@@ -226,23 +262,15 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
         binding.topMatches.matchesRV.adapter = matchRVAdapter
     }
 
-    private fun initTopBookmakers() {
+    private fun initBookmakersRV() {
         val items = ArrayList<BookmakerTableItemBase>()
 
         items.add(HeaderBookmakerTableItem())
-
-        for (i in 0..2) {
-            items.add(
-                BookmakerItem(Bookmaker(), i == 2)
-            )
-        }
-
-        val adapter = BookmakerItemAdapter(this)
+        bookmakerRVAdapter = BookmakerItemAdapter(this)
+        bookmakerRVAdapter.addAll(items)
 
         binding.topBookmakers.bookmakerRV.isNestedScrollingEnabled = false
-        binding.topBookmakers.bookmakerRV.adapter = adapter
-
-        adapter.addAll(items)
+        binding.topBookmakers.bookmakerRV.adapter = bookmakerRVAdapter
     }
 
     private fun initTopMatches() {
@@ -269,7 +297,7 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
 
         vm.onCreate()
 
-        initTopBookmakers()
+//        initTopBookmakers()
 //        initTopMatches()
     }
 
@@ -305,6 +333,12 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
         }
     }
 
+    private fun onSeeAllMatchesBtnClick() {
+        if (navController.currentDestination!!.id != R.id.topMatchesFragment) {
+            navController.navigate(HomeFragmentDirections.toTopMatchesFragment())
+        }
+    }
+
     // ForecastListener
     override fun onForecastClick(forecast: Forecast, position: Int) {
         if (navController.currentDestination!!.id != R.id.forecastFragment) {
@@ -322,7 +356,7 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
     // BookmakerItemListener
     override fun onBookmakerClick(bookmaker: Bookmaker, position: Int) {
         if (navController.currentDestination!!.id != R.id.bookmakerFragment) {
-            navController.navigate(HomeFragmentDirections.toBookmakerFragment(bookmaker))
+            navController.navigate(HomeFragmentDirections.toBookmakerFragment(bookmaker.id))
         }
     }
 
