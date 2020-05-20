@@ -40,7 +40,10 @@ class InfoController extends Controller
         $forecasts = $forecasts->paginate($request['limit']);
         $forecasts = new ForecastCollection($forecasts);
         return $this->sendResponse(($forecasts), 'Success', 200);
-
+        $date = new DateTime('now', new \DateTimeZone('Europe/Moscow'));
+        $forecasts = DB::table('forecasts')
+            ->join('users')->join('events')->join('championships')
+            ->join('user_stats_view')->join('coefficient');
     }
 
     public function forecast(Forecast $forecast)

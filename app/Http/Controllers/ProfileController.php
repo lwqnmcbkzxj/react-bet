@@ -6,6 +6,7 @@ use App\Http\Resources\UserData;
 use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -59,7 +60,19 @@ class ProfileController extends Controller
         ]);
         return $this->sendResponse([],'Email успешно обновлен!', 200);
     }
+        public function updatePassword(Request $request) {
+            $valid_data = $request->validate([
+                'password' => ['required', 'string', 'min:8']
+            ]);
 
+            $password = $valid_data['password'];
+            $user = Auth::user();
+
+            $user->update([
+                'password' => Hash::make($password)
+            ]);
+            return $this->sendResponse([],'Password успешно обновлен!', 200);
+        }
         public function updateNotification(Request $request) {
         if ($request->has('push_notification')) {
             $push_notification = true;
