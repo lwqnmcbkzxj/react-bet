@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class Forecast extends JsonResource
 {
@@ -30,6 +31,7 @@ class Forecast extends JsonResource
                     'championship' => $this->event->championship->name,
                     'sport_id' => $this->event->sport->id,
                     'sport_name' => $this->event->sport->name,
+                    'sport_logo' => Storage::url('sport/'.$this->event->sport->image),
                 ],
                 'event_id' => $this->event->id,
                 'event' => $this->event->title,

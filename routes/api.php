@@ -11,6 +11,8 @@ Auth::routes();;
 
 // Прогнозы
 
+
+
 Route::get('/parser/add/users', 'Api\ForecastController@addUsers');
 Route::get('/parser/add/forecasts', 'Api\ForecastController@addForecast');
 Route::get('/parser/get/forecasts/status', 'Api\ForecastController@getForecastStatus');
@@ -18,20 +20,40 @@ Route::get('/get/news', 'Api\NewsController@getNews');
 
 
 // Прогнозы
+Route::get('/bookmakers', function()
+{
+    return \App\Bookmaker::all(['id','title','rating', 'bonus', 'logo', 'link']);
+});
+
+Route::get('/bookmakers/{bookmaker}', function(\App\Bookmaker $bookmaker)
+{
+    return $bookmaker;
+});
+
+
 Route::get('/forecasts', 'Api\InfoController@forecasts');
 Route::get('/forecasts/{forecast}', 'Api\InfoController@forecast');
+Route::get('/forecasts/{forecast}/comments', function (Request $Request, \App\Forecast $forecast){
+    $Request['reference_to']='forecasts';
+    $Request['referent_id']=$forecast->id;
+    return app()->call('App\Http\Controllers\CommentController@getAll',[$Request]);
+});
 Route::get('/comments', 'CommentController@get');
 Route::get('/comments/{comment}', 'CommentController@getOne');
+
 Route::get('/votes', 'VoteController@get');
+
 Route::get('/news', 'Api\InfoController@news');
 Route::get('/news/{news}', 'Api\InfoController@news');
+
 Route::get('/sports', function () { return \App\Sport::all(); } );
 Route::get('/options',  function () { return \App\Option::all(); });
 Route::get('/roles', function () { return \App\Role::all(); });
+
 Route::get('/events',  'EventController@getAll');
 Route::get('/events/{event}', 'EventController@get');
 Route::get('/events/{event}/comments', function (Request $Request, \App\Event $event){
-    $Request['reference_to']='comments';
+    $Request['reference_to']='events';
     $Request['referent_id']=$event->id;
     return app()->call('App\Http\Controllers\CommentController@getAll',[$Request]);
 });
@@ -47,11 +69,7 @@ Route::get('/news/{news}/comments', function (Request $Request, \App\News $news)
     $Request['referent_id']=$news->id;
     return app()->call('App\Http\Controllers\CommentController@getAll',[$Request]);
 });
-Route::get('/forecasts/{forecast}/comments', function (Request $Request, \App\Forecast $forecast){
-    $Request['reference_to']='forecasts';
-    $Request['referent_id']=$forecast->id;
-    return app()->call('App\Http\Controllers\CommentController@getAll',[$Request]);
-});
+
 
 //Доступ к профилям пользователей
 Route::middleware('auth:api')->group(function()
