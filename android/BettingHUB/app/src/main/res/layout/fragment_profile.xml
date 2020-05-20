@@ -214,6 +214,11 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    <include
+                        android:id="@+id/loading"
+                        layout="@layout/element_profile_header_loading"
+                        android:visibility="gone"/>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

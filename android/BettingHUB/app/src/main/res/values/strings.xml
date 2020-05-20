@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Betting HUB</string>
+    <string name="app_name">BH Прогнозы</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -176,5 +176,5 @@
     <string name="pay_methods">Платежные системы</string>
     <string name="bonus">Бонус</string>
 
-
+    <string name="defaultValue" translatable="false">0</string>
 </resources>

@@ -13,6 +13,10 @@ data class User (
     @Expose
     val login: String,
 
+    @SerializedName("email")
+    @Expose
+    var email: String,
+
     @SerializedName("avatar")
     @Expose
     val avatar: String?,

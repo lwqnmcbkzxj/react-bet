@@ -48,16 +48,22 @@ class ProfileFragment: Fragment() {
 
         binding.subscribeBtnBlock.visibility = View.GONE
 
-        args.user.let {
-            if (it != null) {
-                init(it)
-                binding.userBlock.settingsBtn.visibility = View.GONE
-            } else {
+        args.user?.let { it ->
+            init(it)
+            binding.userBlock.settingsBtn.visibility = View.GONE
+
+        } ?: run {
+            appData.activeUser?.user?.let { activeUser -> init(activeUser)
+            } ?: run {
+                binding.loading.root.visibility = View.VISIBLE
+
                 BettingHubBackend().api.user("Bearer ${appData.activeUser?.accessToken}")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
+                        appData.activeUser!!.user = it
                         init(it)
+                        binding.loading.root.visibility = View.GONE
                     }, {
                         it.printStackTrace()
                     })
@@ -102,8 +108,6 @@ class ProfileFragment: Fragment() {
 
         navController = activity?.let { Navigation.findNavController(it, R.id.nav_host_fragment) }!!
 
-        fillUserInfo()
-
         return binding.root
     }
 
@@ -141,6 +145,7 @@ class ProfileFragment: Fragment() {
         binding.userBlock.wld.text = Utils.fromHtml(wdlHtml)
 
         binding.pager.adapter = PageAdapter(2, childFragmentManager, user)
+        binding.pager.setCurrentItem(binding.tabs.selectedTabPosition, false);
     }
 
     private fun fillUserInfo() {

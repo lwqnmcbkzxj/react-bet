@@ -30,6 +30,10 @@ interface BettingHubApi {
     @GET("users/profile")
     fun user(@Header("Authorization") token: String): Observable<User>
 
+    @FormUrlEncoded
+    @POST("users/update/email")
+    fun updateEmail(@Header("Authorization") token: String, @Field("email") email: String): Observable<List<String>>
+
     @GET("sports")
     fun sport(): Observable<List<Sport>>
 
