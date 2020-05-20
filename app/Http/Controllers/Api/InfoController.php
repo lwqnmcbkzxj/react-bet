@@ -58,13 +58,13 @@ class InfoController extends Controller
         {
             $res->orderBy($request['order_by']);
         }
-        return new FastForecastCollection($res->paginate());
+        return new FastForecastCollection($res->paginate($request['limit']));
     }
 
     public function forecast(Forecast $forecast)
     {
-
-        return $this->sendResponse(new ForecastResource($forecast), 'Success', 200);
+        $res = DB::table('forecasts_view')->where('forecast_id','=',$forecast->id)->first();
+        return $this->sendResponse(new FastForecast($res), 'Success', 200);
 
     }
 
