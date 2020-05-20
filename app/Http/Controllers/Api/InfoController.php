@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Resources\FastForecast;
+use App\Http\Resources\FastForecastCollection;
 use App\Http\Resources\ForecastCollection;
 use App\Http\Resources\User as UserResource;
 use App\Http\Resources\Forecast as ForecastResource;
@@ -15,13 +17,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\DB;
+use mysql_xdevapi\Table;
 
 class InfoController extends Controller
 {
     public function forecasts(Request $request)
     {
         $date = new DateTime('now', new \DateTimeZone('Europe/Moscow'));
-        $forecasts = Forecast::query()->orderBy('created_at','desc')->whereHas('event', function (Builder $query) use ($date, $request) {
+        $forecasts = Forecast::query()->orderBy('created_at', 'desc')->whereHas('event', function (Builder $query) use ($date, $request) {
             $query//->where('start', '>=', $date->format('Y-m-d H:i:s'))
             ->where('status', '=', 1);
             if ($request->has('time') && $request['time'] != '0') {
@@ -40,10 +43,22 @@ class InfoController extends Controller
         $forecasts = $forecasts->paginate($request['limit']);
         $forecasts = new ForecastCollection($forecasts);
         return $this->sendResponse(($forecasts), 'Success', 200);
-        $date = new DateTime('now', new \DateTimeZone('Europe/Moscow'));
-        $forecasts = DB::table('forecasts')
-            ->join('users')->join('events')->join('championships')
-            ->join('user_stats_view')->join('coefficient');
+    }
+
+    public function forecastsFast(Request $request)
+    {
+        $res = DB::table('forecasts_view');
+        if (!$request->has('limit') || $request['limit'] == 0) {
+            $request['limit'] = 6;
+        }
+        if ($request->has('sport_id') && $request['sport_id'] != 0) {
+            $res->where('sport_id', '=', $request['sport_id']);
+        }
+        if ($request->has('order_by'))
+        {
+            $res->orderBy($request['order_by']);
+        }
+        return new FastForecastCollection($res->paginate());
     }
 
     public function forecast(Forecast $forecast)
@@ -65,9 +80,9 @@ class InfoController extends Controller
         if (!$request->has('direction')) {
             $request['direction'] = 'desc';
         }
-        $response = User::query()->join('user_stats_view', 'user_id', '=', 'id')->orderBy($request['order_by'],$request['direction']);
+        $response = User::query()->join('user_stats_view', 'user_id', '=', 'id')->orderBy($request['order_by'], $request['direction']);
 
-        return (new UserCollection($response->paginate( $request['limit'])));
+        return (new UserCollection($response->paginate($request['limit'])));
     }
 
     public function forecaster(Request $request, User $user)

@@ -83,11 +83,15 @@ class User extends Authenticatable
 
     public function getLastFiveAttribute()
     {
+return self::getLastFive($this->id);
+    }
+    public static function getLastFive($user_id)
+    {
         $query = 'SELECT (`status` = 2) as status
 FROM `forecasts` LEFT JOIN `coefficients`
 on `forecasts`.`coefficient_id` = `coefficients`.`id`
 WHERE `forecasts`.`user_id` = ? and ( `coefficients`.status = 3 or `coefficients`.status = 2) LIMIT 5';
-        $response = collect(DB::select($query, [$this->id]));
+        $response = collect(DB::select($query, [$user_id]));
         $res = [];
         foreach ($response as $index => $item) {
             $res[] = $item->status == 1;

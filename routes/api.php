@@ -31,7 +31,7 @@ Route::get('/bookmakers/{bookmaker}', function(\App\Bookmaker $bookmaker)
 });
 
 
-Route::get('/forecasts', 'Api\InfoController@forecasts');
+Route::get('/forecasts', 'Api\InfoController@forecastsFast');
 Route::get('/forecasts/{forecast}', 'Api\InfoController@forecast');
 Route::get('/forecasts/{forecast}/comments', function (Request $Request, \App\Forecast $forecast){
     $Request['reference_to']='forecasts';

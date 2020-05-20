@@ -23,7 +23,6 @@ class Forecast extends JsonResource
                 'avatar' => $this->user_data->avatar,
                 'login' => $this->user_data->login,
                 'stats' => $this->user_data->stats,
-                //'rating_position' => $this->user_data->rating_position,
                 'last_five' => $this->user_data->last_five],
             'event_data' => [
                 'championship_data' => [
