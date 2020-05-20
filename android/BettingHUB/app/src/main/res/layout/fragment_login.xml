@@ -107,6 +107,7 @@
 
 
         <include
+            android:visibility="gone"
             android:id="@+id/socialNetworks"
             layout="@layout/element_social_networks"
             app:googleBtnClickListener="@{v -> fragment.onGoogleBtnClick()}"

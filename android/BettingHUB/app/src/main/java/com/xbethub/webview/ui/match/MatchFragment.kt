@@ -81,8 +81,8 @@ class MatchFragment: Fragment() {
         val items = ArrayList<Item>()
 
         items.add(HeaderItem(args.match))
-        items.add(ForecasterTableHeaderItem())
-        items.add(NewCommentItem())
+//        items.add(ForecasterTableHeaderItem())
+//        items.add(NewCommentItem())
         items.add(FooterItem())
 
         (matchRV.adapter as ItemAdapter).addAll(items)
@@ -103,35 +103,34 @@ class MatchFragment: Fragment() {
     private val consts = App.appComponent.getConstants()
 
     private fun onForecastersLoading() {
-        clearRatings()
-        matchRV.post {
-            (matchRV.adapter as? ItemAdapter)?.let { adapter ->
-                adapter.addAll(2
-                    , List(consts.topForecastersCount) { i ->
-                        ForecasterTableLineItem(ForecasterRating(null, i, i + 1 == consts.topForecastersCount))
-                    }
-                )
-            }
-        }
+//        clearRatings()
+//        matchRV.post {
+//            (matchRV.adapter as? ItemAdapter)?.let { adapter ->
+//                adapter.addAll(2
+//                    , List(consts.topForecastersCount) { i ->
+//                        ForecasterTableLineItem(ForecasterRating(null, i, i + 1 == consts.topForecastersCount))
+//                    }
+//                )
+//            }
+//        }
     }
 
     private fun onForecastersLoaded(forecasters: List<User>?) {
-        println(forecasters)
-        forecasters?.let {
-            matchRV.post {
-                (matchRV.adapter as? ItemAdapter)?.let { adapter ->
-                    val items = List(forecasters.size) { i ->
-                        ForecasterTableLineItem(ForecasterRating(forecasters[i], i, i + 1 == consts.topForecastersCount))
-                    }
-
-                    if (adapter.itemCount > 3) {
-                        adapter.replaceItems(2, items)
-                    } else {
-                        adapter.insertItems(items, 2)
-                    }
-                }
-            }
-        }
+//        forecasters?.let {
+//            matchRV.post {
+//                (matchRV.adapter as? ItemAdapter)?.let { adapter ->
+//                    val items = List(forecasters.size) { i ->
+//                        ForecasterTableLineItem(ForecasterRating(forecasters[i], i, i + 1 == consts.topForecastersCount))
+//                    }
+//
+//                    if (adapter.getItems().any { it.getType() == ItemType.FORECASTER_TABLE_LINE }) {
+//                        adapter.replaceItems(2, items)
+//                    } else {
+//                        adapter.insertItems(items, 2)
+//                    }
+//                }
+//            }
+//        }
     }
 
     private fun onForecastersLoadingError(error: Throwable?) {
@@ -139,17 +138,17 @@ class MatchFragment: Fragment() {
     }
 
     private fun addNewComments(position: Int, comments: List<Item>) {
-        (matchRV.adapter as ItemAdapter).let {
-            val insertPos = if (position == -1) it.itemCount - 2 else position
-
-            (matchRV.adapter as ItemAdapter).let {
-                it.addAll(insertPos, comments)
-
-                if (position != -1) {
-                    it.removeItem(position + comments.size)
-                }
-            }
-        }
+//        (matchRV.adapter as ItemAdapter).let {
+//            val insertPos = if (position == -1) it.itemCount - 2 else position
+//
+//            (matchRV.adapter as ItemAdapter).let {
+//                it.addAll(insertPos, comments)
+//
+//                if (position != -1) {
+//                    it.removeItem(position + comments.size)
+//                }
+//            }
+//        }
     }
 
 }

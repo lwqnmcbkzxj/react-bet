@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xbethub.webview.R
@@ -26,6 +28,7 @@ class ForecastFragment: Fragment() {
     private lateinit var navController: NavController
     private lateinit var binding: FragmentForecastBinding
     private lateinit var vm: ForecastViewModel
+    private val args by navArgs<ForecastFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,6 +66,14 @@ class ForecastFragment: Fragment() {
                 View.GONE
             }
         }
+        vm.forecasterClick.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                val navController = findNavController()
+                if (navController.currentDestination!!.id != R.id.profileFragment) {
+                    navController.navigate(ForecastFragmentDirections.toProfileFragment(it))
+                }
+            }
+        })
     }
 
     private fun initRV() {
@@ -78,8 +89,8 @@ class ForecastFragment: Fragment() {
             )
         binding.forecastRV.adapter = adapter
 
-        items.add(HeaderItem(requireArguments().getSerializable("forecast") as Forecast))
-        items.add(NewCommentItem())
+        items.add(HeaderItem(args.forecast))
+//        items.add(NewCommentItem())
         items.add(FooterItem())
 
         (binding.forecastRV.adapter as ItemAdapter).addAll(items)
@@ -105,16 +116,16 @@ class ForecastFragment: Fragment() {
     }
 
     private fun addNewComments(position: Int, comments: List<Item>) {
-        (binding.forecastRV.adapter as ItemAdapter).let {
-            val insertPos = if (position == -1) it.itemCount - 2 else position
-
-            (binding.forecastRV.adapter as ItemAdapter).let {
-                it.addAll(insertPos, comments)
-
-                if (position != -1) {
-                    it.removeItem(position + comments.size)
-                }
-            }
-        }
+//        (binding.forecastRV.adapter as ItemAdapter).let {
+//            val insertPos = if (position == -1) it.itemCount - 2 else position
+//
+//            (binding.forecastRV.adapter as ItemAdapter).let {
+//                it.addAll(insertPos, comments)
+//
+//                if (position != -1) {
+//                    it.removeItem(position + comments.size)
+//                }
+//            }
+//        }
     }
 }

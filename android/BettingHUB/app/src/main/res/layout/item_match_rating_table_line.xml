@@ -111,7 +111,6 @@
                     android:lines="1"
                     android:ellipsize="end"
                     android:textColor="@color/textColor11"
-                    android:textAllCaps="true"
                     android:text="LPL Pro League Season 4"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/teams"

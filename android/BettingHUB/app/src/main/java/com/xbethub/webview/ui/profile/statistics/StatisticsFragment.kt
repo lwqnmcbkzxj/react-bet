@@ -8,8 +8,25 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.xbethub.webview.R
 import com.xbethub.webview.databinding.FragmentUserStatsBinding
+import com.xbethub.webview.models.User
+import kotlin.math.roundToInt
 
 class StatisticsFragment: Fragment() {
+
+    companion object {
+
+        private val ARG_USER = "user"
+
+        fun newInstance(user: User): StatisticsFragment {
+            val fragment = StatisticsFragment()
+
+            fragment.arguments = Bundle().apply {
+                putSerializable(ARG_USER, user)
+            }
+
+            return fragment
+        }
+    }
 
     private lateinit var binding: FragmentUserStatsBinding
 
@@ -20,14 +37,22 @@ class StatisticsFragment: Fragment() {
     ): View? {
         binding = FragmentUserStatsBinding.inflate(inflater)
 
-        // TODO: временно
-        binding.roi.value = "128.5%"
-        binding.netProfit.value = "28%"
-        binding.passability.value = "65%"
-        binding.avgCoeff.value = "1.78"
+        (requireArguments().getSerializable(ARG_USER) as User).let {
+            val winCount = it.stats.winCount
+            val lossCount = it.stats.lossCount
+            val returnCount = it.stats.returnCount
 
-        binding.diagram.setValues(listOf(55, 150, 200)
-            , listOf(getColor(R.color.color1), getColor(R.color.color2), getColor(R.color.color3)))
+            val forecastCount = winCount + lossCount + returnCount
+
+            binding.roi.value = "${String.format("%.2f", it.stats.roi?.toFloat() ?: 0f)}%"
+            binding.netProfit.value = String.format("%.2f", it.stats.netProfit.toFloat())
+            binding.passability.value = "${if (forecastCount > 0) (winCount.toFloat() / forecastCount * 100).roundToInt() else 0}%"
+            binding.avgCoeff.value = String.format("%.2f", it.stats.avgCoeff?.toFloat() ?: 0f)
+
+            binding.forecastCount.text = forecastCount.toString()
+            binding.diagram.setValues(listOf(winCount, lossCount, returnCount)
+                , listOf(getColor(R.color.color1), getColor(R.color.color2), getColor(R.color.color3)))
+        }
 
         return binding.root
     }

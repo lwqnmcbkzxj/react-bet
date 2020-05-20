@@ -1,8 +1,8 @@
 package com.xbethub.webview.ui.home.matchItem
 
-import com.xbethub.webview.models.Match
+import com.xbethub.webview.models.Event
 
 interface MatchItemListener {
 
-    fun onMatchClick(match: Match, position: Int)
+    fun onMatchClick(match: Event, position: Int)
 }

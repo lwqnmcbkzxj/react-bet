@@ -7,11 +7,11 @@ import java.io.Serializable
 data class UserStats (
     @SerializedName("roi")
     @Expose
-    val roi: String,
+    val roi: String?,
 
     @SerializedName("average_cofficient")
     @Expose
-    val avgCoeff: String,
+    val avgCoeff: String?,
 
     @SerializedName("pure_profit")
     @Expose

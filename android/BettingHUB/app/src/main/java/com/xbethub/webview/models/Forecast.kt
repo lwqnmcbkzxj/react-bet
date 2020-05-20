@@ -33,5 +33,4 @@ data class Forecast (
     @SerializedName("forecast_stats")
     @Expose
     val stats: ForecastStats
-
 ): Serializable {}

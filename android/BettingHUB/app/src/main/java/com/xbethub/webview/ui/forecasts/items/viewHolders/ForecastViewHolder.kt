@@ -42,7 +42,27 @@ class ForecastViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
             binding.commentCount.text = f.stats.commentCount.toString()
             binding.rating.text = f.stats.rating.toString()
             binding.bookmarkCount.text = f.stats.subscriberCount.toString()
-            binding.gameStart.fieldValue = "-"
+            binding.win1.setImageResource(if (f.user.lastFive[0]) R.drawable.ic_check else R.drawable.ic_close)
+            binding.win2.setImageResource(if (f.user.lastFive[1]) R.drawable.ic_check else R.drawable.ic_close)
+            binding.win3.setImageResource(if (f.user.lastFive[2]) R.drawable.ic_check else R.drawable.ic_close)
+            binding.win4.setImageResource(if (f.user.lastFive[3]) R.drawable.ic_check else R.drawable.ic_close)
+            binding.win5.setImageResource(if (f.user.lastFive[4]) R.drawable.ic_check else R.drawable.ic_close)
+            binding.profit.text = "+${String.format("%.2f", f.user.stats.roi?.toFloat() ?: 0f * 100)}%"
+
+            f.stats.subscriberCount.let {
+                if (it == 0) {
+                    binding.bookmarkCount.visibility = View.GONE
+                } else {
+                    binding.bookmarkCount.text = it.toString()
+                }
+            }
+            f.stats.commentCount.let {
+                if (it == 0) {
+                    binding.commentCount.visibility = View.GONE
+                } else {
+                    binding.commentCount.text = it.toString()
+                }
+            }
 
             try {
                 val date = SimpleDateFormat(serverTimePattern).parse(f.event.eventStart)

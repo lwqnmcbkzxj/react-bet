@@ -367,6 +367,8 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <ImageView
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
                         android:id="@+id/forecasterAvatar"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -537,7 +539,8 @@
                         app:srcCompat="@drawable/ic_arrow_up"
                         android:background="?attr/selectableItemBackground"
                         android:paddingStart="8dp"
-                        android:paddingEnd="@dimen/forecastSideMargin"
+                        android:paddingEnd="8dp"
+                        android:layout_marginEnd="7dp"
                         />
 
                 </LinearLayout>

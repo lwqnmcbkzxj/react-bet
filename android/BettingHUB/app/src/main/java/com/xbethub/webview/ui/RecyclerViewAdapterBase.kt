@@ -87,6 +87,8 @@ abstract class RecyclerViewAdapterBase<L, M, VH: RecyclerView.ViewHolder>(privat
         return models[position]
     }
 
+    fun getItems() = models
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val holder: VH = createView(parent, viewType)
         setListener(holder, listener)

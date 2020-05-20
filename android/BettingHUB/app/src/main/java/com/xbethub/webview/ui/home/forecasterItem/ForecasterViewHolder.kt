@@ -28,13 +28,21 @@ class ForecasterViewHolder(val width: Int, itemView: View): RecyclerView.ViewHol
 
         user?.let {
             binding.userName.text = user.login
-            binding.stats.text = Utils.round(user.stats.roi.toDouble(), 2).toString()
+            binding.stats.text = Utils.round(user.stats.roi?.toFloat() ?: 0f, 2).toString()
 
             Utils.loadAvatar(binding.avatar, user.avatar)
 
             binding.loading.visibility = View.GONE
+            binding.loading1.visibility = View.GONE
+            binding.loading2.visibility = View.GONE
+            binding.statsBlock.visibility = View.VISIBLE
+            binding.userName.visibility = View.VISIBLE
         } ?: run {
             binding.loading.visibility = View.VISIBLE
+            binding.loading1.visibility = View.VISIBLE
+            binding.loading2.visibility = View.VISIBLE
+            binding.statsBlock.visibility = View.INVISIBLE
+            binding.userName.visibility = View.INVISIBLE
         }
     }
 

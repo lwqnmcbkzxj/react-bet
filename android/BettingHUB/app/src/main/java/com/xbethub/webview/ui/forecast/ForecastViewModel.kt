@@ -3,6 +3,7 @@ package com.xbethub.webview.ui.forecast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.xbethub.webview.models.Comment
+import com.xbethub.webview.models.User
 import com.xbethub.webview.ui.forecast.items.ItemListener
 import com.xbethub.webview.ui.forecast.items.items.CommentItem
 import com.xbethub.webview.ui.forecast.items.items.Item
@@ -10,6 +11,7 @@ import com.xbethub.webview.ui.forecast.items.items.ShowMoreItem
 
 class ForecastViewModel: ViewModel(), ItemListener {
     val commentsLiveData = MutableLiveData<Pair<Int, List<Item>>>()
+    val forecasterClick = MutableLiveData<User>()
 
     fun onCreate() {
         val comments = arrayListOf<Item>(
@@ -46,5 +48,10 @@ class ForecastViewModel: ViewModel(), ItemListener {
     // ItemListener
     override fun onShowMoreBtnClick(showMoreItem: ShowMoreItem, position: Int) {
         commentsLiveData.value = Pair(position, showMoreItem.items)
+    }
+
+    override fun onForecasterClick(user: User) {
+        forecasterClick.value = user
+        forecasterClick.value = null
     }
 }

@@ -3,6 +3,7 @@ package com.xbethub.webview.ui.menu
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +34,7 @@ class MenuFragment: Fragment() {
         binding.topPanel.bankBalance.balance = "1 500 xB"
         binding.topPanel.bankBalance.root.visibility = if (App.appComponent.getAppData().activeUser == null) View.GONE else View.VISIBLE
         binding.topPanel.searchBtn.setOnClickListener { onSearchBtnClick() }
+        binding.newsBtn.text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
 
         navController = activity?.let { Navigation.findNavController(it, R.id.nav_host_fragment) }!!
 

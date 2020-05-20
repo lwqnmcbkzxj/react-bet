@@ -20,6 +20,7 @@ class ItemAdapter(listener: ItemListener, private val viewModel: ForecastViewMod
         when (holder) {
             is ShowMoreViewHolder -> holder.setListener(listener)
             is NewCommentViewHolder -> holder.setListener(listener)
+            is HeaderViewHolder -> holder.setListener(listener)
         }
     }
 

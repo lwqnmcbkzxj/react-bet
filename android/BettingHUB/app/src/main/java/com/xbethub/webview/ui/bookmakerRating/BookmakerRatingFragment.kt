@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.xbethub.webview.R
 import com.xbethub.webview.Utils
+import com.xbethub.webview.models.Bookmaker
 import com.xbethub.webview.ui.bookmakerRating.items.BookmakerItemAdapter
 import com.xbethub.webview.ui.bookmakerRating.items.BookmakerItemListener
 import com.xbethub.webview.ui.bookmakerRating.items.ItemDecoration
@@ -66,7 +68,12 @@ class BookmakerRatingFragment : Fragment() {
         items.add(FooterBookmakerTableItem())
 
         ratingRV.adapter = BookmakerItemAdapter(object : BookmakerItemListener {
-
+            override fun onBookmakerClick(bookmaker: Bookmaker) {
+                val navController = findNavController()
+                if (navController.currentDestination!!.id != R.id.bookmakerFragment) {
+                    navController.navigate(BookmakerRatingFragmentDirections.toBookmakerFragment(bookmaker))
+                }
+            }
         }).apply {
             addAll(items)
         }

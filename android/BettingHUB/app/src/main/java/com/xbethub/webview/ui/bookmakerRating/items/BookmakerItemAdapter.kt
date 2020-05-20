@@ -13,7 +13,9 @@ class BookmakerItemAdapter(listener: BookmakerItemListener)
     : RecyclerViewAdapterBase<BookmakerItemListener, BookmakerTableItemBase, RecyclerView.ViewHolder>(listener) {
 
     override fun setListener(holder: RecyclerView.ViewHolder, listener: BookmakerItemListener) {
-
+        when (holder) {
+            is BookmakerItemViewHolder -> holder.setListener(listener)
+        }
     }
 
     override fun setModel(holder: RecyclerView.ViewHolder, model: BookmakerTableItemBase) {

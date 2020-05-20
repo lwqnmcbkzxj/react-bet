@@ -15,10 +15,7 @@ import com.xbethub.webview.R
 import com.xbethub.webview.Utils
 import com.xbethub.webview.databinding.FragmentHomeNewBinding
 import com.xbethub.webview.enums.Status
-import com.xbethub.webview.models.Bookmaker
-import com.xbethub.webview.models.Forecast
-import com.xbethub.webview.models.Match
-import com.xbethub.webview.models.User
+import com.xbethub.webview.models.*
 import com.xbethub.webview.ui.forecasts.items.ForecastListener
 import com.xbethub.webview.ui.forecasts.items.items.ForecastItem
 import com.xbethub.webview.ui.home.bookmakerItem.*
@@ -44,6 +41,7 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
 
     lateinit var forecastRVAdapter: ForecastAdapter
     lateinit var forecasterRVAdapter: ForecasterAdapter
+    lateinit var matchRVAdapter: MatchItemAdapter
 
     private var searchActive = false
 
@@ -81,10 +79,19 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
             }
         })
 
+        vm.matchesLiveData.observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.LOADING -> onMatchesLoading()
+                Status.SUCCESS -> onMatchesLoaded(it.data)
+                Status.ERROR -> onMatchesLoadingError(it.error)
+            }
+        })
+
         updateSearchFieldVisibility()
 
         initForecasterRV()
         initForecastRV()
+        initMatchesRV()
 
         return binding.root
     }
@@ -158,6 +165,31 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
 
     }
 
+    private fun onMatchesLoading() {
+        binding.topMatches.matchesRV.post {
+            matchRVAdapter.addAll(List(consts.topMatchesCount) { MatchItem(null, it == consts.topMatchesCount - 1) })
+        }
+    }
+
+    private fun onMatchesLoaded(matches: List<Event>?) {
+        matches?.let {
+            binding.topMatches.matchesRV.post {
+                matchRVAdapter.replaceItems(1, matches.mapIndexed { index, match -> MatchItem(match, index == consts.topMatchesCount - 1) })
+            }
+
+            if (matches.size < consts.topMatchesCount) {
+                binding.topMatches.matchesRV.post {
+                    val diff = consts.topMatchesCount - matches.size
+                    matchRVAdapter.removeItems(matchRVAdapter.itemCount - diff, diff)
+                }
+            }
+        }
+    }
+
+    private fun onMatchesLoadingError(error: Throwable?) {
+
+    }
+
     private fun initForecastRV() {
         val topSpace = resources.getDimensionPixelSize(R.dimen.forecastsItemTopSpace)
         val sideSpace = resources.getDimensionPixelSize(R.dimen.forecastSideMargin)
@@ -181,6 +213,17 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
 
         binding.lastForecasts.forecastRV.isNestedScrollingEnabled = false
         binding.lastForecasts.forecastRV.adapter = forecastRVAdapter
+    }
+
+    private fun initMatchesRV() {
+        val items = ArrayList<MatchTableItemBase>()
+
+        items.add(HeaderMatchTableItem())
+        matchRVAdapter = MatchItemAdapter(this)
+        matchRVAdapter.addAll(items)
+
+        binding.topMatches.matchesRV.isNestedScrollingEnabled = false
+        binding.topMatches.matchesRV.adapter = matchRVAdapter
     }
 
     private fun initTopBookmakers() {
@@ -207,11 +250,11 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
 
         items.add(HeaderMatchTableItem())
 
-        for (i in 0..4) {
-            items.add(
-                MatchItem(Match(), i == 4)
-            )
-        }
+//        for (i in 0..4) {
+//            items.add(
+//                MatchItem(Event(), i == 4)
+//            )
+//        }
 
         val adapter = MatchItemAdapter(this)
 
@@ -227,7 +270,7 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
         vm.onCreate()
 
         initTopBookmakers()
-        initTopMatches()
+//        initTopMatches()
     }
 
     private fun updateSearchFieldVisibility() {
@@ -245,33 +288,47 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
     }
 
     private fun onSeeAllForecastersBtnClick() {
-        navController.navigate(HomeFragmentDirections.toForecasterRatingFragment())
+        if (navController.currentDestination!!.id != R.id.forecasterRatingFragment) {
+            navController.navigate(HomeFragmentDirections.toForecasterRatingFragment())
+        }
     }
 
     private fun onSeeAllForecastsBtnClick() {
-        navController.navigate(HomeFragmentDirections.toForecastsFragment())
+        if (navController.currentDestination!!.id != R.id.forecastsFragment) {
+            navController.navigate(HomeFragmentDirections.toForecastsFragment())
+        }
     }
 
     private fun onSeeAllBookmakersBtnClick() {
-        navController.navigate(HomeFragmentDirections.toBookmakerRatingFragment())
+        if (navController.currentDestination!!.id != R.id.bookmakerRatingFragment) {
+            navController.navigate(HomeFragmentDirections.toBookmakerRatingFragment())
+        }
     }
 
     // ForecastListener
     override fun onForecastClick(forecast: Forecast, position: Int) {
-        navController.navigate(HomeFragmentDirections.toForecastFragment(forecast))
+        if (navController.currentDestination!!.id != R.id.forecastFragment) {
+            navController.navigate(HomeFragmentDirections.toForecastFragment(forecast))
+        }
     }
 
     // ForecasterListener
     override fun onForecasterClick(user: User, position: Int) {
-        navController.navigate(HomeFragmentDirections.toProfileFragment(user))
+        if (navController.currentDestination!!.id != R.id.profileFragment) {
+            navController.navigate(HomeFragmentDirections.toProfileFragment(user))
+        }
     }
 
     // BookmakerItemListener
     override fun onBookmakerClick(bookmaker: Bookmaker, position: Int) {
-        navController.navigate(HomeFragmentDirections.toBookmakerFragment(bookmaker))
+        if (navController.currentDestination!!.id != R.id.bookmakerFragment) {
+            navController.navigate(HomeFragmentDirections.toBookmakerFragment(bookmaker))
+        }
     }
 
-    override fun onMatchClick(match: Match, position: Int) {
-        navController.navigate(HomeFragmentDirections.toMatchFragment(match))
+    override fun onMatchClick(match: Event, position: Int) {
+        if (navController.currentDestination!!.id != R.id.matchFragment) {
+            navController.navigate(HomeFragmentDirections.toMatchFragment(match))
+        }
     }
 }

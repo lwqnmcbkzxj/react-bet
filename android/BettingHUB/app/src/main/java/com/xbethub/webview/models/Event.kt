@@ -27,6 +27,10 @@ data class Event (
 
     @SerializedName("team_2")
     @Expose
-    val team2: Team
+    val team2: Team,
+
+    @SerializedName("forecasts_count")
+    @Expose
+    val forecastCount: Int
 ): Serializable {
 }

@@ -78,11 +78,10 @@
                 app:layout_constraintBottom_toTopOf="@id/newsBtn"
                 />
 
-
             <include
                 android:id="@+id/newsBtn"
                 layout="@layout/element_menu_tile"
-                app:tileTitle="@{@string/newsTileTitle}"
+                app:tileTitle="@{@string/privacyTileTitle}"
                 app:tileIcon="@{@drawable/paper}"
                 app:clickListener="@{v -> fragment.onNewsBtnClick()}"
                 android:layout_width="0dp"
@@ -96,13 +95,13 @@
             <include
                 android:id="@+id/articlesBtn"
                 layout="@layout/element_menu_tile"
-                app:tileTitle="@{@string/articlesTileTitle}"
+                app:tileTitle="@{@string/feedbackTileTitle}"
                 app:tileIcon="@{@drawable/paper}"
                 app:clickListener="@{v -> fragment.onArticlesBtnClick()}"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/tileHeight"
-                android:layout_marginBottom="25dp"
                 android:layout_marginStart="7dp"
+                android:layout_marginBottom="25dp"
                 app:layout_constraintStart_toStartOf="@id/center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"

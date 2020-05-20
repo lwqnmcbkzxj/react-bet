@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xbethub.webview.App
@@ -22,6 +23,7 @@ import com.xbethub.webview.ui.forecasterRating.items.items.FooterItem
 import com.xbethub.webview.ui.forecasterRating.items.items.HeaderItem
 import com.xbethub.webview.ui.forecasterRating.items.items.TableHeaderItem
 import com.xbethub.webview.ui.forecasterRating.items.items.TableLineItem
+import com.xbethub.webview.ui.home.HomeFragmentDirections
 
 class ForecasterRatingFragment: Fragment(), ItemListener {
     private val consts = App.appComponent.getConstants()
@@ -158,5 +160,12 @@ class ForecasterRatingFragment: Fragment(), ItemListener {
     fun onSearchBtnClick() {
         searchActive = !searchActive
         updateSearchFieldVisibility()
+    }
+
+    override fun onForecasterClick(forecaster: User) {
+        val navController = findNavController()
+        if (navController.currentDestination!!.id != R.id.profileFragment) {
+            navController.navigate(ForecasterRatingFragmentDirections.toProfileFragment(forecaster))
+        }
     }
 }

@@ -46,7 +46,7 @@
     <string name="rating_label">Рейтинг</string>
     <string name="bonus_label">Бонус</string>
     <string name="top_matches_label">Топ матчи</string>
-    <string name="top_bets_label">Топ матчи</string>
+    <string name="top_bets_label">Топ ставки</string>
     <string name="date">Дата</string>
     <string name="match">Матч</string>
     <string name="bets">Ставки</string>
@@ -120,6 +120,8 @@
 
     <string name="topMatchesTileTittle">Топ матчи</string>
     <string name="newsTileTitle">Новости</string>
+    <string name="privacyTileTitle">Политика\nконфидициальности</string>
+    <string name="feedbackTileTitle">Обратная\nсвязь</string>
     <string name="bookmakersRatingTileTitle">Рейтинг\nбукмекеров</string>
     <string name="forecasterRatingTileTitle">Рейтинг\nпрогнозистов</string>
     <string name="articlesTileTitle">Статьи</string>

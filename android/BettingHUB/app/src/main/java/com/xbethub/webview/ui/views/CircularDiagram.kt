@@ -13,7 +13,9 @@ class CircularDiagram: View {
     private val values = ArrayList<Pair<Float, Int>>()
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val rect = RectF()
-    private val anglePadding = 2f
+    private val anglePadding: Float
+        get() = if (values.count { it.first == 0f } > 1) 0f else 2f
+
     private var strokeWidth = 10
 
     init {
@@ -46,7 +48,7 @@ class CircularDiagram: View {
     }
 
     override fun onDraw(canvas: Canvas?) {
-        if (values.isEmpty()) {
+        if (values.isEmpty() || values.all { it.first.isNaN() || it.first == 0f }) {
             return
         }
 
@@ -57,7 +59,7 @@ class CircularDiagram: View {
 
         val total = 360f - values.size * anglePadding
         var startAngle = -90 + anglePadding
-        var sweepAngle = 0f
+        var sweepAngle: Float
 
         for (v in values) {
             paint.color = v.second

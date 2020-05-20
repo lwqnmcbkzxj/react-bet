@@ -6,6 +6,7 @@ import android.view.View
 import com.xbethub.webview.R
 import com.xbethub.webview.Utils
 import com.xbethub.webview.databinding.ItemForecasterRatingLineBinding
+import com.xbethub.webview.models.User
 import com.xbethub.webview.ui.forecasterRating.items.ItemListener
 import com.xbethub.webview.ui.forecasterRating.items.items.Item
 import com.xbethub.webview.ui.forecasterRating.items.items.TableLineItem
@@ -14,18 +15,19 @@ import kotlinx.android.synthetic.main.item_forecaster_rating_line.view.*
 class TableLineViewHolder(itemView: View): BaseViewHolder(itemView) {
     private var binding = ItemForecasterRatingLineBinding.bind(itemView)
     private val context = itemView.context
+    private var user: User? = null
 
     override fun setItem(item: Item) {
         val tableLineItem = item as TableLineItem
         val rating = tableLineItem.forecasterRating
-        val user = rating.user
+        user = rating.user
 
         user?.let {
-            Utils.loadAvatar(binding.avatar, user.avatar)
+            Utils.loadAvatar(binding.avatar, it.avatar)
 
-            binding.userName.text = user.login
-            binding.wld.text = Utils.getWLDString(context, user.stats.winCount, user.stats.lossCount, user.stats.returnCount)
-            binding.profit.text = Utils.round(user.stats.netProfit.toDouble(), 2).toString()
+            binding.userName.text = it.login
+            binding.wld.text = Utils.getWLDString(context, it.stats.winCount, it.stats.lossCount, it.stats.returnCount)
+            binding.profit.text = Utils.round(it.stats.netProfit.toDouble(), 2).toString()
             binding.number.text = (rating.number + 1).toString()
             binding.loading.root.visibility = View.GONE
         } ?: run {
@@ -42,6 +44,10 @@ class TableLineViewHolder(itemView: View): BaseViewHolder(itemView) {
     }
 
     override fun setListener(listener: ItemListener) {
-
+        itemView.setOnClickListener {
+            user?.let {
+                listener.onForecasterClick(it)
+            }
+        }
     }
 }

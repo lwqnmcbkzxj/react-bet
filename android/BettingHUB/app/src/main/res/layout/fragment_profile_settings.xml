@@ -125,6 +125,7 @@
                     />
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/languageBlock"
                     android:layout_width="wrap_content"
                     android:layout_height="33dp"
@@ -220,6 +221,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/linkedAccountsBlock"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -354,6 +356,7 @@
                     />
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/notificationBlock"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

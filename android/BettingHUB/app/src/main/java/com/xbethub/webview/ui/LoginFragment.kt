@@ -52,26 +52,6 @@ class LoginFragment : Fragment() {
 
     }
 
-    override fun onStart() {
-        super.onStart()
-        requireActivity().window.let {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                it.statusBarColor = Color.WHITE
-                it.decorView.systemUiVisibility = it.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            }
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        requireActivity().window.let {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                it.statusBarColor = ContextCompat.getColor(it.context, R.color.main_blue)
-                it.decorView.systemUiVisibility = it.decorView.systemUiVisibility xor View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            }
-        }
-    }
-
     fun onGoogleBtnClick() {
 
     }
@@ -100,38 +80,36 @@ class LoginFragment : Fragment() {
 
     @SuppressLint("CheckResult")
     private fun login() {
-// TODO: раскоментить
-//        val login = binding.loginField.text.toString()
-//        val password = binding.passwordField.text.toString()
-//
-//        if (login.isEmpty() || password.isEmpty()) {
-//            binding.error.errorText = getString(R.string.fillAllFields)
-//            binding.error.root.visibility = View.VISIBLE
-//            return
-//        }
-//
-//        BettingHubBackend().api.token(TokenRequest(username = login, password = password))
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe({
-//                settings.setString(Settings.accessTokenKey, it.accessToken)
-//                settings.setString(Settings.refreshTokenKey, it.refreshToken)
-//
-//                navController.navigate(LoginFragmentDirections.toMainActivity())
-//                activity?.finish()
-//            }, {
-//                binding.error.errorText = getString(R.string.wrongLoginOrPassword)
-//                binding.error.root.visibility = View.VISIBLE
-//                it.printStackTrace()
-//            })
-       // navController.navigate(LoginFragmentDirections.toMainActivity())
-        //activity?.finish()
+        val login = binding.loginField.text.toString()
+        val password = binding.passwordField.text.toString()
 
-        val nextFragmentId = requireArguments().getInt("nextFragmentId")
+        if (login.isEmpty() || password.isEmpty()) {
+            binding.error.errorText = getString(R.string.fillAllFields)
+            binding.error.root.visibility = View.VISIBLE
+            return
+        }
 
-        App.appComponent.getAppData().activeUser = ActiveUser("", "")
+        BettingHubBackend().api.token(TokenRequest(username = login, password = password))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                settings.setString(Settings.accessTokenKey, it.accessToken)
+                settings.setString(Settings.refreshTokenKey, it.refreshToken)
+                App.appComponent.getAppData().activeUser = ActiveUser(it.accessToken, it.refreshToken)
+                navController.navigate(LoginFragmentDirections.toProfileFragment())
+            }, {
+                binding.error.errorText = getString(R.string.wrongLoginOrPassword)
+                binding.error.root.visibility = View.VISIBLE
+                it.printStackTrace()
+            })
+//        navController.navigate(LoginFragmentDirections.toProfileFragment())
+//        activity?.finish()
 
-        navController.navigate(nextFragmentId)
+//        val nextFragmentId = requireArguments().getInt("nextFragmentId")
+//
+//        App.appComponent.getAppData().activeUser = ActiveUser("", "")
+//
+//        navController.navigate(nextFragmentId)
 
     }
 }

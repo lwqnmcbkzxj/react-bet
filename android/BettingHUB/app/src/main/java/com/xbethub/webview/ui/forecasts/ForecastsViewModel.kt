@@ -28,12 +28,13 @@ class ForecastsViewModel: BaseViewModel(), SportListener {
         forecastFilterLiveData.value = forecastFilter
     }
 
+    var lastRequestId: String? = null
 
     @SuppressLint("CheckResult")
     private fun reloadForecasts() {
         clearForecastsLiveData.value = null
 
-        requestWithLiveData(forecastsLiveData
+        lastRequestId = requestWithLiveData(forecastsLiveData
             , { backendAPI.forecasts(forecastsRequest.limit, forecastsRequest.sportId, forecastsRequest.time, forecastsRequest.page) }
             , { it })
     }
@@ -49,6 +50,10 @@ class ForecastsViewModel: BaseViewModel(), SportListener {
 
     fun onTimeIntervalSelected(timeInterval: TimeInterval) {
         if (timeInterval != forecastFilter.timeInterval) {
+            lastRequestId?.let {
+                disposeRequest(it)
+                lastRequestId = null
+            }
             forecastFilter.timeInterval = timeInterval
             forecastsRequest.time = timeInterval.backendValue
 
@@ -66,6 +71,10 @@ class ForecastsViewModel: BaseViewModel(), SportListener {
     // SportListener
     override fun onSportItemClick(sport: Sport) {
         if (sport != forecastFilter.sport) {
+            lastRequestId?.let {
+                disposeRequest(it)
+                lastRequestId = null
+            }
             forecastFilter.sport = sport
             forecastFilterLiveData.value = forecastFilter
 

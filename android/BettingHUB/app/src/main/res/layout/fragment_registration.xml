@@ -136,6 +136,7 @@
 
     <TextView
         android:id="@+id/or"
+        android:visibility="gone"
         android:layout_width="25dp"
         android:layout_height="30dp"
         android:layout_marginTop="5dp"
@@ -147,6 +148,7 @@
 
     <ImageView
         android:id="@+id/left_line"
+        android:visibility="gone"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginStart="30dp"
@@ -160,6 +162,7 @@
     <ImageView
         android:id="@+id/right_line"
         android:layout_width="0dp"
+        android:visibility="gone"
         android:layout_height="1dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
@@ -171,6 +174,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="30dp"
