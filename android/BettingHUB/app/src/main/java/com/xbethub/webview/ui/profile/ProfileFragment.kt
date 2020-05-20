@@ -46,10 +46,9 @@ class ProfileFragment: Fragment() {
 
         binding.subscribeBtnBlock.visibility = View.GONE
 
-        args.user?.let { it ->
+        (requireArguments().getSerializable("User") as? User)?.let { it ->
             init(it)
             binding.userBlock.settingsBtn.visibility = View.GONE
-
         } ?: run {
             appData.activeUser?.user?.let { activeUser -> init(activeUser)
             } ?: run {
