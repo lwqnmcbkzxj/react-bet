@@ -14,17 +14,22 @@
 		color: #818283;
 		margin-bottom: 6px;
 	}
-	& input {
+	& input, & textarea {
 		width: 100%;
 		color: #343638;
 		font-size: 19px;
 		line-height: 23px;
 		height: 48px;
 		background: #FFFFFF 0% 0% no-repeat padding-box;
+		font-family: 'Roboto';
 		border: 1px solid #D5D8DD;
 		border-radius: 5px;
 		box-sizing: border-box;
 		padding: 12px 13px 13px 13px;
+		resize: none;
+	}
+	& textarea {
+		height: 200px!important;
 	}
 	& div {
 		display: flex;
@@ -50,8 +55,6 @@ label {
 
 .inputBlock {
 	position: relative;
-
-	
 	& .dropDownElement {
 		padding: 12px 13px 13px 13px;
 		height: 48px;

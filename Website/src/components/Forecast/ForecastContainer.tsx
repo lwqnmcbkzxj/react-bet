@@ -26,7 +26,7 @@ const ForecastsContainer: FC<Props> = ({ ...props }) => {
 		dispatch(getForecastFromServer(+forecastId))		
 	}, []);
  
-	if (!forecast.id) {
+	if (!forecast.id || isFetching) {
 		return <div></div>
 	} else 
 

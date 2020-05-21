@@ -23,7 +23,7 @@ let initialState = {
 	redirectLink: "",
 	shouldRedirect: false,
 	isAuthFormVisible: false,
-	isCommentsBlockVisible: true,
+	isCommentsBlockVisible: false,
 	mainPageBlocksVisibility: {} as any,
 	activeProfileTab: "statistics",
 	languages: [
@@ -54,6 +54,7 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 			if (action.value === false || action.value === true) {
 				value = action.value
 			}
+			console.log(value)
 			return {
 				...state,
 				isAuthFormVisible: value
@@ -63,7 +64,7 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 		case TOGGLE_COMMENTS_BLOCK_VISIBILITY: {
 			return {
 				...state,
-				isCommentsBlockVisible: !state.isCommentsBlockVisible
+				// isCommentsBlockVisible: !state.isCommentsBlockVisible
 			}
 		}
 
@@ -241,7 +242,7 @@ export const setShouldRedirect = (shouldRedirect: boolean): SetShouldRedirectTyp
 	}
 }
 const setSports = (sports: Array<SportType>): ThunksType => async (dispatch) => {
-	let customSports = [{ id: 1, index: 1, name: '0', visibleText: 'Все', active: true, img: '' }] as Array<SportType>
+	let customSports = [{ id: 0, index: 0, name: '0', visibleText: 'Все', active: true, image: '' }] as Array<SportType>
 	sports.map((sport, index = 1) => {
 		customSports.push({
 			id: sport.id,
@@ -249,7 +250,7 @@ const setSports = (sports: Array<SportType>): ThunksType => async (dispatch) => 
 			name: sport.id,
 			visibleText: sport.name,
 			active: false,
-			img: sport.img
+			image: sport.image
 		})
 	})
 
@@ -258,7 +259,7 @@ const setSports = (sports: Array<SportType>): ThunksType => async (dispatch) => 
 
 	dispatch({
 		type: SET_SPORTS,
-		sports
+		sports: customSports
 	})
 	
 }
@@ -267,6 +268,10 @@ export const getSportsFromServer = (): ThunksType => async (dispatch) => {
 	let response = await appAPI.getSports()
 
 	dispatch(setSports(response))
+}
+
+export const sendEmail = (email: string, text: string): ThunksType => async (dispatch) => {
+	let response = await appAPI.sendEmail(email, text)
 }
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 

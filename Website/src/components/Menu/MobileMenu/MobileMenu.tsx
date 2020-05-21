@@ -13,16 +13,18 @@ import trophy from '../../../assets/img/trophy.png'
 import newspaper from '../../../assets/img/newspaper.png'
 import { toggleAuthFormVisiblility, setShouldRedirect, setRedirectLink } from '../../../redux/app-reducer';
 
-
+import { UserType as LoggedUserType } from '../../../types/me'
+import useMobile from '../../../hooks/useMobile';
 
 type MobileMenuPropsType = {
-	loggedUserId:number
+	loggedUser: LoggedUserType
 }
 
-const MobileMenu: FC<MobileMenuPropsType> = ({ loggedUserId, ...props }) => {
+const MobileMenu: FC<MobileMenuPropsType> = ({ loggedUser, ...props }) => {
 	const logged = useSelector<AppStateType, boolean>(state => state.me.logged)
 	const dispatch = useDispatch()
 
+	let is480 = useMobile(480)
 
 
 	const [menuBlocksVisible, setMenuBlocksVisibility] = useState(false);
@@ -47,21 +49,6 @@ const MobileMenu: FC<MobileMenuPropsType> = ({ loggedUserId, ...props }) => {
 		hideMenuBlocks()
 	}
 
-	let addForecastLink
-	let profileLink
-	if (logged) {
-		profileLink = <NavLink exact to="/forecasts/add" className={s.menuLink} activeClassName={menuBarLinksActiveClass} onClick={hideMenuBlocks}>
-			<FontAwesomeIcon icon={faPlusSquare} />
-		</NavLink>
-		addForecastLink = <NavLink to={`/forecasters/${loggedUserId}`} className={s.menuLink} activeClassName={menuBarLinksActiveClass} onClick={hideMenuBlocks}>
-			<FontAwesomeIcon icon={faUser} />
-		</NavLink>
-	} else {
-		profileLink = <button className={s.menuLink} onClick={() => {tryToLogin('/forecasts/add')}}><FontAwesomeIcon icon={faPlusSquare} /></button>
-		addForecastLink = <button className={s.menuLink} onClick={() => {tryToLogin(`/forecasters/${loggedUserId}`)}}><FontAwesomeIcon icon={faUser} /></button>
-	}
-
-
 	return (
 		<div className="">
 			<div className={s.mobileMenu}>
@@ -71,8 +58,30 @@ const MobileMenu: FC<MobileMenuPropsType> = ({ loggedUserId, ...props }) => {
 				<NavLink exact to="/forecasts" className={classNames(s.menuLink, s.rotateLink)} activeClassName={menuBarLinksActiveClass} onClick={hideMenuBlocks}>
 					<FontAwesomeIcon icon={faWifi} />
 				</NavLink>
-				{profileLink}
-				{addForecastLink}
+				<NavLink exact to="/forecasts/add/forecast" className={s.menuLink} onClick={(e) => {
+					hideMenuBlocks();
+
+					
+					if (!+loggedUser.id) {
+						tryToLogin('/forecasts/add/forecast')
+						e.preventDefault()
+					}
+						
+				}} activeClassName={menuBarLinksActiveClass}>
+					<FontAwesomeIcon icon={faPlusSquare} />
+				</NavLink>
+				<NavLink to={`/forecasters/${loggedUser.id}`} className={s.menuLink} onClick={(e) => {
+					hideMenuBlocks();
+					debugger
+
+					if (!+loggedUser.id) {
+						tryToLogin(`/forecasters/${loggedUser.id}`)
+						e.preventDefault()					
+					}
+						
+				}} activeClassName={menuBarLinksActiveClass}>
+					<FontAwesomeIcon icon={faUser} />
+				</NavLink>
 
 				<button className={classNames(
 					s.toggleMenuBtn,
@@ -104,6 +113,14 @@ const MobileMenu: FC<MobileMenuPropsType> = ({ loggedUserId, ...props }) => {
 					<NavLink to="/articles" onClick={toggleMenuBlocks} className={s.menuBlock}>
 						<img src={newspaper} alt="articles" />
 						<p>Статьи</p>
+					</NavLink>
+					<NavLink to="/feedback" onClick={toggleMenuBlocks} className={s.menuBlock}>
+						<img src={newspaper} alt="feedback" />
+						<p>Обратная связь</p>
+					</NavLink>
+					<NavLink to="/policy" onClick={toggleMenuBlocks} className={s.menuBlock}>
+						<img src={newspaper} alt="policy" />
+						{ is480 ? <p>Политика конф.</p> : <p>Политика конфиденциальности</p> }
 					</NavLink>
 				</div>
 

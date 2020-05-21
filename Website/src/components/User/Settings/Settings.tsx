@@ -10,6 +10,9 @@ import Selectors from '../../Common/Selectors/Selectors';
 import { LanguageType, languageEnum } from '../../../types/filters';
 import SettingsFormBlock from './SettingsForm';
 
+import androidDownload from '../../../assets/img/google-play-btn.png'
+import iosDownload from '../../../assets/img/app-store-btn.png'
+
 type SettingsPropsType = {
 	loggedUser: LoggedUserType
 	languages: Array<LanguageType>
@@ -23,9 +26,15 @@ const Settings: FC<SettingsPropsType> = ({ loggedUser, languages, changeLanguage
 		<div className={s.userSettings}>
 			<div className={s.userInfo}>
 				<div className={s.userDetails}>
-					<img src={userNoImg} alt="user-img" />
-					<div className={s.nickName}>Никнейм</div>
-
+					<img src={loggedUser.avatar ? 'http://xbethub.com/' + loggedUser.avatar : userNoImg} alt="user-img" />
+					<div className={s.nickName}>
+						<p>{loggedUser.login}</p>
+						<div className={s.userStats}>
+							<p className={s.positive}>{loggedUser.stats.count_win}</p>/
+							<p className={s.negative}>{loggedUser.stats.count_loss}</p>/
+							<p className={s.neutral}>{loggedUser.stats.count_back}</p>
+						</div>
+					</div>
 					<Link to={`/forecasters/${loggedUser.id}`}>
 						<button className={classNames(s.profileBtn, s.settingsBtn, s.active)}>
 							<span><FontAwesomeIcon icon={faCog} className={s.settingIcon} /></span>
@@ -33,27 +42,30 @@ const Settings: FC<SettingsPropsType> = ({ loggedUser, languages, changeLanguage
 						</button>
 					</Link>
 					<div className={s.userBalance}>
-						<p className={s.bank}><span>Банк:</span> 166 500xB</p>
+						<p className={s.bank}><span>Банк:</span> {((+loggedUser.balance).toFixed(2).toLocaleString())}xB</p>
 					</div>
 				</div>
 			</div>
 
 			<div className={s.settings}>
 				<div className={s.common}>
-					<a href="https://play.google.com/store" className={s.rateBtn}>Оценить мобильное приложение</a>
-					<Selectors
+					<div className={s.download}>
+						<a href="#"><img src={androidDownload} alt="android-download"/></a>
+						<a href="#"><img src={iosDownload} alt="ios-download"/></a>
+					</div>
+					{/* <Selectors
 						selectors={languages}
 						selectorsBlockName={'languages'}
 						onChangeFunc={changeLanguage}
 						fillBg={true}
-					/>
+					/> */}
 				</div>
 
-				<SettingsFormBlock
+				 <SettingsFormBlock
 					initialValues={initialValues}
-				/>
+				/> 
 
-				<div className={s.notifications}>
+				{/* <div className={s.notifications}>
 					<div className={s.settingBlockHeader}>Настройка уведомлений:</div>
 					<div className={s.notification}>
 						<div className={s.toggler}>
@@ -73,7 +85,7 @@ const Settings: FC<SettingsPropsType> = ({ loggedUser, languages, changeLanguage
 						</div>
 						<p className={s.notificationText}>Ответы на комментарии</p>
 					</div>
-				</div>
+				</div> */}
 
 			</div>
 

@@ -125,7 +125,7 @@ export const getForecastsFromServer = (page: number, quanity: number, options = 
 	dispatch(toggleIsForecastsFetching(true))
 	let response = await forecastsAPI.getForecasts(page, quanity, options)
 	dispatch(toggleIsForecastsFetching(false))
-	dispatch(setForecasts(response))
+	dispatch(setForecasts(response.data))
 }
 
 export const getForecastFromServer = (id: number): ThunksType => async (dispatch) => {

@@ -27,49 +27,7 @@ button:hover {
 	position: relative;
 	min-width: 100%;
     box-sizing: border-box;
-	// & .pageName {
-	// 	font-size: 22px;
-	// 	line-height: 27px;
-	// 	font-family: 'Roboto Medium';
-	// 	color: #343638;
-	// 	text-transform: uppercase;
-	// 	text-align: center;
-	// 	margin-right: 10px;
-	// }
-
-	// & .pageHeader {
-	// 	display: flex;
-	// 	justify-content: space-between;
-	// 	margin-bottom: 30px;
-
-	// 	& .pageHeaderOptions {
-	// 		display: flex;
-	// 		justify-content: space-between;
-	// 		align-items: center;
-
-	// 		& .showSelectorsBtn {
-	// 			color: #A8ABAF;
-	// 			font-size: 22px;
-	// 			transition: .2s;
-	// 			display: none;
-	// 			&.active {
-	// 				color: #F7971D;
-	// 			}
-	// 		}
-	// 	}
-	// }
 }
-// .filters {
-// 	display: flex;
-// 	justify-content: space-between;
-// 	align-items: baseline;
-// 	position: relative;
-// 	flex-wrap: wrap-reverse;
-// 	margin-bottom: 12px;
-// 	&>div:nth-child(2) {
-// 		margin-bottom: 20px;
-// 	}
-// }
 
 
 @media screen and (max-width: 1600px) {

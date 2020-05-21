@@ -6,7 +6,7 @@ import { userAPI, setTokenForAPI } from '../api/api';
 import { Dispatch } from 'react';
 import { UserType } from '../types/me';
 import { stopSubmit, FormAction } from 'redux-form';
-import { setShouldRedirect, SetShouldRedirectType, toggleAuthFormVisiblility } from './app-reducer';
+import { setShouldRedirect, SetShouldRedirectType, toggleAuthFormVisiblility, setRedirectLink } from './app-reducer';
 
 const SET_LOGGED = 'me/SET_LOGGED'
 const SET_REDIRECT_LINK = 'me/SET_REDIRECT_LINK'
@@ -87,11 +87,6 @@ export const login = (email: string, password: string): ThunksType => async (dis
 		if (!response.message) {
 			Cookies.set('access-token', response.access_token, { expires: 10 / 24 });
 			dispatch(authUser())
-			// dispatch(setLogged(true))
-			// dispatch(setAccessToken(response.access_token))
-
-			// dispatch(getUserInfo())
-			// dispatch(setShouldRedirect(true))
 		} else {
 			dispatch(stopSubmit("login", { _error: response.message }))
 		}
@@ -102,10 +97,10 @@ export const authUser = (): ThunksType => async (dispatch) => {
 	let token = Cookies.get('access-token');
 	
 	if (token) {
-		dispatch(setLogged(true))
 		dispatch(setAccessToken(token))
-		dispatch(setShouldRedirect(true))
 		dispatch(getUserInfo())
+		dispatch(setLogged(true))
+		dispatch(setShouldRedirect(true))
 	}
 }
 
@@ -120,10 +115,11 @@ export const changeEmail = (email: string): ThunksType => async (dispatch) => {
 	let response = await userAPI.changeEmail(email)
 }
 export const logout = (): ThunksType => async (dispatch) => {
+	dispatch(setShouldRedirect(false))
 	dispatch(setLogged(false))
 	dispatch(setAccessToken(""))
-	dispatch(setUserInfo({}))
-	Cookies.remove('access-token');
+	dispatch(setUserInfo({ id: 0 }))
+	Cookies.remove('access-token')
 }
 
 export const getUserInfo = (): ThunksType => async (dispatch) => {

@@ -26,7 +26,7 @@ export type SportType = {
 	name: typeof sportTypeFilterEnum
 	visibleText: string
 	active: boolean
-	img?: string
+	image?: string
 }
 /* LIVE COMMENTS */
 

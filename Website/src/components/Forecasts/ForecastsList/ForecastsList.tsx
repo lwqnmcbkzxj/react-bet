@@ -15,6 +15,7 @@ type ForecastsListPropsType = {
 const ForecastsList: FC<ForecastsListPropsType> = ({ forecasts, limit = 0, ...props }) => {
 	const isFetching = useSelector<AppStateType, boolean>(state => state.forecasts.isFetching)
 	
+	debugger
 	return (
 		<div className={s.forecastList}>
 			{forecasts.map((forecast, counter) => 

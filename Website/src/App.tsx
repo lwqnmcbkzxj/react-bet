@@ -14,7 +14,6 @@ import CommentsContainer from './components/Comments/CommentsContainer'
 import Footer from './components/Common/Footer/Footer'
 import NotFound from './components/NotFound/NotFound'
 
-
 import ForecastsContainer from './components/Forecasts/ForecastsContainer'
 import ForecastContainer from './components/Forecast/ForecastContainer'
 import AddElementContainer from './components/Forecasts/AddElement/AddElementContainer'
@@ -30,7 +29,7 @@ import MatchesContainer from './components/Matches/MatchesContainer'
 import MatchContainer from './components/Match/MatchContainer'
 
 import NewsContainer from './components/News/NewsContainer'
-import NewsSingleContainer from './components/NewsSingle/NewsSingleContainer'
+// import NewsSingleContainer from './components/NewsSingle/NewsSingleContainer'
 
 import ArticleContainer from './components/Article/ArticleContainer'
 import ArticlesContainer from './components/Articles/ArticlesContainer'

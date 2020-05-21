@@ -34,8 +34,6 @@ const formatDateForForecastPage = (createdAt: string) => {
 
 
 const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
-	debugger
-	let sportImg = ""
 	let userAvatar = ""
 	let userRoi = 0
 
@@ -44,7 +42,6 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 
 
 	if (forecast.id) {
-		sportImg = getSportImg(forecast.event_data.championship_data.sport_id)
 		if (forecast.user_data.avatar) {
 			userAvatar = 'http://xbethub.com/' + forecast.user_data.avatar
 		} else {
@@ -82,13 +79,13 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 
 			<div className={s.teams}>
 				<div className={s.team}>
-					{forecast.event_data.championship_data.sport_id !== 5 && <img src={sportImg} alt="teamImg" />}
+					<img src={ "http://betting-hub.sixhands.co/" + forecast.event_data.championship_data.sport_image} alt="teamImg" />
 					<p>{forecast.event_data.team_1.name}</p>
 				</div>
 				<div className={s.vsBlock}>VS</div>
 				<div className={s.team}>
 					<p>{forecast.event_data.team_2.name}</p>
-					{forecast.event_data.championship_data.sport_id !== 5 && <img src={sportImg} alt="teamImg" />}
+					<img src={ "http://betting-hub.sixhands.co/" + forecast.event_data.championship_data.sport_image} alt="teamImg" />
 				</div>
 			</div>
 
@@ -167,7 +164,7 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 						<p>{(+forecast.user_data.stats.average_cofficient).toFixed(2)}</p>
 					</div>
 				</div>
-				<button className={s.subscribeBtn}><span>+</span> Подписаться</button>
+				{/* <button className={s.subscribeBtn}><span>+</span> Подписаться</button> */}
 			</div>
 
 			<div className={s.forecastDescription}>

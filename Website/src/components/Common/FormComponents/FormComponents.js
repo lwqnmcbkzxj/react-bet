@@ -64,7 +64,20 @@ export const Input = (props) => {
 	)
 }
 
+export const Textarea = (props) => {
+	const { input, meta, mask = "", canSeeInputValue, ...restProps } = props;
+	const hasError = meta.touched && meta.error;
 
+	return (
+		<div className={s.inputBlock}>
+			<label>{props.label}</label>
+			<div>
+				<textarea {...input} {...restProps} className={hasError ? s.errorInput : null} />
+			</div>
+		</div>
+
+	)
+}
 
 export const DropDownSelect = ({ elements, listName, ...props }) => {
 	const { input, label } = props;

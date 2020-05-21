@@ -32,8 +32,9 @@ const AuthFormContainer: FC = ({ ...props }) => {
 	}
 
 	useEffect(() => {
-		if (isAuthFormVisible)
+		if (isAuthFormVisible) {
 			toggleAuthFormVisibleDispatch()
+		}
 	}, [logged]);
 
 

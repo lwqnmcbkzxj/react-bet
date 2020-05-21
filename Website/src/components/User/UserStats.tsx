@@ -29,12 +29,12 @@ const UserStats: FC<UserStatsPropsType> = ({ stats, filters, toggleFilter, ...pr
 					returns={stats.count_back}
 				/>
 				<div className={s.rightBlock}>
-					<Selectors
+					{/* <Selectors
 						selectors={filters.timeFilter}
 						selectorsBlockName={'timeFilter'}
 						onChangeFunc={toggleFilter}
 						fillBg={true}
-					/>
+					/> */}
 
 					<div className={s.customLegend}>
 						<div className={s.legendBlock}>

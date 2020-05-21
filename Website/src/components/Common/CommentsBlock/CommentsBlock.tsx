@@ -49,7 +49,7 @@ const CommentsBlock: FC<CommentsBlockPropsType> = ({ ...props }) => {
 	
 	return (
 		<div className={s.commentsBlock}>
-			<div className={s.commentsHeader}>{getComemntsLength(comments)} комментариев</div>
+			{/* <div className={s.commentsHeader}>{getComemntsLength(comments)} комментариев</div>
 			<SendComment />
 
 			{comments.map((comment, counter) =>
@@ -61,7 +61,7 @@ const CommentsBlock: FC<CommentsBlockPropsType> = ({ ...props }) => {
 			)}
 
 			{comments.length > 0 && <SendComment active={true} />}
-			{comments.length === 0 && <div className={s.noComments}>Дискуссия еще не началась,	оставьте первый комментарий</div>}
+			{comments.length === 0 && <div className={s.noComments}>Дискуссия еще не началась,	оставьте первый комментарий</div>} */}
 		</div>
 	)
 }

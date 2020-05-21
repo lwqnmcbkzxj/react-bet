@@ -1,10 +1,8 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import s from './Selectors.module.scss';
 import classNames from 'classnames'
 
 import { FilterType, FilterNames, FiltersObjectType, LanguageType, languageEnum } from '../../../types/filters'
-
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 
@@ -25,6 +23,21 @@ const Selectors: FC<SelectorsType> = ({ selectors = [], selectorsBlockName, onCh
 	const toggleDropdownVisibility = () => {
 		if (isDropdown) setDropdownVisible(!dropdownVisible)
 	}
+
+	let selectorRef = React.createRef<any>()
+	useEffect(() => {
+		document.addEventListener('click', (e) => {
+			if (selectorRef.current && !selectorRef.current.contains(e.target)) {
+				setDropdownVisible(false)
+				e.stopPropagation()
+			}
+		})
+		return () => {
+			document.removeEventListener('click', () => { })
+		};
+	}, [dropdownVisible]);
+
+
 
 	if (isDropdown) {
 		selectors = selectors.sort(function sortByIndex(a, b) { return a.index - b.index })
@@ -65,20 +78,17 @@ const Selectors: FC<SelectorsType> = ({ selectors = [], selectorsBlockName, onCh
 
 	if (isDropdown) {
 		return (
-			<div className={s.dropdownHolder}>
+			<div className={s.dropdownHolder} ref={selectorRef}>
 				<p className={s.filterName}>Ближайшие: </p>
 				<div className={classNames(s.selectors, {
 					[s.dropdown]: isDropdown,
 					[s.dropDownVisible]: dropdownVisible
 				})} >
 
-					{/* <div className={s.activeSelectorBlock}> */}
 					<div onClick={toggleDropdownVisibility} className={s.activeSelector}>
-
 						{activeSelector.visibleText}
 						<FontAwesomeIcon icon={faCaretDown} className={s.dropDownIcon} />
 					</div>
-					{/* </div> */}
 					<div className={s.selectorsList}>
 						{renderSelectors}
 					</div>

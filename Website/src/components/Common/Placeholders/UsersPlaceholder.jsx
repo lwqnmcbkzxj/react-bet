@@ -46,7 +46,6 @@ export const UsersPlaceholder = () => {
 }
 
 export const MainPageUsersPlaceholder = () => {
-	const isMobile = useMobile(480)
 	return (
 		<ContentLoader
 			speed={2}
@@ -64,3 +63,41 @@ export const MainPageUsersPlaceholder = () => {
 
 	)
 }
+
+export const UserProfilePlaceholder = () => {
+	return (
+		<ContentLoader 
+    speed={2}
+    viewBox="0 0 660 500"
+    backgroundColor="#f3f3f3"
+    foregroundColor="#ecebeb"
+  >
+    <rect x="21" y="14" rx="0" ry="0" width="57" height="62" /> 
+    <rect x="90" y="14" rx="0" ry="0" width="175" height="21" /> 
+    <rect x="90" y="44" rx="0" ry="0" width="250" height="21" /> 
+    <rect x="70" y="95" rx="0" ry="0" width="95" height="16" /> 
+    <rect x="172" y="114" rx="0" ry="0" width="0" height="1" /> 
+    <rect x="94" y="115" rx="0" ry="0" width="50" height="24" /> 
+    <rect x="489" y="95" rx="0" ry="0" width="95" height="16" /> 
+    <rect x="513" y="115" rx="0" ry="0" width="50" height="24" /> 
+    <rect x="281" y="95" rx="0" ry="0" width="95" height="16" /> 
+    <rect x="305" y="115" rx="0" ry="0" width="50" height="24" /> 
+    <rect x="21" y="165" rx="0" ry="0" width="87" height="22" /> 
+    <rect x="119" y="165" rx="0" ry="0" width="87" height="22" /> 
+    <rect x="533" y="11" rx="0" ry="0" width="98" height="28" /> 
+    <rect x="330" y="295" rx="0" ry="0" width="150" height="22" /> 
+    <rect x="0" y="377" rx="0" ry="0" width="660" height="21" /> 
+    <circle cx="223" cy="276" r="60" /> 
+    <rect x="330" y="260" rx="0" ry="0" width="150" height="22" /> 
+    <rect x="330" y="230" rx="0" ry="0" width="150" height="22" /> 
+    <rect x="0" y="410" rx="0" ry="0" width="660" height="21" /> 
+    <rect x="0" y="443" rx="0" ry="0" width="660" height="21" /> 
+    <rect x="1" y="478" rx="0" ry="0" width="660" height="21" />
+  </ContentLoader>
+
+	)
+}
+
+
+
+  

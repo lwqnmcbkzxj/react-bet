@@ -59,7 +59,7 @@ const ElementStats: FC<ElementStatsPropsType> = ({ comments, likes, favourites, 
 
 	return (
 		<div className={s.elementStats}>
-			<div className={s.leftBlock}>
+			{/* <div className={s.leftBlock}>
 				<div className={s.comments}>
 					<FontAwesomeIcon icon={faCommentAlt} />
 					<span className={comments === 0 ? s.hidden : ""}>{comments}</span>
@@ -68,7 +68,7 @@ const ElementStats: FC<ElementStatsPropsType> = ({ comments, likes, favourites, 
 					{favouritesButton}
 					<span className={favouriteCount === 0 ? s.hidden : ""}>{favouriteCount}</span>
 				</div>
-			</div>
+			</div> */}
 			<LikesBlock id={id} likes={likes} elementType={elementType}/>
 		</div>
 	)

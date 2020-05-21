@@ -115,20 +115,20 @@ const User: FC<UsersPropsType> = ({
 					subBtnText = 'Подписан'
 				}
 
-				profileBtn =
-					<button
-						className={classNames(s.profileBtn, s.subscribe)}
-						onClick={() => { subscribeToggle(user.id) }}
-						onMouseEnter={(e) => { setSubscribedBtnHovered(true); setSubBtnHoverCounter(subBtnHoverCounter + 1);  }}
-						onMouseLeave={(e) => { setSubscribedBtnHovered(false); }}>
-						{icon}
-						<p>{subBtnText}</p>
-					</button>
+				// profileBtn =
+				// 	<button
+				// 		className={classNames(s.profileBtn, s.subscribe)}
+				// 		onClick={() => { subscribeToggle(user.id) }}
+				// 		onMouseEnter={(e) => { setSubscribedBtnHovered(true); setSubBtnHoverCounter(subBtnHoverCounter + 1);  }}
+				// 		onMouseLeave={(e) => { setSubscribedBtnHovered(false); }}>
+				// 		{icon}
+				// 		<p>{subBtnText}</p>
+				// 	</button>
 			} else {
-				profileBtn =
-					<button className={classNames(s.profileBtn, s.subscribe)} onClick={() => { subscribeToggle(user.id); setSubBtnHoverCounter(0);}}>
-						<span>+</span> <p>Подписаться</p>
-					</button>
+				// profileBtn =
+				// 	<button className={classNames(s.profileBtn, s.subscribe)} onClick={() => { subscribeToggle(user.id); setSubBtnHoverCounter(0);}}>
+				// 		<span>+</span> <p>Подписаться</p>
+				// 	</button>
 			}
 		}
 	}
@@ -149,7 +149,7 @@ const User: FC<UsersPropsType> = ({
 				<div className={s.user}>
 					<div className={s.userInfo}>
 						<div className={s.userDetails}>
-							<img src={userNoImg} alt="user-img" />
+							<img src={user.avatar ? 'http://xbethub.com/' + user.avatar : userNoImg} alt="user-img" />
 							<div className={s.nickName}>
 								<p>{user.login}</p>
 								<div className={s.userStats}>
@@ -162,7 +162,6 @@ const User: FC<UsersPropsType> = ({
 							{profileBtn}
 
 							<div className={s.userBalance}>
-
 								<p className={s.bank}><span>Банк:</span> {((+user.balance).toFixed(2).toLocaleString())}xB</p>
 								{ROIBlock}
 							</div>

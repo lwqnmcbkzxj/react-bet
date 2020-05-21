@@ -70,7 +70,7 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 			<div className={s.forecast}>
 				<div className={s.forecastHeader}>
 					<div className={s.gameInfo}>
-						{forecast.event_data.championship_data.sport_id !== 5 && <img src={sportImg} alt="gameImg" /> }
+						<img src={"http://betting-hub.sixhands.co/" + forecast.event_data.championship_data.sport_image} alt="gameImg" />
 						<Link to={`forecasts/${forecast.id}`}><p className={s.sportName}>{forecast.event_data.championship_data.sport_name}. </p></Link>
 						<Link to={`forecasts/${forecast.id}`}><p className={s.gameName} >{tournamentName}</p></Link>
 					</div>
@@ -122,9 +122,9 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 						<div className={s.userProfit}>
 							<p>Прибыль: </p>
 
-							{+forecast.user_data.stats.pure_profit > 0 ?
-								<span className={classNames(s.positive)}>+{(+forecast.user_data.stats.pure_profit).toFixed(2)}%</span> :
-								<span className={classNames(s.negative)}>-{(+forecast.user_data.stats.pure_profit).toFixed(2)}%</span>
+							{+forecast.user_data.stats.roi > 0 ?
+								<span className={classNames(s.positive)}>+{(+forecast.user_data.stats.roi * 100).toFixed(1)}%</span> :
+								<span className={classNames(s.negative)}>-{(+forecast.user_data.stats.roi * 100).toFixed(1)}%</span>
 							}
 						</div>
 					</div>

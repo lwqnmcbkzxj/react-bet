@@ -27,6 +27,9 @@ const DesktopHeader: FC<HeaderPropsType> = ({ logged, logout, user, isCommentsBl
 	const [popupVisible, setPopupVisibility] = useState(false)
 	
 	const toggleUserPopupVisibility = (value?: boolean | any) => {
+		if (!user.id) {
+			return
+		}
 
 		if (value === true || value === false) 
 			setPopupVisibility(value)
@@ -54,7 +57,7 @@ const DesktopHeader: FC<HeaderPropsType> = ({ logged, logout, user, isCommentsBl
 				{logged && popupVisible &&
 					<UserMobilePopup
 						logout={logout}
-						loggedUserId={user.id}
+						loggedUser={user}
 						toggleUserPopupVisibility={toggleUserPopupVisibility}
 					/>}
 

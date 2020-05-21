@@ -24,10 +24,10 @@ const SettingsForm: FC<InjectedFormProps<SettingsFormValuesType>> = (props: any)
 				<div className={s.settingBlockHeader}>Персональные данные</div>
 				{createField("email", Input, "E-mail")}
 			</div>
-
+{/* 
 			<div className={s.formBlock}>
 				<div className={s.settingBlockHeader}>Связанные аккаунты</div>
-			</div>
+			</div> */}
 
 			<div className={s.formBlock}>
 				<div className={s.settingBlockHeader}>Изменить пароль</div>
@@ -47,7 +47,6 @@ const ReduxSettingsForm = reduxForm<SettingsFormValuesType>({ form: 'change-pass
 const SettingsFormBlock: FC<SettingsFormType> = ({ initialValues, ...props }) => {
 	const dispatch = useDispatch()
 	const handleSave = (formData: SettingsFormValuesType) => {
-		debugger
 		if (checkEmail(formData.email)) {
 			dispatch(changeEmail(formData.email))
 		} 

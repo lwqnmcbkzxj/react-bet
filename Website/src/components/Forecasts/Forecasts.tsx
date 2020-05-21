@@ -32,13 +32,13 @@ const Forecasts: FC<ForecastsPropsType> = ({ forecasts, filters, toggleFilter, .
 					<h1 className="pageName">Прогнозы</h1>
 					<button className={classNames("showSelectorsBtn", { "active": filtersVisible })} onClick={() => { setFiltersVisible(!filtersVisible) }}><FontAwesomeIcon icon={faCog} /></button>
 				</div>
-
+{/* 
 				<Selectors
 					selectors={filters.subscriptionFilter}
 					selectorsBlockName={'subscriptionFilter'}
 					onChangeFunc={toggleFilter}
 					fillBg={true}
-				/>
+				/> */}
 
 
 			</div>

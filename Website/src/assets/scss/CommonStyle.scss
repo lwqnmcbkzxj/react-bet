@@ -93,6 +93,7 @@
 		&.active {
 			max-height: 250px;
 			transition: max-height 0.4s ease-in;
+			overflow: visible;
 		}
 	}
 }

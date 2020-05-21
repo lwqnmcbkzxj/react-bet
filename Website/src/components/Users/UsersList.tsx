@@ -47,7 +47,7 @@ const UsersList: FC<UsersListPropsType> = ({ users, limit = 0, ...props }) => {
 							<img src={user.avatar ? serverUrl + user.avatar : userImgPlaceholder} alt="user-img" />
 							<p>{user.login}</p>
 						</NavLink>
-						<div className={s.averageCoef}>{user.stats.average_cofficient}</div>
+						<div className={s.averageCoef}>{(+user.stats.average_cofficient).toFixed(2)}</div>
 						<div className={s.matchesStats}>
 							<span className={s.wins}>{user.stats.count_win}</span>
 							<div className={s.slash}>/</div>

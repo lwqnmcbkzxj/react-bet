@@ -58,12 +58,11 @@ export const userAPI = {
 		// );
 	},
 	changePassword(password: string) {
-		console.log('Changing password: ' + password)
-		// return instance.post(`change-pass`, { password })
-		// 	.then((response) => {
-		// 		return response.data
-		// 	}
-		// );
+		return instance.post(`/users/update/password`, { password })
+			.then((response) => {
+				return response.data
+			}
+		);
 	},
 
 	getUserInfo() {
@@ -137,7 +136,20 @@ export const matchesAPI = {
 			});
 	}
 }
-
+export const bookmakersAPI = {
+	getBookmakers() {
+		return instance.get(`/bookmakers`)
+			.then((response) => {
+				return response.data
+			});
+	},
+	getBookmaker(id: number) {
+		return instance.get(`/bookmakers/${id}`)
+			.then((response) => {
+				return response.data
+			});
+	}
+}
 
 export const usersAPI = {
 	getUsers(page: number, limit: number, options: any) {

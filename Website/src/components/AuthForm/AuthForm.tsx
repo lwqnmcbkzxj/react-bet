@@ -59,6 +59,7 @@ const AuthFormContainer: FC<AuthFormPropsType> = ({
 			changeAuthFormPhase={changeAuthFormPhase}
 		/>
 	}
+	
 	return (
 		<>
 			<div className={cn(s.authBlock, { [s.authBlock_visible]: isAuthFormVisible })}>

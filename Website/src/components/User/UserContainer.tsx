@@ -13,6 +13,8 @@ import { changeUserPageActiveTab } from '../../redux/app-reducer'
 
 import { getActiveFilter } from '../../utils/getActiveFilter'
 import { toggleFilter, getUserFromServer, subscribeUser } from '../../redux/user-reducer'
+import { withAuthRedirect } from '../../hoc/withAuthRedirect'
+import { UserProfilePlaceholder } from '../Common/Placeholders/UsersPlaceholder'
 interface MatchParams {
 	userId: string;
 }
@@ -26,13 +28,15 @@ const UsersContainer: FC<Props> = ({ ...props }) => {
 	const logged = useSelector<AppStateType, boolean>(state => state.me.logged)
 	const forecasts = useSelector<AppStateType, Array<ForecastType>>(state => state.forecasts.forecasts)
 	const filters = useSelector<AppStateType, FiltersObjectType>(state => state.user.filters)
+	const isFetching = useSelector<AppStateType, boolean>(state => state.user.isFetching)
+	
 
 	const dispatch = useDispatch()
 
 
 	// let activeTimeFilter = getActiveFilter(filters, 'timeFilter')
 	// let options = {		
-	// 	tf: activeTimeFilter
+	// 	time: activeTimeFilter
 	// }
 
 
@@ -46,11 +50,14 @@ const UsersContainer: FC<Props> = ({ ...props }) => {
 
 
 	let userId = props.match.params.userId ? props.match.params.userId : 1;
+	debugger
 	useEffect(() => {
-		dispatch(getUserFromServer(+userId))		
-	}, [filters]);
 
-	if (+userId === 0)
+		if (!!+userId)
+			dispatch(getUserFromServer(+userId))		
+	}, [filters, userId]);
+
+	if (!+userId)
 		return <Redirect to={`/forecasters/${loggedUser.id}`} />
 	
 	let isLoggedUserProfile = (+userId === loggedUser.id)
@@ -79,7 +86,7 @@ const UsersContainer: FC<Props> = ({ ...props }) => {
 
 
 	return (
-		(isLoggedUserProfile && logged) || (!isLoggedUserProfile) ?
+		isFetching ? <UserProfilePlaceholder /> :
 			<User
 				forecasts={forecasts}
 				isLoggedUserProfile={isLoggedUserProfile}
@@ -95,7 +102,6 @@ const UsersContainer: FC<Props> = ({ ...props }) => {
 				visibleTab={activeUserProfileTab}
 				changeVisibleTab={changeVisibleTab}
 			/>
-			: <div></div>
 	)
 }
 

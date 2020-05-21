@@ -21,10 +21,21 @@
 
 			& .nickName {
 				font-family: 'Roboto Medium';
-				font-size: 24px;
-				line-height: 29px;
+				font-size: 20px;
+				line-height: 25px;
 				color: #343638;
-				align-self: flex-end;
+				align-self: flex-start;
+				display: flex;
+
+				& .userStats {
+					padding: 0;
+					margin-left: 5px;
+					align-self: flex-start;
+					display: flex;
+					justify-content: flex-start;
+					font-size: 12px;
+					line-height: 14px;
+				}
 			}
 
 			& .userBalance {
@@ -106,19 +117,27 @@
 			justify-items: center;
 			align-items: center;
 
-			& .rateBtn {
-				width: 100%;
-				padding: 12px 12px 11px 12px;
-				background: #FFFFFF;
-				box-shadow: 0px 0px 13px #00000029;
-				border-radius: 6px 6px 4px 4px;
-				color: #202E48;
-				font-family: 'Roboto Medium';
-				font-size: 18px;
-				line-height: 22px;
-				text-align: center;
-				box-sizing: border-box;
+			& .download {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				grid-gap: 20px;
+				& img {
+					width: 100%;
+				}
 			}
+			// & .rateBtn {
+			// 	width: 100%;
+			// 	padding: 12px 12px 11px 12px;
+			// 	background: #FFFFFF;
+			// 	box-shadow: 0px 0px 13px #00000029;
+			// 	border-radius: 6px 6px 4px 4px;
+			// 	color: #202E48;
+			// 	font-family: 'Roboto Medium';
+			// 	font-size: 18px;
+			// 	line-height: 22px;
+			// 	text-align: center;
+			// 	box-sizing: border-box;
+			// }
 		}
 
 		& .settingsForm {
@@ -231,6 +250,8 @@
 	}
 
 	& .logoutBtn {
+		// !!!!!
+		margin-top: 20px;
 		display: none;
 		border: 1px solid #D5D8DD;
 		border-radius: 5px;

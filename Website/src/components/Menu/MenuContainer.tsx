@@ -8,6 +8,7 @@ import MobileMenu from './MobileMenu/MobileMenu'
 import useMobile from '../../hooks/useMobile'
 
 import { toggleFilter } from '../../redux/forecasts-reducer'
+import { UserType as LoggedUserType } from '../../types/me'
 
 
 const MenuContainer: FC = ({ ...props }) => {
@@ -15,7 +16,7 @@ const MenuContainer: FC = ({ ...props }) => {
 	const dispatch = useDispatch()
 
 	let sports = useSelector<AppStateType, Array<SportType>>(state => state.app.sports)
-	let loggedUserId = useSelector<AppStateType, number>(state => state.me.userInfo.id);
+	let loggedUser = useSelector<AppStateType, LoggedUserType>(state => state.me.userInfo);
 
 	const toggleFilterDispatch = (filterName: FilterNames, filtersBlockName: string) => {
 		dispatch(toggleFilter(filterName, filtersBlockName))
@@ -23,7 +24,7 @@ const MenuContainer: FC = ({ ...props }) => {
 
 	return (
 		isMobile ? <MobileMenu
-			loggedUserId={loggedUserId}/> :
+			loggedUser={loggedUser}/> :
 			<Menu
 				toggleFilter={toggleFilterDispatch}
 				sports={sports}

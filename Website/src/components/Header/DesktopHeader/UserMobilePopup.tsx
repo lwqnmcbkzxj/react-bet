@@ -14,15 +14,16 @@ import plusIcon from '../../../assets/img/plus-icon.png'
 import userImg from '../../../assets/img/user-img.png'
 
 import { changeUserPageActiveTab } from '../../../redux/app-reducer'
-import { create } from 'domain';
+import { UserType as LoggedUserType } from '../../../types/me'
+import userImgPlaceholder from '../../../assets/img/user-no-image.png'
 
 type UserPopupPropsType = {
 	logout: () => void
-	loggedUserId: number
+	loggedUser: LoggedUserType
 	toggleUserPopupVisibility: (value?: boolean | any) => void
 }
 
-const UserMobilePopup: FC<UserPopupPropsType> = ({ logout, loggedUserId, toggleUserPopupVisibility, ...props }) => {
+const UserMobilePopup: FC<UserPopupPropsType> = ({ logout, loggedUser, toggleUserPopupVisibility, ...props }) => {
 	const dispatch = useDispatch()
 	let popupRef = createRef<HTMLDivElement>()
 	useEffect(() => {
@@ -38,13 +39,13 @@ const UserMobilePopup: FC<UserPopupPropsType> = ({ logout, loggedUserId, toggleU
 		<div className={s.userPopup} ref={popupRef}>
 			<div className={s.popupHeader}>Профиль</div>
 
-			<NavLink to={`/forecasters/${loggedUserId}`} className={s.popupRow + ' ' + s.userRow} onClick={toggleUserPopupVisibility}>
-				<img src={userImg} alt="user-img" />
-				<p>Никнейм</p>
+			<NavLink to={`/forecasters/${loggedUser.id}`} className={s.popupRow + ' ' + s.userRow} onClick={toggleUserPopupVisibility}>
+				<img src={loggedUser.avatar ? 'http://xbethub.com/' + loggedUser.avatar : userImgPlaceholder} alt="user-img" />
+				<p>{loggedUser.login}</p>
 			</NavLink>
 
 			<NavLink
-				to={`/forecasters/${loggedUserId}`}
+				to={`/forecasters/${loggedUser.id}`}
 				className={s.popupRow}
 				onClick={() => { dispatch(changeUserPageActiveTab('favourites')); toggleUserPopupVisibility() }}>
 				
@@ -52,14 +53,14 @@ const UserMobilePopup: FC<UserPopupPropsType> = ({ logout, loggedUserId, toggleU
 				<p>Избранное</p>
 			</NavLink>
 
-			<NavLink to={`/forecasts/add/forecast`} className={s.popupRow} onClick={toggleUserPopupVisibility}>
+			{/* <NavLink to={`/forecasts/add/forecast`} className={s.popupRow} onClick={toggleUserPopupVisibility}>
 				<img src={plusIcon} alt="plus-icon" />
 				<p>Добавить прогноз</p>
 			</NavLink>
 			<NavLink to={`/forecasts/add/express`} className={s.popupRow} onClick={toggleUserPopupVisibility}>
 				<img src={plusIcon} alt="plus-icon" />
 				<p>Добавить экспресс</p>
-			</NavLink>
+			</NavLink> */}
 
 			<Link to="/" className={s.popupRow + ' ' + s.logoutRow} onClick={() => { logout(); toggleUserPopupVisibility() }}>
 				<img src={exitIcon} alt="door-img" />
