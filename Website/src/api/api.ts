@@ -183,4 +183,10 @@ export const appAPI = {
 				return response.data
 			});
 	},
+	sendEmail(email: string, text: string) {
+		// return instance.post(`send-email`, {email, text})
+		// 	.then((response) => {
+		// 		return response.data
+		// 	});
+	}
 }

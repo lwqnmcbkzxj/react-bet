@@ -13,6 +13,8 @@ import MenuContainer from './components/Menu/MenuContainer'
 import CommentsContainer from './components/Comments/CommentsContainer'
 import Footer from './components/Common/Footer/Footer'
 import NotFound from './components/NotFound/NotFound'
+import Policy from './components/Common/Policy/Policy'
+import Feedback from './components/Common/Feedback/Feedback'
 
 import ForecastsContainer from './components/Forecasts/ForecastsContainer'
 import ForecastContainer from './components/Forecast/ForecastContainer'
@@ -85,7 +87,10 @@ const App = (props: any) => {
 						<Route exact path="/articles/:articleId" render={() => <ArticleContainer />} />
 
 						<Route exact path="/news" render={() => <NewsContainer />} />
-						<Route exact path="/news/:newsId" render={() => <NewsSingleContainer />} />
+						{/* <Route exact path="/news/:newsId" render={() => <NewsSingleContainer />} /> */}
+
+						<Route exact path="/feedback" render={() => <Feedback />} />
+						<Route exact path="/policy" render={() => <Policy />} />
 						
 						<Route component={NotFound} />
 

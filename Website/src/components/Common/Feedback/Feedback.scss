@@ -1,0 +1,9 @@
+.feedback__error {
+	text-align: center;
+	margin: 10px 0;
+	display: none;
+	&_active {
+	display: block;
+
+	}
+}
