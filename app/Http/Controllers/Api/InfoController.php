@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Resources\FastForecast;
 use App\Http\Resources\FastForecastCollection;
+use App\Http\Resources\FastUserCollection;
 use App\Http\Resources\ForecastCollection;
 use App\Http\Resources\User as UserResource;
 use App\Http\Resources\Forecast as ForecastResource;
@@ -54,9 +55,12 @@ class InfoController extends Controller
         if ($request->has('sport_id') && $request['sport_id'] != 0) {
             $res->where('sport_id', '=', $request['sport_id']);
         }
+        if (!$request->has('direction')) {
+            $request['direction'] = 'desc';
+        }
         if ($request->has('order_by'))
         {
-            $res->orderBy($request['order_by']);
+            $res->orderBy($request['order_by'], $request['direction']);
         }
         return new FastForecastCollection($res->paginate($request['limit']));
     }
@@ -83,6 +87,22 @@ class InfoController extends Controller
         $response = User::query()->join('user_stats_view', 'user_id', '=', 'id')->orderBy($request['order_by'], $request['direction']);
 
         return (new UserCollection($response->paginate($request['limit'])));
+    }
+    public function fastForecasters(Request $request)
+    {
+
+        if (!$request->has('limit') || $request['limit'] == 0) {
+            $request['limit'] = 15;
+        }
+        if (true or !$request->has('order_by')) {
+            $request['order_by'] = 'roi';
+        }
+        if (!$request->has('direction')) {
+            $request['direction'] = 'desc';
+        }
+        $response = DB::table('users_view')->orderBy($request['order_by'], $request['direction']);
+
+        return (new FastUserCollection($response->paginate($request['limit'])));
     }
 
     public function forecaster(Request $request, User $user)

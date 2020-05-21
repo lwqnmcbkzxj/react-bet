@@ -161,7 +161,7 @@ Route::middleware('auth:api')->group(function()
     });
 
 });
-Route::get('/users', 'Api\InfoController@forecasters');
+Route::get('/users', 'Api\InfoController@fastForecasters');
 Route::get('/users/{user}', 'Api\InfoController@forecaster');
 Route::get('/users/{user}/stats', 'Api\InfoController@userStatistic');
 Route::get('/users/{user}/forecasts', 'Api\InfoController@userForecasts');
