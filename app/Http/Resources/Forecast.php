@@ -6,6 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use phpDocumentor\Reflection\Types\Integer;
 
 class Forecast extends JsonResource
 {
@@ -49,7 +50,7 @@ class Forecast extends JsonResource
             'forecast_stats' => [
                 'count_subscribers' => $this->subscribers->count(),
                 'count_comments' => $this->comments->count(),
-                'rating' => $this->rating
+                'rating' => intval($this->rating)
             ],
             'is_subscribed' => $this->when(Auth::check(), function () {
                 return Auth::user()->hasSubscription($this->id);

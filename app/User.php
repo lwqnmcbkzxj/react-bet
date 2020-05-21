@@ -41,36 +41,44 @@ class User extends Authenticatable
     ];
 
     protected $appends = [
-       'rating_position', 'stats', 'last_five'
+        'rating_position', 'stats', 'last_five'
     ];
+
     public function getCountSubscribersAttribute()
     {
         return $this->subscribers()->count();
     }
+
     public function getRatingPositionAttribute()
     {
         return $this->ratingPosition();
     }
+
     public function hasSubscription(int $id)
     {
         return !is_null($this->forecasts()->find($id));
     }
+
     public function getPureProfitAttribute()
     {
         return $this->pureProfit($this->id);
     }
+
     public function getCountForecastsAttribute()
     {
         return $this->forecasts()->count();
     }
+
     public function getStatsAttribute()
     {
         return $this->stats()->first();
     }
+
     public function getCountFollowForecastsAttribute()
     {
         return $this->follow_forecasts()->count();
     }
+
     public function getFollowForecastsAttribute()
     {
         return $this->follow_forecasts();
@@ -83,8 +91,9 @@ class User extends Authenticatable
 
     public function getLastFiveAttribute()
     {
-return self::getLastFive($this->id);
+        return self::getLastFive($this->id);
     }
+
     public static function getLastFive($user_id)
     {
         $query = 'SELECT (`status` = 2) as status
@@ -98,32 +107,43 @@ WHERE `forecasts`.`user_id` = ? and ( `coefficients`.status = 3 or `coefficients
         }
         return $res;
     }
+
     public function forecasts()
     {
         return $this->hasMany('App\Forecast');
     }
+
     public function follow_forecasts()
     {
         return $this->hasManyThrough('App\Forecast', 'App\FollowForecast', 'follow_forecasts.user_id', 'id');
     }
+
     public function events()
     {
         return $this->hasManyThrough('App\Event', 'App\Forecast', 'user_id', 'id');
     }
-    public function ratingPosition() {
-        $query = "SELECT `rating_position` FROM `user_rating_view` WHERE `user_id` = ?" ;
-        return (int) DB::select($query, [$this->id])[0]->rating_position;
+
+    public function ratingPosition()
+    {
+        $query = "SELECT `rating_position` FROM `user_rating_view` WHERE `user_id` = ?";
+        return (int)DB::select($query, [$this->id])[0]->rating_position;
     }
-    public function subscriptions() {
+
+    public function subscriptions()
+    {
         return $this->belongsToMany('App\User', 'subscribers', 'user_id', 'subscriber_id');
     }
-    public function subscribers() {
+
+    public function subscribers()
+    {
         return $this->belongsToMany('App\User', 'subscribers', 'subscriber_id', 'user_id');
     }
+
     public function votes()
     {
         return $this->hasMany('App\Vote', 'user_id');
     }
+
     public function stats()
     {
         return $this->hasOne('App\UserStats', 'user_id');

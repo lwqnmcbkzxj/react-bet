@@ -65,7 +65,7 @@ class FastForecast extends JsonResource
             'forecast_stats' => [
                 'count_subscribers' => $this->subscribers_count,
                 'count_comments' => $this->comments_count,
-                'rating' => $this->rating
+                'rating' => intval($this->rating)
             ],
             'is_subscribed' => $this->when(Auth::check(), function () {
                 return Auth::user()->hasSubscription($this->forecast_id);
