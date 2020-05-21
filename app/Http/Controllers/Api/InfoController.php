@@ -90,17 +90,16 @@ class InfoController extends Controller
     }
     public function fastForecasters(Request $request)
     {
-
+        $response = DB::table('users_view');
         if (!$request->has('limit') || $request['limit'] == 0) {
             $request['limit'] = 15;
-        }
-        if (true or !$request->has('order_by')) {
-            $request['order_by'] = 'roi';
         }
         if (!$request->has('direction')) {
             $request['direction'] = 'desc';
         }
-        $response = DB::table('users_view')->orderBy($request['order_by'], $request['direction']);
+        if ($request->has('order_by')) {
+            $response=$response->orderBy($request['order_by'], $request['direction']);
+        }
 
         return (new FastUserCollection($response->paginate($request['limit'])));
     }
