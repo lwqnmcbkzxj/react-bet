@@ -19,12 +19,12 @@ export const setSportFiltersEnum = (sports: Array<SportType>) => {
  }
 
 export const sportTypeFilterEnum = {
-	allSports: '0',
-	football: '1',
-	tennis: '2',
-	basketball: '3',
-	hockey: '4',
-	another: '5',
+	// allSports: '0',
+	// football: '1',
+	// tennis: '2',
+	// basketball: '3',
+	// hockey: '4',
+	// another: '5',
 } as any
 
 

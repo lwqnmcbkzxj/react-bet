@@ -13,6 +13,7 @@ import { getActiveFilter } from '../../utils/getActiveFilter'
 import { MatchType } from '../../types/matches';
 import { BookmakerType } from '../../types/bookmakers';
 import { UserType } from '../../types/users';
+import { getBookmakersFromServer } from '../../redux/bookmakers-reducer';
 
 const MainPageContainer: FC = () => {
 	const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const MainPageContainer: FC = () => {
 		dispatch(getForecastsFromServer(1, 5))	
 		dispatch(getUsersFromServer(1, 15))	
 		dispatch(getMatchesFromServer())		
+		dispatch(getBookmakersFromServer())		
 	}, []);
 
 

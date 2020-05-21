@@ -1,10 +1,9 @@
 export type BookmakerType = {
 	id: number
-	name: string
-	position: number
-	companyLogo: string
-	isChecked: boolean
-	rating: number
-	bonus: number
-	link: string
+	title: string
+	rating: number,
+	bonus: number,
+	link: string,
+	image: string
+	content: string
 }

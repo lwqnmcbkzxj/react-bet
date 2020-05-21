@@ -28,6 +28,7 @@ export type ForecastType = {
 			championship: string
 			sport_id: number
 			sport_name: string
+			sport_image: string
 		},
 		event_id: number,
 		event: string

@@ -29,7 +29,13 @@ const matchesReducer = (state = initialState, action: ActionsTypes): InitialStat
 		case SET_MATCHES: {
 			return {
 				...state,
-				matches: action.matches
+				matches: [...action.matches]
+			}
+		}
+		case SET_MATCH: {
+			return {
+				...state,
+				currentMatch: {...action.match}
 			}
 		}
 		case TOGGLE_IS_FETCHING: {
@@ -80,11 +86,11 @@ export const getMatchesFromServer = (): ThunksType => async (dispatch) => {
 }
 
 export const getMatchFromServer = (id: number): ThunksType => async (dispatch) => {
-    // dispatch(toggleIsFetching(true))
-	// let response = await matchesAPI.getMatch(id)	
-	// dispatch(toggleIsFetching(false))
+    dispatch(toggleIsFetching(true))
+	let response = await matchesAPI.getMatch(id)	
+	dispatch(toggleIsFetching(false))
 
-	// dispatch(setMatch(response))
+	dispatch(setMatch(response))
 }
 
 export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingType => {

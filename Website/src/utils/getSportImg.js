@@ -13,22 +13,23 @@ const SportsImagesObj = {
 }
 
 export const getSportImg = (sport_id, sportsArray = []) => {
-	let imagesArray = []
-	imagesArray = sportsArray.map(sport => sport.img)
+	// let imagesArray = []
+	// imagesArray = sportsArray.map(sport => sport.img)
 
 	let sportImg = ""
-	sportImg = imagesArray[+sport_id + 1]
+	// debugger
+	// sportImg = "http://betting-hub.sixhands.co/" + imagesArray[+sport_id]
 
-	if (+sport_id === 1) {
-		sportImg = SportsImagesObj.football
-	} else if (+sport_id === 2) {
-		sportImg = SportsImagesObj.tennis
-	} else if (+sport_id === 3) {
-		sportImg = SportsImagesObj.basketball
-	} else if (+sport_id === 4) {
-		sportImg = SportsImagesObj.hockey
-	} else if (+sport_id === 5) {
-		sportImg = ""
-	}
+	// if (+sport_id === 1) {
+	// 	sportImg = SportsImagesObj.football
+	// } else if (+sport_id === 2) {
+	// 	sportImg = SportsImagesObj.tennis
+	// } else if (+sport_id === 3) {
+	// 	sportImg = SportsImagesObj.basketball
+	// } else if (+sport_id === 4) {
+	// 	sportImg = SportsImagesObj.hockey
+	// } else if (+sport_id === 5) {
+	// 	sportImg = SportsImagesObj.football
+	// }
 	return sportImg;
 }

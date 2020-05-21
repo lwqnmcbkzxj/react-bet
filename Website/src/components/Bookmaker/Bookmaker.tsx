@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import s from './Bookmaker.module.scss';
 import classNames from 'classnames'
 import Breadcrumbs from '../Common/Breadcrumbs/Breadcrumbs'
-
+import { Link } from 'react-router-dom'
 import { BookmakerType } from '../../types/bookmakers';
 import LikesBlock from '../Common/ElementStats/LikesBlock';
 import contentImg from '../../assets/img/content-img-holder.png'
@@ -26,15 +26,15 @@ const getBookmakerStatsClass = (value: number) => {
 	return className
 }
 const Bookmaker: FC<BookmakerPropsType> = ({ bookmaker, ...props }) => {
-	let checkedIcon
-	let checkedClass
-	if (bookmaker.isChecked) {
-		checkedIcon = faCheck
-		checkedClass = s.positive
-	} else {
-		checkedIcon = faTimes
-		checkedClass = s.negative
-	}
+	// let checkedIcon
+	// let checkedClass
+	// if (bookmaker.isChecked) {
+	// 	checkedIcon = faCheck
+	// 	checkedClass = s.positive
+	// } else {
+	// 	checkedIcon = faTimes
+	// 	checkedClass = s.negative
+	// }
 	return (
 		<div className={s.bookmaker}>
 			<GoBackBlock
@@ -42,27 +42,35 @@ const Bookmaker: FC<BookmakerPropsType> = ({ bookmaker, ...props }) => {
 				linkText={'Рейтинг букмекеров'}
 			/>
 
-			<Breadcrumbs pathParams={['Главная', 'Рейтинг букмекеров', `Букмекерская контора ${bookmaker.name}`]} />
+			<Breadcrumbs pathParams={['Главная', 'Рейтинг букмекеров', `Букмекерская контора ${bookmaker.title}`]} />
 			<div className="pageHeader">
-				<h1 className="pageName">{`Букмекерская контора ${bookmaker.name}`}</h1>
+				<h1 className="pageName">{`Букмекерская контора ${bookmaker.title}`}</h1>
 			</div>
 
 			<div className={s.bookmakerInfo}>
 				<div className={s.bookmakerHeader}>
 					<div className={s.bookmakerDetails}>
-						<img src={bookmaker.companyLogo} alt="bookmaker-img" />
-						<div className={s.siteLink}>
-							<FontAwesomeIcon icon={checkedIcon} className={checkedClass} />
+						<img src={bookmaker.image ? "http://betting-hub.sixhands.co/" + bookmaker.image : contentImg} alt="bookmaker-img" />
+						<a href={bookmaker.link} className={s.siteLink}>
+							{/* <FontAwesomeIcon icon={checkedIcon} className={checkedClass} /> */}
 							<p><span>Перейти на</span> сайт</p>
-						</div>
+						</a>
 					</div>
-					<LikesBlock id={bookmaker.id} likes={23} elementType={'bookmaker'} />
+					{/* <LikesBlock id={bookmaker.id} likes={23} elementType={'bookmaker'} /> */}
 				</div>
-				<img src={contentImg} alt="content-img" className={s.contentImg} />
+				{/* <img src={contentImg} alt="content-img" className={s.contentImg} /> */}
 			</div>
 
 			<div className={s.bookmakerStats}>
-				<div className={s.statBlock}>
+			<div className={s.statBlock}>
+					<p>Рейтинг</p>
+					<p className={s.splitter}></p>
+					<p>
+						<span className={getBookmakerStatsClass(bookmaker.rating)}>{bookmaker.rating}</span>
+						<span>/10</span>
+					</p>
+				</div>
+				{/* <div className={s.statBlock}>
 					<p>Коэффициент</p>
 					<p className={s.splitter}></p>
 					<p>
@@ -93,7 +101,7 @@ const Bookmaker: FC<BookmakerPropsType> = ({ bookmaker, ...props }) => {
 						<span className={getBookmakerStatsClass(8.35)}>8.35</span>
 						<span>/10</span>
 					</p>
-				</div>
+				</div> */}
 				<div className={classNames(s.statBlock, s.bonus)}>
 					<p>Бонус</p>
 					<p className={s.splitter}></p>
@@ -105,14 +113,7 @@ const Bookmaker: FC<BookmakerPropsType> = ({ bookmaker, ...props }) => {
 			</div>
 
 			<div className={s.bookmakerText}>
-				<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
-				ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
-				dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-				amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
-					ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam.</p>
-				<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
-				ut labore et dolore magna aliquyam erat, sed diam voluptua.
-					At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea.</p>
+				<p>{bookmaker.content}</p>
 			</div>
 			<CommentsBlock comments={[]} />
 		</div >

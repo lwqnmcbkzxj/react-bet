@@ -1,7 +1,10 @@
 import React, { FC } from 'react';
+import { useDispatch, useSelector } from "react-redux"
+import { AppStateType } from '../../../types/types'
+import { BookmakerType } from '../../../types/bookmakers'
+
 import s from '../Bookmakers.module.scss';
 import classNames from 'classnames'
-import { BookmakerType } from '../../../types/bookmakers'
 
 import BookmakersListElement from './BookmakersListElement'
 
@@ -14,6 +17,8 @@ type BookmakersListPropsType = {
 
 
 const BookmakersList: FC<BookmakersListPropsType> = ({ bookmakers, limit = 0, isMainpage = false, ...props }) => {
+	const isFetching = useSelector<AppStateType, boolean>(state => state.bookmakers.isFetching)
+
 	let userRating = 9.40;
 	let raingClass
 	if (userRating > 7) {
@@ -40,6 +45,7 @@ const BookmakersList: FC<BookmakersListPropsType> = ({ bookmakers, limit = 0, is
 			{bookmakers.map((bookmaker, counter) =>
 				(counter < limit || limit === 0) &&
 				<BookmakersListElement
+					isFetching={isFetching}
 					key={bookmaker.id}
 					position={counter + 1}
 					bookmaker={bookmaker}

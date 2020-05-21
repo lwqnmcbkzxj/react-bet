@@ -54,8 +54,8 @@ const UsersList: FC<MatchesListPropsType> = ({ matches, limit = 0, isMainpage = 
 						<p className={s.dateDay}>{getDateDay(match.event_start)}</p>
 						<p className={s.dateTime}>{getDateTime(match.event_start)}</p>
 					</div>
-					<div className={s.sportImg}>
-						<img src={getSportImg(match.championship_data.sport_id, sports)} alt="sport-img"/>				
+						<div className={s.sportImg}>
+						<img src={ "http://betting-hub.sixhands.co/" + match.championship_data.sport_image} alt="sport-img" />
 					</div>
 					<Link to={`/matches/${match.event_id}`} className={s.matchInfo}>
 							<p className={s.matchName}>{match.event}</p>

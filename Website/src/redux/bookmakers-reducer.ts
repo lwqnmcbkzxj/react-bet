@@ -6,6 +6,7 @@ import { BookmakerType } from '../types/bookmakers'
 import bookmakerImg1 from '../assets/img/bookmaker-img-1.png'
 import bookmakerImg2 from '../assets/img/bookmaker-img-2.png'
 import bookmakerImg3 from '../assets/img/bookmaker-img-3.png'
+import { bookmakersAPI } from '../api/api'
 
 const SET_BOOKMAKERS = 'bookmakers/SET_BOOKMAKERS'
 const SET_BOOKMAKER = 'bookmakers/SET_BOOKMAKER'
@@ -16,43 +17,12 @@ const TOGGLE_IS_FETCHING = 'bookmakers/TOGGLE_IS_FETCHING'
 
 let initialState = {
 	isFetching: false,
-	bookmakers: [
-		{
-			id: 1,
-			name: '1X Ставка',
-			position: 1,
-			companyLogo: bookmakerImg1,
-			isChecked: true,
-			rating: 9.40,
-			bonus: 1000,
-			link: "https://1xstavka.ru/"
-		},
-		{
-			id: 2,
-			name: 'Betcity',
-			position: 2,
-			companyLogo: bookmakerImg2,
-			isChecked: true,
-			rating: 8.80,
-			bonus: 2500,
-			link: "https://betcity.ru/"
-		},
-		{
-			id: 3,
-			name: 'Ligastavok',
-			position: 3,
-			companyLogo: bookmakerImg3,
-			isChecked: true,
-			rating: 8.35,
-			bonus: 1000,
-			link: "https://www.ligastavok.ru/"
-		}
-	] as Array<BookmakerType>,
+	bookmakers: [{}, {}, {}] as Array<BookmakerType>,
 	currentBookmaker: {} as BookmakerType
 }
 
 type InitialStateType = typeof initialState;
-type ActionsTypes = SetBookmakersType | SetBookmakerType;
+type ActionsTypes = SetBookmakersType | SetBookmakerType | ToggleIsFetchingType;
 
 const bookmakersReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
@@ -68,6 +38,12 @@ const bookmakersReducer = (state = initialState, action: ActionsTypes): InitialS
 				currentBookmaker: action.bookmaker
 			}
 		}
+		case TOGGLE_IS_FETCHING: {
+			return {
+				...state,
+				isFetching: action.isFetching
+			}
+		}
 		default:
 			return state;
 	}
@@ -80,6 +56,10 @@ type SetBookmakersType = {
 type SetBookmakerType = {
 	type: typeof SET_BOOKMAKER,
 	bookmaker: BookmakerType
+}
+type ToggleIsFetchingType = {
+	type: typeof TOGGLE_IS_FETCHING
+	isFetching: boolean
 }
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
@@ -96,21 +76,36 @@ export const setBookmaker = (bookmaker: BookmakerType): SetBookmakerType => {
 	}
 }
 export const getBookmakersFromServer = (): ThunksType => async (dispatch) => {
-	// dispatch(setMatches(matches))
+
+	dispatch(toggleIsFetching(true))
+	let response = await bookmakersAPI.getBookmakers()	
+	dispatch(toggleIsFetching(false))
+
+	dispatch(setBookmakers(response))
 }
 
 
 export const getBookmakerFromServer = (id: number): ThunksType => async (dispatch) => {
 
-	let bookmaker = getBookmaker(id)
-	debugger
+	dispatch(toggleIsFetching(true))
+	let bookmaker = await bookmakersAPI.getBookmaker(id)	
+	dispatch(toggleIsFetching(false))
+
+	// let bookmaker = getBookmaker(id)
 	dispatch(setBookmaker(bookmaker))
 }
+
 const getBookmaker = (id: number) => {
 	const bookmaerksList = initialState.bookmakers
 	let bookmaker = bookmaerksList.filter(bookmaker => bookmaker.id === id)[0]
 	return bookmaker
 }
 
+export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingType => {
+	return {
+		type: TOGGLE_IS_FETCHING,
+		isFetching
+	}
+}
 
 export default bookmakersReducer;

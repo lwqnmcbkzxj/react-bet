@@ -15,6 +15,7 @@
 
 			& img {
 				height: 40px;
+				border-radius: 5px;
 				margin-right: 20px;
 			}
 
@@ -24,7 +25,7 @@
 				border: 1px solid #5E687B;
 				border-radius: 7px;
 				padding: 11px 11px 10px 11px;
-
+				white-space: nowrap;
 				& p {
 					margin-left: 5px;
 					font-size: 14px;

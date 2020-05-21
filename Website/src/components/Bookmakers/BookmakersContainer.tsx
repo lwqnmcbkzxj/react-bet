@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react'
 import { useDispatch, useSelector} from "react-redux"
 import { AppStateType } from '../../types/types'
 import Bookmakers from './Bookmakers'
-
+import { getBookmakersFromServer } from '../../redux/bookmakers-reducer'
 import { BookmakerType } from '../../types/bookmakers'
 
 
@@ -11,15 +11,16 @@ const BookmakersContainer: FC = ({ ...props }) => {
 
 	const dispatch = useDispatch()
 
-	// useEffect(() => {
-	// 	dispatch(getMatchesFromServer(1, 15))		
-	// }, []);
+	useEffect(() => {
+		dispatch(getBookmakersFromServer())		
+	}, []);
 
 
 	return (
+		bookmakers[0].id ?
 		<Bookmakers
 			bookmakers={bookmakers}
-		/>
+		/> : <></>
 	)
 }
 

@@ -7,57 +7,39 @@ import basketballImg from '../../../assets/img/basketball.png'
 import hockeyImg from '../../../assets/img/hockey.png'
 import { SportType } from '../../../types/types'
 import { sportTypeFilterEnum, FilterNames } from '../../../types/filters'
+import { getSportImg } from '../../../utils/getSportImg';
 
 type SportsBlockPropsType = {
 	toggleFilter: (filterName: FilterNames, filtersBlockName: string) => void
 	sports: Array<SportType>
 }
 
-const SportsBlock: FC<SportsBlockPropsType> = ({toggleFilter, ...props }) => {
+const SportsBlock: FC<SportsBlockPropsType> = ({toggleFilter, sports, ...props }) => {
 	const [sportsBlockVisible, setSportsBlockVisibitity] = useState(false);
 
 	const toggleSportsBlockVisibitity = () => {
 		setSportsBlockVisibitity(!sportsBlockVisible)
 	}
 
-	let sportsArray = [
-		{ name: "Футбол", filterName: sportTypeFilterEnum.football, img: footballImg },
-		{ name: "Теннис", filterName: sportTypeFilterEnum.tennis, img: tennisImg },
-		{ name: "Баскетбол", filterName: sportTypeFilterEnum.basketball, img: basketballImg },
-		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
-		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
-		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
-		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
-		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
-		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
-		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
-		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
-		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
-		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
-		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
-		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
-		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
-		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
-		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
-		{ name: "Хоккей", filterName: sportTypeFilterEnum.hockey, img: hockeyImg },
-	]
-
 	let sportLinks = [] as any
-	sportsArray.map((link, counter) => {
+	sports.map((sport, counter) => {
+		+sport.id !== 0 &&
 		sportLinks.push(
 			<NavLink key={counter} to="/forecasts" className={s.sportLink}>
-				<button onClick={() => { toggleFilter(link.filterName, 'sportTypeFilter') }}>
-					<img src={link.img} alt="sport-img" />{link.name}
+				<button onClick={() => { toggleFilter(sport.name, 'sportTypeFilter') }}>
+				<img src={ "http://betting-hub.sixhands.co/" + sport.image} alt="teamImg" />
+					{sport.visibleText}
 				</button>
 			</NavLink>)
 	})
 	let sportLinksLimit = sportsBlockVisible ? -1 : 4;
 	let showBtn;
 
+
 	if (sportsBlockVisible) {
 		showBtn = <button className={s.showBtn} onClick={toggleSportsBlockVisibitity}>Скрыть</button>
 	} else {		
-		showBtn = <button className={s.showBtn} onClick={toggleSportsBlockVisibitity}>Показать еще ({sportsArray.length - sportLinksLimit})</button>
+		showBtn = <button className={s.showBtn} onClick={toggleSportsBlockVisibitity}>Показать еще ({sports.length - sportLinksLimit})</button>
 	}
 	return (
 
@@ -68,7 +50,7 @@ const SportsBlock: FC<SportsBlockPropsType> = ({toggleFilter, ...props }) => {
 					(counter < sportLinksLimit || sportLinksLimit === -1) ? link : null
 				)}
 			</div>
-			{ showBtn }
+			{ sportLinksLimit > 4 && showBtn }
 		</div>
 	)
 }
