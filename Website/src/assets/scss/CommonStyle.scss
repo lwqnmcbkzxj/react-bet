@@ -41,6 +41,7 @@
 		margin-bottom: 20px;
 	}
 }
+
 .swiper-scrollbar {
 	background: #F5F5F5!important;
 	height: 8px!important;
@@ -88,12 +89,13 @@
 	.filters {
 		max-height: 0;
 		transition: max-height 0.4s ease-out;
+
 		overflow: hidden;
 
 		&.active {
 			max-height: 250px;
 			transition: max-height 0.4s ease-in;
-			overflow: visible;
+			overflow: hidden;
 		}
 	}
 }

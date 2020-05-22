@@ -8,3 +8,9 @@ export const timeMask = createTextMask({
 export const dateMask = createTextMask({
 	pattern: '99.99.9999',
 });
+
+export const percentMask = createNumberMask({
+	// suffix: '%'
+})
+export const numberMask = createNumberMask({
+})

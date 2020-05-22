@@ -27,7 +27,11 @@
 		box-sizing: border-box;
 		padding: 12px 13px 13px 13px;
 		resize: none;
+		&:disabled {
+			background: rgb(240, 240, 240);
+		}
 	}
+	
 	& textarea {
 		height: 200px!important;
 	}
@@ -44,6 +48,22 @@
 			}
 		}
 	}
+	& .arrows {
+		display: flex;
+		flex-direction: column;
+		align-self: center;
+		justify-content: center;
+		position: absolute;
+		right: 15px;
+		font-size: 18px;
+		& svg {
+			&:hover {
+				opacity: .5;
+				cursor: pointer;
+			}
+		}
+	}
+
 }
 label {
 	font-size: 12px;
@@ -52,7 +72,14 @@ label {
 	margin-bottom: 6px;
 }
 
-
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
 .inputBlock {
 	position: relative;
 	& .dropDownElement {
@@ -83,6 +110,7 @@ label {
 			font-size: 19px;
 			line-height: 23px;
 			margin: 0;
+			width: 100%;
 		}
 		& input[type=radio] {
 			display: none;

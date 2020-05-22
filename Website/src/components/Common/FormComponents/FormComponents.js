@@ -1,15 +1,17 @@
 import React, { useState, useEffect, createRef } from 'react';
 import s from './FormComponents.module.scss';
 import cn from 'classnames'
-import { Field } from 'redux-form';
+import { Field, change } from 'redux-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash, faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import { useDispatch,  } from 'react-redux';
 
 export function createField(
 	name,
 	component,
 	label = "",
 	props = {}) {
+	
 	return (
 		<div>
 			<Field
@@ -20,7 +22,6 @@ export function createField(
 				{...props} />
 		</div>
 	)
-
 }
 
 
@@ -65,7 +66,7 @@ export const Input = (props) => {
 }
 
 export const Textarea = (props) => {
-	const { input, meta, mask = "", canSeeInputValue, ...restProps } = props;
+	const { input, meta, ...restProps } = props;
 	const hasError = meta.touched && meta.error;
 
 	return (
@@ -79,7 +80,78 @@ export const Textarea = (props) => {
 	)
 }
 
-export const DropDownSelect = ({ elements, listName, ...props }) => {
+export const Number = (props) => {
+	const { input, meta, readOnly = false, step = 1, ...restProps } = props;
+	const hasError = meta.touched && meta.error;
+
+	const numberInputRef = createRef()
+	const numberRegExp = /^[0-9.,]+$/
+	function IncrementNumber() {
+		if (!readOnly) {
+			let val = numberInputRef.current.value
+			if (val.match(numberRegExp)) {
+				props.handleChange(+val + +step)
+			}
+			
+		}
+	}
+	function DecrementNumber() {
+		if (!readOnly) {
+			let val = numberInputRef.current.value
+			if (val.match(numberRegExp)) {
+				props.handleChange(+val - +step)
+			}
+		}
+	}
+
+	const handleChange = (e) => {
+		let val = e.target.value
+		if (val === "")
+			val = "0"
+		if (val.match(numberRegExp)) {
+			props.handleChange(+val)
+		}
+	}
+	return (
+		<div className={s.inputBlock}>
+			<label>{props.label}</label>
+			<div>
+				<input
+					{...input}
+					{...restProps}
+					className={cn({
+						[s.errorInput]: hasError,
+					})}
+					disabled={readOnly}
+					type="number"
+					ref={numberInputRef}
+					min="0"
+					step={step}
+					onChange={ handleChange }
+				/>
+				<div className={s.arrows}>
+					<FontAwesomeIcon className="fa-rotate-180" icon={faCaretDown} onClick={IncrementNumber}/>
+					<FontAwesomeIcon icon={faCaretDown} onClick={DecrementNumber}/>
+					
+				</div>
+			</div>
+		</div>
+
+	)
+}
+
+export function createDropdown(
+	name = "",
+	label = "",
+	props = {}) {
+	return (
+		<DropDownSelect label={label} name={name}  {...props}/>
+	)
+}
+
+
+export const DropDownSelect = ({ elements, name, ...props }) => {
+	const dispatch = useDispatch()
 	const { input, label } = props;
 
 	const dropDownRef = createRef()
@@ -103,18 +175,24 @@ export const DropDownSelect = ({ elements, listName, ...props }) => {
 
 	const [activeElement, setActiveElement] = useState(elements[0])
 
+	const handleSetActiveElement = (value) => {
+		setActiveElement(value)
+		dispatch(change( 'add-element', name, value ))
+	}
+
 	const getListElementFromValue = (value, key = 0) => {
-		let isActive = value === activeElement
+		let isActive = (value === activeElement)
 		return (
 			<div
 				className={cn(s.dropDownElement, { [s.activeDropdownElement]: isActive })}
 				key={key}
-				onClick={() => {
-					setActiveElement(value)
+				onClick={(e) => {
+					handleSetActiveElement(value)
 					toggleDropdownVisibility()
-				}}>
-				<input type="radio" id={listName} name={listName} checked={isActive} />
-				<label htmlFor={listName}> {value} </label>
+				}}
+			>
+				<Field type="radio" component="input" name={name} id={name + "." + value} value={value} />
+				<label htmlFor={name + "." + value} >{value}</label>
 				{isActive && <FontAwesomeIcon className={cn(s.dropDownArrow, { ["fa-rotate-180"]: dropdownVisible })} icon={faCaretDown} />}
 			</div>
 		)
@@ -131,7 +209,6 @@ export const DropDownSelect = ({ elements, listName, ...props }) => {
 	return (
 		<div className={s.inputBlock} ref={dropDownRef}>
 			<label htmlFor={label}>{label}</label>
-
 			{activeElementBlock}
 
 			{dropdownVisible &&

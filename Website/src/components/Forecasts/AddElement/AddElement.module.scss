@@ -24,13 +24,19 @@
 		font-style: italic;
 		color: #818181;
 	}
-	& .searcBtn {
+	& .searchBtn {
 		position: absolute;
 		top: 14px;
 		right: 15px;
 		color: #818181;
 		font-size: 19px;
 	}
+}
+
+.forecastDecision {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-gap: 30px;
 }
 
 @media screen and (max-width: 480px) {
