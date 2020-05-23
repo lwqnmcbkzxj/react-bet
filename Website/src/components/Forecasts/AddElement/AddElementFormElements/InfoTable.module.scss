@@ -1,3 +1,27 @@
+.infoTableToggle {
+	padding-bottom: 12px;
+	& button {
+		font-size: 16px;
+		line-height: 19px;
+		color: #343638;
+
+		& p {
+			font-family: 'Roboto';
+			& span {
+			font-family: 'Roboto';
+				color: #0F19AA;
+			}
+		}
+		
+		&.active {
+			& p {
+				font-family: 'Roboto Medium';
+			}
+		}
+	}
+}
+
+
 .infoTable {
 	margin: 12.5px 0;
 	border: 1px solid #E5E2E2;

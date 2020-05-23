@@ -14,7 +14,10 @@ const AddElementContainer: FC = (props) => {
 	return (
 		logged ?
 			<Switch>
-				<Route exact path="/forecasts/add/express" render={() => <AddExpress />} />
+				<Route exact path="/forecasts/add/express" render={() =>
+					<AddExpress
+						userBalance={+userBalance}
+					/>} />
 				<Route exact path="/forecasts/add/forecast" render={() =>
 					<AddForecast
 						userBalance={+userBalance}

@@ -8,6 +8,7 @@ import Breadcrumbs from '../../Common/Breadcrumbs/Breadcrumbs'
 import { createField, Input, Textarea, Number, DropDownSelect, createDropdown } from '../../Common/FormComponents/FormComponents';
 import ActionButton from '../../Common/ActionButton/ActionButton'
 import InfoTable from './AddElementFormElements/InfoTable'
+import InfoTableToggler from './AddElementFormElements/InfoTableToggler'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -54,7 +55,12 @@ const AddElement: FC<AddElementPropsType> = ({ userBalance, ...props }) => {
 
 	return (
 		<div className={s.addElementPage}>
-			<Breadcrumbs pathParams={['Главная', 'Прогнозы', 'Добавить прогноз']} />
+			<Breadcrumbs pathParams={[
+				{ text: 'Главная', link: '' },
+				{ text: 'Прогнозы', link: '/forecasts' },
+				{ text: 'Добавить прогноз', link: '/forecasts/add/forecast' }
+			]} />
+			
 			<div className="pageHeader">
 				<h1 className="pageName">Добавить прогноз</h1>
 			</div>
@@ -102,26 +108,46 @@ const AddElementForm: FC<FormType & InjectedFormProps<{}, FormType>> = (props: a
 	let bookmakers = ['1XСТАВКА', 'BETCITY', 'ЛигаСтавок'];
 	let champinships = ['Чемпионат-1', 'Чемпионат-2', 'Чемпионат-3'];
 	let teams = ['Virtus Pro', 'Navi', 'G2'];
- 
+
 
 	return (
 		<form onSubmit={props.handleSubmit}>
 
 			<div className={s.groupedInputs}>
-				{createDropdown('bookmaker', 'Букмекерская контора', { elements: bookmakers } ) }
-				{createDropdown('sport', 'Вид спорта', { elements: sports } ) }
+				{createDropdown('bookmaker', 'Букмекерская контора', { elements: bookmakers })}
+				{createDropdown('sport', 'Вид спорта', { elements: sports })}
 			</div>
-			{createDropdown('championship', 'Чемпионат', { elements: champinships } ) }
-			{createDropdown('team', 'Команды', { elements: teams } ) }
-			
+			{createDropdown('championship', 'Чемпионат', { elements: champinships })}
+			{createDropdown('team', 'Команды', { elements: teams })}
+
 			<div className={s.groupedInputs}>
 				{createField('date', Input, 'Дата события', { mask: dateMask })}
 				{createField('time', Input, 'Время события', { mask: timeMask })}
 			</div>
 
-			<InfoTable info={[]} name='add-forecast-type' currentDecision={props.currentDecision} changeDecision={props.changeDecision} />
+			<InfoTable
+				info={[]}
+				name='add-forecast-type'
+				currentDecision={props.currentDecision}
+				changeDecision={props.changeDecision} />
 
-			<div className={s.forecastDecision}>
+			<div className={s.tableTogglers}>
+				<InfoTableToggler
+					togglerName={"Форы"}
+					startVisibility={true}
+					info={[]}
+					name='add-forecast-type'
+					currentDecision={props.currentDecision}
+					changeDecision={props.changeDecision} />
+				<InfoTableToggler
+					togglerName={"Форы"}
+					info={[]}
+					name='add-forecast-type'
+					currentDecision={props.currentDecision}
+					changeDecision={props.changeDecision} />
+			</div>
+
+			<div className={s.decision}>
 				{createField("add-forecast-coeff-value", Number, 'Коэф. конторы', { readOnly: true })}
 				{createField("add-forecast-type", Input, 'Исход')}
 				{createField("add-forecast-bet-percent", Number, 'Ставка %', { handleChange: props.calculatePercent, step: "0.1" })}
@@ -130,7 +156,6 @@ const AddElementForm: FC<FormType & InjectedFormProps<{}, FormType>> = (props: a
 
 			{createField("descrition", Textarea, "Описание прогноза", { type: 'textarea' })}
 
-			<Field name="sport" component="input"/>
 			<div className={s.btnHolder}><ActionButton value="Добавить прогноз" /></div>
 		</form>
 	);

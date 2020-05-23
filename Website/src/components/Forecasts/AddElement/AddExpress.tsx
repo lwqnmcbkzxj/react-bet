@@ -1,21 +1,208 @@
 import React, { FC, useState } from 'react';
 import s from './AddElement.module.scss';
 import classNames from 'classnames'
+import { timeMask, dateMask, percentMask, numberMask } from '../../../utils/formValidation';
+import { reduxForm, InjectedFormProps, SubmissionError, Field } from 'redux-form'
 
 import Breadcrumbs from '../../Common/Breadcrumbs/Breadcrumbs'
+import { createField, Input, Textarea, Number, DropDownSelect, createDropdown } from '../../Common/FormComponents/FormComponents';
+import ActionButton from '../../Common/ActionButton/ActionButton'
+import InfoTable from './AddElementFormElements/InfoTable'
+import InfoTableToggler from './AddElementFormElements/InfoTableToggler'
 
-type ForecastsPropsType = {
-	
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { useDispatch } from 'react-redux'
+
+type AddElementPropsType = {
+	userBalance: number
 }
-const Forecasts: FC<ForecastsPropsType> = ({ ...props }) => {
+
+const AddElement: FC<AddElementPropsType> = ({ userBalance, ...props }) => {
+	const dispatch = useDispatch()
+	const handleAdd = (data: any) => {
+		console.log(data)
+	}
+	const findForecast = () => {
+
+	}
+	const [decisionsArray, setDecisionsArray] = useState<Array<string>>(['Новый экспресс1', 'Новый экспресс2'])
+	const [currentDecision, setCurrentDecision] = useState({ bookmakerId: 0, type: '', value: 0 })
+
+	const handleChangeDecision = (bookmakerId: number, type: string, value: number) => {
+		if (currentDecision.type !== type || bookmakerId !== currentDecision.bookmakerId) {
+			setCurrentDecision({ bookmakerId, type, value })
+			addDecision(`${type}.${bookmakerId}.${value}`)
+		}
+
+	}
+
+	const addDecision = (decision: string) => {
+		let newArr = [...decisionsArray, decision]
+		setDecisionsArray(newArr)
+	}
+
+	const deleteDecision = (value: string) => {
+		let decisionsArrayNew = decisionsArray.filter(decision => decision !== value)
+		setDecisionsArray(decisionsArrayNew)
+	}
+
+	const [betValue, setBetValue] = useState("0")
+	const [betPercent, setBetPercent] = useState("0")
+	const calculateBet = (value: number) => {
+		let betPercentValue = ((value / userBalance) * 100).toFixed(2)
+		if (+betPercentValue <= 5 && +betPercentValue >= 0) {
+			setBetPercent(betPercentValue)
+			setBetValue(value.toFixed(0))
+		}
+	}
+	const calculatePercent = (percent: number) => {
+		if (percent <= 5 && percent >= 0) {
+			let betValue = (percent * userBalance / 100).toFixed(0)
+
+			setBetPercent(percent.toFixed(2))
+			setBetValue(betValue)
+		}
+	}
+
 	return (
 		<div className={s.addElementPage}>
-			<Breadcrumbs pathParams={['Главная', 'Прогнозы', 'Добавить экспресс']} />
+
+			<Breadcrumbs pathParams={[
+				{ text: 'Главная', link: '' },
+				{ text: 'Прогнозы', link: '/forecasts' },
+				{ text: 'Добавить экспресс', link: '/forecasts/add/express' }
+			]} />
+
 			<div className="pageHeader">
-				<h1 className="pageName">Добавить экспресс</h1>
+				<h1 className="pageName">Добавить Экспресс</h1>
 			</div>
+
+			<div className={s.searchBlock}>
+				<input type="text" placeholder="Поиск прогноза..." />
+				<button onClick={findForecast}><FontAwesomeIcon icon={faSearch} className={s.searchBtn} /></button>
+			</div>
+
+			<ReduxAddElementForm
+				onSubmit={handleAdd}
+				currentDecision={currentDecision}
+				initialValues={{
+					'add-express-type': currentDecision.type,
+					'add-express-coeff-value': currentDecision.value,
+					'add-express-bet-percent': betPercent,
+					'add-express-bet-value': betValue,
+					bookmaker: '1XСТАВКА',
+					sport: 'Футбол',
+					championship: 'Чемпионат-1',
+					team: 'Virtus Pro'
+
+				}}
+				changeDecision={handleChangeDecision}
+
+				insideComponent={<ExpressDecisions values={decisionsArray} deleteDecision={deleteDecision} />}
+				calculateBet={calculateBet}
+				calculatePercent={calculatePercent}
+			/>
 
 		</div>
 	)
 }
-export default Forecasts;
+
+
+type FormType = {
+	currentDecision: any
+	changeDecision: (bookmakerId: number, type: string, value: number) => void
+	calculateBet: (value: number) => void
+	calculatePercent: (percent: number) => void
+	insideComponent: any
+}
+
+
+const AddElementForm: FC<FormType & InjectedFormProps<{}, FormType>> = (props: any) => {
+	let sports = ['Футбол', 'Теннис', 'Хоккей', 'Другое'];
+	let bookmakers = ['1XСТАВКА', 'BETCITY', 'ЛигаСтавок'];
+	let champinships = ['Чемпионат-1', 'Чемпионат-2', 'Чемпионат-3'];
+	let teams = ['Virtus Pro', 'Navi', 'G2'];
+
+
+	return (
+		<form onSubmit={props.handleSubmit}>
+
+			<div className={s.groupedInputs}>
+				{createDropdown('bookmaker', 'Букмекерская контора', { elements: bookmakers })}
+				{createDropdown('sport', 'Вид спорта', { elements: sports })}
+			</div>
+			{createDropdown('championship', 'Чемпионат', { elements: champinships })}
+			{createDropdown('team', 'Команды', { elements: teams })}
+
+			<div className={s.groupedInputs}>
+				{createField('date', Input, 'Дата события', { mask: dateMask })}
+				{createField('time', Input, 'Время события', { mask: timeMask })}
+			</div>
+
+			<InfoTable
+				info={[]}
+				name='add-forecast-type'
+				currentDecision={props.currentDecision}
+				changeDecision={props.changeDecision} />
+
+			<div className={s.tableTogglers}>
+				<InfoTableToggler
+					togglerName={"Форы"}
+					startVisibility={true}
+					info={[]}
+					name='add-forecast-type'
+					currentDecision={props.currentDecision}
+					changeDecision={props.changeDecision} />
+				<InfoTableToggler
+					togglerName={"Форы"}
+					info={[]}
+					name='add-forecast-type'
+					currentDecision={props.currentDecision}
+					changeDecision={props.changeDecision} />
+			</div>
+
+			{props.insideComponent}
+
+
+			<div className={classNames(s.decision, s.express)}>
+				{createField("add-forecast-bet-type", Input, 'Тип ставки')}
+				{createField("add-express-bet-percent", Number, 'Ставка %', { handleChange: props.calculatePercent, step: "0.1" })}
+				{createField("add-express-bet-value", Number, 'Ставка', { handleChange: props.calculateBet, step: "1" })}
+			</div>
+
+			{createField("descrition", Textarea, "Описание прогноза", { type: 'textarea' })}
+
+			<div className={s.btnHolder}><ActionButton value="Добавить прогноз" /></div>
+		</form>
+	);
+}
+
+
+
+
+let ReduxAddElementForm = reduxForm<{}, FormType>({ form: 'add-express', enableReinitialize: true })(AddElementForm)
+
+
+export default AddElement;
+
+
+
+type ExpressDecisionType = {
+	values: Array<string>
+	deleteDecision: (value: string) => void
+}
+const ExpressDecisions: FC<ExpressDecisionType> = ({ values, deleteDecision, ...props }) => {
+	return (
+		<div className={s.expresses}>
+			{values.map(value =>
+				<div className={s.expressDecision}>
+					<p>{value}</p>
+					<button onClick={() => { deleteDecision(value) }}><FontAwesomeIcon icon={faTimes} /></button>
+				</div>
+			)}
+			<p className={s.totalExpressCoeff}>Общий коэффициент: 4.23</p>
+		</div>
+
+	)
+}
