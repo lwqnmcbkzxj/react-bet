@@ -14,7 +14,11 @@ type BookmakersPropsType = {
 const Bookmakers: FC<BookmakersPropsType> = ({ bookmakers, ...props }) => {
 	return (
 		<div className={s.bookmakers}>
-			<Breadcrumbs pathParams={['Главная', 'Рейтинг букмекеров']} />
+			<Breadcrumbs pathParams={[
+				{ text: 'Главная', link: '' },
+				{ text: 'Рейтинг букмекеров', link: '/bookmakers' }]} />
+
+			
 			<div className="pageHeader">
 				<h1 className="pageName">Рейтинг букмекеров</h1>
 			</div>

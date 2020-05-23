@@ -24,14 +24,17 @@ const Feedback = ({ ...props }) => {
 			throw new SubmissionError({ _error: 'Введен некорректный email' })
 		else {
 			dispatch(sendEmail(formData.email, formData.text))
-			dispatch(change('feedback','email','' ))
-			dispatch(change('feedback','text','' ))
+			dispatch(change('feedback', 'email', ''))
+			dispatch(change('feedback', 'text', ''))
 			throw new SubmissionError({ _error: 'Письмо отправлено' })
 		}
 	}
 	return (
 		<div>
-			<Breadcrumbs pathParams={['Главная', 'Обратная связь']} />
+
+			<Breadcrumbs pathParams={[
+				{ text: 'Главная', link: '' },
+				{ text: 'Обратная связь', link: '/feedback' },]} />
 
 			<ReduxFeedbackForm onSubmit={handleSend} />
 		</div>
@@ -42,12 +45,12 @@ const Feedback = ({ ...props }) => {
 const FeedbackForm: FC<InjectedFormProps<FeedbackFormValuesType>> = (props: any) => {
 	return (
 		<form onSubmit={props.handleSubmit}>
-			<div className={classNames("feedback__error", {["feedback__error_active"]: props.error})}>{props.error}</div>
-			
+			<div className={classNames("feedback__error", { ["feedback__error_active"]: props.error })}>{props.error}</div>
+
 			{createField("email", Input, "", { placeholder: 'Email' })}
-			{createField("text", Textarea, "", {placeholder: 'Ваши пожелания и предложения', type: 'textarea'})}
-			
-			<div className="feedback__button"><ActionButton value="Отправить"/></div>
+			{createField("text", Textarea, "", { placeholder: 'Ваши пожелания и предложения', type: 'textarea' })}
+
+			<div className="feedback__button"><ActionButton value="Отправить" /></div>
 		</form>
 	);
 }

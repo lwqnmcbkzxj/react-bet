@@ -23,7 +23,11 @@ const Users: FC<UsersPropsType> = ({ users, filters, toggleFilter, ...props }) =
 
 	return (
 		<div className={s.forecastersPage}>
-			<Breadcrumbs pathParams={['Главная', 'Рейтинг прогнозистов']} />
+			<Breadcrumbs pathParams={[
+				{ text: 'Главная', link: '' },
+				{ text: 'Рейтинг прогнозистов', link: '/users' },
+			]} />
+
 			<div className="pageHeader">
 
 				<div className="pageHeaderOptions">

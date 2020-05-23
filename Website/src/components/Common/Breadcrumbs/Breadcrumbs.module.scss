@@ -2,14 +2,20 @@
 	display: flex;
 	align-items: flex-start;
 	margin-bottom: 15px;
-	& p {
+
+	& .breadcrumbsLink {
 		font-size: 15px;
 		line-height: 18px;
 		color: #1E2157;
 		display: flex;
 		align-items: flex-start;
 		text-align: right;
-		&:last-child{
+
+		&:hover {
+			cursor: pointer;
+		}
+
+		&:last-child {
 			opacity: 0.57;
 			color: #5E687B;
 		}
@@ -19,8 +25,9 @@
 		margin: 0 8px;
 	}
 }
+
 @media screen and (max-width: 768px) {
-	.breadcrumbs { 
+	.breadcrumbs {
 		display: none;
 	}
 }

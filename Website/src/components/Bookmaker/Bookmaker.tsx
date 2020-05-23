@@ -42,7 +42,12 @@ const Bookmaker: FC<BookmakerPropsType> = ({ bookmaker, ...props }) => {
 				linkText={'Рейтинг букмекеров'}
 			/>
 
-			<Breadcrumbs pathParams={['Главная', 'Рейтинг букмекеров', `Букмекерская контора ${bookmaker.title}`]} />
+
+			<Breadcrumbs pathParams={[
+				{ text: 'Главная', link: '' },
+				{ text: 'Рейтинг букмекеров', link: '/bookmakers' },
+				{ text: 'Букмекерская контора ${bookmaker.title}', link: `/bookmakers/${bookmaker.id}` },]} />
+
 			<div className="pageHeader">
 				<h1 className="pageName">{`Букмекерская контора ${bookmaker.title}`}</h1>
 			</div>
@@ -62,7 +67,7 @@ const Bookmaker: FC<BookmakerPropsType> = ({ bookmaker, ...props }) => {
 			</div>
 
 			<div className={s.bookmakerStats}>
-			<div className={s.statBlock}>
+				<div className={s.statBlock}>
 					<p>Рейтинг</p>
 					<p className={s.splitter}></p>
 					<p>

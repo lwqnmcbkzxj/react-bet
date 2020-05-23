@@ -61,7 +61,6 @@ export const Input = (props) => {
 					/>}
 			</div>
 		</div>
-
 	)
 }
 

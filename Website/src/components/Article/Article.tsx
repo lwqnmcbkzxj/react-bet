@@ -20,7 +20,14 @@ const Article: FC<ArticlePropsType> = ({ article, ...props }) => {
 				link={'articles'}
 				linkText={'Статьи'}
 			/>
-			<Breadcrumbs pathParams={['Главная', 'Статьи', 'Рекомендации от опытного игрока']} />
+			
+			
+			
+			<Breadcrumbs pathParams={[
+				{ text: 'Главная', link: "" },
+				{ text: 'Статьи', link: "/articles" },
+				{ text: 'Рекомендации от опытного игрока', link: "/articles/1" }]} />
+			
 			<div className={s.article}>
 				<div className={s.articleHeader}>
 					<div className={s.rightBlock}>

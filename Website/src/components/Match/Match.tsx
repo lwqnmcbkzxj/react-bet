@@ -59,13 +59,18 @@ const Match: FC<MatchPropsType> = ({ match, ...props }) => {
 				icon={faShareAlt}
 				func={() => { navigator.clipboard.writeText(window.location.href) }}
 			/>
-			<Breadcrumbs pathParams={['Главная', 'Лучшие матчи', match.event]} />
+
+
+			<Breadcrumbs pathParams={[
+				{ text: 'Главная', link: '' },
+				{ text: 'Лучшие матчи', link: '/matches' },
+				{ text: match.event, link: `/matches/${match.event_id}` }]} />
 
 			{isFetching ? <MatchStatsPlaceHolder /> :
 				match.event_id &&
 				<div className={s.matchStats}>
 					<div className={s.team}>
-					<img src={ "http://betting-hub.sixhands.co/" + match.championship_data.sport_image} alt="team-img" />
+						<img src={"http://betting-hub.sixhands.co/" + match.championship_data.sport_image} alt="team-img" />
 						<div className={s.teamName}>{match.team_1.name}</div>
 					</div>
 					<div className={s.statsInfo}>
@@ -75,7 +80,7 @@ const Match: FC<MatchPropsType> = ({ match, ...props }) => {
 						<div className={s.timeBeforeStart}>{startTime}</div>
 					</div>
 					<div className={s.team}>
-					<img src={ "http://betting-hub.sixhands.co/" + match.championship_data.sport_image} alt="team-img" />
+						<img src={"http://betting-hub.sixhands.co/" + match.championship_data.sport_image} alt="team-img" />
 						<div className={s.teamName}>{match.team_2.name}</div>
 					</div>
 				</div>}

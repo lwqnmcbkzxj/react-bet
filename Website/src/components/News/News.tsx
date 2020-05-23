@@ -12,7 +12,10 @@ type NewsPropsType = {
 const News: FC<NewsPropsType> = ({ news, ...props }) => {
 	return (
 		<div className={s.news}>
-			<Breadcrumbs pathParams={['Главная', 'Новости']} />
+			<Breadcrumbs pathParams={[
+				{ text: 'Главная', link: '' },
+				{ text: 'Новости', link: '/news' }]} />
+			
 			<div className="pageHeader">
 				<h1 className="pageName">Новости</h1>
 			</div>

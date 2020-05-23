@@ -33,7 +33,7 @@
 	}
 	
 	& textarea {
-		height: 200px!important;
+		height: 150px!important;
 	}
 	& div {
 		display: flex;
@@ -110,7 +110,6 @@ input[type=number] {
 			font-size: 19px;
 			line-height: 23px;
 			margin: 0;
-			width: 100%;
 		}
 		& input[type=radio] {
 			display: none;

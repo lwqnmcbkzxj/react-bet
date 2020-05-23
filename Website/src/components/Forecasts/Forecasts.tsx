@@ -26,7 +26,9 @@ const Forecasts: FC<ForecastsPropsType> = ({ forecasts, filters, toggleFilter, .
 
 	return (
 		<div className={s.forecastsPage}>
-			<Breadcrumbs pathParams={['Главная', 'Прогнозы']} />
+			<Breadcrumbs pathParams={[
+				{ text: 'Главная', link: '' },
+				{ text: 'Прогнозы', link: '/forecasts' }]} />
 			<div className="pageHeader">
 				<div className="pageHeaderOptions">
 					<h1 className="pageName">Прогнозы</h1>

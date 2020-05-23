@@ -67,7 +67,10 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 				func={() => { console.log('s') }}
 			/>
 
-			<Breadcrumbs pathParams={['Главная', 'Прогнозы', `${forecastTitle}`]} />
+			<Breadcrumbs pathParams={[
+				{ text: 'Главная', link: '' },
+				{ text: 'Прогнозы', link: '/forecasts' },
+				{ text: `${forecastTitle}`, link: `/forecasts/${forecast.id}` } ]} />
 
 			<div className={s.forecastHeader}>
 				<div className={s.headerDetails}>
