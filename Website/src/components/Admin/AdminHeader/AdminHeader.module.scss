@@ -1,0 +1,146 @@
+.forecast {
+	overflow-y: scroll;
+}
+
+.desktopHeader {
+	height: 50px;
+	width: 100%;
+	background: #202E48;
+
+}
+
+.desktopHeader header {
+	height: 50px;
+	padding-left: 10%;
+	padding-right: 10%;
+	width: 100%;
+	box-sizing: border-box;
+
+	display: grid;
+	grid-template-columns: 180px 1fr 50px;
+	grid-gap: 70px;
+	justify-content: space-between;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 5;
+
+	& .logoLink {
+		text-align: right;
+
+		& .logo {
+			height: 40px;
+		}
+	}
+
+	& .headerUserBlock {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-right: 75px;
+
+
+		& .loggedUser {
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-right: -15px;
+
+			& .userLogin {
+				color: #fff;
+			}
+			& img {
+				width: 34px;
+				height: 34px;
+				margin: 0 5px;
+			}
+
+			& .userBlockToggler {
+				color: #fff;
+				transition: .2s;
+			}
+
+			& .userPopup {
+				position: absolute;
+				top: 40px;
+				right: -40px;
+
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				justify-content: flex-start;
+				background: #fff;
+				box-shadow: 0px 0px 6px rgba(3, 3, 3, 0.31);
+				border-radius: 6px;
+				overflow: hidden;
+
+				& .popupRow {
+					display: grid;
+					grid-template-columns: 20px auto;
+					grid-gap: 10px;
+					align-items: center;
+
+					font-size: 13px;
+					line-height: 15px;
+					color: #818181;
+
+					white-space: nowrap;
+					padding: 10px 15px;
+					box-sizing: border-box;
+					border-top: 1px solid #E5E2E2;
+					width: 100%;
+					background: #fff;
+					height: 36px;
+
+					&:hover {
+						background: #F4F5F6;
+					}
+
+					& img {
+						width: 14px;
+						height: auto;
+					}
+
+					&.userRow {
+						& img {
+							width: 20px !important;
+							height: 20px !important;
+						}
+					}
+
+					&.logoutRow {
+						color: #E84755;
+
+						& button {
+							display: flex;
+							align-items: center;
+						}
+
+						& img {
+							width: 20px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1366px) {
+	.desktopHeader header {
+		padding-left: 5%;
+		padding-right: 5%;
+	
+		grid-gap: 50px;
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	.desktopHeader header {
+		padding-left: 2.5%;
+		padding-right: 2.5%;
+		grid-gap: 30px;
+	}
+}

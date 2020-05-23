@@ -11,7 +11,6 @@ import { faSearch, faBookmark, faCog, faDoorClosed } from '@fortawesome/free-sol
 import exitIcon from '../../../assets/img/exit-icon.png'
 import bookmarkIcon from '../../../assets/img/popup-bookmark-icon.png'
 import plusIcon from '../../../assets/img/plus-icon.png'
-import userImg from '../../../assets/img/user-img.png'
 
 import { changeUserPageActiveTab } from '../../../redux/app-reducer'
 import { UserType as LoggedUserType } from '../../../types/me'
@@ -53,14 +52,18 @@ const UserMobilePopup: FC<UserPopupPropsType> = ({ logout, loggedUser, toggleUse
 				<p>Избранное</p>
 			</NavLink>
 
-			{/* <NavLink to={`/forecasts/add/forecast`} className={s.popupRow} onClick={toggleUserPopupVisibility}>
+			<NavLink to={`/forecasts/add/forecast`} className={s.popupRow} onClick={toggleUserPopupVisibility}>
 				<img src={plusIcon} alt="plus-icon" />
 				<p>Добавить прогноз</p>
 			</NavLink>
 			<NavLink to={`/forecasts/add/express`} className={s.popupRow} onClick={toggleUserPopupVisibility}>
 				<img src={plusIcon} alt="plus-icon" />
 				<p>Добавить экспресс</p>
-			</NavLink> */}
+			</NavLink>
+			<NavLink to={`/admin`} className={s.popupRow} onClick={toggleUserPopupVisibility}>
+				<img src={plusIcon} alt="plus-icon" />
+				<p>Админка</p>
+			</NavLink>
 
 			<Link to="/" className={s.popupRow + ' ' + s.logoutRow} onClick={() => { logout(); toggleUserPopupVisibility() }}>
 				<img src={exitIcon} alt="door-img" />

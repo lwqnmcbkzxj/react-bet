@@ -1,3 +1,5 @@
+
+
 import React, { FC, useState, useEffect } from 'react'
 import './App.scss'
 import './assets/scss/CommonStyle.scss'
@@ -7,7 +9,8 @@ import { withRouter } from 'react-router'
 
 
 import AuthFormContainer from './components/AuthForm/AuthFormContainer'
-import MainPageContainer from './components/MainPage/MainPageContainer'
+
+// import MainPageContainer from './components/MainPage/MainPageContainer'
 import HeaderContainer from './components/Header/HeaderContainer'
 import MenuContainer from './components/Menu/MenuContainer'
 import CommentsContainer from './components/Comments/CommentsContainer'
@@ -16,9 +19,11 @@ import NotFound from './components/NotFound/NotFound'
 import Policy from './components/Common/Policy/Policy'
 import Feedback from './components/Common/Feedback/Feedback'
 
-import ForecastsContainer from './components/Forecasts/ForecastsContainer'
-import ForecastContainer from './components/Forecast/ForecastContainer'
-import AddElementContainer from './components/Forecasts/AddElement/AddElementContainer'
+import Admin from './components/Admin/Admin'
+
+// import ForecastsContainer from './components/Forecasts/ForecastsContainer'
+// import ForecastContainer from './components/Forecast/ForecastContainer'
+// import AddElementContainer from './components/Forecasts/AddElement/AddElementContainer'
 
 import UsersContainer from './components/Users/UsersContainer'
 import UserContainer from './components/User/UserContainer'
@@ -38,11 +43,16 @@ import ArticlesContainer from './components/Articles/ArticlesContainer'
 
 import { useDispatch, useSelector } from "react-redux"
 import { AppStateType } from './types/types'
+import { withSuspense } from './hoc/withSuspense';
 
 import { initApp } from './redux/app-reducer'
 import { authUser } from './redux/me-reducer'
 import useMobile from './hooks/useMobile'
 
+const ForecastsContainer = React.lazy(() => import('./components/Forecasts/ForecastsContainer'))
+const ForecastContainer = React.lazy(() => import('./components/Forecast/ForecastContainer'))
+const AddElementContainer = React.lazy(() => import('./components/Forecasts/AddElement/AddElementContainer'))
+const MainPageContainer = React.lazy(() => import('./components/MainPage/MainPageContainer'))
 
 const App = (props: any) => {
 	const isMobile = useMobile(768)
@@ -54,55 +64,57 @@ const App = (props: any) => {
 	}, [])
 
 	return (
-		<div className="app-wrapper">
+		<Switch>
+			<Route path="/admin" render={() => <Admin />} />
 
-			<HeaderContainer />
-			<AuthFormContainer />
+			<Route component={() =>
+				<div className="app-wrapper">
 
-			<div className='app-container'>
-				<MenuContainer />
+					<HeaderContainer />
+					<AuthFormContainer />
+					<div className='app-container'>
+						<MenuContainer />
+						<div className="app-content">
+							<Switch>
+								<Route exact path="/" render={withSuspense(MainPageContainer)} />
 
-				<div className="app-content">
-					<Switch>
-						<Route exact path="/" render={() => <MainPageContainer />} />
+								<Route exact path="/forecasters" render={() => <UsersContainer />} />
+								<Route exact path="/forecasters/:userId" render={() => <UserContainer />} />
+								<Route path="/forecasters/:userId/settings" render={() => <SettingsContainer />} />
 
-						<Route exact path="/forecasters" render={() => <UsersContainer />} />
-						<Route exact path="/forecasters/:userId" render={() => <UserContainer />} />
-						<Route path="/forecasters/:userId/settings" render={() => <SettingsContainer />} />
-
-						
-						<Route exact path="/forecasts" render={() => <ForecastsContainer />} />
-						<Route exact path="/forecasts/:forecastId" render={() => <ForecastContainer />} />
-						<Route path="/forecasts/add" render={() => <AddElementContainer />} />
+								<Route exact path="/forecasts" render={withSuspense(ForecastsContainer)} />
+								<Route exact path="/forecasts/:forecastId" render={withSuspense(ForecastContainer)} />
+								<Route path="/forecasts/add" render={withSuspense(AddElementContainer)} />
 
 
 
-						<Route exact path="/bookmakers" render={() => <BookmakersContainer />} />
-						<Route exact path="/bookmakers/:bookmakerId" render={() => <BookmakerContainer />} />
-						
-						<Route exact path="/matches" render={() => <MatchesContainer />} />
-						<Route path="/matches/:matchId" render={() => <MatchContainer />} />
+								<Route exact path="/bookmakers" render={() => <BookmakersContainer />} />
+								<Route exact path="/bookmakers/:bookmakerId" render={() => <BookmakerContainer />} />
 
-						<Route exact path="/articles" render={() => <ArticlesContainer />} />
-						<Route exact path="/articles/:articleId" render={() => <ArticleContainer />} />
+								<Route exact path="/matches" render={() => <MatchesContainer />} />
+								<Route path="/matches/:matchId" render={() => <MatchContainer />} />
 
-						<Route exact path="/news" render={() => <NewsContainer />} />
-						{/* <Route exact path="/news/:newsId" render={() => <NewsSingleContainer />} /> */}
+								<Route exact path="/articles" render={() => <ArticlesContainer />} />
+								<Route exact path="/articles/:articleId" render={() => <ArticleContainer />} />
 
-						<Route exact path="/feedback" render={() => <Feedback />} />
-						<Route exact path="/policy" render={() => <Policy />} />
-						
-						<Route component={NotFound} />
+								<Route exact path="/news" render={() => <NewsContainer />} />
+								{/* <Route exact path="/news/:newsId" render={() => <NewsSingleContainer />} /> */}
 
-					</Switch>
+								<Route exact path="/feedback" render={() => <Feedback />} />
+								<Route exact path="/policy" render={() => <Policy />} />
 
-					{isMobile && <Footer />}
+								<Route component={NotFound} />
+
+							</Switch>
+							{isMobile && <Footer />}
+						</div>
+						<CommentsContainer />
+					</div>
 				</div>
-				<CommentsContainer />
 
-			</div>
+			} />
 
-		</div>
+		</Switch>
 	)
 }
 

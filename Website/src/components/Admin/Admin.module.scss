@@ -1,0 +1,22 @@
+.adminContent {
+	padding: 40px 10%;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+@media screen and (max-width: 1366px) {
+	.adminContent {
+		padding-left: 5%;
+		padding-right: 5%;
+	
+		grid-gap: 50px;
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	.adminContent {
+		padding-left: 2.5%;
+		padding-right: 2.5%;
+		grid-gap: 30px;
+	}
+}
