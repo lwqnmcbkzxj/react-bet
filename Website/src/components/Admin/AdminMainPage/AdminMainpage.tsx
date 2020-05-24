@@ -36,9 +36,7 @@ type StatBlockType = {
 const MainpageStatBlock: FC<StatBlockType> = ({ text, value, ...props }) => {
 	return (
 		<div className={s.mainPageBlock}>
-			<div className={s.blockContent}>
-				{text}: {value}
-			</div>
+			{text}: {value}
 		</div>
 	)
 }

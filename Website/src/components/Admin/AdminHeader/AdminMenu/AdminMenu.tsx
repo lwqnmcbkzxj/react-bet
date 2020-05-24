@@ -28,8 +28,16 @@ const AdminMenu: FC<HeaderPropsType> = ({ ...props }) => {
 				{ link: "/championships", text: 'Чемпионаты' },
 			]
 		},
+		{ link: "/articles", text: 'Статьи' },
 		{ link: "/bookmakers", text: 'Букмекеры' },
 		{ link: "/menu", text: 'Меню' },
+		{
+			link: "", text: 'Страница',
+			dropdown: [
+				{ link: "/policy", text: 'Политика конфиденциальности' },
+				{ link: "/terms", text: ' Terms and Conditions' },
+			]
+		},
 		{
 			link: "", text: 'Еще',
 			dropdown: [
@@ -40,7 +48,7 @@ const AdminMenu: FC<HeaderPropsType> = ({ ...props }) => {
 	]
 	return (
 		<div className={s.adminMenu}>
-			{links.map(link => <AdminMenuElement link={link} />)}
+			{links.map((link, counter) => <AdminMenuElement link={link} key={counter}/>)}
 		</div>
 	)
 }

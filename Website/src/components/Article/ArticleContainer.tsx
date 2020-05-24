@@ -15,8 +15,7 @@ interface ArticleProps extends RouteComponentProps<MatchParams> {}
 
 
 const ArticleContainer: FC<ArticleProps> = ({ ...props }) => {
-	const article = {} as ArticleType
-	// const articles = useSelector<AppStateType, ArticleType>(state => state.articles.currentArticle)
+	const article = useSelector<AppStateType, ArticleType>(state => state.articles.currentArticle)
 	const isFetching = useSelector<AppStateType, boolean>(state => state.articles.isFetching) 
 	const dispatch = useDispatch()
 

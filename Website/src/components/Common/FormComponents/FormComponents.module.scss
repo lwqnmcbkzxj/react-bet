@@ -7,6 +7,9 @@
 	&.canSeeContent input {
 		padding-right: 50px;
 	}
+	&.isCheckbox div{
+		display: block;
+	}
 
 	&  label {
 		font-size: 12px;
@@ -27,11 +30,19 @@
 		box-sizing: border-box;
 		padding: 12px 13px 13px 13px;
 		resize: none;
+		transition: .3s;
+		&.errorInput {
+			border: 1px solid #E84755;
+		}
 		&:disabled {
 			background: rgb(240, 240, 240);
 		}
 	}
-	
+	& input[type=checkbox] {
+		width: 40px;
+		height: 40px;
+		align-self: flex-start;
+	}
 	& textarea {
 		height: 150px!important;
 	}

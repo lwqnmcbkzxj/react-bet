@@ -1,17 +1,17 @@
 import React, { FC } from 'react';
 import s from './Breadcrumbs.module.scss';
 import { Link } from 'react-router-dom'
-type ForecastsPropsType = {
+export type BreadcrumbsPropsType = {
 	pathParams: Array<{
 		link: string
 		text: string
 	}>
 }
-const Forecasts: FC<ForecastsPropsType> = ({ pathParams, ...props }) => {
+const Breadcrumbs: FC<BreadcrumbsPropsType> = ({ pathParams, ...props }) => {
 	return (
 		<div className={s.breadcrumbs}>
 			{pathParams.map((param, counter: number) =>
-				<Link to={`${param.link}`} className={s.breadcrumbsLink}>
+				<Link to={`${param.link}`} className={s.breadcrumbsLink} key={counter}>
 					{counter > 0 && <span className={s.slash}>/</span>}
 					{param.text}
 				</Link>
@@ -19,4 +19,4 @@ const Forecasts: FC<ForecastsPropsType> = ({ pathParams, ...props }) => {
 		</div>
 	)
 }
-export default Forecasts;
+export default Breadcrumbs;

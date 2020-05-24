@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames'
 import userImgPlaceholder from '../../../assets/img/user-no-image.png'
 
-import logo from '../../../assets/img/logo.png'
+import logo from '../../../assets/img/logo_black.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { UserType } from '../../../types/me';

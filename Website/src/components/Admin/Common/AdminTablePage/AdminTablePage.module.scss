@@ -1,0 +1,167 @@
+.adminTableActions {
+	display: grid;
+	grid-template-columns: 2fr 1fr 2fr;
+	grid-gap: 20px;
+}
+
+.adminTableHolder {
+	& .noData {
+		width: 100%;
+		background: #F1F1F1;
+		padding: 15px 20px;
+		box-sizing: border-box;
+		text-align: center;
+		color: #343638;
+		border-radius: 0 0 8px 8px ;
+	}
+
+	& .adminTable {
+		margin-top: 20px;
+		border: 1px solid #E5E2E2;
+		border-bottom: none;
+		border-radius: 8px;
+		width: 100%;
+		
+		& .tableHeader,
+		& .tableBody .tableRow {
+			width: 100%;
+			padding: 7px 16px;
+			border-bottom: 1px solid #E5E2E2;
+			box-sizing: border-box;
+
+			& .tableCell {
+				& div {
+					margin: 7px 12px;
+					overflow: hidden;
+					display: -webkit-box;
+					-webkit-line-clamp: 1;
+					-webkit-box-orient: vertical;
+					font-size: 16px;
+					line-height: 19px;
+					color: #343638;
+					box-sizing: border-box;
+					text-align: left;
+				}
+
+
+				&:first-child {
+					width: 50px;
+				}
+
+				&:last-child {
+					width: 90px;
+					text-align: right;
+				}
+
+				& .actionsBlock {
+					display: grid;
+					grid-template-columns: 1fr 1fr;
+					grid-gap: 10px;
+				}
+			}
+		}
+
+		& .tableHeader {
+			background: #F5F5F5;
+
+			& div {
+				opacity: 0.76;
+			}
+		}
+	}
+}
+
+
+.paginatorHolder {
+	margin-top: 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+
+	& .countPerPageToggler {
+		border: 1px solid #E5E2E2;
+		border-radius: 3px;
+		position: relative;
+
+		&:hover {
+			cursor: pointer;
+		}
+
+
+		& .element {
+			padding: 7px 12px;
+			box-sizing: border-box;
+			color: #343638;
+
+			&.activeElement {
+				display: flex;
+				align-items: center;
+
+				& .dropDownArrow {
+					transition: .2s;
+					color: #343638;
+					margin-left: 5px;
+				}
+			}
+		}
+
+		& .countPerPageDropdown {
+			left: -1px;
+			width: 100%;
+			border: 1px solid #E5E2E2;
+			position: absolute;
+		}
+	}
+
+	& .paginator {
+		width: 100%;
+		margin: 0 auto;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		&__pages {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		&__item {
+			border: 1px solid #E5E2E2;
+			box-sizing: border-box;
+			font-size: 14px;
+			height: 29px;
+
+			& a {
+				display: flex;
+				box-sizing: border-box;
+				padding: 7px 16.5px 7px 16.5px;
+			}
+
+			&:hover {
+				cursor: pointer;
+			}
+
+			&_active {
+				border: 2px solid #000;
+
+				& a {
+					padding: 6px 16.5px 6px 16.5px;
+				}
+
+
+				&:first-child {
+					border-left: 2px solid #343638;
+				}
+			}
+
+			&.arrow {
+				margin: 0 20px;
+				border-radius: 4px;
+				border: 1px solid #E5E2E2;
+			}
+		}
+	}
+
+}

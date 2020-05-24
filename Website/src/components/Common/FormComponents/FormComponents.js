@@ -4,20 +4,21 @@ import cn from 'classnames'
 import { Field, change } from 'redux-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash, faCaretDown } from '@fortawesome/free-solid-svg-icons'
-import { useDispatch,  } from 'react-redux';
+import { useDispatch, } from 'react-redux';
 
 export function createField(
 	name,
 	component,
 	label = "",
 	props = {}) {
-	
+
 	return (
 		<div>
 			<Field
 				name={name}
 				component={component}
 				label={label}
+				validate={props.valiadtors}
 				{...props.mask}
 				{...props} />
 		</div>
@@ -48,7 +49,10 @@ export const Input = (props) => {
 	}
 
 	return (
-		<div className={cn(s.inputBlock, { [s.canSeeContent]: canSeeInputValue })}>
+		<div className={cn(s.inputBlock, {
+			[s.canSeeContent]: canSeeInputValue,
+			[s.isCheckbox]: type === 'checkbox'
+		})}>
 			<label>{props.label}</label>
 			<div>
 				<input {...input} {...restProps} className={hasError ? s.errorInput : null} type={type} />
@@ -64,6 +68,7 @@ export const Input = (props) => {
 	)
 }
 
+
 export const Textarea = (props) => {
 	const { input, meta, ...restProps } = props;
 	const hasError = meta.touched && meta.error;
@@ -78,7 +83,29 @@ export const Textarea = (props) => {
 
 	)
 }
+export const File = (props) => {
+	const dispatch = useDispatch()
+	const { input, meta, ...restProps } = props;
+	const hasError = meta.touched && meta.error;
 
+	return (
+		<div className={s.inputBlock}>
+			<label>{props.label}</label>
+			<input
+				type="file"
+				
+				onChange={
+					(e) => {
+						e.preventDefault();
+						const files = [...e.target.files];
+						dispatch(change(props.formName, input.name, files))
+					}
+				}
+			/>
+		</div>
+
+	)
+}
 export const Number = (props) => {
 	const { input, meta, readOnly = false, step = 1, ...restProps } = props;
 	const hasError = meta.touched && meta.error;
@@ -91,7 +118,7 @@ export const Number = (props) => {
 			if (val.match(numberRegExp)) {
 				props.handleChange(+val + +step)
 			}
-			
+
 		}
 	}
 	function DecrementNumber() {
@@ -126,12 +153,12 @@ export const Number = (props) => {
 					ref={numberInputRef}
 					min="0"
 					step={step}
-					onChange={ handleChange }
+					onChange={handleChange}
 				/>
 				<div className={s.arrows}>
-					<FontAwesomeIcon className="fa-rotate-180" icon={faCaretDown} onClick={IncrementNumber}/>
-					<FontAwesomeIcon icon={faCaretDown} onClick={DecrementNumber}/>
-					
+					<FontAwesomeIcon className="fa-rotate-180" icon={faCaretDown} onClick={IncrementNumber} />
+					<FontAwesomeIcon icon={faCaretDown} onClick={DecrementNumber} />
+
 				</div>
 			</div>
 		</div>
@@ -144,7 +171,7 @@ export function createDropdown(
 	label = "",
 	props = {}) {
 	return (
-		<DropDownSelect label={label} name={name}  {...props}/>
+		<DropDownSelect label={label} name={name}  {...props} />
 	)
 }
 
@@ -176,7 +203,7 @@ export const DropDownSelect = ({ elements, name, ...props }) => {
 
 	const handleSetActiveElement = (value) => {
 		setActiveElement(value)
-		dispatch(change( 'add-element', name, value ))
+		dispatch(change('add-element', name, value))
 	}
 
 	const getListElementFromValue = (value, key = 0) => {

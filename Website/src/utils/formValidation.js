@@ -14,3 +14,9 @@ export const percentMask = createNumberMask({
 })
 export const numberMask = createNumberMask({
 })
+
+export const required = (value) => {
+    if (value) return undefined;
+
+    return "Field is required";
+}

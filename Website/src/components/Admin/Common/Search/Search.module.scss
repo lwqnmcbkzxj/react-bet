@@ -1,0 +1,35 @@
+.search_block {
+	position: relative;
+	display: flex;
+	align-items: center;
+	& input {
+		background: transparent linear-gradient(97deg, #E5E2E2 0%, #F2F2F2 100%) 0% 0% no-repeat padding-box;
+		box-shadow: 0px 3px 6px #00000029;
+		border-radius: 6px;
+		height: 100%;
+
+		color: #202E48;
+		font-size: 16px;
+		line-height: 19px;
+		font-family: "Roboto Light";
+
+		border: none;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 3px 10px 3px 40px;
+
+		width: 100%;
+		box-sizing: border-box;
+		
+	}
+
+	& .searchIcon {
+		position: absolute;
+		top: 12px;
+		left: 10.6px;
+		font-size: 20px;
+		color: #202E48;
+	}
+}
+
