@@ -11,7 +11,7 @@ import { faHome, faWifi, faPlusSquare, faUser, faBars } from '@fortawesome/free-
 import football_F from '../../../assets/img/football-field.png'
 import trophy from '../../../assets/img/trophy.png'
 import newspaper from '../../../assets/img/newspaper.png'
-import { toggleAuthFormVisiblility, setShouldRedirect, setRedirectLink } from '../../../redux/app-reducer';
+import { toggleAuthFormVisiblility, setRedirectLink } from '../../../redux/app-reducer';
 
 import { UserType as LoggedUserType } from '../../../types/me'
 import useMobile from '../../../hooks/useMobile';

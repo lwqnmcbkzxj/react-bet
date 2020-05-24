@@ -2,7 +2,7 @@ import Axios from 'axios';
 import qs from 'query-string'
 
 const instance = Axios.create({
-	baseURL: "http://betting-hub.sixhands.co/api/",
+	baseURL: "https://app.betthub.org/api/",
 	headers: {
 
 	}
@@ -27,7 +27,7 @@ export const userAPI = {
 			"scope": "*"
 		}
 
-		return instance.post(`https://cors-anywhere.herokuapp.com/http://betting-hub.sixhands.co/oauth/token`, qs.stringify(obj))
+		return instance.post(`https://app.betthub.org/oauth/token`, qs.stringify(obj))
 			.then((response) => {
 				return response.data
 			})
@@ -62,7 +62,7 @@ export const userAPI = {
 			.then((response) => {
 				return response.data
 			}
-		);
+			);
 	},
 
 	getUserInfo() {
@@ -151,6 +151,59 @@ export const bookmakersAPI = {
 	}
 }
 
+
+export const postsAPI = {
+	getPosts() {
+		return instance.get(`posts`)
+			.then((response) => {
+				return response.data
+			});
+	},
+	getPost(id: number) {
+		return instance.get(`posts/${id}`)
+			.then((response) => {
+				return response.data
+			});
+	},
+	// ADMIN
+	getAdminPosts(page: number, limit: number, search: string, search_by: string) {
+		let searchString =''
+		if (search && search_by) {
+			searchString = `&search=${search}&search_by=${search_by}`
+		}
+		
+		return instance.get(`admin/posts?page=${page}&limit=${limit}` + searchString)
+			.then((response) => {
+				return response.data
+			});
+	},
+	getAdminPost(id: number) {
+		return instance.get(`admin/posts/${id}`)
+			.then((response) => {
+				return response.data
+			});
+	},
+	addPost(postObject: any) {
+		return instance.post(`admin/posts`, { ...postObject })
+			.then((response) => {
+				return response.data
+			});
+	},
+	editPost(id: number, postObject: any) {
+		return instance.post(`admin/posts/${id}`, { ...postObject })
+			.then((response) => {
+				return response.data
+			});
+	},
+	deletePost(id: number) {
+		return instance.delete(`admin/posts/${id}`)
+			.then((response) => {
+				return response.data
+			});
+	},
+	// ADMIN
+}
+
 export const usersAPI = {
 	getUsers(page: number, limit: number, options: any) {
 		return instance.get(`users`, {
@@ -188,5 +241,29 @@ export const appAPI = {
 		// 	.then((response) => {
 		// 		return response.data
 		// 	});
+	},
+	getPolicy() {
+		return instance.get(`policy`)
+		.then((response) => {
+			return response.data
+		});
+	},
+	changePolicy(text: string) {
+		return instance.post(`policy`, { text })
+			.then((response) => {
+				return response.data
+			});
+	},
+	getTerms() {
+		return instance.get(`terms`)
+		.then((response) => {
+			return response.data
+		});
+	},
+	changeTerms(text: string) {
+		return instance.post(`terms`, { text })
+			.then((response) => {
+				return response.data
+			});
 	}
 }

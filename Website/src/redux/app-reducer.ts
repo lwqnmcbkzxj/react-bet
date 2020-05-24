@@ -6,8 +6,8 @@ import { appAPI } from '../api/api'
 
 
 
-import { setUsersSports, SetUsersSportsType } from './users-reducer'
-import { setForecastsSports, SetForecastsSportsType } from './forecasts-reducer'
+import { SetUsersSportsType } from './users-reducer'
+import { SetForecastsSportsType } from './forecasts-reducer'
 
 const TOGGLE_AUTH_FORM_VISIBILITY = 'app/TOGGLE_AUTH_FORM_VISIBILITY'
 const TOGGLE_COMMENTS_BLOCK_VISIBILITY = 'app/TOGGLE_COMMENTS_BLOCK_VISIBILITY'
@@ -45,7 +45,8 @@ type ActionsTypes =
 	ChangeUserPageActiveTabType |
 	SetSportsType
 	
-	| SetUsersSportsType | SetForecastsSportsType;
+	| SetUsersSportsType | SetForecastsSportsType
+	;
 
 const appReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
@@ -242,7 +243,7 @@ export const setShouldRedirect = (shouldRedirect: boolean): SetShouldRedirectTyp
 	}
 }
 const setSports = (sports: Array<SportType>): ThunksType => async (dispatch) => {
-	let customSports = [{ id: 0, index: 0, name: '0', visibleText: 'Все', active: true, image: '' }] as Array<SportType>
+	let customSports = [{ id: 0, index: 0, name: 0, visibleText: 'Все', active: true, image: '' }] as Array<SportType>
 	sports.map((sport, index = 1) => {
 		customSports.push({
 			id: sport.id,
@@ -253,9 +254,6 @@ const setSports = (sports: Array<SportType>): ThunksType => async (dispatch) => 
 			image: sport.image
 		})
 	})
-
-	dispatch(setUsersSports(customSports))
-	dispatch(setForecastsSports(customSports))
 
 	dispatch({
 		type: SET_SPORTS,

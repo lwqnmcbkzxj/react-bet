@@ -41,6 +41,7 @@ export type ForecastType = {
 		}
 	},
 	forecast_text: string,
+	forecast_created_at: string,
 	bet_data: {
 		bet: string,
 		coefficient: string,

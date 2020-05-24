@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 const TOGGLE_FILTER = 'users/TOGGLE_FILTER'
 const TOGGLE_IS_FETCHING = 'users/TOGGLE_IS_FETCHING'
 const SET_USERS = 'users/SET_USERS'
-const SET_SPORTS = 'users/SET_SPORTS'
+const SET_SPORTS = 'app/SET_SPORTS'
 
 let initialState = {
 	users: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}] as Array<UserType>,
@@ -60,9 +60,14 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
 			}
 		}
 		case SET_SPORTS: {
-			let filters = state.filters
+			let filters = {...state.filters}
 			if (action.sports.length > 0) {
-				filters.sportTypeFilter = [...action.sports]
+				let sportsCopy = [] as any
+				for (let sport of action.sports) {
+					sportsCopy.push({...sport})
+				}
+				
+				filters.sportTypeFilter = [...sportsCopy]
 			}
 			return {
 				...state,
@@ -124,12 +129,12 @@ export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingType => {
 		isFetching
 	}
 }
-export const setUsersSports = (sports: Array<SportType>): SetUsersSportsType => {
-	return {
-		type: SET_SPORTS,
-		sports
-	}
-}
+// export const setUsersSports = (sports: Array<SportType>): SetUsersSportsType => {
+// 	return {
+// 		type: SET_SPORTS,
+// 		sports
+// 	}
+// }
 
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 

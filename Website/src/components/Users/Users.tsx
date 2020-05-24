@@ -43,13 +43,13 @@ const Users: FC<UsersPropsType> = ({ users, filters, toggleFilter, ...props }) =
 					fillBg={true}
 				/> */}
 			</div>
-			{/* <div className={classNames("filters", { "active": filtersVisible })}>
+			<div className={classNames("filters", { "active": filtersVisible })}>
 				<Selectors
 					selectors={filters.sportTypeFilter}
 					selectorsBlockName={'sportTypeFilter'}
 					onChangeFunc={toggleFilter}
 				/>
-			</div> */}
+			</div>
 
 			<UsersList users={users} />
 		</div>

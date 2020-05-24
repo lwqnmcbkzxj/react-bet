@@ -4,49 +4,24 @@ import classNames from 'classnames'
 import { ForecastType } from '../../../types/forecasts'
 
 import ElementStats from '../../Common/ElementStats/ElementStats'
-import forecastUserImg from '../../../assets/img/forecast-img.png'
 import { NavLink, Link } from 'react-router-dom';
 
 import winImg from '../../../assets/img/win-img.png'
 import loseImg from '../../../assets/img/lose-img.png'
-
-import { getSportImg } from '../../../utils/getSportImg';
-import moment from 'moment'
-
 import userImgHolder from '../../../assets/img/user-no-image.png'
 
 import { ForecastsListElementPlaceholder } from '../../Common/Placeholders/ForecastsPlaceholder'
-
+import { formatDate } from '../../../utils/formatDate'
 
 type ForecastPropsType = {
 	forecast: ForecastType
 	isFetching: boolean
 }
 
-const formatDateForForecastListElement = (createdAt: string) => {
-	let createdDate = Date.parse(createdAt)
-	let momentFormat = moment.unix(createdDate / 1000)
-	let now = Date.now()
-
-	let startDate = ''
-	if ((now - createdDate) / 86400 < 1) {
-		startDate = 'Сегодня, ' + momentFormat.format("HH:MM")
-	} else if ((now - createdDate) / 86400 < 2) {
-		startDate = 'Вчера, ' + momentFormat.format("HH:MM")
-	} else {
-		startDate = momentFormat.format("DD.MM.YYYY в HH:MM")
-	}
-
-	return startDate
-}
-
-
 const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) => {
-	let sportImg
 	let userAvatar = ''
 	let tournamentName
 	if (forecast.id) {
-		sportImg = getSportImg(forecast.event_data.championship_data.sport_id)
 
 		if (forecast.user_data.avatar) {
 			userAvatar = 'http://xbethub.com/' + forecast.user_data.avatar
@@ -75,7 +50,7 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 						<Link to={`forecasts/${forecast.id}`}><p className={s.gameName} >{tournamentName}</p></Link>
 					</div>
 					<div className={s.matchDate}>
-						{formatDateForForecastListElement(forecast.event_data.event_start)}
+						{formatDate(forecast.event_data.event_start)}
 					</div>
 				</div>
 
@@ -95,7 +70,7 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 							</Link>
 							<Link to={`forecasts/${forecast.id}`} className={s.profitStat}><div>Сумма ставки: <span>{forecast.bet_data.bet}</span></div></Link>
 						</div>
-						<div className={s.matchStart}>Начало игры: {formatDateForForecastListElement(forecast.event_data.event_start)}</div>
+						<div className={s.matchStart}>Начало игры: {formatDate(forecast.event_data.event_start)}</div>
 					</div>
 					<div className={s.matchDescription}>
 						<NavLink to={`/forecasts/${forecast.id}`}>
@@ -113,8 +88,8 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 						</NavLink>
 						<div className={s.userMatches}>
 							<div className={s.slash}>|</div>
-							{forecast.user_data.last_five.map(predict =>
-								predict ? <img src={winImg} alt="winImg" /> : <img src={loseImg} alt="loseImg" />
+							{forecast.user_data.last_five.map((predict, counter) =>
+								predict ? <img src={winImg} alt="winImg" key={counter}/> : <img src={loseImg} alt="loseImg" key={counter}/>
 							)}
 							<div className={s.slash}>|</div>
 

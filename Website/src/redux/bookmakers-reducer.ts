@@ -2,10 +2,6 @@ import { AppStateType } from '../types/types'
 import { ThunkAction } from 'redux-thunk'
 
 import { BookmakerType } from '../types/bookmakers'
-
-import bookmakerImg1 from '../assets/img/bookmaker-img-1.png'
-import bookmakerImg2 from '../assets/img/bookmaker-img-2.png'
-import bookmakerImg3 from '../assets/img/bookmaker-img-3.png'
 import { bookmakersAPI } from '../api/api'
 
 const SET_BOOKMAKERS = 'bookmakers/SET_BOOKMAKERS'

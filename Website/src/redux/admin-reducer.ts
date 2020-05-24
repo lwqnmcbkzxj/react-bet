@@ -115,6 +115,12 @@ export const deleteArticle = (id: number):ThunksType => async (dispatch) => {
 	let response = await postsAPI.deletePost(id)
 }
 
+export const changePolicy = (text: string):ThunksType => async (dispatch) => {
+	let response = await appAPI.changePolicy(text)
+}
+export const changeTerms = (text: string):ThunksType => async (dispatch) => {
+	let response = await appAPI.changeTerms(text)
+}
 
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 

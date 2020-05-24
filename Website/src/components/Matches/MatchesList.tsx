@@ -8,7 +8,6 @@ import { AppStateType, SportType } from '../../types/types'
 import footballImg from '../../assets/img/football.png'
 import { MatchesPlaceholder } from '../Common/Placeholders/MatchesPlaceholder'
 import moment from 'moment'
-import { getSportImg } from '../../utils/getSportImg';
 type MatchesListPropsType = {
 	matches: Array<MatchType>
 	limit?: number

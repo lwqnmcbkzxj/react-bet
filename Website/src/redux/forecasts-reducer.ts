@@ -11,7 +11,7 @@ const TOGGLE_IS_FETCHING = 'forecasts/TOGGLE_IS_FETCHING'
 const TOGGLE_FILTER = 'forecasts/TOGGLE_FILTER'
 const SET_FORECASTS = 'forecasts/SET_FORECASTS'
 const SET_FORECAST = 'forecasts/SET_FORECAST'
-const SET_SPORTS = 'forecasts/SET_SPORTS'
+const SET_SPORTS = 'app/SET_SPORTS'
 
 
 let initialState = {
@@ -83,7 +83,12 @@ const forecastsReducer = (state = initialState, action: ActionsTypes): InitialSt
 		case SET_SPORTS: {
 			let filters = state.filters
 			if (action.sports.length > 0) {
-				filters.sportTypeFilter = [...action.sports]
+				// Copying object cuz in object in action and object in users filters are equals. If you will change forecast filter -> user filter fill change too
+				let sportsCopy = [] as any
+				for (let sport of action.sports) {
+					sportsCopy.push({...sport})
+				}
+				filters.sportTypeFilter = [...sportsCopy]
 			}
 			return {
 				...state,
@@ -150,12 +155,12 @@ export const setForecast = (forecast: ForecastType): SetForecastType => {
 	}
 }
 
-export const setForecastsSports = (sports: Array<SportType>): SetForecastsSportsType => {
-	return {
-		type: SET_SPORTS,
-		sports
-	}
-}
+// export const setForecastsSports = (sports: Array<SportType>): SetForecastsSportsType => {
+// 	return {
+// 		type: SET_SPORTS,
+// 		sports
+// 	}
+// }
 
 
 export const toggleFilter = (filterName: FilterNames, filtersBlockName: string) => {

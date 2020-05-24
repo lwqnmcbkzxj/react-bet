@@ -13,7 +13,6 @@ type ArticlePropsType = {
 }
 
 const Article: FC<ArticlePropsType> = ({ article, ...props }) => {
-	article.img = articleImg
 	return (
 		<div className={s.articlePage}>
 			<GoBackBlock
@@ -37,7 +36,7 @@ const Article: FC<ArticlePropsType> = ({ article, ...props }) => {
 					<div className={s.date}>вчера в 16:58</div>
 				</div>
 				<div className={s.articleTitle}>Рекомендации от опытного игрока</div>
-				{article.img && <img src={article.img} alt="article-img" />}
+				{article.image && <img src={article.image} alt="article-img" />}
 				<div className={s.articleText}>
 					<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
 					sed diam nonumy eirmod tempor invidunt ut labore et dolore magna

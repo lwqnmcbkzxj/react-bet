@@ -8,7 +8,6 @@ import { MatchType } from '../../types/matches';
 import { AppStateType, SportType } from '../../types/types'
 import CommentsBlock from '../Common/CommentsBlock/CommentsBlock';
 import MatchChart from './MatchChart'
-import { getSportImg } from '../../utils/getSportImg';
 import GoBackBlock from '../Common/GoBackBlock/GoBackBlock';
 import { faShareAlt } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from "react-redux"

@@ -12,7 +12,6 @@ import { faBookmark, } from '@fortawesome/free-regular-svg-icons'
 
 import { ForecastType } from '../../types/forecasts';
 import { Link } from 'react-router-dom';
-import { getSportImg } from '../../utils/getSportImg';
 import GoBackBlock from '../Common/GoBackBlock/GoBackBlock'
 import ElementStats from '../Common/ElementStats/ElementStats'
 
@@ -75,7 +74,7 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 			<div className={s.forecastHeader}>
 				<div className={s.headerDetails}>
 					<div className={s.disciplineName}>{forecast.event_data.championship_data.sport_name}</div>
-					<div className={s.matchDate}>{formatDateForForecastPage(forecast.event_data.event_start)}</div>
+					<div className={s.matchDate}>{formatDateForForecastPage(forecast.forecast_created_at)}</div>
 				</div>
 				<div className={s.forecastName}>{forecastTitle}</div>
 			</div>

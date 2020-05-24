@@ -1,13 +1,8 @@
 import React, { FC, useState } from 'react';
 import s from './DesktopMenu.module.scss';
 import { NavLink } from 'react-router-dom';
-import footballImg from '../../../assets/img/football.png'
-import tennisImg from '../../../assets/img/table-tennis.png'
-import basketballImg from '../../../assets/img/basketball.png'
-import hockeyImg from '../../../assets/img/hockey.png'
 import { SportType } from '../../../types/types'
 import { sportTypeFilterEnum, FilterNames } from '../../../types/filters'
-import { getSportImg } from '../../../utils/getSportImg';
 
 type SportsBlockPropsType = {
 	toggleFilter: (filterName: FilterNames, filtersBlockName: string) => void

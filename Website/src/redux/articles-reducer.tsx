@@ -2,7 +2,7 @@ import { AppStateType } from '../types/types'
 import { ThunkAction } from 'redux-thunk'
 
 import { ArticleType } from '../types/article'
-
+import { postsAPI } from '../api/api'
 const SET_ARTICLES = 'articles/SET_ARTICLES'
 const SET_ARTICLE = 'articles/SET_ARTICLE'
 const TOGGLE_IS_FETCHING = 'articles/TOGGLE_IS_FETCHING'
@@ -75,20 +75,20 @@ export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingType => {
 export const getArticlesFromServer = ():ThunksType => async (dispatch) => {
 	
 	dispatch(toggleIsFetching(true))
-	// let response = await articlesAPI.getArticles()	
-	setTimeout(() => { dispatch(toggleIsFetching(false)) }, 2000)
-
-	// dispatch(setArticles(response))
+	let response = await postsAPI.getPosts()	
+	dispatch(toggleIsFetching(false))
+	
+	dispatch(setArticles(response.data))
 }
 
 
 export const getArticleFromServer = (id: number): ThunksType => async (dispatch) => {
 
 	dispatch(toggleIsFetching(true))
-	// let response = await forecastsAPI.getForecast(id)	
+	let response = await postsAPI.getPost(id)	
 	dispatch(toggleIsFetching(false))
 
-	// dispatch(setArticle(response[0]))
+	dispatch(setArticle(response[0]))
 }
 
 export const setArticles = (articles: Array<ArticleType>): SetArticlesType => {
