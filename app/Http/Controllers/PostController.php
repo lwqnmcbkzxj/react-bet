@@ -10,13 +10,7 @@ class PostController extends Controller
 {
     function getAll(Request $request)
     {
-        if (!$request->has('order_by')) {
-            $request['order_by'] = 'id';
-        }
-        if (!$request->has('limit')) {
-            $request['limit'] = 'limit';
-        }
-        return Post::query()->orderBy($request['order_by'])->paginate($request['limit']);
+        return $this->search($request);
     }
 
     function get(Request $request, Post $post)
@@ -32,13 +26,18 @@ class PostController extends Controller
 
     function search(Request $request)
     {
+        $res = Post::query();
+        if($request->has('search')&&$request->has('search_by') && ($request['search']!='' && $request['search_by']!=''))
+        {
+            $res = $res->where($request->search_by, 'LIKE', "%" . $request->search . "%");
+        }
         if (!$request->has('order_by')) {
             $request['order_by'] = 'id';
         }
         if (!$request->has('limit')) {
-            $request['limit'] = 'limit';
+            $request['limit'] = 15;
         }
-        return Post::query()->where($request->search_by, 'LIKE', "%" . $request->search . "%")->orderBy($request['order_by'])->paginate($request['limit']);
+        return $res->orderBy($request['order_by'])->paginate($request['limit']);
     }
 
     function edit(Request $request, Post $post)
