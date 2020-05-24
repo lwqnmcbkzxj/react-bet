@@ -93,8 +93,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/admin/bookmakers/search', 'BookmakerController@search');
     Route::get('/admin/bookmakers/{bookmaker}', 'BookmakerController@get');
     Route::delete('/admin/bookmakers/{bookmaker}', 'BookmakerController@delete');
-    Route::post('/admin/bookmakers/{bookmaker}', 'BookmakerController@edit');
     Route::post('/admin/bookmakers', 'BookmakerController@post');
+    Route::post('/admin/bookmakers/{bookmaker}', 'BookmakerController@edit');
+
     Route::post('/comments', 'CommentController@post');
     Route::delete('/comments/{comment}', 'CommentController@delete');
     Route::post('/votes', 'VoteController@post');
