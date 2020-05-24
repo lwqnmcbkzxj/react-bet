@@ -1,9 +1,21 @@
 <?php
 
-use Illuminate\Http\File;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
-Route::get('storage/{filename}', function ($filename)
-{
+
+Route::get('/policy', function () {
+    $path = storage_path('policy.json');
+    $file = File::get($path);
+    $type = File::mimeType($path);
+    return $file;
+});
+Route::get('/feedback', function () {
+    $path = storage_path('feedback.json');
+    $file = File::get($path);
+    $type = File::mimeType($path);
+    return $file;
+});
+Route::get('storage/{filename}', function ($filename) {
     $path = storage_path('app\public\\' . $filename);
 
     if (!File::exists($path)) {
