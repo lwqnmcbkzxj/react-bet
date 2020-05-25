@@ -9,7 +9,7 @@
 import UIKit
 import Charts
 
-class MatchView: UITableViewHeaderFooterView {
+class MatchView: UIView {
     
     private let topPanel: UIView = {
         let view = UIView()
@@ -31,7 +31,7 @@ class MatchView: UITableViewHeaderFooterView {
     private let dateLabel: UILabel = {
         let view = UILabel()
         view.textColor = .textGrayDark
-        view.font = .robotoRegular(size: 10)
+        view.font = .robotoRegular(size: 11)
         view.text = "26.07.2020"
         view.textAlignment = .center
         return view
@@ -41,7 +41,7 @@ class MatchView: UITableViewHeaderFooterView {
         let view = UILabel()
         view.numberOfLines = 2
         view.textColor = .textGrayDark
-        view.font = .robotoRegular(size: 9)
+        view.font = .robotoRegular(size: 10)
         view.text = "LPL Pro League Season 4"
         view.textAlignment = .center
         return view
@@ -51,14 +51,12 @@ class MatchView: UITableViewHeaderFooterView {
         let view = UILabel()
         view.textColor = .titleBlack
         view.font = .robotoMedium(size: 15)
-        view.text = "1ч : 35м : 34с"
         view.textAlignment = .center
         return view
     }()
     
     private let leftTeamImageView: UIImageView = {
         let view = UIImageView()
-        view.makeBordered()
         return view
     }()
     
@@ -68,12 +66,12 @@ class MatchView: UITableViewHeaderFooterView {
         view.font = .robotoMedium(size: 13)
         view.text = "Mousesports"
         view.textAlignment = .center
+        view.numberOfLines = 2
         return view
     }()
     
     private let rightTeamImageView: UIImageView = {
         let view = UIImageView()
-        view.makeBordered()
         return view
     }()
     
@@ -83,6 +81,7 @@ class MatchView: UITableViewHeaderFooterView {
         view.font = .robotoMedium(size: 13)
         view.text = "Virtus.pro"
         view.textAlignment = .center
+        view.numberOfLines = 2
         return view
     }()
     
@@ -94,27 +93,10 @@ class MatchView: UITableViewHeaderFooterView {
         return view
     }()
     
-    private let stackContainer: UIView = {
-        let view = UIView()
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.lineGray.cgColor
-        view.layer.cornerRadius = 7
-        view.clipsToBounds = true
-        return view
-    }()
-    
-    private let lastBetsStack: UIStackView = {
-        let view = UIStackView()
-        view.axis = .vertical
-        view.spacing = -1
-        return view
-    }()
-    
     private let popularBetsChart = MatchBetsChart()
     
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
-        
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         makeLayout()
     }
     
@@ -123,22 +105,25 @@ class MatchView: UITableViewHeaderFooterView {
     }
     
     func configure(match: Match) {
-        lastBetsStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        let vm = MatchViewModelItem(match: match)
         
-        let columns = ColumnsSectionHeader()
-        columns.columnsView.setMode(.lastBets)
-        lastBetsStack.addArrangedSubview(columns)
-        columns.snp.makeConstraints { (make) in
-            make.height.equalTo(31)
-        }
+        leftTeamLabel.text = match.team1.name
+        leftTeamImageView.setServerIcon(url: match.championship.sport.image)
         
-        (0..<6).forEach { (_) in
-            let view = UserBetView()
-            view.snp.makeConstraints { (make) in
-                make.height.equalTo(56)
-            }
-            lastBetsStack.addArrangedSubview(view)
-        }
+        rightTeamLabel.text = match.team2.name
+        rightTeamImageView.setServerIcon(url: match.championship.sport.image)
+        
+        timeLabel.text = vm.timeText
+        dateLabel.text = vm.fullDateText
+        timerLabel.text = vm.timerText
+        
+        championshipLabel.text = match.championship.name
+
+        popularBetsChart.configure(with: match.forecasts?.map { $0.bet } ?? [])
+    }
+    
+    func timer(to str: String) {
+        timerLabel.text = str
     }
     
     private func makeLayout() {
@@ -170,7 +155,7 @@ class MatchView: UITableViewHeaderFooterView {
         
         topPanel.addSubview(timerLabel)
         timerLabel.snp.makeConstraints { (make) in
-            make.bottom.equalToSuperview().offset(-16)
+            make.bottom.equalToSuperview().offset(-14)
             make.leading.trailing.equalTo(centerGuide)
         }
         
@@ -196,7 +181,7 @@ class MatchView: UITableViewHeaderFooterView {
         
         topPanel.addSubview(rightTeamLabel)
         rightTeamLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(timerLabel)
+            make.top.equalTo(leftTeamLabel)
             make.leading.equalTo(centerGuide.snp.trailing).offset(5)
             make.trailing.equalToSuperview().offset(-5)
         }
@@ -204,8 +189,7 @@ class MatchView: UITableViewHeaderFooterView {
         topPanel.addSubview(rightTeamImageView)
         rightTeamImageView.snp.makeConstraints { (make) in
             make.centerX.equalTo(rightTeamLabel)
-            make.bottom.equalTo(rightTeamLabel.snp.top).offset(-11)
-            make.height.width.equalTo(22)
+            make.top.bottom.width.equalTo(leftTeamImageView)
         }
         
         
@@ -220,18 +204,7 @@ class MatchView: UITableViewHeaderFooterView {
             make.top.equalTo(topBetsLabel.snp.bottom).offset(6)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(150)
-        }
-        
-        addSubview(stackContainer)
-        stackContainer.snp.makeConstraints { (make) in
-            make.leading.trailing.equalToSuperview()
-            make.top.equalTo(popularBetsChart.snp.bottom).offset(40)
-            make.bottom.equalToSuperview().offset(-30)
-        }
-        
-        stackContainer.addSubview(lastBetsStack)
-        lastBetsStack.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-40)
         }
     }
 }

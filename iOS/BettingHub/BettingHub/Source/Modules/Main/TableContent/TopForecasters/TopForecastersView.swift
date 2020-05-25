@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 protocol TopForecasterViewDelegate: class {
     
@@ -41,6 +42,7 @@ class TopForecastersView: UIView {
         collection.backgroundColor = .white
         collection.showsVerticalScrollIndicator = false
         collection.showsHorizontalScrollIndicator = false
+        collection.isSkeletonable = true
         return collection
     }()
     
@@ -64,12 +66,18 @@ class TopForecastersView: UIView {
     
     func setData(forecasters: [Forecaster]) {
         self.forecasters = forecasters
+        collectionView.defaultHideSkeleton()
         collectionView.reloadData()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         scrollIndicator.reload()
+    }
+    
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        collectionView.showAnimatedSkeleton()
     }
     
     private func configure() {
@@ -110,7 +118,7 @@ class TopForecastersView: UIView {
     }
 }
 
-extension TopForecastersView: UICollectionViewDataSource {
+extension TopForecastersView: SkeletonCollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return forecasters.count
@@ -121,12 +129,20 @@ extension TopForecastersView: UICollectionViewDataSource {
         cell.setupCell(forecaster: forecasters[indexPath.row])
         return cell
     }
+    
+    func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 15
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return cellID
+    }
 }
 
 extension TopForecastersView: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let forecaster = Forecaster.stub()
+        let forecaster = forecasters[indexPath.row]
         delegate?.forecasterTapped(forecaster)
     }
     

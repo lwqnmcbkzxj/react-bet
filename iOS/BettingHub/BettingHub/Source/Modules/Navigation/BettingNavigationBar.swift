@@ -10,6 +10,9 @@ import UIKit
 
 class BettingNavigationBar: UINavigationBar {
     
+    @LazyInjected
+    private var userService: IUserService
+    
     private let logoImageView: UIImageView = {
         let image = UIImage(named: "logoNavigation")
         let imageView = UIImageView(image: image)
@@ -23,11 +26,15 @@ class BettingNavigationBar: UINavigationBar {
         let button = UIButton(type: .system)
         let image = UIImage(named: "search")?.withRenderingMode(.alwaysOriginal)
         button.setImage(image, for: .normal)
+        button.isHidden = true //TODO: tempUI
         return button
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        userService.addDelegate(self)
+        
         configure()
         makeLayout()
     }
@@ -39,8 +46,18 @@ class BettingNavigationBar: UINavigationBar {
     private func configure() {
         isTranslucent = false
         barTintColor = .darkBlue
-        bankLabel.setBalance(to: 1500) //TODO: DELETE
         titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
+        
+        configureBalance()
+    }
+    
+    private func configureBalance() {
+        guard let bank = userService.currentUserInfo?.forecaster.balance else {
+            bankLabel.isHidden = true
+            return
+        }
+        
+        bankLabel.setBalance(to: bank)
     }
     
     private func makeLayout() {
@@ -67,6 +84,13 @@ class BettingNavigationBar: UINavigationBar {
             make.leading.greaterThanOrEqualTo(bankLabel.snp.trailing).offset(8)
             make.trailing.equalToSuperview().offset(-23)
         }
+    }
+}
+
+extension BettingNavigationBar: IUserServiceDelegate {
+    
+    func dataChanged(userService: IUserService) {
+        configureBalance()
     }
 }
 

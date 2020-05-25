@@ -33,6 +33,7 @@ class ForecastsHeader: UIView {
         let view = ForecastFilterControl()
         view.selectedSegment = 1
         view.clipsToBounds = false
+        view.isHidden = true //TODO: tempUI
         return view
     }()
     
@@ -44,9 +45,9 @@ class ForecastsHeader: UIView {
         return view
     }()
     
-    private let timePicker: TimePicker = {
-        let view = TimePicker(items: ["Все время"])
-        view.selectedItem = 0
+    let timePicker: TimeFramePicker = {
+        let view = TimeFramePicker()
+        view.pickedTimeFrame = .all
         return view
     }()
     

@@ -19,6 +19,7 @@ class ProfileStatisticsCell: UITableViewCell {
     private let timeSelector: TimeFrameSelector = {
         let view = TimeFrameSelector()
         view.selectedTimeFrame = .all
+        view.isHidden = true //TODO: tempUI
         return view
     }()
     
@@ -84,12 +85,14 @@ class ProfileStatisticsCell: UITableViewCell {
             view.removeFromSuperview()
         }
         
+        let vm = ForecasterViewModelItem(forecaster: item)
+        
         let rows =
         [
-            (StatRowView.Mode.roi, 128.5),
-            (.profit, 28),
-            (.passing, 65),
-            (.coefficient, 1.78),
+            (StatRowView.Mode.roi, vm.signedPercentRoi),
+            (.profit, item.stats.pureProfit),
+            (.passing, Double(vm.passingPercent)),
+            (.coefficient, item.stats.averageCoefficient),
         ].map { (rowInfo) -> StatRowView in
             let view = StatRowView()
             view.configure(mode: rowInfo.0, value: rowInfo.1)

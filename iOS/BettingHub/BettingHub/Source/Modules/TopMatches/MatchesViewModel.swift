@@ -42,6 +42,9 @@ class MatchesViewModel {
     
     //Private
     
+    @LazyInjected
+    private var matchService: IMatchService
+    
     private func pageChanged() {
         if page > loadedPages && !isLoading {
             fetchMore()
@@ -50,8 +53,17 @@ class MatchesViewModel {
     
     private func fetchMore() {
         isLoading = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            self.matches += (0..<self.pageSize).map { _ in Match.stub() }
+        self.matchService.matches(page: self.page,
+                                  count: self.pageSize)
+        { (result) in
+            switch result {
+            case .success(let newMatches):
+                self.matches += newMatches
+                
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+            
             self.isLoading = false
         }
     }

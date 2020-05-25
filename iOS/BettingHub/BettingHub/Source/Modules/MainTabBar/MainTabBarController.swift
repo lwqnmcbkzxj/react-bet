@@ -47,7 +47,7 @@ class MainTabBarController: UITabBarController {
         let forecastsImageSel = UIImage(named: "forecastsIconSelected")!.withRenderingMode(.alwaysOriginal)
         forecastsScreen.tabBarItem = item(image: forecastsImage, selectedImage: forecastsImageSel)
         
-        let createScreen = UIViewController()
+        let createScreen = coordinator.addForecastScreen()
         createScreen.view.backgroundColor = .white
         let createImage = UIImage(named: "plusTabBar")!.withRenderingMode(.alwaysOriginal)
         let createImageSel = UIImage(named: "plusTabBarSelected")!.withRenderingMode(.alwaysOriginal)
@@ -75,7 +75,8 @@ class MainTabBarController: UITabBarController {
     private func profileTabScreen(isAuthorized authorized: Bool,
                                   coordinator: AppCoordinator) -> UIViewController {
         if authorized {
-            let profileScreen = coordinator.selfProfile()
+            let vc = coordinator.profile(forecaster: nil)
+            let profileScreen = coordinator.embedInNavigation(vc: vc)
             profileScreen.view.backgroundColor = .white
             let profileImage = UIImage(named: "profileTabBar")!.withRenderingMode(.alwaysOriginal)
             let profileImageSel = UIImage(named: "profileTabBarSelected")!.withRenderingMode(.alwaysOriginal)

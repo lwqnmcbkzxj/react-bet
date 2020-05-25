@@ -8,17 +8,24 @@
 
 import Foundation
 
-struct ForecastViewModel {
+struct ForecastViewModelItem {
     
     let forecast: Forecast
     
+    let forecasterItem: ForecasterViewModelItem
+    
+    init(forecast: Forecast) {
+        self.forecast = forecast
+        self.forecasterItem = ForecasterViewModelItem(forecaster: forecast.user)
+    }
+    
     var startDateText: String {
-        let dateStr = ForecastViewModel.dateFormatter.string(from: forecast.event.date)
+        let dateStr = ForecastViewModelItem.dateFormatter.string(from: forecast.event.date)
         return dateStr
     }
     
     var creationDateText: String {
-        let dateStr = ForecastViewModel.dateFormatter.string(from: forecast.creationDate)
+        let dateStr = ForecastViewModelItem.dateFormatter.string(from: forecast.creationDate)
         return dateStr
     }
     

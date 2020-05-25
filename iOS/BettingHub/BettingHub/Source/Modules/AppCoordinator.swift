@@ -20,6 +20,10 @@ class AppCoordinator {
         return tabBar
     }()
     
+    func embedInNavigation(vc: UIViewController) -> UINavigationController {
+        return NavigationController(rootViewController: vc)
+    }
+    
     func mainScreen() -> UIViewController {
         let vc = MainViewController()
         let router = MainScreenRouter(coordinator: self)
@@ -80,30 +84,38 @@ class AppCoordinator {
     
     func matchesScreen() -> UIViewController {
         let vc = MatchesViewController()
+        let router = MatchesRouter()
         let vm = MatchesViewModel()
+        
         vc.viewModel = vm
+        vc.router = router
+        
+        router.coordinator = self
+        router.viewController = vc
+        
         return vc
     }
     
     func forecastersScreen() -> UIViewController {
         let vc = ForecastersViewController()
+        let router = ForecastersRouter()
         let vm = ForecastersViewModel()
+        
         vc.viewModel = vm
+        vc.router = router
+        
+        router.coordinator = self
+        router.viewController = vc
+        
         return vc
     }
     
-    func selfProfile() -> UIViewController {
-        let vc = ProfileAssembly().module(coordinator: self, isSelf: true)
-        let nav = NavigationController(rootViewController: vc)
-        return nav
-    }
-    
-    func guestProfile() -> UIViewController {
-        let vc = ProfileAssembly().module(coordinator: self, isSelf: false)
+    func profile(forecaster: Forecaster?) -> UIViewController {
+        let vc = ProfileAssembly().module(coordinator: self, forecaster: forecaster)
         return vc
     }
     
-    func settingsScreen() -> UIViewController {
+    func settingsScreen(userInfo: UserInfo) -> UIViewController {
         let vc = SettingsViewController()
         let presenter = SettingsPresenter()
         let router = SettingsRouter()
@@ -111,6 +123,8 @@ class AppCoordinator {
         presenter.router = router
         router.viewController = vc
         router.coordinator = self
+        
+        vc.configure(userInfo: userInfo)
         return vc
     }
     
@@ -123,6 +137,38 @@ class AppCoordinator {
     func matchScreen(_ match: Match) -> UIViewController {
         let vc = MatchViewController()
         vc.configure(with: match)
+        return vc
+    }
+    
+    func policyScreen() -> UIViewController {
+        let vc = PolicyViewController()
+        let presenter = PolicyPresenter()
+        vc.presenter = presenter
+        return vc
+    }
+    
+    func addForecastScreen() -> UIViewController  {
+        let vc = AddForecastViewController()
+        return vc
+    }
+    
+    func articlesListScreen() -> UIViewController {
+        let vc = ArticlesListViewController()
+        let router = ArticlesListRouter()
+        router.coordinator = self
+        router.viewController = vc
+        vc.router = router
+        return vc
+    }
+    
+    func fullArticleScreen(article: Article) -> UIViewController {
+        let vc = FullArticleViewController()
+        let vm = FullArticleViewModel(article: article)
+        let router = FullArticleRouter()
+        router.coordinator = self
+        router.viewController = vc
+        vc.router = router
+        vc.vm = vm
         return vc
     }
 }

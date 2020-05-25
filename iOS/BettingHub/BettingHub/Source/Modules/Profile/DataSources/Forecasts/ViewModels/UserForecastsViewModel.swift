@@ -8,7 +8,7 @@
 
 import Foundation
 
-class UserForecastsViewModel: TableViewModelImplementation<Forecast, Any> {
+class UserForecastsViewModel: TableViewModel<Forecast, Any> {
     
     override var pageSize: Int { return 5 }
     
@@ -18,12 +18,28 @@ class UserForecastsViewModel: TableViewModelImplementation<Forecast, Any> {
         }
     }
     
+    @LazyInjected
+    private var forecastService: IForecastService
+    
+    @LazyInjected
+    private var userService: IUserService
+    
     private func fetchMore() {
         isLoading = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            let forecasts = (0..<10).map { _ in Forecast.stub() }
-            self.items += forecasts
-            self.isLoading = false 
+        
+        forecastService.userForecasts(id: userService.currentUserInfo?.forecaster.id ?? 0,
+                                  page: loadedPages + 1,
+                                  count: 10)
+        { (result) in
+            switch result {
+            case .success(let forecasts):
+                self.items += forecasts
+                
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+            
+            self.isLoading = false
         }
     }
 }

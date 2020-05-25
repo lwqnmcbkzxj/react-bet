@@ -9,27 +9,29 @@
 struct Sport: Codable {
     let id: Int
     let name: String
-//    let image: String //TODO: sports will have their image in api/sports request
+    let image: String? //TODO: sports will have their image in api/sports request
     
     init(id: Int) {
         let sport = Sport.sportService.currentSports.first(where: {$0.id == id}) ?? .all
-        self.id = sport.id
-        self.name = sport.name
+        self.init(id: sport.id, name: sport.name, image: sport.image)
     }
     
     static var all: Sport {
-        return Sport(id: 0, name: "all".localized)
+        return Sport(id: 0, name: "all".localized, image: nil)
     }
     
     static func stub() -> Sport {
         return .init(id: 1,
-                     name: "Football")
+                     name: "Football",
+                     image: nil)
     }
     
-    private init(id: Int, name: String) {
+    private init(id: Int, name: String, image: String?) {
         self.id = id
         self.name = name
+        self.image = image
     }
     
-    @LazyInjected private static var sportService: ISportService
+    @LazyInjected
+    private static var sportService: ISportService
 }

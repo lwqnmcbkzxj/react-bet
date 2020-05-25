@@ -76,13 +76,17 @@ class FullForecastHeader: UITableViewHeaderFooterView {
     private let incomeLabel: PositivityLabel = {
         let view = PositivityLabel()
         view.font = .robotoMedium(size: 13)
-        view.showingSign = false
+        view.showingSign = true
         view.rounding = .integer
         view.units = .percent
         return view
     }()
     
-    private let subscribeButton = SubscribeButton()
+    private let subscribeButton: SubscribeButton = {
+        let view = SubscribeButton()
+        view.isHidden = true //TODO: tempUI
+        return view
+    }()
     
     private let descLabel: UILabel = {
         let view = UILabel()
@@ -97,6 +101,7 @@ class FullForecastHeader: UITableViewHeaderFooterView {
         let view = LabeledIconView()
         view.setImage(UIImage(named: "commentIcon")!)
         view.setText("3")
+        view.isHidden = true //TODO: tempUI
         return view
     }()
     
@@ -104,11 +109,13 @@ class FullForecastHeader: UITableViewHeaderFooterView {
         let view = LabeledIconView()
         view.setImage(UIImage(named: "bookmarkIcon")!)
         view.setText("54")
+        view.isHidden = true //TODO: tempUI
         return view
     }()
     
     private let ratingView: ArrowsStepperView = {
         let view = ArrowsStepperView()
+        view.isHidden = true //TODO: tempUI
         return view
     }()
     
@@ -117,8 +124,8 @@ class FullForecastHeader: UITableViewHeaderFooterView {
         view.textColor = .titleBlack
         view.font = .robotoMedium(size: 16)
         view.textAlignment = .left
-        view.text = "16 Комментариев"
         view.numberOfLines = 0
+        view.isHidden = true //TODO: tempUI
         return view
     }()
     
@@ -135,7 +142,7 @@ class FullForecastHeader: UITableViewHeaderFooterView {
     }
     
     func configure(with forecast: Forecast) {
-        let vm = ForecastViewModel(forecast: forecast)
+        let vm = ForecastViewModelItem(forecast: forecast)
         
         matchTitleLabel.text = forecast.event.name
         descLabel.text = forecast.text
@@ -143,15 +150,18 @@ class FullForecastHeader: UITableViewHeaderFooterView {
         forecastDateLabel.text = vm.creationDateText
         teamsView.leftTeamLabel.text = forecast.event.team1.name
         teamsView.rightTeamLabel.text = forecast.event.team2.name
+        teamsView.leftImageView.setServerIcon(url: forecast.event.championship.sport.image)
+        teamsView.rightImageView.setServerIcon(url: forecast.event.championship.sport.image)
         commentsView.setText("\(forecast.comments)")
         bookMarksView.setText("\(forecast.bookmarks)")
         profileImageView.setImage(url: forecast.user.avatar)
         usernameLabel.text = forecast.user.login
         infoStack.populateStack(labels: rowsForInfoStack(forecast: forecast, viewModel: vm))
         ratingView.setNumber(forecast.rating)
+        incomeLabel.setNumber(to: vm.forecasterItem.signedPercentRoi)
     }
     
-    private func rowsForInfoStack(forecast: Forecast, viewModel: ForecastViewModel) -> [(UILabel, UILabel)] {
+    private func rowsForInfoStack(forecast: Forecast, viewModel: ForecastViewModelItem) -> [(UILabel, UILabel)] {
         return [
             plainRow(title: Text.tournament,
                      value: forecast.event.championship.name),
@@ -209,7 +219,7 @@ class FullForecastHeader: UITableViewHeaderFooterView {
         seasonLabel.snp.makeConstraints { (make) in
             make.leading.equalToSuperview()
             make.top.equalToSuperview().offset(22)
-            make.height.equalTo(37)
+            make.height.lessThanOrEqualTo(37)
         }
         
         addSubview(forecastDateLabel)

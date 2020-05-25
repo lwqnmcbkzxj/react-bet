@@ -65,6 +65,9 @@ class BookmakerCell: PanelCell {
     }
     
     func configure(with bookmaker: Bookmaker) {
+        firmImageView.setServerIcon(url: bookmaker.image)
+        ratingLabel.text = String(format: "%.2f", bookmaker.rating)
+        bonusLabel.text = Int(bookmaker.bonus).description
         
     }
     

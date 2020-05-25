@@ -10,9 +10,13 @@ import UIKit
 
 class BookmakerView: UITableViewHeaderFooterView {
     
-    private let titleView: BigTitleHeader = {
-        let view = BigTitleHeader()
-        view.titleLabel.text = Text.bookmakerFirm
+    private let titleView: UILabel = {
+        let view = UILabel()
+        view.textColor = .titleBlack
+        view.font = .robotoMedium(size: 20)
+        view.text = Text.bookmakerFirm
+        view.textAlignment = .center
+        view.numberOfLines = 2
         return view
     }()
     
@@ -27,8 +31,8 @@ class BookmakerView: UITableViewHeaderFooterView {
     
     private let bookmakerIconView: UIImageView = {
         let view = UIImageView()
-        view.makeBordered()
         view.layer.cornerRadius = 7
+        view.clipsToBounds = true
         return view
     }()
     
@@ -82,14 +86,17 @@ class BookmakerView: UITableViewHeaderFooterView {
     func configure(bookmaker: Bookmaker) {
         let labels = [
             gradeLabels(text: Text.coeficientWord, grade: 8.35, maxGrade: 10),
-            gradeLabels(text: Text.line, grade: 8.35, maxGrade: 10),
-            gradeLabels(text: Text.reliability, grade: 8.35, maxGrade: 10),
-            gradeLabels(text: Text.payingSystems, grade: 8.35, maxGrade: 10),
-            bonusLabels(text: Text.bonus, bonus: 1000)
+            gradeLabels(text: Text.line, grade: 9, maxGrade: 10),
+            gradeLabels(text: Text.reliability, grade: 9, maxGrade: 10),
+            gradeLabels(text: Text.payingSystems, grade: 8, maxGrade: 10),
+            bonusLabels(text: Text.bonus, bonus: bookmaker.bonus)
         ]
         infoStack.populateStack(labels: labels)
         
-        descLabel.text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam."
+        descLabel.text = ""
+        bookmakerIconView.setServerIcon(url: bookmaker.image)
+        stepper.setNumber(10)
+        titleView.text = "\(titleView.text ?? "")\n\(bookmaker.title.uppercased())"
     }
     
     private func gradeLabels(text: String, grade: Double, maxGrade: Double) -> (UILabel, UILabel) {
@@ -125,9 +132,9 @@ class BookmakerView: UITableViewHeaderFooterView {
         
         addSubview(panel)
         panel.snp.makeConstraints { (make) in
-            make.top.equalTo(titleView.snp.bottom)
+            make.top.equalTo(titleView.snp.bottom).offset(16)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(283)
+//            make.height.equalTo(283)
         }
         
         panel.addSubview(bookmakerIconView)
@@ -136,6 +143,7 @@ class BookmakerView: UITableViewHeaderFooterView {
             make.top.equalToSuperview().offset(12)
             make.height.equalTo(40)
             make.width.equalTo(96)
+            make.bottom.equalToSuperview().offset(-12)
         }
         
         panel.addSubview(webPageButton)
@@ -153,11 +161,11 @@ class BookmakerView: UITableViewHeaderFooterView {
             make.leading.greaterThanOrEqualTo(webPageButton.snp.trailing)
         }
         
-        panel.addSubview(bigImageView)
-        bigImageView.snp.makeConstraints { (make) in
-            make.leading.bottom.trailing.equalToSuperview()
-            make.top.equalTo(bookmakerIconView.snp.bottom).offset(10)
-        }
+//        panel.addSubview(bigImageView)
+//        bigImageView.snp.makeConstraints { (make) in
+//            make.leading.bottom.trailing.equalToSuperview()
+//            make.top.equalTo(bookmakerIconView.snp.bottom).offset(10)
+//        }
         
         addSubview(infoStack)
         infoStack.snp.makeConstraints { (make) in

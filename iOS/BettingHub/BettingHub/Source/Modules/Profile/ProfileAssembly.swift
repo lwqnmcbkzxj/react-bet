@@ -11,14 +11,18 @@ import UIKit
 
 class ProfileAssembly {
     
-    func module(coordinator: AppCoordinator, isSelf: Bool) -> UIViewController {
-        let vc = ProfileViewController(isSelf: isSelf, forecaster: .stub())
+    func module(coordinator: AppCoordinator, forecaster: Forecaster?) -> UIViewController {
+        let vc = ProfileViewController()
         let router = ProfileRouter(viewController: vc, coordinator: coordinator)
+        let interactor = ProfileInteractor(forecaster: forecaster)
+        
         let userForecasts = UserForecastsViewModel()
         let userFavorites = UserFavoritesViewModel()
         let userStats = ProfileStatisticsViewModel()
         
         vc.router = router
+        vc.interactor = interactor
+        
         vc.userForecastsViewModel = userForecasts
         vc.userStatsViewModel = userStats
         vc.userFavoritesViewModel = userFavorites

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class UserFavoritesViewModel: TableViewModelImplementation<Forecast, Any> {
+class UserFavoritesViewModel: TableViewModel<Forecast, Any> {
     
     override var pageSize: Int { return 5 }
     
@@ -18,11 +18,23 @@ class UserFavoritesViewModel: TableViewModelImplementation<Forecast, Any> {
         }
     }
     
+    @LazyInjected
+    private var forecastService: IForecastService
+    
     private func fetchMore() {
         isLoading = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            let forecasts = (0..<10).map { _ in Forecast.stub() }
-            self.items += forecasts
+        
+        forecastService.getFavorites(count: 10,
+                                     page: loadedPages + 1)
+        { (result) in
+            switch result {
+            case .success(let forecasts):
+                self.items += forecasts
+                
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+            
             self.isLoading = false
         }
     }

@@ -20,7 +20,11 @@ class LoginPresenter: ILoginPresenter {
     weak var vc: ILoginViewController!
     var router: ILoginRouter!
     
-    @LazyInjected private var authService: IAuthService
+    @LazyInjected
+    private var authService: IAuthService
+    
+    @LazyInjected
+    private var userService: IUserService
     
     private var isLoading: Bool = false
     
@@ -37,7 +41,8 @@ class LoginPresenter: ILoginPresenter {
                 self.handleError(error)
                 return
             }
-            print("success")
+            
+            self.logIn(usernameOrMail: email, password: password)
         }
         
     }
@@ -54,7 +59,8 @@ class LoginPresenter: ILoginPresenter {
                 self.handleError(err)
                 return
             }
-            self.router.proceed()
+            
+            self.loadDataAfterLogin()
         }
     }
 }
@@ -84,6 +90,17 @@ private extension LoginPresenter {
         }
         
         return true
+    }
+    
+    private func loadDataAfterLogin() {
+        userService.reloadInfo { (err) in
+            if let err = err {
+                print(err.localizedDescription)
+                return
+            }
+            
+            self.router.proceed()
+        }
     }
     
     private func handleError(_ err: BHError) {

@@ -42,17 +42,28 @@ class BookmakersViewModel {
     
     //Private
     
+    private var loaded: Bool = false
+    
+    @LazyInjected
+    private var bookmakerService: IBookmakerService
+    
     private func pageChanged() {
-        if page > loadedPages && !isLoading {
+        if page > loadedPages
+            && !isLoading
+            && !loaded {//all loaded at once
             fetchMore()
         }
     }
     
     private func fetchMore() {
         isLoading = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            self.bookmakers += (0..<self.pageSize).map { _ in Bookmaker.stub() }
+        bookmakerService.bookmakers { (result) in
+            switch result {
+            case .success(let bookmakers): self.bookmakers = bookmakers
+            case .failure(let err): print(err.localizedDescription)
+            }
             self.isLoading = false
+            self.loaded = true
         }
     }
 }

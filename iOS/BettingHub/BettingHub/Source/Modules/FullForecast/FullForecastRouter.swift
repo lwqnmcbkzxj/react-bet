@@ -24,7 +24,7 @@ class FullForecasterRouter: IFullForecastRouter {
     }
     
     func showForecaster(_ forecaster: Forecaster) {
-        let vc = coordinator.guestProfile()
+        let vc = coordinator.profile(forecaster: forecaster)
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
 }

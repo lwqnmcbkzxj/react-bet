@@ -110,15 +110,15 @@ extension LoginViewController: ILoginViewController {
     }
     
     func notSuitableLogin() {
-//        view.showError(text: "notSuitableLoginText")
+        view.showError(text: Text.notSuitableLoginText)
     }
     
     func notSuitablePassword() {
-//        view.showError(text: "notSuitablePasswordText")
+        view.showError(text: Text.notSuitablePasswordText)
     }
     
     func userAlreadyRegistered() {
-//        view.showError(text: "userAlreadyRegisteredText")
+        view.showError(text: Text.userAlreadyRegisteredText)
     }
     
     func unspecifiedError() {

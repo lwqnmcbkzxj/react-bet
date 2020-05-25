@@ -52,13 +52,18 @@ class MainViewController: UIViewController {
     }
     
     private func section(at index: Int) -> MainSection {
-        let options = [
-            (dataProvider.numberOfBookmakers(), MainSection.topBookmakers),
-            (dataProvider.numberOfMatches(), .topMatches),
-            (dataProvider.numberOfForecasts(), .lastForecasts)
+        let intendedOrder: [MainSection] = [.topBookmakers, .topMatches, .lastForecasts]
+        
+        let population = [
+            dataProvider.numberOfBookmakers(),
+            dataProvider.numberOfMatches(),
+            dataProvider.numberOfForecasts()
         ]
-        if options[index].0 != 0 { return options[index].1 }
-        else { return options.dropFirst(index).first(where: { $0.0 != 0 })!.1 }
+        
+        return intendedOrder
+            .enumerated()
+            .filter { population[$0.offset] != 0}
+            .map { $0.element } [index]
     }
     
     private func reloadSection(section: MainSection) {
@@ -73,8 +78,9 @@ class MainViewController: UIViewController {
         case .topBookmakers:
             let bookmaker = dataProvider.dataForBookmaker(row: row)
             router.showBookmaker(bookmaker)
-        default:
-            break
+        case .topMatches:
+            let match = dataProvider.dataForMatch(row: row)
+            router.showMatchScreen(match)
         }
     }
     
@@ -161,7 +167,7 @@ extension MainViewController: ButtonFooterDelegate {
 extension MainViewController: ForecastCellDelegate {
     
     func userViewTapped(forecast: Forecast) {
-        router.showForecaster(.stub())
+        router.showForecaster(forecast.user)
     }
 }
 

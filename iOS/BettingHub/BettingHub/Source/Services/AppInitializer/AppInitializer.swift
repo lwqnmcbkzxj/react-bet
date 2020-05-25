@@ -12,6 +12,7 @@ class AppInitializer {
     
     @LazyInjected private var authService: IAuthService
     @LazyInjected private var sportsService: ISportService
+    @LazyInjected private var userService: IUserService
     
     private let coordinator: AppCoordinator
 
@@ -20,37 +21,62 @@ class AppInitializer {
     }
     
     func start(with window: UIWindow) {
-        
-        initialConfiguration()
-        
-//        let vc = coordinator.mainTabBarScreen
-        
-//        let vc = UIViewController()
-//        vc.view.backgroundColor = .white
-//        let m = MatchView()
-//        vc.view.addSubview(m)
-//        m.snp.makeConstraints { (make) in
-//            make.leading.top.equalToSuperview().offset(15)
-//            make.trailing.equalToSuperview().offset(-15)
-////            make.height.equalTo(140)
-//        }
-//        m.configure(match: .stub())
-        let vc = NavigationController(rootViewController: coordinator.matchScreen(.stub())) 
-        window.rootViewController = vc
-        window.makeKeyAndVisible()
-//
-//        if let authErr = authService.isAuthorized {
-//            coordinator.mainTabBar.setState(isAuthorized: false)
-//        } else {
-//            coordinator.mainTabBar.setState(isAuthorized: true)
-//        }
-        
-        
-        
-        
+        stayOnLaunch(window: window)
+
+        if let _ = self.authService.isAuthorized {
+            initForUnauthorized(window: window)
+        } else {
+            initForAuthorized(window: window)
+        }
     }
     
-    private func initialConfiguration() {
-        sportsService.updateKnownSports {}
+    private func initForAuthorized(window: UIWindow) {
+        let group = initialConfiguration(authorized: true)
+        group.notify(queue: .main) {
+            let vc = self.coordinator.mainTabBarScreen
+            self.coordinator.mainTabBar.setState(isAuthorized: true)
+            self.proceed(window: window, vc: vc)
+        }
+    }
+    
+    private func initForUnauthorized(window: UIWindow) {
+        let group = initialConfiguration(authorized: false)
+        group.notify(queue: .main) {
+            let vc = self.coordinator.mainTabBarScreen
+            self.coordinator.mainTabBar.setState(isAuthorized: false)
+            self.proceed(window: window, vc: vc)
+        }
+    }
+    
+    private func initialConfiguration(authorized: Bool) -> DispatchGroup {
+        let group = DispatchGroup()
+        group.enter()
+        sportsService.updateKnownSports {
+            group.leave()
+        }
+        
+        if authorized {
+            group.enter()
+            userService.reloadInfo { (err) in
+                if let err = err {
+                    print(err.localizedDescription)
+                    return
+                }
+                
+                group.leave()
+            }
+        }
+        
+        return group
+    }
+    
+    private func stayOnLaunch(window: UIWindow) {
+        window.rootViewController = UIStoryboard(name: "LaunchScreen", bundle: nil).instantiateInitialViewController()
+        window.makeKeyAndVisible()
+    }
+    
+    private func proceed(window: UIWindow, vc: UIViewController) {
+        window.rootViewController = vc
+        window.makeKeyAndVisible()
     }
 }

@@ -61,6 +61,7 @@ class MainScreenCellsProvider {
         let cell = tableView.dequeueReusableCell(withIdentifier: section.cellId()) as! BookmakerCell
         let last = row == dataProvider.numberOfBookmakers() - 1
         cell.isLast(last)
+        cell.configure(with: data)
         return cell
     }
     
@@ -69,6 +70,8 @@ class MainScreenCellsProvider {
         let cell = tableView.dequeueReusableCell(withIdentifier: section.cellId()) as! MatchCell
         let last = row == dataProvider.numberOfMatches() - 1
         cell.isLast(last)
+        let match = dataProvider.dataForMatch(row: row)
+        cell.configure(with: match)
         return cell
     }
     

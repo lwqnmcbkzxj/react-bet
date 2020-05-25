@@ -13,6 +13,7 @@ class AuthService {
     @LazyInjected private var tokenService: ITokenService
     @LazyInjected private var httpClient: IHttpClient
     @LazyInjected private var reqBuilder: IRequestBuilder
+    @LazyInjected private var userService: IUserService
     
     func registerRequest(username: String, email: String, password: String) -> (RequestContent, URLRequest) {
         let endpoint = "api/register"
@@ -88,5 +89,7 @@ extension AuthService: IAuthService {
     
     func logOut() {
         tokenService.deleteToken()
+        userService.clearInfo()
+        
     }
 }

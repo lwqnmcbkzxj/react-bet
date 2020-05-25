@@ -23,14 +23,14 @@ class ForecastsViewModel {
     }
     
     var sport: Sport = .all {
-        didSet { sportChanged(old: oldValue, new: sport) }
+        didSet { filtersChanged() }
     }
     
     var timeFrame: TimeFrame = .all
     
     var forecastFilter: ForecastFilter = .all {
         didSet {
-            forecastsFilterChanged(old: oldValue, new: forecastFilter)
+            filtersChanged()
         }
     }
     
@@ -72,11 +72,7 @@ class ForecastsViewModel {
         }
     }
     
-    private func forecastsFilterChanged(old: ForecastFilter, new: ForecastFilter) {
-        //TODO: implement when ready on beckend. Do nothing now.
-    }
-    
-    private func sportChanged(old: Sport, new: Sport) {
+    private func filtersChanged() {
         forecasts = []
         fetchMore()
     }

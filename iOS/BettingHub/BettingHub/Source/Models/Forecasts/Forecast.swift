@@ -49,7 +49,13 @@ struct Forecast: Codable {
                                                   forKey: .statsContainer)
         bookmarks = try stats.decode(Int.self, forKey: .bookmarks)
         comments = try stats.decode(Int.self, forKey: .comments)
-        rating = try stats.decode(Int.self, forKey: .rating)
+        
+        //just.....
+        var rating = try? stats.decode(String.self, forKey: .rating).convert(to: Int.self)
+        if rating == nil {
+            rating = try stats.decodeIfPresent(Int.self, forKey: .rating) ?? 0
+        }
+        self.rating = rating!
     }
     
     func encode(to encoder: Encoder) throws {
@@ -72,7 +78,7 @@ struct Forecast: Codable {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.timeZone = TimeZone(identifier: "UTC")!
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return formatter
     }
     

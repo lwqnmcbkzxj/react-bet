@@ -11,6 +11,8 @@ import SkeletonView
 
 class ForecastersViewController: UIViewController {
     
+    var router: IForecastersRouter!
+    
     private lazy var forecastersView = ForecastersView()
     
     override func loadView() {
@@ -128,5 +130,8 @@ extension ForecastersViewController: UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = viewModel.item(for: indexPath.row)
+        router.show(item)
+    }
 }

@@ -191,6 +191,12 @@ class SettingsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(with userInfo: UserInfo) {
+        profileImageView.setImage(url: userInfo.forecaster.avatar)
+        nicknameLabel.text = userInfo.forecaster.login
+        bankLabel.text = String(userInfo.forecaster.balance ?? 0)
+    }
+    
     private func makeLayout() {
         addSubview(aloeStack)
         aloeStack.snp.makeConstraints { (make) in
@@ -198,20 +204,20 @@ class SettingsView: UIView {
         }
         
         add(item: buildPanel(), itemHeight: 77, additionalTopInset: 0, itemWidth: nil)
-        add(item: rateButton, itemHeight: 45, additionalTopInset: 12, itemWidth: nil)
-        add(item: langSelector, itemHeight: 33, additionalTopInset: 22,itemWidth: 160)
-        add(item: personalLabel, itemHeight: 24, additionalTopInset: 14, itemWidth: nil)
-        add(item: emailInput, itemHeight: 76, additionalTopInset: 0, itemWidth: nil)
-        add(item: socialLabel, itemHeight: 24, additionalTopInset: 19, itemWidth: nil)
-        add(item: socialContainer(), itemHeight: 89, additionalTopInset: 0, itemWidth: nil)
-        add(item: passwordChangeLabel, itemHeight: 24, additionalTopInset: 19, itemWidth: nil)
-        add(item: passwordInput, itemHeight: 76, additionalTopInset: 0, itemWidth: nil)
-        add(item: confirmPasswordInput, itemHeight: 76, additionalTopInset: 0, itemWidth: nil)
-        add(item: saveButton, itemHeight: 40, additionalTopInset: 21, itemWidth: nil)
-        add(item: notificationsLabel, itemHeight: 24, additionalTopInset: 28, itemWidth: nil)
-        add(item: emailNotificationsSwitcher, itemHeight: 21, additionalTopInset: 9, itemWidth: nil)
-        add(item: pushNotificationsSwitcher, itemHeight: 21, additionalTopInset: 9, itemWidth: nil)
-        add(item: repliesSwitcher, itemHeight: 21, additionalTopInset: 9, itemWidth: nil)
+//        add(item: rateButton, itemHeight: 45, additionalTopInset: 12, itemWidth: nil)
+//        add(item: langSelector, itemHeight: 33, additionalTopInset: 22,itemWidth: 160)
+//        add(item: personalLabel, itemHeight: 24, additionalTopInset: 14, itemWidth: nil)
+//        add(item: emailInput, itemHeight: 76, additionalTopInset: 0, itemWidth: nil)
+//        add(item: socialLabel, itemHeight: 24, additionalTopInset: 19, itemWidth: nil)
+//        add(item: socialContainer(), itemHeight: 89, additionalTopInset: 0, itemWidth: nil)
+//        add(item: passwordChangeLabel, itemHeight: 24, additionalTopInset: 19, itemWidth: nil)
+//        add(item: passwordInput, itemHeight: 76, additionalTopInset: 0, itemWidth: nil)
+//        add(item: confirmPasswordInput, itemHeight: 76, additionalTopInset: 0, itemWidth: nil)
+//        add(item: saveButton, itemHeight: 40, additionalTopInset: 21, itemWidth: nil)
+//        add(item: notificationsLabel, itemHeight: 24, additionalTopInset: 28, itemWidth: nil)
+//        add(item: emailNotificationsSwitcher, itemHeight: 21, additionalTopInset: 9, itemWidth: nil)
+//        add(item: pushNotificationsSwitcher, itemHeight: 21, additionalTopInset: 9, itemWidth: nil)
+//        add(item: repliesSwitcher, itemHeight: 21, additionalTopInset: 9, itemWidth: nil)
         add(item: exitButton, itemHeight: 45, additionalTopInset: 30, itemWidth: nil)
     }
     

@@ -107,19 +107,19 @@ class ProfileHeaderView: UIView {
     
     private let subscribersView: StatsView = {
         let view = StatsView()
-        view.set(title: Text.subscribers, value: "0", color: .titleBlack)
+        view.set(title: Text.subscribers, color: .titleBlack)
         return view
     }()
     
     private let placeView: StatsView = {
         let view = StatsView()
-        view.set(title: Text.place, value: "0", color: .positiveGreen)
+        view.set(title: Text.place, color: .positiveGreen)
         return view
     }()
     
     private let netProfitView: StatsView = {
         let view = StatsView()
-        view.set(title: Text.netProfit, value: "0%", color: .positiveGreen)
+        view.set(title: Text.netProfit, color: .positiveGreen)
         return view
     }()
     
@@ -135,17 +135,34 @@ class ProfileHeaderView: UIView {
     
     init(isSelf: Bool) {
         super.init(frame: .zero)
-        if isSelf {
-            segmenter.setItems([Text.forecasts, Text.statistics, Text.favorites])
-        } else {
-            segmenter.setItems([Text.forecasts, Text.statistics])
-        }
+//        if isSelf {
+//            segmenter.setItems([Text.forecasts, Text.statistics, Text.favorites])
+//        } else {
+//            segmenter.setItems([Text.forecasts, Text.statistics])
+//        }
+        //TODO: tempUI
+        segmenter.setItems([Text.statistics])
         
         makeLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(with forecaster: Forecaster) {
+        let vm = ForecasterViewModelItem(forecaster: forecaster)
+        
+        profileImageView.setImage(url: forecaster.avatar)
+        usernameLabel.text = forecaster.login
+        statsLabel.set(wins: forecaster.stats.wins,
+                       loses: forecaster.stats.loss,
+                       draws: forecaster.stats.back)
+        bankLabel.text = String(forecaster.balance ?? 0)
+        roiLabel.setNumber(to: vm.signedPercentRoi)
+        subscribersView.setValue(forecaster.stats.subscribers)
+        placeView.setValue(vm.position)
+        netProfitView.setValue(Int(forecaster.stats.pureProfit))
     }
     
     private func makeLayout() {
@@ -317,9 +334,12 @@ private class StatsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(title: String, value: String, color: UIColor) {
+    func set(title: String, color: UIColor) {
         titleLabel.text = title
-        valueLabel.text = value
         valueLabel.textColor = color
+    }
+    
+    func setValue(_ value: Int) {
+        valueLabel.text = String(value)
     }
 }

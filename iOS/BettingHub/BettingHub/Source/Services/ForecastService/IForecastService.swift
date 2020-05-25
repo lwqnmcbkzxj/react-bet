@@ -15,12 +15,16 @@ protocol IForecastService: class {
                       subscribers: Bool,
                       callback: ((Result<[Forecast], BHError>)->Void)?)
     
-    //TODO: Implement with profile
-//    func getFavorites(count: Int,
-//                      page: Int,
-//                      sport: Sport,
-//                      timeFrame: TimeFrame,
-//                      callback: ((Result<[Forecast], BHError>)->Void)?)
+    
     
     func getForecast(id: Int, callback: ((Result<Forecast, BHError>)->Void)?)
+    
+    func getFavorites(count: Int,
+                      page: Int,
+                      callback: ((Result<[Forecast], BHError>)->Void)?)
+    
+    func userForecasts(id: Int,
+                       page: Int,
+                       count: Int,
+                       callback: (ServiceCallback<[Forecast]>)?)
 }

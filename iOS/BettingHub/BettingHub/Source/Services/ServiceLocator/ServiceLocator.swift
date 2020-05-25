@@ -31,6 +31,10 @@ class ServiceLocator {
         container.register(IForecastService.self) { ForecastService() }
         container.register(ISportService.self) { SportService() }
         container.register(IForecasterService.self) { ForecasterService() }
+        container.register(IMatchService.self) { MatchService() }
+        container.register(IUserService.self) { UserService() }
+        container.register(IBookmakerService.self) { BookmakerService() }
+        container.register(IArticleService.self) { ArticleService() }
     }
 }
 

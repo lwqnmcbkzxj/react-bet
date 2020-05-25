@@ -32,7 +32,7 @@ class ForecastsRouter: IForecastsRouter {
     }
     
     func showUserScreen(_ forecaster: Forecaster) {
-        let vc = coordinator.guestProfile()
+        let vc = coordinator.profile(forecaster: forecaster)
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
 }

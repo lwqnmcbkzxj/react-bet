@@ -81,8 +81,11 @@ class LinePieChartView: UIView {
         let sum = parts.reduce(0) { $0 + $1.value }
         
         let fullCircle = CGFloat.pi * 2
+        
+        var spacesCount = CGFloat(parts.filter { $0.value > 0 }.count)
+        if spacesCount == 1 { spacesCount = 0 }
+        
         let space = CGFloat.pi / 30
-        let spacesCount = CGFloat(parts.count)
         
         let linedCircle = fullCircle - space * spacesCount
         

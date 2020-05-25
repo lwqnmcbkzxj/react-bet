@@ -14,7 +14,7 @@ class MatchBetsChart: UIView {
     private let chart: BarChartView = {
         let view = BarChartView()
         view.extraTopOffset = 0
-        
+        view.legend.setCustom(entries: [])
         view.rightAxis.enabled = false
         
         let yAxis = view.leftAxis
@@ -25,6 +25,9 @@ class MatchBetsChart: UIView {
         yAxis.drawAxisLineEnabled = false
         yAxis.labelFont = .robotoRegular(size: 8)
         yAxis.labelTextColor = .textGray
+        yAxis.granularityEnabled = true
+        yAxis.axisMinimum = 0
+        yAxis.axisMaximum = 4
         
         
         let xAxis = view.xAxis
@@ -33,32 +36,40 @@ class MatchBetsChart: UIView {
         xAxis.drawAxisLineEnabled = false
         xAxis.labelFont = .robotoRegular(size: 10)
         xAxis.labelTextColor = .textGray
-        xAxis.valueFormatter = IndexAxisValueFormatter(values: ["", "П1", "Х", "П2", "ТБ", "ТМ", "Другое"])
         
-        let entries = [
-            BarChartDataEntry(x: 1, y: 75),
-            BarChartDataEntry(x: 2, y: 45),
-            BarChartDataEntry(x: 3, y: 37),
-            BarChartDataEntry(x: 4, y: 52),
-            BarChartDataEntry(x: 5, y: 58),
-            BarChartDataEntry(x: 6, y: 8)
-        ]
-        
-        
+        return view
+    }()
+    
+    private let label: UILabel = {
+        let label = UILabel()
+        label.font = .robotoMedium(size: 19)
+        label.textColor = .textGray
+        label.text = Text.noBets
+        label.isHidden = true
+        return label
+    }()
+    
+    private func setChart(with bets: [(String, Int)]) {
+        chart.xAxis.valueFormatter = IndexAxisValueFormatter(values: bets.map {$0.0} )
+        chart.xAxis.granularity = 1
+        let entries = (0..<bets.count).map {
+            BarChartDataEntry(x: Double($0),
+                              y: Double(bets[$0].1))
+        }
         let dataSet = BarChartDataSet(entries: entries)
         dataSet.colors = [UIColor.lineGray]
         dataSet.drawValuesEnabled = false
         dataSet.highlightEnabled = false
-        
-        
         let data = BarChartData(dataSet: dataSet)
-        data.barWidth = 0.6
+        data.barWidth = Double(bets.count) / 8
         
-        view.legend.setCustom(entries: [])
-        view.data = data
+        if let bet = bets.max(by: { $0.1 < $1.1 }),
+            bet.1 > 4 {
+            chart.leftAxis.axisMaximum = Double(bet.1)
+        }
         
-        return view
-    }()
+        chart.data = data
+    }
     
     init() {
         super.init(frame: .zero)
@@ -70,7 +81,18 @@ class MatchBetsChart: UIView {
     }
     
     func configure(with bets: [Bet]) {
-        //TODO: Implement
+        var dict: [String: Int] = [:]
+        for bet in bets {
+            let old = dict[bet.type] ?? 0
+            dict[bet.type] = old + 1
+        }
+        
+        let topBets = dict.keys.map { ($0, dict[$0]!) }
+        
+        chart.isHidden = topBets.isEmpty
+        setChart(with: topBets)
+        
+        label.isHidden = !bets.isEmpty
     }
     
     private func makeLayout() {
@@ -85,7 +107,12 @@ class MatchBetsChart: UIView {
         addSubview(topMaskingView)
         topMaskingView.snp.makeConstraints { (make) in
             make.leading.trailing.top.equalToSuperview()
-            make.height.equalTo(chart.xAxis.labelHeight)
+            make.height.equalTo(15)
+        }
+        
+        addSubview(label)
+        label.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
         }
     }
 }

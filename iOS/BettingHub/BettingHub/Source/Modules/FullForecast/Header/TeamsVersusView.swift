@@ -12,13 +12,13 @@ class TeamsVersusView: UIView {
     
     let leftImageView: UIImageView = {
         let view = UIImageView()
-        view.makeBordered()
+//        view.makeBordered()
         return view
     }()
     
     let rightImageView: UIImageView = {
         let view = UIImageView()
-        view.makeBordered()
+//        view.makeBordered()
         return view
     }()
     

@@ -11,10 +11,11 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     var router: IProfileRouter!
+    var interactor: IProfileInteractor!
     
-    private let isSelf: Bool
-    
-    private let forecaster: Forecaster
+    private var isSelf: Bool {
+        return interactor.isSelf()
+    }
     
     var userForecastsViewModel: TableViewModel<Forecast, Any>!
     var userStatsViewModel: TableViewModel<Forecaster, Any>!
@@ -43,17 +44,6 @@ class ProfileViewController: UIViewController {
         return view
     }()
     
-    init(isSelf: Bool, forecaster: Forecaster) {
-        self.isSelf = isSelf
-        self.forecaster = forecaster
-        
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func loadView() {
         super.loadView()
         if !isSelf { addBackView(text: nil) }
@@ -69,7 +59,16 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         profileHeader.segmenter.addTarget(self, action: #selector(changedTab), for: .valueChanged)
-        profileHeader.segmenter.selectedIndex = 1
+        profileHeader.segmenter.selectedIndex = 0
+        
+        //configure with initial data (may be incomplete
+        configure(forecaster: interactor.profile())
+        
+        //load complete data
+        interactor.loadData { [weak self] in
+            guard let this = self else { return }
+            self?.configure(forecaster: this.interactor.profile())
+        }
     }
     
     @objc private func changedTab() {
@@ -80,13 +79,15 @@ class ProfileViewController: UIViewController {
     private func setDelegate(for index: Int) {
         var delegate: ProfileDataSource!
         
-        if index == 0 {
-            delegate = userForecastsDataSource
-        } else if index == 1 {
-            delegate = userStatsDataSource
-        } else if index == 2 {
-            delegate = userFavoritesDataSource
-        }
+//        if index == 0 {
+//            delegate = userForecastsDataSource
+//        } else if index == 1 {
+//            delegate = userStatsDataSource
+//        } else if index == 2 {
+//            delegate = userFavoritesDataSource
+//        }
+        //TODO: tempUI
+        delegate = userStatsDataSource
         
         tableView.dataSource = delegate
         tableView.delegate = delegate
@@ -94,7 +95,14 @@ class ProfileViewController: UIViewController {
         delegate.start()
     }
     
+    private func configure(forecaster: Forecaster) {
+        profileHeader.configure(with: forecaster)
+        userStatsDataSource.configure(forecaster: forecaster)
+    }
+    
     @objc private func settingsTapped() {
-        router.showSettings()
+        guard let userInfo = interactor.selfProfile() else { return }
+        
+        router.showSettings(userInfo: userInfo)
     }
 }

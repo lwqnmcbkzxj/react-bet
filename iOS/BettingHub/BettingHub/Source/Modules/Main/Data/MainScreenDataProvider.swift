@@ -86,22 +86,20 @@ class MainScreenDataProvider {
     }
     
     func getData() {
-        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0) {
-            self.interactor.getForecasters { (forecasters) in
-                self.forecasters = forecasters
-            }
-            
-            self.bookmakers = (0..<3).map({ (_) -> Bookmaker in
-                Bookmaker(image: nil, rating: 9.40, bonus: 3000)
-            })
-
-            self.matches = (0..<5).map { (_) -> Match in
-                Match.stub()
-            }
-            
-            self.interactor.getForecasts { [weak self] (forecasts) in
-                self?.forecasts = forecasts
-            }
+        self.interactor.getForecasters { (forecasters) in
+            self.forecasters = forecasters
+        }
+        
+        self.interactor.getBookmakers { [weak self] (bookmakers) in
+            self?.bookmakers = bookmakers
+        }
+        
+        self.interactor.getMatches { [weak self] (matches) in
+            self?.matches = matches
+        }
+        
+        self.interactor.getForecasts { [weak self] (forecasts) in
+            self?.forecasts = forecasts
         }
     }
 }

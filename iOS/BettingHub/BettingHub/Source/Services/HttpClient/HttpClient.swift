@@ -35,7 +35,8 @@ class HttpClient: IHttpClient {
     
     func authRequest(request: URLRequest, callback: ((BHError?) -> Void)?) {
         AF.request(request).responseData { (afRes) in
-            if afRes.response?.statusCode == 200 {
+            if afRes.response?.statusCode == 200
+            || afRes.response?.statusCode == 201 {
                 callback?(nil)
             } else if afRes.response?.statusCode == 422 {
                 callback?(.userAlreadyRegistered)

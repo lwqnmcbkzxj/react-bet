@@ -14,17 +14,6 @@ func onMainQueue(_ closure: @escaping () -> Void) {
     }
 }
 
-struct CommentCellViewModelItem {
-    let imageUrl: String
-    let username: String
-    let date: String
-    let comment: String
-    let rating: Int
-    
-    let longLines: Int
-    let shortLines: Int
-}
-
 protocol ICommentsTableViewModel: class {
     
     var reloadTableView: (() -> Void)? { get set }
@@ -51,29 +40,29 @@ class CommentsTableViewModel: ICommentsTableViewModel {
     var numberOfRows: Int { return items.count }
     
     init() {
-        let arr: [(Int, Int)] = [
-            (0, 0),
-            (1, 0),
-            (2, 0),
-            (3, 0),
-            (2, 1),
-            (0, 2),
-            (0, 0),
-            (1, 0),
-            (2, 0),
-            (0, 3),
-            (0, 0),
-            (1, 0),
-            (2, 0),
-            (0, 3),
-        ]
-        items = (0..<10).map({ (number) -> CommentCellViewModelItem in
-            .init(imageUrl: "", username: "Никнейм", date: "вчера в 16:58",
-                  comment: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.",
-                  rating: 23,
-                  longLines: arr[number].0,
-                  shortLines: arr[number].1)
-        })
+//        let arr: [(Int, Int)] = [
+//            (0, 0),
+//            (1, 0),
+//            (2, 0),
+//            (3, 0),
+//            (2, 1),
+//            (0, 2),
+//            (0, 0),
+//            (1, 0),
+//            (2, 0),
+//            (0, 3),
+//            (0, 0),
+//            (1, 0),
+//            (2, 0),
+//            (0, 3),
+//        ]
+//        items = (0..<10).map({ (number) -> CommentCellViewModelItem in
+//            .init(imageUrl: "", username: "Никнейм", date: "вчера в 16:58",
+//                  comment: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.",
+//                  rating: 23,
+//                  longLines: arr[number].0,
+//                  shortLines: arr[number].1)
+//        })
     }
     
     func viewModelItem(for indexPath: IndexPath) -> CommentCellViewModelItem {

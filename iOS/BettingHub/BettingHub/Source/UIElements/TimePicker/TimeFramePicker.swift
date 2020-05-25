@@ -11,8 +11,18 @@ import UIKit
 class TimeFramePicker: TimePicker {
     
     var pickedTimeFrame: TimeFrame? {
-        guard let index = selectedItem else { return nil }
-        return timeFrames[index]
+        get {
+            guard let index = selectedItem else { return nil }
+            return timeFrames[index]
+        }
+        set {
+            guard let frame = newValue else {
+                selectedItem = nil
+                return
+            }
+            
+            selectedItem = timeFrames.firstIndex(where: { $0 == frame })
+        }
     }
     
     let timeFrames: [TimeFrame] = [

@@ -9,18 +9,46 @@
 import Foundation
 
 struct Forecaster: Codable {
+    
     let id: Int
     let avatar: String?
     let login: String
     let stats: ForecasterStatistics
     let lastForecasts: [Bool]
+    let ratingPosition: Int?
+    let balance: Double?
+    
+    init(id: Int, avatar: String?, login: String, stats: ForecasterStatistics, lastForecasts: [Bool], ratingPosition: Int?, balance: Double?) {
+        self.id = id
+        self.avatar = avatar
+        self.login = login
+        self.stats = stats
+        self.lastForecasts = lastForecasts
+        self.ratingPosition = ratingPosition
+        self.balance = balance
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        avatar = try container.decode(String?.self, forKey: .avatar)
+        login = try container.decode(String.self, forKey: .login)
+        stats = try container.decode(ForecasterStatistics.self, forKey: .stats)
+        lastForecasts = try container.decode([Bool].self, forKey: .lastForecasts)
+        ratingPosition = try container.decodeIfPresent(Int.self, forKey: .ratingPosition)
+        balance = try container.decodeIfPresent(String.self, forKey: .balance)?.convert(to: Double.self)!
+        
+        
+    }
     
     static func stub() -> Forecaster {
         .init(id: 0,
               avatar: nil,
               login: "Test",
               stats: .stub(),
-              lastForecasts: [false, true, true, false, true])
+              lastForecasts: [false, true, true, false, true],
+              ratingPosition: 10,
+              balance: 1000)
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -29,7 +57,8 @@ struct Forecaster: Codable {
         case login = "login"
         case stats = "stats"
         case lastForecasts = "last_five"
-        
+        case ratingPosition = "rating_position"
+        case balance = "balance"
     }
 }
 
@@ -59,14 +88,14 @@ struct ForecasterStatistics: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        roi = try container.decode(String.self,
-                                   forKey: .roi)
+        roi = try container.decodeIfPresent(String.self,
+                                   forKey: .roi)?
                            .convert(to: Double.self) ?? 0
-        averageCoefficient = try container.decode(String.self,
-                                                  forKey: .averageCoefficient)
+        averageCoefficient = try container.decodeIfPresent(String.self,
+                                                  forKey: .averageCoefficient)?
                                           .convert(to: Double.self) ?? 0
-        pureProfit = try container.decode(String.self,
-                                          forKey: .pureProfit)
+        pureProfit = try container.decodeIfPresent(String.self,
+                                          forKey: .pureProfit)?
                                   .convert(to: Double.self) ?? 0
         wins = try container.decode(Int.self, forKey: .wins)
         loss = try container.decode(Int.self, forKey: .loss)

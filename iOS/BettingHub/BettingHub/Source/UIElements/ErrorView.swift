@@ -23,7 +23,7 @@ class ErrorView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.darkRed.withAlphaComponent(0.2)
+        backgroundColor = UIColor.hex(0xEECFCF)
         addSubview(label)
         label.snp.makeConstraints { (make) in
             make.leading.trailing.equalToSuperview()

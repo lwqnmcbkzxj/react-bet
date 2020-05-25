@@ -101,6 +101,7 @@ extension BookmakersViewController: SkeletonTableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! BookmakerCell
         let item = viewModel.item(for: indexPath.row)
+        cell.hideSkeletonIfActive()
         cell.configure(with: item)
         return cell
     }

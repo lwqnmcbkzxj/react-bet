@@ -118,5 +118,15 @@ class Text {
     static var topBets: String { "topBets".localized }
     static var forecaster: String { "forecaster".localized }
     static var passability: String { "passability".localized }
+    static var userAlreadyRegisteredText: String { "userAlreadyRegisteredText".localized }
+    static var notSuitablePasswordText: String { "notSuitablePasswordText".localized }
+    static var notSuitableLoginText: String { "notSuitableLoginText".localized }
+    static var confidentialPolitics: String { "confidentialPolitics".localized }
+    static var leaveFeedback: String { "leaveFeedback".localized }
+    static var soon: String { "soon".localized }
+    static var noBets: String { "noBets".localized }
+    static var comments: String { "comments".localized }
+    static var articles: String { "articles".localized }
+    static var similarArticles: String { "similarArticles".localized }
 }
 

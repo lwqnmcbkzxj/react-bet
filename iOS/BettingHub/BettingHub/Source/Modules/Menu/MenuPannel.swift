@@ -16,6 +16,8 @@ class MenuPanel: UIView {
         label.font = .robotoMedium(size: 18)
         label.textAlignment = .left
         label.numberOfLines = 2
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
         return label
     }()
     
@@ -27,7 +29,7 @@ class MenuPanel: UIView {
     
     let gesture = UITapGestureRecognizer()
     
-    init(text: String, image: UIImage) {
+    init(text: String, image: UIImage?) {
         super.init(frame: .zero)
         
         backgroundColor = .white

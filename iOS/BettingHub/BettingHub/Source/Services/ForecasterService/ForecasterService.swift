@@ -15,27 +15,39 @@ class ForecasterService {
     
     func forecastersListRequest(page: Int, count: Int) -> (RequestContent, URLRequest) {
         let url = "api/users"
-        
-        let params = [
-            "page": String(page),
-            "limit": String(count)
-        ]
-        
+        let content = reqBuilder.pagedRequest(url: url, page: page, limit: count)
+        let result = (content, reqBuilder.getRequest(content: content))
+        return result
+    }
+    
+    func forecaster(id: Int) -> (RequestContent, URLRequest) {
+        let url = "api/users/\(id)"
+        let params = [String: String]()
         let content = (url, params)
-        let request = reqBuilder.getRequest(content: content)
+        let req = reqBuilder.getRequest(content: content)
+        return (content, req)
+    }
+    
+    //TODO: change on backend
+    private func getForecasters(from data: Data) -> [Forecaster]? {
         
-        return (content, request)
+        struct ForecastersResponse: Codable {
+            let data: [Forecaster]
+        }
+        
+        let res = try? JSONDecoder().decode(ForecastersResponse.self, from: data)
+        return res?.data
     }
 }
 
 extension ForecasterService: IForecasterService {
     
-    func topForecasters(count: Int, callback: ((Result<[Forecaster], BHError>) -> Void)?) {
-        let req = forecastersListRequest(page: 1, count: 15).1
+    func topForecasters(page: Int, count: Int, callback: ((Result<[Forecaster], BHError>) -> Void)?) {
+        let req = forecastersListRequest(page: page, count: count).1
         httpClient.request(request: req) { (result) in
             switch result {
             case .success(let data):
-                guard let forecasters = try? JSONDecoder().decode([Forecaster].self, from: data) else {
+                guard let forecasters = self.getForecasters(from: data) else {
                     callback?(.failure(.unexpectedContent))
                     return
                 }
@@ -49,7 +61,13 @@ extension ForecasterService: IForecasterService {
     }
     
     func forecaster(id: Int, callback: ((Result<Forecaster, BHError>) -> Void)?) {
-        fatalError("Not implemented")
+        let req = forecaster(id: id).1
+        httpClient.request(request: req) { (result) in
+            switch result {
+            case .success(let data): callback?(data.decodeJSON(Forecaster.self))
+            case .failure(let err): callback?(.failure(err.asBHError()))
+            }
+        }
     }
     
     

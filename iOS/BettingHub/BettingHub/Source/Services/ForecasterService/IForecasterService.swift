@@ -10,7 +10,8 @@ import Foundation
 
 protocol IForecasterService: class {
     
-    func topForecasters(count: Int,
+    func topForecasters(page: Int,
+                        count: Int,
                         callback: ((Result<[Forecaster], BHError>) -> Void)?)
     
     func forecaster(id: Int,

@@ -12,7 +12,7 @@ protocol IProfileRouter: class {
     
     func showForecast(_ forecast: Forecast)
     
-    func showSettings()
+    func showSettings(userInfo: UserInfo)
 }
 
 class ProfileRouter: IProfileRouter {
@@ -30,8 +30,8 @@ class ProfileRouter: IProfileRouter {
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
     
-    func showSettings() {
-        let vc = coordinator.settingsScreen()
+    func showSettings(userInfo: UserInfo) {
+        let vc = coordinator.settingsScreen(userInfo: userInfo)
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
 }

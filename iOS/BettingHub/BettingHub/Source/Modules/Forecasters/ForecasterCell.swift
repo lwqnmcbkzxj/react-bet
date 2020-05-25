@@ -11,7 +11,10 @@ import UIKit
 
 class ForecasterCell: UITableViewCell {
     
-    private let arrowView = RatingArrow()
+    private let arrowView: RatingArrow = {
+        let view = RatingArrow()
+        return view
+    }()
     
     private let positionLabel: UILabel = {
         let view = UILabel()
@@ -26,7 +29,6 @@ class ForecasterCell: UITableViewCell {
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 5
         view.isSkeletonable = true
-        view.makeBordered()
         return view
     }()
     
@@ -72,14 +74,17 @@ class ForecasterCell: UITableViewCell {
     }
     
     func configure(with forecaster: Forecaster) {
+        let vm = ForecasterViewModelItem(forecaster: forecaster)
+        
         userImageView.setImage(url: forecaster.avatar)
         userLabel.text = forecaster.login
         statsLabel.set(wins: forecaster.stats.wins,
                        loses: forecaster.stats.loss,
                        draws: forecaster.stats.back)
         
-        let income = round(forecaster.stats.roi * 100)
+        let income = round(vm.signedPercentRoi)
         incomeLabel.setNumber(to: income)
+        positionLabel.text = String(vm.position)
     }
     
     private func makeLayout() {

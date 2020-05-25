@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ProfileStatisticsViewModel: TableViewModelImplementation<Forecaster, Any> {
+class ProfileStatisticsViewModel: TableViewModel<Forecaster, Any> {
     
     override var pageSize: Int { 1 }
     

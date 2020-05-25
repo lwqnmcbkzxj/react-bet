@@ -10,19 +10,21 @@ import UIKit
 
 protocol IMainScreenRouter: class {
     
-    func showFullForecastScreen(_ forecast: Forecast)
+    func showForecasters()
     
     func showForecaster(_ forecaster: Forecaster)
     
     func showForecastsListScreen()
     
+    func showFullForecastScreen(_ forecast: Forecast)
+    
     func showBookmakersListScreen()
+    
+    func showBookmaker(_ bookmaker: Bookmaker)
     
     func showMatchesListScreen()
     
-    func showForecasters()
-    
-    func showBookmaker(_ bookmaker: Bookmaker)
+    func showMatchScreen(_ match: Match)
 }
 
 
@@ -61,12 +63,17 @@ class MainScreenRouter: IMainScreenRouter {
     }
     
     func showForecaster(_ forecaster: Forecaster) {
-        let vc = coordinator.guestProfile()
+        let vc = coordinator.profile(forecaster: forecaster)
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
     
     func showBookmaker(_ bookmaker: Bookmaker) {
         let vc = coordinator.bookmakerScreen(bookmaker)
+        viewController.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func showMatchScreen(_ match: Match) {
+        let vc = coordinator.matchScreen(match)
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
 }

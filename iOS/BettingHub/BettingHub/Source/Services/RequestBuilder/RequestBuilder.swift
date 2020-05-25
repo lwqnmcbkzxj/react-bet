@@ -10,10 +10,32 @@ import Foundation
 
 class RequestBuilder: IRequestBuilder {
     
+    @LazyInjected
+    private var tokenService: ITokenService
+    
     let baseURL = BettingHub.baseURL
+    
+    func authorize(_ request: URLRequest) -> URLRequest? {
+        
+        let tokenRes = tokenService.authToken()
+        switch tokenRes {
+        case .success(let token):
+            var newRequest = request
+            newRequest.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            return newRequest
+        case .failure(let err):
+            print(err)
+            return nil
+        }
+    }
     
     func getRequest(content: RequestContent) -> URLRequest {
         let url = baseURL.appendingPathComponent(content.endpoint)
+        
+        return getRequest(fullUrl: url, params: content.params)
+    }
+    
+    func getRequest(fullUrl url: URL, params: [String : String]) -> URLRequest {
         
         let method = "GET"
         let headers = [
@@ -22,7 +44,7 @@ class RequestBuilder: IRequestBuilder {
         ]
         
         var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
-        components.queryItems = content.params.keys.map { URLQueryItem(name: $0, value: content.params[$0]) }
+        components.queryItems = params.keys.map { URLQueryItem(name: $0, value: params[$0]) }
         let reqUrl = try! components.asURL()
         
         var request = URLRequest(url: reqUrl)
@@ -49,5 +71,32 @@ class RequestBuilder: IRequestBuilder {
         request.httpBody = parametersEncoded
         
         return request
+    }
+    
+    func pagedRequest(url: String, page: Int, limit: Int) -> RequestContent {
+        let params = [
+            "page": String(page),
+            "limit": String(limit)
+        ]
+        
+        return (url, params)
+    }
+    
+    func idRequest(url: String, id: Int) -> RequestContent {
+        let params = [
+            "id": String(id)
+        ]
+        
+        return (url, params)
+    }
+    
+    func addParams(to content: RequestContent, params: [String : String]) -> RequestContent {
+        var new = content.params
+        params.keys.forEach { (key) in
+            guard new[key] == nil else { fatalError("adding params overrides old values") }
+            new[key] = params[key]
+        }
+        
+        return (content.endpoint, new)
     }
 }

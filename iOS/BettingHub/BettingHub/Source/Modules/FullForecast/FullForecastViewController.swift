@@ -12,6 +12,8 @@ class FullForecastViewController: UIViewController {
     
     var router: IFullForecastRouter!
     
+    private var forecast: Forecast?
+    
     private lazy var commentsTable: CommentsTableView = {
         let vm = CommentsTableViewModel()
         let view = CommentsTableView(viewModel: vm, header: fullForecastHeader)
@@ -31,10 +33,12 @@ class FullForecastViewController: UIViewController {
     }
     
     func configure(with forecast: Forecast) {
+        self.forecast = forecast
         fullForecastHeader.configure(with: forecast)
     }
     
     @objc private func userTapped() {
-        router.showForecaster(.stub())
+        guard let forecaster = forecast?.user else { return }
+        router.showForecaster(forecaster)
     }
 }

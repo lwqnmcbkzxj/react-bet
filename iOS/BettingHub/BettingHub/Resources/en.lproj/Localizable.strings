@@ -89,10 +89,16 @@
 "menuForecasters" = "Рейтинг прогнозистов";
 "menuNews" = "Новости";
 "menuArticles" = "Статьи";
+"confidentialPolitics" = "Политика конфиденциальности";
+"leaveFeedback" = "Обратная связь";
+
 
 "fieldsEmptyError" = "Заполните все поля";
 "unmatchingPasswordsError" = "Пароли не совпадают";
 "unspecifiedError" = "Ошибка";
+"userAlreadyRegisteredText" = "Пользователь уже существует";
+"notSuitablePasswordText" = "Пароль не подходит";
+"notSuitableLoginText" = "Логин не подходит";
 
 "3h" = "3 часа";
 "6h" = "6 часов";
@@ -153,3 +159,10 @@
 "topBets" = "ТОП СТАВКИ";
 "forecaster" = "Прогнозист";
 "passability" = "Проходимость";
+
+"soon" = "Скоро!";
+"noBets" = "Нет ставок";
+"comments" = "Комментариев";
+
+"articles" = "СТАТЬИ";
+"similarArticles" = "Похожите статьи";

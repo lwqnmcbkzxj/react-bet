@@ -13,7 +13,7 @@ struct ForecastersViewModelState {
     let sport: Sport
 }
 
-class ForecastersViewModel: TableViewModelImplementation<Forecaster, ForecastersViewModelState> {
+class ForecastersViewModel: TableViewModel<Forecaster, ForecastersViewModelState> {
     
     override var pageSize: Int { return 15 }
     
@@ -28,10 +28,22 @@ class ForecastersViewModel: TableViewModelImplementation<Forecaster, Forecasters
         fetchMore()
     }
     
+    @LazyInjected
+    private var forecasterService: IForecasterService
+    
     private func fetchMore() {
         isLoading = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            self.items += (0..<self.pageSize).map { _ in .stub() }
+        forecasterService.topForecasters(page: loadedPages + 1,
+                                         count: pageSize)
+        { (result) in
+            switch result {
+            case .success(let forecasters):
+                self.items += forecasters
+
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+
             self.isLoading = false
         }
     }

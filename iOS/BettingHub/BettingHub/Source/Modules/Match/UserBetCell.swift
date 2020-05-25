@@ -8,9 +8,9 @@
 
 import UIKit
 
-class UserBetView: UIView {
+class UserBetCell: UITableViewCell {
     
-    private let imageView: UIImageView = {
+    private let userImageView: UIImageView = {
         let view = UIImageView()
         view.makeBordered()
         view.layer.cornerRadius = 5
@@ -45,32 +45,52 @@ class UserBetView: UIView {
         return label
     }()
     
-    private let separatorLine: UIView = {
+    private let whiteView: UIView = {
         let view = UIView()
-        view.backgroundColor = .lineGray
+        view.backgroundColor = .white
         return view
     }()
     
-    init() {
-        super.init(frame: .zero)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         makeLayout()
+        contentView.backgroundColor = .lineGray
+        contentView.clipsToBounds = true
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(with forecast: Match.Forecast) {
+        let stats = forecast.user.stats
+        let passing = (stats.wins * 100)/(stats.loss + stats.wins + stats.back)
+        
+        userImageView.setImage(url: forecast.user.avatar)
+        usernameLabel.text = forecast.user.login
+        betLabel.text = forecast.bet.type
+        passabilityLabel.setNumber(to: Double(passing)) 
+    }
+    
     private func makeLayout() {
-        addSubview(imageView)
-        imageView.snp.makeConstraints { (make) in
+        contentView.addSubview(whiteView)
+        whiteView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.leading.equalToSuperview().offset(1)
+            make.trailing.bottom.equalToSuperview().offset(-1)
+        }
+        
+        contentView.addSubview(userImageView)
+        userImageView.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(8)
             make.top.equalToSuperview().offset(11)
             make.width.height.equalTo(30)
+            make.bottom.equalToSuperview().offset(-14)
         }
         
-        addSubview(usernameLabel)
+        contentView.addSubview(usernameLabel)
         usernameLabel.snp.makeConstraints { (make) in
-            make.leading.equalTo(imageView.snp.trailing).offset(7)
+            make.leading.equalTo(userImageView.snp.trailing).offset(7)
             make.centerY.equalToSuperview()
         }
         
@@ -90,7 +110,7 @@ class UserBetView: UIView {
             make.leading.greaterThanOrEqualTo(usernameLabel)
         }
         
-        addSubview(betLabel)
+        contentView.addSubview(betLabel)
         betLabel.snp.contentCompressionResistanceHorizontalPriority = 999
         betLabel.snp.makeConstraints { (make) in
             make.trailing.equalTo(betGuide)
@@ -98,16 +118,10 @@ class UserBetView: UIView {
             make.leading.equalTo(betGuide).priority(.medium)
         }
         
-        addSubview(passabilityLabel)
+        contentView.addSubview(passabilityLabel)
         passabilityLabel.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
             make.leading.trailing.equalTo(passabilityGuide)
-        }
-        
-        addSubview(separatorLine)
-        separatorLine.snp.makeConstraints { (make) in
-            make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalTo(1)
         }
     }
 }

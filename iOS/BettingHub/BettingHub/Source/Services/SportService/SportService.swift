@@ -51,6 +51,8 @@ extension SportService: ISportService {
     var currentSports: [Sport] { [.all] + loadedSports }
     
     func updateKnownSports(callback: @escaping ()->Void) {
+        loadedSports = storedFromDefaults() ?? []
+        
         let req = sportsRequest().1
         
         isLoading = true
@@ -58,7 +60,6 @@ extension SportService: ISportService {
             switch result {
             case .success(let data):
                 guard let sports = try? JSONDecoder().decode([Sport].self, from: data) else {
-                    self?.loadedSports = self?.storedFromDefaults() ?? []
                     callback()
                     return
                 }
@@ -68,7 +69,6 @@ extension SportService: ISportService {
                 callback()
                 
             case .failure(_):
-                self?.loadedSports = self?.storedFromDefaults() ?? []
                 callback()
             }
         }

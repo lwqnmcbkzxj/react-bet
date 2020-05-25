@@ -51,6 +51,10 @@ class ForecastsViewController: UIViewController {
                                                         action: #selector(sportChanged),
                                                         for: .valueChanged)
         
+        forecastsView.header.timePicker.addTarget(self,
+                                                  action: #selector(timeChanged),
+                                                  for: .valueChanged)
+        
         viewModel.loadingStatusChanged = { [weak self] (isLoading) in
             guard let this = self else { return }
             let shouldShowSkeleton = isLoading && this.viewModel.loadedPages == 0
@@ -79,6 +83,11 @@ class ForecastsViewController: UIViewController {
     @objc private func sportChanged() {
         guard let sport = forecastsView.header.selectionControl.selectedSport else { return }
         viewModel.sport = sport
+    }
+    
+    @objc private func timeChanged() {
+        guard let timeFrame = forecastsView.header.timePicker.pickedTimeFrame else { return }
+        viewModel.timeFrame = timeFrame
     }
     
     private func handleUpdates() {
@@ -135,7 +144,7 @@ extension ForecastsViewController: UITableViewDelegate {
 extension ForecastsViewController: ForecastCellDelegate {
     
     func userViewTapped(forecast: Forecast) {
-        router.showUserScreen(.stub())
+        router.showUserScreen(forecast.user)
     }
 }
 

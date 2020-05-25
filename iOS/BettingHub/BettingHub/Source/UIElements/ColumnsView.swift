@@ -70,8 +70,8 @@ class ColumnsView: UIView {
         case .forecasters:
             let columns = [
                 Column(title: "№", occupation: 0.15, alignment: .center),
-                Column(title: Text.name, occupation: 0.40, alignment: .left),
-                Column(title: "W/L/D", occupation: 0.23, alignment: .center),
+                Column(title: Text.name, occupation: 0.35, alignment: .left),
+                Column(title: "W/L/D", occupation: 0.28, alignment: .center),
                 Column(title: Text.incomeWord, occupation: 0.22, alignment: .right)
             ]
             setColumns(columns)

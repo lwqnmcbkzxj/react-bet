@@ -24,8 +24,9 @@ class BigTitleHeader: UITableViewHeaderFooterView {
         
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             make.height.equalTo(26)
+            make.top.equalToSuperview().priority(.high)
             make.bottom.equalToSuperview().offset(-26)
         }
     }

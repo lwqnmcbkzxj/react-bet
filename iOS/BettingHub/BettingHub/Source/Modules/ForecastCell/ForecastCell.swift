@@ -30,8 +30,6 @@ class ForecastCell: UITableViewCell {
     
     private let cornerIcon: UIImageView = {
         let view = UIImageView()
-        view.layer.borderColor = UIColor.lineGray.cgColor
-        view.layer.borderWidth = 1
         view.isSkeletonable = true
         return view
     }()
@@ -41,6 +39,7 @@ class ForecastCell: UITableViewCell {
         view.textColor = .titleBlack
         view.font = .robotoRegular(size: 11)
         view.isSkeletonable = true
+        view.text = ""
         return view
     }()
     
@@ -209,10 +208,10 @@ class ForecastCell: UITableViewCell {
     }
     
     func configure(with forecast: Forecast) {
-        let vm = ForecastViewModel(forecast: forecast)
+        let vm = ForecastViewModelItem(forecast: forecast)
         
         self.forecast = forecast
-        sportLabel.text = forecast.event.championship.sport.name
+//        sportLabel.text = forecast.event.championship.sport.name
         seasonLabel.text = forecast.event.championship.name
         matchLabel.text = forecast.event.name
         descLabel.text = forecast.text
@@ -223,10 +222,11 @@ class ForecastCell: UITableViewCell {
         usernameLabel.text = forecast.user.login
         userImageView.setImage(url: forecast.user.avatar)
         lastForecastsView.populate(with: forecast.user.lastForecasts)
-        incomeLabel.setNumber(to: forecast.bet.value * forecast.bet.pureProfit)
+        incomeLabel.setNumber(to: vm.forecasterItem.signedPercentRoi)
         commentsView.setNumber(forecast.comments)
         bookmarksView.setNumber(forecast.bookmarks)
         stepperView.setNumber(forecast.rating)
+        cornerIcon.setServerIcon(url: forecast.event.championship.sport.image)
     }
     
     private func makeLayout() {

@@ -12,6 +12,7 @@ import SkeletonView
 class ProfileStatisticsDataSource: NSObject, ProfileDataSource {
     
     private let cellId = "statisticsCell"
+    private var forecaster: Forecaster?
     
     private weak var tableView: UITableView?
     private weak var viewModel: TableViewModel<Forecaster, Any>!
@@ -27,7 +28,12 @@ class ProfileStatisticsDataSource: NSObject, ProfileDataSource {
     }
     
     func start() {
-        viewModel?.currentPage(1)
+//        viewModel?.currentPage(1)
+    }
+    
+    func configure(forecaster: Forecaster) {
+        self.forecaster = forecaster
+        tableView?.reloadData()
     }
     
     private func setupBinds() {
@@ -57,13 +63,14 @@ class ProfileStatisticsDataSource: NSObject, ProfileDataSource {
 extension ProfileStatisticsDataSource: SkeletonTableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfItems()
+        return forecaster == nil ? 0 : 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! ProfileStatisticsCell
-        let item = viewModel.item(for: indexPath.row)
-        cell.configure(with: item)
+//        let item = viewModel.item(for: indexPath.row)
+        guard let forecaster = self.forecaster else { return cell }
+        cell.configure(with: forecaster)
         return cell
     }
     

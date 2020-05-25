@@ -24,6 +24,10 @@ class SettingsViewController: UIViewController {
         
     }
     
+    func configure(userInfo: UserInfo) {
+        settingsView.configure(with: userInfo)
+    }
+    
     private func attachTapped(network: SocialNetwork) {
          
     }

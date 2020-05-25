@@ -15,6 +15,7 @@ class TopForecasterCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 4
         imageView.clipsToBounds = true
+        imageView.isSkeletonable = true
         return imageView
     }()
     
@@ -24,6 +25,7 @@ class TopForecasterCell: UICollectionViewCell {
         label.font = .robotoRegular(size: 12)
         label.textAlignment = .center
         label.numberOfLines = 1
+        label.isSkeletonable = true
         return label
     }()
     
@@ -31,6 +33,7 @@ class TopForecasterCell: UICollectionViewCell {
         let image = UIImage(named: "incomeIcon")
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
+        imageView.isSkeletonable = true
         return imageView
     }()
     
@@ -40,12 +43,13 @@ class TopForecasterCell: UICollectionViewCell {
         label.font = .robotoRegular(size: 12)
         label.textColor = .positiveGreen
         label.textAlignment = .right
+        label.isSkeletonable = true
         return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        isSkeletonable = true
         makeConstraints()
     }
     
@@ -54,7 +58,8 @@ class TopForecasterCell: UICollectionViewCell {
     }
     
     func setupCell(forecaster: Forecaster) {
-        let income = round(forecaster.stats.roi * 100)
+        let vm = ForecasterViewModelItem(forecaster: forecaster)
+        let income = round(vm.signedPercentRoi)
         setupIncomeLabel(income: income)
         userLabel.text = forecaster.login
         imageView.setImage(url: forecaster.avatar)
@@ -65,26 +70,27 @@ class TopForecasterCell: UICollectionViewCell {
     }
     
     private func makeConstraints() {
-        addSubview(imageView)
+        
+        contentView.addSubview(imageView)
         imageView.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalToSuperview()
             make.height.equalTo(imageView.snp.width)
         }
         
-        addSubview(userLabel)
+        contentView.addSubview(userLabel)
         userLabel.snp.makeConstraints { (make) in
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(imageView.snp.bottom).offset(1)
         }
         
-        addSubview(iconImageView)
+        contentView.addSubview(iconImageView)
         iconImageView.snp.makeConstraints { (make) in
             make.leading.equalToSuperview()
             make.top.equalTo(userLabel.snp.bottom).offset(7)
             make.width.height.equalTo(11)
         }
         
-        addSubview(incomeLabel)
+        contentView.addSubview(incomeLabel)
         incomeLabel.snp.makeConstraints { (make) in
             make.top.bottom.equalTo(iconImageView)
             make.leading.equalTo(iconImageView.snp.trailing)

@@ -75,7 +75,7 @@ class StatRowView: UIView {
         case .profit:
             titleLabel.text = Text.profileStatsNetProfit
             
-            valueLabel.units = .percent
+            valueLabel.units = .none
             valueLabel.rounding = .integer
             valueLabel.showingSign = false
             

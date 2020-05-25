@@ -10,6 +10,9 @@ import UIKit
 import SkeletonView
 
 class MatchesViewController: UIViewController {
+    
+    var router: IMatchesRouter!
+    
     // Views
     private lazy var tableView: UITableView = {
         let view = UITableView(frame: .zero, style: .grouped)
@@ -134,7 +137,8 @@ extension MatchesViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let match = viewModel.item(for: indexPath.row)
+        router.show(match)
     }
 }
 

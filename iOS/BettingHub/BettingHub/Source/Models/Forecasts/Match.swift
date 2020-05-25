@@ -8,8 +8,6 @@
 
 import Foundation
 
-
-
 struct Match: Codable {
     
     let id: Int
@@ -18,14 +16,18 @@ struct Match: Codable {
     let championship: Championship
     let team1: Team
     let team2: Team
+    let betsCount: Int?
+    let forecasts: [Match.Forecast]?
     
-    init(id: Int, name: String, date: Date, championship: Championship, team1: Team, team2: Team) {
+    init(id: Int, name: String, date: Date, championship: Championship, team1: Team, team2: Team, betsCount: Int?, forecasts: [Match.Forecast]?) {
         self.id = id
         self.name = name
         self.date = date
         self.championship = championship
         self.team1 = team1
         self.team2 = team2
+        self.betsCount = betsCount
+        self.forecasts = forecasts
     }
     
     init(from decoder: Decoder) throws {
@@ -39,6 +41,8 @@ struct Match: Codable {
         championship = try container.decode(Championship.self, forKey: .championship)
         team1 = try container.decode(Team.self, forKey: .team1)
         team2 = try container.decode(Team.self, forKey: .team2)
+        betsCount = try container.decodeIfPresent(Int.self, forKey: .betsCount)
+        forecasts = try container.decodeIfPresent([Match.Forecast].self, forKey: .forecasts)
     }
     
     static func stub() -> Match {
@@ -47,7 +51,9 @@ struct Match: Codable {
                      date: Date(),
                      championship: .stub(),
                      team1: .stub(),
-                     team2: .stub())
+                     team2: .stub(),
+                     betsCount: 10,
+                     forecasts: [])
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -57,6 +63,8 @@ struct Match: Codable {
         case date = "event_start"
         case team1 = "team_1"
         case team2 = "team_2"
+        case betsCount = "forecasts_count"
+        case forecasts = "forecasts"
     }
     
     
@@ -66,5 +74,26 @@ struct Match: Codable {
         formatter.timeZone = TimeZone(identifier: "UTC")!
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return formatter
+    }
+}
+
+extension Match {
+    struct Forecast: Codable {
+        let id: Int
+        let user: Forecaster
+        let bet: Bet
+        
+        init(with decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            id = try container.decode(Int.self, forKey: .id)
+            user = try container.decode(Forecaster.self, forKey: .user)
+            bet = try container.decode(Bet.self, forKey: .bet)
+        }
+        
+        private enum CodingKeys: String, CodingKey {
+            case id = "id"
+            case user = "user_data"
+            case bet = "bet_data"
+        }
     }
 }

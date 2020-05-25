@@ -32,8 +32,6 @@ class MatchCell: PanelCell {
     
     private let sportImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.borderWidth = 1.5
-        imageView.layer.borderColor = UIColor.lineGray.cgColor
         imageView.isSkeletonable = true
         return imageView
     }()
@@ -80,7 +78,18 @@ class MatchCell: PanelCell {
     }
     
     func configure(with item: Match) {
+        let vm = MatchViewModelItem(match: item)
         
+        dateLabel.text = vm.dateText
+        timeLabel.text = vm.timeText
+        
+        let sport = item.championship.sport
+        sportImageView.setServerIcon(url: sport.image)
+        
+        teamsLabel.text = item.name
+        seasonLabel.text = item.championship.name
+        
+        betsLabel.setNumber(to: Double(item.betsCount ?? 0))
     }
     
     private func makeLayout() {
