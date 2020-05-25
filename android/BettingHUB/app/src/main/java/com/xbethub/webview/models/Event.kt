@@ -9,6 +9,10 @@ data class Event (
     @Expose
     val championship: Championship,
 
+    @SerializedName("coefficients")
+    @Expose
+    val coefficients: List<Map<String, String>>,
+
     @SerializedName("event_id")
     @Expose
     val eventId: Int,

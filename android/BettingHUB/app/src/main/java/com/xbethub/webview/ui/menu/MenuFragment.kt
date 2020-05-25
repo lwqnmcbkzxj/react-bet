@@ -34,7 +34,7 @@ class MenuFragment: Fragment() {
         binding.topPanel.bankBalance.balance = "1 500 xB"
         binding.topPanel.bankBalance.root.visibility = if (App.appComponent.getAppData().activeUser == null) View.GONE else View.VISIBLE
         binding.topPanel.searchBtn.setOnClickListener { onSearchBtnClick() }
-        binding.newsBtn.text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
+        binding.privacyBtn.text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
 
         navController = activity?.let { Navigation.findNavController(it, R.id.nav_host_fragment) }!!
 
@@ -44,11 +44,11 @@ class MenuFragment: Fragment() {
     }
 
     fun onTopMatchesBtnClick() {
-
+        navController.navigate(MenuFragmentDirections.actionMenuFragmentToTopMatchesFragment())
     }
 
     fun onBookmakerRatingBtnClick() {
-
+        navController.navigate(MenuFragmentDirections.actionMenuFragmentToBookmakerRatingFragment())
     }
 
     fun onForecasterRatingBtnClick() {
@@ -60,7 +60,11 @@ class MenuFragment: Fragment() {
     }
 
     fun onArticlesBtnClick() {
+        navController.navigate(MenuFragmentDirections.toArticlesFragment())
+    }
 
+    fun onPrivacyBtnClick() {
+        navController.navigate(MenuFragmentDirections.actionMenuFragmentToPrivacyFragment())
     }
 
     private fun updateSearchFieldVisibility() {

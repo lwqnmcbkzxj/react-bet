@@ -226,6 +226,7 @@
                     android:id="@+id/tabs"
                     android:layout_width="match_parent"
                     android:layout_height="37dp"
+                    android:visibility="gone"
                     android:layout_marginStart="@dimen/sideMargin"
                     android:layout_marginEnd="@dimen/sideMargin"
                     android:background="@drawable/bg_frame"
@@ -237,11 +238,11 @@
                     app:tabTextAppearance="@style/ProfileTabTextAppearance"
                     >
 
-                    <com.google.android.material.tabs.TabItem
-                        style="@style/ProfileTabStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="@string/forecasts" />
+<!--                    <com.google.android.material.tabs.TabItem-->
+<!--                        style="@style/ProfileTabStyle"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:text="@string/forecasts" />-->
 
                     <com.google.android.material.tabs.TabItem
                         style="@style/ProfileTabStyle"

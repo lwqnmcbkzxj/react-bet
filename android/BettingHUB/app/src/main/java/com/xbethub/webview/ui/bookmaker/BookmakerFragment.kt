@@ -38,6 +38,9 @@ class BookmakerFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        backBtn.setOnClickListener {
+            activity?.onBackPressed()
+        }
         searchField.visibility = View.GONE
         searchBtn.setOnClickListener {
             searchField.visibility = if (searchField.visibility == View.GONE) {

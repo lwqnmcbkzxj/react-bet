@@ -19,95 +19,136 @@
             android:id="@+id/topPanel"
             layout="@layout/element_top_panel"/>
 
+        <ScrollView
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topPanel"
+            android:layout_width="0dp"
+            android:layout_height="0dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/sideMargin"
-            android:layout_marginEnd="@dimen/sideMargin"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/center"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.5"
-                />
-
-            <include
-                android:id="@+id/topMatchesBtn"
-                layout="@layout/element_menu_tile"
-                app:tileTitle="@{@string/topMatchesTileTittle}"
-                app:tileIcon="@{@drawable/field}"
-                app:clickListener="@{v -> fragment.onTopMatchesBtnClick()}"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/tileHeight"
-                android:layout_marginBottom="14dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/bookmakerRatingBtn"
-                />
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="@dimen/sideMargin"
+                android:layout_marginEnd="@dimen/sideMargin"
+                app:layout_constraintBottom_toBottomOf="parent">
 
-            <include
-                android:id="@+id/forecasterRatingBtn"
-                layout="@layout/element_menu_tile"
-                app:tileTitle="@{@string/forecasterRatingTileTitle}"
-                app:tileIcon="@{@drawable/cup}"
-                app:clickListener="@{v -> fragment.onForecasterRatingBtnClick()}"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/tileHeight"
-                android:layout_marginStart="7dp"
-                app:layout_constraintStart_toStartOf="@id/center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/bookmakerRatingBtn"
-                />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5"
+                    />
 
-            <include
-                android:id="@+id/bookmakerRatingBtn"
-                layout="@layout/element_menu_tile"
-                app:tileTitle="@{@string/bookmakersRatingTileTitle}"
-                app:tileIcon="@{@drawable/cup}"
-                app:clickListener="@{v -> fragment.onBookmakerRatingBtnClick()}"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/tileHeight"
-                android:layout_marginEnd="7dp"
-                android:layout_marginBottom="14dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/center"
-                app:layout_constraintBottom_toTopOf="@id/newsBtn"
-                />
+                <include
+                    android:id="@+id/topMatchesBtn"
+                    layout="@layout/element_menu_tile"
+                    app:tileTitle="@{@string/topMatchesTileTittle}"
+                    app:tileIcon="@{@drawable/field}"
+                    app:clickListener="@{v -> fragment.onTopMatchesBtnClick()}"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/tileHeight"
+                    android:layout_marginBottom="14dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/bookmakerRatingBtn"
+                    />
 
-            <include
-                android:id="@+id/newsBtn"
-                layout="@layout/element_menu_tile"
-                app:tileTitle="@{@string/privacyTileTitle}"
-                app:tileIcon="@{@drawable/paper}"
-                app:clickListener="@{v -> fragment.onNewsBtnClick()}"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/tileHeight"
-                android:layout_marginEnd="7dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/center"
-                app:layout_constraintBottom_toBottomOf="@id/articlesBtn"
-                />
+                <include
+                    android:id="@+id/forecasterRatingBtn"
+                    layout="@layout/element_menu_tile"
+                    app:tileTitle="@{@string/forecasterRatingTileTitle}"
+                    app:tileIcon="@{@drawable/cup}"
+                    app:clickListener="@{v -> fragment.onForecasterRatingBtnClick()}"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/tileHeight"
+                    android:layout_marginStart="7dp"
+                    app:layout_constraintStart_toStartOf="@id/center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/bookmakerRatingBtn"
+                    />
 
-            <include
-                android:id="@+id/articlesBtn"
-                layout="@layout/element_menu_tile"
-                app:tileTitle="@{@string/feedbackTileTitle}"
-                app:tileIcon="@{@drawable/paper}"
-                app:clickListener="@{v -> fragment.onArticlesBtnClick()}"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/tileHeight"
-                android:layout_marginStart="7dp"
-                android:layout_marginBottom="25dp"
-                app:layout_constraintStart_toStartOf="@id/center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                />
+                <include
+                    android:id="@+id/bookmakerRatingBtn"
+                    layout="@layout/element_menu_tile"
+                    app:tileTitle="@{@string/bookmakersRatingTileTitle}"
+                    app:tileIcon="@{@drawable/cup}"
+                    app:clickListener="@{v -> fragment.onBookmakerRatingBtnClick()}"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/tileHeight"
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginBottom="14dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/center"
+                    app:layout_constraintBottom_toTopOf="@id/privacyBtn"
+                    />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <include
+                    android:id="@+id/privacyBtn"
+                    layout="@layout/element_menu_tile"
+                    app:tileTitle="@{@string/privacyTileTitle}"
+                    app:tileIcon="@{@drawable/paper}"
+                    app:clickListener="@{v -> fragment.onPrivacyBtnClick()}"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/tileHeight"
+                    android:layout_marginEnd="7dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/center"
+                    app:layout_constraintBottom_toBottomOf="@id/articlesBtn"
+                    />
+
+                <include
+                    android:visibility="gone"
+                    android:id="@+id/feedbackBtn"
+                    layout="@layout/element_menu_tile"
+                    app:tileTitle="@{@string/feedbackTileTitle}"
+                    app:tileIcon="@{@drawable/paper}"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/tileHeight"
+                    android:layout_marginStart="7dp"
+                    app:layout_constraintStart_toStartOf="@id/center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/privacyBtn"
+                    />
+
+                <include
+                    android:visibility="gone"
+                    android:id="@+id/newsBtn"
+                    layout="@layout/element_menu_tile"
+                    app:tileTitle="@{@string/newsTileTitle}"
+                    app:tileIcon="@{@drawable/paper}"
+                    app:clickListener="@{v -> fragment.onNewsBtnClick()}"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/tileHeight"
+                    android:layout_marginEnd="7dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/center"
+                    app:layout_constraintBottom_toBottomOf="@id/articlesBtn"
+                    />
+
+                <include
+                    android:id="@+id/articlesBtn"
+                    layout="@layout/element_menu_tile"
+                    app:tileTitle="@{@string/articlesTileTitle}"
+                    app:tileIcon="@{@drawable/paper}"
+                    app:clickListener="@{v -> fragment.onArticlesBtnClick()}"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/tileHeight"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginBottom="25dp"
+                    app:layout_constraintStart_toStartOf="@id/center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

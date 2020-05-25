@@ -9,4 +9,5 @@ class AppData {
     var lastForecasts: List<Forecast>? = null
     var lastMatches: List<Event>? = null
     var lastBookmakers: List<Bookmaker>? = null
+    var articles: List<Article>? = null
 }

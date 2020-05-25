@@ -2,6 +2,7 @@ package com.xbethub.webview.models
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Championship (
     @SerializedName("championship_id")
@@ -23,5 +24,4 @@ data class Championship (
     @SerializedName("sport_image")
     @Expose
     val sportImage: String
-) {
-}
+): Serializable

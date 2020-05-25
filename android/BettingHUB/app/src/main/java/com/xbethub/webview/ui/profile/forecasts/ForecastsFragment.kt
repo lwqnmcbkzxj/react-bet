@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xbethub.webview.R
 import com.xbethub.webview.databinding.FragmentProfileForecastsBinding
 import com.xbethub.webview.models.Forecast
+import com.xbethub.webview.ui.forecast.ForecastViewModel
 import com.xbethub.webview.ui.forecasts.items.ForecastListener
 import com.xbethub.webview.ui.forecasts.items.ForecastItemAdapter
 import com.xbethub.webview.ui.forecasts.items.ForecastItemDecoration
@@ -20,6 +23,8 @@ import com.xbethub.webview.ui.forecasts.items.items.Item
 class ForecastsFragment: Fragment(), ForecastListener {
 
     private lateinit var binding: FragmentProfileForecastsBinding
+
+    val viewModel by viewModels<ForecastsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,13 +41,19 @@ class ForecastsFragment: Fragment(), ForecastListener {
 
         val items = ArrayList<Item>()
 
-        for (i in 1..5) {
-            items.add(ForecastItem(null))
-        }
+        viewModel.forecastsLiveData.observe(viewLifecycleOwner, Observer {
+            println(it.data?.size)
+            it.data?.forEach {
+                items.add(ForecastItem(it))
+            } ?: return@Observer
 
-        items.add(FooterItem())
+            items.add(FooterItem())
 
-        adapter.addAll(items)
+            adapter.addAll(items)
+        })
+        viewModel.id.value = requireArguments().getInt("user_id")
+
+
 
         return binding.root
     }

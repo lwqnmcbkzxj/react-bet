@@ -22,6 +22,11 @@ class TableLineViewHolder(itemView: View): BaseViewHolder(itemView) {
         val rating = tableLineItem.forecasterRating
         user = rating.user
 
+        if (rating.number == 1 || rating.number == 4 || rating.number == 3) {
+            binding.changeIndicator.visibility = View.VISIBLE
+        } else {
+            binding.changeIndicator.visibility = View.INVISIBLE
+        }
         user?.let {
             Utils.loadAvatar(binding.avatar, it.avatar)
 

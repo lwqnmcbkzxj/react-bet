@@ -55,6 +55,9 @@ class ForecastFragment: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.backBtn.setOnClickListener {
+            activity?.onBackPressed()
+        }
         val searchField = binding.topPanel.searchField
         searchField.visibility = View.GONE
         binding.topPanel.searchBtn.setOnClickListener {

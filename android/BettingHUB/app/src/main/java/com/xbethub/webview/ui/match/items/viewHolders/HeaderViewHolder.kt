@@ -44,7 +44,7 @@ class HeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         binding.team1Name.text = match.team1.name
         binding.team2Name.text = match.team2.name
-        Date(System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(5)).let {
+        serverDateFormat.parse(match.eventStart)?.let {
             binding.date.text = dateFormat.format(it)
             binding.time.text = timeFormat.format(it)
             val bindingWR = WeakReference(binding)
@@ -83,7 +83,9 @@ class HeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         }
         binding.league.text = match.championship.championship
 
-        binding.barChart.data = BarData(BarDataSet(listOf(BarEntry(0f, 80f), BarEntry(1f, 42f), BarEntry(2f, 30f), BarEntry(3f, 50f), BarEntry(4f, 58f), BarEntry(5f, 10f)), null).apply {
+        binding.barChart.data = BarData(BarDataSet(match.coefficients.mapIndexed { i, e ->
+            BarEntry(i.toFloat(), e["coefficient"]?.toFloat() ?: 0f)
+        }, null).apply {
             color = Color.parseColor("#D5D8DD")
         }).apply {
             barWidth = 0.5f
@@ -93,11 +95,7 @@ class HeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         binding.barChart.setOnTouchListener { _, _ ->
             true
         }
-        if (match.championship.sportId == 5) {
-            binding.team1Image.setImageResource(R.drawable.sport_other)
-            binding.team2Image.setImageResource(R.drawable.sport_other)
-        } else {
-            Glide.with(itemView.context).asDrawable().load("http://betting-hub.sixhands.co${match.championship.sportImage}").into(object : CustomTarget<Drawable>() {
+            Glide.with(itemView.context).asDrawable().load("http://app.betthub.org${match.championship.sportImage}").into(object : CustomTarget<Drawable>() {
                 override fun onLoadCleared(placeholder: Drawable?) {
 
                 }
@@ -107,26 +105,17 @@ class HeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
                     binding.team2Image.setImageDrawable(resource)
                 }
             })
-        }
         val xAxis = binding.barChart.xAxis
         xAxis.position = XAxisPosition.BOTTOM
         xAxis.enableAxisLineDashedLine(5f, 2.5f, 0f)
         xAxis.setDrawGridLines(false)
         xAxis.granularity = 1f
-        xAxis.labelCount = 7
+        xAxis.labelCount = match.coefficients.size
         xAxis.valueFormatter = object : ValueFormatter() {
-            override fun getFormattedValue(value: Float) = when(value) {
-                0f -> "П1"
-                1f -> "X"
-                2f -> "П2"
-                3f -> "ТБ"
-                4f -> "ТМ"
-                5f -> "Другое"
-                else -> ""
-            }
+            override fun getFormattedValue(value: Float) = match.coefficients[value.toInt()]["type"]
         }
 
-        binding.barChart.axisLeft.granularity = 20f
+        binding.barChart.axisLeft.granularity = match.coefficients.maxBy { it["coefficient"]?.toFloat() ?: 0f }?.get("coefficient")?.toFloat()?.div(2) ?: 0f
         binding.barChart.axisLeft.setDrawGridLines(true)
         binding.barChart.axisLeft.enableGridDashedLine(5f, 2.5f, 0f)
         binding.barChart.axisRight.isEnabled = false

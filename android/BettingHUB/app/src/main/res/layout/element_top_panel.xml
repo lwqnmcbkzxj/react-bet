@@ -38,6 +38,7 @@
             app:layout_constraintBottom_toBottomOf="@id/bottom"/>
 
         <include
+            android:visibility="invisible"
             android:id="@+id/bankBalance"
             layout="@layout/element_balance"
             android:layout_width="wrap_content"

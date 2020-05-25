@@ -1,9 +1,11 @@
 package com.xbethub.webview.backend
 
-import okhttp3.OkHttpClient
+import com.xbethub.webview.backend.requests.RegisterUserRequest
+import okhttp3.*
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 class BettingHubBackend {
@@ -17,7 +19,7 @@ class BettingHubBackend {
             .build()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://betting-hub.sixhands.co/api/")
+            .baseUrl("https://app.betthub.org/api/")
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)

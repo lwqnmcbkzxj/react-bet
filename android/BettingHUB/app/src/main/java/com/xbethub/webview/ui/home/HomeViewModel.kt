@@ -36,8 +36,8 @@ class HomeViewModel: BaseViewModel() {
             requestWithLiveData(forecastsLiveData
                 , { backendAPI.forecasts(consts.lastForecastsCount, 0, TimeInterval.ALL.backendValue, 1) }
                 , {
-                    appData.lastForecasts = it
-                    it
+                    appData.lastForecasts = it.data
+                    it.data
                 }
             )
         }

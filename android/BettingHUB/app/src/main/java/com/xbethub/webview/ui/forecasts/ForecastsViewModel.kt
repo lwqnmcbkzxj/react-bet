@@ -35,8 +35,12 @@ class ForecastsViewModel: BaseViewModel(), SportListener {
         clearForecastsLiveData.value = null
 
         lastRequestId = requestWithLiveData(forecastsLiveData
-            , { backendAPI.forecasts(forecastsRequest.limit, forecastsRequest.sportId, forecastsRequest.time, forecastsRequest.page) }
-            , { it })
+            , {
+                backendAPI.forecasts(forecastsRequest.limit, forecastsRequest.sportId, forecastsRequest.time, forecastsRequest.page)
+            }
+            , {
+                it.data
+            })
     }
 
     @SuppressLint("CheckResult")
@@ -45,7 +49,7 @@ class ForecastsViewModel: BaseViewModel(), SportListener {
 
         requestWithLiveData(forecastsLiveData
             , { backendAPI.forecasts(forecastsRequest.limit, forecastsRequest.sportId, forecastsRequest.time, forecastsRequest.page) }
-            , { it })
+            , { it.data })
     }
 
     fun onTimeIntervalSelected(timeInterval: TimeInterval) {
@@ -71,14 +75,14 @@ class ForecastsViewModel: BaseViewModel(), SportListener {
     // SportListener
     override fun onSportItemClick(sport: Sport) {
         if (sport != forecastFilter.sport) {
-            lastRequestId?.let {
-                disposeRequest(it)
-                lastRequestId = null
-            }
             forecastFilter.sport = sport
             forecastFilterLiveData.value = forecastFilter
 
             if (forecastsRequest.sportId != sport.id) {
+                lastRequestId?.let {
+                    disposeRequest(it)
+                    lastRequestId = null
+                }
                 forecastsRequest.sportId = sport.id
                 reloadForecasts()
             }

@@ -92,11 +92,11 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
     }
     @SuppressLint("CheckResult")
     private fun register() {
-        val nextFragmentId = requireArguments().getInt("nextFragmentId")
-
-        App.appComponent.getAppData().activeUser = ActiveUser("", "")
-
-        navController.navigate(nextFragmentId)
+//        val nextFragmentId = requireArguments().getInt("nextFragmentId")
+//
+//        App.appComponent.getAppData().activeUser = ActiveUser("", "")
+//
+//        navController.navigate(nextFragmentId)
         //internal functions
         fun makeUser(name: String, email: String, password: String) : JsonObject {
             val user = JsonObject()
@@ -165,14 +165,14 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
         if (!isEmailValid()) return
         if (!checkPasswords()) return
 
-
-
         val email = emailField.text.toString()
+        val username = username_field.text.toString()
+        if (username.isEmpty()) return
 //        val name = email.split("@", true, 0)[0]
 
         val password = password.text.toString()
         BettingHubBackend().api.registerUser(registerUserRequest = RegisterUserRequest(
-            username = email,
+            username = username,
             email = email,
             password = password
         ))

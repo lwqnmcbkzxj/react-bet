@@ -1,9 +1,11 @@
 package com.xbethub.webview.backend
 
+import com.google.gson.JsonObject
 import com.xbethub.webview.backend.requests.ForecastsRequest
 import com.xbethub.webview.backend.requests.TokenRequest
 import com.xbethub.webview.backend.requests.RegisterUserRequest
 import com.xbethub.webview.backend.responses.ForecastsResponse
+import com.xbethub.webview.backend.responses.Response
 import com.xbethub.webview.backend.responses.TokenResponse
 import com.xbethub.webview.backend.responses.UsersResponse
 import com.xbethub.webview.models.*
@@ -15,16 +17,31 @@ interface BettingHubApi {
 
     @GET("forecasts")
     fun forecasts(@Query("limit") limit: Int, @Query("sport_id") sportId: Int
-                  , @Query("time") time: Int, @Query("page") page: Int): Observable<List<Forecast>>
+                  , @Query("time") time: Int, @Query("page") page: Int): Observable<Response<List<Forecast>>>
+
+    @GET("users/{id}/forecasts")
+    fun userForecasts(@Path("id") id: Int): Observable<Response<List<Forecast>>>
 
     @GET("bookmakers")
     fun bookmakers(): Observable<List<Bookmaker>>
+
+    @GET("posts")
+    fun articles(): Observable<Response<List<Article>>>
+
+    @GET("posts/{id}")
+    fun article(@Path("id") id: Int): Observable<Article>
+
+    @GET("/policy")
+    fun privacy(): Observable<Text>
 
     @GET("bookmakers/{id}")
     fun bookmaker(@Path("id") id: Int): Observable<Bookmaker>
 
     @GET("events")
     fun matches(): Observable<List<Event>>
+
+    @GET("events/{id}")
+    fun match(@Path("id") id: Int): Observable<Event>
 
     @GET("users")
     fun users(@Query("limit") limit: Int, @Query("page") page: Int
@@ -41,7 +58,7 @@ interface BettingHubApi {
     fun sport(): Observable<List<Sport>>
 
     @POST("register")
-    fun registerUser(@Body registerUserRequest: RegisterUserRequest): Completable
+    fun registerUser(@Body registerUserRequest: RegisterUserRequest, @Header("Accept") accept: String = "application/json"): Completable
 
     @POST("/oauth/token")
     fun token(@Body tokenRequest: TokenRequest): Observable<TokenResponse>

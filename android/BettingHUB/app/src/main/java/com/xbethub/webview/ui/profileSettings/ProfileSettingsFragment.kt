@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.xbethub.webview.App
 import com.xbethub.webview.R
@@ -41,7 +42,9 @@ class ProfileSettingsFragment: Fragment() {
         binding.topPanel.bankBalance.root.visibility = View.GONE
         binding.userBlock.settingsBtn.setColorFilter(Utils.getColor(requireContext(), R.color.color4))
         binding.topPanel.searchBtn.setOnClickListener { onSearchBtnClick() }
-
+        binding.backBtn.setOnClickListener {
+            findNavController().navigateUp()
+        }
         updateSearchFieldVisibility()
 
         navController = activity?.let { Navigation.findNavController(it, R.id.nav_host_fragment) }!!

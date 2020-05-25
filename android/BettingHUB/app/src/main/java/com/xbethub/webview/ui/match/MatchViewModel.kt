@@ -1,11 +1,12 @@
 package com.xbethub.webview.ui.match
 
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.xbethub.webview.BaseViewModel
 import com.xbethub.webview.Event
 import com.xbethub.webview.enums.Direction
 import com.xbethub.webview.models.Comment
+import com.xbethub.webview.models.Event as Match
 import com.xbethub.webview.models.User
 import com.xbethub.webview.ui.match.items.ItemListener
 import com.xbethub.webview.ui.match.items.items.CommentItem
@@ -17,6 +18,8 @@ class MatchViewModel: BaseViewModel(), ItemListener {
     val commentsLiveData = MutableLiveData<Pair<Int, List<Item>>>()
     val ratingsLiveData = MutableLiveData<Event<List<User>>>()
     val clearRatingsLiveData = MutableLiveData<Void?>()
+    val id = MutableLiveData<Int>()
+    val match = MediatorLiveData<Event<Match>>()
 
     init {
         appData.lastTopForecasters?.let {
@@ -27,6 +30,13 @@ class MatchViewModel: BaseViewModel(), ItemListener {
                 , {
                     appData.lastTopForecasters = it.data
                     it.data
+                })
+        }
+        match.addSource(id) {
+            requestWithLiveData(match
+                , { backendAPI.match(it) }
+                , {
+                    it
                 })
         }
 

@@ -21,13 +21,14 @@ import com.xbethub.webview.models.User
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class ProfileFragment: Fragment() {
+class ProfileFragment : Fragment() {
 
     private val appData = App.appComponent.getAppData()
     private lateinit var navController: NavController
     private lateinit var binding: FragmentProfileBinding
 
     private var searchActive = false
+    private val args by navArgs<ProfileFragmentArgs>()
 
 
     @SuppressLint("SetTextI18n")
@@ -41,16 +42,22 @@ class ProfileFragment: Fragment() {
 
         binding.topPanel.bankBalance.root.visibility = View.GONE
         binding.topPanel.searchBtn.setOnClickListener { onSearchBtnClick() }
-        binding.userBlock.settingsBtn.setColorFilter(Utils.getColor(requireContext(), R.color.color5))
+        binding.userBlock.settingsBtn.setColorFilter(
+            Utils.getColor(
+                requireContext(),
+                R.color.color5
+            )
+        )
         binding.userBlock.settingsBtn.setOnClickListener { onSettingBtnClick() }
 
         binding.subscribeBtnBlock.visibility = View.GONE
 
-        (requireArguments().getSerializable("User") as? User)?.let { it ->
+        args.user?.let { it ->
             init(it)
             binding.userBlock.settingsBtn.visibility = View.GONE
         } ?: run {
-            appData.activeUser?.user?.let { activeUser -> init(activeUser)
+            appData.activeUser?.user?.let { activeUser ->
+                init(activeUser)
             } ?: run {
                 binding.loading.root.visibility = View.VISIBLE
 
@@ -68,7 +75,7 @@ class ProfileFragment: Fragment() {
         }
 
         binding.pager.setCurrentItem(0, false)
-        binding.pager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
+        binding.pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
 
             override fun onPageScrolled(
@@ -84,7 +91,7 @@ class ProfileFragment: Fragment() {
 
         })
 
-        binding.tabs.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+        binding.tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -92,11 +99,11 @@ class ProfileFragment: Fragment() {
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                 tab?.let {
-                     if (it.position != binding.pager.currentItem) {
-                         binding.pager.setCurrentItem(it.position, true)
-                     }
-                 }
+                tab?.let {
+                    if (it.position != binding.pager.currentItem) {
+                        binding.pager.setCurrentItem(it.position, true)
+                    }
+                }
             }
 
         })
@@ -141,12 +148,12 @@ class ProfileFragment: Fragment() {
 
         binding.userBlock.wld.text = Utils.fromHtml(wdlHtml)
 
-        binding.pager.adapter = PageAdapter(2, childFragmentManager, user)
+        binding.pager.adapter = PageAdapter(1, childFragmentManager, user)
         binding.pager.setCurrentItem(binding.tabs.selectedTabPosition, false);
     }
 
     private fun fillUserInfo() {
-        (requireArguments().getSerializable("user") as? User)?.let {user ->
+        (requireArguments().getSerializable("user") as? User)?.let { user ->
 
         } ?: run {
             appData.activeUser?.let {

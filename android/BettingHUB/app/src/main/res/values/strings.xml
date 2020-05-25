@@ -177,4 +177,7 @@
     <string name="bonus">Бонус</string>
 
     <string name="defaultValue" translatable="false">0</string>
+    <string name="article_recommendations">Рекомендации от опытного игрока</string>
+    <string name="articles_title">Статьи</string>
+    <string name="articles">Статьи</string>
 </resources>

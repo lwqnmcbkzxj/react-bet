@@ -20,7 +20,6 @@
                 android:id="@+id/categoryIcon"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                app:srcCompat="@drawable/ic_test_category_icon"
                 android:layout_marginStart="@dimen/forecastSideMargin"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -308,6 +307,7 @@
                 app:layout_constraintTop_toBottomOf="@id/line2">
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/commentIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -317,6 +317,7 @@
                     app:layout_constraintStart_toStartOf="parent"/>
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/commentCount"
                     style="@style/ForecastStatsStyle"
                     android:text="3"

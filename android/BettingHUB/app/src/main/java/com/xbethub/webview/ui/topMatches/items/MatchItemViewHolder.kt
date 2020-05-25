@@ -58,7 +58,7 @@ class MatchItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             if (match!!.championship.sportId == 5) {
                 binding.sportIcon.setImageResource(R.drawable.sport_other)
             } else {
-                Glide.with(binding.sportIcon).load("http://betting-hub.sixhands.co${match!!.championship.sportImage}").into(binding.sportIcon)
+                Glide.with(binding.sportIcon).load("http://app.betthub.org${match!!.championship.sportImage}").into(binding.sportIcon)
             }
         }
     }

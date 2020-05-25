@@ -92,6 +92,20 @@
         <action
             android:id="@+id/toForecasterRatingFragment"
             app:destination="@id/forecasterRatingFragment" />
+        <action
+            android:id="@+id/to_articlesFragment"
+            app:destination="@id/articlesFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_menuFragment_to_privacyFragment"
+            app:destination="@id/privacyFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_topMatchesFragment"
+            app:destination="@id/topMatchesFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_bookmakerRatingFragment"
+            app:destination="@id/bookmakerRatingFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileSettingsFragment"
@@ -206,4 +220,24 @@
             android:id="@+id/to_matchFragment"
             app:destination="@id/matchFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/articlesFragment"
+        android:name="com.xbethub.webview.ui.articles.ArticlesFragment"
+        android:label="ArticlesFragment" >
+        <action
+            android:id="@+id/to_articleFragment"
+            app:destination="@id/articleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/articleFragment"
+        android:name="com.xbethub.webview.ui.article.ArticleFragment"
+        android:label="ArticleFragment" >
+        <argument
+            android:name="articleId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/privacyFragment"
+        android:name="com.xbethub.webview.ui.privacy.PrivacyFragment"
+        android:label="PrivacyFragment" />
 </navigation>

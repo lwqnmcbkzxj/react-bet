@@ -31,6 +31,7 @@ class ForecastViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         forecast = forecastItem.forecast
 
         forecast?.let { f ->
+            Glide.with(binding.categoryIcon).load("http://app.betthub.org${f.event.championship.sportImage}").into(binding.categoryIcon)
             binding.userName.text = f.user.login
             binding.categoryName.text = f.event.championship.sportName + "."
             binding.eventName.text = f.event.championship.championship.replace(f.event.championship.sportName + ". ", "")
@@ -42,11 +43,31 @@ class ForecastViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
             binding.commentCount.text = f.stats.commentCount.toString()
             binding.rating.text = f.stats.rating.toString()
             binding.bookmarkCount.text = f.stats.subscriberCount.toString()
-            binding.win1.setImageResource(if (f.user.lastFive[0]) R.drawable.ic_check else R.drawable.ic_close)
-            binding.win2.setImageResource(if (f.user.lastFive[1]) R.drawable.ic_check else R.drawable.ic_close)
-            binding.win3.setImageResource(if (f.user.lastFive[2]) R.drawable.ic_check else R.drawable.ic_close)
-            binding.win4.setImageResource(if (f.user.lastFive[3]) R.drawable.ic_check else R.drawable.ic_close)
-            binding.win5.setImageResource(if (f.user.lastFive[4]) R.drawable.ic_check else R.drawable.ic_close)
+            if (f.user.lastFive.size > 0) {
+                binding.win1.setImageResource(if (f.user.lastFive[0]) R.drawable.ic_check else R.drawable.ic_close)
+            } else {
+                binding.win1.visibility = View.INVISIBLE
+            }
+            if (f.user.lastFive.size > 1) {
+                binding.win2.setImageResource(if (f.user.lastFive[1]) R.drawable.ic_check else R.drawable.ic_close)
+            } else {
+                binding.win2.visibility = View.INVISIBLE
+            }
+            if (f.user.lastFive.size > 2) {
+                binding.win3.setImageResource(if (f.user.lastFive[2]) R.drawable.ic_check else R.drawable.ic_close)
+            } else {
+                binding.win3.visibility = View.INVISIBLE
+            }
+            if (f.user.lastFive.size > 3) {
+                binding.win4.setImageResource(if (f.user.lastFive[3]) R.drawable.ic_check else R.drawable.ic_close)
+            } else {
+                binding.win4.visibility = View.INVISIBLE
+            }
+            if (f.user.lastFive.size > 4) {
+                binding.win5.setImageResource(if (f.user.lastFive[4]) R.drawable.ic_check else R.drawable.ic_close)
+            } else {
+                binding.win5.visibility = View.INVISIBLE
+            }
             binding.profit.text = "+${String.format("%.2f", f.user.stats.roi?.toFloat() ?: 0f * 100)}%"
 
             f.stats.subscriberCount.let {
