@@ -86,7 +86,6 @@
 		1C6608F82449E1C3007E9BEB /* TopForecastersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6608F72449E1C3007E9BEB /* TopForecastersView.swift */; };
 		1C6608FB2449E388007E9BEB /* TopForecasterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6608FA2449E388007E9BEB /* TopForecasterCell.swift */; };
 		1C6937B12450FEB900AE01BE /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6937AE2450FEB800AE01BE /* HttpClient.swift */; };
-		1C6937B22450FEB900AE01BE /* IHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6937AF2450FEB800AE01BE /* IHttpClient.swift */; };
 		1C6937B42450FEDD00AE01BE /* ITokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6937B32450FEDD00AE01BE /* ITokenService.swift */; };
 		1C6937B7245101F000AE01BE /* IRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6937B6245101F000AE01BE /* IRequestBuilder.swift */; };
 		1C6937B9245109D000AE01BE /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6937B8245109D000AE01BE /* RequestBuilder.swift */; };
@@ -135,6 +134,7 @@
 		1CA43BA9247BCBB100CAF75E /* FullArticleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA43BA8247BCBB100CAF75E /* FullArticleViewModel.swift */; };
 		1CA43BAB247BCEB200CAF75E /* TableSectionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA43BAA247BCEB200CAF75E /* TableSectionProvider.swift */; };
 		1CA43BAD247BF3FA00CAF75E /* BookmakerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA43BAC247BF3FA00CAF75E /* BookmakerViewModel.swift */; };
+		1CA43BAF247C069200CAF75E /* IHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA43BAE247C069200CAF75E /* IHttpClient.swift */; };
 		1CA5C8BF246F571600D470B6 /* IForecasterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA5C8BE246F571600D470B6 /* IForecasterService.swift */; };
 		1CA5C8C1246F5B5000D470B6 /* ForecasterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA5C8C0246F5B5000D470B6 /* ForecasterService.swift */; };
 		1CA5C8C32470269B00D470B6 /* BookmakerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA5C8C22470269B00D470B6 /* BookmakerView.swift */; };
@@ -294,7 +294,6 @@
 		1C6608F72449E1C3007E9BEB /* TopForecastersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopForecastersView.swift; sourceTree = "<group>"; };
 		1C6608FA2449E388007E9BEB /* TopForecasterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopForecasterCell.swift; sourceTree = "<group>"; };
 		1C6937AE2450FEB800AE01BE /* HttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
-		1C6937AF2450FEB800AE01BE /* IHttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IHttpClient.swift; path = ../../../../../../../abchess/ABChess/Services/HttpClient/IHttpClient.swift; sourceTree = "<group>"; };
 		1C6937B32450FEDD00AE01BE /* ITokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITokenService.swift; sourceTree = "<group>"; };
 		1C6937B6245101F000AE01BE /* IRequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRequestBuilder.swift; sourceTree = "<group>"; };
 		1C6937B8245109D000AE01BE /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
@@ -343,6 +342,7 @@
 		1CA43BA8247BCBB100CAF75E /* FullArticleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullArticleViewModel.swift; sourceTree = "<group>"; };
 		1CA43BAA247BCEB200CAF75E /* TableSectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSectionProvider.swift; sourceTree = "<group>"; };
 		1CA43BAC247BF3FA00CAF75E /* BookmakerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmakerViewModel.swift; sourceTree = "<group>"; };
+		1CA43BAE247C069200CAF75E /* IHttpClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IHttpClient.swift; sourceTree = "<group>"; };
 		1CA5C8BE246F571600D470B6 /* IForecasterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IForecasterService.swift; sourceTree = "<group>"; };
 		1CA5C8C0246F5B5000D470B6 /* ForecasterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecasterService.swift; sourceTree = "<group>"; };
 		1CA5C8C22470269B00D470B6 /* BookmakerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmakerView.swift; sourceTree = "<group>"; };
@@ -715,8 +715,8 @@
 		1C6937A82450FBD200AE01BE /* HttpClient */ = {
 			isa = PBXGroup;
 			children = (
-				1C6937AF2450FEB800AE01BE /* IHttpClient.swift */,
 				1C6937AE2450FEB800AE01BE /* HttpClient.swift */,
+				1CA43BAE247C069200CAF75E /* IHttpClient.swift */,
 			);
 			path = HttpClient;
 			sourceTree = "<group>";
@@ -1377,6 +1377,7 @@
 				1CABD5E0244CA52D0039D99C /* ForecastCell.swift in Sources */,
 				1CA5C8C32470269B00D470B6 /* BookmakerView.swift in Sources */,
 				1C43E2D1244B9415002CF7EB /* MainSection.swift in Sources */,
+				1CA43BAF247C069200CAF75E /* IHttpClient.swift in Sources */,
 				1C9C718C24746C1300954D1D /* PolicyViewController.swift in Sources */,
 				1C833EBA245A0B7D0012F1F5 /* ForecasterCell.swift in Sources */,
 				1CC39CB8245F09D9003CED00 /* ProfileRouter.swift in Sources */,
@@ -1472,7 +1473,6 @@
 				1CC39CCA246022D1003CED00 /* SocialAccountButton.swift in Sources */,
 				1C56121D24575F8900D02DBB /* MenuPannel.swift in Sources */,
 				1C5E3A1B244E4169007F5E0E /* SelectionControl.swift in Sources */,
-				1C6937B22450FEB900AE01BE /* IHttpClient.swift in Sources */,
 				1C05A7A82479926A006FB7BF /* ArticleViewModelItem.swift in Sources */,
 				1CDAF86224781F1D00789B9F /* MatchBetsViewModel.swift in Sources */,
 				1C76C11224786D92005F471A /* ArticlesListViewController.swift in Sources */,
