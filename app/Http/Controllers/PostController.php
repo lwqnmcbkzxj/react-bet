@@ -35,7 +35,7 @@ class PostController extends Controller
             $request['order_by'] = 'id';
         }
         if (!$request->has('limit')) {
-            $request['limit'] = 15;
+            $request['limit'] = 16;
         }
         return $res->orderBy($request['order_by'])->paginate($request['limit']);
     }
@@ -47,6 +47,7 @@ class PostController extends Controller
         $post->image = $request['image'];
         $post->modified_by = Auth::user()->id;
         $post->is_published = $request['is_published'];
+        $post->category_name = $request['category_name'];
         $post->save();
         return $post;
     }
@@ -60,6 +61,7 @@ class PostController extends Controller
         $post->created_by = Auth::user()->id;
         $post->modified_by = Auth::user()->id;
         $post->is_published = $request['is_published'];
+        $post->category_name = $request['category_name'];
         $post->save();
         return $post;
     }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $guarded = ['id'];
-    protected $appends = ['comments', 'rating', 'count_comments'];
+    protected $appends = ['created_by_login', 'comments', 'rating', 'count_comments'];
     protected $hidden = ['comments'];
     public function getCommentsAttribute()
     {
@@ -21,6 +21,17 @@ class Post extends Model
     public function getRatingAttribute()
     {
         return $this->rating = $this->votes()->where('type','=','like')->count() - $this->votes()->where('type','=','dislike')->count();
+    }
+    public function getCreatedByLoginAttribute()
+    {
+        if(User::where('id', '=', $this->created_by)->first())
+            return User::where('id', '=', $this->created_by)->first()['login'];
+        else
+            return "";
+    }
+    public function user()
+    {
+        return $this->hasOne('App\User', 'id', 'created_by');
     }
     public function votes()
     {
