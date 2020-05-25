@@ -25,6 +25,7 @@ class EventProfile extends JsonResource
                 'sport_image'=>$this->sport->image,
             ],
             'event' => $this->title,
+            'coefficients' => $this->coefficients()->get(),
             'event_start' => $this->start,
             'team_1' => ['name' => $split_team[0]],
             'team_2' => ['name' => $split_team[1]],
