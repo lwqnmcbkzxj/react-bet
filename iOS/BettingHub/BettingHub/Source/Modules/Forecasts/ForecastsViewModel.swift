@@ -26,7 +26,9 @@ class ForecastsViewModel {
         didSet { filtersChanged() }
     }
     
-    var timeFrame: TimeFrame = .all
+    var timeFrame: TimeFrame = .all {
+        didSet { filtersChanged() }
+    }
     
     var forecastFilter: ForecastFilter = .all {
         didSet {

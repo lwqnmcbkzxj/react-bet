@@ -130,6 +130,8 @@ class AppCoordinator {
     
     func bookmakerScreen(_ bookmaker: Bookmaker) -> UIViewController {
         let vc = BookmakerViewController()
+        let vm = BookmakerViewModel(bookmaker: bookmaker)
+        vc.vm = vm
         vc.configure(with: bookmaker)
         return vc
     }

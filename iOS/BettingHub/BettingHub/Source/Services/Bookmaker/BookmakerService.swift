@@ -22,6 +22,13 @@ class BookmakerService {
         let req = reqBuilder.getRequest(content: content)
         return (content, req)
     }
+    
+    func bookmakerRequest(id: Int) -> (RequestContent, URLRequest) {
+        let url = "api/bookmakers"
+        let content = reqBuilder.idRequest(url: url, id: id)
+        let req = reqBuilder.getRequest(content: content)
+        return (content, req)
+    }
 }
 
 extension BookmakerService: IBookmakerService {
@@ -37,6 +44,12 @@ extension BookmakerService: IBookmakerService {
     }
     
     func bookmaker(id: Int, callback: (ServiceCallback<Bookmaker>)?) {
-        fatalError("Not Implemented")
+        let req = bookmakerRequest(id: id).1
+        httpClient.request(request: req) { (result) in
+            switch result {
+            case .success(let data): callback?(data.decodeJSON(Bookmaker.self))
+            case .failure(let err): callback?(.failure(err.asBHError()))
+            }
+        }
     }
 }

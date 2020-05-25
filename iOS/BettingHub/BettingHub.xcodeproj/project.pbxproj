@@ -134,6 +134,7 @@
 		1CA43BA6247BBAB900CAF75E /* PolicyPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA43BA5247BBAB900CAF75E /* PolicyPresenter.swift */; };
 		1CA43BA9247BCBB100CAF75E /* FullArticleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA43BA8247BCBB100CAF75E /* FullArticleViewModel.swift */; };
 		1CA43BAB247BCEB200CAF75E /* TableSectionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA43BAA247BCEB200CAF75E /* TableSectionProvider.swift */; };
+		1CA43BAD247BF3FA00CAF75E /* BookmakerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA43BAC247BF3FA00CAF75E /* BookmakerViewModel.swift */; };
 		1CA5C8BF246F571600D470B6 /* IForecasterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA5C8BE246F571600D470B6 /* IForecasterService.swift */; };
 		1CA5C8C1246F5B5000D470B6 /* ForecasterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA5C8C0246F5B5000D470B6 /* ForecasterService.swift */; };
 		1CA5C8C32470269B00D470B6 /* BookmakerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA5C8C22470269B00D470B6 /* BookmakerView.swift */; };
@@ -341,6 +342,7 @@
 		1CA43BA5247BBAB900CAF75E /* PolicyPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyPresenter.swift; sourceTree = "<group>"; };
 		1CA43BA8247BCBB100CAF75E /* FullArticleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullArticleViewModel.swift; sourceTree = "<group>"; };
 		1CA43BAA247BCEB200CAF75E /* TableSectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSectionProvider.swift; sourceTree = "<group>"; };
+		1CA43BAC247BF3FA00CAF75E /* BookmakerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmakerViewModel.swift; sourceTree = "<group>"; };
 		1CA5C8BE246F571600D470B6 /* IForecasterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IForecasterService.swift; sourceTree = "<group>"; };
 		1CA5C8C0246F5B5000D470B6 /* ForecasterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecasterService.swift; sourceTree = "<group>"; };
 		1CA5C8C22470269B00D470B6 /* BookmakerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmakerView.swift; sourceTree = "<group>"; };
@@ -1150,6 +1152,7 @@
 			children = (
 				1CA5C8C22470269B00D470B6 /* BookmakerView.swift */,
 				1CE9A4282465B84E004D4696 /* BookmakerViewController.swift */,
+				1CA43BAC247BF3FA00CAF75E /* BookmakerViewModel.swift */,
 				1CA5C8C42470368000D470B6 /* GradeLabel.swift */,
 			);
 			path = Bookmaker;
@@ -1485,6 +1488,7 @@
 				1CC4EFC32447339B00D69C67 /* UIColor.swift in Sources */,
 				1CC4EFBC2447330D00D69C67 /* Text.swift in Sources */,
 				1C25F83E244DD8C600A24F31 /* LabelWithInsets.swift in Sources */,
+				1CA43BAD247BF3FA00CAF75E /* BookmakerViewModel.swift in Sources */,
 				1C91348F2448B08500AE4510 /* MainViewController.swift in Sources */,
 				1C5612172456854000D02DBB /* MainScreenInteractor.swift in Sources */,
 				1CF225B1244B744C005D510D /* PanelCell.swift in Sources */,
@@ -1675,7 +1679,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = BEZVYLYFD7;
 				INFOPLIST_FILE = BettingHub/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1698,7 +1702,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = BEZVYLYFD7;
 				INFOPLIST_FILE = BettingHub/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

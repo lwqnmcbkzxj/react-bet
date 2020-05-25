@@ -141,25 +141,29 @@ class ArticleCell: UITableViewCell {
             
         }
         
-        panelView.addSubview(separatorLine)
-        separatorLine.snp.makeConstraints { (make) in
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-43)
-            make.top.equalTo(articleTextLabel.snp.bottom).offset(16)
+        //TODO: tempUI
+        articleTextLabel.snp.makeConstraints { (make) in
+            make.bottom.equalToSuperview().offset(-12)
         }
-        
-        panelView.addSubview(commentsView)
-        commentsView.snp.makeConstraints { (make) in
-            make.leading.equalToSuperview().offset(9)
-            make.top.equalTo(separatorLine.snp.bottom).offset(12)
-            make.height.equalTo(18)
-        }
-        
-        panelView.addSubview(ratingView)
-        ratingView.snp.makeConstraints { (make) in
-            make.trailing.equalToSuperview().offset(-9)
-            make.top.equalTo(commentsView)
-            make.height.equalTo(18)
-        }
+//        panelView.addSubview(separatorLine)
+//        separatorLine.snp.makeConstraints { (make) in
+//            make.leading.trailing.equalToSuperview()
+//            make.bottom.equalToSuperview().offset(-43)
+//            make.top.equalTo(articleTextLabel.snp.bottom).offset(16)
+//        }
+//
+//        panelView.addSubview(commentsView)
+//        commentsView.snp.makeConstraints { (make) in
+//            make.leading.equalToSuperview().offset(9)
+//            make.top.equalTo(separatorLine.snp.bottom).offset(12)
+//            make.height.equalTo(18)
+//        }
+//
+//        panelView.addSubview(ratingView)
+//        ratingView.snp.makeConstraints { (make) in
+//            make.trailing.equalToSuperview().offset(-9)
+//            make.top.equalTo(commentsView)
+//            make.height.equalTo(18)
+//        }
     }
 }

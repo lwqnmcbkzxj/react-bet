@@ -135,13 +135,13 @@ class SettingsView: UIView {
     
     let passwordInput: InputView = {
         let view = InputView()
-        view.label.text = Text.newPassword
+//        view.label.text = Text.newPassword
         return view
     }()
     
     let confirmPasswordInput: InputView = {
         let view = InputView()
-        view.label.text = Text.confirmPass
+//        view.label.text = Text.confirmPass
         return view
     }()
     

@@ -48,7 +48,7 @@ class ForecastCell: UITableViewCell {
         view.textColor = .textGray
         view.font = .robotoRegular(size: 11)
         view.isSkeletonable = true
-        view.textAlignment = .right
+        view.textAlignment = .left
         return view
     }()
     
@@ -245,17 +245,17 @@ class ForecastCell: UITableViewCell {
             make.top.equalToSuperview().offset(11)
         }
         
-        contentView.addSubview(sportLabel)
-        sportLabel.snp.contentCompressionResistanceHorizontalPriority = 1000
-        sportLabel.snp.makeConstraints { (make) in
-            make.top.bottom.equalTo(cornerIcon)
-            make.leading.equalTo(cornerIcon.snp.trailing).offset(5)
-        }
+//        contentView.addSubview(sportLabel)
+//        sportLabel.snp.contentCompressionResistanceHorizontalPriority = 1000
+//        sportLabel.snp.makeConstraints { (make) in
+//            make.top.bottom.equalTo(cornerIcon)
+//            make.leading.equalTo(cornerIcon.snp.trailing).offset(5)
+//        }
         
         contentView.addSubview(seasonLabel)
         seasonLabel.snp.makeConstraints { (make) in
             make.top.bottom.equalTo(cornerIcon)
-            make.leading.equalTo(sportLabel.snp.trailing).offset(3)
+            make.leading.equalTo(cornerIcon.snp.trailing).offset(8)
             make.trailing.equalTo(panelView).offset(-8)
         }
         

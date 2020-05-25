@@ -95,6 +95,12 @@ extension ForecastersViewController: SkeletonTableViewDataSource {
         let item = viewModel.item(for: indexPath.row)
         cell.configure(with: item)
         
+        //TODO: tempUI
+        let row = indexPath.row
+        let showArrow = row == 0 || row == 1 || row == 3
+        cell.arrowView.isVisible = showArrow
+        
+        
         cell.hideSkeletonIfActive()
         
         return cell

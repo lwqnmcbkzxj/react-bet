@@ -36,7 +36,7 @@ class BookmakerView: UITableViewHeaderFooterView {
         return view
     }()
     
-    private let webPageButton: UIButton = {
+    let webPageButton: UIButton = {
         let view = UIButton()
         view.setTitle(Text.site, for: .normal)
         view.setTitleColor(.titleBlack, for: .normal)
@@ -93,7 +93,7 @@ class BookmakerView: UITableViewHeaderFooterView {
         ]
         infoStack.populateStack(labels: labels)
         
-        descLabel.text = ""
+        descLabel.text = bookmaker.content
         bookmakerIconView.setServerIcon(url: bookmaker.image)
         stepper.setNumber(10)
         titleView.text = "\(titleView.text ?? "")\n\(bookmaker.title.uppercased())"
@@ -160,7 +160,7 @@ class BookmakerView: UITableViewHeaderFooterView {
             make.centerY.equalTo(bookmakerIconView)
             make.leading.greaterThanOrEqualTo(webPageButton.snp.trailing)
         }
-        
+        //TODO: tempUI
 //        panel.addSubview(bigImageView)
 //        bigImageView.snp.makeConstraints { (make) in
 //            make.leading.bottom.trailing.equalToSuperview()

@@ -83,11 +83,7 @@ class RequestBuilder: IRequestBuilder {
     }
     
     func idRequest(url: String, id: Int) -> RequestContent {
-        let params = [
-            "id": String(id)
-        ]
-        
-        return (url, params)
+        return ("\(url)/\(id)", [String: String]())
     }
     
     func addParams(to content: RequestContent, params: [String : String]) -> RequestContent {

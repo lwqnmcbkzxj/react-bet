@@ -20,7 +20,7 @@ struct ForecasterViewModelItem {
         guard let pos = forecaster.ratingPosition else {
             return 0
         }
-        return pos + 1
+        return pos
     }
     
     var passingPercent: Int {

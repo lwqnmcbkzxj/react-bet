@@ -19,6 +19,7 @@ class TimePicker: UIControl {
                 textField.text = nil
             }
             sendActions(for: .valueChanged)
+            resignFirstResponder()
         }
     }
     
@@ -75,17 +76,12 @@ extension TimePicker: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return items[row]
     }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedItem = row
-    }
 }
 
 extension TimePicker: UITextFieldDelegate {
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         let index = picker.selectedRow(inComponent: 0)
         selectedItem = index
-        return true
     }
 }
 

@@ -11,7 +11,7 @@ import UIKit
 
 class ForecasterCell: UITableViewCell {
     
-    private let arrowView: RatingArrow = {
+    let arrowView: RatingArrow = {
         let view = RatingArrow()
         return view
     }()
