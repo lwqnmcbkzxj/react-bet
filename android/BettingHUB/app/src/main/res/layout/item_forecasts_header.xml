@@ -5,15 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.xbethub.webview.enums.ForecastType"/>
+        <import type="com.bettinghub.forecasts.enums.ForecastType"/>
 
         <variable
             name="viewModel"
-            type="com.xbethub.webview.ui.forecasts.ForecastsViewModel" />
+            type="com.bettinghub.forecasts.ui.forecasts.ForecastsViewModel" />
 
         <variable
             name="viewHolder"
-            type="com.xbethub.webview.ui.forecasts.items.viewHolders.HeaderViewHolder" />
+            type="com.bettinghub.forecasts.ui.forecasts.items.viewHolders.HeaderViewHolder" />
 
     </data>
 

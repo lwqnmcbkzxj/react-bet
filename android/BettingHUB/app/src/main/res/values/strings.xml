@@ -120,7 +120,7 @@
 
     <string name="topMatchesTileTittle">Топ матчи</string>
     <string name="newsTileTitle">Новости</string>
-    <string name="privacyTileTitle">Политика\nконфидициальности</string>
+    <string name="privacyTileTitle">Политика\nконф.</string>
     <string name="feedbackTileTitle">Обратная\nсвязь</string>
     <string name="bookmakersRatingTileTitle">Рейтинг\nбукмекеров</string>
     <string name="forecasterRatingTileTitle">Рейтинг\nпрогнозистов</string>

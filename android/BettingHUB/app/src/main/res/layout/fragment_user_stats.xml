@@ -36,7 +36,7 @@
                 app:layout_constraintGuide_end="@dimen/sideMargin"
                 />
 
-            <com.xbethub.webview.ui.views.CircularDiagram
+            <com.bettinghub.forecasts.ui.views.CircularDiagram
                 android:id="@+id/diagram"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
