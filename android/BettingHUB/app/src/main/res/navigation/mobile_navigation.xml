@@ -63,6 +63,7 @@
         android:name="com.bettinghub.forecasts.ui.addForecast.AddForecastFragment"
         android:label="AddForecastFragment"
         tools:layout="@layout/fragment_add_forecast" />
+		
     <fragment
         android:id="@+id/forecastFragment"
         android:name="com.bettinghub.forecasts.ui.forecast.ForecastFragment"
@@ -247,7 +248,8 @@
         android:label="PrivacyFragment"
         tools:layout="@layout/fragment_privacy"
         />
-    <fragment
+
+	<fragment
         android:id="@+id/newsFragment"
         android:name="com.bettinghub.forecasts.ui.news.NewsFragment"
         android:label="NewsFragment"

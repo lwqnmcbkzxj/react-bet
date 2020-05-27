@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.bettinghub.forecasts.App
 import com.bettinghub.forecasts.R
 import com.bettinghub.forecasts.Settings
@@ -37,10 +36,9 @@ class ProfileSettingsFragment: Fragment() {
 
         binding.topPanel.bankBalance.root.visibility = View.GONE
         binding.userBlock.settingsBtn.setColorFilter(Utils.getColor(requireContext(), R.color.color4))
-        binding.topPanel.searchBtn.setOnClickListener { onSearchBtnClick() }
-        binding.backBtn.setOnClickListener {
-            findNavController().navigateUp()
-        }
+        binding.topPanel.searchBtn.setOnClickListener {
+
+            onSearchBtnClick() }
         updateSearchFieldVisibility()
 
         navController = activity?.let { Navigation.findNavController(it, R.id.nav_host_fragment) }!!
@@ -63,7 +61,7 @@ class ProfileSettingsFragment: Fragment() {
     }
 
     fun onBackBtnClick() {
-
+        activity?.onBackPressed()
     }
 
     fun onRateAppBtnClick() {

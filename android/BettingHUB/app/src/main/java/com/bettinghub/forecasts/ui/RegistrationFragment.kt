@@ -132,7 +132,7 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
         fun checkPasswords(): Boolean {
             val password = passwordField.text.toString()
             val passwordRepeat = passwordRepeatField.text.toString()
-            if (password.length < 6) {
+            if (password.length < 8) {
                 passwordField.setText("", TextView.BufferType.EDITABLE)
                 passwordRepeatField.setText("", TextView.BufferType.EDITABLE)
                 passwordField.setBackgroundResource(R.drawable.bg_corned_frame_error)
@@ -159,7 +159,9 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
 
         val email = emailField.text.toString()
         val username = username_field.text.toString()
-        if (username.isEmpty()) return
+        if (username.isEmpty()) {
+            return
+        }
 //        val name = email.split("@", true, 0)[0]
 
         val password = password.text.toString()
@@ -187,6 +189,7 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
                 })
         }, {
             Log.e(TAG, "registration: ${it.message}")
+            error.visibility = View.VISIBLE
             it.printStackTrace()
         })
     }

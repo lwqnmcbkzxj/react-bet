@@ -1,10 +1,12 @@
 package com.bettinghub.forecasts.ui.home
 
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -46,6 +48,10 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
 
     private var searchActive = false
 
+    val rvHeight by lazy {
+        binding.topBookmakers.bookmakerRV.height
+    }
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -53,6 +59,50 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
     ): View? {
         binding = FragmentHomeNewBinding.inflate(inflater)
 
+        binding.topBookmakers.title.setOnClickListener {
+            binding.topBookmakers.bookmakerRV.let {
+                if (it.visibility == View.VISIBLE) {
+                    binding.topBookmakers.bookmakerExpand.animate().rotation(0f).duration = 400
+                    ValueAnimator.ofInt(rvHeight, 0).let { anim ->
+                        anim.duration = 400
+                        anim.addUpdateListener { anim ->
+                            (anim.animatedValue as Int).let { value ->
+                                if (value == 0) {
+                                    binding.topBookmakers.topFrame.setBackgroundResource(R.drawable.bg_cornered_frame_7dp)
+                                    it.visibility = View.GONE
+                                } else {
+                                    it.updateLayoutParams {
+                                        height = value
+                                    }
+                                }
+                            }
+
+                        }
+                        anim.start()
+                    }
+                } else {
+                    binding.topBookmakers.bookmakerExpand.animate().rotation(180f).duration = 400
+                    ValueAnimator.ofInt(0, rvHeight).let { anim ->
+                        anim.duration = 400
+                        anim.addUpdateListener { anim ->
+                            (anim.animatedValue as Int).let { value ->
+                                if (value == 0) {
+                                    binding.topBookmakers.topFrame.setBackgroundResource(R.drawable.bg_top_cornered_frame_7dp)
+                                    it.visibility = View.VISIBLE
+                                } else {
+                                    it.updateLayoutParams {
+                                        height = value
+                                    }
+                                }
+                            }
+
+                        }
+                        anim.start()
+                    }
+//                    it.visibility = View.VISIBLE
+                }
+            }
+        }
         binding.topPanel.searchBtn.setOnClickListener { onSearchBtnClick() }
         binding.topForecasters.seeAllForecasters.setOnClickListener { onSeeAllForecastersBtnClick() }
         binding.lastForecasts.seeAllForecastsBtn.setOnClickListener { onSeeAllForecastsBtnClick() }

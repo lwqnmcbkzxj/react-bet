@@ -8,6 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/root"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:clipToPadding="false"
@@ -32,8 +33,10 @@
             />
 
         <ImageView
+            android:id="@+id/bookmakerExpand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:rotation="180"
             app:srcCompat="@drawable/ic_arrow_down1"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -50,16 +53,6 @@
             app:layout_constraintBottom_toTopOf="@id/bookmakerRV"
             />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@android:color/white"
-            app:layout_constraintStart_toStartOf="@id/topFrame"
-            app:layout_constraintEnd_toEndOf="@id/topFrame"
-            app:layout_constraintBottom_toTopOf="@id/bookmakerRV"
-            android:layout_marginStart="1dp"
-            android:layout_marginEnd="1dp"
-            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bookmakerRV"

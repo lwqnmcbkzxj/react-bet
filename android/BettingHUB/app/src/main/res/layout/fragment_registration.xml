@@ -6,6 +6,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <FrameLayout
+        android:visibility="gone"
+        android:id="@+id/error"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="40dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:alpha="0.2"
+            android:background="@color/color2"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:fontFamily="@font/roboto_regular"
+            android:textSize="15sp"
+            android:textColor="@color/textColor8"
+            android:text="Ошибка регистрации"
+            android:gravity="center"
+            />
+
+    </FrameLayout>
+
     <TextView
         android:id="@+id/password_label2"
         android:layout_width="wrap_content"
