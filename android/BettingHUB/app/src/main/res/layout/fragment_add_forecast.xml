@@ -303,7 +303,7 @@
                             android:text="@string/betPer"
                             />
 
-                        <com.xbethub.webview.ui.views.EditTextWithSuffix
+                        <com.bettinghub.forecasts.ui.views.EditTextWithSuffix
                             android:id="@+id/betPer"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"

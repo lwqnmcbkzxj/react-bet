@@ -6,7 +6,7 @@
     app:startDestination="@id/loginFragment2">
     <fragment
         android:id="@+id/loginFragment2"
-        android:name="com.xbethub.webview.ui.LoginFragment"
+        android:name="com.bettinghub.forecasts.ui.LoginFragment"
         android:label="fragment_login2"
         tools:layout="@layout/fragment_login" >
         <action
@@ -22,12 +22,12 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="com.xbethub.webview.ui.forgotPassword.ForgotPasswordFragment"
+        android:name="com.bettinghub.forecasts.ui.forgotPassword.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.xbethub.webview.ui.RegistrationFragment"
+        android:name="com.bettinghub.forecasts.ui.RegistrationFragment"
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" >
         <action
@@ -37,6 +37,6 @@
     <action android:id="@+id/action_global_loginFragment2" app:destination="@id/loginFragment2" />
     <activity
         android:id="@+id/mainActivity"
-        android:name="com.xbethub.webview.ui.MainActivity"
+        android:name="com.bettinghub.forecasts.ui.MainActivity"
         android:label="MainActivity" />
 </navigation>

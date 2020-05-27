@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.xbethub.webview.enums.RatingTimeInterval"/>
+        <import type="com.bettinghub.forecasts.enums.RatingTimeInterval"/>
 
         <variable
             name="viewHolder"
-            type="com.xbethub.webview.ui.forecasterRating.items.viewHolders.HeaderViewHolder" />
+            type="com.bettinghub.forecasts.ui.forecasterRating.items.viewHolders.HeaderViewHolder" />
 
         <variable
             name="viewModel"
-            type="com.xbethub.webview.ui.forecasterRating.ForecasterRatingViewModel" />
+            type="com.bettinghub.forecasts.ui.forecasterRating.ForecasterRatingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

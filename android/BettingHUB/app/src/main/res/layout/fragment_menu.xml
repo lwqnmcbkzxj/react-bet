@@ -6,7 +6,7 @@
     <data>
         <variable
             name="fragment"
-            type="com.xbethub.webview.ui.menu.MenuFragment" />
+            type="com.bettinghub.forecasts.ui.menu.MenuFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

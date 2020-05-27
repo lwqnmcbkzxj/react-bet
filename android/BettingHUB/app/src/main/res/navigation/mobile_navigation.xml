@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.xbethub.webview.ui.home.HomeFragment"
+        android:name="com.bettinghub.forecasts.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -48,7 +48,7 @@
 
     <fragment
         android:id="@+id/forecastsFragment"
-        android:name="com.xbethub.webview.ui.forecasts.ForecastsFragment"
+        android:name="com.bettinghub.forecasts.ui.forecasts.ForecastsFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_forecasts">
         <action
@@ -60,24 +60,24 @@
 
     <fragment
         android:id="@+id/addForecastFragment"
-        android:name="com.xbethub.webview.ui.addForecast.AddForecastFragment"
+        android:name="com.bettinghub.forecasts.ui.addForecast.AddForecastFragment"
         android:label="AddForecastFragment"
         tools:layout="@layout/fragment_add_forecast" />
     <fragment
         android:id="@+id/forecastFragment"
-        android:name="com.xbethub.webview.ui.forecast.ForecastFragment"
+        android:name="com.bettinghub.forecasts.ui.forecast.ForecastFragment"
         android:label="ForecastFragment"
         tools:layout="@layout/fragment_forecast">
         <argument
             android:name="forecast"
-            app:argType="com.xbethub.webview.models.Forecast" />
+            app:argType="com.bettinghub.forecasts.models.Forecast" />
         <action
             android:id="@+id/to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/forecasterRatingFragment"
-        android:name="com.xbethub.webview.ui.forecasterRating.ForecasterRatingFragment"
+        android:name="com.bettinghub.forecasts.ui.forecasterRating.ForecasterRatingFragment"
         android:label="ForecasterRatingFragment"
         tools:layout="@layout/fragment_forecaster_rating">
         <action
@@ -86,7 +86,7 @@
     </fragment>
     <fragment
         android:id="@+id/menuFragment"
-        android:name="com.xbethub.webview.ui.menu.MenuFragment"
+        android:name="com.bettinghub.forecasts.ui.menu.MenuFragment"
         android:label="MenuFragment"
         tools:layout="@layout/fragment_menu">
         <action
@@ -112,7 +112,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileSettingsFragment"
-        android:name="com.xbethub.webview.ui.profileSettings.ProfileSettingsFragment"
+        android:name="com.bettinghub.forecasts.ui.profileSettings.ProfileSettingsFragment"
         android:label="ProfileSettingsFragment"
         tools:layout="@layout/fragment_profile_settings">
         <action
@@ -121,7 +121,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.xbethub.webview.ui.profile.ProfileFragment"
+        android:name="com.bettinghub.forecasts.ui.profile.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile">
         <action
@@ -129,13 +129,13 @@
             app:destination="@id/profileSettingsFragment" />
         <argument
             android:name="user"
-            app:argType="com.xbethub.webview.models.User"
+            app:argType="com.bettinghub.forecasts.models.User"
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/plusFragment"
-        android:name="com.xbethub.webview.ui.plus.PlusFragment"
+        android:name="com.bettinghub.forecasts.ui.plus.PlusFragment"
         android:label="PlusFragment" >
         <action
             android:id="@+id/toAddForecastFragment"
@@ -146,7 +146,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.xbethub.webview.ui.LoginFragment"
+        android:name="com.bettinghub.forecasts.ui.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
@@ -165,13 +165,13 @@
 
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="com.xbethub.webview.ui.forgotPassword.ForgotPasswordFragment"
+        android:name="com.bettinghub.forecasts.ui.forgotPassword.ForgotPasswordFragment"
         android:label="ForgotPasswordFragment"
         tools:layout="@layout/fragment_forgot_password"/>
 
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.xbethub.webview.ui.RegistrationFragment"
+        android:name="com.bettinghub.forecasts.ui.RegistrationFragment"
         android:label="RegistrationFragment"
         tools:layout="@layout/fragment_registration">
         <argument
@@ -183,7 +183,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileSubFragment"
-        android:name="com.xbethub.webview.ui.profile.ProfileSubFragment"
+        android:name="com.bettinghub.forecasts.ui.profile.ProfileSubFragment"
         android:label="ProfileSubFragment" >
         <action
             android:id="@+id/toLoginFragment"
@@ -194,7 +194,7 @@
     </fragment>
     <fragment
         android:id="@+id/bookmakerRatingFragment"
-        android:name="com.xbethub.webview.ui.bookmakerRating.BookmakerRatingFragment"
+        android:name="com.bettinghub.forecasts.ui.bookmakerRating.BookmakerRatingFragment"
         android:label="BookmakerFragment" >
         <action
             android:id="@+id/to_bookmakerFragment"
@@ -202,7 +202,7 @@
     </fragment>
     <fragment
         android:id="@+id/bookmakerFragment"
-        android:name="com.xbethub.webview.ui.bookmaker.BookmakerFragment"
+        android:name="com.bettinghub.forecasts.ui.bookmaker.BookmakerFragment"
         android:label="BookmakerFragment" >
         <argument
             android:name="bookmaker"
@@ -210,14 +210,14 @@
     </fragment>
     <fragment
         android:id="@+id/matchFragment"
-        android:name="com.xbethub.webview.ui.match.MatchFragment"
+        android:name="com.bettinghub.forecasts.ui.match.MatchFragment"
         android:label="MatchFragment" >
         <argument android:name="match"
-            app:argType="com.xbethub.webview.models.Event" />
+            app:argType="com.bettinghub.forecasts.models.Event" />
     </fragment>
     <fragment
         android:id="@+id/topMatchesFragment"
-        android:name="com.xbethub.webview.ui.topMatches.TopMatchesFragment"
+        android:name="com.bettinghub.forecasts.ui.topMatches.TopMatchesFragment"
         android:label="TopMatchesFragment" >
         <action
             android:id="@+id/to_matchFragment"
@@ -225,7 +225,7 @@
     </fragment>
     <fragment
         android:id="@+id/articlesFragment"
-        android:name="com.xbethub.webview.ui.articles.ArticlesFragment"
+        android:name="com.bettinghub.forecasts.ui.articles.ArticlesFragment"
         android:label="ArticlesFragment"
         tools:layout="@layout/fragment_articles">
         <action
@@ -234,7 +234,7 @@
     </fragment>
     <fragment
         android:id="@+id/articleFragment"
-        android:name="com.xbethub.webview.ui.article.ArticleFragment"
+        android:name="com.bettinghub.forecasts.ui.article.ArticleFragment"
         android:label="ArticleFragment"
         tools:layout="@layout/fragment_article">
         <argument
@@ -243,13 +243,13 @@
     </fragment>
     <fragment
         android:id="@+id/privacyFragment"
-        android:name="com.xbethub.webview.ui.privacy.PrivacyFragment"
+        android:name="com.bettinghub.forecasts.ui.privacy.PrivacyFragment"
         android:label="PrivacyFragment"
         tools:layout="@layout/fragment_privacy"
         />
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.xbethub.webview.ui.news.NewsFragment"
+        android:name="com.bettinghub.forecasts.ui.news.NewsFragment"
         android:label="NewsFragment"
         tools:layout="@layout/fragment_news"/>
 </navigation>
