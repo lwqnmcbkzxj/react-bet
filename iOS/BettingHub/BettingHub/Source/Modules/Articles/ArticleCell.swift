@@ -16,6 +16,7 @@ class ArticleCell: UITableViewCell {
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.lineGray.cgColor
         view.layer.cornerRadius = 7
+        view.isSkeletonable = true
         return view
     }()
     
@@ -24,6 +25,7 @@ class ArticleCell: UITableViewCell {
         view.layer.cornerRadius = 5
         view.contentMode = .scaleAspectFill
         view.backgroundColor = .lightGray
+        view.isSkeletonable = true
         return view
     }()
     
@@ -31,6 +33,7 @@ class ArticleCell: UITableViewCell {
         let view = UILabel()
         view.textColor = .titleBlack
         view.font = .robotoMedium(size: 13)
+        view.isSkeletonable = true
         return view
     }()
     
@@ -38,6 +41,7 @@ class ArticleCell: UITableViewCell {
         let view = UILabel()
         view.textColor = .textGray
         view.font = .robotoRegular(size: 13)
+        view.isSkeletonable = true
         return view
     }()
     
@@ -46,6 +50,7 @@ class ArticleCell: UITableViewCell {
         view.textColor = .titleBlack
         view.font = .robotoMedium(size: 19)
         view.numberOfLines = 2
+        view.isSkeletonable = true
         return view
     }()
     
@@ -54,6 +59,7 @@ class ArticleCell: UITableViewCell {
         view.textColor = .textGrayDark
         view.font = .robotoRegular(size: 15)
         view.numberOfLines = 0
+        view.isSkeletonable = true
         return view
     }()
     
@@ -67,12 +73,14 @@ class ArticleCell: UITableViewCell {
         let view = LabeledIconWithNumber()
         view.setImage(UIImage(named: "commentIcon")!)
         view.setNumber(3)
+        view.isSkeletonable = true
         return view
     }()
     
     private let ratingView: ArrowsStepperView = {
         let view = ArrowsStepperView()
         view.setNumber(23)
+        view.isSkeletonable = true
         return view
     }()
     
@@ -80,6 +88,7 @@ class ArticleCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .white
         selectionStyle = .none
+        isSkeletonable = true
         makeLayout()
     }
     

@@ -19,7 +19,7 @@ class ServiceLocator {
         return resolution
     }
     
-    private let container = Container()
+    private let container = DependanciesContainer()
     
     static let shared = ServiceLocator()
     
@@ -35,20 +35,6 @@ class ServiceLocator {
         container.register(IUserService.self) { UserService() }
         container.register(IBookmakerService.self) { BookmakerService() }
         container.register(IArticleService.self) { ArticleService() }
-    }
-}
-
-private class Container {
-    private var resolutionsMap: [String: Any] = [:]
-    
-    func register<Interface>(_ interface: Interface.Type, registrationBlock: ()->Interface) {
-        let id = String(describing: interface)
-        let implementation = registrationBlock()
-        resolutionsMap[id] = implementation
-    }
-    
-    func resolve<Interface>(_ interface: Interface.Type) -> Interface? {
-        let id = String(describing: interface)
-        return resolutionsMap[id] as? Interface
+        container.register(INewsService.self, registrationBlock: NewsService.init)
     }
 }

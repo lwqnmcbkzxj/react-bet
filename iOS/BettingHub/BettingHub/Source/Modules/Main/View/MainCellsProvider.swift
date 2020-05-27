@@ -86,12 +86,22 @@ class MainScreenCellsProvider {
     
     func header(for sec: MainSection) -> UITableViewHeaderFooterView? {
         switch sec {
-        case .topBookmakers, .topMatches:
+        case .topBookmakers:
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: sec.headerId()) as! TopBookmakersHeaderView
             header.titleLabel.text = sec == .topBookmakers ? Text.bookmakersRating : Text.topMatches
             if let mode = columnsMode(for: sec) {
                 header.columnsHeaderView.setMode(mode)
             }
+            header.arrowButton.isHidden = sec == .topBookmakers ? false : true
+            return header
+           
+        case .topMatches:
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: sec.headerId()) as! TopMatchesHeaderView
+            header.titleLabel.text = sec == .topBookmakers ? Text.bookmakersRating : Text.topMatches
+            if let mode = columnsMode(for: sec) {
+                header.columnsHeaderView.setMode(mode)
+            }
+            
             return header
             
         case .lastForecasts:
@@ -113,7 +123,7 @@ class MainScreenCellsProvider {
         tableView.register(TopBookmakersHeaderView.self,
                            forHeaderFooterViewReuseIdentifier: MainSection.topBookmakers.headerId())
         
-        tableView.register(TopBookmakersHeaderView.self,
+        tableView.register(TopMatchesHeaderView.self,
                            forHeaderFooterViewReuseIdentifier: MainSection.topMatches.headerId())
         
         tableView.register(BigTitleHeader.self,

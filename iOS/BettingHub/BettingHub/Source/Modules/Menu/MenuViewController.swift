@@ -36,7 +36,7 @@ class MenuViewController: UIViewController {
         menuView.matchesPanel.gesture.addTarget(self, action: #selector(routeToTopMatches))
         menuView.bookMakersPanel.gesture.addTarget(self, action: #selector(routeToTopBookmakers))
         menuView.forecastersPanel.gesture.addTarget(self, action: #selector(routeToTopForecasters))
-//        menuView.newsPanel.gesture.addTarget(self, action: #selector(routeToNews))
+        menuView.newsPanel.gesture.addTarget(self, action: #selector(routeToNews))
         menuView.articlesPanel.gesture.addTarget(self, action: #selector(routeToArticles))
         menuView.confidentialPoliticsPanel.gesture.addTarget(self, action: #selector(routeToPolitics))
     }
@@ -57,7 +57,8 @@ class MenuViewController: UIViewController {
     }
     
     @objc private func routeToNews() {
-        
+        let vc = coordinator.newsListScreen()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc private func routeToArticles() {

@@ -173,4 +173,13 @@ class AppCoordinator {
         vc.vm = vm
         return vc
     }
+    
+    func newsListScreen() -> UIViewController {
+        let vc = NewsViewController()
+        let router = NewsRouter()
+        vc.router = router
+        router.viewController = vc
+        router.coordinator = self
+        return vc
+    }
 }
