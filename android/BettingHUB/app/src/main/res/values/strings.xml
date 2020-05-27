@@ -180,4 +180,25 @@
     <string name="article_recommendations">Рекомендации от опытного игрока</string>
     <string name="articles_title">Статьи</string>
     <string name="articles">Статьи</string>
+
+    <string name="news">Новости</string>
+
+    <string name="addForecast">Добавить прогноз</string>
+    <string name="addExpress">Добавить экспресс</string>
+    <string name="matchSearchHint">Поиск матча…</string>
+
+    <string name="bookmaker">Букмекерская контора</string>
+    <string name="kindOfSport">Вид спорта</string>
+    <string name="championship">Чемпионат</string>
+    <string name="teams">Команды</string>
+    <string name="eventDate">Дата события</string>
+    <string name="eventTime">Время события</string>
+    <string name="bookmakerCoeff">Коэф. конторы</string>
+    <string name="outcome">Исход</string>
+    <string name="betPer">Ставка %</string>
+    <string name="betRaw">Ставка</string>
+    <string name="forecastDescription">Описание прогноза</string>
+    <string name="forecastDescriptionHint">Минимум 100 символов…</string>
+    <string name="collapse">(свернуть)</string>
+    <string name="overallCoeff">Общий коэффициент:</string>
 </resources>

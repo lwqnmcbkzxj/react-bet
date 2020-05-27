@@ -60,9 +60,9 @@
 
     <fragment
         android:id="@+id/addForecastFragment"
-        android:name="com.xbethub.webview.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:name="com.xbethub.webview.ui.addForecast.AddForecastFragment"
+        android:label="AddForecastFragment"
+        tools:layout="@layout/fragment_add_forecast" />
     <fragment
         android:id="@+id/forecastFragment"
         android:name="com.xbethub.webview.ui.forecast.ForecastFragment"
@@ -106,6 +106,9 @@
         <action
             android:id="@+id/action_menuFragment_to_bookmakerRatingFragment"
             app:destination="@id/bookmakerRatingFragment" />
+        <action
+            android:id="@+id/toNewsFragment"
+            app:destination="@id/newsFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileSettingsFragment"
@@ -223,7 +226,8 @@
     <fragment
         android:id="@+id/articlesFragment"
         android:name="com.xbethub.webview.ui.articles.ArticlesFragment"
-        android:label="ArticlesFragment" >
+        android:label="ArticlesFragment"
+        tools:layout="@layout/fragment_articles">
         <action
             android:id="@+id/to_articleFragment"
             app:destination="@id/articleFragment" />
@@ -231,7 +235,8 @@
     <fragment
         android:id="@+id/articleFragment"
         android:name="com.xbethub.webview.ui.article.ArticleFragment"
-        android:label="ArticleFragment" >
+        android:label="ArticleFragment"
+        tools:layout="@layout/fragment_article">
         <argument
             android:name="articleId"
             app:argType="integer" />
@@ -239,5 +244,12 @@
     <fragment
         android:id="@+id/privacyFragment"
         android:name="com.xbethub.webview.ui.privacy.PrivacyFragment"
-        android:label="PrivacyFragment" />
+        android:label="PrivacyFragment"
+        tools:layout="@layout/fragment_privacy"
+        />
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.xbethub.webview.ui.news.NewsFragment"
+        android:label="NewsFragment"
+        tools:layout="@layout/fragment_news"/>
 </navigation>

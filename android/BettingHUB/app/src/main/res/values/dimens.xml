@@ -40,4 +40,17 @@
     <dimen name="ratingTableTopMargin">25dp</dimen>
 
     <dimen name="tileHeight">115dp</dimen>
+
+    <dimen name="newsSideSpace">8dp</dimen>
+    <dimen name="newsTopSpace">15dp</dimen>
+    <dimen name="newsBottomSpace">20dp</dimen>
+    <dimen name="newsItemTopSpace">20dp</dimen>
+    <dimen name="newsItemSpace">20dp</dimen>
+    <dimen name="newsItemSideMargin">15dp</dimen>
+
+    <dimen name="spinnerSpace">15dp</dimen>
+    <dimen name="labelSpace">8dp</dimen>
+    <dimen name="outcomeTableSpace">10dp</dimen>
+    <dimen name="spinnerHeight">48dp</dimen>
+    <dimen name="outcomeSpace">10dp</dimen>
 </resources>

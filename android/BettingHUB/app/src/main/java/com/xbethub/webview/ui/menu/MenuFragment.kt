@@ -56,7 +56,7 @@ class MenuFragment: Fragment() {
     }
 
     fun onNewsBtnClick() {
-
+        navController.navigate(MenuFragmentDirections.toNewsFragment())
     }
 
     fun onArticlesBtnClick() {

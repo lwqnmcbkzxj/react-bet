@@ -146,4 +146,12 @@
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/textColor1</item>
     </style>
+
+    <style name="AddForecastLabelStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/textColor13</item>
+    </style>
 </resources>

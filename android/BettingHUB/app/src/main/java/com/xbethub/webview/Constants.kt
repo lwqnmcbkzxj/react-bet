@@ -12,6 +12,9 @@ class Constants(val context: Context) {
     val topMatchesCount = 5
     val topBookmakerCount = 10
     val forecastsPerPage = 10
+    val newsPerPage = 5
+    val minBetBankPer = 0.005f;
+    val maxBetBankPer = 0.05f;
 
     val serverTimePattern = "yyyy-MM-dd HH:mm:ss"
     val appTimePattern = "yyyy.MM.dd в HH:mm"

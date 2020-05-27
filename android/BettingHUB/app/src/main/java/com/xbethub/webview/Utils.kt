@@ -9,6 +9,7 @@ import android.text.Html
 import android.text.Spanned
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -46,6 +47,19 @@ class Utils {
         }
 
         @JvmStatic
+        fun getDrawable(context: Context, drawableResId: Int): Drawable {
+            val drawable: Drawable
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                drawable = context.getDrawable(drawableResId)!!
+            } else {
+                drawable = ContextCompat.getDrawable(context, drawableResId)!!
+            }
+
+            return drawable
+        }
+
+        @JvmStatic
         fun fromHtml(html: String): Spanned {
             return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                 Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
@@ -64,6 +78,22 @@ class Utils {
             return if (decimalPlaces <= 0) value else ceil(value * c.toDouble()).toFloat() / c
         }
 
+        @JvmStatic
+        fun clamp(`val`: Int, min: Int, max: Int): Int {
+            return Math.max(min, Math.min(max, `val`))
+        }
+
+        @JvmStatic
+        fun clamp(`val`: Float, min: Float, max: Float): Float {
+            return Math.max(min, Math.min(max, `val`))
+        }
+
+        @JvmStatic
+        fun clamp(`val`: Double, min: Double, max: Double): Double {
+            return Math.max(min, Math.min(max, `val`))
+        }
+
+        @JvmStatic
         fun getWLDString(context: Context, w: Int, l: Int, d: Int): Spanned {
             val wldHtml = context.getString(R.string.wldTemplate)
                 .replace("#W_VALUE", w.toString())

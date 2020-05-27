@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@android:color/white">
+
+        <include
+            android:id="@+id/topPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/element_top_panel"/>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="@dimen/sideMargin"
+                android:layout_marginEnd="@dimen/sideMargin">
+
+                <TextView
+                    style="@style/TittleStyle"
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal"
+                    android:text="@string/addForecast"
+                    android:paddingTop="25dp"
+                    android:paddingBottom="25dp"/>
+
+                <SearchView
+                    android:id="@+id/matchSearchField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:iconifiedByDefault="false"
+                    android:layoutDirection="rtl"
+                    android:queryHint="@string/matchSearchHint"
+                    android:queryBackground="@null"
+                    app:queryBackground="@null"
+                    android:background="@drawable/bg_cornered_frame_5dp"/>
+
+                <include
+                    android:id="@+id/bookmaker"
+                    layout="@layout/element_spinner"
+                    app:name="@{@string/bookmaker}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spinnerSpace"
+                    />
+
+                <include
+                    android:id="@+id/sport"
+                    layout="@layout/element_spinner"
+                    app:name="@{@string/kindOfSport}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spinnerSpace"
+                    />
+
+                <include
+                    android:id="@+id/championship"
+                    layout="@layout/element_spinner"
+                    app:name="@{@string/championship}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spinnerSpace"
+                    />
+
+                <include
+                    android:id="@+id/team"
+                    layout="@layout/element_spinner"
+                    app:name="@{@string/teams}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spinnerSpace"
+                    />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/dateAndTimeBlock"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/dateBlock"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="20dp"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/timeBlock"
+                        app:layout_constraintTop_toTopOf="parent"
+                        >
+
+                        <TextView
+                            style="@style/AddForecastLabelStyle"
+                            android:text="@string/eventDate"
+                            />
+
+                        <TextView
+                            android:id="@+id/date"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textSize="19sp"
+                            android:textColor="@color/textColor1"
+                            android:gravity="center_vertical"
+                            android:text="09.04.2020"
+                            android:background="@drawable/bg_cornered_frame_5dp"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:layout_marginTop="@dimen/labelSpace"
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/timeBlock"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toEndOf="@id/dateBlock"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            style="@style/AddForecastLabelStyle"
+                            android:text="@string/eventTime"
+                            />
+
+                        <TextView
+                            android:id="@+id/time"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textSize="19sp"
+                            android:textColor="@color/textColor1"
+                            android:gravity="center_vertical"
+                            android:text="14:00"
+                            android:background="@drawable/bg_cornered_frame_5dp"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:layout_marginTop="@dimen/labelSpace"
+                            />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/outcomeTableRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/item_outcome_table"/>
+
+                <LinearLayout
+                    android:id="@+id/multipleCoeffAndOutcomeBlock"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="30dp">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/outcomeRV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="15dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:textSize="17sp"
+                            android:text="@string/overallCoeff"
+                            />
+
+                        <TextView
+                            android:id="@+id/overallCoeff"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:textSize="17sp"
+                            android:text="4.23"
+                            />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/coeffAndOutcomeBlock"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="35dp">
+
+                    <LinearLayout
+                        android:id="@+id/coefficientBlock"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="20dp"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/outcomeBlock"
+                        app:layout_constraintTop_toTopOf="parent"
+                        >
+
+                        <TextView
+                            style="@style/AddForecastLabelStyle"
+                            android:text="@string/bookmakerCoeff"
+                            />
+
+                        <TextView
+                            android:id="@+id/coefficient"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textSize="19sp"
+                            android:textColor="@color/textColor1"
+                            android:gravity="center_vertical"
+                            android:text="0"
+                            android:background="@drawable/bg_cornered_frame_5dp"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:layout_marginTop="@dimen/labelSpace"
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/outcomeBlock"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toEndOf="@id/coefficientBlock"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            style="@style/AddForecastLabelStyle"
+                            android:text="@string/outcome"
+                            />
+
+                        <TextView
+                            android:id="@+id/outcome"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textSize="19sp"
+                            android:textColor="@color/textColor1"
+                            android:gravity="center_vertical"
+                            android:text="П1"
+                            android:background="@drawable/bg_cornered_frame_5dp"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:layout_marginTop="@dimen/labelSpace"
+                            />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/betBlock"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp">
+
+                    <LinearLayout
+                        android:id="@+id/betPerBlock"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="20dp"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/betRawBlock"
+                        app:layout_constraintTop_toTopOf="parent"
+                        >
+
+                        <TextView
+                            style="@style/AddForecastLabelStyle"
+                            android:text="@string/betPer"
+                            />
+
+                        <com.xbethub.webview.ui.views.EditTextWithSuffix
+                            android:id="@+id/betPer"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textSize="19sp"
+                            android:textColor="@color/textColor1"
+                            android:gravity="center_vertical"
+                            android:text="3"
+                            app:suffix="%"
+                            android:inputType="numberDecimal"
+                            android:background="@drawable/bg_cornered_frame_5dp"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:layout_marginTop="@dimen/labelSpace"
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/betRawBlock"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toEndOf="@id/betPerBlock"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            style="@style/AddForecastLabelStyle"
+                            android:text="@string/betRaw"
+                            />
+
+                        <EditText
+                            android:id="@+id/betRaw"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textSize="19sp"
+                            android:textColor="@color/textColor1"
+                            android:gravity="center_vertical"
+                            android:text="500"
+                            android:inputType="numberDecimal"
+                            android:background="@drawable/bg_cornered_frame_5dp"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:layout_marginTop="@dimen/labelSpace"
+                            />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="35dp"
+                    >
+
+                    <TextView
+                        style="@style/AddForecastLabelStyle"
+                        android:text="@string/forecastDescription"
+                        />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="130dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="14sp"
+                        android:textColor="@color/textColor1"
+                        android:textColorHint="@color/textColor13"
+                        android:inputType="text"
+                        android:hint="@string/forecastDescriptionHint"
+                        android:padding="8dp"
+                        android:gravity="top|start"
+                        android:layout_marginTop="@dimen/labelSpace"
+                        android:background="@drawable/bg_cornered_frame_5dp"
+                        />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/addForecastBtn"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="45dp"
+                    android:background="@drawable/bg_gradient_button"
+                    android:shadowColor="@android:color/transparent"
+                    android:text="@string/addForecast"
+                    android:textAllCaps="false"
+                    android:textSize="18sp"
+                    app:elevation="0dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@color/textColor6"/>
+
+                <include
+                    layout="@layout/item_footer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/forecastsFooterTopSpace"
+                    android:layout_marginBottom="@dimen/footerBottomMargin"
+                    app:layout_constraintTop_toBottomOf="@id/lastForecasts"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+</layout>
+

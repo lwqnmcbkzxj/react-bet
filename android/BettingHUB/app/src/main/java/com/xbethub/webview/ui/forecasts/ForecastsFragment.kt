@@ -71,6 +71,11 @@ class ForecastsFragment : Fragment(), ForecastListener {
         vm.onCreate()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        vm.onDestroy()
+    }
+
     private fun onPageLoading() {
         (binding.forecastRV.adapter as? ForecastItemAdapter)?.let { adapter ->
             binding.forecastRV.post {
