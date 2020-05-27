@@ -20,7 +20,8 @@ class NewsRouter: INewsRouter {
     var viewController: UIViewController!
     
     func showNewsPost(_ newsPost: NewsPost) {
-        
+        let vc = coordinator.newsPostScreen(for: newsPost)
+        viewController.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

@@ -182,4 +182,10 @@ class AppCoordinator {
         router.coordinator = self
         return vc
     }
+    
+    func newsPostScreen(for newsPost: NewsPost) -> UIViewController {
+        let vc = NewsPostViewController()
+        vc.configure(with: newsPost)
+        return vc
+    }
 }
