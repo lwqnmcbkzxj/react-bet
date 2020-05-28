@@ -150,7 +150,7 @@
 "settingsReplies" = "Ответы на комментарии";
 "exit" = "Выйти";
 
-"bookmakerFirm" = "БУКМЕКЕРСКАЯ КОНТОРА";
+"bookmakerFirm" = "Букмекерская контора";
 "site" = "САЙТ";
 "line" = "Линия";
 "reliability" = "Надежность";
@@ -166,3 +166,10 @@
 
 "articles" = "СТАТЬИ";
 "similarArticles" = "Похожите статьи";
+
+"addForecast" = "Добавить прогноз";
+"sportKind" = "Вид спорта";
+"championship" = "Чемпионат";
+"eventDate" = "Дата собития";
+"eventTime" = "Время события";
+"bookmakerShort" = "БК";

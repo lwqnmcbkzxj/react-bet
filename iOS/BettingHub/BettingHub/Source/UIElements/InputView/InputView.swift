@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class InputView: UIView {
+class InputView: UIControl {
     
     let label: UILabel = {
         let label = UILabel()

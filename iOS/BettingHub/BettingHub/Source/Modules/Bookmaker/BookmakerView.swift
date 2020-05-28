@@ -14,7 +14,7 @@ class BookmakerView: UITableViewHeaderFooterView {
         let view = UILabel()
         view.textColor = .titleBlack
         view.font = .robotoMedium(size: 20)
-        view.text = Text.bookmakerFirm
+        view.text = Text.bookmakerFirm.uppercased()
         view.textAlignment = .center
         view.numberOfLines = 2
         return view

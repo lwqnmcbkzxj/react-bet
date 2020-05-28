@@ -19,11 +19,11 @@ struct Bookmaker: Decodable {
     
     static func stub() -> Bookmaker {
         return .init(id: 0,
-                     title: "Fonbet",
+                     title: "1XСтавка",
                      content: "Content bookmaker. Content bookmaker. Content bookmaker. Content bookmaker. Content bookmaker. Content bookmaker. Content bookmaker. Content bookmaker. Content bookmaker. Content bookmaker. Content bookmaker. Content bookmaker. Content bookmaker. Content bookmaker. Content bookmaker. Content bookmaker.Content bookmaker. Content bookmaker. Content bookmaker. Content bookmaker.",
-                     rating: 9.3,
-                     bonus: 2000,
-                     link: "https://www.fonbet.ru",
-                     image: "/storage/bookmakers/fonbet.png")
+                     rating: 9.4,
+                     bonus: 4000,
+                     link: "https://1xstavka.ru",
+                     image: "/storage/bookmakers/1xstavka.png")
     }
 }

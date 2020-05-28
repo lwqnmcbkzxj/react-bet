@@ -11,8 +11,6 @@ import SkeletonView
 
 class NewsViewController: UIViewController {
     
-    var router: INewsRouter!
-    
     private let vm = NewsListViewModel()
     
     private let cellId = "newsCell"
@@ -138,10 +136,5 @@ extension NewsViewController: UITableViewDelegate {
         if isEnd {
             vm.currentPage(cellPage + 1)
         }
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = vm.item(for: indexPath.row)
-        router.showNewsPost(item)
     }
 }

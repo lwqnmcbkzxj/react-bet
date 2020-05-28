@@ -149,11 +149,6 @@ class AppCoordinator {
         return vc
     }
     
-    func addForecastScreen() -> UIViewController  {
-        let vc = AddForecastViewController()
-        return vc
-    }
-    
     func articlesListScreen() -> UIViewController {
         let vc = ArticlesListViewController()
         let router = ArticlesListRouter()
@@ -176,16 +171,12 @@ class AppCoordinator {
     
     func newsListScreen() -> UIViewController {
         let vc = NewsViewController()
-        let router = NewsRouter()
-        vc.router = router
-        router.viewController = vc
-        router.coordinator = self
         return vc
     }
     
-    func newsPostScreen(for newsPost: NewsPost) -> UIViewController {
-        let vc = NewsPostViewController()
-        vc.configure(with: newsPost)
+    func createForecastScreen() -> UIViewController {
+        let providerType = CreateForecastTableProvider.self
+        let vc = CreateForecastViewController(provider: providerType)
         return vc
     }
 }

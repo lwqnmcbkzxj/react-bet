@@ -128,5 +128,13 @@ class Text {
     static var comments: String { "comments".localized }
     static var articles: String { "articles".localized }
     static var similarArticles: String { "similarArticles".localized }
+    static var addForecast: String { "addForecast".localized }
+    static var sportKind: String { "sportKind".localized }
+    static var championship: String { "championship".localized }
+    static var eventDate: String { "eventDate".localized }
+    static var eventTime: String { "eventTime".localized }
+    static var bookmakerShort: String { "bookmakerShort".localized }
+    static var collapse: String { "collapse".localized }
+    static var expand: String { "expand".localized }
 }
 
