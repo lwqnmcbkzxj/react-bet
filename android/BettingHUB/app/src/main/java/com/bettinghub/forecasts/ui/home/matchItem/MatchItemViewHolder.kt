@@ -32,13 +32,16 @@ class MatchItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
             binding.root.background = null
             binding.borders.visibility = View.VISIBLE
         }
+
         if (match != null) {
             serverDateFormat.parse(match!!.eventStart)!!.let {
                 binding.date.text = dateFormat.format(it)
                 binding.time.text = timeFormat.format(it)
             }
+
             binding.teams.text = match!!.event
             binding.tournamentName.text = match!!.championship.championship
+
             match!!.forecastCount.let {
                 if (it > 0) {
                     binding.bets.setTextColor(ContextCompat.getColor(itemView.context, R.color.textColor2))
@@ -48,8 +51,14 @@ class MatchItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
                     binding.bets.text = it.toString()
                 }
             }
-                Glide.with(binding.sportIcon).load("http://betting-hub.sixhands.co${match!!.championship.sportImage}").into(binding.sportIcon)
 
+            Glide.with(binding.sportIcon).load("http://betting-hub.sixhands.co${match!!.championship.sportImage}").into(binding.sportIcon)
+
+            binding.loading.root.visibility = View.GONE
+            binding.main.visibility = View.VISIBLE
+        } else {
+            binding.main.visibility = View.GONE
+            binding.loading.root.visibility = View.VISIBLE
         }
     }
 

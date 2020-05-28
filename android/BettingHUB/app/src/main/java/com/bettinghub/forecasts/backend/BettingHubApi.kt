@@ -35,7 +35,7 @@ interface BettingHubApi {
     fun bookmaker(@Path("id") id: Int): Observable<Bookmaker>
 
     @GET("events")
-    fun matches(): Observable<List<Event>>
+    fun matches(@Query("limit") limit: Int, @Query("page") page: Int): Observable<List<Event>>
 
     @GET("events/{id}")
     fun match(@Path("id") id: Int): Observable<Event>

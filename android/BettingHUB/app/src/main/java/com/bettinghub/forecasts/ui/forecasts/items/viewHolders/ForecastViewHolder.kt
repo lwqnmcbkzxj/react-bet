@@ -89,7 +89,9 @@ class ForecastViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
             Utils.loadAvatar(binding.avatar, f.user.avatar)
 
             binding.loading.root.visibility = View.GONE
+            binding.main.visibility = View.VISIBLE
         } ?: run {
+            binding.main.visibility = View.GONE
             binding.loading.root.visibility = View.VISIBLE
         }
 

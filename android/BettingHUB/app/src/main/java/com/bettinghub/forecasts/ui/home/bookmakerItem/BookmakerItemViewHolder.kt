@@ -22,10 +22,17 @@ class BookmakerItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
             binding.root.background = null
             binding.borders.visibility = View.VISIBLE
         }
+
         bookmaker?.let {
             Glide.with(binding.bookmakerLogo).load("http://betting-hub.sixhands.co/" + it.image).into(binding.bookmakerLogo)
             binding.rating.text = it.rating.toString()
             binding.bonus.text = "${it.bonus} ₽"
+
+            binding.loading.root.visibility = View.GONE
+            binding.main.visibility = View.VISIBLE
+        } ?: run {
+            binding.main.visibility = View.GONE
+            binding.loading.root.visibility = View.VISIBLE
         }
     }
 

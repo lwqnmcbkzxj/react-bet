@@ -60,6 +60,12 @@ class MatchItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             } else {
                 Glide.with(binding.sportIcon).load("http://app.betthub.org${match!!.championship.sportImage}").into(binding.sportIcon)
             }
+
+            binding.loading.root.visibility = View.GONE
+            binding.main.visibility = View.VISIBLE
+        } ?: run {
+            binding.main.visibility = View.GONE
+            binding.loading.root.visibility = View.VISIBLE
         }
     }
 

@@ -3,6 +3,7 @@ package com.bettinghub.forecasts.ui.home
 import android.animation.ValueAnimator
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -163,9 +164,9 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
     }
 
     private fun onForecastersLoading() {
-        binding.topForecasters.forecasterRV.post {
+        //binding.topForecasters.forecasterRV.post {
             forecasterRVAdapter.clearAndAddAll(List(consts.topForecastersCount) {null})
-        }
+        //}
     }
 
     private fun onForecastersLoaded(forecasters: List<User>?) {
@@ -202,9 +203,9 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
     }
 
     private fun onForecastsLoading() {
-        binding.lastForecasts.forecastRV.post {
+        //binding.lastForecasts.forecastRV.post {
             forecastRVAdapter.addAll(List(consts.lastForecastsCount) { ForecastItem(null) })
-        }
+        //}
     }
 
     private fun onForecastsLoaded(forecasts: List<Forecast>?) {
@@ -223,13 +224,13 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
     }
 
     private fun onForecastsLoadingError(error: Throwable?) {
-
+        Log.d("", "");
     }
 
     private fun onMatchesLoading() {
-        binding.topMatches.matchesRV.post {
+        //binding.topMatches.matchesRV.post {
             matchRVAdapter.addAll(List(consts.topMatchesCount) { MatchItem(null, it == consts.topMatchesCount - 1) })
-        }
+        //}
     }
 
     private fun onMatchesLoaded(matches: List<Event>?) {
@@ -252,9 +253,9 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
     }
 
     private fun onBookmakersLoading() {
-        binding.topBookmakers.bookmakerRV.post {
+        //binding.topBookmakers.bookmakerRV.post {
             bookmakerRVAdapter.addAll(List(3) { BookmakerItem(null, it == 3 - 1) })
-        }
+        //}
     }
 
     private fun onBookmakersLoaded(bookmakers: List<Bookmaker>?) {
@@ -323,32 +324,10 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
         binding.topBookmakers.bookmakerRV.adapter = bookmakerRVAdapter
     }
 
-    private fun initTopMatches() {
-        val items = ArrayList<MatchTableItemBase>()
-
-        items.add(HeaderMatchTableItem())
-
-//        for (i in 0..4) {
-//            items.add(
-//                MatchItem(Event(), i == 4)
-//            )
-//        }
-
-        val adapter = MatchItemAdapter(this)
-
-        binding.topMatches.matchesRV.isNestedScrollingEnabled = false
-        binding.topMatches.matchesRV.adapter = adapter
-
-        adapter.addAll(items)
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         vm.onCreate()
-
-//        initTopBookmakers()
-//        initTopMatches()
     }
 
     private fun updateSearchFieldVisibility() {

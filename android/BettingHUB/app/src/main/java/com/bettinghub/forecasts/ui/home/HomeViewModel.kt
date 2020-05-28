@@ -46,7 +46,7 @@ class HomeViewModel: BaseViewModel() {
             matchesLiveData.value = Event.success(appData.lastMatches)
         } ?: run {
             requestWithLiveData(matchesLiveData
-                , { backendAPI.matches() }
+                , { backendAPI.matches(consts.topMatchesCount, 1) }
                 , {
                     appData.lastMatches = it
                     it

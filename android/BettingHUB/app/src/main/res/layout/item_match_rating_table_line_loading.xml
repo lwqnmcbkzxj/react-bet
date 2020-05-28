@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/column2Begin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="75dp"
+            />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/column3Begin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="80dp"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/column2Begin"
+            >
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="10sp"
+                android:textColor="@android:color/transparent"
+                android:textAllCaps="true"
+                android:text="Сегодня"
+                android:background="@color/loadingColor"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/time"
+                />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="14sp"
+                android:textColor="@android:color/transparent"
+                android:textAllCaps="true"
+                android:text="16:40"
+                android:background="@color/loadingColor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/date"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@id/column2Begin"
+            app:layout_constraintEnd_toEndOf="@id/column3Begin"
+            >
+
+            <ImageView
+                android:id="@+id/sportIcon"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@color/loadingColor"
+                android:layout_marginEnd="10dp"
+                android:layout_gravity="center_vertical"
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/teams"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="13sp"
+                    android:textColor="@android:color/transparent"
+                    android:text="Mousesports - Virtus.pro"
+                    android:background="@color/loadingColor"
+                    android:layout_marginBottom="2dp"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/tournamentName"
+                    />
+
+                <TextView
+                    android:id="@+id/tournamentName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="10sp"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:textColor="@android:color/transparent"
+                    android:background="@color/loadingColor"
+                    android:text="LPL Pro League Season 4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/teams"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/bets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:textSize="14sp"
+            android:textColor="@android:color/transparent"
+            android:text="+122"
+            android:background="@color/loadingColor"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/column3Begin"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/borders"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/leftBorder"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="#E5E2E2"
+                />
+
+            <View
+                android:id="@+id/rightBorder"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="#E5E2E2"
+                />
+
+            <View
+                android:id="@+id/bottomBorder"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="#E5E2E2"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -13,7 +13,7 @@ class TopMatchesViewModel: BaseViewModel() {
             matchesLiveData.value = Event.success(appData.lastMatches)
         } ?: kotlin.run {
             requestWithLiveData(matchesLiveData
-                , { backendAPI.matches() }
+                , { backendAPI.matches(consts.matchesPerPage, 1) }
                 , {
                     appData.lastMatches = it
                     it
