@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class News extends Model
 {
     protected $guarded = ['id'];
-    protected $appends = ['comments', 'rating', 'count_dislikes'];
+    protected $appends = ['comments', 'rating', 'count_comments'];
     protected $hidden = ['comments'];
     public function getCommentsAttribute()
     {

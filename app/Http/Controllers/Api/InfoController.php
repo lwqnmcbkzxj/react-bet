@@ -58,8 +58,7 @@ class InfoController extends Controller
         if (!$request->has('direction')) {
             $request['direction'] = 'desc';
         }
-        if ($request->has('order_by'))
-        {
+        if ($request->has('order_by')) {
             $res->orderBy($request['order_by'], $request['direction']);
         }
         return new FastForecastCollection($res->paginate($request['limit']));
@@ -67,7 +66,7 @@ class InfoController extends Controller
 
     public function forecast(Forecast $forecast)
     {
-        $res = DB::table('forecasts_view')->where('forecast_id','=',$forecast->id)->first();
+        $res = DB::table('forecasts_view')->where('forecast_id', '=', $forecast->id)->first();
         return $this->sendResponse(new FastForecast($res), 'Success', 200);
 
     }
@@ -88,6 +87,7 @@ class InfoController extends Controller
 
         return (new UserCollection($response->paginate($request['limit'])));
     }
+
     public function fastForecasters(Request $request)
     {
         $response = DB::table('users_view');
@@ -98,7 +98,7 @@ class InfoController extends Controller
             $request['direction'] = 'desc';
         }
         if ($request->has('order_by')) {
-            $response=$response->orderBy($request['order_by'], $request['direction']);
+            $response = $response->orderBy($request['order_by'], $request['direction']);
         }
 
         return (new FastUserCollection($response->paginate($request['limit'])));
@@ -185,10 +185,22 @@ class InfoController extends Controller
         return $this->sendResponse($user, 'Success', 200);;
     }
 
-    public function userForecasts(User $user)
+    public function userForecasts(Request $request, User $user)
     {
-        $forecasts = $user->forecasts()->leftJoin('events', 'forecasts.event_id', '=', 'events.id')->get();
-        return $this->sendResponse($forecasts, 'Success', 200);
+        $res = DB::table('forecasts_view')->where('user_id','=',$user->id);
+        if (!$request->has('limit') || $request['limit'] == 0) {
+            $request['limit'] = 6;
+        }
+        if ($request->has('sport_id') && $request['sport_id'] != 0) {
+            $res->where('sport_id', '=', $request['sport_id']);
+        }
+        if (!$request->has('direction')) {
+            $request['direction'] = 'desc';
+        }
+        if ($request->has('order_by')) {
+            $res->orderBy($request['order_by'], $request['direction']);
+        }
+        return new FastForecastCollection($res->paginate($request['limit']));
     }
 
     public function posts(Request $request)

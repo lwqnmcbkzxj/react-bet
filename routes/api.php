@@ -193,6 +193,7 @@ Route::get('/users/{user}/followed_forecasts', function (Request $request, \App\
     return new \App\Http\Resources\ForecastCollection($user->follow_forecasts()->paginate($request['limit']));
 });
 Route::get('/users/{user}/subscription', 'UserSubscriptionController@getSubscriptions');
+Route::get('/users/{user}/subscription/forecasts', 'UserSubscriptionController@getForecastSubscriptions');
 Route::get('/users/{user}/subscribers', 'UserSubscriptionController@getSubscribers');
 
 

@@ -59,11 +59,6 @@ class User extends Authenticatable
         return !is_null($this->forecasts()->find($id));
     }
 
-    public function getPureProfitAttribute()
-    {
-        return $this->pureProfit($this->id);
-    }
-
     public function getCountForecastsAttribute()
     {
         return $this->forecasts()->count();
