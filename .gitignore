@@ -89,5 +89,6 @@ fastlane/test_output
 
 iOSInjectionProject/
 .DS_Store
-vendor
+vendor/**
 bin
+public/storage/users/**
