@@ -110,7 +110,7 @@ WHERE `forecasts`.`user_id` = ? and ( `coefficients`.status = 3 or `coefficients
 
     public function follow_forecasts()
     {
-        return $this->hasManyThrough('App\Forecast', 'App\FollowForecast', 'follow_forecasts.user_id', 'id');
+        return $this->hasManyThrough('App\Forecast', 'App\FollowForecasts', 'follow_forecasts.user_id', 'id');
     }
 
     public function events()

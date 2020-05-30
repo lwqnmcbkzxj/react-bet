@@ -56,7 +56,7 @@ class Forecast extends Model
     }
     public function subscribers()
     {
-        return $this->hasManyThrough('App\User', 'App\FollowForecast', 'id', 'follow_forecasts.forecast_id');
+        return $this->hasManyThrough('App\User', 'App\FollowForecasts', 'id', 'follow_forecasts.forecast_id');
     }
 
     public function coefficient() {

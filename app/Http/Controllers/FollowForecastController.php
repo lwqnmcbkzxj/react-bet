@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\FollowForecast;
+use App\FollowForecasts;
 use App\Forecast;
 use App\Http\Resources\FastForecastCollection;
 use App\User;
@@ -15,9 +15,9 @@ class FollowForecastController extends Controller
     public function post(Request $request, Forecast $forecast)
     {
         $user = $request->user();
-        $follow_forecast = $user->follow_forecasts()->where('forecast_id', $request->forecast_id)->first();
+        $follow_forecast = FollowForecasts::query()->where('user_id','=',$user->id)->where('forecast_id','=',$forecast->id)->first();
         if (!$follow_forecast) {
-            $follow_forecast = new FollowForecast();
+            $follow_forecast = new FollowForecasts();
             $follow_forecast->forecast_id = $forecast->id;
             $follow_forecast->user_id = $user->id;
             $follow_forecast->save();
@@ -89,10 +89,11 @@ class FollowForecastController extends Controller
         return $this->sendResponse(new FastForecastCollection($res->paginate($request['limit'])), 'Success', 200);
     }
 
-    public function delete(Forecast $forecast)
+    public function delete(Request $request, Forecast $forecast)
     {
         try {
-            $forecast->delete();
+            $user = $request->user();
+            FollowForecasts::query()->where('forecast_id', '=', $forecast->id)->where('user_id', '=', $user->id)->first()->delete();
             return $this->sendResponse('', 'Success', 200);
         } catch (\Exception $e) {
             return $this->sendError('Deletion ERROR', 400, $e->getMessage());
