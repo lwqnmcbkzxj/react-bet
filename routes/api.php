@@ -30,6 +30,7 @@ Route::get('/bookmakers/{bookmaker}', function (\App\Bookmaker $bookmaker) {
 
 
 Route::get('/forecasts', 'Api\InfoController@forecastsFast');
+Route::middleware('auth:api')->get('/forecasts/marked', 'FollowForecastController@get');
 Route::get('/forecasts/{forecast}', 'Api\InfoController@forecast');
 Route::get('/forecasts/{forecast}/comments', function (Request $Request, \App\Forecast $forecast) {
     $Request['reference_to'] = 'forecasts';
@@ -173,25 +174,13 @@ Route::middleware('auth:api')->group(function () {
         $Request['referent_id'] = $forecast->id;
         return app()->call('App\Http\Controllers\CommentController@post', [$Request]);
     });
-    Route::post('/forecasts/{forecast}/follow', function (Request $Request, \App\Forecast $forecast) {
-        $Request['forecast_id'] = $forecast->id;
-        return app()->call('App\Http\Controllers\FollowForecastController@post', [$Request]);
-    });
-    Route::delete('/forecasts/{forecast}/follow', function (Request $Request, \App\Forecast $forecast) {
-        return app()->call('App\Http\Controllers\FollowForecastController@delete', [$forecast]);
-    });
-
+    Route::post('/forecasts/{forecast}/mark', 'FollowForecastController@post');
+    Route::delete('/forecasts/{forecast}/mark', 'FollowForecastController@delete');
 });
 Route::get('/users', 'Api\InfoController@fastForecasters');
 Route::get('/users/{user}', 'Api\InfoController@forecaster');
 Route::get('/users/{user}/stats', 'Api\InfoController@userStatistic');
 Route::get('/users/{user}/forecasts', 'Api\InfoController@userForecasts');
-Route::get('/users/{user}/followed_forecasts', function (Request $request, \App\User $user) {
-    if (!$request->has('limit')) {
-        $request['limit'] = 6;
-    }
-    return new \App\Http\Resources\ForecastCollection($user->follow_forecasts()->paginate($request['limit']));
-});
 Route::get('/users/{user}/subscription', 'UserSubscriptionController@getSubscriptions');
 Route::get('/users/{user}/subscription/forecasts', 'UserSubscriptionController@getForecastSubscriptions');
 Route::get('/users/{user}/subscribers', 'UserSubscriptionController@getSubscribers');

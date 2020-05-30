@@ -187,7 +187,7 @@ class InfoController extends Controller
 
     public function userForecasts(Request $request, User $user)
     {
-        $res = DB::table('forecasts_view')->where('user_id','=',$user->id);
+        $res = DB::table('forecasts_view')->where('user_id','=', $user->id);
         if (!$request->has('limit') || $request['limit'] == 0) {
             $request['limit'] = 6;
         }
