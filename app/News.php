@@ -7,8 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class News extends Model
 {
     protected $guarded = ['id'];
-    protected $appends = ['comments', 'rating', 'count_comments'];
+    protected $appends = ['comments', 'rating', 'count_comments','category_name'];
     protected $hidden = ['comments'];
+    public function getCategoryNameAttribute()
+    {
+        return 'Sport';
+    }
     public function getCommentsAttribute()
     {
         return $this->children = $this->comments()->get();

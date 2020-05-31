@@ -43,12 +43,12 @@ class BookmakerController extends Controller
 
     function edit(Request $request, Bookmaker $bookmaker)
     {
-        $bookmaker->title->$request['title'];
-        $bookmaker->content->$request['content'];
-        $bookmaker->rating->$request['rating'];
-        $bookmaker->bonus->$request['bonus'];
-        $bookmaker->logo->$request['logo'];
-        $bookmaker->link->$request['link'];
+        $bookmaker->title = $request['title'];
+        $bookmaker->content = $request['content'];
+        $bookmaker->rating = $request['rating'];
+        $bookmaker->bonus = $request['bonus'];
+        $bookmaker->logo = $request['logo'];
+        $bookmaker->link = $request['link'];
         $bookmaker->save();
         return $bookmaker;
     }

@@ -16,11 +16,13 @@ class UserSubscriptionController extends Controller
     {
         $auth_user = $request->user();
         if ($auth_user) {
-            $subscription = $user->subscribers()->find($auth_user)->first();
+            $subscription = $user->subscribers()->find($auth_user);
             if (!$subscription) {
                 $user->subscribers()->attach($auth_user);
+                return $this->sendResponse('Subscribed', 'Success', 200);
             } else {
-                $user->subscribers()->detach($subscription);
+                $user->subscribers()->detach($auth_user);
+                return $this->sendResponse('Unsubscribed', 'Success', 200);
             }
             $user->save();
         } else {
