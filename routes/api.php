@@ -78,7 +78,7 @@ Route::get('/news/{news}/comments', function (Request $Request, \App\News $news)
 
 //Доступ к профилям пользователей
 Route::middleware('auth:api')->group(function () {
-    Route::post('/avatar','UploadController@putAvatar');
+    Route::post('/avatar', 'UploadController@putAvatar');
     Route::get('/admin/posts', 'PostController@getAll');
     Route::get('/admin/posts/search', 'PostController@search');
     Route::get('/admin/posts/{post}', 'PostController@get');
@@ -97,7 +97,6 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/admin/bookmakers/{bookmaker}', 'BookmakerController@delete');
     Route::post('/admin/bookmakers', 'BookmakerController@post');
     Route::post('/admin/bookmakers/{bookmaker}', 'BookmakerController@edit');
-
     Route::post('/comments', 'CommentController@post');
     Route::delete('/comments/{comment}', 'CommentController@delete');
     Route::post('/votes', 'VoteController@post');
@@ -138,15 +137,15 @@ Route::middleware('auth:api')->group(function () {
         return app()->call('App\Http\Controllers\VoteController@post', [$Request]);
     });
     Route::post('/forecasts/{forecast}/like', function (Request $Request, \App\Forecast $forecast) {
-        $Request['type']               = 'like';
-        $Request['reference_to']       = 'forecasts';
-        $Request['referent_id']        = $forecast->id;
+        $Request['type'] = 'like';
+        $Request['reference_to'] = 'forecasts';
+        $Request['referent_id'] = $forecast->id;
         return app()->call('App\Http\Controllers\VoteController@post', [$Request]);
     });
     Route::post('/forecasts/{forecast}/dislike', function (Request $request, \App\Forecast $forecast) {
-        $request['type']               = 'dislike';
-        $request['reference_to']       = 'forecasts';
-        $request['referent_id']        = $forecast->id;
+        $request['type'] = 'dislike';
+        $request['reference_to'] = 'forecasts';
+        $request['referent_id'] = $forecast->id;
         return app()->call('App\Http\Controllers\VoteController@post', [$request]);
     });
     Route::post('/posts/{post}/like', function (Request $Request, \App\Post $post) {
@@ -173,9 +172,9 @@ Route::middleware('auth:api')->group(function () {
         $Request['referent_id'] = $forecast->id;
         return app()->call('App\Http\Controllers\CommentController@post', [$Request]);
     });
-    Route::post('/posts/{post}/comment', function (Request $Request, \App\Forecast $forecast) {
-        $Request['reference_to'] = 'forecasts';
-        $Request['referent_id'] = $forecast->id;
+    Route::post('/posts/{post}/comment', function (Request $Request, \App\Post $post) {
+        $Request['reference_to'] = 'posts';
+        $Request['referent_id'] = $post->id;
         return app()->call('App\Http\Controllers\CommentController@post', [$Request]);
     });
     Route::post('/forecasts/{forecast}/mark', 'FollowForecastController@post');
