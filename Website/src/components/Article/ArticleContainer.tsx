@@ -5,7 +5,7 @@ import { ArticleType } from '../../types/article'
 
 import Article from './Article'
 import { ArticlePlaceholder } from '../Common/Placeholders/ArticlesPlaceholder'
-import { getArticleFromServer } from '../../redux/articles-reducer'
+import { getArticleFromServer, getArticleComments } from '../../redux/articles-reducer'
 import { withRouter, RouteComponentProps } from 'react-router'
 interface MatchParams {
     articleId: string;
@@ -23,16 +23,22 @@ const ArticleContainer: FC<ArticleProps> = ({ ...props }) => {
 	let articleId = props.match.params.articleId ? props.match.params.articleId : 1;
 
 	useEffect(() => {
-		dispatch(getArticleFromServer(+articleId))		
+		(async function asyncFunction() {
+			await dispatch(getArticleFromServer(+articleId))	
+			dispatch(getArticleComments(+articleId))
+		})()
 	}, []);
 
 
-
+	debugger
 	if (isFetching) {
 		return <ArticlePlaceholder />
 	}
 	return ( 
-		<Article article={article}/>
+		<Article
+			article={article}
+			refreshComments={() => { dispatch(getArticleComments(+articleId)) }}
+		/>
 	)
 }
 

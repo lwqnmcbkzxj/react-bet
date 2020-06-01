@@ -48,6 +48,7 @@ import { withSuspense } from './hoc/withSuspense';
 import { initApp } from './redux/app-reducer'
 import { authUser } from './redux/me-reducer'
 import useMobile from './hooks/useMobile'
+import { UserType } from './types/me'
 
 const ForecastsContainer = React.lazy(() => import('./components/Forecasts/ForecastsContainer'))
 const ForecastContainer = React.lazy(() => import('./components/Forecast/ForecastContainer'))
@@ -58,6 +59,7 @@ const App = (props: any) => {
 	const isMobile = useMobile(768)
 	const dispatch = useDispatch()
 
+	const loggedUser = useSelector<AppStateType, UserType>(state => state.me.userInfo)
 	useEffect(() => {
 		dispatch(initApp())
 		dispatch(authUser())
@@ -65,7 +67,9 @@ const App = (props: any) => {
 
 	return (
 		<Switch>
-			<Route path="/admin" render={() => <Admin />} />
+			{ loggedUser.role_id >  2 && 
+				<Route path="/admin" render={() => <Admin />} />
+			}
 
 			<Route component={() =>
 				<div className="app-wrapper">

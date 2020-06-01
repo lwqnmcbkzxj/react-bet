@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import s from './Admin.module.scss'
+import s from './Articles.module.scss'
 import { Switch, Route } from 'react-router'
 import Breadcrumbs from '../../Common/Breadcrumbs/Breadcrumbs'
 import AdminTablePage from '../Common/AdminTablePage/AdminTablePage'
@@ -24,23 +24,26 @@ type ArticlesProps = {
 
 const Articles: FC<ArticlesProps> = ({ handleSearch, deleteFunction, pages, data, ...props }) => {
 	return (
-		<AdminTablePage
-			pageLink={'articles'}
-			breadcrumbs={[
-				{ text: 'Главная', link: '/admin' },
-				{ text: 'Статьи', link: '/admin/articles' },
-			]}
-			actions={{
-				search: {
-					placeholder: 'Поиск по названию и содержанию',
-					handleSearch: handleSearch
-				},
-				addNewElementText: 'Добавить новую статью',
-				deleteFunction: deleteFunction,
-				pages: pages
-			}}
-			tableData={data}
-		/>
+		<div className={s.articlesAdminPage}>
+			<AdminTablePage
+				pageLink={'articles'}
+				breadcrumbs={[
+					{ text: 'Главная', link: '/admin' },
+					{ text: 'Статьи', link: '/admin/articles' },
+				]}
+				actions={{
+					search: {
+						placeholder: 'Поиск по названию и содержанию',
+						handleSearch: handleSearch
+					},
+					addNewElementText: 'Добавить новую статью',
+					deleteFunction: deleteFunction,
+					pages: pages
+				}}
+				tableData={data}
+			/>
+
+		</div>
 	)
 }
 

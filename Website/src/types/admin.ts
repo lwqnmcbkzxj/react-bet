@@ -1,10 +1,11 @@
 export type ArticleType = {
 	id?: number
 	title?: string
-	category_name?: string
 	content?: string
+	category_name?: string
 	image?: string
 	created_by?: number
+	created_by_login?: string
 	modified_by?: number
 	is_published?: boolean
 	created_at?: string

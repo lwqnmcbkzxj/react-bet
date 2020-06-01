@@ -87,7 +87,7 @@ export const getArticleFromServer = (id: number): ThunksType => async (dispatch)
 	let response = await postsAPI.getAdminPost(id)	
 	// dispatch(toggleIsFetching(false))
 
-	dispatch(setArticle(response[0]))
+	dispatch(setArticle(response))
 }
 
 

@@ -46,7 +46,7 @@ const ArticlesContainer: FC = ({ ...props }) => {
 
 	let dataArray = [] as any
 	articles.map(dataObj => dataArray.push([
-		dataObj.id, dataObj.title, dataObj.content, dataObj.is_published ? 'Да' : 'Нет', formatDate(dataObj.created_at)
+		dataObj.id, dataObj.title, dataObj.category_name, dataObj.content, dataObj.is_published ? 'Да' : 'Нет', formatDate(dataObj.created_at), dataObj.created_by_login
 	]))
 
 
@@ -62,7 +62,7 @@ const ArticlesContainer: FC = ({ ...props }) => {
 				handleChangePagesPerPage: handleChangePagesPerPage,
 			}}
 			data={{
-				labels: ['ID', 'Название', 'Содержание', 'Опубликована', 'Дата создания'],
+				labels: ['ID', 'Название', 'Категория', 'Содержание', 'Опубликована', 'Дата создания', 'Создан'],
 				data: articles,
 				dataArray: dataArray
 			}}

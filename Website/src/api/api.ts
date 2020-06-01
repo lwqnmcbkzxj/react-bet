@@ -1,8 +1,10 @@
 import Axios from 'axios';
 import qs from 'query-string'
 
+export const apiURL = "https://app.betthub.org/"
+
 const instance = Axios.create({
-	baseURL: "https://app.betthub.org/api/",
+	baseURL: 'https://app.betthub.org/api/',
 	headers: {
 
 	}
@@ -31,7 +33,7 @@ export const userAPI = {
 			.then((response) => {
 				return response.data
 			})
-			.catch((err) => { console.log(err) })
+			.catch((err) => { return err })
 
 	},
 
@@ -39,8 +41,8 @@ export const userAPI = {
 		return instance.post(`register`, { username, email, password })
 			.then((response) => {
 				return response.data
-			}
-			);
+			})
+			.catch((err) => { return err })
 	},
 	changeEmail(email: string) {
 		console.log('Changing email: ' + email)

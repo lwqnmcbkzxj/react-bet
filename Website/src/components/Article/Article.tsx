@@ -8,11 +8,14 @@ import ElementStats from '../Common/ElementStats/ElementStats';
 import GoBackBlock from '../Common/GoBackBlock/GoBackBlock'
 import articleImg from '../../assets/img/article-img.png'
 import CommentsBlock from '../Common/CommentsBlock/CommentsBlock';
+import { formatDate } from '../../utils/formatDate';
 type ArticlePropsType = {
 	article: ArticleType
+	
+	refreshComments: () => void
 }
 
-const Article: FC<ArticlePropsType> = ({ article, ...props }) => {
+const Article: FC<ArticlePropsType> = ({ article, refreshComments, ...props }) => {
 	return (
 		<div className={s.articlePage}>
 			<GoBackBlock
@@ -20,58 +23,44 @@ const Article: FC<ArticlePropsType> = ({ article, ...props }) => {
 				linkText={'Статьи'}
 			/>
 			
-			
-			
 			<Breadcrumbs pathParams={[
 				{ text: 'Главная', link: "" },
 				{ text: 'Статьи', link: "/articles" },
-				{ text: 'Рекомендации от опытного игрока', link: "/articles/1" }]} />
+				{ text: article.title, link: `/articles/${article.id}` }]} />
 			
 			<div className={s.article}>
 				<div className={s.articleHeader}>
 					<div className={s.rightBlock}>
-						<div className={s.categoryName}>Название категории</div>
-						<div className={s.nickname}>Никнейм</div>
-					</div>
-					<div className={s.date}>вчера в 16:58</div>
-				</div>
-				<div className={s.articleTitle}>Рекомендации от опытного игрока</div>
-				{article.image && <img src={article.image} alt="article-img" />}
-				<div className={s.articleText}>
-					<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-					sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
-					aliquyam erat, sed diam voluptua. At vero eos et accusam et justo
-					duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-					sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-					consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
-					ut labore et dolore magna aliquyam erat, sed diam voluptua.
-						At vero eos et accusam.</p>
-					<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-					eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-					At vero eos et accusam et justo duo dolores et ea rebum.
-							Stet clita kasd gubergren, no sea.</p>
-					<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-					tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-					At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-						no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-				</div>
+						<div className={s.categoryName}>{article.category_name}</div>
+						<div className={s.nickname}>{article.created_by_login}</div>
 
-				{/* <ElementStats
-					comments={article.commentsCount}
-					favourites={article.favourites}
-					likes={article.likes}
-					id={article.id}
-					elementType='article' /> */}
+						
+					</div>
+					<div className={s.date}>{formatDate(article.created_at)}</div>
+				</div>
+				<div className={s.articleTitle}>{article.title}</div>
+				{article.image && <img src={article.image} alt="article-img" />}
+				<div className={s.articleText}>{article.content}</div>
+
 				<ElementStats
-					comments={3}
-					favourites={54}
-					likes={23}
-					id={1}
+					comments={article.count_comments}
+					favourites={0}
+					likes={article.rating}
+
+					showComments={false}
+					showFavourites={false}
+
+					id={article.id}
 					elementType='article' />
 			</div>
 			<CommentsBlock
-				// comments={article.comments}
+				comments={article.comments as any}
+				elementId={article.id}
+				type="posts"
+
+				refreshComments={refreshComments}
 			/>
+			
 		</div>
 	)
 }

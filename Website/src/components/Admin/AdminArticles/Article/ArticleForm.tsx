@@ -39,16 +39,17 @@ const ArticleForm: FC<FormValuesType & InjectedFormProps<{}, FormValuesType>> = 
 			<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
 				{createField("is_published", Input, "Опубликована", { type: 'checkbox' })}
 
-				{createField("image", File, "", { formName: 'article-form' })}
+				{/* {createField("image", File, "", { formName: 'article-form' })} */}
 			</div>
 			<div className={s.btnHolder}><ActionButton value={props.buttonText} /></div>
 		</form>
 	);
 }
-const ReduxArticleForm = reduxForm<{}, FormValuesType>({ form: 'article-form' })(ArticleForm)
+const ReduxArticleForm = reduxForm<{}, FormValuesType>({ form: 'article-form', enableReinitialize: true  })(ArticleForm)
 
 
 const ArticleFormBlock: FC<FormType> = ({ initialValues, onSubmitFunc, breadcrumbs = [], buttonText = "", ...props }) => {
+	console.log(initialValues)
 	const dispatch = useDispatch()
 	const handleSave = (formData: ArticleType) => {
 		onSubmitFunc(formData)

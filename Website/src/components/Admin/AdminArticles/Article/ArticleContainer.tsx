@@ -20,13 +20,13 @@ const ArticleContainer: FC<ArticleProps> = ({ ...props }) => {
 	let articleId = props.match.params.articleId;
 
 
-	const addArticleDispatch = (formData: ArticleType) => {
-		dispatch(addArticle(formData))
+	const addArticleDispatch = async (formData: ArticleType) => {
+		await dispatch(addArticle(formData))
 
 		props.history.push('/admin/articles');
 	}
-	const editArticleDispatch = (formData: ArticleType) => {
-		dispatch(editArticle(+articleId, formData))
+	const editArticleDispatch = async (formData: ArticleType) => {
+		await dispatch(editArticle(+articleId, formData))
 
 		props.history.push('/admin/articles');
 	}
@@ -39,7 +39,7 @@ const ArticleContainer: FC<ArticleProps> = ({ ...props }) => {
 	if (articleId) {
 		initialValues = article
 		onSubmitFunc = editArticleDispatch
-		breadcrumbsObj = { text: 'Изменение статьи', link: `/admin/articles/edit/${articleId}` }
+		breadcrumbsObj = { text: 'Изменение статьи', link: `/admin/articles/${articleId}/edit` }
 		buttonText = "Изменить статью"
 	} else {
 		onSubmitFunc = addArticleDispatch
@@ -60,7 +60,7 @@ const ArticleContainer: FC<ArticleProps> = ({ ...props }) => {
 			dispatch(getArticleFromServer(+articleId))
 		}
 	}, []);
-
+	
 	
 	return (
 		<ArticleForm
