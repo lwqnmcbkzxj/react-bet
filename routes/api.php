@@ -135,9 +135,9 @@ Route::middleware('auth:api')->group(function () {
         return app()->call('App\Http\Controllers\VoteController@post', [$Request]);
     });
     Route::post('/forecasts/{forecast}/like', function (Request $Request, \App\Forecast $forecast) {
-        $request['type']               = 'like';
-        $request['reference_to']       = 'forecasts';
-        $request['referent_id']        = $forecast->id;
+        $Request['type']               = 'like';
+        $Request['reference_to']       = 'forecasts';
+        $Request['referent_id']        = $forecast->id;
         return app()->call('App\Http\Controllers\VoteController@post', [$Request]);
     });
     Route::post('/forecasts/{forecast}/dislike', function (Request $request, \App\Forecast $forecast) {

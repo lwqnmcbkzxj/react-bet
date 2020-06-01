@@ -15,6 +15,7 @@ class EventForecast extends JsonResource
      */
     public function toArray($request)
     {
+        $forecast_id = $this->forecast_id;
         return [
             'id' => $this->id,
             'user_data' => ['id' => $this->user_data->id,
@@ -37,12 +38,12 @@ class EventForecast extends JsonResource
                 'count_comments' => $this->comments->count(),
                 'rating' => $this->rating
             ],
-            'is_subscribed' => $this->when(Auth::check(), function () {
-                return Auth::user()->hasSubscription($this->id);
+            'is_marked' => $this->when($request->user, function () use ($request, $forecast_id){
+                return ( $request->user->follow_forecasts()->where('forecast_id',$forecast_id)->first()? true : false);
             }),
-            'vote' => $this->when(Auth::check(), function () {
-                return Auth::user()->votes()->find($this->id);
-            })
-        ];
+            'vote' => $this->when($request->user, function () use ($request, $forecast_id){
+                $vote = $request->user->votes()->where('reference_to', 'forecasts')->where('referent_id',$forecast_id)->first();
+                return $vote ? $vote->type : null;
+            })];
     }
 }

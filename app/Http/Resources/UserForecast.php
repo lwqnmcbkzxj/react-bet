@@ -16,6 +16,7 @@ class UserForecast extends JsonResource
      */
     public function toArray($request)
     {
+        $forecast_id = $this->forecast_id;
         $split_team = preg_split("* - *", $this->title);
         return [
             'id' => $this->forecast_id,
@@ -38,6 +39,7 @@ class UserForecast extends JsonResource
             'bet_data' => [
                 'bet' => $this->bet,
                 'coefficient' => $this->coefficient,
+                'status' => $this->coefficients_status,
                 'type' => $this->type,
                 'pure_profit' => ($this->coefficient - 1)
             ],
@@ -46,11 +48,11 @@ class UserForecast extends JsonResource
                 'count_comments' => $this->comments_count,
                 'rating' => intval($this->rating)
             ],
-            'is_subscribed' => $this->when(Auth::check(), function () {
-                return Auth::user()->hasSubscription($this->forecast_id);
+            'is_marked' => $this->when($request->has('user'), function () use ($request, $forecast_id){
+                return ( $request->user()->follow_forecasts()->find(forecast_id)? true : false);
             }),
-            'vote' => $this->when(Auth::check(), function () {
-                return Auth::user()->votes()->find($this->forecast_id);
+            'vote' => $this->when($request->has('user'), function () use ($request, $forecast_id){
+                return $request->user()->votes()->find(forecast_id);
             })];
     }
 }
