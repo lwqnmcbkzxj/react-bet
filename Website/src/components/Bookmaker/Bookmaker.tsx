@@ -11,6 +11,8 @@ import { faRubleSign, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons
 import CommentsBlock from '../Common/CommentsBlock/CommentsBlock';
 import GoBackBlock from '../Common/GoBackBlock/GoBackBlock';
 
+import { apiURL } from '../../api/api'
+
 type BookmakerPropsType = {
 	bookmaker: BookmakerType
 }
@@ -55,8 +57,8 @@ const Bookmaker: FC<BookmakerPropsType> = ({ bookmaker, ...props }) => {
 			<div className={s.bookmakerInfo}>
 				<div className={s.bookmakerHeader}>
 					<div className={s.bookmakerDetails}>
-						<img src={bookmaker.image ? "http://betting-hub.sixhands.co/" + bookmaker.image : contentImg} alt="bookmaker-img" />
-						<a href={bookmaker.link} className={s.siteLink}>
+						<img src={bookmaker.image ? apiURL + bookmaker.image : contentImg} alt="bookmaker-img" />
+						<a href={bookmaker.link} className={s.siteLink} target="_blank">
 							{/* <FontAwesomeIcon icon={checkedIcon} className={checkedClass} /> */}
 							<p><span>Перейти на</span> сайт</p>
 						</a>
@@ -120,7 +122,7 @@ const Bookmaker: FC<BookmakerPropsType> = ({ bookmaker, ...props }) => {
 			<div className={s.bookmakerText}>
 				<p>{bookmaker.content}</p>
 			</div>
-			<CommentsBlock comments={[]} />
+			{/* <CommentsBlock comments={[]} /> */}
 		</div >
 	)
 }

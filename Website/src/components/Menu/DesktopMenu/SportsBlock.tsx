@@ -4,6 +4,8 @@ import { NavLink } from 'react-router-dom';
 import { SportType } from '../../../types/types'
 import { sportTypeFilterEnum, FilterNames } from '../../../types/filters'
 
+import { apiURL } from '../../../api/api'
+
 type SportsBlockPropsType = {
 	toggleFilter: (filterName: FilterNames, filtersBlockName: string) => void
 	sports: Array<SportType>
@@ -22,7 +24,7 @@ const SportsBlock: FC<SportsBlockPropsType> = ({toggleFilter, sports, ...props }
 		sportLinks.push(
 			<NavLink key={counter} to="/forecasts" className={s.sportLink}>
 				<button onClick={() => { toggleFilter(sport.name, 'sportTypeFilter') }}>
-				<img src={ "http://betting-hub.sixhands.co/" + sport.image} alt="teamImg" />
+				<img src={ apiURL + sport.image} alt="teamImg" />
 					{sport.visibleText}
 				</button>
 			</NavLink>)

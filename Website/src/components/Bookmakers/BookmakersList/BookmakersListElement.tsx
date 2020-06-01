@@ -9,6 +9,8 @@ import contentImg from '../../../assets/img/content-img-holder.png'
 
 import { BookmakersListElementPlaceholder } from '../../Common/Placeholders/BookmakersPlaceholder'
 
+import { apiURL } from '../../../api/api'
+
 type BookmakersListElementPropsType = {
 	bookmaker: BookmakerType
 	position: number
@@ -45,37 +47,36 @@ const BookmakersListElement: FC<BookmakersListElementPropsType> = ({ bookmaker, 
 
 
 	return (
-		bookmaker.id ? 
-		<div className={s.bookmaker}>
-			<div className={s.position}>{position}</div>
-			<Link to={`bookmakers/${bookmaker.id}`} className={s.company}>
-				<img src={ bookmaker.image ? "http://betting-hub.sixhands.co/" + bookmaker.image : contentImg } alt="bookmaker-img" />
-			</Link>
-			<div className={s.isChecked}>
-				{/* <FontAwesomeIcon icon={checkedIcon} className={checkedClass}/> */}
-			</div>
-			<div className={s.rating}>
-				<span className={classNames(s.ratingNumber, getBookmakerRatingClassName(bookmaker.rating))}>
-					{bookmaker.rating.toFixed(2)}
-				</span>
-				<span className={s.maxRating}>/10</span>
-			</div>
-			<div className={s.bonus}>
-				{bookmaker.bonus.toLocaleString()}
-				<span><FontAwesomeIcon icon={faRubleSign} /></span>
-			</div>
-			<div className={s.review}>
-				<Link to={`/bookmakers/${bookmaker.id}`}>Обзор</Link>
-			</div>
-			<div className={s.link}>
-				<button>
-					<a href={bookmaker.link} className={s.desktopLink}>Сайт</a>
-					<a href={bookmaker.link} className={s.mobileLink}><FontAwesomeIcon icon={faExternalLinkAlt} /></a>
-				</button>
-				
-			</div>
+		bookmaker.id ?
+			<div className={s.bookmaker}>
+				<div className={s.position}>{position}</div>
+				<Link to={`bookmakers/${bookmaker.id}`} className={s.company}>
+					<img src={bookmaker.image ? apiURL + bookmaker.image : contentImg} alt="bookmaker-img" />
+				</Link>
+				<div className={s.isChecked}>
+					{/* <FontAwesomeIcon icon={checkedIcon} className={checkedClass}/> */}
+				</div>
+				<div className={s.rating}>
+					<span className={classNames(s.ratingNumber, getBookmakerRatingClassName(bookmaker.rating))}>
+						{bookmaker.rating.toFixed(2)}
+					</span>
+					<span className={s.maxRating}>/10</span>
+				</div>
+				<div className={s.bonus}>
+					{bookmaker.bonus.toLocaleString()}
+					<span><FontAwesomeIcon icon={faRubleSign} /></span>
+				</div>
+				<div className={s.review}>
+					<Link to={`/bookmakers/${bookmaker.id}`}>Обзор</Link>
+				</div>
+				<div className={s.link}>
+					<button>
+						<a href={bookmaker.link} target="_blank" className={s.desktopLink}>Сайт</a>
+						<a href={bookmaker.link} target="_blank" className={s.mobileLink}><FontAwesomeIcon icon={faExternalLinkAlt} /></a>
+					</button>
+				</div>
 			</div>
 			: <></>
-	) 
+	)
 }
 export default BookmakersListElement;

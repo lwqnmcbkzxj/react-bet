@@ -20,7 +20,7 @@ const MenuFooter: FC<MenuFooterPropsType> = ({ ...props }) => {
 			
 			<LanguageSelector />
 
-			<Link className={classNames(s.menuFooterLink, s.feedback)} to="/feedback">Обратная связь</Link>
+			{/* <Link className={classNames(s.menuFooterLink, s.feedback)} to="/feedback">Обратная связь</Link> */}
 			<Link className={s.menuFooterLink} to="/policy" >Политика конфиденциальности</Link>
 			<div className={s.download}>
 				<a href="#"><img src={androidDownload} alt="android-download"/></a>

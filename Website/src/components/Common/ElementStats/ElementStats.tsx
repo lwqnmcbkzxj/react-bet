@@ -2,13 +2,13 @@ import React, { FC, useState, useEffect } from 'react';
 import s from './ElementStats.module.scss';
 import classNames from 'classnames'
 import { useDispatch, useSelector } from "react-redux"
-import {AppStateType } from '../../../types/types'
+import { AppStateType } from '../../../types/types'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faChevronUp, faBookmark as faBookmarkFill } from '@fortawesome/free-solid-svg-icons'
 import { faCommentAlt, faBookmark, } from '@fortawesome/free-regular-svg-icons'
 import { rateForecast, favouriteForecast } from '../../../redux/forecasts-reducer'
-import { toggleAuthFormVisiblility } from '../../../redux/app-reducer' 
+import { toggleAuthFormVisiblility } from '../../../redux/app-reducer'
 import LikesBlock from './LikesBlock';
 
 
@@ -16,13 +16,22 @@ type ElementStatsPropsType = {
 	comments: number
 	likes: number
 	favourites: number
+
+	showLikes?: boolean
+	showFavourites?: boolean
+	showComments?: boolean
+
 	id: number
 	elementType: string
 }
-const ElementStats: FC<ElementStatsPropsType> = ({ comments, likes, favourites, id, elementType, ...props }) => {
+const ElementStats: FC<ElementStatsPropsType> = ({
+	comments, likes, favourites,
+	showLikes = true, showFavourites = true, showComments = true,
+	id, elementType, ...props }) => {
+
 	const logged = useSelector<AppStateType, boolean>(state => state.me.logged)
 	const dispatch = useDispatch()
-	
+
 	const favouriteDispatch = (id: number) => {
 		if (elementType === 'forecast')
 			dispatch(favouriteForecast(id))
@@ -39,7 +48,7 @@ const ElementStats: FC<ElementStatsPropsType> = ({ comments, likes, favourites, 
 		}
 		if (isFavourite)
 			setFavouriteCount(favouriteCount - 1)
-		else 
+		else
 			setFavouriteCount(favouriteCount + 1)
 
 		setFavourite(!isFavourite)
@@ -52,24 +61,24 @@ const ElementStats: FC<ElementStatsPropsType> = ({ comments, likes, favourites, 
 
 	let favouritesButton
 	if (isFavourite) {
-		favouritesButton = <button className={s.active} onClick={()=>{toggleFavourite(id)}}><FontAwesomeIcon icon={faBookmarkFill} /></button>
+		favouritesButton = <button className={s.active} onClick={() => { toggleFavourite(id) }}><FontAwesomeIcon icon={faBookmarkFill} /></button>
 	} else {
-		favouritesButton = <button onClick={()=>{toggleFavourite(id)}}><FontAwesomeIcon icon={faBookmark} /></button>
+		favouritesButton = <button onClick={() => { toggleFavourite(id) }}><FontAwesomeIcon icon={faBookmark} /></button>
 	}
 
 	return (
 		<div className={s.elementStats}>
-			{/* <div className={s.leftBlock}>
-				<div className={s.comments}>
+			<div className={s.leftBlock}>
+				{showComments && <div className={s.comments}>
 					<FontAwesomeIcon icon={faCommentAlt} />
 					<span className={comments === 0 ? s.hidden : ""}>{comments}</span>
-				</div>
-				<div className={s.favourites}>
+				</div>}
+				{showFavourites && <div className={s.favourites}>
 					{favouritesButton}
 					<span className={favouriteCount === 0 ? s.hidden : ""}>{favouriteCount}</span>
-				</div>
-			</div> */}
-			<LikesBlock id={id} likes={likes} elementType={elementType}/>
+				</div>}
+			</div>
+			{showLikes && <LikesBlock id={id} likes={likes} elementType={elementType} />}
 		</div>
 	)
 }

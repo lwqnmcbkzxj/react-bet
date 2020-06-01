@@ -5,11 +5,12 @@ import classNames from 'classnames'
 import { UserType } from '../../../types/users'
 import { AppStateType } from '../../../types/types'
 import { MainPageUsersPlaceholder } from '../../Common/Placeholders/UsersPlaceholder'
-
+import { Link } from 'react-router-dom'
 import statsImg from '../../../assets/img/Icon ionic-md-stats.png'
 import userImgPlaceholder from '../../../assets/img/user-no-image.png'
 import Swiper from 'react-id-swiper';
 import 'swiper/css/swiper.css';
+import { apiURL } from '../../../api/api';
 
 type UsersListPropsType = {
 	users: Array<UserType>
@@ -17,7 +18,6 @@ type UsersListPropsType = {
 }
 const UsersList: FC<UsersListPropsType> = ({ users, limit = 0, ...props }) => {
 	const isFetching = useSelector<AppStateType, boolean>(state => state.users.isFetching)
-	let serverUrl = 'http://xbethub.com/'
 
 	const params = {
 		scrollbar: {
@@ -64,13 +64,15 @@ const UsersList: FC<UsersListPropsType> = ({ users, limit = 0, ...props }) => {
 			elements.push(
 				isFetching ? <div className={s.user}><MainPageUsersPlaceholder /></div>
 					:
-					<div className={s.user}>
-						<img className={s.userImg} src={user.avatar ? serverUrl + user.avatar : userImgPlaceholder} alt="user-img" />
+					<div>
+						<Link to={`/forecasters/${user.id}`}  className={s.user}>
+						<img className={s.userImg} src={user.avatar ? apiURL + user.avatar : userImgPlaceholder} alt="user-img" />
 						<div className={s.nickName}>{user.login}</div>
 						<div className={s.stats}>
 							<img src={statsImg} alt="stats-img" />
 							<p className={classNames(s.profit, s.positive)}>{user.stats && (+user.stats.roi).toFixed(2)}</p>
 						</div>
+					</Link>
 					</div>)
 		}
 	})

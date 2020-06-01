@@ -114,10 +114,10 @@ const MobileMenu: FC<MobileMenuPropsType> = ({ loggedUser, ...props }) => {
 						<img src={newspaper} alt="articles" />
 						<p>Статьи</p>
 					</NavLink>
-					<NavLink to="/feedback" onClick={toggleMenuBlocks} className={s.menuBlock}>
+					{/* <NavLink to="/feedback" onClick={toggleMenuBlocks} className={s.menuBlock}>
 						<img src={newspaper} alt="feedback" />
 						<p>Обратная связь</p>
-					</NavLink>
+					</NavLink> */}
 					<NavLink to="/policy" onClick={toggleMenuBlocks} className={s.menuBlock}>
 						<img src={newspaper} alt="policy" />
 						{ is480 ? <p>Политика конф.</p> : <p>Политика конфиденциальности</p> }

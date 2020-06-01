@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons'
 import { UsersPlaceholder } from '../Common/Placeholders/UsersPlaceholder'
 import userImgPlaceholder from '../../assets/img/user-no-image.png'
+import { apiURL } from '../../api/api';
 
 type UsersListPropsType = {
 	users: Array<UserType>
@@ -17,8 +18,6 @@ type UsersListPropsType = {
 }
 const UsersList: FC<UsersListPropsType> = ({ users, limit = 0, ...props }) => {
 	const isFetching = useSelector<AppStateType, boolean>(state => state.users.isFetching)
-	let serverUrl = 'http://xbethub.com/'
-
 	return (
 		<div className={s.userList}>
 			<div className={s.listHeader}>
@@ -44,7 +43,7 @@ const UsersList: FC<UsersListPropsType> = ({ users, limit = 0, ...props }) => {
 							<span>{counter + 1}</span>
 						</div>
 						<NavLink to={`/forecasters/${user.id}`} className={s.nickName}>
-							<img src={user.avatar ? serverUrl + user.avatar : userImgPlaceholder} alt="user-img" />
+							<img src={user.avatar ? apiURL + user.avatar : userImgPlaceholder} alt="user-img" />
 							<p>{user.login}</p>
 						</NavLink>
 						<div className={s.averageCoef}>{(+user.stats.average_cofficient).toFixed(2)}</div>

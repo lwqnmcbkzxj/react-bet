@@ -43,5 +43,12 @@ let rootReducer = combineReducers({
 
 export type RootReducerType = typeof rootReducer
 
-const store = createStore(rootReducer,composeWithDevTools (applyMiddleware(thunkMiddleware)));
+const devTools =
+  process.env.NODE_ENV === "production"
+    ? applyMiddleware(thunkMiddleware)
+    : composeWithDevTools(applyMiddleware(thunkMiddleware));
+
+
+
+const store = createStore(rootReducer, devTools);
 export default store;

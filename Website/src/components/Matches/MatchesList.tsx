@@ -8,6 +8,9 @@ import { AppStateType, SportType } from '../../types/types'
 import footballImg from '../../assets/img/football.png'
 import { MatchesPlaceholder } from '../Common/Placeholders/MatchesPlaceholder'
 import moment from 'moment'
+
+import { apiURL } from '../../api/api'
+
 type MatchesListPropsType = {
 	matches: Array<MatchType>
 	limit?: number
@@ -54,7 +57,7 @@ const UsersList: FC<MatchesListPropsType> = ({ matches, limit = 0, isMainpage = 
 						<p className={s.dateTime}>{getDateTime(match.event_start)}</p>
 					</div>
 						<div className={s.sportImg}>
-						<img src={ "http://betting-hub.sixhands.co/" + match.championship_data.sport_image} alt="sport-img" />
+						<img src={ apiURL + match.championship_data.sport_image} alt="sport-img" />
 					</div>
 					<Link to={`/matches/${match.event_id}`} className={s.matchInfo}>
 							<p className={s.matchName}>{match.event}</p>

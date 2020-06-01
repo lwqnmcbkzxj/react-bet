@@ -8,6 +8,8 @@ import { UserType } from '../types/me';
 import { stopSubmit, FormAction } from 'redux-form';
 import { setShouldRedirect, SetShouldRedirectType, toggleAuthFormVisiblility, setRedirectLink } from './app-reducer';
 
+import { showAlert } from '../utils/showAlert'
+
 const SET_LOGGED = 'me/SET_LOGGED'
 const SET_REDIRECT_LINK = 'me/SET_REDIRECT_LINK'
 const SET_TOKEN = 'me/SET_TOKEN'
@@ -75,20 +77,24 @@ export const register = (username: string, email: string, password: string): Thu
 	let response = await userAPI.register(username, email, password)
 
 	if (!response.message) {
-		
+		// dispatch(stopSubmit("register", { _error: 'Вы успешно зарегистрировались' }))
+		dispatch(toggleAuthFormVisiblility(false))
+
+		showAlert('success', 'Вы успешно зарегистрировались')
 	} else {
-		dispatch(stopSubmit("register", { _error: response.message }))
+		dispatch(stopSubmit("register", { _error: 'Пользователь с такими данными уже существует' }))
 	}
 }
 
 export const login = (email: string, password: string): ThunksType => async (dispatch, getState) => {
 	let response = await userAPI.login(email, password)
+
 	if (response) {
 		if (!response.message) {
 			Cookies.set('access-token', response.access_token, { expires: 10 / 24 });
 			dispatch(authUser())
 		} else {
-			dispatch(stopSubmit("login", { _error: response.message }))
+			dispatch(stopSubmit("login", { _error: 'Неверный логин или пароль' }))
 		}
 	} 
 }

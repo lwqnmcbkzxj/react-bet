@@ -12,6 +12,7 @@ import SettingsFormBlock from './SettingsForm';
 
 import androidDownload from '../../../assets/img/google-play-btn.png'
 import iosDownload from '../../../assets/img/app-store-btn.png'
+import { apiURL } from '../../../api/api';
 
 type SettingsPropsType = {
 	loggedUser: LoggedUserType
@@ -26,7 +27,7 @@ const Settings: FC<SettingsPropsType> = ({ loggedUser, languages, changeLanguage
 		<div className={s.userSettings}>
 			<div className={s.userInfo}>
 				<div className={s.userDetails}>
-					<img src={loggedUser.avatar ? 'http://xbethub.com/' + loggedUser.avatar : userNoImg} alt="user-img" />
+					<img src={loggedUser.avatar ? apiURL + loggedUser.avatar : userNoImg} alt="user-img" />
 					<div className={s.nickName}>
 						<p>{loggedUser.login}</p>
 						<div className={s.userStats}>

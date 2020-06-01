@@ -13,6 +13,8 @@ import userImgHolder from '../../../assets/img/user-no-image.png'
 import { ForecastsListElementPlaceholder } from '../../Common/Placeholders/ForecastsPlaceholder'
 import { formatDate } from '../../../utils/formatDate'
 
+import { apiURL } from '../../../api/api'
+
 type ForecastPropsType = {
 	forecast: ForecastType
 	isFetching: boolean
@@ -24,7 +26,7 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 	if (forecast.id) {
 
 		if (forecast.user_data.avatar) {
-			userAvatar = 'http://xbethub.com/' + forecast.user_data.avatar
+			userAvatar = apiURL + forecast.user_data.avatar
 		} else {
 			userAvatar = userImgHolder
 		}
@@ -45,7 +47,7 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 			<div className={s.forecast}>
 				<div className={s.forecastHeader}>
 					<div className={s.gameInfo}>
-						<img src={"http://betting-hub.sixhands.co/" + forecast.event_data.championship_data.sport_image} alt="gameImg" />
+						<img src={apiURL + forecast.event_data.championship_data.sport_image} alt="gameImg" />
 						<Link to={`forecasts/${forecast.id}`}><p className={s.sportName}>{forecast.event_data.championship_data.sport_name}. </p></Link>
 						<Link to={`forecasts/${forecast.id}`}><p className={s.gameName} >{tournamentName}</p></Link>
 					</div>
@@ -91,13 +93,15 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 							{forecast.user_data.last_five.map((predict, counter) =>
 								predict ? <img src={winImg} alt="winImg" key={counter}/> : <img src={loseImg} alt="loseImg" key={counter}/>
 							)}
-							<div className={s.slash}>|</div>
+							{forecast.user_data.last_five.length > 0 && <div className={s.slash}>|</div>}
 
 						</div>
 						<div className={s.userProfit}>
 							<p>Прибыль: </p>
 
-							{+forecast.user_data.stats.roi > 0 ?
+							{(+ forecast.user_data.stats.roi === 0) ?
+								<span className={classNames(s.neutral)}>{(+forecast.user_data.stats.roi * 100).toFixed()}</span> :
+								(+ forecast.user_data.stats.roi > 0) ?
 								<span className={classNames(s.positive)}>+{(+forecast.user_data.stats.roi * 100).toFixed(1)}%</span> :
 								<span className={classNames(s.negative)}>-{(+forecast.user_data.stats.roi * 100).toFixed(1)}%</span>
 							}

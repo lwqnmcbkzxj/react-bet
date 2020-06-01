@@ -3,17 +3,10 @@ import Chart, { Bar } from 'react-chartjs-2';
 import { NONAME } from 'dns';
 
 
-const MatchBetsChart = ({ ...props }) => {
-	let propsValues = [
-		{ label: 'П1', value: 80 },
-		{ label: 'Х', value: 50 },
-		{ label: 'П2', value: 40 },
-		{ label: 'ТБ', value: 60 },
-		{ label: 'ТМ', value: 70 },
-		{ label: 'Другое', value: 10 },
-	]
-	let values = propsValues.map(elem => elem.value)
-	let labels = propsValues.map(elem => elem.label)
+const MatchBetsChart = ({ propsValues = [{}], ...props }) => {
+
+	let values = propsValues.map(elem => +elem.forecasts_count)
+	let labels = propsValues.map(elem => elem.type)
 
 	let stepSize = values.reduce((elem, sum) => sum += elem) / values.length
 	stepSize = (stepSize / 10 / 3).toFixed(0) * 10
@@ -45,7 +38,6 @@ const MatchBetsChart = ({ ...props }) => {
 			}],
 			yAxes: [{
 				gridLines: {
-					// color: "rgb(213, 216, 221)",
 					drawBorder: false,
 				},
 				ticks: {

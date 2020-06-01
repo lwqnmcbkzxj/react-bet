@@ -15,6 +15,7 @@ import plusIcon from '../../../assets/img/plus-icon.png'
 import { changeUserPageActiveTab } from '../../../redux/app-reducer'
 import { UserType as LoggedUserType } from '../../../types/me'
 import userImgPlaceholder from '../../../assets/img/user-no-image.png'
+import { apiURL } from '../../../api/api';
 
 type UserPopupPropsType = {
 	logout: () => void
@@ -30,7 +31,7 @@ const UserMobilePopup: FC<UserPopupPropsType> = ({ logout, loggedUser, toggleUse
 			// toggleUserPopupVisibility(false)
 		})
 		return (
-			window.removeEventListener('click', ()=>{})
+			window.removeEventListener('click', () => { })
 		)
 	}, [])
 
@@ -39,7 +40,7 @@ const UserMobilePopup: FC<UserPopupPropsType> = ({ logout, loggedUser, toggleUse
 			<div className={s.popupHeader}>Профиль</div>
 
 			<NavLink to={`/forecasters/${loggedUser.id}`} className={s.popupRow + ' ' + s.userRow} onClick={toggleUserPopupVisibility}>
-				<img src={loggedUser.avatar ? 'http://xbethub.com/' + loggedUser.avatar : userImgPlaceholder} alt="user-img" />
+				<img src={loggedUser.avatar ? apiURL + loggedUser.avatar : userImgPlaceholder} alt="user-img" />
 				<p>{loggedUser.login}</p>
 			</NavLink>
 
@@ -47,7 +48,7 @@ const UserMobilePopup: FC<UserPopupPropsType> = ({ logout, loggedUser, toggleUse
 				to={`/forecasters/${loggedUser.id}`}
 				className={s.popupRow}
 				onClick={() => { dispatch(changeUserPageActiveTab('favourites')); toggleUserPopupVisibility() }}>
-				
+
 				<img src={bookmarkIcon} alt="fav-icon" />
 				<p>Избранное</p>
 			</NavLink>
@@ -60,10 +61,13 @@ const UserMobilePopup: FC<UserPopupPropsType> = ({ logout, loggedUser, toggleUse
 				<img src={plusIcon} alt="plus-icon" />
 				<p>Добавить экспресс</p>
 			</NavLink>
-			<NavLink to={`/admin`} className={s.popupRow} onClick={toggleUserPopupVisibility}>
-				<img src={plusIcon} alt="plus-icon" />
-				<p>Админка</p>
-			</NavLink>
+			{loggedUser.role_id > 2 &&
+				<NavLink to={`/admin`} className={s.popupRow} onClick={toggleUserPopupVisibility}>
+					<img src={plusIcon} alt="plus-icon" />
+					<p>Админка</p>
+				</NavLink>
+			}
+
 
 			<Link to="/" className={s.popupRow + ' ' + s.logoutRow} onClick={() => { logout(); toggleUserPopupVisibility() }}>
 				<img src={exitIcon} alt="door-img" />

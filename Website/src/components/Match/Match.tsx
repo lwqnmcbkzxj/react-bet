@@ -17,13 +17,13 @@ import { BetsListItemPlaceholder } from '../../components/Common/Placeholders/Ma
 
 import { getDateDay, getDateTime } from '../Matches/MatchesList'
 
+import { apiURL } from '../../api/api'
+
 type MatchPropsType = {
 	match: MatchType
 }
 const Match: FC<MatchPropsType> = ({ match, ...props }) => {
 	const isFetching = useSelector<AppStateType, boolean>(state => state.matches.isFetching)
-	let sports = useSelector<AppStateType, Array<SportType>>(state => state.app.sports)
-
 	const [startTime, setStartTime] = useState("")
 
 	useEffect(() => {
@@ -50,6 +50,7 @@ const Match: FC<MatchPropsType> = ({ match, ...props }) => {
 			};
 		}
 	}, [Date.now()]);
+
 	return (
 		<div className={s.match}>
 			<GoBackBlock
@@ -58,7 +59,6 @@ const Match: FC<MatchPropsType> = ({ match, ...props }) => {
 				icon={faShareAlt}
 				func={() => { navigator.clipboard.writeText(window.location.href) }}
 			/>
-
 
 			<Breadcrumbs pathParams={[
 				{ text: 'Главная', link: '' },
@@ -69,7 +69,7 @@ const Match: FC<MatchPropsType> = ({ match, ...props }) => {
 				match.event_id &&
 				<div className={s.matchStats}>
 					<div className={s.team}>
-						<img src={"http://betting-hub.sixhands.co/" + match.championship_data.sport_image} alt="team-img" />
+						<img src={ apiURL + match.championship_data.sport_image} alt="team-img" />
 						<div className={s.teamName}>{match.team_1.name}</div>
 					</div>
 					<div className={s.statsInfo}>
@@ -79,7 +79,7 @@ const Match: FC<MatchPropsType> = ({ match, ...props }) => {
 						<div className={s.timeBeforeStart}>{startTime}</div>
 					</div>
 					<div className={s.team}>
-						<img src={"http://betting-hub.sixhands.co/" + match.championship_data.sport_image} alt="team-img" />
+						<img src={ apiURL + match.championship_data.sport_image} alt="team-img" />
 						<div className={s.teamName}>{match.team_2.name}</div>
 					</div>
 				</div>}
@@ -88,7 +88,7 @@ const Match: FC<MatchPropsType> = ({ match, ...props }) => {
 			<div className={s.betsBlock}>
 				<div className={s.betsTitle}>Топ ставки</div>
 				<div className={s.betsChart}>
-					{isFetching ? <MatchChartPlaceholder /> : <MatchChart />}
+					{isFetching ? <MatchChartPlaceholder /> : <MatchChart propsValues={match.coefficients}/>}
 				</div>
 				<div className={s.betsTable}>
 					{isFetching ?
@@ -96,11 +96,15 @@ const Match: FC<MatchPropsType> = ({ match, ...props }) => {
 							<BetsListItemPlaceholder />
 							<BetsListItemPlaceholder />
 						</>
-						: <BetsList forecasts={match.forecasts} />}
+						: <BetsList forecasts={match.forecasts}/>
+					}
 				</div>
 			</div>
-
-			<CommentsBlock comments={[{}]} />
+{/* 
+			<CommentsBlock
+				comments={match.comments}
+			
+			/> */}
 		</div>
 	)
 }
