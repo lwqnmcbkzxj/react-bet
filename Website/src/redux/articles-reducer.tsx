@@ -1,11 +1,12 @@
-import { AppStateType } from '../types/types'
+import { AppStateType, CommentType } from '../types/types'
 import { ThunkAction } from 'redux-thunk'
 
 import { ArticleType } from '../types/article'
-import { postsAPI } from '../api/api'
+import { postsAPI, appAPI } from '../api/api'
 const SET_ARTICLES = 'articles/SET_ARTICLES'
 const SET_ARTICLE = 'articles/SET_ARTICLE'
 const TOGGLE_IS_FETCHING = 'articles/TOGGLE_IS_FETCHING'
+const SET_ARTICLE_COMMENTS = 'articles/SET_ARTICLE_COMMENTS'
 
 
 
@@ -20,6 +21,7 @@ type InitialStateType = typeof initialState;
 type ActionsTypes =
 	SetArticlesType |
 	SetArticleType |
+	SetArticleComments |
 	ToggleIsFetchingType;
 
 const articlesReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
@@ -36,7 +38,15 @@ const articlesReducer = (state = initialState, action: ActionsTypes): InitialSta
 				currentArticle: action.article
 			}
 		}
-		
+		case SET_ARTICLE_COMMENTS: {
+			return {
+				...state,
+				currentArticle: {
+					...state.currentArticle,
+					comments: [...action.comments]
+				}
+			}
+		}
 		case TOGGLE_IS_FETCHING: {
 			return {
 				...state,
@@ -60,6 +70,11 @@ type SetArticleType = {
 type ToggleIsFetchingType = {
 	type: typeof TOGGLE_IS_FETCHING
 	isFetching: boolean
+}
+type SetArticleComments = {
+	type: typeof SET_ARTICLE_COMMENTS,
+	id: number
+	comments: Array<CommentType>
 }
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
@@ -88,7 +103,7 @@ export const getArticleFromServer = (id: number): ThunksType => async (dispatch)
 	let response = await postsAPI.getPost(id)	
 	dispatch(toggleIsFetching(false))
 
-	dispatch(setArticle(response[0]))
+	dispatch(setArticle(response))
 }
 
 export const setArticles = (articles: Array<ArticleType>): SetArticlesType => {
@@ -105,7 +120,23 @@ export const setArticle = (article: ArticleType): SetArticleType => {
 	}
 }
 
+export const ratePost = (id: number, type: number): ThunksType => async (dispatch) => {
+	if (type === 1) {
+		let response = await postsAPI.likePost(id)	
+	} else if (type === 2){
+		let response = await postsAPI.dislikePost(id)	
+	}
+}
 
+export const getArticleComments = (id: number): ThunksType => async (dispatch) => {
+	let response = await appAPI.getComments(id, 'posts')
+
+	dispatch({
+		type: SET_ARTICLE_COMMENTS,
+		id,
+		comments: response
+	})
+}
 
 
 export default articlesReducer;

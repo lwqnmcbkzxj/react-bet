@@ -10,14 +10,16 @@ export enum languageEnum {
 
 /* LIVE COMMENTS */
 export type CommentType = {
-	userId: number
-	userName: string
-	userImg: string
 	id: number
+	user_id: number,
 	text: string
-	articleName: string
-	articleId: number
-	publishDate: number
+	reference_to: string,
+	referent_id: number,
+	updated_at: string,
+	created_at: string,
+	replies_to: number | null,
+	rating: number
+
 }
 
 export type SportType = {

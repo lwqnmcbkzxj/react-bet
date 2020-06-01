@@ -1,4 +1,5 @@
 import { ForecastType } from './forecasts'
+import { CommentType } from './types'
 
 export type MatchType = {
 	event_id: number,
@@ -11,6 +12,7 @@ export type MatchType = {
 	},
 	event: string
 	event_start: string
+	coefficients: Array<MatchCoefficientType>
 	team_1: {
 		name: string
 	},
@@ -19,4 +21,17 @@ export type MatchType = {
 	},
 	forecasts_count: number,
 	forecasts?: Array<ForecastType>
+	comments?: Array<CommentType>
+}
+
+
+export type MatchCoefficientType = {
+	id: number
+	event_id: number
+	type: string
+	coefficient: string
+	status: number
+	created_at: string
+	updated_at: string
+	forecasts_count: number
 }

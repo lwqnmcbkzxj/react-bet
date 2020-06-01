@@ -243,6 +243,18 @@ export const appAPI = {
 		// 	.then((response) => {
 		// 		return response.data
 		// 	});
+	},	
+	sendComment(id: number, type: string, text: string, reply_id?: number) {
+		return instance.post(`${type}/${id}/comment`, { text, replies_to: reply_id } )
+			.then((response) => {
+				return response.data
+			});
+	},
+	getComments(id: number, type: string) {
+		return instance.get(`/${type}/${id}/comments`)
+			.then((response) => {
+				return response.data
+			});
 	},
 	getPolicy() {
 		return instance.get(`policy`)

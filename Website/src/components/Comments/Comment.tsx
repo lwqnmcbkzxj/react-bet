@@ -11,7 +11,7 @@ const Comment: FC<CommentPropsType> = ({ comment, ...props }) => {
 
 	return (
 		<div className={s.comment}>
-			<div className={s.commentInfo}>
+			{/* <div className={s.commentInfo}>
 				<Link className={s.commentatorInfo} to={`/forecasters/${comment.userId}`}>
 					<img src={comment.userImg} alt="comentatorImg" />
 					<div className={s.comentatorName}>{comment.userName}</div>
@@ -20,7 +20,7 @@ const Comment: FC<CommentPropsType> = ({ comment, ...props }) => {
 				<p className={s.publishDate}>{getTimeSinceSending(comment.publishDate)}</p>
 			</div>
 			<p className={s.text}>{comment.text}</p>
-			<Link to={`/articles/${5}`}><p className={s.articleName}>{comment.articleName}</p></Link>
+			<Link to={`/articles/${5}`}><p className={s.articleName}>{comment.articleName}</p></Link> */}
 		</div>
 	)
 }

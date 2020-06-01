@@ -7,7 +7,7 @@ import Forecast from './Forecast'
 
 import { withRouter, RouteComponentProps  } from 'react-router'
 
-import { getForecastFromServer } from '../../redux/forecasts-reducer'
+import { getForecastFromServer, getForecastComments } from '../../redux/forecasts-reducer'
 
 interface MatchParams {
     forecastId: string;
@@ -23,7 +23,10 @@ const ForecastsContainer: FC<Props> = ({ ...props }) => {
 	let forecastId = props.match.params.forecastId ? props.match.params.forecastId : 1;
 
 	useEffect(() => {
-		dispatch(getForecastFromServer(+forecastId))		
+		(async function asyncFunction() {
+			await dispatch(getForecastFromServer(+forecastId))	
+			dispatch(getForecastComments(+forecastId))
+		})()
 	}, []);
  
 	if (!forecast.id || isFetching) {
@@ -33,6 +36,7 @@ const ForecastsContainer: FC<Props> = ({ ...props }) => {
 	return (
 		<Forecast
 			forecast={forecast}
+			refreshComments={() => { dispatch(getForecastComments(+forecastId)) }}
 		/>
 	)
 }

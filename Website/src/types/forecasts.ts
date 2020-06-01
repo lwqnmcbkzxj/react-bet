@@ -1,3 +1,5 @@
+import { CommentType } from "./types";
+
 export type ForecastType = {
 	id: number
 	user_data: {
@@ -52,8 +54,7 @@ export type ForecastType = {
 		count_subscribers: number,
 		count_comments: number,
 		rating: number
-		comments?: Array<any>
-		// comments: Array<CommentType>
 	}
+	comments?: Array<CommentType>
 }
 /* FORECAST TYPES */

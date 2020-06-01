@@ -271,6 +271,16 @@ export const getSportsFromServer = (): ThunksType => async (dispatch) => {
 export const sendEmail = (email: string, text: string): ThunksType => async (dispatch) => {
 	let response = await appAPI.sendEmail(email, text)
 }
+
+export const sendComment = (id: number, type: string, text: string, reply_id?: number): ThunksType => async (dispatch) => {
+	let response
+
+	if (reply_id === -1) {
+		response = await appAPI.sendComment(id, type, text)
+	} else {
+		response = await appAPI.sendComment(id, type, text, reply_id)
+	}
+}
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
 export default appReducer;

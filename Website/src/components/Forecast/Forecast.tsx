@@ -19,8 +19,11 @@ import moment from 'moment'
 import CommentsBlock from '../Common/CommentsBlock/CommentsBlock';
 import userImgHolder from '../../assets/img/user-no-image.png'
 
+import { apiURL } from '../../api/api'
+
 type ForecastPropsType = {
 	forecast: ForecastType
+	refreshComments: () => void
 }
 
 
@@ -30,9 +33,7 @@ const formatDateForForecastPage = (createdAt: string) => {
 }
 
 
-
-
-const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
+const Forecast: FC<ForecastPropsType> = ({ forecast, refreshComments, ...props }) => {
 	let userAvatar = ""
 	let userRoi = 0
 
@@ -42,7 +43,7 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 
 	if (forecast.id) {
 		if (forecast.user_data.avatar) {
-			userAvatar = 'http://xbethub.com/' + forecast.user_data.avatar
+			userAvatar = apiURL + forecast.user_data.avatar
 		} else {
 			userAvatar = userImgHolder
 		}
@@ -81,13 +82,13 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 
 			<div className={s.teams}>
 				<div className={s.team}>
-					<img src={ "http://betting-hub.sixhands.co/" + forecast.event_data.championship_data.sport_image} alt="teamImg" />
+					<img src={ apiURL + forecast.event_data.championship_data.sport_image} alt="teamImg" />
 					<p>{forecast.event_data.team_1.name}</p>
 				</div>
 				<div className={s.vsBlock}>VS</div>
 				<div className={s.team}>
 					<p>{forecast.event_data.team_2.name}</p>
-					<img src={ "http://betting-hub.sixhands.co/" + forecast.event_data.championship_data.sport_image} alt="teamImg" />
+					<img src={ apiURL + forecast.event_data.championship_data.sport_image} alt="teamImg" />
 				</div>
 			</div>
 
@@ -139,8 +140,8 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 							<p className={s.userNickName}>{forecast.user_data.login}</p>
 						</Link>
 						<p className={s.mobileUserProfit}>Прибыль:
-								{+userRoi < 0 ?
-								<span className={classNames(s.mobileUserProfit, s.positive)}>+{userRoi}%</span> :
+								{+userRoi === 0 ? <span className={classNames(s.mobileUserProfit)}>{userRoi}</span> :
+								+userRoi < 0 ? <span className={classNames(s.mobileUserProfit, s.positive)}>+{userRoi}%</span> :
 								<span className={classNames(s.mobileUserProfit, s.negative)}>-{userRoi}%</span>}
 						</p>
 					</div>
@@ -156,10 +157,16 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 					</div>
 					<div className={s.statBlock}>
 						<p>ROI, %</p>
-						{+userRoi < 0 ?
-							<p className={s.positive}>+{userRoi}</p> :
-							<p className={s.negative}>-{userRoi}</p>}
-
+						{
+							<p className={classNames({
+								[s.negative]: +userRoi < 0,
+								[s.positive]: +userRoi > 0,
+								[s.neutral]: +userRoi === 0,
+							})}>
+								{+userRoi === 0 ? "" : +userRoi < 0 ? "+" : " -" }
+							{userRoi}</p>
+						}
+						
 					</div>
 					<div className={s.statBlock}>
 						<p>Ср. кф</p>
@@ -180,7 +187,11 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, ...props }) => {
 				id={forecast.id}
 				elementType={'forecast'} />
 			<CommentsBlock
-				// comments={forecast.comments}
+				comments={forecast.comments as any}
+				elementId={forecast.id}
+				type="forecasts"
+
+				refreshComments={refreshComments}
 			/>
 		</div>
 	)

@@ -1,55 +1,81 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import s from './CommentsBlock.module.scss';
 import { Link } from 'react-router-dom'
 import classNames from 'classnames'
-import userImg from '../../../assets/img/user-img.png'
+import userImg from '../../../assets/img/user-no-image.png'
 import replyIcon from '../../../assets/img/reply-icon.png'
 import LikesBlock from '../ElementStats/LikesBlock'
-import SendComemnt from './SendComment';
+import SendComment from './SendComment';
+import { formatDate } from '../../../utils/formatDate';
+import { CommentType } from '../../../types/types';
 type CommentPropsType = {
-	comment: any
-	isReply?: boolean
+	comment: CommentType
+	comments: Array<CommentType>
+
+	sendCommentFunc: (text: string, reply_id: number) => void
 }
 
 
-const Comment: FC<CommentPropsType> = ({ comment, isReply = false, ...props }) => {
+const Comment: FC<CommentPropsType> = ({ comment, comments, sendCommentFunc, ...props }) => {
 	const [replyVisible, setReplyVisible] = useState(false)
 	const toggleReplyVisible = () => {
 		setReplyVisible(!replyVisible)
 	}
 	let replyBlock = [] as any
-	if (comment.comments) {
-		for (let commentElem  of comment.comments) {
-			replyBlock.push(<Comment comment={commentElem} isReply={true}/>)
+	comments.map(commentEl => {
+		if (commentEl.replies_to === comment.id) {
+			replyBlock.push(
+				<Comment
+					comment={commentEl}
+					comments={comments}
+					sendCommentFunc={sendCommentFunc}
+			/>)
 		}
-	}
+	})
+
+
+	const replyBtnRef = React.createRef<HTMLDivElement>()
+	useEffect(() => {
+		document.addEventListener('click', (e: any) => {
+			if (replyBtnRef.current && !replyBtnRef.current.contains(e.target)) {
+				setReplyVisible(false)
+				e.stopPropagation()
+			}
+		})
+		return () => {
+			document.removeEventListener('click', () => { })
+		};
+	}, [replyVisible]);
 
 	return (
-		<div className={classNames(s.comment, { [s.reply]: isReply, [s.lastReply]: !comment.comments })}>
+		<div className={classNames(s.comment, { [s.reply]: comment.replies_to, [s.lastReply]: !comment.replies_to })}>
 			
 			<div className={s.commentHeader}>
-				<Link to="/forecasters/1"><img src={userImg} alt="user-img" /></Link>
+				<Link to={`/forecasters/${comment.user_id}`}><img src={userImg} alt="user-img" /></Link>
 
 				<div className={s.info}>
-					<Link to="/forecasters/1" className={s.nickName}>{comment.nickname}</Link>
+					<Link to={`/forecasters/${comment.user_id}`} className={s.nickName}>НИКНЕЙМ</Link>
 					<div className={s.replyBlock}>
 						<img src={replyIcon} alt="reply-icon" className={s.replyImg} />
 						<div className={s.replyNickname}>Никнейм</div>
-						<div className={s.date}>вчера в 16:58</div>
+						<div className={s.date}>{formatDate(comment.created_at)}</div>
 					</div>
 				</div>
-				<LikesBlock likes={5} elementType={'comment'} id={1}/>
-				{/* <LikesBlock likes={comment.likes} elementType={'comment'} id={comment.id}/> */}
+				<LikesBlock likes={comment.rating} elementType={'comment'} id={comment.id}/>
 			</div>
-			<div className={s.contentText}>
-				Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-				labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-				et ea rebum. Stet clita kasd gubergren, no sea.
-			</div>
-			<div className={s.replyBtn} onClick={toggleReplyVisible}><button>Ответить</button></div>
-			{replyVisible && <SendComemnt active={true} replyCommentId={1} toggleReplyVisible={toggleReplyVisible}/>}
+			<div className={s.contentText}>{comment.text}</div>
+			<div className={s.replyBtn} onClick={toggleReplyVisible} ref={replyBtnRef}><button>Ответить</button></div>
+			{replyVisible &&
+				<SendComment
+					active={true}
+					replyCommentId={comment.id as any}
+					toggleReplyVisible={toggleReplyVisible}
+					sendCommentFunc={sendCommentFunc}
+				/>}
 
-			{[...replyBlock]}
+			{replyBlock.length ? <div className={s.repliesBlock}>
+				{[...replyBlock]}
+			</div> : null}
 
 		</div>
 	)
