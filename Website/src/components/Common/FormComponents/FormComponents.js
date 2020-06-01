@@ -5,6 +5,7 @@ import { Field, change } from 'redux-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash, faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, } from 'react-redux';
+import { Editor } from '@tinymce/tinymce-react';
 
 export function createField(
 	name,
@@ -83,6 +84,65 @@ export const Textarea = (props) => {
 
 	)
 }
+
+export const FormatTextarea = (props) => {
+	const { input, meta, ...restProps } = props;
+	const hasError = meta.touched && meta.error;
+
+	const handleEditorChange = (content, editor) => {
+		input.onChange(content)
+	}
+
+	return (
+		<Editor
+			initialValue=""
+			apiKey="f9t701hao1hpemnseqy90ucyvi5sg9rw6f392kvzckjc8fjh"
+			value={input.value}
+			init={{
+				height: 500,
+				menubar: false,
+				plugins: [
+					'advlist autolink lists link image charmap print preview anchor',
+					'searchreplace visualblocks code fullscreen',
+					'insertdatetime media table contextmenu paste code',
+				].join(' '),
+				toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+			}}
+			onEditorChange={handleEditorChange}
+		/>
+
+	)
+}
+
+export const FormatTextarea1 = ({ ...props }) => {
+	const dispatch = useDispatch()
+
+	const [value, setValue] = useState("")
+	const handleEditorChange = (content, editor) => {
+		// dispatch(change(formName, name, content))
+	}
+	return (
+
+		<Editor
+			initialValue=""
+			apiKey="f9t701hao1hpemnseqy90ucyvi5sg9rw6f392kvzckjc8fjh"
+			init={{
+				height: 500,
+				menubar: false,
+				plugins: [
+					'advlist autolink lists link image charmap print preview anchor',
+					'searchreplace visualblocks code fullscreen',
+					'insertdatetime media table contextmenu paste code',
+				].join(' '),
+				toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+			}}
+			onEditorChange={handleEditorChange}
+		/>
+
+
+	)
+}
+
 export const File = (props) => {
 	const dispatch = useDispatch()
 	const { input, meta, ...restProps } = props;
@@ -93,7 +153,7 @@ export const File = (props) => {
 			<label>{props.label}</label>
 			<input
 				type="file"
-				
+
 				onChange={
 					(e) => {
 						e.preventDefault();

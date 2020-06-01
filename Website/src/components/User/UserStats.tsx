@@ -24,9 +24,9 @@ const UserStats: FC<UserStatsPropsType> = ({ stats, filters, toggleFilter, ...pr
 		<div>
 			<div className={s.chartBlock}>
 				<StatsChart
-					wins={stats.count_win}
-					loses={stats.count_loss}
-					returns={stats.count_back}
+					wins={+stats.count_win}
+					loses={+stats.count_loss}
+					returns={+stats.count_back}
 				/>
 				<div className={s.rightBlock}>
 					{/* <Selectors

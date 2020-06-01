@@ -7,6 +7,7 @@ import classNames from 'classnames'
 import ActionsBlock from './ActionsBlock'
 
 import { Paginator } from './Paginator/Paginator'
+import parse  from 'html-react-parser';
 
 type AdminTableType = {
 	pageLink: string
@@ -51,7 +52,9 @@ const AdminTable: FC<AdminTableType> = ({
 
 						<tr className={s.tableRow} key={counter}>
 							{(data.dataArray[counter].map((item: any, counter: number) =>
-								<td className={s.tableCell} key={"" + item + counter}><div>{item}</div></td>
+								<td className={s.tableCell} key={"" + item + counter}>
+									<div dangerouslySetInnerHTML={{ __html: item }}></div>
+								</td>
 							))}
 							<td className={s.tableCell}>
 								<ActionsBlock

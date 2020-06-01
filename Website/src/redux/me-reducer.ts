@@ -120,6 +120,11 @@ export const changePassword = (password: string): ThunksType => async (dispatch)
 export const changeEmail = (email: string): ThunksType => async (dispatch) => {
 	let response = await userAPI.changeEmail(email)
 }
+export const changeUserPhoto = (photo: File): ThunksType => async (dispatch) => {
+	let response = await userAPI.changePhoto(photo)
+
+	dispatch(getUserInfo())
+}
 export const logout = (): ThunksType => async (dispatch) => {
 	dispatch(setShouldRedirect(false))
 	dispatch(setLogged(false))

@@ -11,6 +11,7 @@ import { UserType } from '../../../types/me';
 import exitIcon from '../../../assets/img/exit-icon.png'
 
 import AdminMenu from './AdminMenu/AdminMenu'
+import { apiURL } from '../../../api/api';
 
 type HeaderPropsType = {
 	user: UserType
@@ -41,7 +42,7 @@ const DesktopHeader: FC<HeaderPropsType> = ({ user, ...props }) => {
 				<div className={s.headerUserBlock}>
 					<div className={s.loggedUser} onClick={toggleUserPopupVisibility}>
 						<p className={s.userLogin}>{user.login }</p>
-						<img src={user.avatar ? user.avatar : userImgPlaceholder} alt="user-img" />
+						<img src={user.avatar ? apiURL + user.avatar : userImgPlaceholder} alt="user-img" />
 						<button>
 							<FontAwesomeIcon
 								icon={faCaretDown}

@@ -11,6 +11,7 @@ import UserMobilePopup from './UserMobilePopup'
 import Search from './Search'
 import LiveBtn from '../LiveBtn/LiveBtn';
 import { UserType } from '../../../types/me';
+import { apiURL } from '../../../api/api';
 
 type HeaderPropsType = {
 	logged: boolean
@@ -25,41 +26,42 @@ type HeaderPropsType = {
 
 const DesktopHeader: FC<HeaderPropsType> = ({ logged, logout, user, isCommentsBlockVisible, toggleAuthFormVisiblility, toggleCommentsBlockVisibility, ...props }) => {
 	const [popupVisible, setPopupVisibility] = useState(false)
-	
+
 	const toggleUserPopupVisibility = (value?: boolean | any) => {
 		if (!user.id) {
 			return
 		}
 
-		if (value === true || value === false) 
+		if (value === true || value === false)
 			setPopupVisibility(value)
-		else 
+		else
 			setPopupVisibility(!popupVisible)
 	}
-	
-	
+
+
 
 
 	let authedBlock
 	if (logged) {
 		authedBlock =
 			<div className={s.headerUserBlock}>
-			<div className={s.bankBlock}>Банк: <span>
-				{user.balance ? (+user.balance).toLocaleString() : 0} xB</span></div>
-			<div className={s.loggedUser}>
-				
-					<Link to={`/forecasters/${user.id}`} onClick={(e) => { if (user.id === 0) e.preventDefault() }} >
-						<img src={user.avatar ? user.avatar : userImgPlaceholder} alt="user-img" />
-					</Link>
-					<button className={s.userBlockToggler} onClick={toggleUserPopupVisibility}>
-						<FontAwesomeIcon icon={faCaretDown} />
-					</button>
-				{logged && popupVisible &&
-					<UserMobilePopup
-						logout={logout}
-						loggedUser={user}
-						toggleUserPopupVisibility={toggleUserPopupVisibility}
-					/>}
+				<div className={s.bankBlock}>Банк: <span>
+					{user.balance ? (+user.balance).toLocaleString() : 0} xB</span></div>
+				<div className={s.loggedUser}>
+
+				<div onClick={toggleUserPopupVisibility} className={s.userImgBlock}>
+						<img src={user.avatar ? apiURL + user.avatar : userImgPlaceholder} alt="user-img" />
+						<button className={s.userBlockToggler} >
+							<FontAwesomeIcon icon={faCaretDown} />
+						</button>
+					</div>
+
+					{logged && popupVisible &&
+						<UserMobilePopup
+							logout={logout}
+							loggedUser={user}
+							toggleUserPopupVisibility={toggleUserPopupVisibility}
+						/>}
 
 				</div>
 			</div>

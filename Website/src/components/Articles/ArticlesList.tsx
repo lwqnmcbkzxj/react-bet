@@ -34,7 +34,7 @@ const ArticlesList: FC<ArticlesPropsType> = ({ articles, ...props }) => {
 								</div>
 								<div className={s.articleContent}>
 									<div className={s.acticleName}>{article.title}</div>
-									<div className={s.articleDescription}>{article.content}</div>
+									<div className={s.articleDescription} dangerouslySetInnerHTML={{ __html: article.content }}></div>
 								</div>
 							</Link>
 

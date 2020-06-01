@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { useDispatch } from 'react-redux'
 import s from './Article.module.scss'
 import { reduxForm, InjectedFormProps, SubmissionError, Field } from 'redux-form'
-import { Input, Textarea, createField, File } from '../../../Common/FormComponents/FormComponents'
+import { Input, Textarea, createField, File, FormatTextarea } from '../../../Common/FormComponents/FormComponents'
 
 import ActionButton from '../../../Common/ActionButton/ActionButton'
 import { ArticleType } from '../../../../types/admin'
@@ -10,6 +10,7 @@ import Breadcrumbs from '../../../Common/Breadcrumbs/Breadcrumbs'
 
 import { required } from '../../../../utils/formValidation'
 import { Redirect } from 'react-router'
+import { Editor } from '@tinymce/tinymce-react';
 
 type FormType = {
 	initialValues: any,
@@ -34,8 +35,12 @@ const ArticleForm: FC<FormValuesType & InjectedFormProps<{}, FormValuesType>> = 
 			{createField("title", Input, "Название статьи", { valiadtors: [required] })}
 			{createField("category_name", Input, "Название категории", { valiadtors: [required] })}
 
-			{createField("content", Textarea, "Описание статьи", { valiadtors: [required] })}
+			{createField("content", FormatTextarea, "Описание статьи", { valiadtors: [required] })}
+			{/* {createField("content", Textarea, "Описание статьи", { valiadtors: [required] })} */}
 
+			
+			{/* {<FormatTextarea formName="article-form" name="content" /> } */}
+			
 			<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
 				{createField("is_published", Input, "Опубликована", { type: 'checkbox' })}
 

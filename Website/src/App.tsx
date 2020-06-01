@@ -67,9 +67,9 @@ const App = (props: any) => {
 
 	return (
 		<Switch>
-			{ loggedUser.role_id >  2 && 
+			{/* { loggedUser.role_id >  2 &&  */}
 				<Route path="/admin" render={() => <Admin />} />
-			}
+			 {/* } */}
 
 			<Route component={() =>
 				<div className="app-wrapper">

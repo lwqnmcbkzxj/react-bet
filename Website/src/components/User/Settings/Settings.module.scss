@@ -12,6 +12,9 @@
 			grid-template-columns: 70px 1fr auto;
 			width: 100%;
 
+			& input[type=file] {
+				display: none;
+			}
 			& img {
 				width: 54px;
 				height: 54px;
@@ -266,6 +269,15 @@
 }
 
 
+.positive {
+	color: #0F971D !important;
+}
+.negative {
+	color: #AA0F0F !important;
+}
+.neutral {
+	color: #0F19AA !important;
+}
 @media screen and (max-width: 640px) {
 	.userSettings {
 		& .logoutBtn {

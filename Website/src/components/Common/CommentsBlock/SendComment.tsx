@@ -1,4 +1,4 @@
-import React, { FC, useState, createRef } from 'react';
+import React, { FC, useState, createRef, Ref } from 'react';
 import { useDispatch, useSelector } from "react-redux"
 import { AppStateType } from '../../../types/types'
 import s from './CommentsBlock.module.scss';
@@ -14,8 +14,18 @@ type SendComemntPropsType = {
 	active?: boolean
 	replyCommentId?: number
 	toggleReplyVisible?: () => void
+
+	commentFieldRef?: Ref<HTMLDivElement>
 }
-const SendComemnt: FC<SendComemntPropsType> = ({ sendCommentFunc, active = false, replyCommentId = -1, toggleReplyVisible = () => { }, ...props }) => {
+const SendComemnt: FC<SendComemntPropsType> = ({
+	sendCommentFunc,
+	active = false,
+	replyCommentId = -1,
+	toggleReplyVisible = () => { },
+	commentFieldRef, ...props }) => {
+	
+	
+	
 	const logged = useSelector<AppStateType, boolean>(state => state.me.logged)
 	const dispatch = useDispatch()
 	
@@ -33,8 +43,9 @@ const SendComemnt: FC<SendComemntPropsType> = ({ sendCommentFunc, active = false
 		
 	}
 
+	const attachButtonRef = React.createRef<HTMLInputElement>()
 	return (
-		<div className={classNames(s.sendCommentBlock, {[s.active]: inputActive})}>
+		<div className={classNames(s.sendCommentBlock, { [s.active]: inputActive })} ref={commentFieldRef}>
 			<textarea
 				placeholder="Написать комментарий"
 				className={s.sendCommentInput}
@@ -45,9 +56,16 @@ const SendComemnt: FC<SendComemntPropsType> = ({ sendCommentFunc, active = false
 				ref={inputRef}
 			/>
 			<div className={s.sendBlock}>
-				<div className={s.attach}>
-					<input type="file" id="attachFile"/>
-					<label htmlFor="attachFile"><img src={attachFileImg} alt="" className={s.attachFile} /></label>
+				<div className={s.attach} >
+					<input type="file" id="attachFile" ref={attachButtonRef}/>
+					<label htmlFor="attachFile">
+						<img src={attachFileImg}
+							alt="attach-img"
+							className={s.attachFile}
+							onClick={(e) => {
+								attachButtonRef.current?.click();
+								e.preventDefault()
+							}} /></label>
 				</div>
 				<button className={s.sendBtn} onClick={()=>{sendCommentHandler(inputRef.current.value)}}>Отправить</button>
 			</div>

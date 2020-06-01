@@ -1,4 +1,6 @@
 import React, { FC, useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
 import s from './Settings.module.scss';
 import classNames from 'classnames'
 import { Link } from 'react-router-dom'
@@ -13,6 +15,7 @@ import SettingsFormBlock from './SettingsForm';
 import androidDownload from '../../../assets/img/google-play-btn.png'
 import iosDownload from '../../../assets/img/app-store-btn.png'
 import { apiURL } from '../../../api/api';
+import { change } from 'redux-form';
 
 type SettingsPropsType = {
 	loggedUser: LoggedUserType
@@ -21,13 +24,36 @@ type SettingsPropsType = {
 	logout: () => void
 }
 const Settings: FC<SettingsPropsType> = ({ loggedUser, languages, changeLanguage, logout, ...props }) => {
+	const dispatch = useDispatch()
 	let initialValues = { email: loggedUser.email }
 
+
+	let userAvatar = loggedUser.avatar ? apiURL + loggedUser.avatar : userNoImg
+
+	const changePhoto = (e: any) => {
+		dispatch(change('profile-form', 'file', e.currentTarget.files[0]))
+
+		let fileReader = new FileReader()
+		fileReader.onload = function (event: any) {
+			document.getElementById('user-img-holder')?.setAttribute("src", event.target.result)
+		}
+
+		fileReader.readAsDataURL(e.currentTarget.files[0])
+	}
+
+	const uploadFileRef = React.createRef<HTMLInputElement>()
 	return (
 		<div className={s.userSettings}>
 			<div className={s.userInfo}>
 				<div className={s.userDetails}>
-					<img src={loggedUser.avatar ? apiURL + loggedUser.avatar : userNoImg} alt="user-img" />
+					<input type="file" onChange={changePhoto} ref={uploadFileRef} />
+					<img
+						src={userAvatar}
+						alt="user-img"
+						onClick={() => { uploadFileRef.current?.click() }}
+						id={"user-img-holder"}
+					/>
+					
 					<div className={s.nickName}>
 						<p>{loggedUser.login}</p>
 						<div className={s.userStats}>

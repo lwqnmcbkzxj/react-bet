@@ -7,7 +7,7 @@ import { Input, createField } from '../../Common/FormComponents/FormComponents'
 import ActionButton from '../../Common/ActionButton/ActionButton'
 import { emailRegExp } from '../../../types/types'
 
-import { changePassword, changeEmail } from '../../../redux/me-reducer'
+import { changePassword, changeEmail, changeUserPhoto } from '../../../redux/me-reducer'
 
 type SettingsFormType = {
 	initialValues: any
@@ -15,6 +15,8 @@ type SettingsFormType = {
 type SettingsFormValuesType = {
 	email: string
 	password: string
+	password_repeat: string
+	file: File
 }
 
 const SettingsForm: FC<InjectedFormProps<SettingsFormValuesType>> = (props: any) => {
@@ -33,7 +35,7 @@ const SettingsForm: FC<InjectedFormProps<SettingsFormValuesType>> = (props: any)
 				<div className={s.settingBlockHeader}>Изменить пароль</div>
 				<div className={s.inputs}>
 					{createField("password", Input, "Новый пароль", { type: "password", placeholder: "***********" })}
-					{createField("password-repeat", Input, "Повторите пароль", { type: "password", placeholder: "***********" })}
+					{createField("password_repeat", Input, "Повторите пароль", { type: "password", placeholder: "***********" })}
 				</div>
 			</div>
 
@@ -41,7 +43,7 @@ const SettingsForm: FC<InjectedFormProps<SettingsFormValuesType>> = (props: any)
 		</form>
 	);
 }
-const ReduxSettingsForm = reduxForm<SettingsFormValuesType>({ form: 'change-password' })(SettingsForm)
+const ReduxSettingsForm = reduxForm<SettingsFormValuesType>({ form: 'profile-form' })(SettingsForm)
 
 
 const SettingsFormBlock: FC<SettingsFormType> = ({ initialValues, ...props }) => {
@@ -50,9 +52,12 @@ const SettingsFormBlock: FC<SettingsFormType> = ({ initialValues, ...props }) =>
 		if (checkEmail(formData.email)) {
 			dispatch(changeEmail(formData.email))
 		} 
-		if (checkPassword(formData.password)) {
+		if (checkPassword(formData.password) && formData.password === formData.password_repeat) {
 			dispatch(changePassword(formData.password))
 		} 
+		if (formData.file) {
+			dispatch(changeUserPhoto(formData.file))
+		}
 
 	}
 	const checkEmail = (email: string) => {

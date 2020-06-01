@@ -35,9 +35,10 @@ const Comment: FC<CommentPropsType> = ({ comment, comments, sendCommentFunc, ...
 
 
 	const replyBtnRef = React.createRef<HTMLDivElement>()
+	const commentFieldRef =  React.createRef<HTMLDivElement>()
 	useEffect(() => {
 		document.addEventListener('click', (e: any) => {
-			if (replyBtnRef.current && !replyBtnRef.current.contains(e.target)) {
+			if (replyBtnRef.current && !replyBtnRef.current.contains(e.target) && commentFieldRef.current && !commentFieldRef.current.contains(e.target)) {
 				setReplyVisible(false)
 				e.stopPropagation()
 			}
@@ -67,10 +68,12 @@ const Comment: FC<CommentPropsType> = ({ comment, comments, sendCommentFunc, ...
 			<div className={s.replyBtn} onClick={toggleReplyVisible} ref={replyBtnRef}><button>Ответить</button></div>
 			{replyVisible &&
 				<SendComment
-					active={true}
-					replyCommentId={comment.id as any}
-					toggleReplyVisible={toggleReplyVisible}
-					sendCommentFunc={sendCommentFunc}
+				active={true}
+				replyCommentId={comment.id as any}
+				toggleReplyVisible={toggleReplyVisible}
+				sendCommentFunc={sendCommentFunc}
+				
+				commentFieldRef={commentFieldRef}
 				/>}
 
 			{replyBlock.length ? <div className={s.repliesBlock}>

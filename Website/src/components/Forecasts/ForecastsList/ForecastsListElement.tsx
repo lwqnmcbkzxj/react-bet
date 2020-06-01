@@ -52,7 +52,7 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 						<Link to={`forecasts/${forecast.id}`}><p className={s.gameName} >{tournamentName}</p></Link>
 					</div>
 					<div className={s.matchDate}>
-						{formatDate(forecast.event_data.event_start)}
+						{formatDate(forecast.forecast_created_at)}
 					</div>
 				</div>
 
