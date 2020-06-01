@@ -37,7 +37,7 @@ Route::get('/forecasts/{forecast}/comments', function (Request $Request, \App\Fo
     $Request['referent_id'] = $forecast->id;
     return app()->call('App\Http\Controllers\CommentController@getAll', [$Request]);
 });
-Route::get('/comments', 'CommentController@get');
+Route::get('/comments', 'CommentController@getAll');
 Route::get('/comments/{comment}', 'CommentController@getOne');
 
 Route::get('/votes', 'VoteController@get');
@@ -134,24 +134,25 @@ Route::middleware('auth:api')->group(function () {
         $Request['referent_id'] = $comment->id;
         return app()->call('App\Http\Controllers\VoteController@post', [$Request]);
     });
-    Route::post('/forecasts/{forecast}/like', function (Request $Request, int $id) {
-        $Request['type'] = 'like';
-        $Request['reference_to'] = 'forecasts';
-        $Request['referent_id'] = $id;
+    Route::post('/forecasts/{forecast}/like', function (Request $Request, \App\Forecast $forecast) {
+        $request['type']               = 'like';
+        $request['reference_to']       = 'forecasts';
+        $request['referent_id']        = $forecast->id;
         return app()->call('App\Http\Controllers\VoteController@post', [$Request]);
     });
-    Route::post('/forecasts/{forecast}/dislike', function (Request $Request, int $id) {
-        $Request['type'] = 'dislike';
-        $Request['reference_to'] = 'forecasts';
-        $Request['referent_id'] = $id;
-        return app()->call('App\Http\Controllers\VoteController@post', [$Request]);
+    Route::post('/forecasts/{forecast}/dislike', function (Request $request, \App\Forecast $forecast) {
+        $request['type']               = 'dislike';
+        $request['reference_to']       = 'forecasts';
+        $request['referent_id']        = $forecast->id;
+        return app()->call('App\Http\Controllers\VoteController@post', [$request]);
     });
-    Route::post('/posts/{post}/like', function (Request $Request, \App\Post $posts) {
+    Route::post('/posts/{post}/like', function (Request $Request, \App\Post $post) {
         $Request['type'] = 'like';
         $Request['reference_to'] = 'posts';
-        $Request['referent_id'] = $posts->id;
+        $Request['referent_id'] = $post->id;
         return app()->call('App\Http\Controllers\VoteController@post', [$Request]);
     });
+
     Route::post('/posts/{post}/dislike', function (Request $Request, \App\Post $post) {
         $Request['type'] = 'dislike';
         $Request['reference_to'] = 'posts';

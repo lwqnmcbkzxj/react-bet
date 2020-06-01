@@ -7,7 +7,9 @@ use App\Vote;
 use App\Http\Controllers\Controller;
 use http\Exception;
 use Illuminate\Http\Request;
+use Illuminate\Log\Logger;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class VoteController extends Controller
 {
@@ -19,14 +21,15 @@ class VoteController extends Controller
     }
     public function post(Request $request)
     {
+        //return $this->sendResponse($request->json(), 'Bad', 200);
         $user = User::find(Auth::id());
         $vote = $user->votes()->where('referent_id', $request->referent_id)->first();
         if(!$vote) {
-            $vote = new Vote();
-            $vote->type = $request->type;
+            $vote = new Vote;
+            $vote->type = $request['type'];
             $vote->user_id = $user->id;
-            $vote->reference_to = $request->reference_to;
-            $vote->referent_id = $request->referent_id;
+            $vote->reference_to = $request['reference_to'];
+            $vote->referent_id = $request['referent_id'];
             $vote->save();
         }
         else {
@@ -41,7 +44,7 @@ class VoteController extends Controller
                 }
             else
             {
-                $vote->type = $request->type;
+                $vote->type = $request['type'];
                 $vote->save();
             }
         }
@@ -49,7 +52,7 @@ class VoteController extends Controller
     }
     public function get($request = null)
     {
-        return $this->sendResponse(Vote::all()->paginate(), 'Success',200);
+        return $this->sendResponse(Vote::query()->paginate(), 'Success',200);
     }
     public function delete(Vote $vote)
     {

@@ -11,7 +11,7 @@ class News extends Model
     protected $hidden = ['comments'];
     public function getCategoryNameAttribute()
     {
-        return 'Sport';
+        return 'Спорт';
     }
     public function getCommentsAttribute()
     {

@@ -34,7 +34,7 @@ class CommentController extends Controller
         }
         return $this->sendResponse(collect($res)->flatten(), 'Success', 200);
     }
-    public function get(Comment $comment)
+    public function getOne(Comment $comment)
     {
         return $comment;
     }
