@@ -89,20 +89,45 @@ export const forecastsAPI = {
 				return response.data
 			});
 	},
+	
+	getUserForecasts(page: number, limit: number, userId: number) {
+		return instance.get(`/users/${userId}/forecasts`)
+			.then((response) => {
+				return response.data
+			});
+	},
 
+	getFavouriteForecasts(page: number, limit: number) {
+		return instance.get(`/forecasts/marked`)
+			.then((response) => {
+				return response.data
+			});
+	},
+	getForecastsBySubscribtions(page: number, limit: number, options: any) {
+		return instance.get(`/users/${options.loggedUserId}/subscription/forecasts`, {
+			params: {
+				sport_id: options.sport,
+				time: options.time
+			}
+		})
+			.then((response) => {
+				return response.data
+			});
+	},
 
 	getForecast(id: number) {
 		return instance.get(`/forecasts/${id}`)
 			.then((response) => {
 				return response.data
 			});
-	},
+	},	
 	likeForecast(id: number) {
 		return instance.post(`forecasts/${id}/like`)
 			.then((response) => {
 				return response.data
+			
 			});
-	},
+	},	
 	dislikeForecast(id: number) {
 		return instance.post(`forecasts/${id}/dislike`)
 			.then((response) => {
@@ -117,7 +142,7 @@ export const forecastsAPI = {
 			});
 	},
 	favouriteForecast(id: number) {
-		return instance.post(`forecasts/${id}/follow`)
+		return instance.post(`forecasts/${id}/mark`)
 			.then((response) => {
 				return response.data
 			});
@@ -153,6 +178,14 @@ export const bookmakersAPI = {
 	}
 }
 
+export const newsAPI = {
+	getNews() {
+		return instance.get(`news`)
+			.then((response) => {
+				return response.data
+			});
+	},
+}
 
 export const postsAPI = {
 	getPosts() {
@@ -167,6 +200,18 @@ export const postsAPI = {
 				return response.data
 			});
 	},
+	likePost(id: number) {
+		return instance.post(`posts/${id}/like`)
+			.then((response) => {
+				return response.data
+			});
+	},
+	dislikePost(id: number) {
+		return instance.post(`posts/${id}/dislike`)
+			.then((response) => {
+				return response.data
+			});
+	},	
 	// ADMIN
 	getAdminPosts(page: number, limit: number, search: string, search_by: string) {
 		let searchString =''

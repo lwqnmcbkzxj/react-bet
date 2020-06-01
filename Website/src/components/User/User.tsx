@@ -16,6 +16,8 @@ import UserStats from './UserStats'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux';
+import { apiURL } from '../../api/api';
+import SubscribeButton from '../Common/SubscibeButton/SubscribeButton';
 
 export enum selectors {
 	forecasts = 'forecasts',
@@ -33,8 +35,6 @@ type UsersPropsType = {
 	getUserForecasts: () => void
 	getUserFavourites: () => void
 
-	subscribe: (id: number) => void
-
 	filters: FiltersObjectType
 	toggleFilter: (filterName: FilterNames, filtersBlockName: string) => void
 
@@ -46,25 +46,11 @@ type UsersPropsType = {
 const User: FC<UsersPropsType> = ({
 	user, logged, loggedUser, isLoggedUserProfile,
 	forecasts, getUserForecasts, getUserFavourites,
-	subscribe,
 	filters, toggleFilter,
 	visibleTab, changeVisibleTab,
 	...props }) => {
 		const dispatch = useDispatch()
 	
-	const [subscribed, setSubscribed] = useState(false)
-	const subscribeToggle = (id: number) => {
-		if (!logged) {
-			dispatch(toggleAuthFormVisiblility())
-			return 0
-		} else {
-			setSubscribed(!subscribed)
-			subscribe(id)
-		}
-	}
-	const [subBtnHovered, setSubscribedBtnHovered] = useState(false)
-	const [subBtnHoverCounter, setSubBtnHoverCounter] = useState(0)
-
 	const handleTabChange = (tabName: string) => {
 		changeVisibleTab(tabName)
 		if (tabName === selectors.forecasts) {
@@ -104,32 +90,7 @@ const User: FC<UsersPropsType> = ({
 					</button>
 				</Link>
 		} else {
-			if (subscribed) {
-				let icon
-				let subBtnText
-				if (subBtnHovered && subBtnHoverCounter > 0) {
-					icon = <FontAwesomeIcon icon={faTimes} className={s.checkedIcon + ' ' + s.negative} />
-					subBtnText = 'Отписаться'
-				} else {
-					icon = <FontAwesomeIcon icon={faCheck} className={s.checkedIcon + ' ' + s.positive} />
-					subBtnText = 'Подписан'
-				}
-
-				// profileBtn =
-				// 	<button
-				// 		className={classNames(s.profileBtn, s.subscribe)}
-				// 		onClick={() => { subscribeToggle(user.id) }}
-				// 		onMouseEnter={(e) => { setSubscribedBtnHovered(true); setSubBtnHoverCounter(subBtnHoverCounter + 1);  }}
-				// 		onMouseLeave={(e) => { setSubscribedBtnHovered(false); }}>
-				// 		{icon}
-				// 		<p>{subBtnText}</p>
-				// 	</button>
-			} else {
-				// profileBtn =
-				// 	<button className={classNames(s.profileBtn, s.subscribe)} onClick={() => { subscribeToggle(user.id); setSubBtnHoverCounter(0);}}>
-				// 		<span>+</span> <p>Подписаться</p>
-				// 	</button>
-			}
+			profileBtn = <SubscribeButton userId={user.id} />
 		}
 	}
 
@@ -149,7 +110,7 @@ const User: FC<UsersPropsType> = ({
 				<div className={s.user}>
 					<div className={s.userInfo}>
 						<div className={s.userDetails}>
-							<img src={user.avatar ? 'http://xbethub.com/' + user.avatar : userNoImg} alt="user-img" />
+							<img src={user.avatar ? apiURL + user.avatar : userNoImg} alt="user-img" />
 							<div className={s.nickName}>
 								<p>{user.login}</p>
 								<div className={s.userStats}>

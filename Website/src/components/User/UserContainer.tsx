@@ -50,7 +50,6 @@ const UsersContainer: FC<Props> = ({ ...props }) => {
 
 
 	let userId = props.match.params.userId ? props.match.params.userId : 1;
-	debugger
 	useEffect(() => {
 
 		if (!!+userId)
@@ -68,22 +67,13 @@ const UsersContainer: FC<Props> = ({ ...props }) => {
 
 
 	const getUserForecasts = () => {
-		dispatch(getForecastsFromServer(1, 15))
+		dispatch(getForecastsFromServer(1, 15, { userId: userId }))
 	}
 	const getUserFavourites = () => {
-		dispatch(getForecastsFromServer(1, 15
-			// , { useFavourites: true }
-		))
+		dispatch(getForecastsFromServer(1, 15, { favourites: true }))
 	}
 
 	
-
-	const subscribe = (id: number) => {
-		dispatch(subscribeUser(id))
-	}
-
-
-
 
 	return (
 		isFetching ? <UserProfilePlaceholder /> :
@@ -95,7 +85,6 @@ const UsersContainer: FC<Props> = ({ ...props }) => {
 				loggedUser={loggedUser}
 				getUserFavourites={getUserFavourites}
 				getUserForecasts={getUserForecasts}
-				subscribe={subscribe}
 
 				filters={filters}
 				toggleFilter={toggleFilterDispatch}

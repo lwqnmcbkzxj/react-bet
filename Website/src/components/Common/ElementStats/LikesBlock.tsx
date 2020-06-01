@@ -6,9 +6,10 @@ import { AppStateType } from '../../../types/types'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faChevronUp, faBookmark as faBookmarkFill } from '@fortawesome/free-solid-svg-icons'
-import { rateForecast } from '../../../redux/forecasts-reducer'
 import { toggleAuthFormVisiblility } from '../../../redux/app-reducer'
 
+import { rateForecast } from '../../../redux/forecasts-reducer'
+import { ratePost } from '../../../redux/articles-reducer'
 
 type LikesBlockPropsType = {
 	likes: number
@@ -25,9 +26,13 @@ const LikesBlock: FC<LikesBlockPropsType> = ({ likes, id, elementType, ...props 
 			dispatch(rateForecast(id, rateType))
 		else if (elementType === 'comment') {
 			// dispatch(rateComment(id, rateType))
+		} else if (elementType === 'article') {
+			dispatch(ratePost(id, rateType))
 		}
 	}
 
+
+	const [likingInProgress, setLikingInProgress] = useState(false)
 	// Получение ISLIKED
 	const [elementLiked, setLiked] = useState(false)
 	const [elementDisliked, setDisliked] = useState(false)
@@ -39,19 +44,22 @@ const LikesBlock: FC<LikesBlockPropsType> = ({ likes, id, elementType, ...props 
 		let transition = 300
 		let likesDiff = likes - likesCount
 		// Sliding array
-		if (likesDiff < 0) 
-			setLikesBlockStyle({marginTop: -58, transition: transition / 1000 + 's'})
-		 else 
-			setLikesBlockStyle({marginTop: 58, transition: transition / 1000 + 's'})
+		if (likesDiff < 0)
+			setLikesBlockStyle({ marginTop: -58, transition: transition / 1000 + 's' })
+		else
+			setLikesBlockStyle({ marginTop: 58, transition: transition / 1000 + 's' })
 
 		likesDiff = Math.abs(likesDiff)
 		setLikesArray([likesCount + likesDiff, likesCount, likesCount - likesDiff])
 
 		// After 0.3s changing numbers and removing margin
+		setLikingInProgress(true)
 		setTimeout(() => {
 			setLikesCountHook(likes)
 			setLikesArray([likes + 1, likes, likes - 1])
 			setLikesBlockStyle({})
+			setLikingInProgress(false)
+
 		}, transition);
 	}
 
@@ -102,36 +110,33 @@ const LikesBlock: FC<LikesBlockPropsType> = ({ likes, id, elementType, ...props 
 			setLiked(false)
 		}
 		rateDispatch(id, 2)
-	}	
+	}
 
 	return (
 		<div className={classNames(s.likes)}>
 			<button
 				onClick={() => { dislikeElement(id) }}
 				className={classNames({ [s.negative]: elementDisliked })}
+				disabled={likingInProgress}
 			><FontAwesomeIcon icon={faChevronDown} /></button>
 
-			<div className={s.likesCountBlock} style={{...likesBlockStyle}}>
-				{likesArray.map((number, counter) => 
+			<div className={s.likesCountBlock} style={{ ...likesBlockStyle }}>
+				{likesArray.map((number, counter) =>
 					<div
 						key={counter}
 						className={classNames(
-						s.likesNumber, {
-						[s.positive]: number > 0,
-						[s.negative]: number < 0,
+							s.likesNumber, {
+							[s.positive]: number > 0,
+							[s.negative]: number < 0,
 						})}>{number}
-					</div>	
+					</div>
 				)}
-
-							
 			</div>
-
-
-
 
 			<button
 				className={classNames({ [s.positive]: elementLiked })}
 				onClick={() => { likeElement(id) }}
+				disabled={likingInProgress}
 			><FontAwesomeIcon icon={faChevronUp} /></button>
 		</div>
 	)

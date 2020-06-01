@@ -20,6 +20,7 @@ import CommentsBlock from '../Common/CommentsBlock/CommentsBlock';
 import userImgHolder from '../../assets/img/user-no-image.png'
 
 import { apiURL } from '../../api/api'
+import SubscribeButton from '../Common/SubscibeButton/SubscribeButton';
 
 type ForecastPropsType = {
 	forecast: ForecastType
@@ -173,7 +174,7 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, refreshComments, ...props }
 						<p>{(+forecast.user_data.stats.average_cofficient).toFixed(2)}</p>
 					</div>
 				</div>
-				{/* <button className={s.subscribeBtn}><span>+</span> Подписаться</button> */}
+				<SubscribeButton userId={forecast.user_data.id} responsive={false}/>
 			</div>
 
 			<div className={s.forecastDescription}>
