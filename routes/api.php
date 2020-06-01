@@ -78,6 +78,7 @@ Route::get('/news/{news}/comments', function (Request $Request, \App\News $news)
 
 //Доступ к профилям пользователей
 Route::middleware('auth:api')->group(function () {
+    Route::post('/avatar','UploadController@putAvatar');
     Route::get('/admin/posts', 'PostController@getAll');
     Route::get('/admin/posts/search', 'PostController@search');
     Route::get('/admin/posts/{post}', 'PostController@get');
@@ -103,6 +104,8 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/votes/{vote}', 'VoteController@delete');
 
     Route::get('/users/profile', 'ProfileController@index')->name('profile');
+
+
     Route::post('/users/update/login', 'ProfileController@updateLogin')->name('update.login');
     Route::post('/users/update/email', 'ProfileController@updateEmail')->name('update.email');
     Route::post('/users/update/password', 'ProfileController@updatePassword')->name('update.password');
