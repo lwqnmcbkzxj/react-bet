@@ -4,6 +4,8 @@ import { AppStateType } from '../../types/types'
 import s from './News.module.scss';
 import { NewsType } from '../../types/news'
 import { NewslistPlaceholder } from '../Common/Placeholders/NewsPlaceholder'
+import { formatDate } from '../../utils/formatDate';
+import { Link } from 'react-router-dom';
 
 type NewsPropsType = {
 	news: Array<NewsType>
@@ -17,22 +19,18 @@ const NewsList: FC<NewsPropsType> = ({ news, ...props }) => {
 			{
 				news.map(newsElement => 
 					isFetching ? <NewslistPlaceholder /> :
-					<div className={s.newsElement}>
+						<a href={newsElement.link} target="_blank" className={s.newsElement}>
 						<div className={s.newsHeader}>
-							<div className={s.categoryName}>Название категории</div>
-							<div className={s.publishDate}>вчера в 16:58</div>
+							<div className={s.categoryName}>{newsElement.category_name}</div>
+							<div className={s.publishDate}>{formatDate(newsElement.created_at)}</div>
 						</div>
 						<div className={s.newsContent}>
-							<div className={s.newsName}>Широков назвал лучшего футболиста чемпионата России</div>
+							<div className={s.newsName}>{newsElement.title}</div>
 							<div className={s.newsDescription}>
-								Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam 
-								nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
-								sed diam voluptua. At vero eos et accusam et justo duo dolores et ea 
-								rebum. Stet clita kasd gubergren no sea takimata sanctus est 
-								Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+								{newsElement.content}
 							</div>
 						</div>
-					</div>
+					</a>
 				)
 			}
 		</div>

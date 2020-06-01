@@ -2,6 +2,7 @@ import { AppStateType } from '../types/types'
 import { ThunkAction } from 'redux-thunk'
 
 import { NewsType } from '../types/news'
+import { newsAPI } from '../api/api'
 
 const SET_NEWS = 'news/SET_NEWS'
 const TOGGLE_IS_FETCHING = 'news/TOGGLE_IS_FETCHING'
@@ -10,7 +11,6 @@ const TOGGLE_IS_FETCHING = 'news/TOGGLE_IS_FETCHING'
 let initialState = {
     isFetching: false,
 	news: [{}, {}, {}, {}, {}] as Array<NewsType>,
-	currentSingleNews: {} as NewsType,
 }
 
 type InitialStateType = typeof initialState;
@@ -55,10 +55,10 @@ export const setNews = (news: Array<NewsType>): SetNewsType => {
 export const getNewsFromServer = ():ThunksType => async (dispatch) => {
 	
 	dispatch(toggleIsFetching(true))
-	// let response = await newsAPI.getNews()	
-	setTimeout(() => { dispatch(toggleIsFetching(false)) }, 2000)
+	let response = await newsAPI.getNews()	
+	dispatch(toggleIsFetching(false))
 
-	// dispatch(setMatches(response))
+	dispatch(setNews(response.data))
 }
 
 export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingType => {

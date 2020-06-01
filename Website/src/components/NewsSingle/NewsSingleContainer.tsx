@@ -6,10 +6,11 @@ import { NewsType } from '../../types/news'
 import NewsSingle from './NewsSingle'
 
 const NewsSingleContainer: FC = ({ ...props }) => {
-	const currentSingleNews = useSelector<AppStateType, NewsType>(state => state.news.currentSingleNews)
+	// const currentSingleNews = useSelector<AppStateType, NewsType>(state => state.news.currentSingleNews)
  
 	return ( 
-		<NewsSingle news={currentSingleNews}/>
+		// <NewsSingle news={}/>
+		<div></div>
 	)
 }
 
