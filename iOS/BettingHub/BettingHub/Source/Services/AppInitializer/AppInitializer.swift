@@ -14,42 +14,30 @@ class AppInitializer {
     @LazyInjected private var sportsService: ISportService
     @LazyInjected private var userService: IUserService
     
+    private let window: UIWindow
     private let coordinator: AppCoordinator
 
-    init(coordinator: AppCoordinator) {
+    init(coordinator: AppCoordinator, window: UIWindow) {
         self.coordinator = coordinator
+        self.window = window
     }
     
-    func start(with window: UIWindow) {
-        stayOnLaunch(window: window)
-
-        if let _ = self.authService.isAuthorized {
-            initForUnauthorized(window: window)
+    func start() {
+        stayOnLaunch()
+        
+        let authErr = authService.isAuthorized
+        
+        if authErr == nil { //authorized
+            initialConfiguration(authorized: true)
         } else {
-            initForAuthorized(window: window)
+            initialConfiguration(authorized: false)
         }
     }
     
-    private func initForAuthorized(window: UIWindow) {
-        let group = initialConfiguration(authorized: true)
-        group.notify(queue: .main) {
-            let vc = self.coordinator.mainTabBarScreen
-            self.coordinator.mainTabBar.setState(isAuthorized: true)
-            self.proceed(window: window, vc: vc)
-        }
-    }
-    
-    private func initForUnauthorized(window: UIWindow) {
-        let group = initialConfiguration(authorized: false)
-        group.notify(queue: .main) {
-            let vc = self.coordinator.mainTabBarScreen
-            self.coordinator.mainTabBar.setState(isAuthorized: false)
-            self.proceed(window: window, vc: vc)
-        }
-    }
-    
-    private func initialConfiguration(authorized: Bool) -> DispatchGroup {
-        let group = DispatchGroup()
+    private func initialConfiguration(authorized: Bool) {
+        let group =  DispatchGroup()
+        var successfullyGotUserData = !authorized
+        
         group.enter()
         sportsService.updateKnownSports {
             group.leave()
@@ -59,24 +47,40 @@ class AppInitializer {
             group.enter()
             userService.reloadInfo { (err) in
                 if let err = err {
-                    print(err.localizedDescription)
-                    return
+                    print("UserInfo: " + err.localizedDescription)
+                    
+                    if let _ = self.userService.currentUserInfo {
+                        successfullyGotUserData = true
+                    }
+                    
+                } else {
+                    successfullyGotUserData = true
                 }
                 
                 group.leave()
             }
         }
         
-        return group
+        group.notify(queue: .global(qos: .background)) {
+            if !authorized { self.proceed(authorized: false) }
+            
+            self.proceed(authorized: successfullyGotUserData)
+        }
     }
     
-    private func stayOnLaunch(window: UIWindow) {
-        window.rootViewController = UIStoryboard(name: "LaunchScreen", bundle: nil).instantiateInitialViewController()
-        window.makeKeyAndVisible()
-    }
-    
-    private func proceed(window: UIWindow, vc: UIViewController) {
+    private func stayOnLaunch() {
+        let vc = UIStoryboard(name: "LaunchScreen",
+                              bundle: nil).instantiateInitialViewController()
         window.rootViewController = vc
         window.makeKeyAndVisible()
+    }
+    
+    private func proceed(authorized: Bool) {
+        DispatchQueue.main.async {
+            let vc = self.coordinator.mainTabBarScreen
+            self.coordinator.mainTabBar.setState(isAuthorized: authorized)
+            self.window.rootViewController = vc
+            self.window.makeKeyAndVisible()
+        }
     }
 }

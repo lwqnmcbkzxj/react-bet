@@ -13,7 +13,7 @@ protocol IForecastService: class {
     func getForecasts(count: Int, page: Int,
                       sport: Sport, timeFrame: TimeFrame,
                       subscribers: Bool,
-                      callback: ((Result<[Forecast], BHError>)->Void)?)
+                      callback: (ServiceCallback<[Forecast]>)?)
     
     
     
@@ -27,4 +27,11 @@ protocol IForecastService: class {
                        page: Int,
                        count: Int,
                        callback: (ServiceCallback<[Forecast]>)?)
+    
+    ///Add to bookmarks. Auth required. Send again to undo.
+    func mark(forecastId: Int)
+    
+    func bookmarks(page: Int,
+                   limit: Int,
+                   callback: (ServiceCallback<[Forecast]>)?)
 }

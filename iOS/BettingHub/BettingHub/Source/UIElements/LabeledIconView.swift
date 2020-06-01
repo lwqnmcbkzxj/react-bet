@@ -20,6 +20,11 @@ class LabeledIconWithNumber: LabeledIconView {
 }
 
 class LabeledIconView: UIView {
+    
+    private var image: UIImage?
+    private var selectedImage: UIImage?
+    
+    private var tapAction: (() -> Void)?
 
     private let iconImageView: UIImageView = {
         let view = UIImageView()
@@ -47,7 +52,9 @@ class LabeledIconView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setImage(_ image: UIImage) {
+    func setImage(_ image: UIImage, selectedImage: UIImage? = nil) {
+        self.image = image
+        self.selectedImage = selectedImage
         iconImageView.image = image
     }
     
@@ -55,12 +62,24 @@ class LabeledIconView: UIView {
         iconLabel.text = text
     }
     
-    func setTapAction(target: Any, action: Selector) {
+    func setTapAction(target: Any, action: (() -> Void)?) {
         if let gesture = self.gesture {
             removeGestureRecognizer(gesture)
         }
-        self.gesture = UITapGestureRecognizer(target: target, action: action)
+        self.gesture = UITapGestureRecognizer(target: target, action: #selector(tap))
+        
         addGestureRecognizer(self.gesture!)
+    }
+    
+    @objc private func tap() {
+        
+        if iconImageView.image == image {
+            iconImageView.image = selectedImage
+        } else {
+            iconImageView.image = image
+        }
+        
+        tapAction?()
     }
     
     private func makeLayout() {

@@ -10,11 +10,23 @@ import UIKit
 
 class CreateForecastTableProvider: TableSectionProvider {
     
+    @ModuleDependency(assembly: CreateForecastAssembly.shared)
+    private var presenter: ICreateForecastPresenter
+    
     private let tableView: UITableView
     
     private let cellId = "betsTableCell"
+
+    private lazy var createHeader: CreateForecastHeaderView = {
+        setupBinds()
+        return CreateForecastHeaderView()
+    }()
     
-    private let createHeader = CreateForecastHeaderView()
+    private lazy var createFooter: CreateForecastFooterView = {
+        return CreateForecastFooterView()
+    }()
+    
+    var collapsedRows: [Int] = []
     
     required init(tableView: UITableView) {
         self.tableView = tableView
@@ -23,18 +35,50 @@ class CreateForecastTableProvider: TableSectionProvider {
     }
     
     func numberOfCells() -> Int {
-        return 2
+        presenter.betsData.data.count
     }
-    
-    private let mockData = BetsTableData(bookmakers: [.stub()], columns: ["Bet1", "Bet2"], values: [[10, 20]])
     
     func cell(for row: Int) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! BetsTableCell
-        cell.configure(title: "Title", collapsed: false, tableData: mockData)
+        
+        let collapsed = collapsedRows.contains(row)
+        let data = presenter.betsData.data[row]
+        cell.configure(title: "Title", collapsed: collapsed, tableData: data)
+        
+        cell.delegate = self
+        cell.tag = row
+        
         return cell
     }
     
     func header() -> UIView? {
         return createHeader
+    }
+    
+    func footer() -> UIView? {
+        return createFooter
+    }
+    
+    private func setupBinds() {
+        presenter.betsData.bind { (data) in
+            self.tableView.reloadData()
+        }
+    }
+}
+
+extension CreateForecastTableProvider: BetsTableCellDelegate {
+    
+    func collapse(cell: UITableViewCell) {
+        let row = cell.tag
+        
+        let collapsed = collapsedRows.contains(row)
+        
+        if collapsed {
+            collapsedRows.removeAll(where: {$0 == row})
+        } else {
+            collapsedRows.append(row)
+        }
+        
+        tableView.reloadRows(at: [IndexPath(row: row, section: 0)], with: .fade)
     }
 }

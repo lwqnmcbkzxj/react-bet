@@ -11,6 +11,4 @@ import Foundation
 protocol INewsService: class {
     
     func newsList(page: Int, limit: Int, callback: (ServiceCallback<[NewsPost]>)?)
-    
-    func newsPost(id: Int, callback: (ServiceCallback<NewsPost>)?)
 }

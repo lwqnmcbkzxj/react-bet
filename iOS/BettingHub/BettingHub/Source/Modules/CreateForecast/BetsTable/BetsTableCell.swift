@@ -8,7 +8,14 @@
 
 import UIKit
 
+protocol BetsTableCellDelegate: class {
+    
+    func collapse(cell: UITableViewCell)
+}
+
 class BetsTableCell: UITableViewCell {
+    
+    weak var delegate: BetsTableCellDelegate?
     
     private lazy var manager = BetsTableManager(collectionView: collectionView)
     
@@ -32,7 +39,7 @@ class BetsTableCell: UITableViewCell {
     private let hideButton: UIButton = {
         let view = UIButton()
         view.setTitleColor(.blue, for: .normal)
-        view.setTitle(Text.collapse, for: .normal)
+        view.setTitle("(\(Text.collapse))", for: .normal)
         return view
     }()
     
@@ -52,6 +59,8 @@ class BetsTableCell: UITableViewCell {
         selectionStyle = .none
         collectionView.delegate = manager
         collectionView.dataSource = manager
+        
+        hideButton.addTarget(self, action: #selector(collapseButtonTapped), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -61,10 +70,18 @@ class BetsTableCell: UITableViewCell {
     func configure(title: String, collapsed: Bool, tableData: BetsTableData) {
         betsTableHeader.text = title
         manager.configure(with: tableData)
-        
-        let cellsRows = CGFloat(tableData.bookmakers.count)
+        collectionViewCollapsed(collapsed)
+    }
+    
+    @objc private func collapseButtonTapped() {
+        delegate?.collapse(cell: self)
+    }
+    
+    private func collectionViewCollapsed(_ collapsed: Bool) {
         collectionView.snp.updateConstraints { (make) in
-            make.height.equalTo(manager.headerHeight + (cellsRows * manager.cellHeight))
+            let collapseHeight: CGFloat = 0
+            let showHeight = manager.collectionViewHeight
+            make.height.equalTo(collapsed ? collapseHeight : showHeight)
         }
     }
     

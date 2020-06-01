@@ -135,13 +135,13 @@ class ProfileHeaderView: UIView {
     
     init(isSelf: Bool) {
         super.init(frame: .zero)
-//        if isSelf {
-//            segmenter.setItems([Text.forecasts, Text.statistics, Text.favorites])
-//        } else {
-//            segmenter.setItems([Text.forecasts, Text.statistics])
-//        }
-        //TODO: tempUI
-        segmenter.setItems([Text.statistics])
+        if isSelf {
+            segmenter.setItems([Text.forecasts, Text.statistics, Text.favorites])
+        } else {
+            segmenter.setItems([Text.forecasts, Text.statistics])
+        }
+//        //TODO: tempUI
+//        segmenter.setItems([Text.statistics])
         
         makeLayout()
     }

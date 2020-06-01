@@ -10,6 +10,12 @@ import Foundation
 
 class UserFavoritesViewModel: TableViewModel<Forecast, Any> {
     
+    let interactor: IProfileInteractor
+    
+    init(interactor: IProfileInteractor) {
+        self.interactor = interactor
+    }
+    
     override var pageSize: Int { return 5 }
     
     override func currentPage(_ page: Int) {
@@ -24,17 +30,11 @@ class UserFavoritesViewModel: TableViewModel<Forecast, Any> {
     private func fetchMore() {
         isLoading = true
         
-        forecastService.getFavorites(count: 10,
-                                     page: loadedPages + 1)
+        forecastService.bookmarks(page: loadedPages + 1,
+                                  limit: pageSize)
         { (result) in
-            switch result {
-            case .success(let forecasts):
-                self.items += forecasts
-                
-            case .failure(let err):
-                print(err.localizedDescription)
-            }
-            
+            result.onSuccess { self.items += $0 }
+                  .onFailure { print($0.localizedDescription) }
             self.isLoading = false
         }
     }

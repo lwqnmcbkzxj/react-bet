@@ -47,7 +47,8 @@ class MainTabBarController: UITabBarController {
         let forecastsImageSel = UIImage(named: "forecastsIconSelected")!.withRenderingMode(.alwaysOriginal)
         forecastsScreen.tabBarItem = item(image: forecastsImage, selectedImage: forecastsImageSel)
         
-        let createScreen = coordinator.createForecastScreen()
+//        let createScreen = coordinator.createForecastScreen()
+        let createScreen = coordinator.addForecastScreenBlock()
         createScreen.view.backgroundColor = .white
         let createImage = UIImage(named: "plusTabBar")!.withRenderingMode(.alwaysOriginal)
         let createImageSel = UIImage(named: "plusTabBarSelected")!.withRenderingMode(.alwaysOriginal)

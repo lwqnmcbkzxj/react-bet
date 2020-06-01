@@ -136,5 +136,11 @@ class Text {
     static var bookmakerShort: String { "bookmakerShort".localized }
     static var collapse: String { "collapse".localized }
     static var expand: String { "expand".localized }
+    static var matchSearch: String { "matchSearch".localized }
+    static var firmCoeff: String { "firmCoeff".localized }
+    static var outcome: String { "outcome".localized }
+    static var forecastDesc: String { "forecastDesc".localized }
+    static var ordinar: String { "ordinar".localized }
+    static var express: String { "express".localized }
 }
 

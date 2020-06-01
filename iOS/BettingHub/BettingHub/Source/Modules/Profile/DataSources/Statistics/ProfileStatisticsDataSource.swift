@@ -41,11 +41,6 @@ class ProfileStatisticsDataSource: NSObject, ProfileDataSource {
             guard let this = self else { return }
             this.handleUpdates()
         }
-        
-        viewModel.loadingStatusChanged = { [weak self] (isLoading) in
-            guard let this = self else { return }
-            //show animation
-        }
     }
     
     private func handleUpdates() {

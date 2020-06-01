@@ -8,7 +8,8 @@
 
 import Foundation
 
-typealias ServiceCallback<T> = (Result<T, BHError>) -> Void
+typealias ServiceResult<T> = Result<T, BHError>
+typealias ServiceCallback<T> = (ServiceResult<T>) -> Void
 
 protocol IMatchService: class {
     

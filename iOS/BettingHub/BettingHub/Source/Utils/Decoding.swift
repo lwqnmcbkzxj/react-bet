@@ -8,8 +8,12 @@
 
 import Foundation
 
+struct PagedResponse<T: Decodable>: Decodable {
+    let data: [T]
+}
 
 extension Data  {
+    
     func decodeJSON<T: Decodable>(_ model: T.Type,
                                   with decoder: JSONDecoder = JSONDecoder()) -> Result<T, BHError> {
         do {
@@ -20,5 +24,8 @@ extension Data  {
             return .failure(.unexpectedContent)
         }
     }
+    
+    func decodePaged<ResponseModel: Decodable>(pageElement: ResponseModel.Type) -> ServiceResult<[ResponseModel]> {
+        decodeJSON(PagedResponse<ResponseModel>.self).map { $0.data }
+    }
 }
-

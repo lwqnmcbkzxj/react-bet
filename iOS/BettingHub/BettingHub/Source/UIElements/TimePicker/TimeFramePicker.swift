@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TimeFramePicker: TimePicker {
+class TimeFramePicker: PanelPicker {
     
     var pickedTimeFrame: TimeFrame? {
         get {

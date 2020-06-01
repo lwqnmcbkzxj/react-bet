@@ -56,7 +56,6 @@ class BettingNavigationBar: UINavigationBar {
             bankLabel.isHidden = true
             return
         }
-        
         bankLabel.setBalance(to: bank)
     }
     

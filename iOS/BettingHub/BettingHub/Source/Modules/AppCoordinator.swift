@@ -174,9 +174,13 @@ class AppCoordinator {
         return vc
     }
     
+    func addForecastScreenBlock() -> UIViewController {
+        return AddForecastViewController()
+    }
+    
     func createForecastScreen() -> UIViewController {
-        let providerType = CreateForecastTableProvider.self
-        let vc = CreateForecastViewController(provider: providerType)
+        let assembly = CreateForecastAssembly.shared
+        let vc = assembly.screen()
         return vc
     }
 }

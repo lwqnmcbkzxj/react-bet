@@ -13,6 +13,13 @@ class BetsTableManager: NSObject, UICollectionViewDataSource, UICollectionViewDe
     let headerHeight: CGFloat = 31
     let cellHeight: CGFloat = 38
     
+    var collectionViewHeight: CGFloat {
+        guard let data = data else { return 0 }
+        let cellsRows = CGFloat(data.bookmakers.count)
+        let showHeight = headerHeight + (cellsRows * cellHeight)
+        return showHeight
+    }
+    
     private var data: BetsTableData?
     
     private let headerId = "columnHeaderCell"
@@ -120,6 +127,9 @@ private class BetsTableColumnHeaderCell: UICollectionViewCell {
 
 private class BetsTableCoefficientCell: UICollectionViewCell {
     
+    private let selectColor = UIColor.lightGray
+    private let unselectColor = UIColor.white
+    
     let label: UILabel = {
         let view = UILabel()
         view.font = .robotoRegular(size: 15)
@@ -127,6 +137,12 @@ private class BetsTableCoefficientCell: UICollectionViewCell {
         view.textAlignment = .center
         return view
     }()
+    
+    override var isSelected: Bool {
+        didSet {
+            handleSelect()
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -141,6 +157,10 @@ private class BetsTableCoefficientCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func handleSelect() {
+        backgroundColor = isSelected ? selectColor : unselectColor
     }
 }
 

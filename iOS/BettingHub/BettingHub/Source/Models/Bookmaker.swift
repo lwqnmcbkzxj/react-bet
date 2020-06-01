@@ -27,3 +27,8 @@ struct Bookmaker: Decodable {
                      image: "/storage/bookmakers/1xstavka.png")
     }
 }
+
+extension Bookmaker: StringListable {
+    
+    var stringInList: String { return title }
+}

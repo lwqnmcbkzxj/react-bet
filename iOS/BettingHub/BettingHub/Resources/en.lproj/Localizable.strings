@@ -173,3 +173,9 @@
 "eventDate" = "Дата собития";
 "eventTime" = "Время события";
 "bookmakerShort" = "БК";
+"matchSearch" = "Поиск матча";
+"firmCoeff" = "Коэф. конторы";
+"outcome" = "Исход";
+"forecastDesc" = "Описание прогноза";
+"ordinar" = "Ординар";
+"express" = "Экспресс";

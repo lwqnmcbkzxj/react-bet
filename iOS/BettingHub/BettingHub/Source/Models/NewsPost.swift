@@ -27,4 +27,30 @@ struct NewsPost {
 
 extension NewsPost: Codable {
     
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        name = try container.decode(String.self, forKey: .name)
+        category = try container.decode(String.self, forKey: .category)
+        text = try container.decode(String.self, forKey: .text)
+        
+        let dateStr = try container.decode(String.self, forKey: .date)
+        date = NewsPost.formatter.date(from: dateStr) ?? Date()
+    }
+    
+    private enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case name = "title"
+        case text = "content"
+        case category = "category_name"
+        case date = "created_at"
+    }
+    
+    private static let formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(identifier: "UTC")!
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SZ"
+        return formatter
+    }()
 }

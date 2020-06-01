@@ -97,3 +97,8 @@ extension Match {
         }
     }
 }
+
+extension Match: StringListable {
+    
+    var stringInList: String { return name }
+}

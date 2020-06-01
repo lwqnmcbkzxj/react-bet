@@ -45,3 +45,8 @@ struct Championship: Codable {
         case sportId = "sport_id"
     }
 }
+
+extension Championship: StringListable {
+    
+    var stringInList: String { return name }
+}

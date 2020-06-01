@@ -97,10 +97,10 @@ struct ForecasterStatistics: Codable {
         pureProfit = try container.decodeIfPresent(String.self,
                                           forKey: .pureProfit)?
                                   .convert(to: Double.self) ?? 0
-        wins = try container.decode(Int.self, forKey: .wins)
-        loss = try container.decode(Int.self, forKey: .loss)
-        wait = try container.decode(Int.self, forKey: .wait)
-        back = try container.decode(Int.self, forKey: .back)
+        wins = try container.decode(String.self, forKey: .wins).convert(to: Int.self)!
+        loss = try container.decode(String.self, forKey: .loss).convert(to: Int.self)!
+        wait = try container.decode(String.self, forKey: .wait).convert(to: Int.self)!
+        back = try container.decode(String.self, forKey: .back).convert(to: Int.self)!
         subscribers = try container.decode(Int.self, forKey: .subscribers)
         subscriptions = try container.decode(Int.self, forKey: .subscriptions)
     }

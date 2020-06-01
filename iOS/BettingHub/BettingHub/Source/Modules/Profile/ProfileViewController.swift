@@ -79,15 +79,15 @@ class ProfileViewController: UIViewController {
     private func setDelegate(for index: Int) {
         var delegate: ProfileDataSource!
         
-//        if index == 0 {
-//            delegate = userForecastsDataSource
-//        } else if index == 1 {
-//            delegate = userStatsDataSource
-//        } else if index == 2 {
-//            delegate = userFavoritesDataSource
-//        }
-        //TODO: tempUI
-        delegate = userStatsDataSource
+        if index == 0 {
+            delegate = userForecastsDataSource
+        } else if index == 1 {
+            delegate = userStatsDataSource
+        } else if index == 2 {
+            delegate = userFavoritesDataSource
+        }
+//        //TODO: tempUI
+//        delegate = userStatsDataSource
         
         tableView.dataSource = delegate
         tableView.delegate = delegate

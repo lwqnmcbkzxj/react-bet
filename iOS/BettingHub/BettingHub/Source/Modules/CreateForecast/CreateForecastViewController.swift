@@ -11,18 +11,10 @@ import AloeStackView
 
 class CreateForecastViewController: UIViewController {
     
-    let provider: TableSectionProvider
+    @ModuleDependency(assembly: CreateForecastAssembly.shared)
+    var provider: TableSectionProvider
     
-    init(provider: TableSectionProvider.Type) {
-        self.provider = provider.init(tableView: tableView)
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private let tableView: UITableView = {
+    let tableView: UITableView = {
         let view = UITableView(frame: .zero, style: .grouped)
         view.backgroundColor = .white
         view.separatorColor = .clear
@@ -63,5 +55,13 @@ extension CreateForecastViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return provider.cellHeight()
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return provider.footer()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return provider.footerHeight()
     }
 }

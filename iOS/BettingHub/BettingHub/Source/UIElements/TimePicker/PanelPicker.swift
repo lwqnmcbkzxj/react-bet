@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TimePicker: UIControl {
+class PanelPicker: UIControl {
     
     var selectedItem: Int? = nil {
         didSet {
@@ -63,7 +63,7 @@ class TimePicker: UIControl {
     }
 }
 
-extension TimePicker: UIPickerViewDataSource, UIPickerViewDelegate {
+extension PanelPicker: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -78,7 +78,7 @@ extension TimePicker: UIPickerViewDataSource, UIPickerViewDelegate {
     }
 }
 
-extension TimePicker: UITextFieldDelegate {
+extension PanelPicker: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         let index = picker.selectedRow(inComponent: 0)
         selectedItem = index
@@ -125,5 +125,12 @@ private class PickerTextField: UITextField {
                      y: bounds.height/2 - height/2,
                      width: width,
                      height: height)
+    }
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        OperationQueue.main.addOperation {
+            UIMenuController.shared.setMenuVisible(false, animated: false)
+        }
+        return false
     }
 }

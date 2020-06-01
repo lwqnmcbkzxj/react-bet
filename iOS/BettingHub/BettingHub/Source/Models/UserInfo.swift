@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct UserInfo: Decodable {
+struct UserInfo: Codable {
     
 //    let uid: Int?
 //    
@@ -39,6 +39,18 @@ struct UserInfo: Decodable {
         
     }
     
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(forecaster.id, forKey: .id)
+        try container.encode(forecaster.avatar, forKey: .avatar)
+        try container.encode(forecaster.login, forKey: .login)
+        try container.encode(forecaster.stats, forKey: .stats)
+        try container.encode(forecaster.lastForecasts, forKey: .lastFive)
+        try container.encode(forecaster.ratingPosition, forKey: .ratingPosition)
+        try container.encode(forecaster.balance, forKey: .balance)
+        
+    }
+    
     private enum CodingKeys: String, CodingKey {
         case uid = "uid"
         case login = "login"
@@ -59,52 +71,3 @@ struct UserInfo: Decodable {
         case lastFive = "last_five"
     }
 }
-
-//private extension UserInfo {
-//
-//    struct Stats: Codable {
-//        let roi: Double
-//        let averageCofficient: Double
-//        let pureProfit: Double
-//        let wins: Int
-//        let loss: Int
-//        let wait: Int
-//        let back: Int
-//        let subscribers: Int
-//        let subscriptions: Int
-//
-//        init(from decoder: Decoder) throws {
-//            let container = try decoder.container(keyedBy: CodingKeys.self)
-//            roi = try container.decodeIfPresent(String.self, forKey: .roi)?
-//                .convert(to: Double.self) ?? 0
-//            averageCofficient = try container.decodeIfPresent(String.self, forKey: .averageCofficient)?
-//                .convert(to: Double.self) ?? 0
-//            pureProfit = try container.decodeIfPresent(String.self, forKey: .pureProfit)?
-//                .convert(to: Double.self) ?? 0
-//            wins = try container.decode(Int.self, forKey: .wins)
-//            loss = try container.decode(Int.self, forKey: .loss)
-//            wait = try container.decode(Int.self, forKey: .wait)
-//            back = try container.decode(Int.self, forKey: .back)
-//            subscribers = try container.decode(Int.self, forKey: .subscribers)
-//            subscriptions = try container.decode(Int.self, forKey: .subscriptions)
-//        }
-//
-//        private enum CodingKeys: String, CodingKey {
-//            case roi = "roi"
-//            case averageCofficient = "average_cofficient"
-//            case pureProfit = "pure_profit"
-//            case wins = "count_win"
-//            case loss = "count_loss"
-//            case wait = "count_wait"
-//            case back = "count_back"
-//            case subscribers = "count_subscribers"
-//            case subscriptions = "count_subscriptions"
-//        }
-//
-//        func toForecasterStats() -> ForecasterStatistics {
-//            return ForecasterStatistics(roi: roi,
-//                                        averageCoefficient: averageCofficient,
-//                                        pureProfit: <#T##Double#>, wins: <#T##Int#>, loss: <#T##Int#>, wait: <#T##Int#>, back: <#T##Int#>, subscribers: <#T##Int#>, subscriptions: <#T##Int#>)
-//        }
-//    }
-//}

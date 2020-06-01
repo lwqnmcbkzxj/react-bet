@@ -10,6 +10,12 @@ import Foundation
 
 class UserForecastsViewModel: TableViewModel<Forecast, Any> {
     
+    let interactor: IProfileInteractor
+    
+    init(interactor: IProfileInteractor) {
+        self.interactor = interactor
+    }
+    
     override var pageSize: Int { return 5 }
     
     override func currentPage(_ page: Int) {
@@ -27,9 +33,9 @@ class UserForecastsViewModel: TableViewModel<Forecast, Any> {
     private func fetchMore() {
         isLoading = true
         
-        forecastService.userForecasts(id: userService.currentUserInfo?.forecaster.id ?? 0,
+        forecastService.userForecasts(id: interactor.profile().id,
                                   page: loadedPages + 1,
-                                  count: 10)
+                                  count: pageSize)
         { (result) in
             switch result {
             case .success(let forecasts):

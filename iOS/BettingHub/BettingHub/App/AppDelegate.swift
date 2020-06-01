@@ -21,9 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        let appInitializer = AppInitializer(coordinator: appCoordinator)
+        let appInitializer = AppInitializer(coordinator: appCoordinator, window: window!)
 
-        appInitializer.start(with: window!)
+        appInitializer.start()
         
         return true
     }

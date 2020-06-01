@@ -36,5 +36,7 @@ class ServiceLocator {
         container.register(IBookmakerService.self) { BookmakerService() }
         container.register(IArticleService.self) { ArticleService() }
         container.register(INewsService.self, registrationBlock: NewsService.init)
+        container.register(IPersistantDefaultsService.self,
+                           registrationBlock: PersistantDefaultsService.init)
     }
 }

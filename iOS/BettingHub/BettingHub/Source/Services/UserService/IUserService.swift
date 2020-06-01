@@ -10,15 +10,15 @@ import Foundation
 
 protocol IUserService: class {
     
+    func addDelegate(_ delegate: IUserServiceDelegate)
+    
+    func removeDelegate(_ delegate: IUserServiceDelegate)
+    
     var currentUserInfo: UserInfo? { get }
     
     func reloadInfo(callback: ((BHError?)->Void)?)
     
     func clearInfo()
-    
-    func addDelegate(_ delegate: IUserServiceDelegate)
-    
-    func removeDelegate(_ delegate: IUserServiceDelegate)
 }
 
 protocol IUserServiceDelegate: class {

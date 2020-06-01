@@ -28,7 +28,9 @@ class ProfileForecastsDataSource: NSObject, ProfileDataSource {
         }
     }
     
-    init(tableView: UITableView, viewModel: TableViewModel<Forecast, Any>, router: IProfileRouter) {
+    init(tableView: UITableView,
+         viewModel: TableViewModel<Forecast, Any>,
+         router: IProfileRouter) {
         
         tableView.isSkeletonable = true
         self.tableView = tableView
@@ -111,5 +113,15 @@ extension ProfileForecastsDataSource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let forecast = viewModel.item(for: indexPath.row)
         router.showForecast(forecast)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let cellPage = (indexPath.row / viewModel.pageSize) + 1
+        viewModel.currentPage(cellPage)
+
+        let isEnd = viewModel.numberOfItems() == indexPath.row + 1
+        if isEnd {
+            viewModel.currentPage(cellPage + 1)
+        }
     }
 }

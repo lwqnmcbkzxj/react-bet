@@ -19,6 +19,8 @@ class ForecastCell: UITableViewCell {
     
     weak var delegate: ForecastCellDelegate?
     
+    private let presenter: IForecastCellPresenter = ForecastCellPresenter()
+    
     private let panelView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -201,6 +203,8 @@ class ForecastCell: UITableViewCell {
         selectionStyle = .none
         makeLayout()
         isSkeletonable = true
+        
+//        bookmarksView.setTapAction(target: self, action: bookmarksTapped)
     }
     
     required init?(coder: NSCoder) {
@@ -429,5 +433,10 @@ class ForecastCell: UITableViewCell {
     @objc private func userLineTapped() {
         guard let forecast = self.forecast else { return }
         delegate?.userViewTapped(forecast: forecast)
+    }
+    
+    @objc private func bookmarksTapped() {
+        guard let forecast = self.forecast else { return }
+        presenter.addBookmark(forecast: forecast)
     }
 }

@@ -35,3 +35,8 @@ struct Sport: Codable {
     @LazyInjected
     private static var sportService: ISportService
 }
+
+extension Sport: StringListable {
+    
+    var stringInList: String { return name }
+}

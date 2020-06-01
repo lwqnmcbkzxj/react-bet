@@ -43,7 +43,7 @@ class NewsCell: UITableViewCell {
         let view = UILabel()
         view.textColor = .titleBlack
         view.font = .robotoMedium(size: 19)
-        view.numberOfLines = 2
+        view.numberOfLines = 0
         view.isSkeletonable = true
         view.text = "New title label"
         return view
@@ -53,9 +53,9 @@ class NewsCell: UITableViewCell {
         let view = UILabel()
         view.textColor = .textGrayDark
         view.font = .robotoRegular(size: 15)
-        view.numberOfLines = 8
         view.isSkeletonable = true
         view.text = "text\ntext\ntext"
+        view.numberOfLines = 0
         return view
     }()
     

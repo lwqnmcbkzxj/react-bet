@@ -16,8 +16,8 @@ class ProfileAssembly {
         let router = ProfileRouter(viewController: vc, coordinator: coordinator)
         let interactor = ProfileInteractor(forecaster: forecaster)
         
-        let userForecasts = UserForecastsViewModel()
-        let userFavorites = UserFavoritesViewModel()
+        let userForecasts = UserForecastsViewModel(interactor: interactor)
+        let userFavorites = UserFavoritesViewModel(interactor: interactor)
         let userStats = ProfileStatisticsViewModel()
         
         vc.router = router
