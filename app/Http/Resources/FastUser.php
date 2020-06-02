@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Subscriber;
 use App\User as UserModel;
 use http\Env\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -37,10 +38,10 @@ class FastUser extends JsonResource
                 'count_subscribers' => $this->count_subscribers,
                 'count_subscriptions' => $this->count_subscriptions
             ],
-            'rating_position'=> $this->rating_position,
+            'rating_position' => $this->rating_position,
             'last_five' => \App\User::getLastFive($this->id),
-            'is_subscribed' => $this->when($request->user, function () use ($request, $user_id){
-                return ( $request->user->subscriptions()->where('user_id',$user_id)->first()? true : false);
+            'is_subscribed' => $this->when(auth('api')->check(), function () use ($request, $user_id) {
+                return Subscriber::checkSubscription($user_id, auth('api')->id());
             }),
         ];
     }

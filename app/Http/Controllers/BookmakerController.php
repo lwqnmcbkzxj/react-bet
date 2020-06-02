@@ -38,7 +38,7 @@ class BookmakerController extends Controller
         if (!$request->has('limit')) {
             $request['limit'] = 'limit';
         }
-        return Bookmaker::query()->where($request->search_by, 'LIKE', "%" . $request->search . "%")->orderBy($request['order_by'])->paginate($request['limit']);
+        return $this->sendResponse(Bookmaker::query()->where($request->search_by, 'LIKE', "%" . $request->search . "%")->orderBy($request['order_by'])->paginate($request['limit']),'Success',200);
     }
 
     function edit(Request $request, Bookmaker $bookmaker)

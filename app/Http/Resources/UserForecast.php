@@ -48,11 +48,12 @@ class UserForecast extends JsonResource
                 'count_comments' => $this->comments_count,
                 'rating' => intval($this->rating)
             ],
-            'is_marked' => $this->when($request->has('user'), function () use ($request, $forecast_id){
-                return ( $request->user()->follow_forecasts()->find(forecast_id)? true : false);
+            'is_marked' => $this->when(auth('api')->check(), function () use ($request, $forecast_id){
+                return ( auth('api')->user()->follow_forecasts()->where('forecast_id',$forecast_id)->first()? true : false);
             }),
-            'vote' => $this->when($request->has('user'), function () use ($request, $forecast_id){
-                return $request->user()->votes()->find(forecast_id);
+            'vote' => $this->when(auth('api')->check(), function () use ($request, $forecast_id){
+                $vote = auth('api')->user()->votes()->where('reference_to', 'forecasts')->where('referent_id',$forecast_id)->first();
+                return $vote ? $vote->type : null;
             })];
     }
 }

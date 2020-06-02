@@ -126,12 +126,12 @@ WHERE `forecasts`.`user_id` = ? and ( `coefficients`.status = 3 or `coefficients
 
     public function subscriptions()
     {
-        return $this->belongsToMany('App\User', 'subscribers', 'user_id', 'subscriber_id');
+        return $this->belongsToMany('App\User', 'subscribers', 'subscriber_id', 'user_id');
     }
 
     public function subscribers()
     {
-        return $this->belongsToMany('App\User', 'subscribers', 'subscriber_id', 'user_id');
+        return $this->belongsToMany('App\User', 'subscribers', 'user_id', 'subscriber_id');
     }
 
     public function votes()

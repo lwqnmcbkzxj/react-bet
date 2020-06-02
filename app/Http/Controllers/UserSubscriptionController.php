@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GetAllNewsRequest;
 use App\Http\Resources\FastForecastCollection;
+use App\Http\Resources\UserCollection;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +36,7 @@ class UserSubscriptionController extends Controller
 
     public function getSubscriptions(User $user)
     {
-        return $this->sendResponse($user->subscriptions()->get(), 'Success', 200);
+        return $this->sendResponse(new UserCollection($user->subscriptions()->get()), 'Success', 200);
     }
 
     public function getForecastSubscriptions(Request $request, User $user)

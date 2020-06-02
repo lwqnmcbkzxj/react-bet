@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Subscriber;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -12,10 +13,8 @@ class Forecast extends JsonResource
 {
     public function toArray($request)
     {
-//       $response = parent::toArray($request);
-//       $response['user_data'] = $this->user_data;
-//       $response['event'] = $this->event;
-//       $response['comments'] = $this->comments;
+        $forecast_id = $this->forecast_id;
+        $user_id = $this->user_id;
         $split_team = preg_split("* - *", $this->event->title);
         return [
             'id' => $this->id,
@@ -24,7 +23,12 @@ class Forecast extends JsonResource
                 'avatar' => $this->user_data->avatar,
                 'login' => $this->user_data->login,
                 'stats' => $this->user_data->stats,
-                'last_five' => $this->user_data->last_five],
+
+                'last_five' => $this->user_data->last_five,
+                'is_subscribed' => $this->when(auth('api')->check(), function () use ($request, $user_id) {
+                    return Subscriber::checkSubscription($user_id, auth('api')->id());
+                })],
+
             'event_data' => [
                 'championship_data' => [
                     'championship_id' => $this->event->championship->id,
@@ -52,11 +56,12 @@ class Forecast extends JsonResource
                 'count_comments' => $this->comments->count(),
                 'rating' => intval($this->rating)
             ],
-            'is_subscribed' => $this->when(Auth::check(), function () {
-                return Auth::user()->hasSubscription($this->id);
+            'is_marked' => $this->when(auth('api')->check(), function () use ($request, $forecast_id){
+                return ( auth('api')->user()->follow_forecasts()->where('forecast_id',$forecast_id)->first()? true : false);
             }),
-            'vote' => $this->when(Auth::check(), function () {
-                return Auth::user()->votes()->find($this->id);
+            'vote' => $this->when(auth('api')->check(), function () use ($request, $forecast_id){
+                $vote = auth('api')->user()->votes()->where('reference_to', 'forecasts')->where('referent_id',$forecast_id)->first();
+                return $vote ? $vote->type : null;
             })
         ];
     }
