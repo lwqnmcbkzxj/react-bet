@@ -41,8 +41,8 @@ class ForecastsFragment : Fragment(), ForecastListener {
         binding.lifecycleOwner = this
 
 
-        binding.topPanel.bankBalance.balance = "1 500 xB"
-        binding.topPanel.bankBalance.root.visibility = if (App.appComponent.getAppData().activeUser == null) View.GONE else View.VISIBLE
+//        binding.topPanel.bankBalance.balance = "1 500 xB"
+//        binding.topPanel.bankBalance.root.visibility = if (App.appComponent.getAppData().activeUser == null) View.GONE else View.VISIBLE
         binding.topPanel.searchBtn.setOnClickListener { onSearchBtnClick() }
 
         addItemDecoration()

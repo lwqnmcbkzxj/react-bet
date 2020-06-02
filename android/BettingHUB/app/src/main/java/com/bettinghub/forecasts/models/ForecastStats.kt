@@ -15,6 +15,6 @@ data class ForecastStats (
 
     @SerializedName("rating")
     @Expose
-    val rating: Int
+    var rating: Int
 ): Serializable {
 }

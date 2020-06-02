@@ -7,6 +7,7 @@ class Settings(context: Context) {
     companion object {
         val accessTokenKey = "accessToken"
         val refreshTokenKey = "refreshToken"
+        val userId = "userId"
     }
 
     private val preferencesName = "BHPreferences"
@@ -17,9 +18,20 @@ class Settings(context: Context) {
         return sp.getString(name, "")!!
     }
 
+    fun getInt(name: String): Int {
+        return sp.getInt(name, -1)
+    }
+
     fun setString(name: String?, value: String?) {
         val editor: SharedPreferences.Editor = sp.edit()
         editor.putString(name, value)
+        editor.apply()
+    }
+
+
+    fun setInt(name: String?, value: Int) {
+        val editor: SharedPreferences.Editor = sp.edit()
+        editor.putInt(name, value)
         editor.apply()
     }
 }

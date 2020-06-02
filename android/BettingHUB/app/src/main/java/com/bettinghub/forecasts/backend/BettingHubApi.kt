@@ -8,6 +8,7 @@ import com.bettinghub.forecasts.backend.responses.UsersResponse
 import com.bettinghub.forecasts.models.*
 import io.reactivex.Completable
 import io.reactivex.Observable
+import okhttp3.ResponseBody
 import retrofit2.http.*
 
 interface BettingHubApi {
@@ -16,14 +17,42 @@ interface BettingHubApi {
     fun forecasts(@Query("limit") limit: Int, @Query("sport_id") sportId: Int
                   , @Query("time") time: Int, @Query("page") page: Int): Observable<Response<List<Forecast>>>
 
+    @GET("users/{id}/subscription")
+    fun subscriptionForecasts(@Path("id") id: Int?, @Query("limit") limit: Int, @Query("sport_id") sportId: Int
+                              , @Query("time") time: Int, @Query("page") page: Int): Observable<List<Forecast>>
+
     @GET("users/{id}/forecasts")
     fun userForecasts(@Path("id") id: Int): Observable<Response<List<Forecast>>>
 
     @GET("bookmakers")
     fun bookmakers(): Observable<List<Bookmaker>>
 
+    @POST("forecasts/{id}/mark")
+    fun addToFavorite(@Path("id") id: Int, @Header("Authorization") token: String): Observable<retrofit2.Response<ResponseBody>>
+
+    @POST("users/{id}/subscription")
+    fun subscribe(@Path("id") id: Int, @Header("Authorization") token: String): Observable<retrofit2.Response<ResponseBody>>
+
+    @POST("forecasts/{id}/like")
+    fun likeForecast(@Path("id") id: Int, @Header("Authorization") token: String): Observable<retrofit2.Response<ResponseBody>>
+
+    @POST("forecasts/{id}/dislike")
+    fun dislikeForecast(@Path("id") id: Int, @Header("Authorization") token: String): Observable<retrofit2.Response<ResponseBody>>
+
+    @POST("posts/{id}/like")
+    fun likeArticle(@Path("id") id: Int, @Header("Authorization") token: String): Observable<retrofit2.Response<ResponseBody>>
+
+    @POST("posts/{id}/dislike")
+    fun dislikeArticle(@Path("id") id: Int, @Header("Authorization") token: String): Observable<retrofit2.Response<ResponseBody>>
+
+    @GET("forecasts/marked")
+    fun favorite(@Header("Authorization") token: String): Observable<List<Forecast>>
+
     @GET("posts")
     fun articles(): Observable<Response<List<Article>>>
+
+    @GET("news")
+    fun news(): Observable<Response<List<News>>>
 
     @GET("posts/{id}")
     fun article(@Path("id") id: Int): Observable<Article>

@@ -18,17 +18,10 @@ class NewsViewModel: BaseViewModel() {
     override fun onCreate() {
         super.onCreate()
 
-        newsLiveData.value = Event.loading()
-
-        Completable.create {
-            it.onComplete()
-        }.delay(2, TimeUnit.SECONDS)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({
-            newsLiveData.value = Event.success(List(consts.newsPerPage) { News() })
+        requestWithLiveData(newsLiveData, {
+            backendAPI.news()
         }, {
-            it.printStackTrace()
+            it.data
         })
     }
 
@@ -36,17 +29,17 @@ class NewsViewModel: BaseViewModel() {
     fun onShowMoreClick() {
         page++
 
-        newsLiveData.value = Event.loading()
-
-        Completable.create {
-            it.onComplete()
-        }.delay(2, TimeUnit.SECONDS)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                newsLiveData.value = Event.success(List(consts.newsPerPage) { News() })
-            }, {
-                it.printStackTrace()
-            })
+//        newsLiveData.value = Event.loading()
+//
+//        Completable.create {
+//            it.onComplete()
+//        }.delay(2, TimeUnit.SECONDS)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({
+//                newsLiveData.value = Event.success(List(consts.newsPerPage) { News() })
+//            }, {
+//                it.printStackTrace()
+//            })
     }
 }

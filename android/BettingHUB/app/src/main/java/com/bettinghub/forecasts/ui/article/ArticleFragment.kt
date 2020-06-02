@@ -73,13 +73,13 @@ class ArticleFragment : Fragment() {
         viewModel.article.observe(viewLifecycleOwner, Observer {
             article = it.data
             if (articles != null) {
-                recyclerView.adapter = Adapter(it.data ?: return@Observer, articles!!)
+                recyclerView.adapter = Adapter(it.data ?: return@Observer, articles!!.filter { it.id != article!!.id }.take(3))
             }
         })
         viewModel.articles.observe(viewLifecycleOwner, Observer {
-            articles = it.data?.take(3)
+            articles = it.data
             if (article != null) {
-                recyclerView.adapter = Adapter(article!!, it.data ?: emptyList())
+                recyclerView.adapter = Adapter(article!!, it.data!!.filter { it.id != article!!.id }.take(3))
             }
         })
         viewModel.id.value = args.articleId
@@ -147,6 +147,9 @@ class ArticleFragment : Fragment() {
                 text = "Похожие статьи:"
                 setTextColor(ContextCompat.getColor(requireContext(), R.color.textColor1))
                 textSize = 18f
+                if (articles.isEmpty()) {
+                    visibility = View.GONE
+                }
             }) {}
 //            ITEM_VIEW_TYPE_NEW_COMMENT -> object : RecyclerView.ViewHolder(layoutInflater.inflate(R.layout.item_comment_new, parent, false)) {}
 //            ITEM_VIEW_TYPE_COMMENT_L0 -> object : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_comment_0_level, parent, false)) {}

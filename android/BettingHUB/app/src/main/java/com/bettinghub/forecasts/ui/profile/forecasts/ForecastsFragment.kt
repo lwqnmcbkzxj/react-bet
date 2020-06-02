@@ -41,7 +41,6 @@ class ForecastsFragment: Fragment(), ForecastListener {
         val items = ArrayList<Item>()
 
         viewModel.forecastsLiveData.observe(viewLifecycleOwner, Observer {
-            println(it.data?.size)
             it.data?.forEach {
                 items.add(ForecastItem(it))
             } ?: return@Observer
@@ -50,9 +49,7 @@ class ForecastsFragment: Fragment(), ForecastListener {
 
             adapter.addAll(items)
         })
-        viewModel.id.value = requireArguments().getInt("user_id")
-
-
+        viewModel.id.value = arguments?.getInt("user_id") ?: -1
 
         return binding.root
     }

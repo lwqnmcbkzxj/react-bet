@@ -25,9 +25,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val settings = Settings(this)
-        Pair(settings.getString(Settings.accessTokenKey), settings.getString(Settings.refreshTokenKey)).let {
+        Triple(settings.getString(Settings.accessTokenKey), settings.getString(Settings.refreshTokenKey), settings.getInt(Settings.userId)).let {
             if (it.first.isNotEmpty() && it.second.isNotEmpty()) {
-                App.appComponent.getAppData().activeUser = ActiveUser(it.first, it.second)
+                App.appComponent.getAppData().activeUser = ActiveUser(it.first, it.second, it.third)
             }
         }
 

@@ -6,10 +6,13 @@ import com.bumptech.glide.Glide
 import com.bettinghub.forecasts.App
 import com.bettinghub.forecasts.R
 import com.bettinghub.forecasts.Utils
+import com.bettinghub.forecasts.backend.BettingHubBackend
 import com.bettinghub.forecasts.databinding.ItemForecastBinding
 import com.bettinghub.forecasts.models.Forecast
 import com.bettinghub.forecasts.ui.forecasts.items.ForecastListener
 import com.bettinghub.forecasts.ui.forecasts.items.items.ForecastItem
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import java.text.SimpleDateFormat
 
 class ForecastViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -90,16 +93,79 @@ class ForecastViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
             binding.loading.root.visibility = View.GONE
             binding.main.visibility = View.VISIBLE
+
+            var added = false
+            var liked = false
+            var disliked = false
+            binding.bookmarkIcon.setOnClickListener {
+                BettingHubBackend().api.addToFavorite(f.id, "Bearer ${App.appComponent.getAppData().activeUser?.accessToken}")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        if (it.isSuccessful) {
+                            if (!added) {
+                                binding.bookmarkIcon.setImageResource(R.drawable.ic_bookmark)
+                            } else {
+                                binding.bookmarkIcon.setImageResource(R.drawable.ic_bookmark_outline)
+                            }
+                            added = !added
+                        }
+                    }, {
+                        it.printStackTrace()
+                    })
+            }
+            binding.downVoteBtn.setOnClickListener {
+                BettingHubBackend().api.dislikeForecast(f.id, "Bearer ${App.appComponent.getAppData().activeUser?.accessToken}")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        if (it.isSuccessful) {
+                            if (!disliked) {
+                                f.stats.rating--
+                                if (liked) {
+                                    f.stats.rating--
+                                    liked = false
+                                }
+                            } else {
+                                f.stats.rating++
+                            }
+                            binding.rating.text = f.stats.rating.toString()
+                            disliked = !disliked
+                        }
+                    }, {
+                        it.printStackTrace()
+                    })
+            }
+            binding.upVoteBtn.setOnClickListener {
+                BettingHubBackend().api.likeForecast(f.id, "Bearer ${App.appComponent.getAppData().activeUser?.accessToken}")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        if (it.isSuccessful) {
+                            if (!liked) {
+                                f.stats.rating++
+                                if (disliked) {
+                                    f.stats.rating++
+                                    disliked = false
+                                }
+                            } else {
+                                f.stats.rating--
+                            }
+                            binding.rating.text = f.stats.rating.toString()
+                            liked = !liked
+                        }
+                    }, {
+                        it.printStackTrace()
+                    })
+            }
         } ?: run {
             binding.main.visibility = View.GONE
             binding.loading.root.visibility = View.VISIBLE
         }
-
-
     }
 
     fun setListener(listener: ForecastListener) {
-        binding.root.setOnClickListener {
+        binding.main.setOnClickListener {
             forecast?.let {
                 listener.onForecastClick(it, adapterPosition)
             }

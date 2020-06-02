@@ -13,7 +13,7 @@ class Constants(val context: Context) {
     val topBookmakerCount = 10
     val matchesPerPage = 10
     val forecastsPerPage = 10
-    val newsPerPage = 5
+    val newsPerPage = 15
     val minBetBankPer = 0.005f;
     val maxBetBankPer = 0.05f;
 

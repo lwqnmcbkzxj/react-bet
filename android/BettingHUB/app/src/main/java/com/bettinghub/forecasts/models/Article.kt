@@ -10,5 +10,5 @@ class Article(
     val title: String,
     val content: String,
     val commentCount: Int,
-    val rating: Int
+    var rating: Int
 )

@@ -44,7 +44,7 @@ class HeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     fun setViewModel(viewModel: ForecastsViewModel, viewLifecycleOwner: LifecycleOwner) {
         binding.viewModel = viewModel
         addSportItems(viewModel, viewLifecycleOwner)
-        viewModel.forecastFilterLiveData.observe(viewLifecycleOwner, Observer { updateFilterViews(it) })
+        viewModel.forecastFilter.observe(viewLifecycleOwner, Observer { updateFilterViews(it) })
 
         binding.timeIntervalSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
             override fun onItemSelected(

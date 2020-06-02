@@ -14,12 +14,14 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.bettinghub.forecasts.App
 import com.bettinghub.forecasts.R
+import com.bettinghub.forecasts.Settings
 import com.bettinghub.forecasts.Utils
 import com.bettinghub.forecasts.backend.BettingHubBackend
 import com.bettinghub.forecasts.databinding.FragmentProfileBinding
 import com.bettinghub.forecasts.models.User
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment() {
 
@@ -29,6 +31,7 @@ class ProfileFragment : Fragment() {
 
     private var searchActive = false
     private val args by navArgs<ProfileFragmentArgs>()
+    private val settings = App.appComponent.getSettings()
 
 
     @SuppressLint("SetTextI18n")
@@ -49,13 +52,40 @@ class ProfileFragment : Fragment() {
             )
         )
         binding.userBlock.settingsBtn.setOnClickListener { onSettingBtnClick() }
-
-        binding.subscribeBtnBlock.visibility = View.GONE
-
-        args.user?.let { it ->
-            init(it)
+        args.user?.let { user ->
+            init(user, false)
+            binding.tabs.removeTabAt(2)
             binding.userBlock.settingsBtn.visibility = View.GONE
+            binding.subscribeBtn.setOnClickListener {
+                BettingHubBackend().api.subscribe(user.id, "Bearer ${appData.activeUser?.accessToken}")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        println(it)
+                        if (it.isSuccessful) {
+                            subscribeBtn.visibility = View.GONE
+                            unsubscribeBtn.visibility = View.VISIBLE
+                        }
+                    }, {
+                        it.printStackTrace()
+                    })
+            }
+            binding.unsubscribeBtn.setOnClickListener {
+                BettingHubBackend().api.subscribe(user.id, "Bearer ${appData.activeUser?.accessToken}")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        println(it)
+                        if (it.isSuccessful) {
+                            unsubscribeBtn.visibility = View.GONE
+                            subscribeBtn.visibility = View.VISIBLE
+                        }
+                    }, {
+                        it.printStackTrace()
+                    })
+            }
         } ?: run {
+            binding.subscribeBtnBlock.visibility = View.GONE
             appData.activeUser?.user?.let { activeUser ->
                 init(activeUser)
             } ?: run {
@@ -65,7 +95,9 @@ class ProfileFragment : Fragment() {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
+                        settings.setInt(Settings.userId, it.id)
                         appData.activeUser!!.user = it
+                        appData.activeUser!!.id = it.id
                         init(it)
                         binding.loading.root.visibility = View.GONE
                     }, {
@@ -115,7 +147,7 @@ class ProfileFragment : Fragment() {
         return binding.root
     }
 
-    fun init(user: User) {
+    fun init(user: User, current: Boolean = true) {
         binding.userBlock.userName.text = user.login
         binding.userBlock.balance.text = "${user.balance} xB"
 
@@ -148,8 +180,15 @@ class ProfileFragment : Fragment() {
 
         binding.userBlock.wld.text = Utils.fromHtml(wdlHtml)
 
-        binding.pager.adapter = PageAdapter(1, childFragmentManager, user)
-        binding.pager.setCurrentItem(binding.tabs.selectedTabPosition, false);
+        if (current) {
+            binding.pager.offscreenPageLimit = 3
+            binding.pager.adapter = PageAdapter(3, childFragmentManager, user)
+            binding.pager.setCurrentItem(binding.tabs.selectedTabPosition, false)
+        } else {
+            binding.pager.offscreenPageLimit = 2
+            binding.pager.adapter = PageAdapter(2, childFragmentManager, user)
+            binding.pager.setCurrentItem(binding.tabs.selectedTabPosition, false)
+        }
     }
 
     private fun fillUserInfo() {

@@ -15,9 +15,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bettinghub.forecasts.App
 import com.bettinghub.forecasts.R
 import com.bettinghub.forecasts.Utils
+import com.bettinghub.forecasts.backend.BettingHubBackend
 import com.bettinghub.forecasts.models.Article
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.article_list_item.view.*
 import kotlinx.android.synthetic.main.element_top_panel.*
 import kotlinx.android.synthetic.main.element_top_panel.view.*
@@ -55,7 +59,6 @@ class ArticlesFragment : Fragment() {
             }
         }
         viewModel.articles.observe(viewLifecycleOwner, Observer {
-            println(it.data?.size)
             articleRecyclerView.adapter = ArticleAdapter(it.data ?: emptyList())
         })
         articleRecyclerView.addItemDecoration(object : RecyclerView.ItemDecoration() {
@@ -90,8 +93,6 @@ class ArticlesFragment : Fragment() {
                     }
                 }
             }
-
-
         })
     }
 
@@ -150,11 +151,51 @@ class ArticlesFragment : Fragment() {
             likeCount.text = article.rating.toString()
             title.text = article.title
             time.text = dateFormat.format(serverDateFormat.parse(article.createdAt)!!)
+            var liked = false
+            var disliked = false
             downVoteButton.setOnClickListener {
-
+                BettingHubBackend().api.dislikeArticle(article.id, "Bearer ${App.appComponent.getAppData().activeUser?.accessToken}")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        if (it.isSuccessful) {
+                            if (!disliked) {
+                                article.rating--
+                                if (liked) {
+                                    article.rating--
+                                    liked = false
+                                }
+                            } else {
+                                article.rating++
+                            }
+                            likeCount.text = article.rating.toString()
+                            disliked = !disliked
+                        }
+                    }, {
+                        it.printStackTrace()
+                    })
             }
             upVoteButton.setOnClickListener {
-
+                BettingHubBackend().api.likeArticle(article.id, "Bearer ${App.appComponent.getAppData().activeUser?.accessToken}")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        if (it.isSuccessful) {
+                            if (!liked) {
+                                article.rating++
+                                if (disliked) {
+                                    article.rating++
+                                    disliked = false
+                                }
+                            } else {
+                                article.rating--
+                            }
+                            likeCount.text = article.rating.toString()
+                            liked = !liked
+                        }
+                    }, {
+                        it.printStackTrace()
+                    })
             }
             itemView.setOnClickListener {
                 findNavController().navigate(ArticlesFragmentDirections.toArticleFragment(article.id))
