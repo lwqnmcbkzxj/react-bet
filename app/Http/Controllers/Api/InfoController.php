@@ -61,7 +61,7 @@ class InfoController extends Controller
         if ($request->has('order_by')) {
             $res->orderBy($request['order_by'], $request['direction']);
         }
-        return new FastForecastCollection($res->paginate($request['limit']));
+        return $this->sendResponse(new FastForecastCollection($res->paginate($request['limit'])),'Success',200);
     }
 
     public function forecast(Forecast $forecast)
@@ -101,7 +101,7 @@ class InfoController extends Controller
             $response = $response->orderBy($request['order_by'], $request['direction']);
         }
 
-        return (new FastUserCollection($response->paginate($request['limit'])));
+        return $this->sendResponse(new FastUserCollection($response->paginate($request['limit'])),'Success',200);
     }
 
     public function forecaster(Request $request, User $user)
@@ -200,7 +200,7 @@ class InfoController extends Controller
         if ($request->has('order_by')) {
             $res->orderBy($request['order_by'], $request['direction']);
         }
-        return new FastForecastCollection($res->paginate($request['limit']));
+        return $this->sendResponse(new FastForecastCollection($res->paginate($request['limit'])),'Success',200);
     }
 
     public function posts(Request $request)

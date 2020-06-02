@@ -3,7 +3,8 @@
 
 namespace App\Http\Traits;
 
-use Response;
+use Illuminate\Support\Facades\Response;
+//use Response;
 
 trait ApiResponse
 {
@@ -15,7 +16,7 @@ trait ApiResponse
      */
     public function sendResponse($result, $message, $code) {
 
-        return Response::json(self::makeResponse($message, $result), $code);
+        return Response::json(self::makeResponse($message, $result), $code)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }
 
     /**

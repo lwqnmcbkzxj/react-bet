@@ -29,7 +29,7 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $user['role'] = Role::find($user['role_id']);
-        return $user;
+        return $this->sendResponse($user,'Success',200);
     }
 
 

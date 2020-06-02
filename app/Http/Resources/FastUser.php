@@ -16,6 +16,7 @@ class FastUser extends JsonResource
      */
     public function toArray($request)
     {
+        $user_id = $this->id;
         return ['id' => $this->id,
             'role' => [
                 'id' => $this->role_id,
@@ -37,7 +38,10 @@ class FastUser extends JsonResource
                 'count_subscriptions' => $this->count_subscriptions
             ],
             'rating_position'=> $this->rating_position,
-            'last_five' => \App\User::getLastFive($this->id)
+            'last_five' => \App\User::getLastFive($this->id),
+            'subscribed' => $this->when($request->user(), function () use ($request, $user_id){
+                return ( $request->user->subscriptions()->where('user_id',$user_id)->first()? true : false);
+            }),
         ];
     }
 

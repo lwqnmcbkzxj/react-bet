@@ -24,11 +24,8 @@ class UserSubscriptionController extends Controller
                 $user->subscribers()->detach($auth_user);
                 return $this->sendResponse('Unsubscribed', 'Success', 200);
             }
-            $user->save();
-        } else {
-            return $this->sendError('Unauthorized', 402);
         }
-        return $this->sendResponse([], 'Success', 200);
+        return $this->sendError('Unauthorized', 402);
     }
 
     public function getSubscribers(Request $request, User $user)
@@ -40,9 +37,10 @@ class UserSubscriptionController extends Controller
     {
         return $this->sendResponse($user->subscriptions()->get(), 'Success', 200);
     }
+
     public function getForecastSubscriptions(Request $request, User $user)
     {
-        $res = $user->subscriptions()->join('forecasts_view', 'users.id','=','forecasts_view.user_id');
+        $res = $user->subscriptions()->join('forecasts_view', 'users.id', '=', 'forecasts_view.user_id');
         if (!$request->has('limit') || $request['limit'] == 0) {
             $request['limit'] = 6;
         }
@@ -95,6 +93,7 @@ class UserSubscriptionController extends Controller
             'forecasts_view.rating as rating']);
         return new FastForecastCollection($res->paginate($request['limit']));
     }
+
     public function delete(User $user)
     {
         if ($auth_user = Auth::user()) {
