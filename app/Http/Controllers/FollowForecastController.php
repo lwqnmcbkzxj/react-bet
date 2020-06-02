@@ -21,15 +21,15 @@ class FollowForecastController extends Controller
             $follow_forecast->forecast_id = $forecast->id;
             $follow_forecast->user_id = $user->id;
             $follow_forecast->save();
+            return $this->sendResponse($follow_forecast, 'Success', 200);
         } else {
             try {
                 $follow_forecast->delete();
-                return $this->sendResponse([], 'Success', 200);;
+                return $this->sendResponse('Mark has been deleted', 'Success', 200);;
             } catch (\Exception $exception) {
                 return $this->sendError('Deletion Error', 400, $exception->getMessage());
             }
         }
-        return $this->sendResponse([], 'Success', 200);
     }
 
     public function get(Request $request)

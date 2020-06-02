@@ -16,12 +16,12 @@ class BookmakerController extends Controller
         if (!$request->has('limit')) {
             $request['limit'] = 'limit';
         }
-        return Bookmaker::query()->orderBy($request['order_by'])->paginate($request['limit']);
+        return $this->sendResponse(Bookmaker::query()->orderBy($request['order_by'])->paginate($request['limit']),'Success',200);
     }
 
     function get(Request $request, Bookmaker $bookmaker)
     {
-        return $bookmaker;
+        return $this->sendResponse($bookmaker,'Success',200);
     }
 
     function delete(Request $request, Bookmaker $bookmaker)
@@ -50,7 +50,7 @@ class BookmakerController extends Controller
         $bookmaker->logo = $request['logo'];
         $bookmaker->link = $request['link'];
         $bookmaker->save();
-        return $bookmaker;
+        return $this->sendResponse($bookmaker,'Success', 200);
     }
 
     function post(Request $request)
@@ -63,6 +63,6 @@ class BookmakerController extends Controller
         $bookmaker->logo = $request['logo'];
         $bookmaker->link = $request['link'];
         $bookmaker->save();
-        return $bookmaker;
+        return $this->sendResponse($bookmaker, 'Success',200);
     }
 }

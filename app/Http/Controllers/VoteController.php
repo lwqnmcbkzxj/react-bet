@@ -58,7 +58,7 @@ class VoteController extends Controller
     {
         try {
             $vote->delete();
-            return $this->sendResponse('', 'Success', 200);
+            return $this->sendResponse('Vote has been deleted', 'Success', 200);
         } catch (\Exception $e) {
             return $this->sendError('Deletion ERROR', 400, $e->getMessage());
         }

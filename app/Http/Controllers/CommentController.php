@@ -36,7 +36,7 @@ class CommentController extends Controller
     }
     public function getOne(Comment $comment)
     {
-        return $comment;
+        return $this->sendResponse($comment,'Success',200);
     }
     public function delete(Comment $comment)
     {

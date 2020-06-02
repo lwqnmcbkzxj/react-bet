@@ -37,7 +37,7 @@ class PostController extends Controller
         if (!$request->has('limit')) {
             $request['limit'] = 16;
         }
-        return $res->orderBy($request['order_by'])->paginate($request['limit']);
+        return $this->sendResponse($res->orderBy($request['order_by'])->paginate($request['limit']),'Success',200);
     }
 
     function edit(Request $request, Post $post)

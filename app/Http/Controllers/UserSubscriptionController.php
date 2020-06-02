@@ -91,7 +91,7 @@ class UserSubscriptionController extends Controller
             'forecasts_view.comments_count as comments_count',
             'forecasts_view.subscribers_count as subscribers_count',
             'forecasts_view.rating as rating']);
-        return new FastForecastCollection($res->paginate($request['limit']));
+        return $this->sendResponse(new FastForecastCollection($res->paginate($request['limit'])),'Success',200);
     }
 
     public function delete(User $user)
