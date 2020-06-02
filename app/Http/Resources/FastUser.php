@@ -39,7 +39,7 @@ class FastUser extends JsonResource
             ],
             'rating_position'=> $this->rating_position,
             'last_five' => \App\User::getLastFive($this->id),
-            'subscribed' => $this->when($request->user(), function () use ($request, $user_id){
+            'is_subscribed' => $this->when($request->user, function () use ($request, $user_id){
                 return ( $request->user->subscriptions()->where('user_id',$user_id)->first()? true : false);
             }),
         ];

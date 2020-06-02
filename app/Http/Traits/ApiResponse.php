@@ -3,6 +3,7 @@
 
 namespace App\Http\Traits;
 
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Response;
 //use Response;
 
@@ -14,9 +15,13 @@ trait ApiResponse
      * @param $code
      * @return mixed
      */
-    public function sendResponse($result, $message, $code) {
-
-        return Response::json(self::makeResponse($message, $result), $code)->setEncodingOptions(JSON_NUMERIC_CHECK);
+    public function sendResponse($result, $message, $code)
+    {
+        if(is_subclass_of($result, JsonResource::class))
+        {
+            return $result->toResponse(request())->setEncodingOptions(JSON_NUMERIC_CHECK);
+        }
+       return Response::json(self::makeResponse($message, $result), $code)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }
 
     /**

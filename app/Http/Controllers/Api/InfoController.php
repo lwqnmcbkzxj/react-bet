@@ -42,7 +42,7 @@ class InfoController extends Controller
         }
 
         $forecasts = $forecasts->paginate($request['limit']);
-        $forecasts = new ForecastCollection($forecasts);
+        $forecasts = new ForecastResource($forecasts);
         return $this->sendResponse(($forecasts), 'Success', 200);
     }
 
@@ -61,7 +61,7 @@ class InfoController extends Controller
         if ($request->has('order_by')) {
             $res->orderBy($request['order_by'], $request['direction']);
         }
-        return $this->sendResponse(new FastForecastCollection($res->paginate($request['limit'])),'Success',200);
+        return $this->sendResponse((new FastForecastCollection($res->paginate($request['limit']))),'Success',200);
     }
 
     public function forecast(Forecast $forecast)
