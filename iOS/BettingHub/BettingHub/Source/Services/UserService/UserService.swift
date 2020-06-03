@@ -21,13 +21,7 @@ class UserService {
     
     private let delegates = MulticastDelegate<IUserServiceDelegate>()
     
-    private var _userInfo: UserInfo? {
-        didSet {
-            delegates.invoke { (delegate) in
-                delegate.dataChanged(userService: self)
-            }
-        }
-    }
+    private var _userInfo: UserInfo? 
     
     func userInfoRequest() -> (URLRequest?, BHError?) {
         let url = "api/users/profile"
@@ -36,6 +30,14 @@ class UserService {
         let req = reqBuilder.getRequest(content: content)
         let authorized = reqBuilder.authorize(req)
         return (authorized, authorized == nil ? .userUnauthorized : nil)
+    }
+    
+    func uploadAvatarRequest() -> URLRequest {
+        let url = "api/avatar"
+        let content = RequestContent(url, [:])
+        let req = reqBuilder.jsonPostRequest(content: content)
+        let auth = reqBuilder.authorize(req) ?? req
+        return auth
     }
 }
 
@@ -74,6 +76,10 @@ extension UserService: IUserService {
                 self.persistantStorage.save(userData)
                 self._userInfo = userData
                 
+                self.delegates.invoke { (delegate) in
+                    delegate.dataChanged(userService: self)
+                }
+                
                 callback?(nil)
                 
             case .failure(let err):
@@ -84,6 +90,23 @@ extension UserService: IUserService {
     
     func clearInfo() {
         _userInfo = nil
+    }
+    
+    func uploadAvatar(data: Data) {
+        guard let _ = currentUserInfo else { return }
+        let req = uploadAvatarRequest()
+        httpClient.multipart(request: req,
+                             data: ["avatar": data])
+        { (result) in
+            result
+            .onSuccess { (data) in
+                
+                self.reloadInfo(callback: nil)
+                
+            }.onFailure { (err) in
+                print(err)
+            }
+        }
     }
 }
 

@@ -37,6 +37,7 @@ class SettingsView: UIView {
         view.layer.borderWidth = 1
         view.layer.masksToBounds = true
         view.makeBordered()
+        view.isUserInteractionEnabled = true
         return view
     }()
     

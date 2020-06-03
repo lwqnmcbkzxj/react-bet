@@ -45,4 +45,28 @@ class HttpClient: IHttpClient {
             }
         }
     }
+    
+    func multipart(request: URLRequest,
+                   data: [String: Data],
+                   callback: ((Result<Data, Error>) -> Void)?) {
+        
+        AF.upload(multipartFormData: { (formData) in
+            for key in data.keys {
+                guard let dataEntry = data[key] else { continue }
+                formData.append(dataEntry, withName: key,
+                                fileName: "avatar.png", mimeType: "file")
+            }
+        }, with: request).responseData { (response) in
+            if let err = response.error {
+                callback?(.failure(err))
+                return
+            }
+            
+            guard let data = response.data else {
+                callback?(.failure(BHError.unexpectedContent))
+                return
+            }
+            callback?(.success(data))
+        }
+    }
 }

@@ -10,6 +10,8 @@ import Foundation
 
 protocol IProfileHeaderPresenter: class {
     
+    var dataChanged: (() -> Void)? { get set }
+    
     func isSelf() -> Bool
     
     func profile() -> Forecaster
@@ -34,17 +36,29 @@ class ProfileHeaderPresenter {
     @LazyInjected
     private var authService: IAuthService
     
-    private var forecaster: Forecaster!
+    private var forecaster: Forecaster! {
+        didSet {
+            dataChanged?()
+        }
+    }
     
     init(forecaster: Forecaster?) {
         guard let forecaster = forecaster else { //should be self
             let profile = userService.currentUserInfo!.forecaster
             self.forecaster = profile
+            userService.addDelegate(self)
             return
         }
         
         self.forecaster = forecaster
+        userService.addDelegate(self)
     }
+    
+    deinit {
+        userService.removeDelegate(self)
+    }
+    
+    var dataChanged: (() -> Void)?
 }
 
 extension ProfileHeaderPresenter: IProfileHeaderPresenter {
@@ -78,6 +92,16 @@ extension ProfileHeaderPresenter: IProfileHeaderPresenter {
         
         forecasterService.subscribe(forecaster: profile()) { (result) in
             result.onSuccess { callback?($0) }
+        }
+    }
+}
+
+extension ProfileHeaderPresenter: IUserServiceDelegate {
+    
+    func dataChanged(userService: IUserService) {
+        if isSelf() {
+            guard let forecaster = userService.currentUserInfo?.forecaster else { return }
+            self.forecaster = forecaster
         }
     }
 }

@@ -19,6 +19,8 @@ protocol IUserService: class {
     func reloadInfo(callback: ((BHError?)->Void)?)
     
     func clearInfo()
+    
+    func uploadAvatar(data: Data)
 }
 
 protocol IUserServiceDelegate: class {

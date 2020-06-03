@@ -14,6 +14,10 @@ class ProfileHeaderView: UIView {
         didSet {
             guard let _ = presenter else { return }
             configure()
+            
+            presenter.dataChanged = {
+                self.configure()
+            }
         }
     }
     

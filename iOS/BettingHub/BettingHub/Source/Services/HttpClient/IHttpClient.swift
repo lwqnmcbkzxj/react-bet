@@ -15,5 +15,9 @@ protocol IHttpClient: class {
     //TODO: Delete when response codes added to server
     func authRequest(request: URLRequest,
                      callback: ((BHError?) -> Void)?)
+    
+    func multipart(request: URLRequest,
+                   data: [String: Data],
+                   callback: ((Result<Data, Error>)->Void)?)
 }
 
