@@ -29,9 +29,15 @@ protocol IForecastService: class {
                        callback: (ServiceCallback<[Forecast]>)?)
     
     ///Add to bookmarks. Auth required. Send again to undo.
-    func mark(forecastId: Int)
+    func mark(_ bookmarked: Bool, forecast: Forecast)
     
     func bookmarks(page: Int,
                    limit: Int,
                    callback: (ServiceCallback<[Forecast]>)?)
+    
+    func rating(status: RatingStatus, forecast: Forecast)
+    
+    func localRatingStatus(forecast: Forecast) -> RatingStatus?
+    
+    func localBookmarked(forecast: Forecast) -> Bool?
 }

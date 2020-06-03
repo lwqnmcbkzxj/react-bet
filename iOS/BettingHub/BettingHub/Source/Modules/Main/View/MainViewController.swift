@@ -37,6 +37,12 @@ class MainViewController: UIViewController {
         dataProvider.getData()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        mainView.tableView.reloadData()
+    }
+    
     private func setupBinds() {
         dataProvider.forecastersChanged = { [weak self] in
             guard let this = self else { return }
@@ -175,5 +181,12 @@ extension MainViewController: TopForecasterViewDelegate {
     
     func forecasterTapped(_ forecaster: Forecaster) {
         router.showForecaster(forecaster)
+    }
+}
+
+extension MainViewController: IMainTabBarDelegate {
+    
+    func showed(tabBar: IMainTabBar, screen: MainTabBarScreen) {
+        mainView.tableView.reloadData()
     }
 }

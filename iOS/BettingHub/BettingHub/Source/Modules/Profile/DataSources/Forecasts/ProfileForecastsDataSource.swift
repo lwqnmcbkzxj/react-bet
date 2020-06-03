@@ -48,6 +48,10 @@ class ProfileForecastsDataSource: NSObject, ProfileDataSource {
         viewModel.currentPage(1)
     }
     
+    func reload() {
+        viewModel.reload()
+    }
+    
     private func setupBinds() {
         viewModel.dataChanged = { [weak self] in
             guard let this = self else { return }
@@ -56,13 +60,13 @@ class ProfileForecastsDataSource: NSObject, ProfileDataSource {
             }
         }
         
-        viewModel.loadingStatusChanged = { [weak self] (isLoading) in
-            guard let this = self else { return }
-            let showSkeleton = isLoading && this.viewModel.loadedPages == 0
-            if showSkeleton != this.showingSkeleton {
-                this.showingSkeleton = showSkeleton
-            }
-        }
+//        viewModel.loadingStatusChanged = { [weak self] (isLoading) in
+//            guard let this = self else { return }
+//            let showSkeleton = isLoading && this.viewModel.loadedPages == 0
+//            if showSkeleton != this.showingSkeleton {
+//                this.showingSkeleton = showSkeleton
+//            }
+//        }
     }
     
     private func handleUpdates() {

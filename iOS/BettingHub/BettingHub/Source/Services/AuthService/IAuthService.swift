@@ -10,7 +10,7 @@ import Foundation
 
 protocol IAuthService: class {
     
-    var isAuthorized: BHError? { get }
+    var authError: BHError? { get }
     
     func register(username: String, email: String, password: String, callback: @escaping ((BHError?) -> Void))
     

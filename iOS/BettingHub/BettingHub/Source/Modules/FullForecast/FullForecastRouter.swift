@@ -13,7 +13,7 @@ protocol IFullForecastRouter: class {
     func showForecaster(_ forecaster: Forecaster)
 }
 
-class FullForecasterRouter: IFullForecastRouter {
+class FullForecastRouter: IFullForecastRouter {
     
     private let viewController: UIViewController
     private let coordinator: AppCoordinator

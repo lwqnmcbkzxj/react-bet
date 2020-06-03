@@ -12,6 +12,7 @@ class ForecasterService {
     
     @LazyInjected private var reqBuilder: IRequestBuilder
     @LazyInjected private var httpClient: IHttpClient
+    @LazyInjected private var authService: IAuthService
     
     func forecastersListRequest(page: Int, count: Int) -> (RequestContent, URLRequest) {
         let url = "api/users"
@@ -28,15 +29,13 @@ class ForecasterService {
         return (content, req)
     }
     
-    //TODO: change on backend
-    private func getForecasters(from data: Data) -> [Forecaster]? {
-        
-        struct ForecastersResponse: Codable {
-            let data: [Forecaster]
-        }
-        
-        let res = try? JSONDecoder().decode(ForecastersResponse.self, from: data)
-        return res?.data
+    func subscribeRequest(id: Int) -> (RequestContent, URLRequest) {
+        let url = "api/users/\(id)/subscription"
+        let params = [String: String]()
+        let content = (url, params)
+        let req = reqBuilder.jsonPostRequest(content: content)
+        let auth = reqBuilder.authorize(req) ?? req
+        return (content, auth)
     }
 }
 
@@ -45,18 +44,12 @@ extension ForecasterService: IForecasterService {
     func topForecasters(page: Int, count: Int, callback: ((Result<[Forecaster], BHError>) -> Void)?) {
         let req = forecastersListRequest(page: page, count: count).1
         httpClient.request(request: req) { (result) in
-            switch result {
-            case .success(let data):
-                guard let forecasters = self.getForecasters(from: data) else {
-                    callback?(.failure(.unexpectedContent))
-                    return
-                }
-                
-                callback?(.success(forecasters))
-                
-            case .failure(let err):
-                callback?(.failure(err.asBHError()))
-            }
+            guard let callback = callback else { return }
+            result
+                .map { $0.decodePaged(pageElement: Forecaster.self) }
+                .mapError { $0.asBHError() }
+                .onSuccess { $0.invokeCallback(callback)}
+                .onFailure { callback(.failure($0)) }
         }
     }
     
@@ -70,5 +63,15 @@ extension ForecasterService: IForecasterService {
         }
     }
     
-    
+    func subscribe(forecaster: Forecaster, callback: (ServiceCallback<Bool>)?) {
+        if authService.authError != nil { return }
+        let req = subscribeRequest(id: forecaster.id).1
+        httpClient.request(request: req) { (result) in
+            guard let callback = callback else { return }
+            result
+                .mapError { $0.asBHError() }
+                .onSuccess { _ in callback(.success(true)) }
+                .onFailure { callback(.failure($0))}
+        }
+    }
 }

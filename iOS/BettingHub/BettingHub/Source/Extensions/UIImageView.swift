@@ -50,7 +50,7 @@ extension UIImageView {
         
         //TODO: change after migration to new server
         //let fullURL = baseURL.appendingPathComponent(url)
-        let fullURL = URL(string: "https://xbethub.com")!.appendingPathComponent(url)
+        let fullURL = URL(string: "https://app.betthub.org")!.appendingPathComponent(url)
         
         DispatchQueue.global(qos: .background).async {
             guard

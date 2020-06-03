@@ -38,5 +38,6 @@ class ServiceLocator {
         container.register(INewsService.self, registrationBlock: NewsService.init)
         container.register(IPersistantDefaultsService.self,
                            registrationBlock: PersistantDefaultsService.init)
+        container.register(IMarksStorage.self, registrationBlock: MarksStorage.init)
     }
 }

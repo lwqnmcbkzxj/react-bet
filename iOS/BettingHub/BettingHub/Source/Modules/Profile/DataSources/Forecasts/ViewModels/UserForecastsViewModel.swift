@@ -16,7 +16,7 @@ class UserForecastsViewModel: TableViewModel<Forecast, Any> {
         self.interactor = interactor
     }
     
-    override var pageSize: Int { return 5 }
+    override var pageSize: Int { return 10 }
     
     override func currentPage(_ page: Int) {
         if page > loadedPages && !isLoading {

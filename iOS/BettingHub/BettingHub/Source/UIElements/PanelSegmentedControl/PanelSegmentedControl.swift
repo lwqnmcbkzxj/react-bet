@@ -22,6 +22,7 @@ class PanelSegmenterControl: UIControl {
         let view = UIStackView()
         view.axis = .horizontal
         view.distribution = .equalSpacing
+        view.spacing = 15
         return view
     }()
     
@@ -40,19 +41,20 @@ class PanelSegmenterControl: UIControl {
     private func makeLayout() {
         addSubview(panel)
         panel.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+            make.top.bottom.equalToSuperview()
         }
         
         addSubview(stackView)
         stackView.snp.makeConstraints { (make) in
             make.top.bottom.equalToSuperview()
-            make.leading.equalToSuperview().offset(8).priority(.high)
-            make.trailing.equalToSuperview().offset(-8).priority(.high)
+            make.leading.equalTo(panel).offset(8).priority(.high)
+            make.trailing.equalTo(panel).offset(-8).priority(.high)
+            make.centerX.equalToSuperview()
         }
     }
     
     private func populate() {
-        items.enumerated().map { (element) -> UILabel in
+        items.enumerated().map { (element) -> Item in
             let (offset, text) = element
             let label = Item(index: offset, control: self)
             label.text = text

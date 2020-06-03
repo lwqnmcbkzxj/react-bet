@@ -19,9 +19,18 @@ protocol IMainTabBar: class {
     func toRoot(vc: UIViewController)
     
     func setState(isAuthorized authorized: Bool)
+    
+    func addDelegate(_ delegate: IMainTabBarDelegate)
+}
+
+protocol IMainTabBarDelegate: class {
+    
+    func showed(tabBar: IMainTabBar, screen: MainTabBarScreen)
 }
 
 class MainTabBarController: UITabBarController {
+    
+    private let delegates = MulticastDelegate<IMainTabBarDelegate>()
     
     private weak var coordinator: AppCoordinator?
     
@@ -92,8 +101,28 @@ class MainTabBarController: UITabBarController {
             return profileScreen
         }
     }
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        guard
+            let index = tabBar.items?.firstIndex(of: item),
+            let screen = self.screen(from: index)
+        else { return }
+        
+        delegates.invoke { (delegate) in
+            delegate.showed(tabBar: self, screen: screen)
+        }
+    }
+    
+    private func screen(from index: Int) -> MainTabBarScreen? {
+        [
+            0: .main,
+            1: .forecasts,
+            2: .add,
+            3: .profile,
+            4: .options
+        ][index]
+    }
 }
-
 extension MainTabBarController: IMainTabBar {
     
     func show(screen: MainTabBarScreen) {
@@ -114,5 +143,9 @@ extension MainTabBarController: IMainTabBar {
     func setState(isAuthorized authorized: Bool) {
         guard let coordinator = coordinator else { return }
         setupScreens(coordinator: coordinator, authorized: authorized)
+    }
+    
+    func addDelegate(_ delegate: IMainTabBarDelegate) {
+        delegates.add(delegate: delegate)
     }
 }

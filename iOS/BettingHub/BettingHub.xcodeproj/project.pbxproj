@@ -74,7 +74,6 @@
 		1C4BAD74244F35C2008889CB /* FullForecastHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4BAD73244F35C2008889CB /* FullForecastHeader.swift */; };
 		1C4BAD76244F3841008889CB /* TeamsVersusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4BAD75244F3841008889CB /* TeamsVersusView.swift */; };
 		1C4F160E24783A0600117FA4 /* FullMatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4F160D24783A0600117FA4 /* FullMatchViewModel.swift */; };
-		1C4F16102478484600117FA4 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4F160F2478484600117FA4 /* Data.swift */; };
 		1C56120D245646BD00D02DBB /* ForecastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C56120C245646BD00D02DBB /* ForecastService.swift */; };
 		1C56120F245646D300D02DBB /* IForecastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C56120E245646D300D02DBB /* IForecastService.swift */; };
 		1C5612112456592D00D02DBB /* ForecastFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5612102456592D00D02DBB /* ForecastFilter.swift */; };
@@ -112,6 +111,10 @@
 		1C7A356E2448E4F500E3AB9B /* BettingNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A356D2448E4F500E3AB9B /* BettingNavigationBar.swift */; };
 		1C7FF8E624853F5200E4DDCF /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7FF8E524853F5200E4DDCF /* Result.swift */; };
 		1C7FF8E824855C8200E4DDCF /* ForecastCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7FF8E724855C8200E4DDCF /* ForecastCellPresenter.swift */; };
+		1C7FF8EA24866A9D00E4DDCF /* RatingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7FF8E924866A9D00E4DDCF /* RatingStatus.swift */; };
+		1C7FF8ED2486730F00E4DDCF /* IMarksStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7FF8EC2486730F00E4DDCF /* IMarksStorage.swift */; };
+		1C7FF8EF2486732700E4DDCF /* MarksStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7FF8EE2486732700E4DDCF /* MarksStorage.swift */; };
+		1C7FF8F12486733A00E4DDCF /* MarksAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7FF8F02486733A00E4DDCF /* MarksAdapter.swift */; };
 		1C833EB6245A09F00012F1F5 /* ForecastersHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C833EB5245A09F00012F1F5 /* ForecastersHeader.swift */; };
 		1C833EB8245A0A470012F1F5 /* ForecastersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C833EB7245A0A470012F1F5 /* ForecastersView.swift */; };
 		1C833EBA245A0B7D0012F1F5 /* ForecasterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C833EB9245A0B7D0012F1F5 /* ForecasterCell.swift */; };
@@ -222,6 +225,9 @@
 		1CDF91F42480047B00117F5B /* CreateForecastHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF91F32480047B00117F5B /* CreateForecastHeaderView.swift */; };
 		1CE1FC0C248505CB00E7FA78 /* IPersistantDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE1FC0B248505CB00E7FA78 /* IPersistantDefaultsService.swift */; };
 		1CE1FC0E2485063E00E7FA78 /* PersistantDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE1FC0D2485063E00E7FA78 /* PersistantDefaultsService.swift */; };
+		1CE31B3924878F9B007AD31B /* FullForecastHeaderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE31B3824878F9B007AD31B /* FullForecastHeaderPresenter.swift */; };
+		1CE31B3B24879144007AD31B /* FullForecastAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE31B3A24879144007AD31B /* FullForecastAssembly.swift */; };
+		1CE31B3E2487E06F007AD31B /* ProfileHeaderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE31B3D2487E06F007AD31B /* ProfileHeaderPresenter.swift */; };
 		1CE43F74245A318C00E885EA /* StatsLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE43F73245A318C00E885EA /* StatsLabel.swift */; };
 		1CE43F76245A354C00E885EA /* RatingArrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE43F75245A354C00E885EA /* RatingArrow.swift */; };
 		1CE43F78245AF56E00E885EA /* ColumnsSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE43F77245AF56E00E885EA /* ColumnsSectionHeader.swift */; };
@@ -314,7 +320,6 @@
 		1C4BAD73244F35C2008889CB /* FullForecastHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullForecastHeader.swift; sourceTree = "<group>"; };
 		1C4BAD75244F3841008889CB /* TeamsVersusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsVersusView.swift; sourceTree = "<group>"; };
 		1C4F160D24783A0600117FA4 /* FullMatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullMatchViewModel.swift; sourceTree = "<group>"; };
-		1C4F160F2478484600117FA4 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		1C56120C245646BD00D02DBB /* ForecastService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastService.swift; sourceTree = "<group>"; };
 		1C56120E245646D300D02DBB /* IForecastService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IForecastService.swift; sourceTree = "<group>"; };
 		1C5612102456592D00D02DBB /* ForecastFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastFilter.swift; sourceTree = "<group>"; };
@@ -352,6 +357,10 @@
 		1C7A356D2448E4F500E3AB9B /* BettingNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BettingNavigationBar.swift; sourceTree = "<group>"; };
 		1C7FF8E524853F5200E4DDCF /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		1C7FF8E724855C8200E4DDCF /* ForecastCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCellPresenter.swift; sourceTree = "<group>"; };
+		1C7FF8E924866A9D00E4DDCF /* RatingStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingStatus.swift; sourceTree = "<group>"; };
+		1C7FF8EC2486730F00E4DDCF /* IMarksStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMarksStorage.swift; sourceTree = "<group>"; };
+		1C7FF8EE2486732700E4DDCF /* MarksStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarksStorage.swift; sourceTree = "<group>"; };
+		1C7FF8F02486733A00E4DDCF /* MarksAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarksAdapter.swift; sourceTree = "<group>"; };
 		1C833EB5245A09F00012F1F5 /* ForecastersHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastersHeader.swift; sourceTree = "<group>"; };
 		1C833EB7245A0A470012F1F5 /* ForecastersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastersView.swift; sourceTree = "<group>"; };
 		1C833EB9245A0B7D0012F1F5 /* ForecasterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecasterCell.swift; sourceTree = "<group>"; };
@@ -466,6 +475,9 @@
 		1CDF91F32480047B00117F5B /* CreateForecastHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateForecastHeaderView.swift; sourceTree = "<group>"; };
 		1CE1FC0B248505CB00E7FA78 /* IPersistantDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPersistantDefaultsService.swift; sourceTree = "<group>"; };
 		1CE1FC0D2485063E00E7FA78 /* PersistantDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistantDefaultsService.swift; sourceTree = "<group>"; };
+		1CE31B3824878F9B007AD31B /* FullForecastHeaderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullForecastHeaderPresenter.swift; sourceTree = "<group>"; };
+		1CE31B3A24879144007AD31B /* FullForecastAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullForecastAssembly.swift; sourceTree = "<group>"; };
+		1CE31B3D2487E06F007AD31B /* ProfileHeaderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderPresenter.swift; sourceTree = "<group>"; };
 		1CE43F73245A318C00E885EA /* StatsLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsLabel.swift; sourceTree = "<group>"; };
 		1CE43F75245A354C00E885EA /* RatingArrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingArrow.swift; sourceTree = "<group>"; };
 		1CE43F77245AF56E00E885EA /* ColumnsSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnsSectionHeader.swift; sourceTree = "<group>"; };
@@ -554,7 +566,6 @@
 				1C25F840244DE4A700A24F31 /* Device.swift */,
 				1CD3DDBA2474B26B00B160F3 /* Decoding.swift */,
 				1CD3DDBC2474B8C700B160F3 /* MulticastDelegate.swift */,
-				1C4F160F2478484600117FA4 /* Data.swift */,
 				1C1134B22481CDF400162555 /* Bind.swift */,
 			);
 			path = Utils;
@@ -607,8 +618,7 @@
 			isa = PBXGroup;
 			children = (
 				1CC39CBD245F11D7003CED00 /* ProfileAssembly.swift */,
-				1C2C6ABC245C2A990044B5BC /* ProfileSegmenterView.swift */,
-				1C2C6ABA245C27F50044B5BC /* ProfileHeaderView.swift */,
+				1CE31B3C2487E061007AD31B /* Header */,
 				1C882564245C553500D188C6 /* ProfileViewController.swift */,
 				1CC39CB5245F02A2003CED00 /* ProfileDataSource.swift */,
 				1CD3DDB6247496BC00B160F3 /* ProfileInteractor.swift */,
@@ -771,6 +781,7 @@
 		1C6937A72450FBB000AE01BE /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				1C7FF8EB2486730400E4DDCF /* MarksStorage */,
 				1CE1FC0A248505BB00E7FA78 /* PersistantDefaults */,
 				1C2CFC152451DF5700E1071F /* ServiceLocator */,
 				1C2CFC122451DF1900E1071F /* AppInitializer */,
@@ -873,11 +884,22 @@
 		1C779B88244F2EC3008C1FDB /* FullForecast */ = {
 			isa = PBXGroup;
 			children = (
+				1CE31B3A24879144007AD31B /* FullForecastAssembly.swift */,
 				1CD0F1C6244F8C44008436CD /* Header */,
 				1C779B8B244F2F26008C1FDB /* FullForecastViewController.swift */,
 				1CC39CC0245F440F003CED00 /* FullForecastRouter.swift */,
 			);
 			path = FullForecast;
+			sourceTree = "<group>";
+		};
+		1C7FF8EB2486730400E4DDCF /* MarksStorage */ = {
+			isa = PBXGroup;
+			children = (
+				1C7FF8EC2486730F00E4DDCF /* IMarksStorage.swift */,
+				1C7FF8EE2486732700E4DDCF /* MarksStorage.swift */,
+				1C7FF8F02486733A00E4DDCF /* MarksAdapter.swift */,
+			);
+			path = MarksStorage;
 			sourceTree = "<group>";
 		};
 		1C91348B2448B07300AE4510 /* Main */ = {
@@ -1239,6 +1261,7 @@
 				1CD0F1C4244F8A49008436CD /* InfoStackView.swift */,
 				1C5B0C06244F90880075F95B /* SubscribeButton.swift */,
 				1C4BAD73244F35C2008889CB /* FullForecastHeader.swift */,
+				1CE31B3824878F9B007AD31B /* FullForecastHeaderPresenter.swift */,
 			);
 			path = Header;
 			sourceTree = "<group>";
@@ -1286,6 +1309,16 @@
 			path = PersistantDefaults;
 			sourceTree = "<group>";
 		};
+		1CE31B3C2487E061007AD31B /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				1C2C6ABC245C2A990044B5BC /* ProfileSegmenterView.swift */,
+				1C2C6ABA245C27F50044B5BC /* ProfileHeaderView.swift */,
+				1CE31B3D2487E06F007AD31B /* ProfileHeaderPresenter.swift */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
 		1CE9A4272465B7BE004D4696 /* Bookmaker */ = {
 			isa = PBXGroup;
 			children = (
@@ -1320,6 +1353,7 @@
 				1C2C524C24737B9D00AACF3A /* UserInfo.swift */,
 				1C76C10F24786D0D005F471A /* Article.swift */,
 				1CA43BB7247E674B00CAF75E /* NewsPost.swift */,
+				1C7FF8E924866A9D00E4DDCF /* RatingStatus.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1520,6 +1554,7 @@
 				1C2C523524718B1600AACF3A /* MatchView.swift in Sources */,
 				1CBBB51B2477F9C0002FC2ED /* CommentsViewModel.swift in Sources */,
 				1CC39CBC245F0E31003CED00 /* ProfileStatisticsViewModel.swift in Sources */,
+				1C7FF8EA24866A9D00E4DDCF /* RatingStatus.swift in Sources */,
 				1CA43BA6247BBAB900CAF75E /* PolicyPresenter.swift in Sources */,
 				1C76C11024786D0D005F471A /* Article.swift in Sources */,
 				1CC72E5024827C9B00A551AE /* BetAmountFieldsManager.swift in Sources */,
@@ -1552,6 +1587,7 @@
 				1CA43BA4247BB52D00CAF75E /* ArticleService.swift in Sources */,
 				1C833EBC245A1EAD0012F1F5 /* TimeFrameSelector.swift in Sources */,
 				1C5B0C07244F90880075F95B /* SubscribeButton.swift in Sources */,
+				1C7FF8ED2486730F00E4DDCF /* IMarksStorage.swift in Sources */,
 				1CA01F662451F6400025FF4F /* LoginPresenter.swift in Sources */,
 				1CC39CC1245F440F003CED00 /* FullForecastRouter.swift in Sources */,
 				1C2C524624730E4E00AACF3A /* MatchService.swift in Sources */,
@@ -1582,6 +1618,7 @@
 				1CA01F78245263920025FF4F /* MainScreenRouter.swift in Sources */,
 				1CC4EFA324472C7400D69C67 /* LoginViewController.swift in Sources */,
 				1C9134862447837F00AE4510 /* SocialButton.swift in Sources */,
+				1C7FF8EF2486732700E4DDCF /* MarksStorage.swift in Sources */,
 				1C4F160E24783A0600117FA4 /* FullMatchViewModel.swift in Sources */,
 				1C9269CC246C6DD0004F8AB7 /* ISportService.swift in Sources */,
 				1C2C523F247227EF00AACF3A /* UserBetCell.swift in Sources */,
@@ -1593,7 +1630,6 @@
 				1C43E2CF244B9105002CF7EB /* Bookmaker.swift in Sources */,
 				1CBA45CA246EF6080072E7A3 /* Bet.swift in Sources */,
 				1CA43BB6247E629900CAF75E /* NewsCell.swift in Sources */,
-				1C4F16102478484600117FA4 /* Data.swift in Sources */,
 				1CDF91F2247FF35F00117F5B /* CreateForecastViewController.swift in Sources */,
 				1C5612132456744200D02DBB /* UITableView.swift in Sources */,
 				1C56122224579EE400D02DBB /* BookmakersViewController.swift in Sources */,
@@ -1628,6 +1664,7 @@
 				1C25F841244DE4A700A24F31 /* Device.swift in Sources */,
 				1C6937B9245109D000AE01BE /* RequestBuilder.swift in Sources */,
 				1CF49A6F248036CC009DFADF /* BetsTableManager.swift in Sources */,
+				1CE31B3924878F9B007AD31B /* FullForecastHeaderPresenter.swift in Sources */,
 				1C25F844244DEC3400A24F31 /* ForecastsView.swift in Sources */,
 				1CF49A7224804514009DFADF /* CreateForecastFooterView.swift in Sources */,
 				1CE43F74245A318C00E885EA /* StatsLabel.swift in Sources */,
@@ -1641,6 +1678,7 @@
 				1C22EF462450899C00A7543D /* CommentCell.swift in Sources */,
 				1CBA45CD246EF6670072E7A3 /* Championship.swift in Sources */,
 				1CC39CD024609D89003CED00 /* SettingsView.swift in Sources */,
+				1CE31B3B24879144007AD31B /* FullForecastAssembly.swift in Sources */,
 				1CA43BB8247E674B00CAF75E /* NewsPost.swift in Sources */,
 				1C25F84D244E16A000A24F31 /* MainCellsProvider.swift in Sources */,
 				1CDAF85E2478195300789B9F /* CommentsSectionHeader.swift in Sources */,
@@ -1664,6 +1702,7 @@
 				1CEE8BDC2448BC5C007F2FDB /* NavigationController.swift in Sources */,
 				1C2C524D24737B9D00AACF3A /* UserInfo.swift in Sources */,
 				1C47CC02245A053F0031BC27 /* TableViewModel.swift in Sources */,
+				1CE31B3E2487E06F007AD31B /* ProfileHeaderPresenter.swift in Sources */,
 				1CBA45CF246EF67E0072E7A3 /* Team.swift in Sources */,
 				1CBA45C8246C9ABF0072E7A3 /* SportsControl.swift in Sources */,
 				1C9269C72469A6A1004F8AB7 /* SettingsRouter.swift in Sources */,
@@ -1701,6 +1740,7 @@
 				1CA43BC5247E9C8400CAF75E /* NewsService.swift in Sources */,
 				1C47CC10245A070D0031BC27 /* TimeFramePicker.swift in Sources */,
 				1CA5C8C1246F5B5000D470B6 /* ForecasterService.swift in Sources */,
+				1C7FF8F12486733A00E4DDCF /* MarksAdapter.swift in Sources */,
 				1CF225B6244B7D74005D510D /* MatchCell.swift in Sources */,
 				1CA43BAB247BCEB200CAF75E /* TableSectionProvider.swift in Sources */,
 				1CEE8BDA2448B4BF007F2FDB /* UIView.swift in Sources */,

@@ -30,6 +30,8 @@ class ProfileViewController: UIViewController {
                                                                           viewModel: userFavoritesViewModel,
                                                                           router: router)
 
+    var profileHeader: ProfileHeaderView!
+    
     private lazy var tableView: UITableView = {
         let view = UITableView(frame: .zero, style: .grouped)
         view.backgroundColor = .white
@@ -39,17 +41,14 @@ class ProfileViewController: UIViewController {
         return view
     }()
     
-    private lazy var profileHeader: ProfileHeaderView = {
-        let view = ProfileHeaderView(isSelf: isSelf)
-        return view
-    }()
+    
     
     override func loadView() {
         super.loadView()
         if !isSelf { addBackView(text: nil) }
         view.backgroundColor = .white
         setView(tableView, insets: .init(top: 0, left: 15, bottom: 0, right: 15))
-        profileHeader.frame = .init(x: 0, y: 0, width: tableView.frame.width, height: 253)
+        profileHeader.frame = .init(x: 0, y: 0, width: tableView.frame.width, height: 263)
         tableView.tableHeaderView = profileHeader
         profileHeader.settingsButton.addTarget(self, action: #selector(settingsTapped), for: .touchUpInside)
         profileHeader.settingsButton.isHidden = !isSelf
@@ -61,7 +60,7 @@ class ProfileViewController: UIViewController {
         profileHeader.segmenter.addTarget(self, action: #selector(changedTab), for: .valueChanged)
         profileHeader.segmenter.selectedIndex = 0
         
-        //configure with initial data (may be incomplete
+        //configure with initial data (may be incomplete)
         configure(forecaster: interactor.profile())
         
         //load complete data
@@ -77,26 +76,26 @@ class ProfileViewController: UIViewController {
     }
     
     private func setDelegate(for index: Int) {
-        var delegate: ProfileDataSource!
-        
-        if index == 0 {
-            delegate = userForecastsDataSource
-        } else if index == 1 {
-            delegate = userStatsDataSource
-        } else if index == 2 {
-            delegate = userFavoritesDataSource
-        }
-//        //TODO: tempUI
-//        delegate = userStatsDataSource
-        
+        let delegate = getDelegate()
         tableView.dataSource = delegate
         tableView.delegate = delegate
-        tableView.reloadData()
-        delegate.start()
+        delegate?.reload()
+    }
+    
+    private func getDelegate() -> ProfileDataSource? {
+        let index = profileHeader.segmenter.selectedIndex ?? -1
+        if index == 0 {
+            return userForecastsDataSource
+        } else if index == 1 {
+            return userStatsDataSource
+        } else if index == 2 {
+            return userFavoritesDataSource
+        }
+        
+        return nil
     }
     
     private func configure(forecaster: Forecaster) {
-        profileHeader.configure(with: forecaster)
         userStatsDataSource.configure(forecaster: forecaster)
     }
     
@@ -104,5 +103,12 @@ class ProfileViewController: UIViewController {
         guard let userInfo = interactor.selfProfile() else { return }
         
         router.showSettings(userInfo: userInfo)
+    }
+}
+
+extension ProfileViewController: IMainTabBarDelegate {
+    
+    func showed(tabBar: IMainTabBar, screen: MainTabBarScreen) {
+        getDelegate()?.reload()
     }
 }

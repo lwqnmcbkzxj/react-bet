@@ -58,6 +58,11 @@ class ForecastsViewModel {
         return forecasts[indexPath.row]
     }
     
+    func reload() {
+        self.forecasts = []
+        currentPage = 1
+    }
+    
     //Private
     
     @LazyInjected private var forecastService: IForecastService

@@ -31,6 +31,21 @@ class ForecastsViewController: UIViewController {
     init(viewModel: ForecastsViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        
+        viewModel.loadingStatusChanged = { [weak self] (isLoading) in
+            guard let this = self else { return }
+            let shouldShowSkeleton = isLoading && this.viewModel.loadedPages == 0
+            if shouldShowSkeleton != this.skeletonViewIsActive {
+                self?.skeletonViewIsActive = shouldShowSkeleton
+            }
+        }
+        
+        viewModel.dataChanged = { [weak self] in
+            guard let this = self else { return }
+            if !this.skeletonViewIsActive {
+                self?.handleUpdates()
+            }
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -54,30 +69,16 @@ class ForecastsViewController: UIViewController {
         forecastsView.header.timePicker.addTarget(self,
                                                   action: #selector(timeChanged),
                                                   for: .valueChanged)
-        
-        viewModel.loadingStatusChanged = { [weak self] (isLoading) in
-            guard let this = self else { return }
-            let shouldShowSkeleton = isLoading && this.viewModel.loadedPages == 0
-            if shouldShowSkeleton != this.skeletonViewIsActive {
-                self?.skeletonViewIsActive = shouldShowSkeleton
-            }
-        }
-        
-        viewModel.dataChanged = { [weak self] in
-            guard let this = self else { return }
-            if !this.skeletonViewIsActive {
-                self?.handleUpdates()
-            }
-        }
     }
     
-    override func viewDidLayoutSubviews() {
-        //start loading
-        viewModel.currentPage = 1
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        forecastsView.tableView.reloadData()
     }
     
     @objc private func segmentChanged() {
-//        viewModel.forecastFilter = forecastsView.header.forecastsSegmenter.selectedFilter
+        viewModel.forecastFilter = forecastsView.header.forecastsSegmenter.selectedFilter
     }
     
     @objc private func sportChanged() {
@@ -148,3 +149,11 @@ extension ForecastsViewController: ForecastCellDelegate {
     }
 }
 
+extension ForecastsViewController: IMainTabBarDelegate {
+    
+    func showed(tabBar: IMainTabBar, screen: MainTabBarScreen) {
+        if screen == .forecasts {
+            viewModel.reload()
+        }
+    }
+}

@@ -84,7 +84,7 @@ class CommentCell: UITableViewCell {
         usernameLabel.text = model.username
         dateLabel.text = model.date
         commentLabel.text = model.comment
-        ratingStepper.setNumber(model.rating)
+        ratingStepper.setNumber(model.rating, state: .none)
     }
     
     private func addLines(long: Int, short: Int) {

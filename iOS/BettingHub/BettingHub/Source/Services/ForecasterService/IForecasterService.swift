@@ -16,4 +16,7 @@ protocol IForecasterService: class {
     
     func forecaster(id: Int,
                     callback: ((Result<Forecaster, BHError>) -> Void)?)
+    
+    func subscribe(forecaster: Forecaster,
+                   callback: (ServiceCallback<Bool>)?)
 }

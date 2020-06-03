@@ -39,6 +39,11 @@ class TableViewModel<Item, State> {
         didSet { loadingStatusChanged?(isLoading) }
     }
     
+    func reload() {
+        self.items = []
+        currentPage(1)
+    }
+    
     //Implementation overrides
     
     /// Provide value if paging supported by view model.

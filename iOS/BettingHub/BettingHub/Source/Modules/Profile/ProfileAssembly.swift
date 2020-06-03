@@ -18,7 +18,12 @@ class ProfileAssembly {
         
         let userForecasts = UserForecastsViewModel(interactor: interactor)
         let userFavorites = UserFavoritesViewModel(interactor: interactor)
-        let userStats = ProfileStatisticsViewModel()
+        let userStats = ProfileStatisticsViewModel(interactor: interactor)
+        
+        let header = ProfileHeaderView()
+        let headerPresenter = ProfileHeaderPresenter(forecaster: forecaster)
+        
+        header.presenter = headerPresenter
         
         vc.router = router
         vc.interactor = interactor
@@ -26,6 +31,10 @@ class ProfileAssembly {
         vc.userForecastsViewModel = userForecasts
         vc.userStatsViewModel = userStats
         vc.userFavoritesViewModel = userFavorites
+        
+        vc.profileHeader = header
+        
+        coordinator.mainTabBar.addDelegate(vc)
         
         return vc
     }

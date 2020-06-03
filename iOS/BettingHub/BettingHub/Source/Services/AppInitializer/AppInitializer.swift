@@ -25,7 +25,7 @@ class AppInitializer {
     func start() {
         stayOnLaunch()
         
-        let authErr = authService.isAuthorized
+        let authErr = authService.authError
         
         if authErr == nil { //authorized
             initialConfiguration(authorized: true)
@@ -62,7 +62,10 @@ class AppInitializer {
         }
         
         group.notify(queue: .global(qos: .background)) {
-            if !authorized { self.proceed(authorized: false) }
+            if !authorized {
+                self.proceed(authorized: false)
+                return
+            }
             
             self.proceed(authorized: successfullyGotUserData)
         }

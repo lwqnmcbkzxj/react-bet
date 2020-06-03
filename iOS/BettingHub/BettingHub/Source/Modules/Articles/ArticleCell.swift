@@ -79,7 +79,7 @@ class ArticleCell: UITableViewCell {
     
     private let ratingView: ArrowsStepperView = {
         let view = ArrowsStepperView()
-        view.setNumber(23)
+        view.setNumber(23, state: .none)
         view.isSkeletonable = true
         return view
     }()
@@ -105,7 +105,7 @@ class ArticleCell: UITableViewCell {
         articleTitle.text = article.name
         articleTextLabel.text = article.text
         commentsView.setNumber(article.commentsCount)
-        ratingView.setNumber(article.rating)
+        ratingView.setNumber(article.rating, state: .none)
     }
     
     private func makeLayout() {

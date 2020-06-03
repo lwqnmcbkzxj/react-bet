@@ -21,6 +21,12 @@ class LabeledIconWithNumber: LabeledIconView {
 
 class LabeledIconView: UIView {
     
+    var isSelected: Bool = false {
+        didSet {
+            iconImageView.image = isSelected ? selectedImage : image
+        }
+    }
+    
     private var image: UIImage?
     private var selectedImage: UIImage?
     
@@ -46,6 +52,8 @@ class LabeledIconView: UIView {
     init() {
         super.init(frame: .zero)
         makeLayout()
+        self.gesture = UITapGestureRecognizer(target: self, action: #selector(tap))
+        addGestureRecognizer(self.gesture!)
     }
     
     required init?(coder: NSCoder) {
@@ -62,23 +70,11 @@ class LabeledIconView: UIView {
         iconLabel.text = text
     }
     
-    func setTapAction(target: Any, action: (() -> Void)?) {
-        if let gesture = self.gesture {
-            removeGestureRecognizer(gesture)
-        }
-        self.gesture = UITapGestureRecognizer(target: target, action: #selector(tap))
-        
-        addGestureRecognizer(self.gesture!)
+    func setTapAction(action: (() -> Void)?) {
+        tapAction = action
     }
     
     @objc private func tap() {
-        
-        if iconImageView.image == image {
-            iconImageView.image = selectedImage
-        } else {
-            iconImageView.image = image
-        }
-        
         tapAction?()
     }
     

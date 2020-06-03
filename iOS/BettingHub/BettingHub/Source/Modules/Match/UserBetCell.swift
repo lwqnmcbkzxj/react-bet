@@ -64,7 +64,8 @@ class UserBetCell: UITableViewCell {
     
     func configure(with forecast: Match.Forecast) {
         let stats = forecast.user.stats
-        let passing = (stats.wins * 100)/(stats.loss + stats.wins + stats.back)
+        let total = stats.loss + stats.wins + stats.back
+        let passing = total != 0 ? (stats.wins * 100)/total : 0
         
         userImageView.setImage(url: forecast.user.avatar)
         usernameLabel.text = forecast.user.login

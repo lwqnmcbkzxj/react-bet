@@ -36,18 +36,12 @@ extension MatchService: IMatchService {
                  callback: (ServiceCallback<[Match]>)?) {
         let req = matchesRequest(page: page, limit: count).1
         httpClient.request(request: req) { (result) in
-            switch result {
-            case .success(let data):
-                guard let matches = try? JSONDecoder().decode([Match].self, from: data) else {
-                    callback?(.failure(.unexpectedContent))
-                    return
-                }
-
-                callback?(.success(matches))
-
-            case .failure(let err):
-                callback?(.failure(err.asBHError()))
-            }
+            guard let callback = callback else { return }
+            result
+                .map { $0.decodePaged(pageElement: Match.self) }
+                .mapError { $0.asBHError() }
+                .onSuccess { $0.invokeCallback(callback) }
+                .onFailure { callback(.failure($0)) }
         }
     }
     

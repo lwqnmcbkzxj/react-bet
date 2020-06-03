@@ -14,12 +14,12 @@ class ForecastFilterControl: PanelSegmenterControl {
         [
             0: ForecastFilter.subscribers,
             1: ForecastFilter.all,
-            2: ForecastFilter.paid
+//            2: ForecastFilter.paid
         ][selectedSegment ?? 1]!
     }
     
     init() {
-        super.init(items: [Text.subscribtions, Text.allForecasts, Text.paid])
+        super.init(items: [Text.subscribtions, Text.allForecasts])//, Text.paid])
     }
     
     required init?(coder: NSCoder) {

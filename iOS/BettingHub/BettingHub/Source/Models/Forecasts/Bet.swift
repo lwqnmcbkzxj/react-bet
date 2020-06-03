@@ -25,10 +25,8 @@ struct Bet: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        value = try container.decode(String.self,
-                                     forKey: .value).convert(to: Double.self) ?? 0
-        coefficient = try container.decode(String.self,
-                                           forKey: .coefficient).convert(to: Double.self) ?? 0
+        value = try container.decode(Double.self, forKey: .value)
+        coefficient = try container.decode(Double.self, forKey: .coefficient)
         type = try container.decode(String.self, forKey: .type)
         pureProfit = try container.decode(Double.self, forKey: .pureProfit)
     }

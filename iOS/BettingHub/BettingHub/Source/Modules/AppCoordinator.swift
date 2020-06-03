@@ -33,6 +33,9 @@ class AppCoordinator {
         vc.router = router
         router.viewController = vc
         let nav = NavigationController(rootViewController: vc)
+        
+        mainTabBar.addDelegate(vc)
+        
         return nav
     }
     
@@ -43,6 +46,9 @@ class AppCoordinator {
         vc.router = router
         router.viewController = vc
         let nav = NavigationController(rootViewController: vc)
+        
+        mainTabBar.addDelegate(vc)
+        
         return nav
     }
     
@@ -58,10 +64,8 @@ class AppCoordinator {
     }
     
     func fullForecastScreen(forecast: Forecast) -> UIViewController {
-        let vc = FullForecastViewController()
-        let router = FullForecasterRouter(viewController: vc, coordinator: self)
-        vc.router = router
-        vc.configure(with: forecast)
+        let assembly = FullForecastAssembly()
+        let vc = assembly.module(forecast: forecast, coordinator: self)
         return vc
     }
     

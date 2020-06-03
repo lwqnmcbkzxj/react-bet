@@ -10,9 +10,8 @@ import UIKit
 
 class FullForecastViewController: UIViewController {
     
+    var fullForecastHeader: FullForecastHeader!
     var router: IFullForecastRouter!
-    
-    private var forecast: Forecast?
     
     private lazy var commentsTable: CommentsTableView = {
         let vm = CommentsTableViewModel()
@@ -20,25 +19,10 @@ class FullForecastViewController: UIViewController {
         return view
     }()
     
-    private lazy var fullForecastHeader = FullForecastHeader()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         addBackView(text: nil)
         setView(commentsTable, insets: .init(top: 0, left: 15, bottom: 0, right: 15))
-        
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(userTapped))
-        fullForecastHeader.userPanel.addGestureRecognizer(gesture)
-    }
-    
-    func configure(with forecast: Forecast) {
-        self.forecast = forecast
-        fullForecastHeader.configure(with: forecast)
-    }
-    
-    @objc private func userTapped() {
-        guard let forecaster = forecast?.user else { return }
-        router.showForecaster(forecaster)
     }
 }

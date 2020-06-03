@@ -34,8 +34,8 @@ struct UserInfo: Codable {
         let stats = try container.decode(ForecasterStatistics.self, forKey: .stats)
         let lastForecasts = try container.decode([Bool].self, forKey: .lastFive)
         let ratingPosition = try container.decode(Int.self, forKey: .ratingPosition)
-        let balance = try container.decode(String.self, forKey: .balance).convert(to: Double.self) ?? 0
-        forecaster = Forecaster(id: id, avatar: avatar, login: login, stats: stats, lastForecasts: lastForecasts, ratingPosition: ratingPosition, balance: balance)
+        let balance = try container.decode(Double.self, forKey: .balance)
+        forecaster = Forecaster(id: id, avatar: avatar, login: login, stats: stats, lastForecasts: lastForecasts, ratingPosition: ratingPosition, balance: balance, subscribed: false)
         
     }
     

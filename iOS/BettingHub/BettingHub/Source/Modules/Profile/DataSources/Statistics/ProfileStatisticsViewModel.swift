@@ -10,6 +10,12 @@ import Foundation
 
 class ProfileStatisticsViewModel: TableViewModel<Forecaster, Any> {
     
+    private var interactor: IProfileInteractor
+    
+    init(interactor: IProfileInteractor) {
+        self.interactor = interactor
+    }
+    
     override var pageSize: Int { 1 }
     
     override func currentPage(_ page: Int) {
@@ -20,9 +26,7 @@ class ProfileStatisticsViewModel: TableViewModel<Forecaster, Any> {
     
     private func fetchStats() {
         isLoading = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.items = [Forecaster.stub()]
-            self.isLoading = false
-        }
+        self.items = [self.interactor.profile()]
+        self.isLoading = false
     }
 }

@@ -10,11 +10,19 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     
+    var presenter: IProfileHeaderPresenter! {
+        didSet {
+            guard let _ = presenter else { return }
+            configure()
+        }
+    }
+    
     private let profileImageView: UIImageView = {
         let view = UIImageView()
         view.makeBordered()
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 5
+        view.contentMode = .scaleAspectFill
         return view
     }()
     
@@ -85,25 +93,16 @@ class ProfileHeaderView: UIView {
         return view
     }()
     
-    // Stats table /////
-    
-//    private let winsView: StatsView = {
-//        let view = StatsView()
-//        view.set(title: Text.wins, value: "0", color: .positiveGreen)
-//        return view
-//    }()
-//
-//    private let losesView: StatsView = {
-//        let view = StatsView()
-//        view.set(title: Text.loses, value: "0", color: .negativeRed)
-//        return view
-//    }()
-//
-//    private let drawsView: StatsView = {
-//        let view = StatsView()
-//        view.set(title: Text.draws, value: "0", color: .drawBlue)
-//        return view
-//    }()
+    private let subscribeButton: SubscribeButton = {
+        let view = SubscribeButton()
+        view.layer.cornerRadius = 0
+        view.layer.borderWidth = 0
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.1
+        view.layer.shadowOffset = .init(width: 0, height: 0)
+        view.layer.shadowRadius = 5
+        return view
+    }()
     
     private let subscribersView: StatsView = {
         let view = StatsView()
@@ -123,8 +122,6 @@ class ProfileHeaderView: UIView {
         return view
     }()
     
-    // ///////
-    
     let segmenter: ProfileSegmenterView = {
         let view = ProfileSegmenterView()
         view.layer.borderColor = UIColor.lineGray.cgColor
@@ -133,24 +130,21 @@ class ProfileHeaderView: UIView {
         return view
     }()
     
-    init(isSelf: Bool) {
+    init() {
         super.init(frame: .zero)
-        if isSelf {
-            segmenter.setItems([Text.forecasts, Text.statistics, Text.favorites])
-        } else {
-            segmenter.setItems([Text.forecasts, Text.statistics])
-        }
-//        //TODO: tempUI
-//        segmenter.setItems([Text.statistics])
-        
         makeLayout()
+        
+        subscribeButton.addTarget(self,
+                                  action: #selector(subscribeTapped),
+                                  for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with forecaster: Forecaster) {
+    private func configure() {
+        let forecaster = presenter.profile()
         let vm = ForecasterViewModelItem(forecaster: forecaster)
         
         profileImageView.setImage(url: forecaster.avatar)
@@ -163,6 +157,21 @@ class ProfileHeaderView: UIView {
         subscribersView.setValue(forecaster.stats.subscribers)
         placeView.setValue(vm.position)
         netProfitView.setValue(Int(forecaster.stats.pureProfit))
+        subscribeButton.isHidden = !presenter.canSubscribe()
+        
+        if presenter.isSelf() {
+            segmenter.setItems([Text.forecasts, Text.statistics, Text.favorites])
+        } else {
+            segmenter.setItems([Text.forecasts, Text.statistics])
+        }
+    }
+    
+    @objc private func subscribeTapped() {
+        presenter.subscribe { (success) in
+            if success {
+                self.subscribeButton.subscribed.toggle()
+            }
+        }
     }
     
     private func makeLayout() {
@@ -171,6 +180,7 @@ class ProfileHeaderView: UIView {
         panel.layer.cornerRadius = 7
         panel.layer.borderWidth = 1
         panel.layer.borderColor = UIColor.lineGray.cgColor
+        panel.clipsToBounds = true
         
         addSubview(panel)
         panel.snp.makeConstraints { (make) in
@@ -234,37 +244,20 @@ class ProfileHeaderView: UIView {
         topSeparator.snp.makeConstraints { (make) in
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(1)
-            make.top.equalTo(roiStack.snp.bottom).offset(16)
+            make.top.equalTo(roiStack.snp.bottom).offset(20)
         }
         
-//        panel.addSubview(winsView)
-//        winsView.snp.makeConstraints { (make) in
-//            make.width.equalToSuperview().dividedBy(3)
-//            make.top.equalTo(topSeparator.snp.bottom).offset(10)
-//            make.leading.equalToSuperview()
-//            make.height.equalTo(55)
-//        }
-//
-//        panel.addSubview(losesView)
-//        losesView.snp.makeConstraints { (make) in
-//            make.width.equalToSuperview().dividedBy(3)
-//            make.top.equalTo(topSeparator.snp.bottom).offset(10)
-//            make.leading.equalTo(winsView.snp.trailing)
-//            make.height.equalTo(55)
-//        }
-//
-//        panel.addSubview(drawsView)
-//        drawsView.snp.makeConstraints { (make) in
-//            make.width.equalToSuperview().dividedBy(3)
-//            make.top.equalTo(topSeparator.snp.bottom).offset(10)
-//            make.leading.equalTo(losesView.snp.trailing)
-//            make.height.equalTo(55)
-//        }
-
+        panel.addSubview(subscribeButton)
+        subscribeButton.snp.makeConstraints { (make) in
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(34)
+            make.centerY.equalTo(topSeparator)
+        }
+        
         panel.addSubview(subscribersView)
         subscribersView.snp.makeConstraints { (make) in
             make.width.equalToSuperview().dividedBy(3)
-            make.top.equalTo(topSeparator.snp.bottom).offset(10)
+            make.top.equalTo(topSeparator.snp.bottom).offset(16)
             make.leading.equalToSuperview()
             make.height.equalTo(55)
         }

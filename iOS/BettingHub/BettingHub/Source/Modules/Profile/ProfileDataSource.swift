@@ -11,4 +11,5 @@ import UIKit
 protocol ProfileDataSource: UITableViewDataSource, UITableViewDelegate {
     
     func start()
+    func reload()
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Bookmaker: Decodable {
+struct Bookmaker {
     let id: Int
     let title: String
     let content: String?
@@ -25,6 +25,31 @@ struct Bookmaker: Decodable {
                      bonus: 4000,
                      link: "https://1xstavka.ru",
                      image: "/storage/bookmakers/1xstavka.png")
+    }
+}
+
+extension Bookmaker: Decodable {
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        id = try container.decode(Int.self, forKey: .id)
+        title = try container.decode(String.self, forKey: .title)
+        content = try container.decodeIfPresent(String.self, forKey: .content)
+        rating = try container.decode(String.self, forKey: .rating).convert(to: Double.self)!
+        bonus = try container.decode(String.self, forKey: .bonus).convert(to: Double.self)!
+        link = try container.decode(String.self, forKey: .link)
+        image = try container.decode(String.self, forKey: .image)
+    }
+    
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case content
+        case rating
+        case bonus
+        case link
+        case image
     }
 }
 

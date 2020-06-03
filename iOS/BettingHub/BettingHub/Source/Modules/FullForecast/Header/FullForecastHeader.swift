@@ -11,6 +11,12 @@ import SnapKit
 
 class FullForecastHeader: UITableViewHeaderFooterView {
     
+    var presenter: IFullForecastHeaderPresenter! {
+        didSet {
+            configure(with: presenter.forecast())
+        }
+    }
+    
     private let seasonLabel: UILabel = {
         let view = UILabel()
         view.textColor = .textGrayDark
@@ -47,6 +53,7 @@ class FullForecastHeader: UITableViewHeaderFooterView {
         let view = UIImageView()
         view.layer.cornerRadius = 5
         view.layer.masksToBounds = true
+        view.contentMode = .scaleAspectFill
         return view
     }()
     
@@ -84,7 +91,6 @@ class FullForecastHeader: UITableViewHeaderFooterView {
     
     private let subscribeButton: SubscribeButton = {
         let view = SubscribeButton()
-        view.isHidden = true //TODO: tempUI
         return view
     }()
     
@@ -101,21 +107,20 @@ class FullForecastHeader: UITableViewHeaderFooterView {
         let view = LabeledIconView()
         view.setImage(UIImage(named: "commentIcon")!)
         view.setText("3")
-        view.isHidden = true //TODO: tempUI
         return view
     }()
     
-    private let bookMarksView: LabeledIconView = {
-        let view = LabeledIconView()
-        view.setImage(UIImage(named: "bookmarkIcon")!)
-        view.setText("54")
-        view.isHidden = true //TODO: tempUI
+    private let bookmarksView: LabeledIconWithNumber = {
+        let view = LabeledIconWithNumber()
+        let image = UIImage(named: "bookmarkIcon")!
+        let selected = UIImage(named: "bookmarkIconSelected")!
+        view.setImage(image, selectedImage: selected)
         return view
     }()
     
     private let ratingView: ArrowsStepperView = {
         let view = ArrowsStepperView()
-        view.isHidden = true //TODO: tempUI
+        view.isUserInteractionEnabled = false
         return view
     }()
     
@@ -131,17 +136,24 @@ class FullForecastHeader: UITableViewHeaderFooterView {
     
     private var textHConstraint: Constraint?
     
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
+    init(forecast: Forecast) {
+        super.init(reuseIdentifier: nil)
         backgroundColor = .white
         makeLayout()
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(userTapped))
+        userPanel.addGestureRecognizer(gesture)
+        
+        bookmarksView.setTapAction(action: bookmarkTapped)
+        
+        subscribeButton.addTarget(self, action: #selector(subscribeTapped), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with forecast: Forecast) {
+    private func configure(with forecast: Forecast) {
         let vm = ForecastViewModelItem(forecast: forecast)
         
         matchTitleLabel.text = forecast.event.name
@@ -153,12 +165,36 @@ class FullForecastHeader: UITableViewHeaderFooterView {
         teamsView.leftImageView.setServerIcon(url: forecast.event.championship.sport.image)
         teamsView.rightImageView.setServerIcon(url: forecast.event.championship.sport.image)
         commentsView.setText("\(forecast.comments)")
-        bookMarksView.setText("\(forecast.bookmarks)")
+        
         profileImageView.setImage(url: forecast.user.avatar)
         usernameLabel.text = forecast.user.login
         infoStack.populateStack(labels: rowsForInfoStack(forecast: forecast, viewModel: vm))
-        ratingView.setNumber(forecast.rating)
+        ratingView.setNumber(forecast.apiRating, state: forecast.apiRatingStatus)
         incomeLabel.setNumber(to: vm.forecasterItem.signedPercentRoi)
+        
+        bookmarksView.isUserInteractionEnabled = presenter.canBookmark()
+        bookmarksView.setNumber(forecast.bookmarks)
+        bookmarksView.isSelected = forecast.bookmarked
+        
+        subscribeButton.isHidden = !presenter.canSubscribe()
+        subscribeButton.subscribed = forecast.user.subscribed
+    }
+    
+    @objc private func userTapped() {
+        presenter.userTapped()
+    }
+    
+    private func bookmarkTapped() {
+        presenter.bookmark()
+        configure(with: presenter.forecast())
+    }
+    
+    @objc private func subscribeTapped() {
+        presenter.subscribeTapped { (success) in
+            if success {
+                self.subscribeButton.subscribed.toggle()
+            }
+        }
     }
     
     private func rowsForInfoStack(forecast: Forecast, viewModel: ForecastViewModelItem) -> [(UILabel, UILabel)] {
@@ -279,8 +315,8 @@ class FullForecastHeader: UITableViewHeaderFooterView {
             make.height.equalTo(20)
         }
         
-        addSubview(bookMarksView)
-        bookMarksView.snp.makeConstraints { (make) in
+        addSubview(bookmarksView)
+        bookmarksView.snp.makeConstraints { (make) in
             make.top.bottom.equalTo(commentsView)
             make.leading.equalTo(commentsView.snp.trailing).offset(15)
         }

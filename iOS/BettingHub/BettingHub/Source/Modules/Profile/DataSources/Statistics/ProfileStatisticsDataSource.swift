@@ -31,6 +31,10 @@ class ProfileStatisticsDataSource: NSObject, ProfileDataSource {
 //        viewModel?.currentPage(1)
     }
     
+    func reload() {
+        viewModel.reload()
+    }
+    
     func configure(forecaster: Forecaster) {
         self.forecaster = forecaster
         tableView?.reloadData()

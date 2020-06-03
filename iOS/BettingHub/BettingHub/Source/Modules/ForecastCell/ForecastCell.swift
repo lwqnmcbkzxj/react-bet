@@ -19,7 +19,7 @@ class ForecastCell: UITableViewCell {
     
     weak var delegate: ForecastCellDelegate?
     
-    private let presenter: IForecastCellPresenter = ForecastCellPresenter()
+    private static let presenter: IForecastCellPresenter = ForecastCellPresenter()
     
     private let panelView: UIView = {
         let view = UIView()
@@ -186,7 +186,8 @@ class ForecastCell: UITableViewCell {
     private let bookmarksView: LabeledIconWithNumber = {
         let view = LabeledIconWithNumber()
         let image = UIImage(named: "bookmarkIcon")!
-        view.setImage(image)
+        let selected = UIImage(named: "bookmarkIconSelected")!
+        view.setImage(image, selectedImage: selected)
         view.isSkeletonable = true
         return view
     }()
@@ -194,6 +195,7 @@ class ForecastCell: UITableViewCell {
     private let stepperView: ArrowsStepperView = {
         let view = ArrowsStepperView()
         view.isSkeletonable = true
+        view.isUserInteractionEnabled = false
         return view
     }()
     
@@ -204,7 +206,8 @@ class ForecastCell: UITableViewCell {
         makeLayout()
         isSkeletonable = true
         
-//        bookmarksView.setTapAction(target: self, action: bookmarksTapped)
+        bookmarksView.setTapAction(action: bookmarksTapped)
+        stepperView.addTarget(self, action: #selector(ratingChanged), for: .valueChanged)
     }
     
     required init?(coder: NSCoder) {
@@ -228,9 +231,17 @@ class ForecastCell: UITableViewCell {
         lastForecastsView.populate(with: forecast.user.lastForecasts)
         incomeLabel.setNumber(to: vm.forecasterItem.signedPercentRoi)
         commentsView.setNumber(forecast.comments)
-        bookmarksView.setNumber(forecast.bookmarks)
-        stepperView.setNumber(forecast.rating)
         cornerIcon.setServerIcon(url: forecast.event.championship.sport.image)
+        
+        let presenter = ForecastCell.presenter
+        
+        bookmarksView.isUserInteractionEnabled = presenter.canBookmark()
+        bookmarksView.setNumber(forecast.bookmarks)
+        bookmarksView.isSelected = forecast.bookmarked
+        
+//        stepperView.isUserInteractionEnabled = ForecastCell.presenter.canChangeRating()
+        stepperView.setNumber(forecast.apiRating,
+                              state: forecast.apiRatingStatus)
     }
     
     private func makeLayout() {
@@ -238,7 +249,6 @@ class ForecastCell: UITableViewCell {
         contentView.addSubview(panelView)
         panelView.snp.makeConstraints { (make) in
             make.leading.trailing.top.equalToSuperview()
-//            make.height.equalTo(402)
             make.bottom.equalToSuperview().offset(-20)
         }
         
@@ -343,7 +353,6 @@ class ForecastCell: UITableViewCell {
             make.leading.equalTo(panelView).offset(9)
             make.trailing.equalTo(panelView).offset(-9)
             make.top.equalTo(matchStartTitleLabel.snp.bottom).offset(20)
-//            make.height.equalTo(132)
         }
         
         let userLine = buildUserLine()
@@ -435,8 +444,16 @@ class ForecastCell: UITableViewCell {
         delegate?.userViewTapped(forecast: forecast)
     }
     
-    @objc private func bookmarksTapped() {
+    private func bookmarksTapped() {
         guard let forecast = self.forecast else { return }
-        presenter.addBookmark(forecast: forecast)
+        ForecastCell.presenter.addBookmark(forecast: forecast)
+        configure(with: forecast)
+    }
+    
+    @objc private func ratingChanged() {
+        guard let _ = self.forecast else { return }
+        print("ForecastCell.ratingChanged() invoked. Nothing happens")
+//        ForecastCell.presenter.ratingChanged(stepperView.stepperState,
+//                                             forecast: forecast)
     }
 }

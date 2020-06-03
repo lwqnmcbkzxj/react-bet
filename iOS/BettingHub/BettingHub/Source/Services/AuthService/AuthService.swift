@@ -50,7 +50,7 @@ class AuthService {
 
 extension AuthService: IAuthService {
     
-    var isAuthorized: BHError? {
+    var authError: BHError? {
         let authToken = tokenService.authToken()
         switch authToken {
         case .success(_):
