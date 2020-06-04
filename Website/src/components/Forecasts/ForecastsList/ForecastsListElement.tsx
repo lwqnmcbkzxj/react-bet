@@ -48,8 +48,8 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 				<div className={s.forecastHeader}>
 					<div className={s.gameInfo}>
 						<img src={apiURL + forecast.event_data.championship_data.sport_image} alt="gameImg" />
-						<Link to={`forecasts/${forecast.id}`}><p className={s.sportName}>{forecast.event_data.championship_data.sport_name}. </p></Link>
-						<Link to={`forecasts/${forecast.id}`}><p className={s.gameName} >{tournamentName}</p></Link>
+						<Link to={`/forecasts/${forecast.id}`}><p className={s.sportName}>{forecast.event_data.championship_data.sport_name}. </p></Link>
+						<Link to={`/forecasts/${forecast.id}`}><p className={s.gameName} >{tournamentName}</p></Link>
 					</div>
 					<div className={s.matchDate}>
 						{formatDate(forecast.forecast_created_at)}
@@ -61,16 +61,16 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 						{forecast.bet_data.pure_profit > 0 ?
 							<div className={classNames(s.profit, s.positive)}>+{(forecast.bet_data.pure_profit * +forecast.bet_data.bet).toFixed(2)} xB</div> :
 							<div className={classNames(s.profit, s.negative)}>-{forecast.bet_data.pure_profit.toFixed(2)} xB</div>}
-						<Link to={`forecasts/${forecast.id}`}><div className={s.matchTitle}>{forecast.event_data.event}</div></Link>
+						<Link to={`/forecasts/${forecast.id}`}><div className={s.matchTitle}>{forecast.event_data.event}</div></Link>
 					</div>
 
 					<div className={s.matchStats}>
 						<div className={s.profitStats}>
-							<Link to={`forecasts/${forecast.id}`} className={s.profitStat}><div>Прогноз: <span>{forecast.bet_data.type}</span></div></Link>
-							<Link to={`forecasts/${forecast.id}`} className={s.profitStat}>
+							<Link to={`/forecasts/${forecast.id}`} className={s.profitStat}><div>Прогноз: <span>{forecast.bet_data.type}</span></div></Link>
+							<Link to={`/forecasts/${forecast.id}`} className={s.profitStat}>
 								<div>Коэффициент: <span>{forecast.bet_data.coefficient}</span></div>
 							</Link>
-							<Link to={`forecasts/${forecast.id}`} className={s.profitStat}><div>Сумма ставки: <span>{forecast.bet_data.bet}</span></div></Link>
+							<Link to={`/forecasts/${forecast.id}`} className={s.profitStat}><div>Сумма ставки: <span>{forecast.bet_data.bet}</span></div></Link>
 						</div>
 						<div className={s.matchStart}>Начало игры: {formatDate(forecast.event_data.event_start)}</div>
 					</div>

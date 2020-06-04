@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { useDispatch, useSelector} from "react-redux"
 import { AppStateType } from '../../types/types'
 import { ForecastType } from '../../types/forecasts'
@@ -8,6 +8,7 @@ import Forecast from './Forecast'
 import { withRouter, RouteComponentProps  } from 'react-router'
 
 import { getForecastFromServer, getForecastComments } from '../../redux/forecasts-reducer'
+import { CommentsEnum } from '../../types/types'
 
 interface MatchParams {
     forecastId: string;
@@ -22,12 +23,21 @@ const ForecastsContainer: FC<Props> = ({ ...props }) => {
 	const dispatch = useDispatch()
 	let forecastId = props.match.params.forecastId ? props.match.params.forecastId : 1;
 
+	const [commentFilter, setCommentFilter] = useState(CommentsEnum.popularity)
+	const getComments = () => {
+		dispatch(getForecastComments(+forecastId, commentFilter))
+	}
+
 	useEffect(() => {
 		(async function asyncFunction() {
 			await dispatch(getForecastFromServer(+forecastId))	
-			dispatch(getForecastComments(+forecastId))
+			getComments()
 		})()
 	}, []);
+
+	useEffect(() => {
+		getComments()
+	}, [commentFilter]);
  
 	if (!forecast.id || isFetching) {
 		return <div></div>
@@ -36,7 +46,11 @@ const ForecastsContainer: FC<Props> = ({ ...props }) => {
 	return (
 		<Forecast
 			forecast={forecast}
-			refreshComments={() => { dispatch(getForecastComments(+forecastId)) }}
+			commentsFunctions={{
+				refreshComments: () => { getComments() },
+				commentFilter,
+				setCommentFilter
+			}}
 		/>
 	)
 }

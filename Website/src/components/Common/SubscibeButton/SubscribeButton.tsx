@@ -14,15 +14,22 @@ import { subscribeUser } from '../../../redux/user-reducer'
 type SubscribeButtonPropsType = {
 	userId: number
 	responsive?: boolean
+
+	isSubscribed?: boolean
 }
 
 
-const SubscribeButton: FC<SubscribeButtonPropsType> = ({ userId, responsive = true, ...props }) => {
+const SubscribeButton: FC<SubscribeButtonPropsType> = ({ userId, responsive = true, isSubscribed = false, ...props }) => {
 	const dispatch = useDispatch()
 	const logged = useSelector<AppStateType, boolean>(state => state.me.logged)
 
 
-	const [subscribed, setSubscribed] = useState(false)
+	const [subscribed, setSubscribed] = useState(isSubscribed)
+
+	useEffect(() => { 
+		setSubscribed(isSubscribed)
+	}, [isSubscribed])
+
 	const subscribeToggle = (id: number) => {
 		if (!logged) {
 			dispatch(toggleAuthFormVisiblility())
@@ -37,7 +44,9 @@ const SubscribeButton: FC<SubscribeButtonPropsType> = ({ userId, responsive = tr
 
 
 	let profileBtn
+	debugger
 	if (subscribed) {
+		
 		let icon
 		let subBtnText
 		if (subBtnHovered && subBtnHoverCounter > 0) {

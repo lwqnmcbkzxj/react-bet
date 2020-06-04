@@ -179,7 +179,7 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, commentsFunctions, ...props
 						<p>{(+forecast.user_data.stats.average_cofficient).toFixed(2)}</p>
 					</div>
 				</div>
-				<SubscribeButton userId={forecast.user_data.id} responsive={false}/>
+				<SubscribeButton userId={forecast.user_data.id} responsive={false} isSubscribed={forecast.user_data.is_subscribed}/>
 			</div>
 
 			<div className={s.forecastDescription}>
@@ -191,7 +191,10 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, commentsFunctions, ...props
 				favourites={forecast.forecast_stats.count_subscribers}
 				likes={forecast.forecast_stats.rating}
 				id={forecast.id}
-				elementType={'forecast'} />
+				elementType={'forecast'}
+						
+				likesActive={forecast.vote}
+			/>
 			<CommentsBlock
 				comments={forecast.comments as any}
 				elementId={forecast.id}

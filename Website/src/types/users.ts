@@ -20,5 +20,6 @@ export type UserType = {
 		count_subscribers: number,
 		count_subscriptions: number
 	},
-    last_five: Array<boolean>
+	last_five: Array<boolean>
+	is_subscribed: boolean
 }

@@ -3,7 +3,7 @@
 	flex-direction: column;
 	margin-bottom: 16px;
 	position: relative;
-
+	
 	&.canSeeContent input {
 		padding-right: 50px;
 	}
@@ -45,6 +45,9 @@
 	}
 	& textarea {
 		height: 150px!important;
+	}
+	& .tox-tinymce {
+
 	}
 	& div {
 		display: flex;
@@ -148,6 +151,33 @@ input[type=number] {
 				border-bottom: 1px solid #D5D8DD;
 				border-radius: 0 0 5px 5px;
 			}
+		}
+	}
+}
+
+
+.tinymceBlock {
+	& label {
+		font-size: 12px;
+		line-height: 14px;
+		color: #818283;
+		margin-bottom: 6px;
+	}
+	& > div {
+		width: 100%;
+		color: #343638;
+		font-size: 19px;
+		line-height: 23px;
+		background: #FFFFFF 0% 0% no-repeat padding-box;
+		font-family: 'Roboto';
+		border: 1px solid #D5D8DD;
+		border-radius: 8px;
+		transition: .3s;
+		
+	}
+	&.error { 
+		& > div {
+			border: 1px solid #E84755;
 		}
 	}
 }

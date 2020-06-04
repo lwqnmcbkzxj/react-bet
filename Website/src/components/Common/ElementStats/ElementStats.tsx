@@ -21,12 +21,16 @@ type ElementStatsPropsType = {
 	showFavourites?: boolean
 	showComments?: boolean
 
+	likesActive?: string
+	favouritesActive?: boolean
+
 	id: number
 	elementType: string
 }
 const ElementStats: FC<ElementStatsPropsType> = ({
 	comments, likes, favourites,
 	showLikes = true, showFavourites = true, showComments = true,
+	likesActive = "", favouritesActive = false,
 	id, elementType, ...props }) => {
 
 	const logged = useSelector<AppStateType, boolean>(state => state.me.logged)
@@ -38,7 +42,7 @@ const ElementStats: FC<ElementStatsPropsType> = ({
 	}
 
 
-	const [isFavourite, setFavourite] = useState(false)
+	const [isFavourite, setFavourite] = useState(favouritesActive)
 	const [favouriteCount, setFavouriteCount] = useState(favourites)
 
 	const toggleFavourite = (id: number) => {
@@ -54,8 +58,6 @@ const ElementStats: FC<ElementStatsPropsType> = ({
 		setFavourite(!isFavourite)
 		favouriteDispatch(id)
 	}
-
-
 
 
 
@@ -78,7 +80,7 @@ const ElementStats: FC<ElementStatsPropsType> = ({
 					<span className={favouriteCount === 0 ? s.hidden : ""}>{favouriteCount}</span>
 				</div>}
 			</div>
-			{showLikes && <LikesBlock id={id} likes={likes} elementType={elementType} />}
+			{showLikes && <LikesBlock id={id} likes={likes} elementType={elementType} likesActive={likesActive} />}
 		</div>
 	)
 }

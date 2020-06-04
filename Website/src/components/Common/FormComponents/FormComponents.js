@@ -78,7 +78,7 @@ export const Textarea = (props) => {
 		<div className={s.inputBlock}>
 			<label>{props.label}</label>
 			<div>
-				<textarea {...input} {...restProps} className={hasError ? s.errorInput : null} />
+				<textarea {...input} {...restProps} className={hasError ? s.errorInput : null} id={props.id}/>
 			</div>
 		</div>
 
@@ -94,7 +94,10 @@ export const FormatTextarea = (props) => {
 	}
 
 	return (
-		<Editor
+		<div className={cn(s.tinymceBlock, {[s.error]: hasError})}>
+			<label>{props.label}</label>
+
+			<Editor
 			initialValue=""
 			apiKey="f9t701hao1hpemnseqy90ucyvi5sg9rw6f392kvzckjc8fjh"
 			value={input.value}
@@ -102,14 +105,16 @@ export const FormatTextarea = (props) => {
 				height: 500,
 				menubar: false,
 				plugins: [
-					'advlist autolink lists link image charmap print preview anchor',
+					'advlist autolink lists charmap print preview anchor',
 					'searchreplace visualblocks code fullscreen',
 					'insertdatetime media table contextmenu paste code',
-				].join(' '),
-				toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+				  ].join(' '),
+				  toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
+				 
 			}}
 			onEditorChange={handleEditorChange}
 		/>
+		</div>
 
 	)
 }

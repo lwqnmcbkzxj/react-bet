@@ -23,6 +23,7 @@ export type ForecastType = {
 			average_cofficient: number
 		},
 		last_five: Array<boolean>
+		is_subscribed: boolean
 	},
 	event_data: {
 		championship_data: {
@@ -56,5 +57,7 @@ export type ForecastType = {
 		rating: number
 	}
 	comments?: Array<CommentType>
+	is_marked?: boolean,
+	vote?: string
 }
 /* FORECAST TYPES */
