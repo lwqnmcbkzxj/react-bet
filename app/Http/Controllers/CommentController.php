@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CommentCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PHPUnit\Exception;
@@ -32,7 +33,7 @@ class CommentController extends Controller
         {
             $res = $res->where('reference_to', '=', $request['reference_to'])->where('referent_id', '=',  $request['referent_id']);
         }
-        return $this->sendResponse(collect($res)->flatten(), 'Success', 200);
+        return $this->sendResponse(new \App\Http\Resources\CommentCollection($res), 'Success', 200);
     }
     public function getOne(Comment $comment)
     {

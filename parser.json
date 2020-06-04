@@ -1,0 +1,41 @@
+USER_ID =>
+[{
+    "parser_forecast_id": 8488510-prshibram-slaviya,
+    "event_data": {
+        "championship_data": {
+            "championship": "Сирия. Примьер-лига",
+            "sport_name": "Футбол"
+        },
+        "event": "Аль-Талия - Аль-Карама Хомс",
+        "event_start": "2020-04-14 13:55:00",
+        "score": "-
+    },
+    "forecast_text": "Вот не могу я пройти мимо такого кэфа на тотал больше, тем более когда вижу что в обратную сторону он падает в низ.",
+    "bet_data": {
+        "bet": 20,
+        "coefficient": 3.40,
+        "status": 2,
+        "type": "ТБ (2.5)"
+    },
+    "bookmaker_name": "Марафон"
+},
+{
+    "parser_forecast_id": 8488510-prshibram-slaviya,
+    "event_data": {
+        "championship_data": {
+            "championship": "Сирия. Примьер-лига",
+            "sport_name": "Футбол"
+        },
+        "event": "Аль-Талия - Аль-Карама Хомс",
+        "event_start": "2020-04-14 13:55:00",
+    },
+    "forecast_text": "Вот не могу я пройти мимо такого кэфа на тотал больше, тем более когда вижу что в обратную сторону он падает в низ.",
+    "bet_data": {
+        "bet": 20,
+        "coefficient": 3.40,
+        "status": 2,
+        "type": "ТБ (2.5)"
+    },
+    "bookmaker_name": "Марафон"
+}]
+

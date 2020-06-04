@@ -79,6 +79,7 @@ Route::get('/news/{news}/comments', function (Request $Request, \App\News $news)
 //Доступ к профилям пользователей
 Route::middleware('auth:api')->group(function () {
     Route::post('/avatar', 'UploadController@putAvatar');
+    Route::get('/admin/dashboard','Admin\DashboardController@index');
     Route::get('/admin/posts', 'PostController@getAll');
     Route::get('/admin/posts/search', 'PostController@search');
     Route::get('/admin/posts/{post}', 'PostController@get');
@@ -97,6 +98,15 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/admin/bookmakers/{bookmaker}', 'BookmakerController@delete');
     Route::post('/admin/bookmakers', 'BookmakerController@post');
     Route::post('/admin/bookmakers/{bookmaker}', 'BookmakerController@edit');
+
+    Route::get('/admin/users', 'BookmakerController@getAll');
+    Route::get('/admin/users/search', 'BookmakerController@search');
+    Route::get('/admin/users/{user}', 'BookmakerController@get');
+    Route::delete('/admin/users/{users}', 'BookmakerController@delete');
+    Route::post('/admin/users', 'BookmakerController@post');
+    Route::post('/admin/users/{users}', 'BookmakerController@edit');
+
+
     Route::post('/comments', 'CommentController@post');
     Route::delete('/comments/{comment}', 'CommentController@delete');
     Route::post('/votes', 'VoteController@post');
@@ -124,10 +134,10 @@ Route::middleware('auth:api')->group(function () {
         $Request['referent_id'] = $news->id;
         return app()->call('App\Http\Controllers\VoteController@post', [$Request]);
     });
-    Route::post('/comments/{comment}/like', function (Request $Request, \App\Comment $comments) {
+    Route::post('/comments/{comment}/like', function (Request $Request, \App\Comment $comment) {
         $Request['type'] = 'like';
         $Request['reference_to'] = 'comments';
-        $Request['referent_id'] = $comments->id;
+        $Request['referent_id'] = $comment->id;
         return app()->call('App\Http\Controllers\VoteController@post', [$Request]);
     });
     Route::post('/comments/{comment}/dislike', function (Request $Request, \App\Comment $comment) {

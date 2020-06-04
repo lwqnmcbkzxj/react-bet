@@ -75,8 +75,7 @@ class UserController extends Controller
             $image= '/storage/users/' . $user->id . '/' . $name;
             $user->update(['avatar' => $image]);
         }
-
-        return json_encode($user);
+        return $this->sendResponse($user,'Success',200);
     }
     /**
      * Display the specified resource.
@@ -92,19 +91,6 @@ class UserController extends Controller
             'subscribers' => $user->subscribers()->get(),
             'subscriptions' => Subscriber::where('subscriber_id', $user->id)->get()
         ],'Success', 200);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        return json_encode([
-            'user' => $user
-        ]);
     }
 
     /**
@@ -145,7 +131,6 @@ class UserController extends Controller
         $user->subscribers()->detach($user->id);
         $user->subscriptions()->detach($user->id);
         $user->delete();
-
         return $this->sendResponse('','Успешно удалено',200);
     }
 }
