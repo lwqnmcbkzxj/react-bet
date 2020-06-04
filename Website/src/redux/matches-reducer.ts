@@ -82,7 +82,7 @@ export const getMatchesFromServer = (): ThunksType => async (dispatch) => {
 	let response = await matchesAPI.getMatches()	
 	dispatch(toggleIsFetching(false))
 
-	dispatch(setMatches(response))
+	dispatch(setMatches(response.data))
 }
 
 export const getMatchFromServer = (id: number): ThunksType => async (dispatch) => {

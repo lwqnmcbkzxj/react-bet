@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { AppStateType } from '../../types/types'
 import { ForecastType } from '../../types/forecasts';
 import userNoImg from '../../assets/img/user-no-image.png'
+import { apiURL } from '../../api/api';
 
 type BetsListPropsType = {
 	forecasts?: Array<ForecastType>
@@ -32,7 +33,7 @@ const BetsList: FC<BetsListPropsType> = ({ forecasts = [], ...props }) => {
 			{forecasts.map((forecast, counter) =>
 				<div className={s.bet} key={counter}>
 					<Link to={`/users/${forecast.user_data.id}`} className={s.forecaster}>
-						<img src={forecast.user_data.avatar ? 'http://xbethub.com/' + forecast.user_data.avatar : userNoImg} alt="user-img" />
+						<img src={forecast.user_data.avatar ? apiURL + forecast.user_data.avatar : userNoImg} alt="user-img" />
 						<div className={s.userName}>{forecast.user_data.login}</div>
 					</Link>
 					<div className={s.betType}>{forecast.bet_data.type}</div>

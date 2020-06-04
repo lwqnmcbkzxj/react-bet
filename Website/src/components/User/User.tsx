@@ -18,6 +18,7 @@ import { faCog, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux';
 import { apiURL } from '../../api/api';
 import SubscribeButton from '../Common/SubscibeButton/SubscribeButton';
+import BorderedSelectors from '../Common/Selectors/BorderedSelector/BorderedSelector';
 
 export enum selectors {
 	forecasts = 'forecasts',
@@ -51,6 +52,11 @@ const User: FC<UsersPropsType> = ({
 	...props }) => {
 		const dispatch = useDispatch()
 	
+	useEffect(() => {
+		if (!isLoggedUserProfile)
+			handleTabChange(selectors.forecasts)
+	}, []);
+	
 	const handleTabChange = (tabName: string) => {
 		changeVisibleTab(tabName)
 		if (tabName === selectors.forecasts) {
@@ -77,8 +83,6 @@ const User: FC<UsersPropsType> = ({
 	}
 
 
-
-
 	let profileBtn
 	if (user.id) {
 		if (isLoggedUserProfile) {
@@ -90,7 +94,11 @@ const User: FC<UsersPropsType> = ({
 					</button>
 				</Link>
 		} else {
-			profileBtn = <SubscribeButton userId={user.id} />
+			profileBtn =
+			<SubscribeButton
+				userId={user.id}
+				isSubscribed={user.is_subscribed}
+			/>
 		}
 	}
 
@@ -153,40 +161,17 @@ const User: FC<UsersPropsType> = ({
 
 					</div>
 
-					<div className={s.userListsSelector}>
-						<div className={s.selector}>
-							<input
-								type="radio"
-								name={'userListSelector'}
-								checked={visibleTab === selectors.forecasts}
-								id={selectors.forecasts}
-								onChange={() => { handleTabChange(selectors.forecasts) }} />
-							<label htmlFor={selectors.forecasts}>Прогнозы</label>
-						</div>
-						<div className={s.selector}>
-							<input
-								type="radio"
-								name={'userListSelector'}
-								checked={visibleTab === selectors.statistics}
-								id={selectors.statistics}
-								onChange={() => { handleTabChange(selectors.statistics) }} />
-							<label htmlFor={selectors.statistics}>Статистика</label>
-						</div>
-
-						{isLoggedUserProfile && <div className={s.selector}>
-							<input
-								type="radio"
-								name={'userListSelector'}
-								checked={visibleTab === selectors.favourites}
-								id={selectors.favourites}
-								onChange={() => { handleTabChange(selectors.favourites) }} />
-							<label htmlFor={selectors.favourites}>Избранное</label>
-						</div>}
-
-
-					</div>
+					<BorderedSelectors
+						listName="userListSelector"
+						initialValue={visibleTab}
+						changeVisibleTab={handleTabChange}
+						selectors={[
+							{ name: selectors.forecasts, text: "Прогнозы" },
+							{ name: selectors.statistics, text: "Статистика" },
+							{ name: selectors.favourites, text: "Избранное", condition: isLoggedUserProfile }
+						]}
+					/>
 				</div>
-
 
 				<div className={s.infoBlock}>
 					{renderingTab}

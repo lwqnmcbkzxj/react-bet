@@ -61,7 +61,7 @@ export const userAPI = {
 		return instance.post(`/users/update/password`, { password })
 			.then((response) => {
 				return response.data
-			});
+			}).catch(err => err);
 	},
 	changePhoto(avatar: File) {
 		let formData = new FormData()
@@ -69,7 +69,7 @@ export const userAPI = {
 		return instance.post(`/avatar`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
 			.then((response) => {
 				return response.data
-			});
+			}).catch(err => err);
 	},	
 	getUserInfo() {
 		return instance.get(`users/profile`)
@@ -297,9 +297,9 @@ export const appAPI = {
 		return instance.post(`${type}/${id}/comment`, { text, replies_to: reply_id } )
 			.then((response) => {
 				return response.data
-			});
+			}).catch(err => err);
 	},
-	getComments(id: number, type: string) {
+	getComments(id: number, type: string, filterName: string) {
 		return instance.get(`/${type}/${id}/comments`)
 			.then((response) => {
 				return response.data

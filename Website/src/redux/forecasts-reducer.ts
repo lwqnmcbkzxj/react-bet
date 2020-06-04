@@ -158,7 +158,7 @@ export const getForecastsFromServer = (page: number, quanity: number, options = 
 	else
 		response = await forecastsAPI.getForecasts(page, quanity, options)
 
-
+debugger
 	dispatch(toggleIsForecastsFetching(false))
 	dispatch(setForecasts(response.data))
 }
@@ -211,8 +211,8 @@ export const favouriteForecast = (id: number): ThunksType => async (dispatch) =>
 	let response = await forecastsAPI.favouriteForecast(id)
 }
 
-export const getForecastComments = (id: number): ThunksType => async (dispatch) => {
-	let response = await appAPI.getComments(id, 'forecasts')
+export const getForecastComments = (id: number, filterName: string): ThunksType => async (dispatch) => {
+	let response = await appAPI.getComments(id, 'forecasts', filterName)
 
 	dispatch({
 		type: SET_FORECAST_COMMENTS,

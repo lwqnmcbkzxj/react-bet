@@ -8,6 +8,7 @@ import { appAPI } from '../api/api'
 
 import { SetUsersSportsType } from './users-reducer'
 import { SetForecastsSportsType } from './forecasts-reducer'
+import { showAlert } from '../utils/showAlert'
 
 const TOGGLE_AUTH_FORM_VISIBILITY = 'app/TOGGLE_AUTH_FORM_VISIBILITY'
 const TOGGLE_COMMENTS_BLOCK_VISIBILITY = 'app/TOGGLE_COMMENTS_BLOCK_VISIBILITY'
@@ -25,12 +26,16 @@ let initialState = {
 	isAuthFormVisible: false,
 	isCommentsBlockVisible: false,
 	mainPageBlocksVisibility: {} as any,
-	activeProfileTab: "statistics",
+	activeProfileTab: "forecasts",
 	languages: [
 		{ index: 1, name: languageEnum.rus, visibleText: 'Русский', active: true },
 		{ index: 2, name: languageEnum.eng, visibleText: 'English', active: false },
 	],
-	sports: [] as Array<SportType>
+	sports: [] as Array<SportType>,
+	mobileAppLinks: {
+		android: 'https://play.google.com/store/apps/details?id=com.bettinghub.forecasts',
+		ios: ''
+	}
 }
 
 type InitialStateType = typeof initialState;
@@ -280,6 +285,11 @@ export const sendComment = (id: number, type: string, text: string, reply_id?: n
 	} else {
 		response = await appAPI.sendComment(id, type, text, reply_id)
 	}
+
+	if (!response.message)
+		showAlert('success', 'Комментарий отправлен')
+	else 
+		showAlert('error', 'Не удалось отправить комментарий')
 }
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 

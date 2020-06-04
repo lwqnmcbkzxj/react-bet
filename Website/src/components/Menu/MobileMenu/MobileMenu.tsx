@@ -72,7 +72,6 @@ const MobileMenu: FC<MobileMenuPropsType> = ({ loggedUser, ...props }) => {
 				</NavLink>
 				<NavLink to={`/forecasters/${loggedUser.id}`} className={s.menuLink} onClick={(e) => {
 					hideMenuBlocks();
-					debugger
 
 					if (!+loggedUser.id) {
 						tryToLogin(`/forecasters/${loggedUser.id}`)

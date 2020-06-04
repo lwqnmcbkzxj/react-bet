@@ -48,7 +48,6 @@ const UsersContainer: FC<Props> = ({ ...props }) => {
 		dispatch(changeUserPageActiveTab(tabName))
 	}
 
-
 	let userId = props.match.params.userId ? props.match.params.userId : 1;
 	useEffect(() => {
 
@@ -56,8 +55,13 @@ const UsersContainer: FC<Props> = ({ ...props }) => {
 			dispatch(getUserFromServer(+userId))		
 	}, [filters, userId]);
 
-	if (!+userId)
-		return <Redirect to={`/forecasters/${loggedUser.id}`} />
+	debugger
+	
+	
+	useEffect(() => {
+		if (!+userId && loggedUser.id !== 0)
+			props.history.push(`/forecasters/${loggedUser.id}`)
+	}, [loggedUser.id])
 	
 	let isLoggedUserProfile = (+userId === loggedUser.id)
 

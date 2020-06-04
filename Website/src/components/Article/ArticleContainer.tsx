@@ -1,6 +1,6 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector} from "react-redux"
-import { AppStateType } from '../../types/types'
+import { AppStateType, CommentsEnum } from '../../types/types'
 import { ArticleType } from '../../types/article'
 
 import Article from './Article'
@@ -22,10 +22,15 @@ const ArticleContainer: FC<ArticleProps> = ({ ...props }) => {
 
 	let articleId = props.match.params.articleId ? props.match.params.articleId : 1;
 
+	const [commentFilter, setCommentFilter] = useState(CommentsEnum.popularity)
+	const getComments = () => {
+		dispatch(getArticleComments(+articleId, commentFilter))
+	}
+
 	useEffect(() => {
 		(async function asyncFunction() {
 			await dispatch(getArticleFromServer(+articleId))	
-			dispatch(getArticleComments(+articleId))
+			getComments()
 		})()
 	}, []);
 
@@ -37,7 +42,12 @@ const ArticleContainer: FC<ArticleProps> = ({ ...props }) => {
 	return ( 
 		<Article
 			article={article}
-			refreshComments={() => { dispatch(getArticleComments(+articleId)) }}
+			commentsFunctions={{
+				refreshComments: () => { getComments() },
+				commentFilter,
+				setCommentFilter
+			}}
+			// refreshComments={() => { getComments() }}
 		/>
 	)
 }

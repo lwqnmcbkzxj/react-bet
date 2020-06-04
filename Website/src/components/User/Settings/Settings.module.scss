@@ -20,6 +20,9 @@
 				height: 54px;
 				display: block;
 				grid-row: 1/3;
+				&:hover {
+					cursor: pointer;
+				}
 			}
 
 			& .nickName {

@@ -2,6 +2,7 @@ import { AppStateType } from '../types/types'
 import { ThunkAction } from 'redux-thunk'
 import { ArticleType } from '../types/admin';
 import { postsAPI, appAPI } from '../api/api'
+import { showAlert } from '../utils/showAlert';
 const SET_ARTICLES = 'admin/SET_ARTICLES'
 const SET_ARTICLE = 'admin/SET_ARTICLE'
 const SET_PAGES_COUNT = 'admin/SET_PAGES_COUNT'
@@ -107,19 +108,25 @@ export const setArticle = (article: ArticleType): SetArticleType => {
 
 export const addArticle = (formData: ArticleType):ThunksType => async (dispatch) => {
 	let response = await postsAPI.addPost(formData)
+	showAlert('success', 'Статья успешно добавлена')
 }
 export const editArticle = (id: number, formData: ArticleType):ThunksType => async (dispatch) => {
 	let response = await postsAPI.editPost(id, formData)
+	showAlert('success', 'Статья успешно изменена')
 }
 export const deleteArticle = (id: number):ThunksType => async (dispatch) => {
 	let response = await postsAPI.deletePost(id)
+	showAlert('success', 'Статья успешно удалена')
 }
 
 export const changePolicy = (text: string):ThunksType => async (dispatch) => {
 	let response = await appAPI.changePolicy(text)
+	showAlert('success', 'Успешно изменено')
+
 }
 export const changeTerms = (text: string):ThunksType => async (dispatch) => {
 	let response = await appAPI.changeTerms(text)
+	showAlert('success', 'Успешно изменено')
 }
 
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>

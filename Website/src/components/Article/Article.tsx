@@ -14,12 +14,16 @@ import { formatDate } from '../../utils/formatDate';
 type ArticlePropsType = {
 	article: ArticleType
 
-	refreshComments: () => void
+	commentsFunctions: {
+		refreshComments: () => void
+		commentFilter: string
+		setCommentFilter: (filterName: any) => void
+	}
 }
 function createMarkup(htmlText: string) {
 	return { __html: htmlText };
 }
-const Article: FC<ArticlePropsType> = ({ article, refreshComments, ...props }) => {
+const Article: FC<ArticlePropsType> = ({ article, commentsFunctions, ...props }) => {
 	return (
 		<div className={s.articlePage}>
 			<GoBackBlock
@@ -61,8 +65,7 @@ const Article: FC<ArticlePropsType> = ({ article, refreshComments, ...props }) =
 				comments={article.comments as any}
 				elementId={article.id}
 				type="posts"
-
-				refreshComments={refreshComments}
+				commentsFunctions={commentsFunctions}
 			/>
 
 		</div>

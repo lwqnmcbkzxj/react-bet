@@ -1,0 +1,60 @@
+.selectorsList {
+	display: flex;
+	align-items: center;
+
+	& .selector {
+		margin-right: 30px;
+		padding-top: 15.5px;
+		padding-bottom: 12px;
+
+		&:last-child {
+			margin-right: 0;
+		}
+
+
+		& label {
+			font-size: 15px;
+			line-height: 18px;
+			color: #343638;
+			padding-top: 15.5px;
+			padding-bottom: 11px;
+
+			&:hover {
+				cursor: pointer;
+			}
+		}
+
+		& input[type=radio] {
+			display: none;
+		}
+
+		& input[type=radio]:checked+label {
+			font-family: 'Roboto Medium';
+			border-bottom: 3px solid #F7971D;
+		}
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.selectorsList {
+		padding: 0 !important;
+		display: flex;
+		align-items: center;
+
+		& .selector {
+			flex: 1;
+			margin-right: 0px !important;
+			padding: 0 !important;
+			width: 100%;
+
+			& label {
+				display: flex;
+				justify-content: center;
+				flex: 1;
+				width: auto;
+			}
+		}
+	}
+
+	
+}

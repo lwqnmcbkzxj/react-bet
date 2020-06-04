@@ -24,7 +24,12 @@ import SubscribeButton from '../Common/SubscibeButton/SubscribeButton';
 
 type ForecastPropsType = {
 	forecast: ForecastType
-	refreshComments: () => void
+
+	commentsFunctions: {
+		refreshComments: () => void
+		commentFilter: string
+		setCommentFilter: (filterName: any) => void
+	}
 }
 
 
@@ -34,7 +39,7 @@ const formatDateForForecastPage = (createdAt: string) => {
 }
 
 
-const Forecast: FC<ForecastPropsType> = ({ forecast, refreshComments, ...props }) => {
+const Forecast: FC<ForecastPropsType> = ({ forecast, commentsFunctions, ...props }) => {
 	let userAvatar = ""
 	let userRoi = 0
 
@@ -191,8 +196,7 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, refreshComments, ...props }
 				comments={forecast.comments as any}
 				elementId={forecast.id}
 				type="forecasts"
-
-				refreshComments={refreshComments}
+				commentsFunctions={commentsFunctions}
 			/>
 		</div>
 	)

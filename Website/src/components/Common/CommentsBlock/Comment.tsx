@@ -62,7 +62,7 @@ const Comment: FC<CommentPropsType> = ({ comment, comments, sendCommentFunc, ...
 						<div className={s.date}>{formatDate(comment.created_at)}</div>
 					</div>
 				</div>
-				<LikesBlock likes={comment.rating} elementType={'comment'} id={comment.id}/>
+				{/* <LikesBlock likes={comment.rating} elementType={'comment'} id={comment.id}/> */}
 			</div>
 			<div className={s.contentText}>{comment.text}</div>
 			<div className={s.replyBtn} onClick={toggleReplyVisible} ref={replyBtnRef}><button>Ответить</button></div>

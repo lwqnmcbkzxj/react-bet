@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import s from './Settings.module.scss';
 import classNames from 'classnames'
@@ -16,6 +16,7 @@ import androidDownload from '../../../assets/img/google-play-btn.png'
 import iosDownload from '../../../assets/img/app-store-btn.png'
 import { apiURL } from '../../../api/api';
 import { change } from 'redux-form';
+import { AppStateType } from '../../../types/types';
 
 type SettingsPropsType = {
 	loggedUser: LoggedUserType
@@ -25,6 +26,8 @@ type SettingsPropsType = {
 }
 const Settings: FC<SettingsPropsType> = ({ loggedUser, languages, changeLanguage, logout, ...props }) => {
 	const dispatch = useDispatch()
+	const mobileAppLinks = useSelector<AppStateType, any>(state => state.app.mobileAppLinks)
+
 	let initialValues = { email: loggedUser.email }
 
 
@@ -77,8 +80,8 @@ const Settings: FC<SettingsPropsType> = ({ loggedUser, languages, changeLanguage
 			<div className={s.settings}>
 				<div className={s.common}>
 					<div className={s.download}>
-						<a href="#"><img src={androidDownload} alt="android-download"/></a>
-						<a href="#"><img src={iosDownload} alt="ios-download"/></a>
+						<a href={mobileAppLinks.android} target="_blank"><img src={androidDownload} alt="android-download"/></a>
+						<a href={mobileAppLinks.ios} target="_blank"><img src={iosDownload} alt="ios-download"/></a>
 					</div>
 					{/* <Selectors
 						selectors={languages}

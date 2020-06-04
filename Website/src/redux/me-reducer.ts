@@ -116,14 +116,31 @@ export const resetPassword = (email: string): ThunksType => async (dispatch) => 
 
 export const changePassword = (password: string): ThunksType => async (dispatch) => {
 	let response = await userAPI.changePassword(password)
+
+	if (!response.message) {
+		showAlert('success', 'Пароль успешно изменен')
+	} else {
+		showAlert('error', 'Не удалось изменить пароль')
+	}
 }
 export const changeEmail = (email: string): ThunksType => async (dispatch) => {
-	let response = await userAPI.changeEmail(email)
+	let response = await userAPI.changeEmail(email) as any
+
+	if (!response.message) {
+		showAlert('success', 'Email успешно изменен')
+	} else {
+		showAlert('error', 'Не удалось изменить email')
+	}
 }
 export const changeUserPhoto = (photo: File): ThunksType => async (dispatch) => {
 	let response = await userAPI.changePhoto(photo)
 
-	dispatch(getUserInfo())
+	if (!response.message) {
+		dispatch(getUserInfo())
+		showAlert('success', 'Аватар успешно изменен')
+	} else {
+		showAlert('error', 'Не удалось изменить аватар')
+	}
 }
 export const logout = (): ThunksType => async (dispatch) => {
 	dispatch(setShouldRedirect(false))

@@ -22,7 +22,7 @@ import { getArrayFromEnum } from '../../utils/enumToArray'
 import { MatchType } from '../../types/matches';
 import { BookmakerType } from '../../types/bookmakers';
 import { UserType } from '../../types/users';
-
+import { showAlert } from '../../utils/showAlert';
 
 enum blocksNamesEnum {
 	bookmakers = 'bookmakers'

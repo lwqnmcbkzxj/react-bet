@@ -16,6 +16,8 @@ type SendComemntPropsType = {
 	toggleReplyVisible?: () => void
 
 	commentFieldRef?: Ref<HTMLDivElement>
+
+	style?: any
 }
 const SendComemnt: FC<SendComemntPropsType> = ({
 	sendCommentFunc,
@@ -45,19 +47,17 @@ const SendComemnt: FC<SendComemntPropsType> = ({
 
 	const attachButtonRef = React.createRef<HTMLInputElement>()
 	return (
-		<div className={classNames(s.sendCommentBlock, { [s.active]: inputActive })} ref={commentFieldRef}>
+		<div className={classNames(s.sendCommentBlock, { [s.active]: inputActive })} ref={commentFieldRef} style={props.style}>
 			<textarea
 				placeholder="Написать комментарий"
 				className={s.sendCommentInput}
 				onFocus={() => { setInputActive(true) }}
-				onBlur={() => {
-					// setInputActive(active)
-				}}
+				
 				ref={inputRef}
 			/>
 			<div className={s.sendBlock}>
 				<div className={s.attach} >
-					<input type="file" id="attachFile" ref={attachButtonRef}/>
+					{/* <input type="file" id="attachFile" ref={attachButtonRef}/>
 					<label htmlFor="attachFile">
 						<img src={attachFileImg}
 							alt="attach-img"
@@ -65,7 +65,7 @@ const SendComemnt: FC<SendComemntPropsType> = ({
 							onClick={(e) => {
 								attachButtonRef.current?.click();
 								e.preventDefault()
-							}} /></label>
+							}} /></label> */}
 				</div>
 				<button className={s.sendBtn} onClick={()=>{sendCommentHandler(inputRef.current.value)}}>Отправить</button>
 			</div>

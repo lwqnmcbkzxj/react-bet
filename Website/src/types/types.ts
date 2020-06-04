@@ -22,6 +22,11 @@ export type CommentType = {
 
 }
 
+export enum CommentsEnum {
+	by_order = "by_order",
+	popularity = "popularity"
+}
+
 export type SportType = {
 	id: number,
 	index: number

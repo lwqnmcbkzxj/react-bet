@@ -112,6 +112,10 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 						comments={forecast.forecast_stats.count_comments}
 						favourites={forecast.forecast_stats.count_subscribers}
 						likes={forecast.forecast_stats.rating}
+
+						likesActive={forecast.vote}
+						favouritesActive={forecast.is_marked}
+
 						id={forecast.id}
 						elementType={'forecast'} />
 

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import s from './CommentsBlock.module.scss';
 import SendComment from './SendComment'
 import Comment from './Comment'
@@ -8,51 +8,67 @@ import { toggleAuthFormVisiblility, sendComment } from '../../../redux/app-reduc
 import { useDispatch, useSelector } from "react-redux"
 
 import { getForecastComments } from '../../../redux/forecasts-reducer'
+import BorderedSelectors from '../Selectors/BorderedSelector/BorderedSelector';
 
 type CommentsBlockPropsType = {
 	comments: Array<CommentType>
 
 	type: string
 	elementId: number
-	refreshComments: () => void
+
+	commentsFunctions: {
+		refreshComments: () => void
+		commentFilter: string
+		setCommentFilter: (filterName: any) => void
+	}
 }
 
-const getComemntsLength = (comments: any) => {
-	let commentsCounter = 0;
-	if (comments.length)
-		for (let comment of comments) {
-			commentsCounter++;
-
-			if (comment.comments) {
-				commentsCounter += getComemntsLength(comment.comments)
-			}
-		}
-	return commentsCounter
+enum selectors {
+	by_order = "by_order",
+	popularity = "popularity"
 }
 
-const CommentsBlock: FC<CommentsBlockPropsType> = ({ type, elementId, refreshComments, comments = [], ...props }) => {
+
+const CommentsBlock: FC<CommentsBlockPropsType> = ({ type, elementId, comments = [], commentsFunctions, ...props }) => {
 	const dispatch = useDispatch()
 
+
+	const handleTabChange = (tabName: any) => {
+		commentsFunctions.setCommentFilter(tabName)
+	}
+	
+	
 	let commentsWord = ""
 	if (comments.length === 1)
 		commentsWord = 'комментарий'
 	else if (comments.length >= 2 && comments.length <= 4)
 		commentsWord = 'комментария'
-	else 
+	else
 		commentsWord = 'комментариев'
-	
+
 
 	const sendCommentDispatch = async (text: string, reply_id?: number) => {
 		await dispatch(sendComment(elementId, type, text, reply_id))
-		refreshComments()
+		commentsFunctions.refreshComments()
 	}
-	
-	
-		
+
+
+
 	return (
 		<div className={s.commentsBlock}>
 			<div className={s.commentsHeader}>{comments.length} {commentsWord}</div>
-			<SendComment sendCommentFunc={sendCommentDispatch} />
+
+			<BorderedSelectors
+				listName="commentsSelector"
+				changeVisibleTab={handleTabChange}
+				selectors={[
+					{ name: selectors.popularity, text: "По популярности" },
+					{ name: selectors.by_order, text: "По порядку" },
+				]}
+				initialValue={commentsFunctions.commentFilter}
+			/>
+			
+			<SendComment sendCommentFunc={sendCommentDispatch} style={{ marginTop: '20px' }}/>
 
 			{comments.map((comment, counter) =>
 				!comment.replies_to &&
@@ -61,7 +77,7 @@ const CommentsBlock: FC<CommentsBlockPropsType> = ({ type, elementId, refreshCom
 					comments={comments}
 					key={counter}
 
-					
+
 					sendCommentFunc={sendCommentDispatch}
 				/>
 			)}

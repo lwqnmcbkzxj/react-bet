@@ -38,14 +38,14 @@ const AuthFormContainer: FC = ({ ...props }) => {
 	}, [logged]);
 
 
-
+	
 	useEffect(() => {
 		if (shouldRedirect) {
-			setShouldRedirect(false)
+			dispatch(setShouldRedirect(false))
 		}
 	}, [shouldRedirect]);
 	
-	if (shouldRedirect && redirectLink !== "")
+	if (shouldRedirect && redirectLink !== "") 
 		return <Redirect to={`${redirectLink}`} />
 	
 	return (
