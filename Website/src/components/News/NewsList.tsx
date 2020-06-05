@@ -21,7 +21,7 @@ const NewsList: FC<NewsPropsType> = ({ news, ...props }) => {
 					isFetching ? <NewslistPlaceholder /> :
 						<a href={newsElement.link} target="_blank" className={s.newsElement}>
 						<div className={s.newsHeader}>
-							<div className={s.categoryName}>{newsElement.category_name}</div>
+							<div className={s.categoryName}></div>
 							<div className={s.publishDate}>{formatDate(newsElement.created_at)}</div>
 						</div>
 						<div className={s.newsContent}>

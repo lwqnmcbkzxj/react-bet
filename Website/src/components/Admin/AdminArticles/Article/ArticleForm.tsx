@@ -12,6 +12,9 @@ import { required } from '../../../../utils/formValidation'
 import { Redirect } from 'react-router'
 import { Editor } from '@tinymce/tinymce-react';
 
+import contentHolder from '../../../../assets/img/content-img-holder.png'
+import { apiURL } from '../../../../api/api'
+
 type FormType = {
 	initialValues: any,
 	onSubmitFunc: (formData: ArticleType) => void
@@ -29,23 +32,39 @@ type FormValuesType = {
 
 
 const ArticleForm: FC<FormValuesType & InjectedFormProps<{}, FormValuesType>> = (props: any) => {
+	const setPreviewImage = (file: File) => {
+		let fileReader = new FileReader()
+		fileReader.onload = function (event: any) {
+			document.getElementById('admin-article-img-holder')?.setAttribute("src", event.target.result)
+		}
+
+		fileReader.readAsDataURL(file)
+	}
+
+
 	return (
-		<form onSubmit={props.handleSubmit} className={s.settingsForm}>
+		<form onSubmit={props.handleSubmit}>
 
 			{createField("title", Input, "Название статьи", { valiadtors: [required] })}
 			{createField("category_name", Input, "Название категории", { valiadtors: [required] })}
 
 			{createField("content", FormatTextarea, "Описание статьи", { valiadtors: [required] })}
-			{/* {createField("content", Textarea, "Описание статьи", { valiadtors: [required] })} */}
-
-			
-			{/* {<FormatTextarea formName="article-form" name="content" /> } */}
 			
 			<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-				{createField("is_published", Input, "Опубликована", { type: 'checkbox' })}
-
-				{/* {createField("image", File, "", { formName: 'article-form' })} */}
+				{createField("image", File, "Превью", { formName: 'article-form', onChangeFunc: setPreviewImage })}
 			</div>
+
+			<div className={s.previewImg}>
+				<img src={props.initialValues.image ? apiURL + props.initialValues.image : contentHolder} alt="article-img" id="admin-article-img-holder"/>
+			</div>
+
+			{createField("meta_title", Input, "Мета-заголовок", {  })}
+			{createField("meta_description", Input, "Мета-описание", {  })}
+			{createField("meta_key_words", Input, "Мета-ключевые слова", {  })}
+			{createField("meta_title", Input, "Мета-заголовок", {  })}
+			{createField("is_published", Input, "Опубликована", { type: 'checkbox' })}
+			{createField("no_index", Input, "Не индексировать", { type: 'checkbox' })}
+
 			<div className={s.btnHolder}><ActionButton value={props.buttonText} /></div>
 		</form>
 	);

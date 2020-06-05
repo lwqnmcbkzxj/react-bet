@@ -235,6 +235,9 @@ export const postsAPI = {
 			});
 	},
 	addPost(postObject: any) {
+
+		// let formData = new FormData()
+		// formData.append('image', postObject.image)
 		return instance.post(`admin/posts`, { ...postObject })
 			.then((response) => {
 				return response.data

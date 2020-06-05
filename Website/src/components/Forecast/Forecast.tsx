@@ -194,6 +194,7 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, commentsFunctions, ...props
 				elementType={'forecast'}
 						
 				likesActive={forecast.vote}
+				favouritesActive={forecast.is_marked}
 			/>
 			<CommentsBlock
 				comments={forecast.comments as any}

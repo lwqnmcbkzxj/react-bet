@@ -92,7 +92,10 @@ export const login = (email: string, password: string): ThunksType => async (dis
 	if (response) {
 		if (!response.message) {
 			Cookies.set('access-token', response.access_token, { expires: 10 / 24 });
-			dispatch(authUser())
+			await dispatch(authUser())
+
+			// Reload for getting new data with new token (forecasts with user likes, active sub button at another user)
+			setTimeout(() => { window.location.reload() }, 300)
 		} else {
 			dispatch(stopSubmit("login", { _error: 'Неверный логин или пароль' }))
 		}
@@ -148,6 +151,8 @@ export const logout = (): ThunksType => async (dispatch) => {
 	dispatch(setAccessToken(""))
 	dispatch(setUserInfo({ id: 0 }))
 	Cookies.remove('access-token')
+
+	window.location.reload() 
 }
 
 export const getUserInfo = (): ThunksType => async (dispatch) => {

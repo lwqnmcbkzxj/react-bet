@@ -4,8 +4,6 @@ import { ThunkAction } from 'redux-thunk'
 import { SportType } from '../types/types'
 import { appAPI } from '../api/api'
 
-
-
 import { SetUsersSportsType } from './users-reducer'
 import { SetForecastsSportsType } from './forecasts-reducer'
 import { showAlert } from '../utils/showAlert'
@@ -60,7 +58,6 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 			if (action.value === false || action.value === true) {
 				value = action.value
 			}
-			console.log(value)
 			return {
 				...state,
 				isAuthFormVisible: value

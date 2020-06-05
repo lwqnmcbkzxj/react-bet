@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash, faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, } from 'react-redux';
 import { Editor } from '@tinymce/tinymce-react';
+import CKEditorComponent from '../CKEditor/CKEditor'
+import CKEditor from 'react-ckeditor-component'
 
 export function createField(
 	name,
@@ -78,7 +80,7 @@ export const Textarea = (props) => {
 		<div className={s.inputBlock}>
 			<label>{props.label}</label>
 			<div>
-				<textarea {...input} {...restProps} className={hasError ? s.errorInput : null} id={props.id}/>
+				<textarea {...input} {...restProps} className={hasError ? s.errorInput : null} id={props.id} />
 			</div>
 		</div>
 
@@ -94,10 +96,14 @@ export const FormatTextarea = (props) => {
 	}
 
 	return (
-		<div className={cn(s.tinymceBlock, {[s.error]: hasError})}>
+		<div className={cn(s.tinymceBlock, { [s.error]: hasError })}>
 			<label>{props.label}</label>
 
-			<Editor
+			<CKEditorComponent
+				content={input.value}
+				onChange={handleEditorChange}
+			/>
+			{/* <Editor
 			initialValue=""
 			apiKey="f9t701hao1hpemnseqy90ucyvi5sg9rw6f392kvzckjc8fjh"
 			value={input.value}
@@ -105,65 +111,46 @@ export const FormatTextarea = (props) => {
 				height: 500,
 				menubar: false,
 				plugins: [
-					'advlist autolink lists charmap print preview anchor',
-					'searchreplace visualblocks code fullscreen',
+					'advlist autolink lists charmap print preview anchor media file image forecolor backcolor autolink link',
+					'searchreplace visualblocks code fullscreen wordcount',
 					'insertdatetime media table contextmenu paste code',
 				  ].join(' '),
-				  toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
+				toolbar: `undo redo | insert | styleselect | bold italic forecolor backcolor | 
+				alignleft aligncenter alignright alignjustify | 
+				  bullist numlist outdent indent | file media image link`,
 				 
 			}}
 			onEditorChange={handleEditorChange}
-		/>
+		/>  */}
 		</div>
 
 	)
 }
 
-export const FormatTextarea1 = ({ ...props }) => {
-	const dispatch = useDispatch()
 
-	const [value, setValue] = useState("")
-	const handleEditorChange = (content, editor) => {
-		// dispatch(change(formName, name, content))
-	}
-	return (
-
-		<Editor
-			initialValue=""
-			apiKey="f9t701hao1hpemnseqy90ucyvi5sg9rw6f392kvzckjc8fjh"
-			init={{
-				height: 500,
-				menubar: false,
-				plugins: [
-					'advlist autolink lists link image charmap print preview anchor',
-					'searchreplace visualblocks code fullscreen',
-					'insertdatetime media table contextmenu paste code',
-				].join(' '),
-				toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-			}}
-			onEditorChange={handleEditorChange}
-		/>
-
-
-	)
-}
 
 export const File = (props) => {
 	const dispatch = useDispatch()
 	const { input, meta, ...restProps } = props;
 	const hasError = meta.touched && meta.error;
 
+
+
+	
+
 	return (
 		<div className={s.inputBlock}>
 			<label>{props.label}</label>
 			<input
 				type="file"
-
+				ref={props.changePreviewFile}
 				onChange={
 					(e) => {
 						e.preventDefault();
 						const files = [...e.target.files];
-						dispatch(change(props.formName, input.name, files))
+						dispatch(change(props.formName, input.name, files[0]))
+						debugger
+						props.onChangeFunc(files[0])
 					}
 				}
 			/>

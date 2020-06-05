@@ -6,9 +6,9 @@ import { AppStateType } from '../../types/types'
 
 import { toggleAuthFormVisiblility, setShouldRedirect } from '../../redux/app-reducer' 
 import { login, register, resetPassword } from '../../redux/me-reducer'
-import { Redirect } from 'react-router';
+import { Redirect, withRouter, RouteComponentProps } from 'react-router';
 
-const AuthFormContainer: FC = ({ ...props }) => {
+const AuthFormContainer: FC<RouteComponentProps> = ({ ...props }) => {
 	const isAuthFormVisible = useSelector<AppStateType, boolean>(state => state.app.isAuthFormVisible);
 	const logged = useSelector<AppStateType, boolean>(state => state.me.logged);
 
@@ -37,7 +37,6 @@ const AuthFormContainer: FC = ({ ...props }) => {
 		}
 	}, [logged]);
 
-
 	
 	useEffect(() => {
 		if (shouldRedirect) {
@@ -45,8 +44,11 @@ const AuthFormContainer: FC = ({ ...props }) => {
 		}
 	}, [shouldRedirect]);
 	
-	if (shouldRedirect && redirectLink !== "") 
-		return <Redirect to={`${redirectLink}`} />
+	if (shouldRedirect && redirectLink !== "") {
+		// return <Redirect to={`${redirectLink}`} />
+		props.history.push(`${redirectLink}`)
+		
+	}
 	
 	return (
 		<AuthForm
@@ -59,4 +61,4 @@ const AuthFormContainer: FC = ({ ...props }) => {
 	)
 }
 
-export default AuthFormContainer;
+export default withRouter(AuthFormContainer);
