@@ -17,6 +17,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use mysql_xdevapi\Table;
 
@@ -61,7 +64,7 @@ class InfoController extends Controller
         if ($request->has('order_by')) {
             $res->orderBy($request['order_by'], $request['direction']);
         }
-        return $this->sendResponse((new FastForecastCollection($res->paginate($request['limit']))),'Success',200);
+        return $this->sendResponse((new FastForecastCollection($res->paginate($request['limit']))), 'Success', 200);
     }
 
     public function forecast(Forecast $forecast)
@@ -88,20 +91,42 @@ class InfoController extends Controller
         return (new UserCollection($response->paginate($request['limit'])));
     }
 
+    public function paginate($items, $perPage = 15, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+    }
+
     public function fastForecasters(Request $request)
     {
-        $response = DB::table('users_view');
+
         if (!$request->has('limit') || $request['limit'] == 0) {
             $request['limit'] = 15;
         }
-        if (!$request->has('direction')) {
-            $request['direction'] = 'desc';
+        if (!$request->has('page') || $request['page'] == 0) {
+            $request['page'] = 0;
         }
-        if ($request->has('order_by')) {
-            $response = $response->orderBy($request['order_by'], $request['direction']);
+        if ($request->has('month') && $request['month'] != 0 && $request->has('sport_id')) {
+            $response = DB::select('call user_rating_sport_proc_month(' . $request['sport_id'] . ')');
+        } elseif ($request->has('sport_id')) {
+            $response = DB::select('call user_rating_sport_proc(' . $request['sport_id'] . ')');
+        } elseif ($request->has('month') && $request['month'] != 0) {
+            $response = DB::select('call user_rating_month_proc()');
+        } else {
+            $response = DB::table('users_view');
+            if (!$request->has('direction')) {
+                $request['direction'] = 'desc';
+            }
+            if ($request->has('order_by')) {
+                $response = $response->orderBy($request['order_by'], $request['direction']);
+            }
+            return $this->sendResponse(new FastUserCollection($response->paginate($request['limit'])), 'Success', 200);
         }
-
-        return $this->sendResponse(new FastUserCollection($response->paginate($request['limit'])),'Success',200);
+        $response = collect($response);
+        return $this->sendResponse(new FastUserCollection($this->paginate($response, $request['limit'], $request['page'])), 'Success', 200);
     }
 
     public function forecaster(Request $request, User $user)
@@ -187,7 +212,7 @@ class InfoController extends Controller
 
     public function userForecasts(Request $request, User $user)
     {
-        $res = DB::table('forecasts_view')->where('user_id','=', $user->id);
+        $res = DB::table('forecasts_view')->where('user_id', '=', $user->id);
         if (!$request->has('limit') || $request['limit'] == 0) {
             $request['limit'] = 6;
         }
@@ -200,7 +225,7 @@ class InfoController extends Controller
         if ($request->has('order_by')) {
             $res->orderBy($request['order_by'], $request['direction']);
         }
-        return $this->sendResponse(new FastForecastCollection($res->paginate($request['limit'])),'Success',200);
+        return $this->sendResponse(new FastForecastCollection($res->paginate($request['limit'])), 'Success', 200);
     }
 
     public function posts(Request $request)
