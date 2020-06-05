@@ -28,4 +28,5 @@ class UpdateController extends Controller
             return $response;
         }
     }
+
 }

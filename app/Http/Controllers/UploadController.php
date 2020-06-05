@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 
@@ -18,5 +19,17 @@ class UploadController extends Controller
         $request->user()->avatar = '/storage/users/'.($request->user()->id).'/'.$name;
         $request->user()->save();
         return $this->sendResponse(['avatar'=>$request->user()->avatar],'Success',200);
+    }
+    public function putPostPreview(Request $request, Post $post)
+    {
+        $request->validate([
+            'image'  =>  'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+        $image = $request->file('image');
+        $name = 'index.'.($image->getClientOriginalExtension());
+        $image->move(public_path('/storage/posts/'.$post->id), $name);
+        $post->image = '/storage/posts/'.($post->id).'/'.$name;
+        $post->save();
+        return $this->sendResponse(['image'=>$post->image],'Success',200);
     }
 }

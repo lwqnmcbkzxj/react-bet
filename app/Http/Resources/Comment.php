@@ -15,7 +15,9 @@ class Comment extends JsonResource
     public function toArray($request)
     {
         $response = parent::toArray($request);
-        $response['user_name'] = \App\User::find($this->user_id)->login;
+        $user = \App\User::find($this->user_id);
+        $response['user_name'] = $user->login;
+        $response['user_avatar'] = $user->avatar;
         if($this->replies_to)
             $response['replies_to_name'] = \App\Comment::query()->where('id','=', $this->replies_to)->first()->user->login;
         return $response;

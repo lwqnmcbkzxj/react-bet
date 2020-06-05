@@ -81,33 +81,50 @@ Route::get('/news/{news}/comments', function (Request $Request, \App\News $news)
 //Доступ к профилям пользователей
 Route::middleware('auth:api')->group(function () {
     Route::post('/avatar', 'UploadController@putAvatar');
+
     Route::get('/admin/dashboard','Admin\DashboardController@index');
     Route::post('/admin/policy', 'PolicyController@post');
+    Route::get('/admin/feedback','FeedbackController@get');
+
     Route::get('/admin/posts', 'PostController@getAll');
     Route::get('/admin/posts/search', 'PostController@search');
     Route::get('/admin/posts/{post}', 'PostController@get');
     Route::delete('/admin/posts/{post}', 'PostController@delete');
     Route::post('/admin/posts/{post}', 'PostController@edit');
     Route::post('/admin/posts', 'PostController@post');
+
+    Route::get('admin/forecasts','Api\InfoController@fastForecasts');
+    Route::post('admin/forecasts','Admin\ForecastController@store');
+    Route::get('admin/forecasts/{forecast}','Api\InfoController@forecast');
+    Route::post('admin/forecasts/{forecast}','Admin\ForecastController@update');
+    Route::delete('admin/forecasts/{forecast}','Admin\ForecastController@destroy');
+
+
     Route::get('/admin/news', 'NewsController@getAll');
     Route::get('/admin/news/search', 'NewsController@search');
     Route::get('/admin/news/{news}', 'NewsController@get');
     Route::delete('/admin/news/{news}', 'NewsController@delete');
     Route::post('/admin/news/{news}', 'NewsController@edit');
     Route::post('/admin/news', 'NewsController@post');
+
     Route::get('/admin/bookmakers', 'BookmakerController@getAll');
     Route::get('/admin/bookmakers/search', 'BookmakerController@search');
     Route::get('/admin/bookmakers/{bookmaker}', 'BookmakerController@get');
     Route::delete('/admin/bookmakers/{bookmaker}', 'BookmakerController@delete');
     Route::post('/admin/bookmakers', 'BookmakerController@post');
     Route::post('/admin/bookmakers/{bookmaker}', 'BookmakerController@edit');
-    Route::get('/admin/feedback','FeedbackController@get');
+
+
     Route::post('/admin/users', 'Admin\UserController@store');
     Route::get('/admin/users', 'Admin\UserController@index');
     Route::get('/admin/users/search', 'Admin\UserController@search');
     Route::get('/admin/users/{user}', 'Admin\UserController@show');
     Route::delete('/admin/users/{users}', 'Admin\UserController@destroy');
     Route::post('/admin/users/{users}', 'Admin\UserController@update');
+    Route::post('/admin/users/{users}', 'Admin\UserController@update');
+
+
+
     Route::post('/comments', 'CommentController@post');
     Route::delete('/comments/{comment}', 'CommentController@delete');
     Route::post('/votes', 'VoteController@post');
@@ -161,6 +178,7 @@ Route::middleware('auth:api')->group(function () {
         $Request['referent_id'] = $post->id;
         return app()->call('App\Http\Controllers\VoteController@post', [$Request]);
     });
+    Route::post('/posts/{post}/preview', 'UploadController@');
 
     Route::post('/posts/{post}/dislike', function (Request $Request, \App\Post $post) {
         $Request['type'] = 'dislike';
