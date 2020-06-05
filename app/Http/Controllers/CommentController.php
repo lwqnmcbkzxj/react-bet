@@ -33,6 +33,15 @@ class CommentController extends Controller
         {
             $res = $res->where('reference_to', '=', $request['reference_to'])->where('referent_id', '=',  $request['referent_id']);
         }
+        if($request->has('order_by'))
+        {
+            if(!$request->has('direction'))
+                $request['direction'] = 'DESC';
+            if($request['direction']=='DESC')
+                $res = $res->sortByDesc($request['order_by']);
+            else
+                $res = $res->sortBy($request['order_by']);
+        }
         return $this->sendResponse(new \App\Http\Resources\CommentCollection($res), 'Success', 200);
     }
     public function getOne(Comment $comment)

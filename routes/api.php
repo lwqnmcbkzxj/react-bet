@@ -55,6 +55,8 @@ Route::get('/roles', function () {
     return \App\Role::all();
 });
 
+Route::post('/feedback','FeedbackController@post');
+
 Route::get('/events', 'EventController@getAll');
 Route::get('/events/{event}', 'EventController@get');
 Route::get('/events/{event}/comments', function (Request $Request, \App\Event $event) {
@@ -80,6 +82,7 @@ Route::get('/news/{news}/comments', function (Request $Request, \App\News $news)
 Route::middleware('auth:api')->group(function () {
     Route::post('/avatar', 'UploadController@putAvatar');
     Route::get('/admin/dashboard','Admin\DashboardController@index');
+    Route::post('/admin/policy', 'PolicyController@post');
     Route::get('/admin/posts', 'PostController@getAll');
     Route::get('/admin/posts/search', 'PostController@search');
     Route::get('/admin/posts/{post}', 'PostController@get');
@@ -98,30 +101,24 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/admin/bookmakers/{bookmaker}', 'BookmakerController@delete');
     Route::post('/admin/bookmakers', 'BookmakerController@post');
     Route::post('/admin/bookmakers/{bookmaker}', 'BookmakerController@edit');
-
-    Route::get('/admin/users', 'BookmakerController@getAll');
-    Route::get('/admin/users/search', 'BookmakerController@search');
-    Route::get('/admin/users/{user}', 'BookmakerController@get');
-    Route::delete('/admin/users/{users}', 'BookmakerController@delete');
-    Route::post('/admin/users', 'BookmakerController@post');
-    Route::post('/admin/users/{users}', 'BookmakerController@edit');
-
-
+    Route::get('/admin/feedback','FeedbackController@get');
+    Route::post('/admin/users', 'Admin\UserController@store');
+    Route::get('/admin/users', 'Admin\UserController@index');
+    Route::get('/admin/users/search', 'Admin\UserController@search');
+    Route::get('/admin/users/{user}', 'Admin\UserController@show');
+    Route::delete('/admin/users/{users}', 'Admin\UserController@destroy');
+    Route::post('/admin/users/{users}', 'Admin\UserController@update');
     Route::post('/comments', 'CommentController@post');
     Route::delete('/comments/{comment}', 'CommentController@delete');
     Route::post('/votes', 'VoteController@post');
     Route::delete('/votes/{vote}', 'VoteController@delete');
-
     Route::get('/users/profile', 'ProfileController@index')->name('profile');
-
-
     Route::post('/users/update/login', 'ProfileController@updateLogin')->name('update.login');
     Route::post('/users/update/email', 'ProfileController@updateEmail')->name('update.email');
     Route::post('/users/update/password', 'ProfileController@updatePassword')->name('update.password');
     Route::post('/users/update/notification', 'ProfileController@updateNotification')->name('update.notification');
     Route::post('/users/{user}/subscription', 'UserSubscriptionController@create');
     Route::delete('/users/{user}/subscription', 'UserSubscriptionController@delete');
-
     Route::post('/news/{news}/like', function (Request $Request, \App\News $news) {
         $Request['type'] = 'like';
         $Request['reference_to'] = 'news';
