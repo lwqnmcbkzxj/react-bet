@@ -42,6 +42,10 @@ class CommentController extends Controller
             else
                 $res = $res->sortBy($request['order_by']);
         }
+        else
+        {
+            $res = $res->sortByDesc('id');
+        }
         return $this->sendResponse(new \App\Http\Resources\CommentCollection($res), 'Success', 200);
     }
     public function getOne(Comment $comment)
