@@ -1,0 +1,11 @@
+﻿{
+  "profiles": {
+    "BettingParser": {
+      "commandName": "Project",
+      "applicationUrl": "http://localhost:3023",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
