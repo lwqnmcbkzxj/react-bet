@@ -21,6 +21,7 @@ import userImgHolder from '../../assets/img/user-no-image.png'
 
 import { apiURL } from '../../api/api'
 import SubscribeButton from '../Common/SubscibeButton/SubscribeButton';
+import { formatDate, formatStartDate } from '../../utils/formatDate'
 
 type ForecastPropsType = {
 	forecast: ForecastType
@@ -31,13 +32,6 @@ type ForecastPropsType = {
 		setCommentFilter: (filterName: any) => void
 	}
 }
-
-
-const formatDateForForecastPage = (createdAt: string) => {
-	let createdDate = Date.parse(createdAt)
-	return moment.unix(createdDate / 1000).format("DD.MM.YYYY в HH:MM")
-}
-
 
 const Forecast: FC<ForecastPropsType> = ({ forecast, commentsFunctions, ...props }) => {
 	let userAvatar = ""
@@ -81,7 +75,7 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, commentsFunctions, ...props
 			<div className={s.forecastHeader}>
 				<div className={s.headerDetails}>
 					<div className={s.disciplineName}>{forecast.event_data.championship_data.sport_name}</div>
-					<div className={s.matchDate}>{formatDateForForecastPage(forecast.forecast_created_at)}</div>
+					<div className={s.matchDate}>{formatDate(forecast.forecast_created_at)}</div>
 				</div>
 				<div className={s.forecastName}>{forecastTitle}</div>
 			</div>
@@ -107,7 +101,7 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, commentsFunctions, ...props
 				<div>
 					<p>Дата и время</p>
 					<p className={s.splitter}></p>
-					<p>{formatDateForForecastPage(forecast.event_data.event_start)}</p>
+					<p>{formatStartDate(forecast.event_data.event_start)}</p>
 				</div>
 				<div className={s.details_forecast}>
 					<p>Прогноз</p>

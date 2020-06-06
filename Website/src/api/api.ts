@@ -291,23 +291,13 @@ export const appAPI = {
 			});
 	},
 	sendEmail(email: string, text: string) {
-		// return instance.post(`send-email`, {email, text})
-		// 	.then((response) => {
-		// 		return response.data
-		// 	});
-	},	
-	sendComment(id: number, type: string, text: string, reply_id?: number) {
-		return instance.post(`${type}/${id}/comment`, { text, replies_to: reply_id } )
-			.then((response) => {
-				return response.data
-			}).catch(err => err);
-	},
-	getComments(id: number, type: string, filterName: string) {
-		return instance.get(`/${type}/${id}/comments`)
+		return instance.post(`feedback`, {email, text})
 			.then((response) => {
 				return response.data
 			});
-	},
+	},	
+	
+	
 	getPolicy() {
 		return instance.get(`policy`)
 		.then((response) => {
@@ -328,6 +318,35 @@ export const appAPI = {
 	},
 	changeTerms(text: string) {
 		return instance.post(`terms`, { text })
+
+	comments: {
+		getComments(id: number, type: string, filterName: string) {
+			return instance.get(`/${type}/${id}/comments?order_by=${filterName}`)
+				.then((response) => {
+					return response.data
+				}).catch(err => err);
+		},
+		sendComment(id: number, type: string, text: string, reply_id?: number) {
+			return instance.post(`${type}/${id}/comment`, { text, replies_to: reply_id } )
+				.then((response) => {
+					return response.data
+				}).catch(err => err);
+		},
+		likeComment(id: number) {
+			return instance.post(`comments/${id}/like` )
+				.then((response) => {
+					return response.data
+				}).catch(err => err);
+		},
+		dislikeComment(id: number) {
+			return instance.post(`comments/${id}/dislike` )
+				.then((response) => {
+					return response.data
+				}).catch(err => err);
+		}
+	}
+	
+}
 			.then((response) => {
 				return response.data
 			});

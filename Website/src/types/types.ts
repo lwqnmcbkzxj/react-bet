@@ -8,7 +8,6 @@ export enum languageEnum {
 	eng = 'English',
 }
 
-/* LIVE COMMENTS */
 export type CommentType = {
 	id: number
 	user_id: number,
@@ -19,12 +18,14 @@ export type CommentType = {
 	created_at: string,
 	replies_to: number | null,
 	rating: number
-
+	user_name: string,
+	user_avatar: string
+	replies_to_name: string | null,
 }
 
 export enum CommentsEnum {
-	by_order = "by_order",
-	popularity = "popularity"
+	by_order = "id",
+	rating = "rating"
 }
 
 export type SportType = {

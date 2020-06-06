@@ -3,7 +3,7 @@ import React, { Component, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 
 
-const CKEditorComponent = ({ content, onChange, ...props }) => {
+const TinyMCEditorComponent = ({ content, onChange, ...props }) => {
 	// REF IS NOT WORKING. IDK WHY
 	function filePickerCallback(callback, value, meta) {
 		if (meta.filetype == 'image') {
@@ -30,6 +30,7 @@ const CKEditorComponent = ({ content, onChange, ...props }) => {
 				initialValue=""
 				apiKey="f9t701hao1hpemnseqy90ucyvi5sg9rw6f392kvzckjc8fjh"
 				value={content}
+
 				init={{
 					height: 500,
 					paste_data_images: true,
@@ -50,4 +51,4 @@ const CKEditorComponent = ({ content, onChange, ...props }) => {
 	);
 }
 
-export default CKEditorComponent;
+export default TinyMCEditorComponent;

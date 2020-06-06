@@ -22,7 +22,7 @@ const ArticleContainer: FC<ArticleProps> = ({ ...props }) => {
 
 	let articleId = props.match.params.articleId ? props.match.params.articleId : 1;
 
-	const [commentFilter, setCommentFilter] = useState(CommentsEnum.popularity)
+	const [commentFilter, setCommentFilter] = useState(CommentsEnum.rating)
 	const getComments = () => {
 		dispatch(getArticleComments(+articleId, commentFilter))
 	}
@@ -47,7 +47,6 @@ const ArticleContainer: FC<ArticleProps> = ({ ...props }) => {
 				commentFilter,
 				setCommentFilter
 			}}
-			// refreshComments={() => { getComments() }}
 		/>
 	)
 }

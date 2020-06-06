@@ -11,7 +11,7 @@ import loseImg from '../../../assets/img/lose-img.png'
 import userImgHolder from '../../../assets/img/user-no-image.png'
 
 import { ForecastsListElementPlaceholder } from '../../Common/Placeholders/ForecastsPlaceholder'
-import { formatDate } from '../../../utils/formatDate'
+import { formatDate, formatStartDate } from '../../../utils/formatDate'
 
 import { apiURL } from '../../../api/api'
 
@@ -72,7 +72,7 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 							</Link>
 							<Link to={`/forecasts/${forecast.id}`} className={s.profitStat}><div>Сумма ставки: <span>{forecast.bet_data.bet}</span></div></Link>
 						</div>
-						<div className={s.matchStart}>Начало игры: {formatDate(forecast.event_data.event_start)}</div>
+						<div className={s.matchStart}>Начало игры: {formatStartDate(forecast.event_data.event_start)}</div>
 					</div>
 					<div className={s.matchDescription}>
 						<NavLink to={`/forecasts/${forecast.id}`}>

@@ -23,7 +23,7 @@ const ForecastsContainer: FC<Props> = ({ ...props }) => {
 	const dispatch = useDispatch()
 	let forecastId = props.match.params.forecastId ? props.match.params.forecastId : 1;
 
-	const [commentFilter, setCommentFilter] = useState(CommentsEnum.popularity)
+	const [commentFilter, setCommentFilter] = useState(CommentsEnum.rating)
 	const getComments = () => {
 		dispatch(getForecastComments(+forecastId, commentFilter))
 	}

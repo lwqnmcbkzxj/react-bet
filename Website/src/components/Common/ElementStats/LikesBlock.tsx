@@ -10,6 +10,7 @@ import { toggleAuthFormVisiblility } from '../../../redux/app-reducer'
 
 import { rateForecast } from '../../../redux/forecasts-reducer'
 import { ratePost } from '../../../redux/articles-reducer'
+import { rateComment } from '../../../redux/app-reducer'
 
 type LikesBlockPropsType = {
 	likes: number
@@ -27,7 +28,7 @@ const LikesBlock: FC<LikesBlockPropsType> = ({ likes, id, elementType, likesActi
 		if (elementType === 'forecast')
 			dispatch(rateForecast(id, rateType))
 		else if (elementType === 'comment') {
-			// dispatch(rateComment(id, rateType))
+			dispatch(rateComment(id, rateType))
 		} else if (elementType === 'article') {
 			dispatch(ratePost(id, rateType))
 		}

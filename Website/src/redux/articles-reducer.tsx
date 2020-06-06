@@ -131,7 +131,7 @@ export const ratePost = (id: number, type: number): ThunksType => async (dispatc
 }
 
 export const getArticleComments = (id: number, filterName: string): ThunksType => async (dispatch) => {
-	let response = await appAPI.getComments(id, 'posts', filterName)
+	let response = await appAPI.comments.getComments(id, 'posts', filterName)
 
 	dispatch({
 		type: SET_ARTICLE_COMMENTS,

@@ -288,6 +288,15 @@ export const sendComment = (id: number, type: string, text: string, reply_id?: n
 	else 
 		showAlert('error', 'Не удалось отправить комментарий')
 }
+export const rateComment = (id: number, rateType: number): ThunksType => async (dispatch) => {
+	let response
+	if (rateType === 1) {
+		response = await appAPI.comments.likeComment(id)
+	} else if (rateType === 2) {
+		response = await appAPI.comments.dislikeComment(id)
+	}
+}
+
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
 export default appReducer;

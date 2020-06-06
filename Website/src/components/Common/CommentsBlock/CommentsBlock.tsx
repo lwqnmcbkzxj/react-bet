@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { getForecastComments } from '../../../redux/forecasts-reducer'
 import BorderedSelectors from '../Selectors/BorderedSelector/BorderedSelector';
 
+import { CommentsEnum } from '../../../types/types'
+
 type CommentsBlockPropsType = {
 	comments: Array<CommentType>
 
@@ -22,12 +24,6 @@ type CommentsBlockPropsType = {
 		setCommentFilter: (filterName: any) => void
 	}
 }
-
-enum selectors {
-	by_order = "by_order",
-	popularity = "popularity"
-}
-
 
 const CommentsBlock: FC<CommentsBlockPropsType> = ({ type, elementId, comments = [], commentsFunctions, ...props }) => {
 	const dispatch = useDispatch()
@@ -62,8 +58,8 @@ const CommentsBlock: FC<CommentsBlockPropsType> = ({ type, elementId, comments =
 				listName="commentsSelector"
 				changeVisibleTab={handleTabChange}
 				selectors={[
-					{ name: selectors.popularity, text: "По популярности" },
-					{ name: selectors.by_order, text: "По порядку" },
+					{ name: CommentsEnum.rating, text: "По популярности" },
+					{ name: CommentsEnum.by_order, text: "По порядку" },
 				]}
 				initialValue={commentsFunctions.commentFilter}
 			/>

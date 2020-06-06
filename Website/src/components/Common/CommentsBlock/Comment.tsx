@@ -55,14 +55,14 @@ const Comment: FC<CommentPropsType> = ({ comment, comments, sendCommentFunc, ...
 				<Link to={`/forecasters/${comment.user_id}`}><img src={userImg} alt="user-img" /></Link>
 
 				<div className={s.info}>
-					<Link to={`/forecasters/${comment.user_id}`} className={s.nickName}>НИКНЕЙМ</Link>
+					<Link to={`/forecasters/${comment.user_id}`} className={s.nickName}>{comment.user_name}</Link>
 					<div className={s.replyBlock}>
 						<img src={replyIcon} alt="reply-icon" className={s.replyImg} />
-						<div className={s.replyNickname}>Никнейм</div>
+						<div className={s.replyNickname}>{comment.replies_to_name}</div>
 						<div className={s.date}>{formatDate(comment.created_at)}</div>
 					</div>
 				</div>
-				{/* <LikesBlock likes={comment.rating} elementType={'comment'} id={comment.id}/> */}
+				<LikesBlock likes={comment.rating} elementType={'comment'} id={comment.id}/>
 			</div>
 			<div className={s.contentText}>{comment.text}</div>
 			<div className={s.replyBtn} onClick={toggleReplyVisible} ref={replyBtnRef}><button>Ответить</button></div>

@@ -6,8 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash, faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, } from 'react-redux';
 import { Editor } from '@tinymce/tinymce-react';
-import CKEditorComponent from '../CKEditor/CKEditor'
-import CKEditor from 'react-ckeditor-component'
+import TinyMCEditorComponent from '../TinyMCEditor/TinyMCEditor'
 
 export function createField(
 	name,
@@ -99,7 +98,7 @@ export const FormatTextarea = (props) => {
 		<div className={cn(s.tinymceBlock, { [s.error]: hasError })}>
 			<label>{props.label}</label>
 
-			<CKEditorComponent
+			<TinyMCEditorComponent
 				content={input.value}
 				onChange={handleEditorChange}
 			/>
@@ -134,9 +133,6 @@ export const File = (props) => {
 	const { input, meta, ...restProps } = props;
 	const hasError = meta.touched && meta.error;
 
-
-
-	
 
 	return (
 		<div className={s.inputBlock}>
