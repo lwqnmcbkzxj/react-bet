@@ -1,9 +1,10 @@
 .feedback__error {
 	text-align: center;
 	margin: 10px 0;
+	font-size: 18px;
 	display: none;
 	&_active {
-	display: block;
-
+		display: block;
+		color: #AA0F0F;
 	}
 }

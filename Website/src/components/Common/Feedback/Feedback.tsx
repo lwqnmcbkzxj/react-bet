@@ -26,7 +26,6 @@ const Feedback = ({ ...props }) => {
 			dispatch(sendEmail(formData.email, formData.text))
 			dispatch(change('feedback', 'email', ''))
 			dispatch(change('feedback', 'text', ''))
-			throw new SubmissionError({ _error: 'Письмо отправлено' })
 		}
 	}
 	return (

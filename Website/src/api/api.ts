@@ -299,25 +299,18 @@ export const appAPI = {
 	
 	
 	getPolicy() {
-		return instance.get(`policy`)
+		return instance.get(`${apiURL}policy`)
 		.then((response) => {
 			return response.data
 		});
 	},
-	changePolicy(text: string) {
-		return instance.post(`policy`, { text })
-			.then((response) => {
-				return response.data
-			});
-	},
+	
 	getTerms() {
 		return instance.get(`terms`)
 		.then((response) => {
 			return response.data
 		});
 	},
-	changeTerms(text: string) {
-		return instance.post(`terms`, { text })
 
 	comments: {
 		getComments(id: number, type: string, filterName: string) {
@@ -347,6 +340,21 @@ export const appAPI = {
 	}
 	
 }
+	documents: {
+		changePolicy(text: string) {
+			return instance.post(`admin/policy`, { text })
+				.then((response) => {
+					return response.data
+				});
+		},
+		changeTerms(text: string) {
+			return instance.post(`terms`, { text })
+				.then((response) => {
+					return response.data
+				});
+		},
+	},
+	
 			.then((response) => {
 				return response.data
 			});

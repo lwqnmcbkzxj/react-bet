@@ -119,15 +119,23 @@ export const deleteArticle = (id: number):ThunksType => async (dispatch) => {
 	showAlert('success', 'Статья успешно удалена')
 }
 
+// DOCUMETNS START
 export const changePolicy = (text: string):ThunksType => async (dispatch) => {
-	let response = await appAPI.changePolicy(text)
+	let response = await adminAPI.documents.changePolicy(text)
 	showAlert('success', 'Успешно изменено')
 
 }
 export const changeTerms = (text: string):ThunksType => async (dispatch) => {
-	let response = await appAPI.changeTerms(text)
+	let response = await adminAPI.documents.changeTerms(text)
 	showAlert('success', 'Успешно изменено')
 }
+// DOCUMENTS END
+
+
+
+
+
+
 
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 

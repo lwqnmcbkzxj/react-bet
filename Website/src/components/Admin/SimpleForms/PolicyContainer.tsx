@@ -12,16 +12,34 @@ import { changePolicy } from '../../../redux/admin-reducer'
 const ArticleContainer = ({ ...props }) => {
 	// const policy = useSelector<AppStateType, string>(state => state.app.policy)
 	const dispatch = useDispatch()
-	let policy = ""
+	let policy = useSelector<AppStateType, string>(state => state.app.policy)
 
 	const changePolicyDispatch = (text: string) => { 
 		dispatch(changePolicy(text))
 	}
 
+	let initialValues = {
+		title: '',
+		content: ''
+	}
+	if (policy) {
+		let title = ''
+		let content = policy
+		if (policy.includes('</h1>')) {
+			let contentArr = policy.split('</h1>')
+			title = contentArr[0].split(/<h1>|<\/h1>/)[1]
+			content = contentArr[1]
+		} 
+		initialValues = {
+			title,
+			content
+		}
+	}
+
 	return (
 		<SimpleForm
 			formName="policy-form"
-			initialValues={{ text: policy  }}
+			initialValues={initialValues}
 			onSubmitFunc={ changePolicyDispatch }
 			breadcrumbs={[
 				{ text: 'Главная', link: '/admin' },

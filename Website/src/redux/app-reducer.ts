@@ -4,9 +4,8 @@ import { ThunkAction } from 'redux-thunk'
 import { SportType } from '../types/types'
 import { appAPI } from '../api/api'
 
-import { SetUsersSportsType } from './users-reducer'
-import { SetForecastsSportsType } from './forecasts-reducer'
 import { showAlert } from '../utils/showAlert'
+import { stopSubmit } from 'redux-form'
 
 const TOGGLE_AUTH_FORM_VISIBILITY = 'app/TOGGLE_AUTH_FORM_VISIBILITY'
 const TOGGLE_COMMENTS_BLOCK_VISIBILITY = 'app/TOGGLE_COMMENTS_BLOCK_VISIBILITY'
@@ -17,6 +16,7 @@ const SET_REDIRECT_LINK = 'app/SET_REDIRECT_LINK'
 const SET_SHOULD_REDIRECT = 'app/SET_SHOULD_REDIRECT'
 const CHANGE_USER_PAGE_TAB = 'app/CHANGE_USER_PAGE_TAB'
 const SET_SPORTS = 'app/SET_SPORTS'
+const SET_POLICY = 'app/SET_POLICY'
 
 let initialState = {
 	redirectLink: "",
@@ -33,7 +33,8 @@ let initialState = {
 	mobileAppLinks: {
 		android: 'https://play.google.com/store/apps/details?id=com.bettinghub.forecasts',
 		ios: ''
-	}
+	},
+	policy: ""
 }
 
 type InitialStateType = typeof initialState;
@@ -46,10 +47,8 @@ type ActionsTypes =
 	ChangeMainPageBlockVisibilityType |
 	ChangeLanguageType |
 	ChangeUserPageActiveTabType |
-	SetSportsType
-	
-	| SetUsersSportsType | SetForecastsSportsType
-	;
+	SetPolicyType |
+	SetSportsType;
 
 const appReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
@@ -147,6 +146,12 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 				sports: action.sports
 			}
 		}
+		case SET_POLICY: {
+			return {
+				...state,
+				policy: action.policy
+			}
+		}
 		default:
 			return state;
 	}
@@ -187,9 +192,14 @@ type SetSportsType = {
 	type: typeof SET_SPORTS
 	sports: Array<SportType>
 }
+type SetPolicyType = {
+	type: typeof SET_POLICY,
+	policy: string
+}
 
 export const initApp = (): ThunksType => async (dispatch) => {
 	dispatch(getSportsFromServer())
+	dispatch(getPolicy())
 }
 
 
@@ -272,15 +282,18 @@ export const getSportsFromServer = (): ThunksType => async (dispatch) => {
 
 export const sendEmail = (email: string, text: string): ThunksType => async (dispatch) => {
 	let response = await appAPI.sendEmail(email, text)
+
+	showAlert('success', 'Письмо успешно отправлено')
+	dispatch(stopSubmit("feedback", { _error: '' }))
 }
 
 export const sendComment = (id: number, type: string, text: string, reply_id?: number): ThunksType => async (dispatch) => {
 	let response
 
 	if (reply_id === -1) {
-		response = await appAPI.sendComment(id, type, text)
+		response = await appAPI.comments.sendComment(id, type, text)
 	} else {
-		response = await appAPI.sendComment(id, type, text, reply_id)
+		response = await appAPI.comments.sendComment(id, type, text, reply_id)
 	}
 
 	if (!response.message)
@@ -297,6 +310,16 @@ export const rateComment = (id: number, rateType: number): ThunksType => async (
 	}
 }
 
+export const getPolicy = (): ThunksType => async (dispatch) => {
+	let response = await appAPI.getPolicy()
+	dispatch(setPolicy(response.text))
+}
+const setPolicy = (policy: string): SetPolicyType => {
+	return {
+		type: SET_POLICY,
+		policy
+	}
+}
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
 export default appReducer;
