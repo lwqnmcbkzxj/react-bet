@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Match: Codable {
+struct Match: Decodable {
     
     let id: Int
     let name: String
@@ -78,21 +78,21 @@ struct Match: Codable {
 }
 
 extension Match {
-    struct Forecast: Codable {
+    struct Forecast: Decodable {
         let id: Int
-        let user: Forecaster
+//        let user: Forecaster
         let bet: Bet
         
         init(with decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             id = try container.decode(Int.self, forKey: .id)
-            user = try container.decode(Forecaster.self, forKey: .user)
+//            user = try container.decode(Forecaster.self, forKey: .user)
             bet = try container.decode(Bet.self, forKey: .bet)
         }
         
         private enum CodingKeys: String, CodingKey {
             case id = "id"
-            case user = "user_data"
+//            case user = "user_data"
             case bet = "bet_data"
         }
     }

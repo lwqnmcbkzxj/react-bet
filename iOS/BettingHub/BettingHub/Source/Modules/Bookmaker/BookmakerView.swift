@@ -95,7 +95,7 @@ class BookmakerView: UITableViewHeaderFooterView {
         
         descLabel.text = bookmaker.content
         bookmakerIconView.setServerIcon(url: bookmaker.image)
-        stepper.setNumber(10, state: .none)
+        stepper.setNumber(10)
         titleView.text = "\(titleView.text ?? "")\n\(bookmaker.title.uppercased())"
     }
     

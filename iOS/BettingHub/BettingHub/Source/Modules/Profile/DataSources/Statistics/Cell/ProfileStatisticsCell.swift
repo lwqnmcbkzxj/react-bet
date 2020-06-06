@@ -73,10 +73,11 @@ class ProfileStatisticsCell: UITableViewCell {
     }
     
     private func populateChart(_ item: Forecaster) {
+        let stats = item.stats.data
         chartView.configure(with: [
-            .init(value: Double(item.stats.wins), color: .positiveGreen),
-            .init(value: Double(item.stats.back), color: .drawBlue),
-            .init(value: Double(item.stats.loss), color: .negativeRed)
+            .init(value: Double(stats.wins), color: .positiveGreen),
+            .init(value: Double(stats.back), color: .drawBlue),
+            .init(value: Double(stats.loss), color: .negativeRed)
         ])
     }
     
@@ -86,13 +87,13 @@ class ProfileStatisticsCell: UITableViewCell {
         }
         
         let vm = ForecasterViewModelItem(forecaster: item)
-        
+        let stats = item.stats.data
         let rows =
         [
             (StatRowView.Mode.roi, vm.signedPercentRoi),
-            (.profit, item.stats.pureProfit),
+            (.profit, stats.pureProfit),
             (.passing, Double(vm.passingPercent)),
-            (.coefficient, item.stats.averageCoefficient),
+            (.coefficient, stats.averageCoefficient),
         ].map { (rowInfo) -> StatRowView in
             let view = StatRowView()
             view.configure(mode: rowInfo.0, value: rowInfo.1)

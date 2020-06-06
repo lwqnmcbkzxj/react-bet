@@ -8,46 +8,34 @@
 
 import Foundation
 
-struct Forecaster: Codable {
-    
-    private static let userService = ServiceLocator.shared.resolve(IUserService.self)
+class Forecaster {
     
     let id: Int
-    let avatar: String?
-    let login: String
-    let stats: ForecasterStatistics
-    let lastForecasts: [Bool]
-    let ratingPosition: Int?
-    let balance: Double?
-    let subscribed: Bool
     
-    var isSelf: Bool {
-        guard let user = Forecaster.userService.currentUserInfo?.forecaster else { return false }
-        return user.id == id
-    }
+    let avatar: Observable<String?>
+    let login: Observable<String>
+    let stats: Observable<ForecasterStatistics>
+    let lastForecasts: Observable<[Bool]>
+    let ratingPosition: Observable<Int?>
+    let balance: Observable<Double?>
+    let subscribed: Observable<Bool>
+    let subscribers: Observable<Int>
+    let subscriptions: Observable<Int>
     
-    init(id: Int, avatar: String?, login: String, stats: ForecasterStatistics, lastForecasts: [Bool], ratingPosition: Int?, balance: Double?, subscribed: Bool) {
+    init(id: Int, avatar: String?, login: String, stats: ForecasterStatistics, lastForecasts: [Bool], ratingPosition: Int?, balance: Double?, subscribed: Bool, subscribers: Int, subscriptions: Int) {
         self.id = id
-        self.avatar = avatar
-        self.login = login
-        self.stats = stats
-        self.lastForecasts = lastForecasts
-        self.ratingPosition = ratingPosition
-        self.balance = balance
-        self.subscribed = subscribed
+        self.avatar = Observable(avatar)
+        self.login = Observable(login)
+        self.stats = Observable(stats)
+        self.lastForecasts = Observable(lastForecasts)
+        self.ratingPosition = Observable(ratingPosition)
+        self.balance = Observable(balance)
+        self.subscribed = Observable(false)
+        self.subscribers = Observable(subscribers)
+        self.subscriptions = Observable(subscriptions)
     }
     
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(Int.self, forKey: .id)
-        avatar = try container.decode(String?.self, forKey: .avatar)
-        login = try container.decode(String.self, forKey: .login)
-        stats = try container.decode(ForecasterStatistics.self, forKey: .stats)
-        lastForecasts = try container.decode([Bool].self, forKey: .lastForecasts)
-        ratingPosition = try container.decodeIfPresent(Int.self, forKey: .ratingPosition)
-        balance = try container.decodeIfPresent(Double.self, forKey: .balance) ?? 0
-        subscribed = try container.decodeIfPresent(Bool.self, forKey: .subscribed) ?? false
-    }
+    
     
     static func stub() -> Forecaster {
         .init(id: 0,
@@ -57,18 +45,9 @@ struct Forecaster: Codable {
               lastForecasts: [false, true, true, false, true],
               ratingPosition: 10,
               balance: 1000,
-              subscribed: false)
-    }
-    
-    private enum CodingKeys: String, CodingKey {
-        case id = "id"
-        case avatar = "avatar"
-        case login = "login"
-        case stats = "stats"
-        case lastForecasts = "last_five"
-        case ratingPosition = "rating_position"
-        case balance = "balance"
-        case subscribed = "is_subscribed"
+              subscribed: false,
+              subscribers: 10,
+              subscriptions: 5)
     }
 }
 
@@ -80,10 +59,8 @@ struct ForecasterStatistics: Codable {
     let loss: Int
     let wait: Int
     let back: Int
-    let subscribers: Int
-    let subscriptions: Int
     
-    init(roi: Double, averageCoefficient: Double, pureProfit: Double, wins: Int, loss: Int, wait: Int, back: Int, subscribers: Int, subscriptions: Int) {
+    init(roi: Double, averageCoefficient: Double, pureProfit: Double, wins: Int, loss: Int, wait: Int, back: Int) {
         self.roi = roi
         self.averageCoefficient = averageCoefficient
         self.pureProfit = pureProfit
@@ -91,8 +68,6 @@ struct ForecasterStatistics: Codable {
         self.loss = loss
         self.wait = wait
         self.back = back
-        self.subscribers = subscribers
-        self.subscriptions = subscriptions
     }
     
     init(from decoder: Decoder) throws {
@@ -105,8 +80,6 @@ struct ForecasterStatistics: Codable {
         loss = try container.decode(Int.self, forKey: .loss)
         wait = try container.decode(Int.self, forKey: .wait)
         back = try container.decode(Int.self, forKey: .back)
-        subscribers = try container.decode(Int.self, forKey: .subscribers)
-        subscriptions = try container.decode(Int.self, forKey: .subscriptions)
     }
     
     static func stub() -> ForecasterStatistics {
@@ -116,9 +89,7 @@ struct ForecasterStatistics: Codable {
               wins: 10,
               loss: 8,
               wait: 1,
-              back: 2,
-              subscribers: 10,
-              subscriptions: 10)
+              back: 2)
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -129,7 +100,59 @@ struct ForecasterStatistics: Codable {
         case loss = "count_loss"
         case wait = "count_wait"
         case back = "count_back"
+    }
+}
+
+struct ForecasterApiObject: Decodable {
+    let id: Int
+    let avatar: String?
+    let login: String
+    let stats: ForecasterStatistics
+    let lastForecasts: [Bool]
+    let ratingPosition: Int?
+    let balance: Double?
+    let subscribed: Bool
+    let subscribers: Int
+    let subscriptions: Int
+
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        avatar = try container.decode(String?.self, forKey: .avatar)
+        login = try container.decode(String.self, forKey: .login)
+        stats = try container.decode(ForecasterStatistics.self, forKey: .stats)
+        lastForecasts = try container.decode([Bool].self, forKey: .lastForecasts)
+        
+        ratingPosition = try container.decodeIfPresent(Int.self, forKey: .ratingPosition)
+        balance = try container.decodeIfPresent(Double.self, forKey: .balance) ?? 0
+        
+        subscribed = try container.decodeIfPresent(Bool.self, forKey: .subscribed) ?? false
+        
+        let subs = try container.decode(SubsData.self, forKey: .stats)
+        subscribers = subs.subscribers
+        subscriptions = subs.subscriptions
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case avatar = "avatar"
+        case login = "login"
+        case stats = "stats"
+        case lastForecasts = "last_five"
+        case ratingPosition = "rating_position"
+        case balance = "balance"
+        case subscribed = "is_subscribed"
+    }
+}
+
+fileprivate struct SubsData: Decodable {
+    let subscribers: Int
+    let subscriptions: Int
+    
+    private enum CodingKeys: String, CodingKey {
         case subscribers = "count_subscribers"
         case subscriptions = "count_subscriptions"
     }
 }
+

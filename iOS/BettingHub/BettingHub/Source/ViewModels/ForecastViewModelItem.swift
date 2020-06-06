@@ -20,12 +20,13 @@ struct ForecastViewModelItem {
     }
     
     var startDateText: String {
-        let dateStr = ForecastViewModelItem.dateFormatter.string(from: forecast.event.date)
+        let event = forecast.event.data
+        let dateStr = ForecastViewModelItem.dateFormatter.string(from: event.date)
         return dateStr
     }
     
     var creationDateText: String {
-        let dateStr = ForecastViewModelItem.dateFormatter.string(from: forecast.creationDate)
+        let dateStr = ForecastViewModelItem.dateFormatter.string(from: forecast.creationDate.data)
         return dateStr
     }
     

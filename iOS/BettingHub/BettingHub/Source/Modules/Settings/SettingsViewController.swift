@@ -14,10 +14,7 @@ class SettingsViewController: UIViewController {
     
     var presenter: ISettingsPresenter! {
         didSet {
-            guard let presenter = presenter else { return }
-            presenter.dataChanged = { (info) in
-                self.settingsView.profileImageView.setImage(url: info.forecaster.avatar)
-            }
+            presenter.storeBinds(binds: binds())
         }
     }
     
@@ -36,9 +33,18 @@ class SettingsViewController: UIViewController {
         
     }
     
-    func configure(userInfo: UserInfo) {
-        settingsView.configure(with: userInfo)
+    func binds() -> [ObservableBind] {
+        guard let forecaster = presenter.info.forecaster.data else { return [] }
+        return [
+            forecaster.avatar.bind { self.settingsView.profileImageView.setImage(url: $0) },
+            forecaster.login.bind { self.settingsView.nicknameLabel.text = $0 },
+            forecaster.balance.bind { self.settingsView.bankLabel.text = $0?.description }
+        ].map { $0.invoked() }
     }
+    
+//    func configure(userInfo: UserInfo) {
+//        settingsView.configure(with: userInfo)
+//    }
     
     private func attachTapped(network: SocialNetwork) {
          

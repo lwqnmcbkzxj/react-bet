@@ -69,35 +69,47 @@ class ForecastsViewController: UIViewController {
         forecastsView.header.timePicker.addTarget(self,
                                                   action: #selector(timeChanged),
                                                   for: .valueChanged)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
-        forecastsView.tableView.reloadData()
+        viewModel.currentPage(1)
     }
     
     @objc private func segmentChanged() {
-        viewModel.forecastFilter = forecastsView.header.forecastsSegmenter.selectedFilter
+        let filter = forecastsView.header.forecastsSegmenter.selectedFilter
+        
+        let curr = viewModel.state ?? .default
+        let state = ForecastsViewModelState(sport: curr.sport,
+                                            timeFrame: curr.timeFrame,
+                                            filter: filter)
+        viewModel.state = state
     }
     
     @objc private func sportChanged() {
         guard let sport = forecastsView.header.selectionControl.selectedSport else { return }
-        viewModel.sport = sport
+        
+        let curr = viewModel.state ?? .default
+        let state = ForecastsViewModelState(sport: sport,
+                                            timeFrame: curr.timeFrame,
+                                            filter: curr.filter)
+        viewModel.state = state
     }
     
     @objc private func timeChanged() {
         guard let timeFrame = forecastsView.header.timePicker.pickedTimeFrame else { return }
-        viewModel.timeFrame = timeFrame
+        
+        let curr = viewModel.state ?? .default
+        let state = ForecastsViewModelState(sport: curr.sport,
+                                            timeFrame: timeFrame,
+                                            filter: curr.filter)
+        viewModel.state = state
     }
     
     private func handleUpdates() {
         let tableView = forecastsView.tableView
-        if viewModel.numberOfRows() == 0 { //Other tab opened
+        if viewModel.numberOfItems() == 0 { //Other tab opened
             tableView.reloadData()
         } else { //rows added to an end
             let currentCount = tableView.numberOfRows(inSection: 0)
-            let newCount = viewModel.numberOfRows()
+            let newCount = viewModel.numberOfItems()
             let rows = (currentCount..<newCount).map { IndexPath(row: $0, section: 0) }
             tableView.insert(indexPaths: rows)
         }
@@ -107,12 +119,12 @@ class ForecastsViewController: UIViewController {
 extension ForecastsViewController: SkeletonTableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfRows()
+        return viewModel.numberOfItems()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: forecastsView.cellId) as! ForecastCell
-        let forecast = viewModel.forecast(at: indexPath)
+        let forecast = viewModel.item(for: indexPath.row)
         cell.configure(with: forecast)
         cell.delegate = self
         cell.hideSkeletonIfActive()
@@ -129,15 +141,15 @@ extension ForecastsViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cellPage = (indexPath.row / viewModel.pageSize) + 1
-        viewModel.currentPage = cellPage
-        let isEnd = viewModel.numberOfRows() == indexPath.row + 1
+        viewModel.currentPage(cellPage)
+        let isEnd = viewModel.numberOfItems() == indexPath.row + 1
         if isEnd {
-            viewModel.currentPage = cellPage + 1
+            viewModel.currentPage(cellPage + 1)
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let forecast = viewModel.forecast(at: indexPath)
+        let forecast = viewModel.item(for: indexPath.row)
         router.showFullForecastScreen(forecast)
     }
 }
@@ -152,8 +164,8 @@ extension ForecastsViewController: ForecastCellDelegate {
 extension ForecastsViewController: IMainTabBarDelegate {
     
     func showed(tabBar: IMainTabBar, screen: MainTabBarScreen) {
-        if screen == .forecasts {
-            viewModel.reload()
-        }
+//        if screen == .forecasts {
+//            viewModel.reload()
+//        }
     }
 }

@@ -15,13 +15,19 @@ class RequestBuilder: IRequestBuilder {
     
     let baseURL = BettingHub.baseURL
     
+    var autoAuthorization: Bool = true
+    
     func authorize(_ request: URLRequest) -> URLRequest? {
+        
+        let header = "Authorization"
+        
+        if request.allHTTPHeaderFields?[header] != nil { return request }
         
         let tokenRes = tokenService.authToken()
         switch tokenRes {
         case .success(let token):
             var newRequest = request
-            newRequest.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            newRequest.addValue("Bearer \(token)", forHTTPHeaderField: header)
             return newRequest
         case .failure(let err):
             print(err)
@@ -32,7 +38,9 @@ class RequestBuilder: IRequestBuilder {
     func getRequest(content: RequestContent) -> URLRequest {
         let url = baseURL.appendingPathComponent(content.endpoint)
         
-        return getRequest(fullUrl: url, params: content.params)
+        let req = getRequest(fullUrl: url, params: content.params)
+        
+        return req
     }
     
     func getRequest(fullUrl url: URL, params: [String : String]) -> URLRequest {
@@ -50,6 +58,10 @@ class RequestBuilder: IRequestBuilder {
         var request = URLRequest(url: reqUrl)
         request.httpMethod = method
         request.allHTTPHeaderFields = headers
+        
+        if autoAuthorization {
+            request = self.authorize(request) ?? request
+        }
         
         return request
     }

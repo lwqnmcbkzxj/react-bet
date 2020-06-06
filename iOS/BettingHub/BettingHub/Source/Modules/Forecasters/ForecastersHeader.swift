@@ -25,7 +25,7 @@ class ForecastersHeader: UIView {
         let image = UIImage(named: "filtersIcon")?.withRenderingMode(.alwaysTemplate)
         button.setImage(image, for: .normal)
         button.tintColor = .lineGray
-        button.isHidden = true //TODO: tempUI
+//        button.isHidden = true //TODO: tempUI
         return button
     }()
     
@@ -33,14 +33,14 @@ class ForecastersHeader: UIView {
         let view = TimeFrameSelector()
         view.selectedSegment = 0
         view.clipsToBounds = false
-        view.isHidden = true //TODO: tempUI
+//        view.isHidden = true //TODO: tempUI
         return view
     }()
     
     let sportSelector: SportsControl = {
         let control = SportsControl()
         control.selectedIndex = 0
-        control.isHidden = true //TODO: tempUI
+//        control.isHidden = true //TODO: tempUI
         return control
     }()
     

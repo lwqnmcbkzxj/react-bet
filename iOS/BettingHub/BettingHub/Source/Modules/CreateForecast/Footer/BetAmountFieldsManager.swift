@@ -31,7 +31,8 @@ class BetAmountFieldsManager: NSObject {
     let maximumPercent: Double = 5
     
     private var balance: Double {
-        return userService.currentUserInfo?.forecaster.balance ?? 0
+        let user = userService.currentUserInfo.forecaster.data
+        return user?.balance.data ?? 0
     }
     
     private var maximumCurrency: Double {

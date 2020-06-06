@@ -61,8 +61,8 @@ class TopForecasterCell: UICollectionViewCell {
         let vm = ForecasterViewModelItem(forecaster: forecaster)
         let income = round(vm.signedPercentRoi)
         setupIncomeLabel(income: income)
-        userLabel.text = forecaster.login
-        imageView.setImage(url: forecaster.avatar)
+        userLabel.text = forecaster.login.data
+        imageView.setImage(url: forecaster.avatar.data)
     }
     
     private func setupIncomeLabel(income: Double) {

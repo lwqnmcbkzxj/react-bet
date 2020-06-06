@@ -41,8 +41,6 @@ class ProfileViewController: UIViewController {
         return view
     }()
     
-    
-    
     override func loadView() {
         super.loadView()
         if !isSelf { addBackView(text: nil) }
@@ -68,6 +66,8 @@ class ProfileViewController: UIViewController {
             guard let this = self else { return }
             self?.configure(forecaster: this.interactor.profile())
         }
+        
+        profileHeader.didLoad()
     }
     
     @objc private func changedTab() {
@@ -109,6 +109,6 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: IMainTabBarDelegate {
     
     func showed(tabBar: IMainTabBar, screen: MainTabBarScreen) {
-        getDelegate()?.reload()
+//        getDelegate()?.reload()
     }
 }

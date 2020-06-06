@@ -8,91 +8,46 @@
 
 import Foundation
 
-class ForecastsViewModel {
+struct ForecastsViewModelState {
+    let sport: Sport
+    let timeFrame: TimeFrame
+    let filter: ForecastFilter
     
-    let pageSize: Int = 10
+    static var `default`: ForecastsViewModelState {
+        return .init(sport: .all, timeFrame: .all, filter: .all)
+    }
+}
+
+class ForecastsViewModel: TableViewModel<Forecast, ForecastsViewModelState> {
     
-    //Options
-    var currentPage: Int = 0 {
-        didSet {
-            if currentPage > loadedPages,
-                !isLoading {
-                fetchMore()
-            }
+    @LazyInjected
+    private var forecastService: IForecastService
+    
+    override var pageSize: Int { 10 }
+    
+    override func currentPage(_ page: Int) {
+        if !isLoading && page > loadedPages {
+            fetchMore()
         }
     }
     
-    var sport: Sport = .all {
-        didSet { filtersChanged() }
-    }
-    
-    var timeFrame: TimeFrame = .all {
-        didSet { filtersChanged() }
-    }
-    
-    var forecastFilter: ForecastFilter = .all {
-        didSet {
-            filtersChanged()
-        }
-    }
-    
-    //Binds
-    var dataChanged: (()->Void)?
-    
-    var loadingStatusChanged: ((Bool)->Void)?
-    
-    
-    //Info
-    
-    var loadedPages: Int {
-        let fullPages = numberOfRows() / pageSize
-        let lastIsIncomplete = (numberOfRows() % pageSize) > 0
-        return fullPages + (lastIsIncomplete ? 1 : 0)
-    }
-    
-    func numberOfRows() -> Int {
-        return forecasts.count
-    }
-    
-    func forecast(at indexPath: IndexPath) -> Forecast {
-        return forecasts[indexPath.row]
-    }
-    
-    func reload() {
-        self.forecasts = []
-        currentPage = 1
-    }
-    
-    //Private
-    
-    @LazyInjected private var forecastService: IForecastService
-    
-    private var isLoading: Bool = false {
-        didSet {
-            loadingStatusChanged?(isLoading)
-        }
-    }
-    
-    private var forecasts: [Forecast] = [] {
-        didSet {
-            dataChanged?()
-        }
-    }
-    
-    private func filtersChanged() {
-        forecasts = []
-        fetchMore()
+    override func stateChanged() {
+        reload()
     }
     
     private func fetchMore() {
         isLoading = true
+        let sport = state?.sport ?? .all
+        let timeFrame = state?.timeFrame ?? .all
+        let filter = state?.filter ?? .all
         forecastService.getForecasts(count: pageSize, page: loadedPages + 1,
-                                     sport: sport, timeFrame: timeFrame,
-                                     subscribers: forecastFilter == .subscribers)
+                                     sport: sport,
+                                     timeFrame: timeFrame,
+                                     subscribers: filter == .subscribers)
         { (result) in
             switch result {
             case .success(let forecasts):
-                self.forecasts += forecasts
+                self.items += forecasts
             case .failure(let error):
                 print("error loading: \(error.localizedDescription)") //TODO: show alert
             }

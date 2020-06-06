@@ -12,8 +12,7 @@ class ForecastersView: UIView {
     
     let cellId = "forecasterCell"
     
-//    private let headerCompactHeight: CGFloat = 132
-    private let headerCompactHeight: CGFloat = 70 //TODO: tempUI
+    private let headerCompactHeight: CGFloat = 132
     private let headerFullHeight: CGFloat = 215
     
     private var headerIsFull: Bool = false

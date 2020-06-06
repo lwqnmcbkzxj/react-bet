@@ -44,7 +44,7 @@ class FullArticleView: UITableViewHeaderFooterView {
     
     private let ratingView: ArrowsStepperView = {
         let view = ArrowsStepperView()
-        view.setNumber(23, state: .none)
+        view.setNumber(23)
         return view
     }()
     
@@ -63,7 +63,7 @@ class FullArticleView: UITableViewHeaderFooterView {
         articleImage.setImage(url: article.image, placeholder: nil)
         articleTextLabel.text = article.text
         commentsView.setNumber(article.commentsCount)
-        ratingView.setNumber(article.rating, state: .none)
+        ratingView.setNumber(article.rating)
     }
     
     private func makeLayout() {

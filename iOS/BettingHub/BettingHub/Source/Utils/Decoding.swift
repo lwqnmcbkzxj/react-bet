@@ -27,6 +27,16 @@ extension Data  {
         }
     }
     
+    func decodeJSONOrNil<T: Decodable>(_ model: T.Type,
+                                       with decoder: JSONDecoder = JSONDecoder()) -> T? {
+        switch decodeJSON(model) {
+        case .success(let decoded):
+            return decoded
+        case .failure(_):
+            return nil
+        }
+    }
+    
     func decodePaged<ResponseModel: Decodable>(pageElement: ResponseModel.Type) -> ServiceResult<[ResponseModel]> {
         decodeJSON(PagedResponse<ResponseModel>.self).map { $0.data }
     }

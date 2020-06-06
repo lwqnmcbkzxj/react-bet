@@ -10,6 +10,10 @@ import Foundation
 
 protocol IForecastService: class {
     
+    func handledForecast(id: Int) -> Forecast?
+    
+    func createOrUpdate(obj: ForecastApiObject) -> Forecast
+    
     func getForecasts(count: Int, page: Int,
                       sport: Sport, timeFrame: TimeFrame,
                       subscribers: Bool,
@@ -18,10 +22,6 @@ protocol IForecastService: class {
     
     
     func getForecast(id: Int, callback: ((Result<Forecast, BHError>)->Void)?)
-    
-    func getFavorites(count: Int,
-                      page: Int,
-                      callback: ((Result<[Forecast], BHError>)->Void)?)
     
     func userForecasts(id: Int,
                        page: Int,
@@ -36,8 +36,4 @@ protocol IForecastService: class {
                    callback: (ServiceCallback<[Forecast]>)?)
     
     func rating(status: RatingStatus, forecast: Forecast)
-    
-    func localRatingStatus(forecast: Forecast) -> RatingStatus?
-    
-    func localBookmarked(forecast: Forecast) -> Bool?
 }

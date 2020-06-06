@@ -22,8 +22,11 @@ class ForecastersViewController: UIViewController {
         setView(forecastersView)
         
         forecastersView.header.timeFrameSegmenter.addTarget(self,
-                                                            action: #selector(timeChanged),
+                                                            action: #selector(filtersChanged),
                                                             for: .valueChanged)
+        forecastersView.header.sportSelector.addTarget(self,
+                                                       action: #selector(filtersChanged),
+                                                       for: .valueChanged)
     }
     
     private var showingSkeleton: Bool = false {
@@ -79,7 +82,7 @@ class ForecastersViewController: UIViewController {
         }
     }
     
-    @objc private func timeChanged() {
+    @objc private func filtersChanged() {
         guard
             let timeFrame = forecastersView.header.timeFrameSegmenter.selectedTimeFrame,
             let sport = forecastersView.header.sportSelector.selectedSport

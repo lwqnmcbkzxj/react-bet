@@ -13,7 +13,9 @@ class FullForecastHeader: UITableViewHeaderFooterView {
     
     var presenter: IFullForecastHeaderPresenter! {
         didSet {
+            guard let presenter = presenter else { return }
             configure(with: presenter.forecast())
+            presenter.storeBinds(callback: binds)
         }
     }
     
@@ -89,7 +91,7 @@ class FullForecastHeader: UITableViewHeaderFooterView {
         return view
     }()
     
-    private let subscribeButton: SubscribeButton = {
+    let subscribeButton: SubscribeButton = {
         let view = SubscribeButton()
         return view
     }()
@@ -120,7 +122,6 @@ class FullForecastHeader: UITableViewHeaderFooterView {
     
     private let ratingView: ArrowsStepperView = {
         let view = ArrowsStepperView()
-        view.isUserInteractionEnabled = false
         return view
     }()
     
@@ -145,39 +146,59 @@ class FullForecastHeader: UITableViewHeaderFooterView {
         userPanel.addGestureRecognizer(gesture)
         
         bookmarksView.setTapAction(action: bookmarkTapped)
-        
         subscribeButton.addTarget(self, action: #selector(subscribeTapped), for: .touchUpInside)
+        ratingView.delegate = self
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func binds() -> [ObservableBind] {
+        let forecast = presenter.forecast()
+        return [
+            forecast.bookmarked.bind { self.bookmarksView.isSelected = $0 },
+            forecast.bookmarks.bind { self.bookmarksView.setNumber($0) },
+            forecast.user.subscribed.bind { self.subscribeButton.subscribed = $0 },
+            forecast.ratingStatus.bind { self.ratingView.stepperState = $0 },
+            forecast.rating.bind { self.ratingView.setNumber($0) }
+        ]
+    }
+    
     private func configure(with forecast: Forecast) {
         let vm = ForecastViewModelItem(forecast: forecast)
         
-        matchTitleLabel.text = forecast.event.name
-        descLabel.text = forecast.text
-        seasonLabel.text = forecast.event.championship.name
-        forecastDateLabel.text = vm.creationDateText
-        teamsView.leftTeamLabel.text = forecast.event.team1.name
-        teamsView.rightTeamLabel.text = forecast.event.team2.name
-        teamsView.leftImageView.setServerIcon(url: forecast.event.championship.sport.image)
-        teamsView.rightImageView.setServerIcon(url: forecast.event.championship.sport.image)
-        commentsView.setText("\(forecast.comments)")
+        descLabel.text = forecast.text.data
+        commentsView.setText("\(forecast.comments.data)")
         
-        profileImageView.setImage(url: forecast.user.avatar)
-        usernameLabel.text = forecast.user.login
+        let event = forecast.event.data
+        matchTitleLabel.text = event.name
+        seasonLabel.text = event.championship.name
+        forecastDateLabel.text = vm.creationDateText
+        teamsView.leftTeamLabel.text = event.team1.name
+        teamsView.rightTeamLabel.text = event.team2.name
+        teamsView.leftImageView.setServerIcon(url: event.championship.sport.image)
+        teamsView.rightImageView.setServerIcon(url: event.championship.sport.image)
+        
+        
+        let user = forecast.user
+        profileImageView.setImage(url: user.avatar.data)
+        usernameLabel.text = user.login.data
+        subscribeButton.subscribed = user.subscribed.data
+        
         infoStack.populateStack(labels: rowsForInfoStack(forecast: forecast, viewModel: vm))
-        ratingView.setNumber(forecast.apiRating, state: forecast.apiRatingStatus)
         incomeLabel.setNumber(to: vm.forecasterItem.signedPercentRoi)
         
+        ratingView.isUserInteractionEnabled = presenter.canRate()
+        ratingView.setNumber(forecast.rating.data)
+        ratingView.stepperState = forecast.ratingStatus.data
+        
         bookmarksView.isUserInteractionEnabled = presenter.canBookmark()
-        bookmarksView.setNumber(forecast.bookmarks)
-        bookmarksView.isSelected = forecast.bookmarked
+        bookmarksView.setNumber(forecast.bookmarks.data)
+        bookmarksView.isSelected = forecast.bookmarked.data
         
         subscribeButton.isHidden = !presenter.canSubscribe()
-        subscribeButton.subscribed = forecast.user.subscribed
+        
     }
     
     @objc private func userTapped() {
@@ -190,27 +211,27 @@ class FullForecastHeader: UITableViewHeaderFooterView {
     }
     
     @objc private func subscribeTapped() {
-        presenter.subscribeTapped { (success) in
-            if success {
-                self.subscribeButton.subscribed.toggle()
-            }
-        }
+        presenter.subscribeTapped(callback: nil)
     }
     
     private func rowsForInfoStack(forecast: Forecast, viewModel: ForecastViewModelItem) -> [(UILabel, UILabel)] {
+        
+        let event = forecast.event.data
+        let bet = forecast.bet.data
+        
         return [
             plainRow(title: Text.tournament,
-                     value: forecast.event.championship.name),
+                     value: event.championship.name),
             plainRow(title: Text.dateTime,
                      value: viewModel.startDateText),
             boldRow(title: Text.forecastWord,
-                    value: forecast.bet.type),
+                    value: bet.type),
             plainRow(title: Text.coeficientWord,
-                     value: "\(forecast.bet.coefficient)"),
+                     value: "\(bet.coefficient)"),
             positivityRow(title: Text.bet,
-                          value: forecast.bet.value),
+                          value: bet.value),
             positivityRow(title: Text.possibleWin,
-                          value: forecast.bet.value * forecast.bet.pureProfit)
+                          value: bet.value * bet.pureProfit)
         ]
     }
     
@@ -376,5 +397,12 @@ class FullForecastHeader: UITableViewHeaderFooterView {
         }
         
         return userPanel
+    }
+}
+
+extension FullForecastHeader: ArrowsStepperViewDelegate {
+    
+    func arrowsStepper(_ arrowsStepper: ArrowsStepperView, needsStatus status: RatingStatus) {
+        presenter.rate(status: status)
     }
 }

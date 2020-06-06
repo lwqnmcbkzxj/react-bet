@@ -23,6 +23,8 @@ protocol IRequestBuilder: class {
     
     var baseURL: URL { get }
     
+    var autoAuthorization: Bool { get set }
+    
     func authorize(_ request: URLRequest) -> URLRequest?
     
     

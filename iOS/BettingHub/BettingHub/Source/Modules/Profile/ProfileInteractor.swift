@@ -30,17 +30,11 @@ class ProfileInteractor: IProfileInteractor {
     private var forecaster: Forecaster!
     
     init(forecaster: Forecaster?) {
-        guard let forecaster = forecaster else {
-            //init with self
-            self.forecaster = userService.currentUserInfo!.forecaster
-            return
-        }
-        
-        self.forecaster = forecaster
+        self.forecaster = forecaster ?? userService.currentUserInfo.forecaster.data!
     }
     
     func isSelf() -> Bool {
-        guard let selfId = userService.currentUserInfo?.forecaster.id else {
+        guard let selfId = userService.currentUserInfo.forecaster.data?.id else {
             return false
         }
         

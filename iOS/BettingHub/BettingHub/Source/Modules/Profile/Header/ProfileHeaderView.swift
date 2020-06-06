@@ -12,12 +12,9 @@ class ProfileHeaderView: UIView {
     
     var presenter: IProfileHeaderPresenter! {
         didSet {
-            guard let _ = presenter else { return }
-            configure()
-            
-            presenter.dataChanged = {
-                self.configure()
-            }
+            let profile = presenter.profile()
+            presenter.storeBinds(binds(for: profile))
+            configure(forecaster: profile)
         }
     }
     
@@ -147,21 +144,33 @@ class ProfileHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configure() {
-        let forecaster = presenter.profile()
+    func didLoad() {
+        presenter.reload()
+    }
+    
+    private func binds(for forecaster: Forecaster) -> [ObservableBind] {
+        [
+            forecaster.subscribed.bind { self.subscribeButton.subscribed = $0 },
+            forecaster.subscribers.bind { self.subscribersView.setValue($0) },
+            forecaster.avatar.bind { self.profileImageView.setImage(url: $0) }
+        ]
+    }
+    
+    private func configure(forecaster: Forecaster) {
         let vm = ForecasterViewModelItem(forecaster: forecaster)
         
-        profileImageView.setImage(url: forecaster.avatar)
-        usernameLabel.text = forecaster.login
-        statsLabel.set(wins: forecaster.stats.wins,
-                       loses: forecaster.stats.loss,
-                       draws: forecaster.stats.back)
-        bankLabel.text = String(forecaster.balance ?? 0)
+        profileImageView.setImage(url: forecaster.avatar.data)
+        usernameLabel.text = forecaster.login.data
+        statsLabel.set(wins: forecaster.stats.data.wins,
+                       loses: forecaster.stats.data.loss,
+                       draws: forecaster.stats.data.back)
+        bankLabel.text = String(forecaster.balance.data ?? 0)
         roiLabel.setNumber(to: vm.signedPercentRoi)
-        subscribersView.setValue(forecaster.stats.subscribers)
+        subscribersView.setValue(forecaster.subscribers.data)
         placeView.setValue(vm.position)
-        netProfitView.setValue(Int(forecaster.stats.pureProfit))
+        netProfitView.setValue(Int(forecaster.stats.data.pureProfit))
         subscribeButton.isHidden = !presenter.canSubscribe()
+        subscribeButton.subscribed = forecaster.subscribed.data
         
         if presenter.isSelf() {
             segmenter.setItems([Text.forecasts, Text.statistics, Text.favorites])
@@ -171,11 +180,9 @@ class ProfileHeaderView: UIView {
     }
     
     @objc private func subscribeTapped() {
-        presenter.subscribe { (success) in
-            if success {
-                self.subscribeButton.subscribed.toggle()
-            }
-        }
+        if !presenter.canSubscribe() { return }
+        presenter.subscribe()
+//        presenter.subscribe(callback: nil)
     }
     
     private func makeLayout() {

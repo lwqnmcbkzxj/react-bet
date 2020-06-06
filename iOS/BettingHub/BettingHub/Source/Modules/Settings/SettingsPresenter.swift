@@ -10,7 +10,9 @@ import UIKit
 
 protocol ISettingsPresenter: class {
     
-    var dataChanged: ((UserInfo) -> Void)? { get set }
+    var info: UserInfo { get }
+    
+    func storeBinds(binds: [ObservableBind])
     
     func logOut()
     
@@ -27,14 +29,13 @@ class SettingsPresenter: ISettingsPresenter {
     @LazyInjected
     private var userService: IUserService
     
-    var dataChanged: ((UserInfo) -> Void)?
+    private var binds: [ObservableBind] = []
     
-    init() {
-        userService.addDelegate(self)
-    }
+    var info: UserInfo { return userService.currentUserInfo }
     
-    deinit {
-        userService.removeDelegate(self)
+    func storeBinds(binds: [ObservableBind]) {
+        self.binds.forEach { $0.close() }
+        self.binds = binds
     }
     
     func logOut() {
@@ -48,11 +49,11 @@ class SettingsPresenter: ISettingsPresenter {
     }
 }
 
-extension SettingsPresenter: IUserServiceDelegate {
-    
-    func dataChanged(userService: IUserService) {
-        guard let userInfo = userService.currentUserInfo else { return }
-        dataChanged?(userInfo)
-    }
-}
+//extension SettingsPresenter: IUserServiceDelegate {
+//
+//    func dataChanged(userService: IUserService) {
+//        guard let userInfo = userService.currentUserInfo else { return }
+//        dataChanged?(userInfo)
+//    }
+//}
 

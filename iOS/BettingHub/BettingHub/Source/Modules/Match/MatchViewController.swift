@@ -10,12 +10,9 @@ import UIKit
 
 class MatchViewController: UIViewController {
     
-    private lazy var matchView = MatchView()
-    
-    private lazy var fullMatchViewModel = FullMatchViewModel()
+    var matchView: MatchView!
     
     private lazy var matchBetsViewModel = MatchBetsViewModel(tableView: tableView)
-    
     private lazy var commentsViewModel = CommentsViewModel(tableView: tableView)
     
     private lazy var tableView: UITableView = {
@@ -24,23 +21,20 @@ class MatchViewController: UIViewController {
         view.separatorColor = .clear
         view.clipsToBounds = false
         view.backgroundColor = .white
+        view.dataSource = self
+        view.delegate = self
         return view
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    override func loadView() {
+        super.loadView()
         view.backgroundColor = .white
         addBackView(text: nil)
         setView(tableView, insets: .init(top: 23, left: 15, bottom: 0, right: 15))
-        
-        tableView.dataSource = self
-        tableView.delegate = self
-        
-        fullMatchViewModel.timerCallback = { (timerStr) in
-            self.matchView.timer(to: timerStr)
-        }
-        
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         setHeader()
     }
     
@@ -53,16 +47,16 @@ class MatchViewController: UIViewController {
     }
     
     func configure(with match: Match) {
-        matchView.configure(match: match)
-        fullMatchViewModel.configure(match: match)
-        matchBetsViewModel.loadData(for: match.id) { [weak self] in
-            guard
-                let this = self,
-                let match = this.matchBetsViewModel.match
-            else { return }
-            this.matchView.configure(match: match)
-            this.tableView.reloadData()
-        }
+//        matchView.configure(match: match)
+//        fullMatchViewModel.configure(match: match)
+//        matchBetsViewModel.loadData(for: match.id) { [weak self] in
+//            guard
+//                let this = self,
+//                let match = this.matchBetsViewModel.match
+//            else { return }
+//            this.matchView.configure(match: match)
+//            this.tableView.reloadData()
+//        }
     }
     
     func sectionType(for sec: Int) -> Section {

@@ -24,8 +24,7 @@ class ForecastersViewModel: TableViewModel<Forecaster, ForecastersViewModelState
     }
     
     override func stateChanged() {
-        items = []
-        fetchMore()
+        reload()
     }
     
     @LazyInjected
@@ -33,8 +32,12 @@ class ForecastersViewModel: TableViewModel<Forecaster, ForecastersViewModelState
     
     private func fetchMore() {
         isLoading = true
+        let sport = state?.sport ?? .all
+        let time = state?.timeFrame ?? .all
         forecasterService.topForecasters(page: loadedPages + 1,
-                                         count: pageSize)
+                                         count: pageSize,
+                                         sport: sport,
+                                         time: time)
         { (result) in
             switch result {
             case .success(let forecasters):

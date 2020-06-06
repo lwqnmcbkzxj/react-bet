@@ -22,7 +22,6 @@ class ProfileAssembly {
         
         let header = ProfileHeaderView()
         let headerPresenter = ProfileHeaderPresenter(forecaster: forecaster)
-        
         header.presenter = headerPresenter
         
         vc.router = router

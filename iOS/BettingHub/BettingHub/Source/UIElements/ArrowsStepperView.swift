@@ -8,13 +8,25 @@
 
 import UIKit
 
-class ArrowsStepperView: UIControl {
+protocol ArrowsStepperViewDelegate: class {
     
-    private let arrow = UIImage(named: "stepperArrow")!.withRenderingMode(.alwaysOriginal)
-    private let positiveArrow = UIImage(named: "stepperArrowPositive")!.withRenderingMode(.alwaysOriginal)
-    private let negativeArrow = UIImage(named: "stepperArrowNegative")!.withRenderingMode(.alwaysOriginal)
+    func arrowsStepper(_ arrowsStepper: ArrowsStepperView, needsStatus status: RatingStatus)
+}
+
+class ArrowsStepperView: UIView {
     
-    private(set) var stepperState: RatingStatus = .none {
+    weak var delegate: ArrowsStepperViewDelegate?
+    
+    private let arrow = UIImage(named: "stepperArrow")!
+                        .withRenderingMode(.alwaysOriginal)
+    
+    private let positiveArrow = UIImage(named: "stepperArrowPositive")!
+                                .withRenderingMode(.alwaysOriginal)
+    
+    private let negativeArrow = UIImage(named: "stepperArrowNegative")!
+                                .withRenderingMode(.alwaysOriginal)
+    
+    var stepperState: RatingStatus = .none {
         didSet {
             setupForState()
         }
@@ -43,18 +55,23 @@ class ArrowsStepperView: UIControl {
         return view
     }()
     
+    override var isUserInteractionEnabled: Bool {
+        didSet {
+            downArrowButton.isHidden = !isUserInteractionEnabled
+            upArrowButton.isHidden = !isUserInteractionEnabled
+        }
+    }
+    
     init() {
         super.init(frame: .zero)
         makeLayout()
         
-//        TODO: Uncomment
         downArrowButton.addTarget(self, action: #selector(downTapped), for: .touchUpInside)
         upArrowButton.addTarget(self, action: #selector(upTapped), for: .touchUpInside)
     }
     
-    func setNumber(_ number: Int, state: RatingStatus) {
+    func setNumber(_ number: Int) {
         label.setNumber(to: Double(number))
-        self.stepperState = state
     }
     
     required init?(coder: NSCoder) {
@@ -62,21 +79,15 @@ class ArrowsStepperView: UIControl {
     }
     
     @objc private func upTapped() {
-        if stepperState == .like {
-            stepperState = .none
-            return
-        }
-        stepperState = .like
-        sendActions(for: .valueChanged)
+        stepperState == .like
+        ? delegate?.arrowsStepper(self, needsStatus: .none)
+        : delegate?.arrowsStepper(self, needsStatus: .like)
     }
     
     @objc private func downTapped() {
-        if stepperState == .dislike {
-            stepperState = .none
-            return
-        }
-        stepperState = .dislike
-        sendActions(for: .valueChanged)
+        stepperState == .dislike
+        ? delegate?.arrowsStepper(self, needsStatus: .none)
+        : delegate?.arrowsStepper(self, needsStatus: .dislike)
     }
     
     private func setupForState() {

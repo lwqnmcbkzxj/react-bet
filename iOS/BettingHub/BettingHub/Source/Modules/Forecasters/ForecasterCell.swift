@@ -76,11 +76,11 @@ class ForecasterCell: UITableViewCell {
     func configure(with forecaster: Forecaster) {
         let vm = ForecasterViewModelItem(forecaster: forecaster)
         
-        userImageView.setImage(url: forecaster.avatar)
-        userLabel.text = forecaster.login
-        statsLabel.set(wins: forecaster.stats.wins,
-                       loses: forecaster.stats.loss,
-                       draws: forecaster.stats.back)
+        userImageView.setImage(url: forecaster.avatar.data)
+        userLabel.text = forecaster.login.data
+        statsLabel.set(wins: forecaster.stats.data.wins,
+                       loses: forecaster.stats.data.loss,
+                       draws: forecaster.stats.data.back)
         
         let income = round(vm.signedPercentRoi)
         incomeLabel.setNumber(to: income)

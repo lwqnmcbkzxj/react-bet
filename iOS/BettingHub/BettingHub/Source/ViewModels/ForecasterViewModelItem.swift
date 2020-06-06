@@ -13,18 +13,18 @@ struct ForecasterViewModelItem {
     let forecaster: Forecaster
     
     var signedPercentRoi: Double {
-        return forecaster.stats.roi * 100
+        return forecaster.stats.data.roi * 100
     }
     
     var position: Int {
-        guard let pos = forecaster.ratingPosition else {
+        guard let pos = forecaster.ratingPosition.data else {
             return 0
         }
         return pos
     }
     
     var passingPercent: Int {
-        let stats = forecaster.stats
+        let stats = forecaster.stats.data
         let sum = stats.wins + stats.loss + stats.back
         if sum == 0 { return 0 }
         return (stats.wins * 100) / sum

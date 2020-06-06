@@ -15,11 +15,11 @@ protocol ForecastCellDelegate: class {
 
 class ForecastCell: UITableViewCell {
     
-    private var forecast: Forecast?
+    private(set) var forecast: Forecast?
     
     weak var delegate: ForecastCellDelegate?
     
-    private static let presenter: IForecastCellPresenter = ForecastCellPresenter()
+    lazy private var manager = ForecastCellManager()
     
     private let panelView: UIView = {
         let view = UIView()
@@ -30,22 +30,13 @@ class ForecastCell: UITableViewCell {
         return view
     }()
     
-    private let cornerIcon: UIImageView = {
+    let cornerIcon: UIImageView = {
         let view = UIImageView()
         view.isSkeletonable = true
         return view
     }()
     
-    private let sportLabel: UILabel = {
-        let view = UILabel()
-        view.textColor = .titleBlack
-        view.font = .robotoRegular(size: 11)
-        view.isSkeletonable = true
-        view.text = ""
-        return view
-    }()
-    
-    private let seasonLabel: UILabel = {
+    let seasonLabel: UILabel = {
         let view = UILabel()
         view.textColor = .textGray
         view.font = .robotoRegular(size: 11)
@@ -60,7 +51,7 @@ class ForecastCell: UITableViewCell {
         return view
     }()
     
-    private let matchLabel: UILabel = {
+    let matchLabel: UILabel = {
         let view = UILabel()
         view.textColor = .titleBlack
         view.font = .robotoMedium(size: 18)
@@ -68,47 +59,47 @@ class ForecastCell: UITableViewCell {
         return view
     }()
     
-    private let forecastTitleLabel: UILabel = {
+    let forecastTitleLabel: UILabel = {
         let view = UIItems.forecastTitleLabel
         view.text = Text.forecast
         view.isSkeletonable = true
         return view
     }()
     
-    private let betAmountTitleLabel: UILabel = {
+    let betAmountTitleLabel: UILabel = {
         let view = UIItems.forecastTitleLabel
         view.text = Text.betAmount
         view.isSkeletonable = true
         return view
     }()
     
-    private let matchStartTitleLabel: UILabel = {
+    let matchStartTitleLabel: UILabel = {
         let view = UIItems.forecastTitleLabel
         view.text = Text.matchStart
         view.isSkeletonable = true
         return view
     }()
     
-    private let coeficientTitleLabel: UILabel = {
+    let coeficientTitleLabel: UILabel = {
         let view = UIItems.forecastTitleLabel
         view.text = Text.coeficient
         view.isSkeletonable = true
         return view
     }()
     
-    private let forecastLabel: UILabel = {
+    let forecastLabel: UILabel = {
         let view = UIItems.forecastValueLabel
         view.isSkeletonable = true
         return view
     }()
     
-    private let betAmountLabel: UILabel = {
+    let betAmountLabel: UILabel = {
         let view = UIItems.forecastValueLabel
         view.isSkeletonable = true
         return view
     }()
     
-    private let matchStartLabel: UILabel = {
+    let matchStartLabel: UILabel = {
         let view = UILabel()
         view.textColor = .textGrayDark
         view.font = .robotoItalic(size: 14)
@@ -116,13 +107,13 @@ class ForecastCell: UITableViewCell {
         return view
     }()
     
-    private let coeficientLabel: UILabel = {
+    let coeficientLabel: UILabel = {
         let view = UIItems.forecastValueLabel
         view.isSkeletonable = true
         return view
     }()
     
-    private let descLabel: UILabel = {
+    let descLabel: UILabel = {
         let view = UILabel()
         view.numberOfLines = 6
         view.textColor = .titleBlack
@@ -131,7 +122,7 @@ class ForecastCell: UITableViewCell {
         return view
     }()
     
-    private let userImageView: UIImageView = {
+    let userImageView: UIImageView = {
         let view = UIImageView()
         view.layer.cornerRadius = 2
         view.contentMode = .scaleAspectFill
@@ -139,20 +130,20 @@ class ForecastCell: UITableViewCell {
         return view
     }()
     
-    private let usernameLabel: UILabel = {
+    let usernameLabel: UILabel = {
         let view = UILabel()
         view.textColor = .titleBlack
         view.font = .robotoRegular(size: 14)
         return view
     }()
     
-    private let lastForecastsView: LastForecastsView = {
+    let lastForecastsView: LastForecastsView = {
         let view = LastForecastsView()
         view.populate(with: [false, false, false, false, false])
         return view
     }()
     
-    private let incomeTitleLabel: UILabel = {
+    let incomeTitleLabel: UILabel = {
         let view = UILabel()
         view.textColor = .textGray
         view.font = .robotoRegular(size: 14)
@@ -160,7 +151,7 @@ class ForecastCell: UITableViewCell {
         return view
     }()
     
-    private let incomeLabel: PositivityLabel = {
+    let incomeLabel: PositivityLabel = {
         let view = PositivityLabel()
         view.units = .percent
         view.rounding = .decimal(1)
@@ -175,7 +166,7 @@ class ForecastCell: UITableViewCell {
         return view
     }()
     
-    private let commentsView: LabeledIconWithNumber = {
+    let commentsView: LabeledIconWithNumber = {
         let view = LabeledIconWithNumber()
         let image = UIImage(named: "commentIcon")!
         view.setImage(image)
@@ -183,7 +174,7 @@ class ForecastCell: UITableViewCell {
         return view
     }()
     
-    private let bookmarksView: LabeledIconWithNumber = {
+    let bookmarksView: LabeledIconWithNumber = {
         let view = LabeledIconWithNumber()
         let image = UIImage(named: "bookmarkIcon")!
         let selected = UIImage(named: "bookmarkIconSelected")!
@@ -192,7 +183,7 @@ class ForecastCell: UITableViewCell {
         return view
     }()
     
-    private let stepperView: ArrowsStepperView = {
+    let stepperView: ArrowsStepperView = {
         let view = ArrowsStepperView()
         view.isSkeletonable = true
         view.isUserInteractionEnabled = false
@@ -207,7 +198,7 @@ class ForecastCell: UITableViewCell {
         isSkeletonable = true
         
         bookmarksView.setTapAction(action: bookmarksTapped)
-        stepperView.addTarget(self, action: #selector(ratingChanged), for: .valueChanged)
+        stepperView.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -215,37 +206,60 @@ class ForecastCell: UITableViewCell {
     }
     
     func configure(with forecast: Forecast) {
-        let vm = ForecastViewModelItem(forecast: forecast)
-        
         self.forecast = forecast
-//        sportLabel.text = forecast.event.championship.sport.name
-        seasonLabel.text = forecast.event.championship.name
-        matchLabel.text = forecast.event.name
-        descLabel.text = forecast.text
-        forecastLabel.text = forecast.bet.type
-        coeficientLabel.text = String(forecast.bet.coefficient)
-        betAmountLabel.text = String(forecast.bet.value)
+        
+        let vm = ForecastViewModelItem(forecast: forecast)
+        manager.storeBinds(binds: binds(for: forecast))
+        
+        descLabel.text = forecast.text.data
+        
+        let event = forecast.event.data
+        seasonLabel.text = event.championship.name
+        matchLabel.text = event.name
+        cornerIcon.setServerIcon(url: event.championship.sport.image)
+        
+        let bet = forecast.bet.data
+        forecastLabel.text = bet.type
+        coeficientLabel.text = String(bet.coefficient)
+        betAmountLabel.text = String(bet.value)
         matchStartLabel.text = vm.startDateText
-        usernameLabel.text = forecast.user.login
-        userImageView.setImage(url: forecast.user.avatar)
-        lastForecastsView.populate(with: forecast.user.lastForecasts)
+        
+        let user = forecast.user
+        usernameLabel.text = user.login.data
+        userImageView.setImage(url: user.avatar.data)
+        lastForecastsView.populate(with: user.lastForecasts.data)
         incomeLabel.setNumber(to: vm.forecasterItem.signedPercentRoi)
-        commentsView.setNumber(forecast.comments)
-        cornerIcon.setServerIcon(url: forecast.event.championship.sport.image)
+        commentsView.setNumber(forecast.comments.data)
         
-        let presenter = ForecastCell.presenter
+        bookmarksView.isUserInteractionEnabled = manager.canBookmark()
+        bookmarksView.setNumber(forecast.bookmarks.data)
+        bookmarksView.isSelected = forecast.bookmarked.data
         
-        bookmarksView.isUserInteractionEnabled = presenter.canBookmark()
-        bookmarksView.setNumber(forecast.bookmarks)
-        bookmarksView.isSelected = forecast.bookmarked
+        stepperView.isUserInteractionEnabled = manager.canChangeRating()
+        stepperView.setNumber(forecast.rating.data)
+        stepperView.stepperState = forecast.ratingStatus.data
+    }
+    
+    private func binds(for forecast: Forecast) -> [ObservableBind] {
+        [
+            forecast.bookmarked.bind { self.bookmarksView.isSelected = $0 },
+            forecast.bookmarks.bind { self.bookmarksView.setNumber($0) },
+            forecast.ratingStatus.bind { self.stepperView.stepperState = $0 },
+            forecast.rating.bind { self.stepperView.setNumber($0) }
+        ]
+    }
+    
+    @objc private func userLineTapped() {
+        guard let forecast = forecast else { return }
+        delegate?.userViewTapped(forecast: forecast)
+    }
         
-//        stepperView.isUserInteractionEnabled = ForecastCell.presenter.canChangeRating()
-        stepperView.setNumber(forecast.apiRating,
-                              state: forecast.apiRatingStatus)
+    private func bookmarksTapped() {
+        guard let forecast = forecast else { return }
+        manager.addBookmark(forecast: forecast)
     }
     
     private func makeLayout() {
-        
         contentView.addSubview(panelView)
         panelView.snp.makeConstraints { (make) in
             make.leading.trailing.top.equalToSuperview()
@@ -258,13 +272,6 @@ class ForecastCell: UITableViewCell {
             make.leading.equalTo(panelView).offset(8)
             make.top.equalToSuperview().offset(11)
         }
-        
-//        contentView.addSubview(sportLabel)
-//        sportLabel.snp.contentCompressionResistanceHorizontalPriority = 1000
-//        sportLabel.snp.makeConstraints { (make) in
-//            make.top.bottom.equalTo(cornerIcon)
-//            make.leading.equalTo(cornerIcon.snp.trailing).offset(5)
-//        }
         
         contentView.addSubview(seasonLabel)
         seasonLabel.snp.makeConstraints { (make) in
@@ -438,22 +445,12 @@ class ForecastCell: UITableViewCell {
         
         return stackView
     }
+}
+
+extension ForecastCell: ArrowsStepperViewDelegate {
     
-    @objc private func userLineTapped() {
-        guard let forecast = self.forecast else { return }
-        delegate?.userViewTapped(forecast: forecast)
-    }
-    
-    private func bookmarksTapped() {
-        guard let forecast = self.forecast else { return }
-        ForecastCell.presenter.addBookmark(forecast: forecast)
-        configure(with: forecast)
-    }
-    
-    @objc private func ratingChanged() {
-        guard let _ = self.forecast else { return }
-        print("ForecastCell.ratingChanged() invoked. Nothing happens")
-//        ForecastCell.presenter.ratingChanged(stepperView.stepperState,
-//                                             forecast: forecast)
+    func arrowsStepper(_ arrowsStepper: ArrowsStepperView, needsStatus status: RatingStatus) {
+        guard let forecast = forecast else { return }
+        manager.changeRating(to: status, forecast: forecast)
     }
 }

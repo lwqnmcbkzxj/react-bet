@@ -30,13 +30,17 @@ class BettingNavigationBar: UINavigationBar {
         return button
     }()
     
+    private var bind: ObservableBind?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        userService.addDelegate(self)
-        
         configure()
         makeLayout()
+        
+        bind = userService.currentUserInfo.forecaster.bind { (forecaster) in
+            self.configureBalance()
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -52,11 +56,12 @@ class BettingNavigationBar: UINavigationBar {
     }
     
     private func configureBalance() {
-        guard let bank = userService.currentUserInfo?.forecaster.balance else {
+        guard let bank = userService.currentUserInfo.forecaster.data?.balance.data else {
             bankLabel.isHidden = true
             return
         }
         bankLabel.setBalance(to: bank)
+        bankLabel.isHidden = false
     }
     
     private func makeLayout() {
@@ -86,12 +91,12 @@ class BettingNavigationBar: UINavigationBar {
     }
 }
 
-extension BettingNavigationBar: IUserServiceDelegate {
-    
-    func dataChanged(userService: IUserService) {
-        configureBalance()
-    }
-}
+//extension BettingNavigationBar: IUserServiceDelegate {
+//
+//    func dataChanged(userService: IUserService) {
+//        configureBalance()
+//    }
+//}
 
 private class BankView: UIView {
     

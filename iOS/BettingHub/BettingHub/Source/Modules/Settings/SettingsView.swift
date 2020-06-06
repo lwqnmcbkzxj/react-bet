@@ -192,11 +192,11 @@ class SettingsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with userInfo: UserInfo) {
-        profileImageView.setImage(url: userInfo.forecaster.avatar)
-        nicknameLabel.text = userInfo.forecaster.login
-        bankLabel.text = String(userInfo.forecaster.balance ?? 0)
-    }
+//    func configure(with userInfo: UserInfo) {
+//        profileImageView.setImage(url: userInfo.forecaster.avatar.data)
+//        nicknameLabel.text = userInfo.forecaster.login.data
+//        bankLabel.text = String(userInfo.forecaster.balance.data ?? 0)
+//    }
     
     private func makeLayout() {
         addSubview(aloeStack)

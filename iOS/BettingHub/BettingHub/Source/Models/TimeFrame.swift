@@ -13,16 +13,12 @@ enum TimeFrame {
     case all
     
     var localized: String {
-        switch self {
-        case .month:
-            return Text.month.localized
-        case .all:
-            return Text.allTime
-        }
+        [.month: Text.month.localized,
+         .all: Text.allTime][self]!
     }
     
     func getLengthInHours() -> Int {
-        [.month: 24 * 30,
+        [.month: 24 * 31,
          .all: 0][self]!
     }
 }

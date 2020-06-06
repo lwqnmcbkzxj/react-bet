@@ -33,7 +33,6 @@ class ForecastsHeader: UIView {
         let view = ForecastFilterControl()
         view.selectedSegment = 1
         view.clipsToBounds = false
-//        view.isHidden = true //TODO: tempUI
         return view
     }()
     

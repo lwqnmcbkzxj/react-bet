@@ -11,11 +11,14 @@ import Charts
 
 class MatchView: UIView {
     
+    let viewModel: FullMatchViewModel
+    
     private let topPanel: UIView = {
         let view = UIView()
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.lineGray.cgColor
         view.layer.cornerRadius = 7
+        view.clipsToBounds = true
         return view
     }()
     
@@ -95,16 +98,24 @@ class MatchView: UIView {
     
     private let popularBetsChart = MatchBetsChart()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(viewModel: FullMatchViewModel) {
+        self.viewModel = viewModel
+        super.init(frame: .zero)
         makeLayout()
+        
+        viewModel.storeBinds(binds())
+        configure(match: viewModel.match)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(match: Match) {
+    private func binds() -> [ObservableBind] {
+        [viewModel.timerText.bind { self.timerLabel.text = $0 }]
+    }
+    
+    private func configure(match: Match) {
         let vm = MatchViewModelItem(match: match)
         
         leftTeamLabel.text = match.team1.name
@@ -120,10 +131,6 @@ class MatchView: UIView {
         championshipLabel.text = match.championship.name
 
         popularBetsChart.configure(with: match.forecasts?.map { $0.bet } ?? [])
-    }
-    
-    func timer(to str: String) {
-        timerLabel.text = str
     }
     
     private func makeLayout() {

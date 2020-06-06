@@ -10,13 +10,17 @@ import Foundation
 
 protocol IForecasterService: class {
     
-    func topForecasters(page: Int,
-                        count: Int,
+    func handledForecaster(id: Int) -> Forecaster?
+    
+    @discardableResult
+    func createOrUpdate(obj: ForecasterApiObject) -> Forecaster
+    
+    func topForecasters(page: Int, count: Int,
+                        sport: Sport, time: TimeFrame,
                         callback: ((Result<[Forecaster], BHError>) -> Void)?)
     
     func forecaster(id: Int,
                     callback: ((Result<Forecaster, BHError>) -> Void)?)
     
-    func subscribe(forecaster: Forecaster,
-                   callback: (ServiceCallback<Bool>)?)
+    func subscribe(forecaster: Forecaster)
 }

@@ -14,8 +14,18 @@ class ForecastService {
     @LazyInjected private var client: IHttpClient
     @LazyInjected private var reqBuilder: IRequestBuilder
     @LazyInjected private var userService: IUserService
+    @LazyInjected private var forecasterService: IForecasterService
     
-    private lazy var localMarks = MarksAdapter<Forecast>()
+//    private lazy var localMarks = MarksAdapter<Forecast>()
+    
+    var forecasts: [Int: Forecast] = [:]
+    
+    func forecastRequest(id: Int) -> (RequestContent, URLRequest) {
+        let url = "api/forecasts"
+        let content = reqBuilder.idRequest(url: url, id: id)
+        let req = reqBuilder.getRequest(content: content)
+        return (content, req)
+    }
     
     func forecastsRequest(page: Int, quantity: Int,
                          timeFrame: TimeFrame, sport: Sport) -> (RequestContent, URLRequest) {
@@ -29,10 +39,7 @@ class ForecastService {
         
         let req = reqBuilder.getRequest(content: content)
         
-        //if authorized => rating and bookmark data sent from api
-        let auth = reqBuilder.authorize(req) ?? req
-        
-        return (content, auth)
+        return (content, req)
     }
     
     func userForecastsRequest(id: Int, page: Int, count: Int) -> (RequestContent, URLRequest) {
@@ -40,17 +47,6 @@ class ForecastService {
         let paged = reqBuilder.pagedRequest(url: url, page: page, limit: count)
         let req = reqBuilder.getRequest(content: paged)
         return (paged, req)
-    }
-    
-    func favoritesRequest(page: Int, count: Int) -> (RequestContent, URLRequest)? {
-        let url = "api/forecasts/" //TODO: change when ready
-        let pagedContent = reqBuilder.pagedRequest(url: url, page: page, limit: count)
-        let req = reqBuilder.getRequest(content: pagedContent)
-        let authorized = reqBuilder.authorize(req)
-        
-        if authorized == nil { return nil }
-        
-        return (pagedContent, authorized!)
     }
     
     func markRequest(id: Int) -> (RequestContent, URLRequest) {
@@ -72,13 +68,13 @@ class ForecastService {
     func ratingRequest(_ like: Bool, id: Int) -> (RequestContent, URLRequest) {
         let url = "api/forecasts/\(id)/\(like ? "like" : "dislike")"
         let content = RequestContent(url, [:])
-        let req = reqBuilder.getRequest(content: content)
+        let req = reqBuilder.jsonPostRequest(content: content)
         let auth = reqBuilder.authorize(req) ?? req
         return (content, auth)
     }
     
     func subscriptionsForecastsRequest(page: Int, quantity: Int, timeFrame: TimeFrame, sport: Sport) -> (RequestContent, URLRequest) {
-        let selfId = userService.currentUserInfo?.forecaster.id ?? 0
+        let selfId = userService.currentUserInfo.forecaster.data?.id ?? 0
         let url = "api/users/\(selfId)/subscription/forecasts"
         var content = reqBuilder.pagedRequest(url: url, page: page, limit: quantity)
         content = reqBuilder.addParams(to: content,
@@ -92,12 +88,26 @@ class ForecastService {
 }
 
 extension ForecastService: IForecastService {
-   
+    
+    func handledForecast(id: Int) -> Forecast? {
+        return forecasts[id]
+    }
+    
+    func createOrUpdate(obj: ForecastApiObject) -> Forecast {
+        if let current = handledForecast(id: obj.id) {
+            self.applyUpdates(from: obj, to: current)
+            return current
+        } else {
+            let new = self.forecast(from: obj)
+            self.forecasts[obj.id] = new
+            return new
+        }
+    }
+    
     func getForecasts(count: Int, page: Int,
                           sport: Sport, timeFrame: TimeFrame,
                           subscribers: Bool,
                           callback: (ServiceCallback<[Forecast]>)?) {
-
         if subscribers {
             let req = subscriptionsForecastsRequest(page: page, quantity: count,
                                                     timeFrame: timeFrame, sport: sport).1
@@ -107,45 +117,17 @@ extension ForecastService: IForecastService {
                                        timeFrame: timeFrame, sport: sport).1
             requestList(req: req, callback: callback)
         }
-            
     }
     
     func getForecast(id: Int, callback: ((Result<Forecast, BHError>) -> Void)?) {
-        fatalError("Not implemented in ForecastService")
-    }
-    
-    func getFavorites(count: Int, page: Int, callback: (ServiceCallback<[Forecast]>)?) {
-        guard let req = favoritesRequest(page: page, count: count)?.1 else {
-            callback?(.failure(.userUnauthorized))
-            return
-        }
-        
-        requestList(req: req, callback: callback)
+        let req = forecastRequest(id: id).1
+        requestSingle(req: req, callback: callback)
     }
     
     func userForecasts(id: Int, page: Int, count: Int,
                    callback: (ServiceCallback<[Forecast]>)?) {
         let req = userForecastsRequest(id: id, page: page, count: count).1
         requestList(req: req, callback: callback)
-    }
-    
-    func mark(_ bookmarked: Bool, forecast: Forecast) {
-        if authService.authError != nil { return }
-        
-        let current = localBookmarked(forecast: forecast)
-        
-        if current == bookmarked {
-            print("Unexpected bookmark behavior. Ignoring")
-            return
-        }
-        
-        localMarks.saveBookmark(id: forecast.id, bookmarked: bookmarked)
-        
-        let req = markRequest(id: forecast.id).1
-        client.request(request: req) { (result) in
-            result
-                .onFailure { print($0.asBHError().localizedDescription )}
-        }
     }
     
     func bookmarks(page: Int, limit: Int, callback: (ServiceCallback<[Forecast]>)?) {
@@ -155,50 +137,87 @@ extension ForecastService: IForecastService {
         requestList(req: req, callback: callback)
     }
     
+    func mark(_ bookmarked: Bool, forecast: Forecast) {
+        if authService.authError != nil { return }
+        
+        if bookmarked == forecast.bookmarked.data {
+            print("Unexpected bookmark behavior. Ignoring")
+            return
+        }
+        
+        //apply instatant changes
+        forecast.bookmarked.data = bookmarked
+        forecast.bookmarks.data += bookmarked ? 1 : -1
+        
+        let req = markRequest(id: forecast.id).1
+        client.request(request: req) { (result) in
+            result.onSuccess { (_) in
+                //revalidate data from server
+                self.getForecast(id: forecast.id, callback: nil)
+            }.onFailure { (err) in
+                print(err)
+            }
+        }
+    }
+    
     func rating(status: RatingStatus, forecast: Forecast) {
         if authService.authError != nil { return }
         
-        let current = localRatingStatus(forecast: forecast)
+        let current = forecast.ratingStatus.data
         
-        func generateApiEndpoint() -> Bool? {
-            if current == status { return nil }
-            
-            if status == .like {
-                return true
-            } else if status == .dislike {
-                return false
-            } else if status == .none {
-                if current == .like {
-                    return true
-                } else if current == .dislike {
-                    return false
-                }
-            }
-            
-            return nil
-        }
-        
-        guard let up = generateApiEndpoint() else {
+        guard status != current
+        else {
             print("Unexpected rating behavior. Ignoring")
             return
         }
         
-        localMarks.saveRating(id: forecast.id, status: status)
+        let change = current.changeInPoints(for: status)
+        forecast.rating.data += change
+        forecast.ratingStatus.data = status
+        
+        let up = current.endpointBool(for: status)
         
         let req = ratingRequest(up, id: forecast.id).1
         client.request(request: req) { (res) in
-            res.onFailure { print($0.asBHError().localizedDescription) }
+            res.onSuccess { (_) in
+                self.getForecast(id: forecast.id, callback: nil)
+            }.onFailure { (err) in
+                print(err)
+            }
         }
     }
+}
+
+extension ForecastService {
     
-    func localRatingStatus(forecast: Forecast) -> RatingStatus? {
-        let local = localMarks.getRating(id: forecast.id)
-        return local
+    func forecast(from obj: ForecastApiObject) -> Forecast {
+        let forecaster = forecasterService.createOrUpdate(obj: obj.user)
+        return Forecast(id: obj.id,
+                        user: forecaster,
+                        event: obj.event,
+                        text: obj.text,
+                        creationDate: obj.creationDate,
+                        bet: obj.bet,
+                        comments: obj.comments,
+                        bookmarks: obj.bookmarks,
+                        bookmarked: obj.bookmarked,
+                        ratingStatus: obj.ratingStatus,
+                        rating: obj.rating)
     }
     
-    func localBookmarked(forecast: Forecast) -> Bool? {
-        let local = localMarks.getBookmark(id: forecast.id)
-        return local
+    func applyUpdates(from obj: ForecastApiObject, to forecast: Forecast) {
+        
+        forecasterService.createOrUpdate(obj: obj.user)
+        
+        forecast.event.data = obj.event
+        forecast.text.data = obj.text
+        forecast.creationDate.data = obj.creationDate
+        forecast.bet.data = obj.bet
+        forecast.comments.data = obj.comments
+        forecast.bookmarks.data = obj.bookmarks
+        forecast.bookmarked.data = obj.bookmarked
+        forecast.ratingStatus.data = obj.ratingStatus
+        forecast.rating.data = obj.rating
     }
 }
 
@@ -206,12 +225,40 @@ private extension ForecastService {
     
     func requestList(req: URLRequest, callback: (ServiceCallback<[Forecast]>)?) {
         client.request(request: req) { (result) in
-            guard let callback = callback else { return }
-            result
-                .map { $0.decodePaged(pageElement: Forecast.self) }
-                .mapError { $0.asBHError()}
-                .onSuccess { $0.invokeCallback(callback)}
-                .onFailure { callback(.failure($0))}
+            let mapped = result
+                .map { $0.decodePagedOrNil(pageElement: ForecastApiObject.self)}
+                .mapError { $0.asBHError() }
+            
+            switch mapped {
+            case .success(let forecastObjs):
+                let arr = forecastObjs?.map { self.createOrUpdate(obj: $0) }
+                callback?(.success(arr ?? []))
+                
+            case .failure(let err):
+                callback?(.failure(err))
+            }
+        }
+    }
+    
+    func requestSingle(req: URLRequest, callback: (ServiceCallback<Forecast>)?) {
+        client.request(request: req) { (result) in
+            let mapped = result
+                .map { $0.decodeJSONOrNil(ForecastApiObject.self)}
+                .mapError { $0.asBHError() }
+            
+            switch mapped {
+            case .success(let obj):
+                guard let obj = obj else {
+                    callback?(.failure(.unexpectedContent))
+                    return
+                }
+                
+                let forecast = self.createOrUpdate(obj: obj)
+                callback?(.success(forecast))
+                
+            case .failure(let err):
+                callback?(.failure(err))
+            }
         }
     }
 }

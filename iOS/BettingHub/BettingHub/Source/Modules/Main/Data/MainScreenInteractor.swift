@@ -39,7 +39,7 @@ class MainScreenInteractor: IMainScreenInteractor {
     }
     
     func getForecasters(callback: @escaping ([Forecaster]) -> Void) {
-        forecasterService.topForecasters(page: 1, count: 15)
+        forecasterService.topForecasters(page: 1, count: 15, sport: .all, time: .month)
         { (result) in
             switch result {
             case .success(let forecasters):

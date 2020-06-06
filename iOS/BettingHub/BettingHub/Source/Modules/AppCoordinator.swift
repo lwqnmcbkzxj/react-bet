@@ -128,7 +128,7 @@ class AppCoordinator {
         router.viewController = vc
         router.coordinator = self
         
-        vc.configure(userInfo: userInfo)
+//        vc.configure(userInfo: userInfo)
         return vc
     }
     
@@ -141,8 +141,8 @@ class AppCoordinator {
     }
     
     func matchScreen(_ match: Match) -> UIViewController {
-        let vc = MatchViewController()
-        vc.configure(with: match)
+        let assembly = MatchAssembly()
+        let vc = assembly.module(match: match)
         return vc
     }
     

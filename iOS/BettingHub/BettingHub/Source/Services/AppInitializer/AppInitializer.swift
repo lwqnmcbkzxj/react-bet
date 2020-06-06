@@ -43,25 +43,24 @@ class AppInitializer {
             group.leave()
         }
         
+        
         if authorized {
             group.enter()
+            
             userService.reloadInfo { (err) in
                 if let err = err {
                     print("UserInfo: " + err.localizedDescription)
-                    
-                    if let _ = self.userService.currentUserInfo {
-                        successfullyGotUserData = true
-                    }
-                    
+                    successfullyGotUserData = false
                 } else {
                     successfullyGotUserData = true
                 }
-                
+
                 group.leave()
             }
         }
         
         group.notify(queue: .global(qos: .background)) {
+            
             if !authorized {
                 self.proceed(authorized: false)
                 return

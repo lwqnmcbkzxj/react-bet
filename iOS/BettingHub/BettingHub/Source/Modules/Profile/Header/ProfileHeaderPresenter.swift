@@ -10,19 +10,19 @@ import Foundation
 
 protocol IProfileHeaderPresenter: class {
     
-    var dataChanged: (() -> Void)? { get set }
-    
     func isSelf() -> Bool
     
     func profile() -> Forecaster
     
     func selfProfile() -> Forecaster?
     
-    func reload(callback: (() -> Void)?)
+    func reload()
     
     func canSubscribe() -> Bool
     
-    func subscribe(callback: ((Bool)->Void)?)
+    func subscribe()
+    
+    func storeBinds(_ binds: [ObservableBind])
 }
 
 class ProfileHeaderPresenter {
@@ -36,32 +36,28 @@ class ProfileHeaderPresenter {
     @LazyInjected
     private var authService: IAuthService
     
-    private var forecaster: Forecaster! {
-        didSet {
-            dataChanged?()
-        }
-    }
+    private var forecaster: Forecaster!
+    
+    private var binds: [ObservableBind] = []
     
     init(forecaster: Forecaster?) {
-        guard let forecaster = forecaster else { //should be self
-            let profile = userService.currentUserInfo!.forecaster
-            self.forecaster = profile
-            userService.addDelegate(self)
-            return
-        }
         
+        let forecaster = forecaster ?? userService.currentUserInfo.forecaster.data!
         self.forecaster = forecaster
-        userService.addDelegate(self)
+//        userService.addDelegate(self)
     }
     
     deinit {
-        userService.removeDelegate(self)
+//        userService.removeDelegate(self)
     }
-    
-    var dataChanged: (() -> Void)?
 }
 
 extension ProfileHeaderPresenter: IProfileHeaderPresenter {
+    
+    func storeBinds(_ binds: [ObservableBind]) {
+        self.binds.forEach { $0.close() }
+        self.binds = binds
+    }
     
     func isSelf() -> Bool {
         guard let selfProfile = self.selfProfile() else { return false }
@@ -74,11 +70,11 @@ extension ProfileHeaderPresenter: IProfileHeaderPresenter {
     }
     
     func selfProfile() -> Forecaster? {
-        let profile = userService.currentUserInfo?.forecaster
+        let profile = userService.currentUserInfo.forecaster.data
         return profile
     }
     
-    func reload(callback: (() -> Void)?) {
+    func reload() {
         
     }
     
@@ -87,21 +83,9 @@ extension ProfileHeaderPresenter: IProfileHeaderPresenter {
         return authorized && !isSelf()
     }
     
-    func subscribe(callback: ((Bool) -> Void)?) {
+    func subscribe() {
         if !canSubscribe() { return }
         
-        forecasterService.subscribe(forecaster: profile()) { (result) in
-            result.onSuccess { callback?($0) }
-        }
-    }
-}
-
-extension ProfileHeaderPresenter: IUserServiceDelegate {
-    
-    func dataChanged(userService: IUserService) {
-        if isSelf() {
-            guard let forecaster = userService.currentUserInfo?.forecaster else { return }
-            self.forecaster = forecaster
-        }
+        forecasterService.subscribe(forecaster: forecaster)
     }
 }

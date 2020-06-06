@@ -11,16 +11,56 @@ import Foundation
 class Observable<Data> {
     
     var data: Data {
-        didSet { binds.forEach { $0(data) } }
+        didSet {
+            binds.keys.forEach {
+                binds[$0]?(data)
+            }
+        }
     }
     
-    private var binds: [(Data) -> Void] = []
+    private var binds: [UUID: ((Data) -> Void)] = [:]
     
     init(_ data: Data) {
         self.data = data
     }
     
-    func bind(callback: @escaping (Data) -> Void) {
-        binds.append(callback)
+    func bind(callback: @escaping (Data) -> Void) -> ObservableBind {
+        let id = UUID()
+        
+        let bind = ObservableBind(id: id,
+        close: {
+            self.binds[id] = nil
+        }, invoke: {
+            self.binds[id]?(self.data)
+        })
+        
+        binds[id] = callback
+        
+        return bind
+    }
+}
+
+class ObservableBind {
+    fileprivate let id: UUID
+    fileprivate let closeAction: () -> Void
+    fileprivate let invoke: () -> Void
+    
+    init(id: UUID, close: @escaping () -> Void, invoke: @escaping () -> Void) {
+        self.id = id
+        self.closeAction = close
+        self.invoke = invoke
+    }
+    
+    deinit {
+        close()
+    }
+    
+    func close() {
+        closeAction()
+    }
+    
+    func invoked() -> ObservableBind {
+        invoke()
+        return self
     }
 }
