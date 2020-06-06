@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 
-import Articles from './Articles'
+import Articles from './Forecasts'
 import { AppStateType } from '../../../types/types'
 import { ArticleType } from '../../../types/admin'
 
@@ -10,7 +10,7 @@ import { formatDate } from '../../../utils/formatDate'
 
 const ArticlesContainer: FC = ({ ...props }) => {
 	const dispatch = useDispatch()
-	const articles = useSelector<AppStateType, Array<ArticleType>>(state => state.admin.articles.articles)
+	const forecasts = useSelector<AppStateType, Array<ArticleType>>(state => state.admin.forecasts.forecasts)
 	const pagesCount = useSelector<AppStateType, number>(state => state.admin.pagesCount)
 
 	const [currentPage, changeCurrentPage] = useState(0)
@@ -24,7 +24,7 @@ const ArticlesContainer: FC = ({ ...props }) => {
 	}
 
 	const getArticles = (searchText = "") => {
-		dispatch(getAdminArticlesFromServer(currentPage + 1, pagesPerPage, searchText, 'content'))
+		// dispatch(getAdminArticlesFromServer(currentPage + 1, pagesPerPage, searchText, 'content'))
 	}
 
 	useEffect(() => {
@@ -45,8 +45,9 @@ const ArticlesContainer: FC = ({ ...props }) => {
 	}
 
 	let dataArray = [] as any
-	articles.map(dataObj => dataArray.push([
-		dataObj.id, dataObj.title, dataObj.category_name, dataObj.content, dataObj.is_published ? 'Да' : 'Нет', formatDate(dataObj.created_at), dataObj.created_by_login
+	forecasts.map(dataObj => dataArray.push([
+		dataObj.id,
+		// dataObj.title, dataObj.category_name, dataObj.content, dataObj.is_published ? 'Да' : 'Нет', formatDate(dataObj.created_at), dataObj.created_by_login
 	]))
 
 
@@ -61,19 +62,9 @@ const ArticlesContainer: FC = ({ ...props }) => {
 				pagesPerPage: pagesPerPage,
 				handleChangePagesPerPage: handleChangePagesPerPage,
 			}}
-
 			data={{
-				// labels: [
-				// 	{ value: 'ID', name: 'id' },
-				// 	{ value: 'Название', name: 'title' },
-				// 	{ value: 'Категория', name: 'category_name' },
-				// 	{ value: 'Содержание', name: 'content' },
-				// 	{ value: 'Опубликована', name: 'is_published' },
-				// 	{ value: 'Дата создания', name: 'created_at' },
-				// 	{ value: 'Создан', name: 'created_by_login' },
-				// ],
-				labels: ['ID', 'Название', 'Категория', 'Содержание', 'Опубликована', 'Дата создания', 'Создан'],
-				data: articles,
+				labels: ['ID', 'Прогноз от', 'Статус'],
+				data: forecasts,
 				dataArray: dataArray
 			}}
 		/>

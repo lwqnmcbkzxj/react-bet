@@ -73,7 +73,7 @@ const Bookmaker: FC<BookmakerPropsType> = ({ bookmaker, ...props }) => {
 					<p>Рейтинг</p>
 					<p className={s.splitter}></p>
 					<p>
-						<span className={getBookmakerStatsClass(bookmaker.rating)}>{bookmaker.rating}</span>
+						<span className={getBookmakerStatsClass(bookmaker.rating)}>{(+bookmaker.rating).toFixed(2)}</span>
 						<span>/10</span>
 					</p>
 				</div>

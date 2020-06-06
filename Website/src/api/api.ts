@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import qs from 'query-string'
+import { UserType } from '../types/admin';
 
 export const apiURL = "https://app.betthub.org/"
 
@@ -216,46 +217,6 @@ export const postsAPI = {
 				return response.data
 			});
 	},	
-	// ADMIN
-	getAdminPosts(page: number, limit: number, search: string, search_by: string) {
-		let searchString =''
-		if (search && search_by) {
-			searchString = `&search=${search}&search_by=${search_by}`
-		}
-		
-		return instance.get(`admin/posts?page=${page}&limit=${limit}` + searchString)
-			.then((response) => {
-				return response.data
-			});
-	},
-	getAdminPost(id: number) {
-		return instance.get(`admin/posts/${id}`)
-			.then((response) => {
-				return response.data
-			});
-	},
-	addPost(postObject: any) {
-
-		// let formData = new FormData()
-		// formData.append('image', postObject.image)
-		return instance.post(`admin/posts`, { ...postObject })
-			.then((response) => {
-				return response.data
-			});
-	},
-	editPost(id: number, postObject: any) {
-		return instance.post(`admin/posts/${id}`, { ...postObject })
-			.then((response) => {
-				return response.data
-			});
-	},
-	deletePost(id: number) {
-		return instance.delete(`admin/posts/${id}`)
-			.then((response) => {
-				return response.data
-			});
-	},
-	// ADMIN
 }
 
 export const usersAPI = {
@@ -340,6 +301,89 @@ export const appAPI = {
 	}
 	
 }
+
+export const adminAPI = {
+	posts: {
+		getAdminPosts(page: number, limit: number, search: string, search_by: string) {
+			let searchString =''
+			if (search && search_by) {
+				searchString = `&search=${search}&search_by=${search_by}`
+			}
+			
+			return instance.get(`admin/posts?page=${page}&limit=${limit}` + searchString)
+				.then((response) => {
+					return response.data
+				});
+		},
+		getAdminPost(id: number) {
+			return instance.get(`admin/posts/${id}`)
+				.then((response) => {
+					return response.data
+				});
+		},
+		addPost(postObject: any) {
+	
+			// let formData = new FormData()
+			// formData.append('image', postObject.image)
+			return instance.post(`admin/posts`, { ...postObject })
+				.then((response) => {
+					return response.data
+				});
+		},
+		editPost(id: number, postObject: any) {
+			return instance.post(`admin/posts/${id}`, { ...postObject })
+				.then((response) => {
+					return response.data
+				});
+		},
+		deletePost(id: number) {
+			return instance.delete(`admin/posts/${id}`)
+				.then((response) => {
+					return response.data
+				});
+		},
+	},
+
+	users: {
+		getAdminUsers(page: number, limit: number, search: string, search_by: string) {
+			let searchString =''
+			if (search && search_by) {
+				searchString = `&search=${search}&search_by=${search_by}`
+			}
+			
+			return instance.get(`admin/users?page=${page}&limit=${limit}` + searchString)
+				.then((response) => {
+					return response.data
+				});
+		},
+		getAdminUser(id: number) {
+			return instance.get(`admin/users/${id}`)
+				.then((response) => {
+					return response.data
+				});
+		},
+
+
+		addUser(userObject: UserType) {
+			return instance.post(`admin/users`, { ...userObject })
+				.then((response) => {
+					return response.data
+				});
+		},
+		editUser(id: number, userObject: UserType) {
+			return instance.post(`admin/users/${id}`, { ...userObject })
+				.then((response) => {
+					return response.data
+				});
+		},
+		deleteUser(id: number) {
+			return instance.delete(`admin/users/${id}`)
+				.then((response) => {
+					return response.data
+				});
+		},
+	},
+
 	documents: {
 		changePolicy(text: string) {
 			return instance.post(`admin/policy`, { text })
@@ -355,6 +399,9 @@ export const appAPI = {
 		},
 	},
 	
+	
+	getAdminDashboard() {
+		return instance.get(`admin/dashboard`)
 			.then((response) => {
 				return response.data
 			});

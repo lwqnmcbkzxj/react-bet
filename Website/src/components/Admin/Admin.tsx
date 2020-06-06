@@ -10,6 +10,11 @@ import NotFound from '../NotFound/NotFound'
 
 const AdminMainPageContainer = React.lazy(() => import('./AdminMainPage/AdminMainpageContainer'))
 const UsersContainer = React.lazy(() => import('./AdminUsers/UsersContainer'))
+const UserContainer = React.lazy(() => import('./AdminUsers/User/UserContainer'))
+
+const ForecastsContainer = React.lazy(() => import('./AdminForecasts/ForecastsContainer'))
+const ForecastContainer = React.lazy(() => import('./AdminForecasts/Forecast/ForecastContainer'))
+
 const ArticlesContainer = React.lazy(() => import('./AdminArticles/ArticlesContainer'))
 const ArticleContainer = React.lazy(() => import('./AdminArticles/Article/ArticleContainer'))
 
@@ -32,6 +37,13 @@ const Admin: FC = ({ ...props }) => {
 				<Switch>
 					<Route exact path="/admin" render={withSuspense(AdminMainPageContainer)} />
 					<Route exact path="/admin/users" render={withSuspense(UsersContainer)} />
+					<Route path="/admin/users/add" render={withSuspense(UserContainer)} />
+					<Route path="/admin/users/:userId/edit" render={withSuspense(UserContainer)} />
+
+					<Route exact path="/admin/forecasts" render={withSuspense(ForecastsContainer)} />
+					<Route path="/admin/forecasts/add" render={withSuspense(ForecastContainer)} />
+					<Route path="/admin/forecasts/:forecastId/edit" render={withSuspense(ForecastContainer)} />
+
 					{/* <Route path="/admin/sports" render={() => <SportsContainer />} /> */}
 
 					<Route exact path="/admin/articles" render={withSuspense(ArticlesContainer)} />

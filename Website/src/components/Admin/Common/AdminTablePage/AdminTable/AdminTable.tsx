@@ -7,7 +7,9 @@ import classNames from 'classnames'
 import ActionsBlock from './ActionsBlock'
 
 import { Paginator } from './Paginator/Paginator'
-import parse  from 'html-react-parser';
+import parse from 'html-react-parser';
+import Preloader from '../../../../Common/Preloader/Preloader'
+import { AppStateType } from '../../../../../types/types'
 
 type AdminTableType = {
 	pageLink: string
@@ -36,6 +38,8 @@ const AdminTable: FC<AdminTableType> = ({
 	pages,
 	...props }) => {
 
+	const isFetchingArray = useSelector<AppStateType, Array<string>>(state => state.admin.isFetchingArray)
+
 	return (
 		<div className={s.adminTableHolder}>
 
@@ -44,10 +48,11 @@ const AdminTable: FC<AdminTableType> = ({
 					{labels.map((label, counter) =>
 						<th className={s.tableCell} key={'label' + counter}><div>{label}</div></th>
 					)}
-					<th className={s.tableCell}><div>Другое</div></th>
+					<th className={s.tableCell}><div>Действие</div></th>
 				</tr>
 
-				<tbody className={s.tableBody}>
+
+				{!isFetchingArray.includes(pageLink) && <tbody className={s.tableBody}>
 					{data.data.map((dataItem: any, counter: number) =>
 
 						<tr className={s.tableRow} key={counter}>
@@ -65,12 +70,17 @@ const AdminTable: FC<AdminTableType> = ({
 							</td>
 						</tr>
 					)}
-				</tbody>
+				</tbody>}
+
+
 			</table>
 			{data.data.length === 0 && pages.pagesCount === 1 ?
-				<div className={s.noData}>Данные отсутствуют</div> : <Paginator pages={pages} />
+				<div className={s.noData}>Данные отсутствуют</div> : <div style={{ opacity: !isFetchingArray.includes(pageLink) ? 1 : 0 }}><Paginator pages={pages} /></div>
 			}
-				
+
+			{isFetchingArray.includes(pageLink) && <Preloader />}
+
+
 
 		</div>
 	)

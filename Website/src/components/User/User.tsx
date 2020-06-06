@@ -57,13 +57,18 @@ const User: FC<UsersPropsType> = ({
 			handleTabChange(selectors.forecasts)
 	}, []);
 	
-	const handleTabChange = (tabName: string) => {
-		changeVisibleTab(tabName)
-		if (tabName === selectors.forecasts) {
+
+	useEffect(() => {
+		if (visibleTab === selectors.forecasts) {
 			getUserForecasts()
-		} else if (tabName === selectors.favourites) {
+		} else if (visibleTab === selectors.favourites) {
 			getUserFavourites()
 		}
+	}, [visibleTab])
+
+	const handleTabChange = (tabName: string) => {
+		changeVisibleTab(tabName)
+		
 	}
 
 	let renderingTab

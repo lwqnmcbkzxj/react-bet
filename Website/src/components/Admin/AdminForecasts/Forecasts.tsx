@@ -1,11 +1,9 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import s from './Users.module.scss'
-import { Switch, Route } from 'react-router'
+import s from './Forecasts.module.scss'
 import AdminTablePage from '../Common/AdminTablePage/AdminTablePage'
 
-
-type UsersProps = {
+type ForecastsProps = {
 	handleSearch: (searchText: string) => void
 	deleteFunction: (id: number) => void
 	pages: {
@@ -22,21 +20,21 @@ type UsersProps = {
 	}
 }
 
-const Users: FC<UsersProps> = ({ handleSearch, deleteFunction, pages, data, ...props }) => {
+const Articles: FC<ForecastsProps> = ({ handleSearch, deleteFunction, pages, data, ...props }) => {
 	return (
-		<div className={s.usersAdminPage}>
+		<div className={s.articlesAdminPage}>
 			<AdminTablePage
-				pageLink={'users'}
+				pageLink={'articles'}
 				breadcrumbs={[
 					{ text: 'Главная', link: '/admin' },
-					{ text: 'Пользователи', link: '/admin/users' },
+					{ text: 'Прогнозы', link: '/admin/forecasts' },
 				]}
 				actions={{
 					search: {
-						placeholder: 'Поиск по логину',
+						placeholder: 'Поиск по событию',
 						handleSearch: handleSearch
 					},
-					addNewElementText: 'Добавить нового пользователя',
+					addNewElementText: 'Добавить новый прогноз',
 					deleteFunction: deleteFunction,
 					pages: pages
 				}}
@@ -47,4 +45,4 @@ const Users: FC<UsersProps> = ({ handleSearch, deleteFunction, pages, data, ...p
 	)
 }
 
-export default Users;
+export default Articles;

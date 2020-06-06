@@ -36,5 +36,14 @@ export type SportType = {
 	active: boolean
 	image?: string
 }
-/* LIVE COMMENTS */
 
+export enum ForecastsStatusEnum {
+
+}
+export enum RolesEnum {
+	user = 1,
+	robotForecaster = 2,
+	moderator = 3,
+	admin = 4,
+	techAdmin = 5
+}

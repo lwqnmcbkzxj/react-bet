@@ -18,6 +18,20 @@ type UsersListPropsType = {
 }
 const UsersList: FC<UsersListPropsType> = ({ users, limit = 0, ...props }) => {
 	const isFetching = useSelector<AppStateType, boolean>(state => state.users.isFetching)
+
+
+	// const getUserImg = (userAvatar: string | null) => {
+	// 	let avatar = userImgPlaceholder
+	// 	if (userAvatar) {
+	// 		if (userAvatar.includes('http')) {
+	// 			avatar = userAvatar
+	// 		} else {
+	// 			avatar = apiURL + userAvatar
+	// 		}
+	// 	}
+	// 	return avatar
+	// }	
+
 	return (
 		<div className={s.userList}>
 			<div className={s.listHeader}>
@@ -55,12 +69,19 @@ const UsersList: FC<UsersListPropsType> = ({ users, limit = 0, ...props }) => {
 							<span className={s.draws}>{user.stats.count_back}</span>
 						</div>
 
-						{+user.stats.roi > 0 ?
-							<div className={classNames(s.roiCoef, s.positive)}>+{(+user.stats.roi).toFixed(2)}</div> :
-							<div className={classNames(s.roiCoef, s.negative)}>-{(+user.stats.roi).toFixed(2)}</div>}
-						{+user.stats.pure_profit > 0 ?
-							<div className={classNames(s.profit, s.positive)}>+{(+user.stats.pure_profit)}</div> :
-							<div className={classNames(s.profit, s.negative)}>-{(+user.stats.pure_profit)}</div>}
+						<div className={classNames(s.roiCoef, {
+							[s.positive] : +user.stats.roi > 0,
+							[s.negative] : +user.stats.roi < 0,
+						})}>
+							{+user.stats.roi > 0 ? "+" : +user.stats.roi < 0 ? "-" : ""}{(+user.stats.roi).toFixed(2)}
+						</div>
+						
+						<div className={classNames(s.profit, {
+							[s.positive] : +user.stats.pure_profit > 0,
+							[s.negative] : +user.stats.pure_profit < 0,
+						})}>
+							{+user.stats.pure_profit > 0 ? "+" : +user.stats.pure_profit < 0 ? "-" : ""}{(+user.stats.pure_profit)}
+						</div>
 
 					</div>
 			)}

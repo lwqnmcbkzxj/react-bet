@@ -58,7 +58,7 @@ const BookmakersListElement: FC<BookmakersListElementPropsType> = ({ bookmaker, 
 				</div>
 				<div className={s.rating}>
 					<span className={classNames(s.ratingNumber, getBookmakerRatingClassName(bookmaker.rating))}>
-						{bookmaker.rating}
+						{(+bookmaker.rating).toFixed(2)}
 					</span>
 					<span className={s.maxRating}>/10</span>
 				</div>

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import Breadcrumbs, { BreadcrumbsPropsType } from '../../../Common/Breadcrumbs/Breadcrumbs'
 import ActionButton from '../../../Common/ActionButton/ActionButton'
 import Search from '../Search/Search'
+import ExportButton from '../ExportButton/ExportButton'
 import AdminTable from './AdminTable/AdminTable'
 
 type AdminTablePageType = {
@@ -35,8 +36,6 @@ type AdminTablePageType = {
 
 
 const AdminTablePage: FC<AdminTablePageType> = ({ pageLink, breadcrumbs, actions, tableData, ...props }) => {
-
-
 	return (
 		<div>
 			<Breadcrumbs pathParams={breadcrumbs}/>
@@ -46,7 +45,7 @@ const AdminTablePage: FC<AdminTablePageType> = ({ pageLink, breadcrumbs, actions
 					handleSearch={actions.search.handleSearch}
 					placeholder={actions.search.placeholder}
 				/>
-				<ActionButton value="Экспортировать" func={ () => { console.log('EXPORTING DATA') } }/>
+				<ExportButton labels={tableData.labels} data={tableData.dataArray} tableName={pageLink}/>
 				<Link to={`${pageLink}/add`}><ActionButton value={actions.addNewElementText} /></Link>
 			</div>
 

@@ -50,12 +50,9 @@ const UsersContainer: FC<Props> = ({ ...props }) => {
 
 	let userId = props.match.params.userId ? props.match.params.userId : 1;
 	useEffect(() => {
-
 		if (!!+userId)
 			dispatch(getUserFromServer(+userId))		
 	}, [filters, userId]);
-
-	debugger
 	
 	
 	useEffect(() => {

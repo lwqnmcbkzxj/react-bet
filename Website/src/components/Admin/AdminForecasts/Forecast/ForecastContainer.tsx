@@ -1,0 +1,79 @@
+import React, { FC, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from "react-redux"
+import { withRouter, RouteComponentProps, Redirect } from 'react-router'
+import { AppStateType } from '../../../../types/types'
+import { ArticleType } from '../../../../types/admin'
+import ForecastForm from './ForecastForm'
+
+import { getArticleFromServer, addArticle, editArticle } from '../../../../redux/admin-reducer'
+
+interface MatchParams {
+	articleId: string;
+}
+
+interface ArticleProps extends RouteComponentProps<MatchParams> { }
+
+const ArticleContainer: FC<ArticleProps> = ({ ...props }) => {
+	const article = useSelector<AppStateType, ArticleType>(state => state.admin.articles.currentArticle)
+	const dispatch = useDispatch()
+
+	let articleId = props.match.params.articleId;
+
+
+	const addArticleDispatch = async (formData: ArticleType) => {
+		await dispatch(addArticle(formData))
+
+		props.history.push('/admin/articles');
+	}
+	const editArticleDispatch = async (formData: ArticleType) => {
+		await dispatch(editArticle(+articleId, formData))
+
+		props.history.push('/admin/articles');
+	}
+
+
+	let initialValues = {}
+	let onSubmitFunc
+	let breadcrumbsObj
+	let buttonText = ""
+	if (articleId) {
+		initialValues = article
+		onSubmitFunc = editArticleDispatch
+		breadcrumbsObj = { text: 'Изменение статьи', link: `/admin/articles/${articleId}/edit` }
+		buttonText = "Изменить статью"
+	} else {
+		onSubmitFunc = addArticleDispatch
+
+		initialValues = {
+			title: '',
+			category_name: '',
+			content: '',
+			image: '',
+			is_published: false
+		}
+		breadcrumbsObj = { text: 'Добавление статьи', link: '/admin/articles/add' }
+		buttonText = "Добавить статью"
+	}
+	
+	useEffect(() => {
+		if (articleId) {
+			dispatch(getArticleFromServer(+articleId))
+		}
+	}, []);
+	
+	
+	return (
+		<ForecastForm
+			initialValues={initialValues}
+			onSubmitFunc={onSubmitFunc}
+			breadcrumbs={[
+				{ text: 'Главная', link: '/admin' },
+				{ text: 'Статьи', link: '/admin/articles' },
+				{ ...breadcrumbsObj }
+			]}
+			buttonText={buttonText}
+		/>
+	)
+}
+
+export default withRouter(ArticleContainer);
