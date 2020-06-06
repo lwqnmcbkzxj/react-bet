@@ -371,7 +371,8 @@ namespace BettingParser.Services
             var year = DateTime.UtcNow.AddDays(3).Year;
 
             var date = eventStart.SplitWithTrimming('\n');
-            return $"{year}-{date[0]} {date[1]}";
+            var ddate = date[0].Split('-');
+            return $"{year}-{ddate[1]}-{ddate[0]} {date[1]}";
         }
 
         private HtmlDocument GetHtmlDocument(string html)
