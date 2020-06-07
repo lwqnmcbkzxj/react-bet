@@ -218,7 +218,7 @@ class ForecastCell: UITableViewCell {
         let vm = ForecastViewModelItem(forecast: forecast)
         manager.storeBinds(binds: binds(for: forecast))
         
-        descLabel.text = forecast.text.data
+        descLabel.setHtmlText(forecast.text.data)
         
         let event = forecast.event.data
         seasonLabel.text = event.championship.name

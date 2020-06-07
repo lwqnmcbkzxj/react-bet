@@ -21,7 +21,8 @@ class MatchAssembly {
         let bets = MatchBetsViewModel(tableView: vc.tableView,
                                       interactor: interactor,
                                       sectionNumber: 0)
-        let comments = CommentsViewModel(tableView: vc.tableView)
+        let comments = CommentsViewModel(tableView: vc.tableView, sectionNumber: 1,
+                                         type: .match, id: match.id)
         vc.setSections([bets])
         
         vc.matchView = header

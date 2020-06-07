@@ -19,11 +19,6 @@ class UserService {
     @LazyInjected
     private var forecasterService: IForecasterService
     
-//    @LazyInjected
-//    private var persistantStorage: IPersistantDefaultsService
-    
-//    private let delegates = MulticastDelegate<IUserServiceDelegate>()
-    
     private var _userInfo: UserInfo = UserInfo(forecaster: nil)
     
     func userInfoRequest() -> (URLRequest?, BHError?) {

@@ -334,6 +334,7 @@ class FullForecastHeader: UITableViewHeaderFooterView {
             make.top.equalTo(descLabel.snp.bottom).offset(22)
             make.leading.equalTo(descLabel)
             make.height.equalTo(20)
+            make.bottom.equalToSuperview().offset(8)
         }
         
         addSubview(bookmarksView)
@@ -347,14 +348,6 @@ class FullForecastHeader: UITableViewHeaderFooterView {
         ratingView.snp.makeConstraints { (make) in
             make.top.bottom.equalTo(commentsView)
             make.trailing.equalTo(descLabel)
-        }
-        
-        addSubview(numberOfCommentsLabel)
-        numberOfCommentsLabel.snp.makeConstraints { (make) in
-            make.leading.trailing.equalToSuperview()
-            make.top.equalTo(commentsView.snp.bottom).offset(39)
-            make.bottom.equalToSuperview().offset(-32)
-            make.height.equalTo(18)
         }
     }
     

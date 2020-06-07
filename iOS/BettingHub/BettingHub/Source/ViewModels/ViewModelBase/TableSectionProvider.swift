@@ -56,5 +56,5 @@ extension TableSectionProvider {
     
     func estimatedCellHeight() -> CGFloat { 50 }
     
-    func reload() { fatalError("Not implemented") }
+    func reload() {}
 }

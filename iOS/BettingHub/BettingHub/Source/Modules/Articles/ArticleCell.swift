@@ -103,7 +103,7 @@ class ArticleCell: UITableViewCell {
         categoryName.text = article.category
         dateLabel.text = vm.dateText
         articleTitle.text = article.name
-        articleTextLabel.text = article.text
+        articleTextLabel.attributedText = article.text.html2AttributedString
         commentsView.setNumber(article.commentsCount)
         ratingView.setNumber(article.rating)
     }

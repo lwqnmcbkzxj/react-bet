@@ -21,7 +21,7 @@ class CommentCell: UITableViewCell {
         let view = UIImageView()
         view.layer.cornerRadius = 5
         view.layer.masksToBounds = true
-        view.makeBordered()
+        view.contentMode = .scaleAspectFill
         return view
     }()
     
@@ -51,6 +51,7 @@ class CommentCell: UITableViewCell {
     private let replyButton: UIButton = {
         let view = UIButton(type: .system)
         view.setTitle(Text.reply, for: .normal)
+        view.setTitleColor(.textGray, for: .normal)
         return view
     }()
     
@@ -80,15 +81,14 @@ class CommentCell: UITableViewCell {
     func configure(with model: CommentCellViewModelItem) {
         addLines(long: model.longLines, short: model.shortLines)
         
-        userImageView.setImage(url: model.imageUrl)
-        usernameLabel.text = model.username
-        dateLabel.text = model.date
-        commentLabel.text = model.comment
-        ratingStepper.setNumber(model.rating)
+        userImageView.setImage(url: model.comment.userAvatar.data)
+        usernameLabel.text = model.comment.username.data
+        dateLabel.text = model.dateText
+        commentLabel.text = model.comment.text.data
+        ratingStepper.setNumber(model.comment.rating.data)
     }
     
     private func addLines(long: Int, short: Int) {
-        
         (0..<long).map { (_) -> UIView in
             let view = UIView()
             view.backgroundColor = .lineGray
@@ -140,7 +140,7 @@ class CommentCell: UITableViewCell {
         
         contentView.addSubview(dateLabel)
         dateLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(usernameLabel).offset(-1)
+            make.bottom.equalTo(usernameLabel)
             make.leading.equalTo(usernameLabel.snp.trailing).offset(18)
         }
         

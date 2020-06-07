@@ -13,16 +13,63 @@ class FullForecastViewController: UIViewController {
     var fullForecastHeader: FullForecastHeader!
     var router: IFullForecastRouter!
     
-    private lazy var commentsTable: CommentsTableView = {
-        let vm = CommentsTableViewModel()
-        let view = CommentsTableView(viewModel: vm, header: fullForecastHeader)
+    private var sections: [TableSectionProvider] = []
+    
+    lazy var tableView: UITableView = {
+        let view = UITableView(frame: .zero, style: .grouped)
+        view.separatorColor = .clear
+        view.scrollIndicatorInsets = .init(top: 0, left: 0, bottom: 0, right: -15)
+        view.backgroundColor = .white
+        view.clipsToBounds = false
+        view.dataSource = self
+        view.delegate = self
         return view
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func loadView() {
+        super.loadView()
         view.backgroundColor = .white
         addBackView(text: nil)
-        setView(commentsTable, insets: .init(top: 0, left: 15, bottom: 0, right: 15))
+        setView(tableView, insets: .init(top: 0, left: 15, bottom: 0, right: 15))
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        sections.forEach { $0.reload() }
+    }
+    
+    func setSections(_ sections: [TableSectionProvider]) {
+        self.sections = sections
+    }
+}
+
+extension FullForecastViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        sections.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sections[section].numberOfCells()
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return sections[indexPath.section].cell(for: indexPath.row)
+    }
+}
+
+extension FullForecastViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return sections[section].header()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return sections[section].headerHeight()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return sections[indexPath.section].cellHeight()
     }
 }

@@ -67,7 +67,7 @@ class BetStatusView: UIView {
             label.textColor = .white
             label.text = profit.description(f: 2) + xb
         case .lose:
-            backgroundColor = .gray
+            backgroundColor = grayColor
             layer.borderColor = UIColor.clear.cgColor
             label.textColor = .titleBlack
             label.text = "- " + bet.value.description(f: 2) + xb
