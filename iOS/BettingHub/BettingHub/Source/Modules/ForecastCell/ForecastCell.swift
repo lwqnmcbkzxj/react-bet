@@ -27,6 +27,7 @@ class ForecastCell: UITableViewCell {
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.lineGray.cgColor
         view.layer.cornerRadius = 7
+        view.clipsToBounds = true
         return view
     }()
     
@@ -48,6 +49,12 @@ class ForecastCell: UITableViewCell {
     private let topSeparator: UIView = {
         let view = UIView()
         view.backgroundColor = .lineGray
+        return view
+    }()
+    
+    private let betStatusView: BetStatusView = {
+        let view = BetStatusView()
+        view.isSkeletonable = true
         return view
     }()
     
@@ -223,6 +230,8 @@ class ForecastCell: UITableViewCell {
         coeficientLabel.text = String(bet.coefficient)
         betAmountLabel.text = String(bet.value)
         matchStartLabel.text = vm.startDateText
+        betStatusView.configure(with: bet)
+        
         
         let user = forecast.user
         usernameLabel.text = user.login.data
@@ -287,10 +296,19 @@ class ForecastCell: UITableViewCell {
             make.height.equalTo(1)
         }
         
+        betStatusView.snp.contentCompressionResistanceHorizontalPriority = 1000
+        panelView.addSubview(betStatusView)
+        betStatusView.snp.makeConstraints { (make) in
+            make.leading.equalToSuperview().offset(-3)
+            make.top.equalTo(topSeparator).offset(12)
+            make.height.equalTo(24)
+        }
+        
+        matchLabel.snp.contentCompressionResistanceHorizontalPriority = 900
         contentView.addSubview(matchLabel)
         matchLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(topSeparator).offset(13)
-            make.leading.equalTo(panelView).offset(8)
+            make.centerY.equalTo(betStatusView)
+            make.leading.equalTo(betStatusView.snp.trailing).offset(6)
             make.trailing.equalTo(panelView).offset(-8)
             make.height.equalTo(24)
         }

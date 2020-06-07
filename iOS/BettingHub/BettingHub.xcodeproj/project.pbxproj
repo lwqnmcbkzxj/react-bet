@@ -220,6 +220,8 @@
 		1CD3DDBD2474B8C700B160F3 /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3DDBC2474B8C700B160F3 /* MulticastDelegate.swift */; };
 		1CD6A76F248179D400079D51 /* CreateForecastHeaderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD6A76E248179D400079D51 /* CreateForecastHeaderPresenter.swift */; };
 		1CDA5FC7248CD2E1005A3A4F /* MatchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDA5FC6248CD2E1005A3A4F /* MatchInteractor.swift */; };
+		1CDA5FC9248CE464005A3A4F /* BetStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDA5FC8248CE464005A3A4F /* BetStatusView.swift */; };
+		1CDA5FCB248CE6CE005A3A4F /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDA5FCA248CE6CE005A3A4F /* Double.swift */; };
 		1CDAF85E2478195300789B9F /* CommentsSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDAF85D2478195300789B9F /* CommentsSectionHeader.swift */; };
 		1CDAF86224781F1D00789B9F /* MatchBetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDAF86124781F1D00789B9F /* MatchBetsViewModel.swift */; };
 		1CDF91F2247FF35F00117F5B /* CreateForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF91F1247FF35F00117F5B /* CreateForecastViewController.swift */; };
@@ -472,6 +474,8 @@
 		1CD3DDBC2474B8C700B160F3 /* MulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
 		1CD6A76E248179D400079D51 /* CreateForecastHeaderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateForecastHeaderPresenter.swift; sourceTree = "<group>"; };
 		1CDA5FC6248CD2E1005A3A4F /* MatchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchInteractor.swift; sourceTree = "<group>"; };
+		1CDA5FC8248CE464005A3A4F /* BetStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetStatusView.swift; sourceTree = "<group>"; };
+		1CDA5FCA248CE6CE005A3A4F /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		1CDAF85D2478195300789B9F /* CommentsSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsSectionHeader.swift; sourceTree = "<group>"; };
 		1CDAF86124781F1D00789B9F /* MatchBetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchBetsViewModel.swift; sourceTree = "<group>"; };
 		1CDF91F1247FF35F00117F5B /* CreateForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateForecastViewController.swift; sourceTree = "<group>"; };
@@ -1025,6 +1029,7 @@
 			children = (
 				1CABD5DF244CA52D0039D99C /* ForecastCell.swift */,
 				1C7FF8E724855C8200E4DDCF /* ForecastCellManager.swift */,
+				1CDA5FC8248CE464005A3A4F /* BetStatusView.swift */,
 			);
 			path = ForecastCell;
 			sourceTree = "<group>";
@@ -1254,6 +1259,7 @@
 				1C5612122456744200D02DBB /* UITableView.swift */,
 				1C2C523A2471DB7E00AACF3A /* Int.swift */,
 				1C7FF8E524853F5200E4DDCF /* Result.swift */,
+				1CDA5FCA248CE6CE005A3A4F /* Double.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1644,6 +1650,7 @@
 				1C43E2CF244B9105002CF7EB /* Bookmaker.swift in Sources */,
 				1CBA45CA246EF6080072E7A3 /* Bet.swift in Sources */,
 				1CA43BB6247E629900CAF75E /* NewsCell.swift in Sources */,
+				1CDA5FCB248CE6CE005A3A4F /* Double.swift in Sources */,
 				1CDF91F2247FF35F00117F5B /* CreateForecastViewController.swift in Sources */,
 				1C5612132456744200D02DBB /* UITableView.swift in Sources */,
 				1C56122224579EE400D02DBB /* BookmakersViewController.swift in Sources */,
@@ -1717,6 +1724,7 @@
 				1CEE8BDC2448BC5C007F2FDB /* NavigationController.swift in Sources */,
 				1C2C524D24737B9D00AACF3A /* UserInfo.swift in Sources */,
 				1C47CC02245A053F0031BC27 /* TableViewModel.swift in Sources */,
+				1CDA5FC9248CE464005A3A4F /* BetStatusView.swift in Sources */,
 				1CE31B3E2487E06F007AD31B /* ProfileHeaderPresenter.swift in Sources */,
 				1CBA45CF246EF67E0072E7A3 /* Team.swift in Sources */,
 				1CBA45C8246C9ABF0072E7A3 /* SportsControl.swift in Sources */,
