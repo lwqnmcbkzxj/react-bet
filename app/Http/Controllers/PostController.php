@@ -15,7 +15,7 @@ class PostController extends Controller
 
     function get(Request $request, Post $post)
     {
-        return $post;
+        return $this->sendResponse($post,'Success',200);
     }
 
     function delete(Request $request, Post $post)
@@ -37,7 +37,7 @@ class PostController extends Controller
         if (!$request->has('limit')) {
             $request['limit'] = 16;
         }
-        return $this->sendResponse($res->orderBy($request['order_by'])->paginate($request['limit']),'Success',200);
+        return $this->sendResponse(new \App\Http\Resources\PostCollection($res->orderBy($request['order_by'], 'desc')->paginate($request['limit'])),'Success',200);
     }
 
     function edit(Request $request, Post $post)

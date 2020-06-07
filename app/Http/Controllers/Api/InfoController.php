@@ -51,7 +51,7 @@ class InfoController extends Controller
 
     public function forecastsFast(Request $request)
     {
-        $res = DB::table('forecasts_view');
+        $res = DB::table('forecasts_view')->where('event_start','>=',now()->format('Y-m-d H:i:s'));
         if (!$request->has('limit') || $request['limit'] == 0) {
             $request['limit'] = 6;
         }
@@ -109,9 +109,9 @@ class InfoController extends Controller
         if (!$request->has('page') || $request['page'] == 0) {
             $request['page'] = 0;
         }
-        if ($request->has('month') && $request['month'] != 0 && $request->has('sport_id')) {
+        if ($request->has('month') && $request['month'] != 0 && $request->has('sport_id') && $request['sport_id']!=0) {
             $response = DB::select('call user_rating_sport_proc_month(' . $request['sport_id'] . ')');
-        } elseif ($request->has('sport_id')) {
+        } elseif ($request->has('sport_id') && $request['sport_id']!=0) {
             $response = DB::select('call user_rating_sport_proc(' . $request['sport_id'] . ')');
         } elseif ($request->has('month') && $request['month'] != 0) {
             $response = DB::select('call user_rating_month_proc()');
