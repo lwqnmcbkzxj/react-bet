@@ -15,7 +15,7 @@ class PostController extends Controller
 
     function get(Request $request, Post $post)
     {
-        return $this->sendResponse($post,'Success',200);
+        return $this->sendResponse(new \App\Http\Resources\Post($post),'Success',200);
     }
 
     function delete(Request $request, Post $post)
@@ -49,7 +49,7 @@ class PostController extends Controller
         $post->is_published = $request['is_published'];
         $post->category_name = $request['category_name'];
         $post->save();
-        return $post;
+        return new \App\Http\Resources\Post($post);
     }
 
     function post(Request $request)
@@ -63,7 +63,7 @@ class PostController extends Controller
         $post->is_published = $request['is_published'];
         $post->category_name = $request['category_name'];
         $post->save();
-        return $post;
+        return new \App\Http\Resources\Post($post);
     }
 
 }
