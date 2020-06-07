@@ -219,6 +219,7 @@
 		1CD3DDBB2474B26B00B160F3 /* Decoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3DDBA2474B26B00B160F3 /* Decoding.swift */; };
 		1CD3DDBD2474B8C700B160F3 /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3DDBC2474B8C700B160F3 /* MulticastDelegate.swift */; };
 		1CD6A76F248179D400079D51 /* CreateForecastHeaderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD6A76E248179D400079D51 /* CreateForecastHeaderPresenter.swift */; };
+		1CDA5FC7248CD2E1005A3A4F /* MatchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDA5FC6248CD2E1005A3A4F /* MatchInteractor.swift */; };
 		1CDAF85E2478195300789B9F /* CommentsSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDAF85D2478195300789B9F /* CommentsSectionHeader.swift */; };
 		1CDAF86224781F1D00789B9F /* MatchBetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDAF86124781F1D00789B9F /* MatchBetsViewModel.swift */; };
 		1CDF91F2247FF35F00117F5B /* CreateForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF91F1247FF35F00117F5B /* CreateForecastViewController.swift */; };
@@ -470,6 +471,7 @@
 		1CD3DDBA2474B26B00B160F3 /* Decoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoding.swift; sourceTree = "<group>"; };
 		1CD3DDBC2474B8C700B160F3 /* MulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
 		1CD6A76E248179D400079D51 /* CreateForecastHeaderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateForecastHeaderPresenter.swift; sourceTree = "<group>"; };
+		1CDA5FC6248CD2E1005A3A4F /* MatchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchInteractor.swift; sourceTree = "<group>"; };
 		1CDAF85D2478195300789B9F /* CommentsSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsSectionHeader.swift; sourceTree = "<group>"; };
 		1CDAF86124781F1D00789B9F /* MatchBetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchBetsViewModel.swift; sourceTree = "<group>"; };
 		1CDF91F1247FF35F00117F5B /* CreateForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateForecastViewController.swift; sourceTree = "<group>"; };
@@ -593,6 +595,7 @@
 				1C2C52402472316C00AACF3A /* MatchViewController.swift */,
 				1C2C523E247227EF00AACF3A /* UserBetCell.swift */,
 				1CDAF86124781F1D00789B9F /* MatchBetsViewModel.swift */,
+				1CDA5FC6248CD2E1005A3A4F /* MatchInteractor.swift */,
 			);
 			path = Match;
 			sourceTree = "<group>";
@@ -1737,6 +1740,7 @@
 				1CF225B9244B81EE005D510D /* PositivityLabel.swift in Sources */,
 				1CCFB12C244B604C00F431BA /* UIViewController.swift in Sources */,
 				1CA01F6C2451FA6F0025FF4F /* AppCoordinator.swift in Sources */,
+				1CDA5FC7248CD2E1005A3A4F /* MatchInteractor.swift in Sources */,
 				1C7FF8E624853F5200E4DDCF /* Result.swift in Sources */,
 				1C6937B12450FEB900AE01BE /* HttpClient.swift in Sources */,
 				1C2C525324742CFA00AACF3A /* ForecasterViewModelItem.swift in Sources */,

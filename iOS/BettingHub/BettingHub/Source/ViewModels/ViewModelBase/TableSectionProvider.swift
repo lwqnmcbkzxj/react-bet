@@ -29,9 +29,9 @@ protocol TableSectionProvider: class {
     
     func estimatedCellHeight() -> CGFloat
     
-    //required
+    func reload()
     
-    init(tableView: UITableView)
+    //required
     
     func numberOfCells() -> Int
     
@@ -55,4 +55,6 @@ extension TableSectionProvider {
     func cellHeight() -> CGFloat { UITableView.automaticDimension }
     
     func estimatedCellHeight() -> CGFloat { 50 }
+    
+    func reload() { fatalError("Not implemented") }
 }

@@ -58,7 +58,7 @@ class CommentsViewModel: TableSectionProvider {
         return items
     }()
     
-    required init(tableView: UITableView) {
+    init(tableView: UITableView) {
         self.tableView = tableView
         
         tableView.register(CommentCell.self, forCellReuseIdentifier: cellId)

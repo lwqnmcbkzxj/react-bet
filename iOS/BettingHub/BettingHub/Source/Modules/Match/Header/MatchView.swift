@@ -104,7 +104,7 @@ class MatchView: UIView {
         makeLayout()
         
         viewModel.storeBinds(binds())
-        configure(match: viewModel.match)
+        configure(match: viewModel.match.data)
     }
     
     required init?(coder: NSCoder) {
@@ -112,7 +112,8 @@ class MatchView: UIView {
     }
     
     private func binds() -> [ObservableBind] {
-        [viewModel.timerText.bind { self.timerLabel.text = $0 }]
+        [viewModel.timerText.bind { self.timerLabel.text = $0 },
+         viewModel.match.bind { self.configure(match: $0) }]
     }
     
     private func configure(match: Match) {

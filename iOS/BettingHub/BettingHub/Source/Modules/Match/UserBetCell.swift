@@ -63,15 +63,15 @@ class UserBetCell: UITableViewCell {
     }
     
     func configure(with forecast: Match.Forecast) {
-//        let stats = forecast.user.stats.data
-//        let total = stats.loss + stats.wins + stats.back
-//        let passing = total != 0 ? (stats.wins * 100)/total : 0
-//
-//        let user = forecast.user
-//        userImageView.setImage(url: user.avatar.data)
-//        usernameLabel.text = user.login.data
-//        betLabel.text = forecast.bet.type
-//        passabilityLabel.setNumber(to: Double(passing))
+        let stats = forecast.user.stats
+        let total = stats.loss + stats.wins + stats.back
+        let passing = total != 0 ? (stats.wins * 100)/total : 0
+
+        let user = forecast.user
+        userImageView.setImage(url: user.avatar)
+        usernameLabel.text = user.login
+        betLabel.text = forecast.bet.type
+        passabilityLabel.setNumber(to: Double(passing))
     }
     
     private func makeLayout() {

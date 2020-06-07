@@ -11,10 +11,19 @@ import UIKit
 class MatchAssembly {
     
     func module(match: Match) -> UIViewController {
-        let matchVm = FullMatchViewModel(match: match)
+        let interactor = MatchInteractor(match: match)
+        
+        let matchVm = FullMatchViewModel(interactor: interactor)
         let header = MatchView(viewModel: matchVm)
         
         let vc = MatchViewController()
+        
+        let bets = MatchBetsViewModel(tableView: vc.tableView,
+                                      interactor: interactor,
+                                      sectionNumber: 0)
+        let comments = CommentsViewModel(tableView: vc.tableView)
+        vc.setSections([bets])
+        
         vc.matchView = header
         
         return vc
