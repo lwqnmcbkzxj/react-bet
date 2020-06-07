@@ -13,9 +13,9 @@ Route::post('/register', 'RegisterController@register');
 Auth::routes();;
 
 // Прогнозы
-Route::get('/parser/add/users', 'Api\ForecastController@addUsers');
-Route::get('/parser/add/forecasts', 'Api\ForecastController@addForecast');
-Route::get('/parser/get/forecasts/status', 'Api\ForecastController@getForecastStatus');
+Route::get('/parser/forecasts', 'ParserController@addForecasts');
+Route::get('/parser/forecasts/status', 'ParserController@updateForecasts');
+
 Route::get('/get/news', 'Api\NewsController@getNews');
 
 
@@ -87,11 +87,13 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/admin/feedback','FeedbackController@get');
 
     Route::get('/admin/posts', 'PostController@getAll');
+    Route::post('/admin/posts', 'PostController@post');
     Route::get('/admin/posts/search', 'PostController@search');
     Route::get('/admin/posts/{post}', 'PostController@get');
     Route::delete('/admin/posts/{post}', 'PostController@delete');
+    Route::post('/admin/posts/{post}/preview', 'UploadController@putPostPreview');
     Route::post('/admin/posts/{post}', 'PostController@edit');
-    Route::post('/admin/posts', 'PostController@post');
+
 
     Route::get('admin/forecasts','Api\InfoController@fastForecasts');
     Route::post('admin/forecasts','Admin\ForecastController@store');
@@ -178,7 +180,6 @@ Route::middleware('auth:api')->group(function () {
         $Request['referent_id'] = $post->id;
         return app()->call('App\Http\Controllers\VoteController@post', [$Request]);
     });
-    Route::post('/posts/{post}/preview', 'UploadController@');
 
     Route::post('/posts/{post}/dislike', function (Request $Request, \App\Post $post) {
         $Request['type'] = 'dislike';
