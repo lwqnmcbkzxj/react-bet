@@ -26,7 +26,6 @@ class UserController extends Controller
             $users = $users->where('role_id', $request['role']);
         }
         return $this->sendResponse($users->paginate(10),'Success',200);
-
     }
 
     public function search(Request $request) {

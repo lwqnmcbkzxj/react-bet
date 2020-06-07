@@ -14,7 +14,7 @@ class BookmakerController extends Controller
             $request['order_by'] = 'id';
         }
         if (!$request->has('limit')) {
-            $request['limit'] = 'limit';
+            $request['limit'] = 15;
         }
         return $this->sendResponse(Bookmaker::query()->orderBy($request['order_by'])->paginate($request['limit']),'Success',200);
     }
@@ -36,7 +36,7 @@ class BookmakerController extends Controller
             $request['order_by'] = 'id';
         }
         if (!$request->has('limit')) {
-            $request['limit'] = 'limit';
+            $request['limit'] = 15;
         }
         return $this->sendResponse(Bookmaker::query()->where($request->search_by, 'LIKE', "%" . $request->search . "%")->orderBy($request['order_by'])->paginate($request['limit']),'Success',200);
     }
