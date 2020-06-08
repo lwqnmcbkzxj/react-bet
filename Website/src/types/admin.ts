@@ -51,6 +51,17 @@ export type UserType = {
 	last_five: Array<boolean>
 }
 
+export type BookmakerType = {
+    id: number,
+    title: string
+    content: string
+    rating: number,
+    bonus: number,
+    link: string,
+    image: string
+}
+
 export type ForecastType = {
 	
 }
+

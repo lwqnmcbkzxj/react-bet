@@ -32,10 +32,11 @@ type AdminTablePageType = {
 		data: Array<any>
 		dataArray: Array<any>
 	}
+	getAllData?: () => void
 }
 
 
-const AdminTablePage: FC<AdminTablePageType> = ({ pageLink, breadcrumbs, actions, tableData, ...props }) => {
+const AdminTablePage: FC<AdminTablePageType> = ({ pageLink, breadcrumbs, actions, tableData, getAllData = () => {}, ...props }) => {
 	return (
 		<div>
 			<Breadcrumbs pathParams={breadcrumbs}/>
@@ -45,7 +46,7 @@ const AdminTablePage: FC<AdminTablePageType> = ({ pageLink, breadcrumbs, actions
 					handleSearch={actions.search.handleSearch}
 					placeholder={actions.search.placeholder}
 				/>
-				<ExportButton labels={tableData.labels} data={tableData.dataArray} tableName={pageLink}/>
+				<ExportButton labels={tableData.labels} tableName={pageLink} getAllData={getAllData}/>
 				<Link to={`${pageLink}/add`}><ActionButton value={actions.addNewElementText} /></Link>
 			</div>
 

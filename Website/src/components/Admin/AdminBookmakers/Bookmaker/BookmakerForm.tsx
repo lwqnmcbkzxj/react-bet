@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
 import { useDispatch } from 'react-redux'
-import s from './Forecast.module.scss'
+import s from './Bookmaker.module.scss'
 import { reduxForm, InjectedFormProps, SubmissionError, Field } from 'redux-form'
 import { Input, Textarea, createField, File, FormatTextarea } from '../../../Common/FormComponents/FormComponents'
 
 import ActionButton from '../../../Common/ActionButton/ActionButton'
-import { ArticleType } from '../../../../types/admin'
+import { BookmakerType } from '../../../../types/admin'
 import Breadcrumbs from '../../../Common/Breadcrumbs/Breadcrumbs'
 
 import { required } from '../../../../utils/formValidation'
@@ -17,7 +17,7 @@ import { apiURL } from '../../../../api/api'
 
 type FormType = {
 	initialValues: any,
-	onSubmitFunc: (formData: ArticleType) => void
+	onSubmitFunc: (formData: BookmakerType) => void
 	breadcrumbs: Array<{
 		link: string
 		text: string
@@ -25,57 +25,55 @@ type FormType = {
 	buttonText: string
 }
 type FormValuesType = {
-	initialValues: ArticleType
+	initialValues: BookmakerType
 	buttonText: string
 }
 	
 
 
-const ArticleForm: FC<FormValuesType & InjectedFormProps<{}, FormValuesType>> = (props: any) => {
+const BookmakerForm: FC<FormValuesType & InjectedFormProps<{}, FormValuesType>> = (props: any) => {
 	const setPreviewImage = (file: File) => {
 		let fileReader = new FileReader()
 		fileReader.onload = function (event: any) {
-			document.getElementById('admin-article-img-holder')?.setAttribute("src", event.target.result)
+			document.getElementById('admin-bookmaker-logo')?.setAttribute("src", event.target.result)
 		}
 
 		fileReader.readAsDataURL(file)
 	}
 
-
 	return (
 		<form onSubmit={props.handleSubmit}>
 
-			{createField("title", Input, "Название статьи", { valiadtors: [required] })}
-			{createField("category_name", Input, "Название категории", { valiadtors: [required] })}
+			{createField("title", Input, "Название букмекера", { valiadtors: [required] })}
+			{createField("content", FormatTextarea, "Описание букмекера" )}
 
-			{createField("content", FormatTextarea, "Описание статьи", { valiadtors: [required] })}
+			{createField("image", File, "Изображение", { formName: 'bookmaker-form', onChangeFunc: setPreviewImage })}
 			
-			<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-				{createField("image", File, "Превью", { formName: 'article-form', onChangeFunc: setPreviewImage })}
-			</div>
-
 			<div className={s.previewImg}>
-				<img src={props.initialValues.image ? apiURL + props.initialValues.image : contentHolder} alt="article-img" id="admin-article-img-holder"/>
+				<img src={props.initialValues.image ? apiURL + props.initialValues.image : contentHolder} alt="bookmaker-img" id="admin-bookmaker-logo"/>
 			</div>
+			{createField("rating", Input, "Рейтинг" )}
+			{createField("bonus", Input, "Бонус" )}
+
+			{createField("link", Input, "Ссылка" )}
 
 			{createField("meta_title", Input, "Мета-заголовок", {  })}
 			{createField("meta_description", Input, "Мета-описание", {  })}
-			{createField("meta_key_words", Input, "Мета-ключевые слова", {  })}
-			{createField("meta_title", Input, "Мета-заголовок", {  })}
-			{createField("is_published", Input, "Опубликована", { type: 'checkbox' })}
+			{createField("meta_key_words", Input, "Мета-ключевые слова", {})}
+			
 			{createField("no_index", Input, "Не индексировать", { type: 'checkbox' })}
 
 			<div className={s.btnHolder}><ActionButton value={props.buttonText} /></div>
 		</form>
 	);
 }
-const ReduxArticleForm = reduxForm<{}, FormValuesType>({ form: 'forecast-form', enableReinitialize: true  })(ArticleForm)
+const ReduxForm = reduxForm<{}, FormValuesType>({ form: 'bookmaker-form', enableReinitialize: true  })(BookmakerForm)
 
 
-const ArticleFormBlock: FC<FormType> = ({ initialValues, onSubmitFunc, breadcrumbs = [], buttonText = "", ...props }) => {
+const BookmakerFormBlock: FC<FormType> = ({ initialValues, onSubmitFunc, breadcrumbs = [], buttonText = "", ...props }) => {
 	console.log(initialValues)
 	const dispatch = useDispatch()
-	const handleSave = (formData: ArticleType) => {
+	const handleSave = (formData: BookmakerType | any) => {
 		onSubmitFunc(formData)
 		
 	}
@@ -83,7 +81,7 @@ const ArticleFormBlock: FC<FormType> = ({ initialValues, onSubmitFunc, breadcrum
 	return (
 		<div>
 			<Breadcrumbs pathParams={breadcrumbs} />
-			<ReduxArticleForm
+			<ReduxForm
 				onSubmit={handleSave}
 				initialValues={initialValues}
 				buttonText={buttonText}
@@ -95,4 +93,4 @@ const ArticleFormBlock: FC<FormType> = ({ initialValues, onSubmitFunc, breadcrum
 
 
 
-export default ArticleFormBlock;
+export default BookmakerFormBlock;

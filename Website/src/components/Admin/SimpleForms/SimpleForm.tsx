@@ -30,8 +30,8 @@ const SimpleForm: FC<FormValuesType & InjectedFormProps<{}, FormValuesType>> = (
 		<form onSubmit={props.handleSubmit}>
 
 			{createField('title', Input, 'Название', { valiadtors: [required] })}
-			{/* {createField('content', FormatTextarea, 'Содержание', { valiadtors: [required] })} */}
-			{createField('content', Textarea, 'Содержание', { valiadtors: [required] })}
+			{createField('content', FormatTextarea, 'Содержание', { valiadtors: [required] })}
+			{/* {createField('content', Textarea, 'Содержание', { valiadtors: [required] })} */}
 
 
 			<div><ActionButton value={"Подтвердить"} /></div>

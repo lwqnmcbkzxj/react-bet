@@ -2,33 +2,33 @@ import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { withRouter, RouteComponentProps, Redirect } from 'react-router'
 import { AppStateType } from '../../../../types/types'
-import { ArticleType } from '../../../../types/admin'
+import { ForecastType } from '../../../../types/admin'
 import ForecastForm from './ForecastForm'
 
-import { getArticleFromServer, addArticle, editArticle } from '../../../../redux/admin-reducer'
+import { getAdminForecastFromSErver, addForecast, editForecast } from '../../../../redux/admin-reducer'
 
 interface MatchParams {
-	articleId: string;
+	forecastId: string;
 }
 
-interface ArticleProps extends RouteComponentProps<MatchParams> { }
+interface Props extends RouteComponentProps<MatchParams> { }
 
-const ArticleContainer: FC<ArticleProps> = ({ ...props }) => {
-	const article = useSelector<AppStateType, ArticleType>(state => state.admin.articles.currentArticle)
+const ForecastContainer: FC<Props> = ({ ...props }) => {
+	const forecast = useSelector<AppStateType, ForecastType>(state => state.admin.forecasts.currentForecast)
 	const dispatch = useDispatch()
 
-	let articleId = props.match.params.articleId;
+	let forecastId = props.match.params.forecastId;
 
 
-	const addArticleDispatch = async (formData: ArticleType) => {
-		await dispatch(addArticle(formData))
+	const addForecastDispatch = async (formData: ForecastType) => {
+		await dispatch(addForecast(formData))
 
-		props.history.push('/admin/articles');
+		props.history.push('/admin/forecasts');
 	}
-	const editArticleDispatch = async (formData: ArticleType) => {
-		await dispatch(editArticle(+articleId, formData))
+	const editForecastDispatch = async (formData: ForecastType) => {
+		await dispatch(editForecast(+forecastId, formData))
 
-		props.history.push('/admin/articles');
+		props.history.push('/admin/forecasts');
 	}
 
 
@@ -36,13 +36,13 @@ const ArticleContainer: FC<ArticleProps> = ({ ...props }) => {
 	let onSubmitFunc
 	let breadcrumbsObj
 	let buttonText = ""
-	if (articleId) {
-		initialValues = article
-		onSubmitFunc = editArticleDispatch
-		breadcrumbsObj = { text: 'Изменение статьи', link: `/admin/articles/${articleId}/edit` }
-		buttonText = "Изменить статью"
+	if (forecastId) {
+		initialValues = forecast
+		onSubmitFunc = editForecastDispatch
+		breadcrumbsObj = { text: 'Изменение прогноза', link: `/admin/forecasts/${forecastId}/edit` }
+		buttonText = "Изменить прогноз"
 	} else {
-		onSubmitFunc = addArticleDispatch
+		onSubmitFunc = addForecastDispatch
 
 		initialValues = {
 			title: '',
@@ -51,13 +51,13 @@ const ArticleContainer: FC<ArticleProps> = ({ ...props }) => {
 			image: '',
 			is_published: false
 		}
-		breadcrumbsObj = { text: 'Добавление статьи', link: '/admin/articles/add' }
-		buttonText = "Добавить статью"
+		breadcrumbsObj = { text: 'Добавление прогноза', link: '/admin/forecasts/add' }
+		buttonText = "Добавить прогноз"
 	}
 	
 	useEffect(() => {
-		if (articleId) {
-			dispatch(getArticleFromServer(+articleId))
+		if (forecastId) {
+			dispatch(getAdminForecastFromSErver(+forecastId))
 		}
 	}, []);
 	
@@ -68,7 +68,7 @@ const ArticleContainer: FC<ArticleProps> = ({ ...props }) => {
 			onSubmitFunc={onSubmitFunc}
 			breadcrumbs={[
 				{ text: 'Главная', link: '/admin' },
-				{ text: 'Статьи', link: '/admin/articles' },
+				{ text: 'Прогнозы', link: '/admin/forecasts' },
 				{ ...breadcrumbsObj }
 			]}
 			buttonText={buttonText}
@@ -76,4 +76,4 @@ const ArticleContainer: FC<ArticleProps> = ({ ...props }) => {
 	)
 }
 
-export default withRouter(ArticleContainer);
+export default withRouter(ForecastContainer);

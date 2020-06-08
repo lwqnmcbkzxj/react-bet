@@ -30,7 +30,7 @@ const AdminMenu: FC<HeaderPropsType> = ({ ...props }) => {
 		},
 		{ link: "/articles", text: 'Статьи' },
 		{ link: "/bookmakers", text: 'Букмекеры' },
-		{ link: "/menu", text: 'Меню' },
+		// { link: "/menu", text: 'Меню' },
 		{
 			link: "", text: 'Страница',
 			dropdown: [

@@ -18,8 +18,13 @@ const ForecastContainer = React.lazy(() => import('./AdminForecasts/Forecast/For
 const ArticlesContainer = React.lazy(() => import('./AdminArticles/ArticlesContainer'))
 const ArticleContainer = React.lazy(() => import('./AdminArticles/Article/ArticleContainer'))
 
+const BookmakersContainer = React.lazy(() => import('./AdminBookmakers/BookmakersContainer'))
+const BookmakerContainer = React.lazy(() => import('./AdminBookmakers/Bookmaker/BookmakerContainer'))
+
 const PolicyContainer = React.lazy(() => import('./SimpleForms/PolicyContainer'))
 const TermsContainer = React.lazy(() => import('./SimpleForms/TermsContainer'))
+const OptionsContainer = React.lazy(() => import('./Options/OptionsContainer'))
+
 
 
 const Admin: FC = ({ ...props }) => {
@@ -39,6 +44,7 @@ const Admin: FC = ({ ...props }) => {
 					<Route exact path="/admin/users" render={withSuspense(UsersContainer)} />
 					<Route path="/admin/users/add" render={withSuspense(UserContainer)} />
 					<Route path="/admin/users/:userId/edit" render={withSuspense(UserContainer)} />
+					<Route path="/admin/users/:userId/forecasts" render={withSuspense(UserContainer)} />
 
 					<Route exact path="/admin/forecasts" render={withSuspense(ForecastsContainer)} />
 					<Route path="/admin/forecasts/add" render={withSuspense(ForecastContainer)} />
@@ -50,10 +56,19 @@ const Admin: FC = ({ ...props }) => {
 					<Route path="/admin/articles/add" render={withSuspense(ArticleContainer)} />
 					<Route path="/admin/articles/:articleId/edit" render={withSuspense(ArticleContainer)} />
 
+					<Route exact path="/admin/bookmakers" render={withSuspense(BookmakersContainer)} />
+					<Route path="/admin/bookmakers/add" render={withSuspense(BookmakerContainer)} />
+					<Route path="/admin/bookmakers/:bookmakerId/edit" render={withSuspense(BookmakerContainer)} />
+
 					{/* <Route path="/admin/bookmakers" render={() => <BookmakersContainer />} /> */}
+
+					
+
 
 					<Route path="/admin/policy" render={withSuspense(PolicyContainer)} />
 					<Route path="/admin/terms" render={withSuspense(TermsContainer)} />
+
+					<Route path="/admin/options" render={withSuspense(OptionsContainer)} />
 
 
 					<Route render={NotFound} />

@@ -1,16 +1,23 @@
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 
-import Articles from './Forecasts'
+import Forecasts from './Forecasts'
 import { AppStateType } from '../../../types/types'
-import { ArticleType } from '../../../types/admin'
+import { ForecastType } from '../../../types/admin'
 
-import { getAdminArticlesFromServer, deleteArticle } from '../../../redux/admin-reducer'
+import { getAdminForecastsFromServer, deleteForecast } from '../../../redux/admin-reducer'
 import { formatDate } from '../../../utils/formatDate'
+import { withRouter, RouteComponentProps } from 'react-router'
 
-const ArticlesContainer: FC = ({ ...props }) => {
+interface MatchParams {
+	userId: string;
+}
+
+interface Props extends RouteComponentProps<MatchParams> { }
+
+const ForecastsContainer: FC<Props> = ({ ...props }) => {
 	const dispatch = useDispatch()
-	const forecasts = useSelector<AppStateType, Array<ArticleType>>(state => state.admin.forecasts.forecasts)
+	const forecasts = useSelector<AppStateType, Array<ForecastType>>(state => state.admin.forecasts.forecasts)
 	const pagesCount = useSelector<AppStateType, number>(state => state.admin.pagesCount)
 
 	const [currentPage, changeCurrentPage] = useState(0)
@@ -22,37 +29,41 @@ const ArticlesContainer: FC = ({ ...props }) => {
 	const handleChangePagesPerPage = (pagesPerPage: number) => {
 		changePagesPerPage(pagesPerPage)
 	}
-
-	const getArticles = (searchText = "") => {
-		// dispatch(getAdminArticlesFromServer(currentPage + 1, pagesPerPage, searchText, 'content'))
+	let userId = props.match.params.userId;
+	const getForecasts = (searchText = "") => {
+		dispatch(getAdminForecastsFromServer(currentPage + 1, pagesPerPage, searchText, 'content', +userId))
 	}
 
 	useEffect(() => {
-		getArticles()
+		getForecasts()
 	}, [currentPage, pagesPerPage])
 	useEffect(() => {
-		getArticles()
+		getForecasts()
 	}, [])
 
 
 	const handleSearch = (searchText: string) => {
-		getArticles(searchText)
+		getForecasts(searchText)
 	}
 
 	const deleteFunction = async (id: number) => {
-		await dispatch(deleteArticle(id))
-		getArticles()
+		await dispatch(deleteForecast(id))
+		getForecasts()
 	}
 
 	let dataArray = [] as any
 	forecasts.map(dataObj => dataArray.push([
-		dataObj.id,
-		// dataObj.title, dataObj.category_name, dataObj.content, dataObj.is_published ? 'Да' : 'Нет', formatDate(dataObj.created_at), dataObj.created_by_login
+		// dataObj.id,
+		// dataObj.title,
+		// dataObj.category_name,
+		// dataObj.content, dataObj.status ? 'Да' : 'Нет',
+		// formatDate(dataObj.created_at),
+		// dataObj.created_by_login
 	]))
 
 
 	return (
-		<Articles
+		<Forecasts
 			handleSearch={handleSearch}
 			deleteFunction={deleteFunction}
 			pages={{
@@ -71,4 +82,4 @@ const ArticlesContainer: FC = ({ ...props }) => {
 	)
 }
 
-export default ArticlesContainer;
+export default withRouter(ForecastsContainer);

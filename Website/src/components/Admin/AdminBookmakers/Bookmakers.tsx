@@ -1,9 +1,11 @@
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import s from './Forecasts.module.scss'
+import s from './Bookmakers.module.scss'
+import { Switch, Route } from 'react-router'
+import Breadcrumbs from '../../Common/Breadcrumbs/Breadcrumbs'
 import AdminTablePage from '../Common/AdminTablePage/AdminTablePage'
 
-type ForecastsProps = {
+type ArticlesProps = {
 	handleSearch: (searchText: string) => void
 	deleteFunction: (id: number) => void
 	pages: {
@@ -18,31 +20,33 @@ type ForecastsProps = {
 		data: Array<any>
 		dataArray: Array<any>
 	}
+	getAllData:() => void
 }
 
-const Forecasts: FC<ForecastsProps> = ({ handleSearch, deleteFunction, pages, data, ...props }) => {
+const Articles: FC<ArticlesProps> = ({ handleSearch, deleteFunction, pages, data, ...props }) => {
 	return (
 		<div className={s.articlesAdminPage}>
 			<AdminTablePage
-				pageLink={'forecasts'}
+				pageLink={'bookmakers'}
 				breadcrumbs={[
 					{ text: 'Главная', link: '/admin' },
-					{ text: 'Прогнозы', link: '/admin/forecasts' },
+					{ text: 'Букмекеры', link: '/admin/bookmakers' },
 				]}
 				actions={{
 					search: {
-						placeholder: 'Поиск по событию',
+						placeholder: 'Поиск по названию и описанию',
 						handleSearch: handleSearch
 					},
-					addNewElementText: 'Добавить новый прогноз',
+					addNewElementText: 'Добавить нового букмекера',
 					deleteFunction: deleteFunction,
 					pages: pages
 				}}
 				tableData={data}
+				getAllData={props.getAllData}
 			/>
 
 		</div>
 	)
 }
 
-export default Forecasts;
+export default Articles;
