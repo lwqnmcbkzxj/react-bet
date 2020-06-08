@@ -51,7 +51,7 @@ class InfoController extends Controller
 
     public function forecastsFast(Request $request)
     {
-        $res = DB::table('forecasts_view')->where('event_start','>=',now()->format('Y-m-d H:i:s'));
+        $res = DB::table('forecasts_view')->where('event_start','>=',now()->format('Y-m-d H:i:s'))->where('event_start','<=',now()->addMonths(2)->format('Y-m-d H:i:s'));
         if (!$request->has('limit') || $request['limit'] == 0) {
             $request['limit'] = 6;
         }
@@ -125,6 +125,7 @@ class InfoController extends Controller
             }
             return $this->sendResponse(new FastUserCollection($response->paginate($request['limit'])), 'Success', 200);
         }
+
         $response = collect($response);
         return $this->sendResponse(new FastUserCollection($this->paginate($response, $request['limit'], $request['page'])), 'Success', 200);
     }
