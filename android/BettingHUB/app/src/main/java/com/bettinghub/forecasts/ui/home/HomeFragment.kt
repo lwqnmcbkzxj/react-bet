@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.bettinghub.forecasts.App
 import com.bettinghub.forecasts.R
 import com.bettinghub.forecasts.Utils
@@ -296,7 +297,7 @@ class HomeFragment : Fragment(), ForecastListener, ForecasterListener
             )
         )
 
-        forecastRVAdapter = ForecastAdapter(this)
+        forecastRVAdapter = ForecastAdapter(this, findNavController())
 
         binding.lastForecasts.forecastRV.isNestedScrollingEnabled = false
         binding.lastForecasts.forecastRV.adapter = forecastRVAdapter

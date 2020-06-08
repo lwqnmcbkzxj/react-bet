@@ -16,9 +16,20 @@ import kotlinx.android.synthetic.main.element_top_panel.*
 import kotlinx.android.synthetic.main.element_top_panel.view.*
 import kotlinx.android.synthetic.main.fragment_article.*
 import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bettinghub.forecasts.App
+import com.bettinghub.forecasts.backend.BettingHubBackend
+import com.bettinghub.forecasts.enums.Status
+import com.bettinghub.forecasts.models.Comment
+import com.bettinghub.forecasts.ui.article.items.*
+import com.bettinghub.forecasts.ui.forecast.items.viewHolders.*
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.article_list_item.view.title
 import kotlinx.android.synthetic.main.article_list_item_header.view.*
 import kotlinx.android.synthetic.main.article_list_item_header.view.downVoteButton
@@ -27,6 +38,8 @@ import kotlinx.android.synthetic.main.article_list_item_header.view.likeCount
 import kotlinx.android.synthetic.main.article_list_item_header.view.recommendations
 import kotlinx.android.synthetic.main.article_list_item_header.view.upVoteButton
 import java.text.SimpleDateFormat
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.roundToInt
 
 class ArticleFragment : Fragment() {
@@ -53,6 +66,7 @@ class ArticleFragment : Fragment() {
 
     val viewModel by viewModels<ArticleViewModel>()
     val args by navArgs<ArticleFragmentArgs>()
+    lateinit var adapter: ItemAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         backBtn.setOnClickListener {
@@ -68,188 +82,96 @@ class ArticleFragment : Fragment() {
                 View.GONE
             }
         }
-        var article: Article? = null
-        var articles: List<Article>? = null
+        val topSpace = resources.getDimensionPixelSize(R.dimen.commentItemTopSpace)
+        val sideSpace = resources.getDimensionPixelSize(R.dimen.commentItemSideSpace)
+        val itemSpace = resources.getDimensionPixelSize(R.dimen.commentItemSpace)
+        //val showMoreTopSpace = resources.getDimensionPixelSize(R.dimen.forecastsShowMoreTopSpace)
+        val footerTopSpace = resources.getDimensionPixelSize(R.dimen.forecastsFooterTopSpace)
+        val bottomSpace = resources.getDimensionPixelSize(R.dimen.footerBottomMargin)
+
+        recyclerView.addItemDecoration(
+            ItemDecoration(
+                topSpace
+                , sideSpace
+                , itemSpace
+                , footerTopSpace
+                , bottomSpace
+            )
+        )
+        adapter = ItemAdapter(viewModel, viewModel, this, findNavController())
+        recyclerView.adapter = adapter
+        val items = ArrayList<Item>()
+        items.add(NewCommentItem())
+        items.add(FooterItem())
+        adapter.addAll(items)
         viewModel.article.observe(viewLifecycleOwner, Observer {
-            article = it.data
-            if (articles != null) {
-                recyclerView.adapter = Adapter(it.data ?: return@Observer, articles!!.filter { it.id != article!!.id }.take(3))
+            if (it.status == Status.SUCCESS) {
+                adapter.insertItem(0, HeaderItem(it.data!!))
             }
         })
-        viewModel.articles.observe(viewLifecycleOwner, Observer {
-            articles = it.data
-            if (article != null) {
-                recyclerView.adapter = Adapter(article!!, it.data!!.filter { it.id != article!!.id }.take(3))
+        viewModel.commentsLiveData.observe(viewLifecycleOwner, Observer {
+            if (it.status == Status.SUCCESS) {
+                addNewComments(it.data!!.first, it.data.second)
             }
         })
+//        viewModel.articles.observe(viewLifecycleOwner, Observer {
+//            articles = it.data
+//            if (it.status == Status.SUCCESS) {
+//                recyclerView.adapter = Adapter(article!!, it.data!!.filter { it.id != article!!.id }.take(3))
+//            }
+//        })
         viewModel.id.value = args.articleId
-        recyclerView.addItemDecoration(object : RecyclerView.ItemDecoration() {
+    }
 
-            override fun getItemOffsets(
-                outRect: Rect,
-                view: View,
-                parent: RecyclerView,
-                state: RecyclerView.State
-            ) {
-                (parent.adapter as? Adapter)?.getItemViewType(parent.getChildAdapterPosition(view))?.let {
-                    when (it) {
-//                        ITEM_VIEW_TYPE_ARTICLE -> {
-//                            outRect.left = (resources.displayMetrics.density * 16).roundToInt()
-//                            outRect.right = (resources.displayMetrics.density * 16).roundToInt()
-//
-//                            outRect.top = (resources.displayMetrics.density * 10).roundToInt()
-//                            outRect.bottom = (resources.displayMetrics.density * 10).roundToInt()
-//                        }
-                        ITEM_VIEW_TYPE_NEW_COMMENT -> {
-                            outRect.top = (resources.displayMetrics.density * 12).roundToInt()
-                            outRect.bottom = (resources.displayMetrics.density * 24).roundToInt()
-                        }
-                        ITEM_VIEW_TYPE_EMPTY_COMMENTS -> {
-                            outRect.top = (resources.displayMetrics.density * 12).roundToInt()
-                            outRect.bottom = (resources.displayMetrics.density * 2).roundToInt()
-                        }
-                        ITEM_VIEW_TYPE_ARTICLE -> {
-                            outRect.left = (resources.displayMetrics.density * 16).roundToInt()
-                            outRect.right = (resources.displayMetrics.density * 16).roundToInt()
+    private fun addNewComments(position: Int, comments: List<Item>) {
+        (recyclerView.adapter as ItemAdapter).let {
+            val insertPos = if (position == -1) max(it.itemCount - 2, 0) else position
 
-                            outRect.top = (resources.displayMetrics.density * 10).roundToInt()
-                            outRect.bottom = (resources.displayMetrics.density * 10).roundToInt()
-                        }
-                        ITEM_VIEW_TYPE_HEADER -> {
-                            outRect.left = (resources.displayMetrics.density * 16).roundToInt()
-                            outRect.right = (resources.displayMetrics.density * 16).roundToInt()
-                        }
-                        ITEM_VIEW_TYPE_SIMILAR_ARTICLES -> {
-                            outRect.left = (resources.displayMetrics.density * 16).roundToInt()
-                            outRect.right = (resources.displayMetrics.density * 16).roundToInt()
+            (recyclerView.adapter as ItemAdapter).let {
+                it.addAll(insertPos, comments)
 
-                            outRect.top = (resources.displayMetrics.density * 24).roundToInt()
-                        }
-                        ITEM_VIEW_TYPE_FOOTER -> {
-                            outRect.top = (resources.displayMetrics.density * 10).roundToInt()
-                            outRect.bottom = (resources.displayMetrics.density * 70).roundToInt()
-                        }
+                if (position != -1) {
+                    it.removeItem(position + comments.size)
+                }
+            }
+        }
+    }
+
+    fun getCommentCount(comments: List<Comment>, id: Int?): Int {
+        var count = 1
+        comments.forEach {
+            if (it.repliesTo == id) {
+                count += getCommentCount(comments, it.id)
+            }
+        }
+        return count
+    }
+
+    private fun addComment(comment: Comment) {
+        (recyclerView.adapter as ItemAdapter).let { adapter ->
+            if (comment.repliesTo == null) {
+                adapter.insertItem(adapter.itemCount - 2, CommentItem(0, comment))
+            } else {
+                val items = adapter.getItems()
+                val comments = items.asSequence().filter { it.getType().ordinal in 0..3 }
+                    .map { (it as CommentItem).comment }.toList()
+
+                items.indexOfFirst {
+                    val item = it as? CommentItem
+                    item?.comment?.id == comment.repliesTo && item.level < 3
+                }.let { parentCommentIndex ->
+                    if (parentCommentIndex != -1) {
+                        val parentComment = items[parentCommentIndex] as CommentItem
+                        val position = parentCommentIndex + getCommentCount(comments, parentComment.comment.id)
+                        adapter.insertItem(
+                            position,
+                            CommentItem(parentComment.level + 1, comment)
+                        )
+                        (recyclerView.layoutManager as LinearLayoutManager).scrollToPosition(
+                            position
+                        )
                     }
                 }
-            }
-        })
-    }
-
-    private inner class Adapter(val article: Article, val articles: List<Article>) :
-        RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when(viewType) {
-            ITEM_VIEW_TYPE_HEADER -> HeaderViewHolder(LayoutInflater.from(requireContext()).inflate(R.layout.article_list_item_header, parent, false))
-//            ITEM_VIEW_TYPE_EMPTY_COMMENTS -> object : RecyclerView.ViewHolder(layoutInflater.inflate(R.layout.item_empty_comments, parent, false)) {}
-//            ITEM_VIEW_TYPE_NEW_COMMENT -> object : RecyclerView.ViewHolder(layoutInflater.inflate(R.layout.item_comment_new, parent, false)) {}
-            ITEM_VIEW_TYPE_ARTICLE -> ArticleViewHolder(layoutInflater.inflate(R.layout.article_list_item, parent, false))
-            ITEM_VIEW_TYPE_SIMILAR_ARTICLES -> object : RecyclerView.ViewHolder(TextView(parent.context).apply {
-                text = "Похожие статьи:"
-                setTextColor(ContextCompat.getColor(requireContext(), R.color.textColor1))
-                textSize = 18f
-                if (articles.isEmpty()) {
-                    visibility = View.GONE
-                }
-            }) {}
-//            ITEM_VIEW_TYPE_NEW_COMMENT -> object : RecyclerView.ViewHolder(layoutInflater.inflate(R.layout.item_comment_new, parent, false)) {}
-//            ITEM_VIEW_TYPE_COMMENT_L0 -> object : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_comment_0_level, parent, false)) {}
-//
-//            ITEM_VIEW_TYPE_COMMENT_L1 -> object : RecyclerView.ViewHolder(LayoutInflater.from(parent.context)
-//                .inflate(R.layout.item_comment_1_level, parent, false)) {}
-//
-//            ITEM_VIEW_TYPE_COMMENT_L2 -> object : RecyclerView.ViewHolder(LayoutInflater.from(parent.context)
-//                .inflate(R.layout.item_comment_2_level, parent, false)) {}
-//
-//            ITEM_VIEW_TYPE_COMMENT_L3 -> object : RecyclerView.ViewHolder(LayoutInflater.from(parent.context)
-//                .inflate(R.layout.item_comment_3_level, parent, false)) {}
-            else -> object : RecyclerView.ViewHolder(layoutInflater.inflate(R.layout.item_footer, parent, false)) {}
-        }
-
-        override fun getItemViewType(position: Int) = when (position) {
-            0 -> ITEM_VIEW_TYPE_HEADER
-//            1 -> ITEM_VIEW_TYPE_EMPTY_COMMENTS
-//            2 -> ITEM_VIEW_TYPE_NEW_COMMENT
-            1 -> ITEM_VIEW_TYPE_SIMILAR_ARTICLES
-            itemCount - 1 -> ITEM_VIEW_TYPE_FOOTER
-            else -> ITEM_VIEW_TYPE_ARTICLE
-        }
-
-        override fun getItemCount() = articles.size + 3
-
-        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-            when(getItemViewType(position)) {
-                ITEM_VIEW_TYPE_HEADER -> (holder as? HeaderViewHolder)?.bind(article)
-                ITEM_VIEW_TYPE_ARTICLE -> (holder as? ArticleViewHolder)?.bind(articles[position - 2])
-//                ITEM_VIEW_TYPE_SHOW_MORE -> (holder as? ShowMoreViewHolder)?.bind()
-            }
-        }
-    }
-
-    private class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val imageView = itemView.imageView!!
-        val recommendations = itemView.recommendations!!
-        val commentCount = itemView.commentCount1!!
-        val likeCount = itemView.likeCount!!
-        val downVoteButton = itemView.downVoteButton!!
-        val upVoteButton = itemView.upVoteButton!!
-        val title = itemView.title!!
-
-        fun bind(article: Article) {
-            recommendations.text = article.content
-            commentCount.text = article.commentCount.toString()
-            likeCount.text = article.rating.toString()
-            title.text = article.title
-            downVoteButton.setOnClickListener {
-
-            }
-            upVoteButton.setOnClickListener {
-
-            }
-        }
-    }
-
-    private inner class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val imageView = itemView.imageView!!
-        val time = itemView.time!!
-        val categoryName = itemView.categoryName!!
-        val recommendations = itemView.recommendations!!
-        val commentCount = itemView.commentCount!!
-        val likeCount = itemView.likeCount!!
-        val downVoteButton = itemView.downVoteButton!!
-        val upVoteButton = itemView.upVoteButton!!
-        val title = itemView.title!!
-
-        @SuppressLint("SimpleDateFormat")
-        val serverDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
-        @SuppressLint("SimpleDateFormat")
-        val dateFormat = SimpleDateFormat("dd.MM.yyyy в HH:mm")
-
-        fun bind(article: Article) {
-            categoryName.text = article.categoryName
-            recommendations.text = article.content
-            commentCount.text = article.commentCount.toString()
-            likeCount.text = article.rating.toString()
-            title.text = article.title
-            time.text = dateFormat.format(serverDateFormat.parse(article.createdAt)!!)
-            downVoteButton.setOnClickListener {
-
-            }
-            upVoteButton.setOnClickListener {
-
-            }
-            itemView.setOnClickListener {
-//                findNavController().navigate(ArticlesFragmentDirections.toArticleFragment())
-            }
-        }
-    }
-
-    private inner class ShowMoreViewHolder(val button: Button) : RecyclerView.ViewHolder(button) {
-
-        fun bind() {
-            button.setOnClickListener {
-
             }
         }
     }

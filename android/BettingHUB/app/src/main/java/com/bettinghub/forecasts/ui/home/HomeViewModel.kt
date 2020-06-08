@@ -1,6 +1,7 @@
 package com.bettinghub.forecasts.ui.home
 
 import androidx.lifecycle.MutableLiveData
+import com.bettinghub.forecasts.App
 import com.bettinghub.forecasts.BaseViewModel
 import com.bettinghub.forecasts.Event
 import com.bettinghub.forecasts.models.Event as Match
@@ -22,7 +23,7 @@ class HomeViewModel: BaseViewModel() {
             forecastersLiveData.value = Event.success(appData.lastTopForecasters)
         } ?: run {
             requestWithLiveData(forecastersLiveData
-                , { backendAPI.users(consts.topForecastersCount, 1, Direction.DESC.backendValue) }
+                , { backendAPI.users("Bearer ${App.appComponent.getAppData().activeUser?.accessToken}",consts.topForecastersCount, 1, Direction.DESC.backendValue) }
                 , {
                     appData.lastTopForecasters = it.data
                     it.data
@@ -34,7 +35,7 @@ class HomeViewModel: BaseViewModel() {
             forecastsLiveData.value = Event.success(appData.lastForecasts)
         } ?: run {
             requestWithLiveData(forecastsLiveData
-                , { backendAPI.forecasts(consts.lastForecastsCount, 0, TimeInterval.ALL.backendValue, 1) }
+                , { backendAPI.forecasts("Bearer ${App.appComponent.getAppData().activeUser?.accessToken}", consts.lastForecastsCount, 0, TimeInterval.ALL.backendValue, 1) }
                 , {
                     appData.lastForecasts = it.data
                     it.data
@@ -48,8 +49,8 @@ class HomeViewModel: BaseViewModel() {
             requestWithLiveData(matchesLiveData
                 , { backendAPI.matches(consts.topMatchesCount, 1) }
                 , {
-                    appData.lastMatches = it
-                    it
+                    appData.lastMatches = it.data
+                    it.data
                 }
             )
         }

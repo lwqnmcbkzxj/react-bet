@@ -1,4 +1,4 @@
-package com.bettinghub.forecasts.ui.forecast.items.viewHolders
+package com.bettinghub.forecasts.ui.article.viewHolders
 
 import android.view.View
 import androidx.navigation.NavController

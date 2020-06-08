@@ -1,4 +1,4 @@
-package com.bettinghub.forecasts.ui.forecast.items
+package com.bettinghub.forecasts.ui.article
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,11 +7,10 @@ import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bettinghub.forecasts.R
 import com.bettinghub.forecasts.ui.RecyclerViewAdapterBase
-import com.bettinghub.forecasts.ui.forecast.ForecastViewModel
-import com.bettinghub.forecasts.ui.forecast.items.items.*
-import com.bettinghub.forecasts.ui.forecast.items.viewHolders.*
+import com.bettinghub.forecasts.ui.article.items.*
+import com.bettinghub.forecasts.ui.article.viewHolders.*
 
-class ItemAdapter(listener: ItemListener, private val viewModel: ForecastViewModel, private val lifecycleOwner: LifecycleOwner, private val navController: NavController)
+class ItemAdapter(listener: ItemListener, private val viewModel: ArticleViewModel, private val lifecycleOwner: LifecycleOwner, private val navController: NavController)
     : RecyclerViewAdapterBase<ItemListener, Item, RecyclerView.ViewHolder>(listener) {
 
     override fun setListener(holder: RecyclerView.ViewHolder, listener: ItemListener) {
@@ -19,7 +18,6 @@ class ItemAdapter(listener: ItemListener, private val viewModel: ForecastViewMod
             is ShowMoreViewHolder -> holder.setListener(listener)
             is NewCommentViewHolder -> holder.setListener(listener)
             is CommentViewHolder -> holder.setListener(listener)
-            is HeaderViewHolder -> holder.setListener(listener)
         }
     }
 
@@ -38,7 +36,7 @@ class ItemAdapter(listener: ItemListener, private val viewModel: ForecastViewMod
     override fun createView(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (ItemType.values()[viewType]) {
             ItemType.HEADER -> return HeaderViewHolder(LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_forecast_header, parent, false), navController)
+                .inflate(R.layout.article_list_item_header, parent, false), navController)
 
             ItemType.COMMENT_L0 -> return CommentViewHolder(LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_comment_0_level, parent, false), navController)
@@ -56,7 +54,7 @@ class ItemAdapter(listener: ItemListener, private val viewModel: ForecastViewMod
                 .inflate(R.layout.item_footer, parent, false))
 
             ItemType.NEW_COMMENT -> return NewCommentViewHolder(LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_comment_new, parent, false), navController)
+                .inflate(R.layout.item_comment_new, parent, false))
 
             else -> return ShowMoreViewHolder(LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_comment_show_more, parent, false))

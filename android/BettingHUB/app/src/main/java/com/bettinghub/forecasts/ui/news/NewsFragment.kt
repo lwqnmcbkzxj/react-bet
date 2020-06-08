@@ -1,5 +1,7 @@
 package com.bettinghub.forecasts.ui.news
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -163,6 +165,6 @@ class NewsFragment: Fragment(), NewsListener {
 
     // NewsListener
     override fun onNewsClick(news: News, position: Int) {
-
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(news.link)))
     }
 }

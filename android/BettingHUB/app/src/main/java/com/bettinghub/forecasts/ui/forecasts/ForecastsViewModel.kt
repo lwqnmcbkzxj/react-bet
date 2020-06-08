@@ -3,6 +3,7 @@ package com.bettinghub.forecasts.ui.forecasts
 import android.annotation.SuppressLint
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import com.bettinghub.forecasts.App
 import com.bettinghub.forecasts.BaseViewModel
 import com.bettinghub.forecasts.Event
 import com.bettinghub.forecasts.backend.requests.ForecastsRequest
@@ -36,6 +37,7 @@ class ForecastsViewModel: BaseViewModel(), SportListener {
             requestWithLiveData(forecastsLiveData
                 , {
                     backendAPI.forecasts(
+                        "Bearer ${App.appComponent.getAppData().activeUser?.accessToken}",
                         forecastsRequest.limit,
                         forecastsRequest.sportId,
                         forecastsRequest.time,
@@ -50,6 +52,7 @@ class ForecastsViewModel: BaseViewModel(), SportListener {
                 , {
                     backendAPI.subscriptionForecasts(
                         appData.activeUser?.id,
+                        "Bearer ${App.appComponent.getAppData().activeUser?.accessToken}",
                         forecastsRequest.limit,
                         forecastsRequest.sportId,
                         forecastsRequest.time,
@@ -57,7 +60,7 @@ class ForecastsViewModel: BaseViewModel(), SportListener {
                     )
                 }
                 , {
-                    it
+                    it.data
                 })
         }
     }
@@ -67,7 +70,7 @@ class ForecastsViewModel: BaseViewModel(), SportListener {
         forecastsRequest.page++
 
         requestWithLiveData(forecastsLiveData
-            , { backendAPI.forecasts(forecastsRequest.limit, forecastsRequest.sportId, forecastsRequest.time, forecastsRequest.page) }
+            , { backendAPI.forecasts("Bearer ${App.appComponent.getAppData().activeUser?.accessToken}", forecastsRequest.limit, forecastsRequest.sportId, forecastsRequest.time, forecastsRequest.page) }
             , { it.data })
     }
 

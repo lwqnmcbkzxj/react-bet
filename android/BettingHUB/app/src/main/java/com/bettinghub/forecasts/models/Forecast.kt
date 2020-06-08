@@ -30,6 +30,14 @@ data class Forecast (
     @Expose
     val bet: Bet,
 
+    @SerializedName("is_marked")
+    @Expose
+    var isMarked: Boolean,
+
+    @SerializedName("vote")
+    @Expose
+    var vote: String?,
+
     @SerializedName("forecast_stats")
     @Expose
     val stats: ForecastStats

@@ -2,6 +2,7 @@ package com.bettinghub.forecasts.ui.match
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import com.bettinghub.forecasts.App
 import com.bettinghub.forecasts.BaseViewModel
 import com.bettinghub.forecasts.Event
 import com.bettinghub.forecasts.enums.Direction
@@ -26,7 +27,7 @@ class MatchViewModel: BaseViewModel(), ItemListener {
             ratingsLiveData.value = Event.success(it)
         } ?: run {
             requestWithLiveData(ratingsLiveData
-                , { backendAPI.users(consts.topForecastersCount, 1, Direction.DESC.backendValue) }
+                , { backendAPI.users("Bearer ${App.appComponent.getAppData().activeUser?.accessToken}",consts.topForecastersCount, 1, Direction.DESC.backendValue) }
                 , {
                     appData.lastTopForecasters = it.data
                     it.data
@@ -40,35 +41,35 @@ class MatchViewModel: BaseViewModel(), ItemListener {
                 })
         }
 
-        val comments = arrayListOf<Item>(
-            CommentItem(0, Comment("0"))
-            , CommentItem(1, Comment("1"))
-            , CommentItem(2, Comment("2"))
-            , CommentItem(3, Comment("3"))
-            , CommentItem(3, Comment("4"))
-            , CommentItem(3, Comment("5"))
-            , ShowMoreItem(arrayListOf(
-                CommentItem(3, Comment("6"))
-                , CommentItem(3, Comment("7"))
-                , CommentItem(3, Comment("8"))
-                , CommentItem(3, Comment("9"))
-                , CommentItem(3, Comment("10"))
-                , CommentItem(2, Comment("11"))
-                , CommentItem(2, Comment("12"))
-            ))
-//                        , CommentItem(3, Comment("6"))
-//                        , CommentItem(3, Comment("7"))
-//                        , CommentItem(3, Comment("8"))
-//                        , CommentItem(3, Comment("9"))
-//                        , CommentItem(3, Comment("10"))
-//                    , CommentItem(2, Comment("11"))
-//                    , CommentItem(2, Comment("12"))
-            , CommentItem(1, Comment("13"))
-            , CommentItem(0, Comment("14"))
-            , CommentItem(0, Comment("15"))
-        )
-
-        commentsLiveData.value = Pair(-1, comments)
+//        val comments = arrayListOf<Item>(
+//            CommentItem(0, Comment("0"))
+//            , CommentItem(1, Comment("1"))
+//            , CommentItem(2, Comment("2"))
+//            , CommentItem(3, Comment("3"))
+//            , CommentItem(3, Comment("4"))
+//            , CommentItem(3, Comment("5"))
+//            , ShowMoreItem(arrayListOf(
+//                CommentItem(3, Comment("6"))
+//                , CommentItem(3, Comment("7"))
+//                , CommentItem(3, Comment("8"))
+//                , CommentItem(3, Comment("9"))
+//                , CommentItem(3, Comment("10"))
+//                , CommentItem(2, Comment("11"))
+//                , CommentItem(2, Comment("12"))
+//            ))
+////                        , CommentItem(3, Comment("6"))
+////                        , CommentItem(3, Comment("7"))
+////                        , CommentItem(3, Comment("8"))
+////                        , CommentItem(3, Comment("9"))
+////                        , CommentItem(3, Comment("10"))
+////                    , CommentItem(2, Comment("11"))
+////                    , CommentItem(2, Comment("12"))
+//            , CommentItem(1, Comment("13"))
+//            , CommentItem(0, Comment("14"))
+//            , CommentItem(0, Comment("15"))
+//        )
+//
+//        commentsLiveData.value = Pair(-1, comments)
     }
 
     // ItemListener

@@ -1,6 +1,7 @@
 package com.bettinghub.forecasts.ui.forecasts.items.viewHolders
 
 import android.view.View
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bettinghub.forecasts.App
@@ -9,13 +10,14 @@ import com.bettinghub.forecasts.Utils
 import com.bettinghub.forecasts.backend.BettingHubBackend
 import com.bettinghub.forecasts.databinding.ItemForecastBinding
 import com.bettinghub.forecasts.models.Forecast
+import com.bettinghub.forecasts.ui.LoginFragmentDirections
 import com.bettinghub.forecasts.ui.forecasts.items.ForecastListener
 import com.bettinghub.forecasts.ui.forecasts.items.items.ForecastItem
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.text.SimpleDateFormat
 
-class ForecastViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+class ForecastViewHolder(itemView: View, val navController: NavController): RecyclerView.ViewHolder(itemView) {
     private val serverTimePattern = App.appComponent.getConstants().serverTimePattern
     private val appTimePattern = App.appComponent.getConstants().appTimePattern
 
@@ -64,7 +66,11 @@ class ForecastViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
                 binding.win5.visibility = View.INVISIBLE
             }
             binding.profit.text = "+${String.format("%.2f", f.user.stats.roi?.toFloat() ?: 0f * 100)}%"
-
+            if (f.isMarked) {
+                binding.bookmarkIcon.setImageResource(R.drawable.ic_bookmark)
+            } else {
+                binding.bookmarkIcon.setImageResource(R.drawable.ic_bookmark_outline)
+            }
             f.stats.subscriberCount.let {
                 if (it == 0) {
                     binding.bookmarkCount.visibility = View.GONE
@@ -94,65 +100,77 @@ class ForecastViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
             binding.loading.root.visibility = View.GONE
             binding.main.visibility = View.VISIBLE
 
-            var added = false
-            var liked = false
-            var disliked = false
             binding.bookmarkIcon.setOnClickListener {
                 BettingHubBackend().api.addToFavorite(f.id, "Bearer ${App.appComponent.getAppData().activeUser?.accessToken}")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         if (it.isSuccessful) {
-                            if (!added) {
+                            if (!f.isMarked) {
+                                f.stats.subscriberCount++
                                 binding.bookmarkIcon.setImageResource(R.drawable.ic_bookmark)
                             } else {
+                                f.stats.subscriberCount--
                                 binding.bookmarkIcon.setImageResource(R.drawable.ic_bookmark_outline)
                             }
-                            added = !added
+                            f.stats.subscriberCount.let {
+                                if (it == 0) {
+                                    binding.bookmarkCount.visibility = View.GONE
+                                } else {
+                                    binding.bookmarkCount.text = it.toString()
+                                }
+                            }
+                            f.isMarked = !f.isMarked
                         }
                     }, {
                         it.printStackTrace()
                     })
             }
             binding.downVoteBtn.setOnClickListener {
+                if (App.appComponent.getAppData().activeUser == null) {
+                    navController.navigate(LoginFragmentDirections.actionGlobalLoginFragment(R.id.profileFragment))
+                    return@setOnClickListener
+                }
                 BettingHubBackend().api.dislikeForecast(f.id, "Bearer ${App.appComponent.getAppData().activeUser?.accessToken}")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         if (it.isSuccessful) {
-                            if (!disliked) {
+                            if (f.vote != "dislike") {
                                 f.stats.rating--
-                                if (liked) {
+                                if (f.vote == "like") {
                                     f.stats.rating--
-                                    liked = false
                                 }
                             } else {
                                 f.stats.rating++
                             }
                             binding.rating.text = f.stats.rating.toString()
-                            disliked = !disliked
+                            f.vote = if (f.vote == "dislike") null else "dislike"
                         }
                     }, {
                         it.printStackTrace()
                     })
             }
             binding.upVoteBtn.setOnClickListener {
+                if (App.appComponent.getAppData().activeUser == null) {
+                    navController.navigate(LoginFragmentDirections.actionGlobalLoginFragment(R.id.profileFragment))
+                    return@setOnClickListener
+                }
                 BettingHubBackend().api.likeForecast(f.id, "Bearer ${App.appComponent.getAppData().activeUser?.accessToken}")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         if (it.isSuccessful) {
-                            if (!liked) {
+                            if (f.vote != "like") {
                                 f.stats.rating++
-                                if (disliked) {
+                                if (f.vote == "dislike") {
                                     f.stats.rating++
-                                    disliked = false
                                 }
                             } else {
                                 f.stats.rating--
                             }
                             binding.rating.text = f.stats.rating.toString()
-                            liked = !liked
+                            f.vote = if (f.vote == "like") null else "like"
                         }
                     }, {
                         it.printStackTrace()

@@ -19,12 +19,10 @@ class ForecastsViewModel: BaseViewModel() {
                 if (it == -1) {
                     backendAPI.favorite("Bearer ${appData.activeUser?.accessToken}")
                 } else {
-                    backendAPI.userForecasts(it).map {
-                        it.data
-                    }
+                    backendAPI.userForecasts(it)
                 }
             }) {
-                it
+                it.data
             }
         }
     }

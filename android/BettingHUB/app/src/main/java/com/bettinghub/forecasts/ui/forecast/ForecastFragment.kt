@@ -13,16 +13,21 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bettinghub.forecasts.App
 import com.bettinghub.forecasts.R
 import com.bettinghub.forecasts.Utils
+import com.bettinghub.forecasts.backend.BettingHubBackend
 import com.bettinghub.forecasts.databinding.FragmentForecastBinding
+import com.bettinghub.forecasts.enums.Status
+import com.bettinghub.forecasts.models.Comment
+import com.bettinghub.forecasts.ui.LoginFragmentDirections
 import com.bettinghub.forecasts.ui.forecast.items.ItemAdapter
 import com.bettinghub.forecasts.ui.forecast.items.ItemDecoration
-import com.bettinghub.forecasts.ui.forecast.items.items.FooterItem
-import com.bettinghub.forecasts.ui.forecast.items.items.HeaderItem
-import com.bettinghub.forecasts.ui.forecast.items.items.Item
+import com.bettinghub.forecasts.ui.forecast.items.items.*
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
-class ForecastFragment: Fragment() {
+class ForecastFragment : Fragment() {
     private lateinit var navController: NavController
     private lateinit var binding: FragmentForecastBinding
     private lateinit var vm: ForecastViewModel
@@ -35,11 +40,52 @@ class ForecastFragment: Fragment() {
     ): View? {
         binding = FragmentForecastBinding.inflate(inflater)
         binding.lifecycleOwner = this
+        binding.bookmarkBtn.setOnClickListener {
+            if (App.appComponent.getAppData().activeUser == null) {
+                navController.navigate(LoginFragmentDirections.actionGlobalLoginFragment(R.id.profileFragment))
+                return@setOnClickListener
+            }
+            BettingHubBackend().api.addToFavorite(
+                args.forecast.id,
+                "Bearer ${App.appComponent.getAppData().activeUser?.accessToken}"
+            )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    if (it.isSuccessful) {
+                        if (!args.forecast.isMarked) {
+                            args.forecast.stats.subscriberCount++
+                            binding.bookmarkBtn.setImageResource(R.drawable.ic_bookmark)
+                        } else {
+                            args.forecast.stats.subscriberCount--
+                            binding.bookmarkBtn.setImageResource(R.drawable.ic_bookmark_outline)
+                        }
+                        args.forecast.isMarked = !args.forecast.isMarked
+                    }
+                }, {
+                    it.printStackTrace()
+                })
+        }
+        if (args.forecast.isMarked) {
+            binding.bookmarkBtn.setImageResource(R.drawable.ic_bookmark)
+        } else {
+            binding.bookmarkBtn.setImageResource(R.drawable.ic_bookmark_outline)
+        }
 
         navController = activity?.let { Navigation.findNavController(it, R.id.nav_host_fragment) }!!
 
-        vm =  ViewModelProvider(this).get(ForecastViewModel::class.java)
-        vm.commentsLiveData.observe(viewLifecycleOwner, Observer { addNewComments(it.first, it.second) })
+        vm = ViewModelProvider(this).get(ForecastViewModel::class.java)
+        vm.commentsLiveData.observe(viewLifecycleOwner, Observer {
+            if (it.status == Status.SUCCESS) {
+                addNewComments(it.data!!.first, it.data.second)
+            }
+        })
+        vm.commentAdded.observe(viewLifecycleOwner, Observer {
+            if (it.status == Status.SUCCESS) {
+                addComment(it.data!!)
+            }
+        })
+        vm.onCreate(args.forecast.id)
 
         return binding.root
     }
@@ -86,12 +132,12 @@ class ForecastFragment: Fragment() {
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         val adapter =
             ItemAdapter(
-                vm, vm, this
+                vm, vm, this, findNavController()
             )
         binding.forecastRV.adapter = adapter
 
         items.add(HeaderItem(args.forecast))
-//        items.add(NewCommentItem())
+        items.add(NewCommentItem())
         items.add(FooterItem())
 
         (binding.forecastRV.adapter as ItemAdapter).addAll(items)
@@ -117,16 +163,55 @@ class ForecastFragment: Fragment() {
     }
 
     private fun addNewComments(position: Int, comments: List<Item>) {
-//        (binding.forecastRV.adapter as ItemAdapter).let {
-//            val insertPos = if (position == -1) it.itemCount - 2 else position
-//
-//            (binding.forecastRV.adapter as ItemAdapter).let {
-//                it.addAll(insertPos, comments)
-//
-//                if (position != -1) {
-//                    it.removeItem(position + comments.size)
-//                }
-//            }
-//        }
+        (binding.forecastRV.adapter as ItemAdapter).let {
+            val insertPos = if (position == -1) it.itemCount - 2 else position
+
+            (binding.forecastRV.adapter as ItemAdapter).let {
+                it.addAll(insertPos, comments)
+
+                if (position != -1) {
+                    it.removeItem(position + comments.size)
+                }
+            }
+        }
+    }
+
+    fun getCommentCount(comments: List<Comment>, id: Int?): Int {
+        var count = 1
+        comments.forEach {
+            if (it.repliesTo == id) {
+                count += getCommentCount(comments, it.id)
+            }
+        }
+        return count
+    }
+
+    private fun addComment(comment: Comment) {
+        (binding.forecastRV.adapter as ItemAdapter).let { adapter ->
+            if (comment.repliesTo == null) {
+                adapter.insertItem(adapter.itemCount - 2, CommentItem(0, comment))
+            } else {
+                val items = adapter.getItems()
+                val comments = items.asSequence().filter { it.getType().ordinal in 0..3 }
+                    .map { (it as CommentItem).comment }.toList()
+
+                items.indexOfFirst {
+                    val item = it as? CommentItem
+                    item?.comment?.id == comment.repliesTo && item.level < 3
+                }.let { parentCommentIndex ->
+                    if (parentCommentIndex != -1) {
+                        val parentComment = items[parentCommentIndex] as CommentItem
+                        val position = parentCommentIndex + getCommentCount(comments, parentComment.comment.id)
+                        adapter.insertItem(
+                            position,
+                            CommentItem(parentComment.level + 1, comment)
+                        )
+                        (binding.forecastRV.layoutManager as LinearLayoutManager).scrollToPosition(
+                            position
+                        )
+                    }
+                }
+            }
+        }
     }
 }

@@ -490,7 +490,7 @@
                     android:id="@+id/bookmarkIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_bookmark"
+                    app:srcCompat="@drawable/ic_bookmark_outline"
                     android:layout_marginStart="16dp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -518,7 +518,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         app:srcCompat="@drawable/ic_arrow_down"
-                        android:background="?attr/selectableItemBackground"
+                        android:background="@android:color/transparent"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
                         />
@@ -533,11 +533,11 @@
                         />
 
                     <ImageButton
+                        android:background="@android:color/transparent"
                         android:id="@+id/upVoteBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         app:srcCompat="@drawable/ic_arrow_up"
-                        android:background="?attr/selectableItemBackground"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
                         android:layout_marginEnd="7dp"

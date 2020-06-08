@@ -93,7 +93,7 @@
             android:id="@+id/statsBlock"
             android:layout_width="0dp"
             android:layout_height="30dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="15dp"
             app:layout_constraintStart_toStartOf="@id/start"
             app:layout_constraintEnd_toEndOf="@id/end"
             app:layout_constraintTop_toBottomOf="@id/text">
@@ -133,6 +133,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/rating"
                     style="@style/ForecastStatsStyle"
                     android:layout_height="match_parent"
                     android:gravity="center"
@@ -153,6 +154,55 @@
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/commentLayout"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/statsBlock"
+            android:background="@drawable/bg_cornered_frame_5dp"
+            android:layout_width="0dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/commentSideSpace"
+            android:layout_marginEnd="@dimen/commentSideSpace"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/commentEditText"
+                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/labelSpace"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="top|start"
+                android:hint="Написать комментарий"
+                android:inputType="text"
+                android:minHeight="130dp"
+                android:padding="8dp"
+                android:textColor="@color/textColor1"
+                android:textColorHint="@color/textColor13"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/addCommentBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_button"
+                android:fontFamily="@font/roboto_medium"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="Написать"
+                android:textAllCaps="false"
+                android:textColor="#202E48"
+                android:textSize="18sp" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

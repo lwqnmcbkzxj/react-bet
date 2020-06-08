@@ -52,7 +52,7 @@
                         android:id="@+id/bookmarkBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        app:srcCompat="@drawable/ic_bookmark"
+                        app:srcCompat="@drawable/ic_bookmark_outline"
                         android:background="@android:color/transparent"
                         android:paddingEnd="@dimen/sideMargin"
                         android:paddingStart="@dimen/sideMargin"

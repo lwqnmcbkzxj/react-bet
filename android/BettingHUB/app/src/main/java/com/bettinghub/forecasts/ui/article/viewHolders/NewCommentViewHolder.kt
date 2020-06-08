@@ -1,15 +1,11 @@
-package com.bettinghub.forecasts.ui.forecast.items.viewHolders
+package com.bettinghub.forecasts.ui.article.viewHolders
 
 import android.view.View
-import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
-import com.bettinghub.forecasts.App
-import com.bettinghub.forecasts.R
-import com.bettinghub.forecasts.ui.LoginFragmentDirections
-import com.bettinghub.forecasts.ui.forecast.items.ItemListener
+import com.bettinghub.forecasts.ui.article.ItemListener
 import kotlinx.android.synthetic.main.item_comment_new.view.*
 
-class NewCommentViewHolder(itemView: View, val navController: NavController): RecyclerView.ViewHolder(itemView) {
+class NewCommentViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
     val commentEditText = itemView.commentEditText
     val addCommentButton = itemView.addCommentBtn
@@ -18,10 +14,6 @@ class NewCommentViewHolder(itemView: View, val navController: NavController): Re
 
     init {
         newCommentButton.setOnClickListener {
-            if (App.appComponent.getAppData().activeUser == null) {
-                navController.navigate(LoginFragmentDirections.actionGlobalLoginFragment(R.id.profileFragment))
-                return@setOnClickListener
-            }
             newCommentButton.visibility = View.GONE
             commentLayout.visibility = View.VISIBLE
         }

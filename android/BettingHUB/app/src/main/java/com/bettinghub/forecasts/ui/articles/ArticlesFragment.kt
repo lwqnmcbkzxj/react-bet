@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.Gravity
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -20,6 +21,7 @@ import com.bettinghub.forecasts.R
 import com.bettinghub.forecasts.Utils
 import com.bettinghub.forecasts.backend.BettingHubBackend
 import com.bettinghub.forecasts.models.Article
+import com.bettinghub.forecasts.ui.LoginFragmentDirections
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.article_list_item.view.*
@@ -146,7 +148,7 @@ class ArticlesFragment : Fragment() {
 
         fun bind(article: Article) {
             categoryName.text = article.categoryName
-            recommendations.text = article.content
+            recommendations.text = HtmlCompat.fromHtml(article.content, HtmlCompat.FROM_HTML_MODE_COMPACT)
             commentCount.text = article.commentCount.toString()
             likeCount.text = article.rating.toString()
             title.text = article.title
@@ -154,6 +156,10 @@ class ArticlesFragment : Fragment() {
             var liked = false
             var disliked = false
             downVoteButton.setOnClickListener {
+                if (App.appComponent.getAppData().activeUser == null) {
+                    findNavController().navigate(LoginFragmentDirections.actionGlobalLoginFragment(R.id.profileFragment))
+                    return@setOnClickListener
+                }
                 BettingHubBackend().api.dislikeArticle(article.id, "Bearer ${App.appComponent.getAppData().activeUser?.accessToken}")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -176,6 +182,10 @@ class ArticlesFragment : Fragment() {
                     })
             }
             upVoteButton.setOnClickListener {
+                if (App.appComponent.getAppData().activeUser == null) {
+                    findNavController().navigate(LoginFragmentDirections.actionGlobalLoginFragment(R.id.profileFragment))
+                    return@setOnClickListener
+                }
                 BettingHubBackend().api.likeArticle(article.id, "Bearer ${App.appComponent.getAppData().activeUser?.accessToken}")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())

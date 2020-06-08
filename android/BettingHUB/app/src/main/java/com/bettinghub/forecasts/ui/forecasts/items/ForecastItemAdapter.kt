@@ -3,6 +3,7 @@ package com.bettinghub.forecasts.ui.forecasts.items
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bettinghub.forecasts.R
 import com.bettinghub.forecasts.ui.RecyclerViewAdapterBase
@@ -15,7 +16,7 @@ import com.bettinghub.forecasts.ui.forecasts.items.viewHolders.ForecastViewHolde
 import com.bettinghub.forecasts.ui.forecasts.items.viewHolders.HeaderViewHolder
 import com.bettinghub.forecasts.ui.forecasts.items.viewHolders.ShowMoreViewHolder
 
-class ForecastItemAdapter(listener: ForecastListener, private val viewModel: ForecastsViewModel?, private val lifecycleOwner: LifecycleOwner?)
+class ForecastItemAdapter(listener: ForecastListener, private val viewModel: ForecastsViewModel?, private val lifecycleOwner: LifecycleOwner?, val navController: NavController)
     : RecyclerViewAdapterBase<ForecastListener, Item, RecyclerView.ViewHolder>(listener) {
 
     override fun setListener(holder: RecyclerView.ViewHolder, listener: ForecastListener) {
@@ -40,7 +41,7 @@ class ForecastItemAdapter(listener: ForecastListener, private val viewModel: For
         when (ItemType.values()[viewType]) {
             ItemType.FORECAST -> return ForecastViewHolder(
                                     LayoutInflater.from(parent.context)
-                                        .inflate(R.layout.item_forecast, parent, false)
+                                        .inflate(R.layout.item_forecast, parent, false), navController
                                 )
 
             ItemType.HEADER -> return HeaderViewHolder(LayoutInflater.from(parent.context)

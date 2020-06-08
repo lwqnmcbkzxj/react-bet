@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bettinghub.forecasts.R
@@ -35,7 +36,7 @@ class ForecastsFragment: Fragment(), ForecastListener {
         addItemDecoration()
 
         binding.rv.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        val adapter = ForecastItemAdapter(this, null, null)
+        val adapter = ForecastItemAdapter(this, null, null, findNavController())
         binding.rv.adapter = adapter
 
         val items = ArrayList<Item>()

@@ -29,6 +29,10 @@ data class User (
     @Expose
     val ratingPosition: Int,
 
+    @SerializedName("is_subscribed")
+    @Expose
+    val isSubscribed: Boolean,
+
     @SerializedName("stats")
     @Expose
     val stats: UserStats,

@@ -21,12 +21,13 @@ class MainActivity : AppCompatActivity() {
 //        setTheme(R.style.AppTheme)//avoid showing splash screen after loading //IMPORTANT!!! need to call before super.onCreate()
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO) //disable dark theme
+//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO) //disable dark theme
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val settings = Settings(this)
         Triple(settings.getString(Settings.accessTokenKey), settings.getString(Settings.refreshTokenKey), settings.getInt(Settings.userId)).let {
             if (it.first.isNotEmpty() && it.second.isNotEmpty()) {
+                println(it.third)
                 App.appComponent.getAppData().activeUser = ActiveUser(it.first, it.second, it.third)
             }
         }

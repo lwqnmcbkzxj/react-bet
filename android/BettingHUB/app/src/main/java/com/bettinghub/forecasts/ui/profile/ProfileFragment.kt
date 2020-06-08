@@ -19,6 +19,7 @@ import com.bettinghub.forecasts.Utils
 import com.bettinghub.forecasts.backend.BettingHubBackend
 import com.bettinghub.forecasts.databinding.FragmentProfileBinding
 import com.bettinghub.forecasts.models.User
+import com.bumptech.glide.Glide
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -75,7 +76,6 @@ class ProfileFragment : Fragment() {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
-                        println(it)
                         if (it.isSuccessful) {
                             unsubscribeBtn.visibility = View.GONE
                             subscribeBtn.visibility = View.VISIBLE
@@ -83,6 +83,13 @@ class ProfileFragment : Fragment() {
                     }, {
                         it.printStackTrace()
                     })
+            }
+            if (user.isSubscribed) {
+                binding.subscribeBtn.visibility = View.GONE
+                binding.unsubscribeBtn.visibility = View.VISIBLE
+            } else {
+                binding.unsubscribeBtn.visibility = View.GONE
+                binding.subscribeBtn.visibility = View.VISIBLE
             }
         } ?: run {
             binding.subscribeBtnBlock.visibility = View.GONE
@@ -166,7 +173,7 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        Utils.loadAvatar(binding.userBlock.avatar, user.avatar)
+        Glide.with(binding.userBlock.avatar).load("https://app.betthub.org" + user.avatar).into(binding.userBlock.avatar)
 
         binding.position.value = user.ratingPosition.toString()
         binding.subs.value = user.stats.subscriberCount.toString()

@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bettinghub.forecasts.App
@@ -89,7 +90,7 @@ class ForecastsFragment : Fragment(), ForecastListener {
             val items = ArrayList<Item>()
 
             binding.forecastRV.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            val adapter = ForecastItemAdapter(this, vm, this)
+            val adapter = ForecastItemAdapter(this, vm, this, findNavController())
             binding.forecastRV.adapter = adapter
 
             items.add(HeaderItem())

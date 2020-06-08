@@ -15,8 +15,8 @@ class TopMatchesViewModel: BaseViewModel() {
             requestWithLiveData(matchesLiveData
                 , { backendAPI.matches(consts.matchesPerPage, 1) }
                 , {
-                    appData.lastMatches = it
-                    it
+                    appData.lastMatches = it.data
+                    it.data
                 }
             )
         }

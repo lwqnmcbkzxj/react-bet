@@ -7,7 +7,7 @@ import java.io.Serializable
 data class ForecastStats (
     @SerializedName("count_subscribers")
     @Expose
-    val subscriberCount: Int,
+    var subscriberCount: Int,
 
     @SerializedName("count_comments")
     @Expose

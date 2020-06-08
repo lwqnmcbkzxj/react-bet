@@ -1,4 +1,4 @@
-package com.bettinghub.forecasts.ui.forecast.items.viewHolders
+package com.bettinghub.forecasts.ui.article.viewHolders
 
 import android.view.View
 import androidx.databinding.ViewDataBinding
@@ -10,17 +10,18 @@ import com.bettinghub.forecasts.backend.BettingHubBackend
 import com.bettinghub.forecasts.databinding.ItemComment0LevelBinding
 import com.bettinghub.forecasts.models.Comment
 import com.bettinghub.forecasts.ui.LoginFragmentDirections
-import com.bettinghub.forecasts.ui.forecast.items.ItemListener
-import com.bettinghub.forecasts.ui.forecast.items.items.CommentItem
+import com.bettinghub.forecasts.ui.article.ItemListener
+import com.bettinghub.forecasts.ui.article.items.CommentItem
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.item_comment_0_level.view.*
 import java.text.SimpleDateFormat
 
-open class CommentViewHolder(itemView: View, private val navController: NavController): RecyclerView.ViewHolder(itemView) {
+open class CommentViewHolder(itemView: View, val navController: NavController): RecyclerView.ViewHolder(itemView) {
     lateinit var comment: Comment
 
     fun setCommentItem(commentItem: CommentItem) {
+
         this.comment = commentItem.comment
         val time = SimpleDateFormat("yyyy.MM.dd в HH:mm").format(
             SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").parse(comment.createdAt)!!
