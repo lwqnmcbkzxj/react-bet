@@ -4,9 +4,10 @@ import { ForecastType } from '../types/forecasts'
 import { timeFilterEnum, subscriptionFilterEnum, sportTypeFilterEnum, FilterNames, FiltersObjectType, FilterType } from '../types/filters'
 import { SportType } from '../types/types'
 
-
 import { ThunkAction } from 'redux-thunk'
 import { forecastsAPI, appAPI } from '../api/api'
+
+import { setPaginationTotalCount, SetPaginationTotalCountType } from './app-reducer'
 
 const TOGGLE_IS_FETCHING = 'forecasts/TOGGLE_IS_FETCHING'
 const TOGGLE_FILTER = 'forecasts/TOGGLE_FILTER'
@@ -14,7 +15,6 @@ const SET_FORECASTS = 'forecasts/SET_FORECASTS'
 const SET_FORECAST = 'forecasts/SET_FORECAST'
 const SET_SPORTS = 'app/SET_SPORTS'
 const SET_FORECAST_COMMENTS = 'forecasts/SET_FORECAST_COMMENTS'
-
 
 let initialState = {
 	forecasts: [{}, {}, {}, {}, {}] as Array<ForecastType>,
@@ -35,7 +35,7 @@ let initialState = {
 
 	} as FiltersObjectType,
 	currentForecast: {} as ForecastType,
-	isFetching: false
+	isFetching: false,
 }
 
 type InitialStateType = typeof initialState;
@@ -45,14 +45,19 @@ type ActionsTypes =
 	SetForecastType |
 	SetForecastComments |
 	ToggleIsFetchingType |
-	SetForecastsSportsType;
+	SetForecastsSportsType |
+	SetPaginationTotalCountType;
 
 const forecastsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
 		case SET_FORECASTS: {
+			let forecasts = action.forecasts
+			if (action.getMore) 
+				forecasts = [...state.forecasts, ...forecasts]
+
 			return {
 				...state,
-				forecasts: action.forecasts
+				forecasts: [...forecasts]
 			}
 		}
 		case SET_FORECAST: {
@@ -92,6 +97,7 @@ const forecastsReducer = (state = initialState, action: ActionsTypes): InitialSt
 				isFetching: action.isFetching
 			}
 		}
+		
 		case SET_SPORTS: {
 			let filters = state.filters
 			if (action.sports.length > 0) {
@@ -122,6 +128,7 @@ type ToggleFilterType = {
 type SetForecastsType = {
 	type: typeof SET_FORECASTS
 	forecasts: Array<ForecastType>
+	getMore?: boolean
 }
 type SetForecastType = {
 	type: typeof SET_FORECAST
@@ -138,27 +145,29 @@ type SetForecastComments = {
 	comments: Array<CommentType>
 }
 
+
 export type SetForecastsSportsType = {
 	type: typeof SET_SPORTS
 	sports: Array<SportType>
 }
 
 
-export const getForecastsFromServer = (page: number, quanity: number, options = {} as any): ThunksType => async (dispatch) => {
+export const getForecastsFromServer = (page: number, limit: number, options = {} as any): ThunksType => async (dispatch, getState) => {
 	dispatch(toggleIsForecastsFetching(true))
 	let response
 
 	if (options.favourites)
-		response = await forecastsAPI.getFavouriteForecasts(page, quanity)
+		response = await forecastsAPI.getFavouriteForecasts(page, limit)
 	else if (options.subscribtion === "mySubscriptions" && options.loggedUserId) 
-		response = await forecastsAPI.getForecastsBySubscribtions(page, quanity, options)
+		response = await forecastsAPI.getForecastsBySubscribtions(page, limit, options)
 	else if (options.userId)
-		response = await forecastsAPI.getUserForecasts(page, quanity, options.userId)
+		response = await forecastsAPI.getUserForecasts(page, limit, options.userId)
 	else
-		response = await forecastsAPI.getForecasts(page, quanity, options)
+		response = await forecastsAPI.getForecasts(page, limit, options)
 
 	dispatch(toggleIsForecastsFetching(false))
-	dispatch(setForecasts(response.data))
+	dispatch(setForecasts(response.data, page !== 1))
+	dispatch(setPaginationTotalCount(response.meta.total, 'forecasts'))
 }
 
 export const getForecastFromServer = (id: number): ThunksType => async (dispatch) => {
@@ -170,13 +179,14 @@ export const getForecastFromServer = (id: number): ThunksType => async (dispatch
 	dispatch(setForecast(response))
 }
 
-export const setForecasts = (forecasts: Array<ForecastType>): SetForecastsType => {
+const setForecasts = (forecasts: Array<ForecastType>, getMore?: boolean): SetForecastsType => {
 	return {
 		type: SET_FORECASTS,
-		forecasts
+		forecasts,
+		getMore
 	}
 }
-export const setForecast = (forecast: ForecastType): SetForecastType => {
+const setForecast = (forecast: ForecastType): SetForecastType => {
 	return {
 		type: SET_FORECAST,
 		forecast

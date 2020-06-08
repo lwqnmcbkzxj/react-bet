@@ -11,27 +11,18 @@ import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons'
 import { UsersPlaceholder } from '../Common/Placeholders/UsersPlaceholder'
 import userImgPlaceholder from '../../assets/img/user-no-image.png'
 import { apiURL } from '../../api/api';
+import useScrollDown from '../../hooks/useScrollDown';
 
 type UsersListPropsType = {
 	users: Array<UserType>
 	limit?: number
+	instanceName?: string
 }
-const UsersList: FC<UsersListPropsType> = ({ users, limit = 0, ...props }) => {
+const UsersList: FC<UsersListPropsType> = ({ users, limit = 0, instanceName = "users", ...props }) => {
 	const isFetching = useSelector<AppStateType, boolean>(state => state.users.isFetching)
 
-
-	// const getUserImg = (userAvatar: string | null) => {
-	// 	let avatar = userImgPlaceholder
-	// 	if (userAvatar) {
-	// 		if (userAvatar.includes('http')) {
-	// 			avatar = userAvatar
-	// 		} else {
-	// 			avatar = apiURL + userAvatar
-	// 		}
-	// 	}
-	// 	return avatar
-	// }	
-
+	useScrollDown(instanceName)
+	
 	return (
 		<div className={s.userList}>
 			<div className={s.listHeader}>

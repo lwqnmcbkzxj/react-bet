@@ -34,11 +34,12 @@ const ArticleContainer: FC<ArticleProps> = ({ ...props }) => {
 		})()
 	}, []);
 
-
-	debugger
-	if (isFetching) {
-		return <ArticlePlaceholder />
+	
+	
+	if (!article.id || isFetching) {
+		return 	<ArticlePlaceholder />
 	}
+
 	return ( 
 		<Article
 			article={article}

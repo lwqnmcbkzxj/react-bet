@@ -18,6 +18,12 @@ const CHANGE_USER_PAGE_TAB = 'app/CHANGE_USER_PAGE_TAB'
 const SET_SPORTS = 'app/SET_SPORTS'
 const SET_POLICY = 'app/SET_POLICY'
 
+const SET_PAGINATION_LIMIT = 'app/SET_PAGINATION_LIMIT'
+const SET_PAGINATION_PAGE = 'app/SET_PAGINATION_PAGE'
+const SET_PAGINATION_TOTAL_COUNT = 'app/SET_PAGINATION_TOTAL_COUNT'
+
+
+
 let initialState = {
 	redirectLink: "",
 	shouldRedirect: false,
@@ -34,7 +40,15 @@ let initialState = {
 		android: 'https://play.google.com/store/apps/details?id=com.bettinghub.forecasts',
 		ios: ''
 	},
-	policy: ""
+	policy: "",
+	paginationObject: {
+		forecasts: { totalCount: 0, page: 1, limit: 5 },
+		articles: { totalCount: 0, page: 1, limit: 5 },
+		users: { totalCount: 0, page: 1, limit: 15 },
+		bookmakers: { totalCount: 0, page: 1, limit: 15 },
+		matches: { totalCount: 0, page: 1, limit: 15 },
+		news: { totalCount: 0, page: 1, limit: 15 },
+	}
 }
 
 type InitialStateType = typeof initialState;
@@ -48,7 +62,8 @@ type ActionsTypes =
 	ChangeLanguageType |
 	ChangeUserPageActiveTabType |
 	SetPolicyType |
-	SetSportsType;
+	SetSportsType |
+	SetPaginationLimitType | SetPaginationPageType | SetPaginationTotalCountType;
 
 const appReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
@@ -152,10 +167,65 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 				policy: action.policy
 			}
 		}
+			
+		case SET_PAGINATION_LIMIT: {
+			let key = action.instanceName as "forecasts" | "articles" | "users" | "bookmakers"
+			let instanceObject = state.paginationObject[key]
+			return {
+				...state,
+				paginationObject: {
+					...state.paginationObject,
+					[key]: {
+						...instanceObject,
+						limit: action.limit
+					}
+				}
+			}
+		}
+		case SET_PAGINATION_PAGE: {
+			debugger
+			let key = action.instanceName as "forecasts" | "articles" | "users" | "bookmakers"
+			let instanceObject = state.paginationObject[key]
+
+			let page = instanceObject.page
+			if (!action.isFetching && action.page !== page && instanceObject.totalCount > instanceObject.page * instanceObject.limit) {
+				if (action.page === -1)
+					page = instanceObject.page + 1
+				else 
+					page = action.page 
+			}
+			
+			return {
+				...state,
+				paginationObject: {
+					...state.paginationObject,
+					[key]: {
+						...instanceObject,
+						page: page
+					}
+				}
+			}
+		}
+		case SET_PAGINATION_TOTAL_COUNT: {
+			let key = action.instanceName as "forecasts" | "articles" | "users" | "bookmakers"
+			let instanceObject = state.paginationObject[key]
+			return {
+				...state,
+				paginationObject: {
+					...state.paginationObject,
+					[key]: {
+						...instanceObject,
+						totalCount: action.totalCount
+					}
+				}
+			}
+		}
 		default:
 			return state;
 	}
 }
+
+
 
 type ToggleAuthFormVisiblilityType = {
 	type: typeof TOGGLE_AUTH_FORM_VISIBILITY
@@ -196,6 +266,25 @@ type SetPolicyType = {
 	type: typeof SET_POLICY,
 	policy: string
 }
+
+
+export type SetPaginationLimitType = {
+	type: typeof SET_PAGINATION_LIMIT,
+	limit: number
+	instanceName: string
+}
+export type SetPaginationPageType = {
+	type: typeof SET_PAGINATION_PAGE,
+	page: number
+	instanceName: string,
+	isFetching: boolean
+}
+export type SetPaginationTotalCountType = {
+	type: typeof SET_PAGINATION_TOTAL_COUNT,
+	totalCount: number
+	instanceName: string
+}
+
 
 export const initApp = (): ThunksType => async (dispatch) => {
 	dispatch(getSportsFromServer())
@@ -320,6 +409,39 @@ const setPolicy = (policy: string): SetPolicyType => {
 		policy
 	}
 }
+
+export const setPaginationLimitType = (limit: number, instanceName: string): SetPaginationLimitType => {
+	return {
+		type: SET_PAGINATION_LIMIT,
+		limit,
+		instanceName
+	}
+}
+// export const setPaginationPage = (page: number, instanceName: string, isFetching: boolean): SetPaginationPageType => {
+// }
+
+
+export const setPaginationPage = (page: number, instanceName: string): ThunksType => async (dispatch, getState) => { 
+	let isFetching = getState()[instanceName as "forecasts" | "articles" | "users" | "bookmakers"].isFetching
+
+	dispatch({
+		type: SET_PAGINATION_PAGE,
+		page,
+		instanceName,
+		isFetching
+	})
+}
+
+
+export const setPaginationTotalCount = (totalCount: number, instanceName: string): SetPaginationTotalCountType => { 
+	return {
+		type: SET_PAGINATION_TOTAL_COUNT,
+		totalCount,
+		instanceName
+	}
+}
+
+
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
 export default appReducer;

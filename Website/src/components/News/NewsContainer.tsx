@@ -8,10 +8,15 @@ import News from './News'
 const NewsContainer: FC = ({ ...props }) => {
 	const news = useSelector<AppStateType, Array<NewsType>>(state => state.news.news)
 	
+	const page = useSelector<AppStateType, number>(state => state.app.paginationObject.news.page)
+	const limit = useSelector<AppStateType, number>(state => state.app.paginationObject.news.limit)
+
+
 	const dispatch = useDispatch()
 	useEffect(() => {
-		dispatch(getNewsFromServer())
-	}, []);
+		dispatch(getNewsFromServer(page, limit))
+	}, [page, limit]);
+
 
 	return ( 
 		<News news={news}/>

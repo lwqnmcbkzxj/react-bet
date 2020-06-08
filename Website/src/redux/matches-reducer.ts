@@ -1,8 +1,7 @@
 import { AppStateType } from '../types/types'
 import { ThunkAction } from 'redux-thunk'
-
 import { matchesAPI } from '../api/api'
-
+import { setPaginationTotalCount, SetPaginationTotalCountType } from './app-reducer'
 import { MatchType } from '../types/matches'
 
 const SET_MATCHES = 'matches/SET_MATCHES'
@@ -22,14 +21,18 @@ type InitialStateType = typeof initialState;
 type ActionsTypes =
 	SetMatchesType |
 	SetMatchType |
-	ToggleIsFetchingType;
+	ToggleIsFetchingType | 
+	SetPaginationTotalCountType;
 
 const matchesReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
 		case SET_MATCHES: {
+			let matches = action.matches
+			if (action.getMore) 
+				matches = [...state.matches, ...matches]
 			return {
 				...state,
-				matches: [...action.matches]
+				matches: [...matches]
 			}
 		}
 		case SET_MATCH: {
@@ -51,7 +54,8 @@ const matchesReducer = (state = initialState, action: ActionsTypes): InitialStat
 
 type SetMatchesType = {
 	type: typeof SET_MATCHES,
-	matches: Array<MatchType>
+	matches: Array<MatchType>,
+	getMore?: boolean
 }
 type SetMatchType = {
 	type: typeof SET_MATCH,
@@ -65,10 +69,11 @@ type ToggleIsFetchingType = {
 }
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
-export const setMatches = (matches: Array<MatchType>): SetMatchesType => {
+export const setMatches = (matches: Array<MatchType>, getMore?: boolean): SetMatchesType => {
 	return {
 		type: SET_MATCHES,
-		matches
+		matches,
+		getMore
 	}
 }
 export const setMatch = (match: MatchType): SetMatchType => {
@@ -77,12 +82,13 @@ export const setMatch = (match: MatchType): SetMatchType => {
 		match
 	}
 }
-export const getMatchesFromServer = (): ThunksType => async (dispatch) => {
+export const getMatchesFromServer = (page: number, limit: number): ThunksType => async (dispatch) => {
     dispatch(toggleIsFetching(true))
-	let response = await matchesAPI.getMatches()	
+	let response = await matchesAPI.getMatches(page, limit)	
 	dispatch(toggleIsFetching(false))
+	dispatch(setPaginationTotalCount(response.meta.total, 'matches'))
+	dispatch(setMatches(response.data, page !== 1))
 
-	dispatch(setMatches(response.data))
 }
 
 export const getMatchFromServer = (id: number): ThunksType => async (dispatch) => {

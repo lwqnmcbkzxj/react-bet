@@ -3,7 +3,7 @@ import { useDispatch, useSelector} from "react-redux"
 import { AppStateType } from '../../types/types'
 import { FilterNames, FiltersObjectType } from '../../types/filters'
 import { UserType } from '../../types/users'
-import Forecasters from './Users'
+import Users from './Users'
 import { toggleFilter } from '../../redux/users-reducer'
 import { withRouter, RouteComponentProps } from 'react-router'
 import { getUsersFromServer } from '../../redux/users-reducer'
@@ -16,6 +16,11 @@ const UsersContainer: FC = ({ ...props }) => {
 		dispatch(toggleFilter(filterName, filtersBlockName))
 	}
 
+
+	const page = useSelector<AppStateType, number>(state => state.app.paginationObject.users.page)
+	const limit = useSelector<AppStateType, number>(state => state.app.paginationObject.users.limit)
+
+
 	let activeSportFilter = getActiveFilter(filters, 'sportTypeFilter')
 	let activeTimeFilter = 	getActiveFilter(filters, 'timeFilter')
 
@@ -25,12 +30,12 @@ const UsersContainer: FC = ({ ...props }) => {
 	}
 
 	useEffect(() => {
-		dispatch(getUsersFromServer(1, 15, options))		
-	}, [filters]);
+		dispatch(getUsersFromServer(page, limit, options))	
+	}, [filters, page, limit]);
 
 
 	return (
-		<Forecasters
+		<Users
 			users={users}
 			filters={filters}
 			toggleFilter={toggleFilterDispatch}

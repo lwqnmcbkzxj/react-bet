@@ -6,7 +6,7 @@ export enum timeFilterEnum {
 	period_6_hours = '6',
 	period_12_hours = '12',
 	period_24_hours = '24',
-	month = '720'
+	month = '744'
 }
 export enum subscriptionFilterEnum {
 	allForecasts = 'allForesacts',

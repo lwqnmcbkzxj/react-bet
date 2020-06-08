@@ -10,11 +10,13 @@ import { MatchesPlaceholder } from '../Common/Placeholders/MatchesPlaceholder'
 import moment from 'moment'
 
 import { apiURL } from '../../api/api'
+import useScrollDown from '../../hooks/useScrollDown';
 
 type MatchesListPropsType = {
 	matches: Array<MatchType>
 	limit?: number
 	isMainpage?: boolean
+	instanceName?: string
 }
 
 export const getDateDay = (dateStr: string) => {
@@ -33,9 +35,10 @@ export const getDateTime = (dateStr: string) => {
 
 
 
-const UsersList: FC<MatchesListPropsType> = ({ matches, limit = 0, isMainpage = false, ...props }) => {
+const UsersList: FC<MatchesListPropsType> = ({ matches, limit = 0, isMainpage = false, instanceName = "matches", ...props }) => {
 	const isFetching = useSelector<AppStateType, boolean>(state => state.matches.isFetching)
-	const sports = useSelector<AppStateType, Array<SportType>>(state => state.app.sports)
+
+	useScrollDown(instanceName)
 
 	return (
 		<div className={classNames(s.matchList, {[s.isMainpage]: isMainpage }) }>

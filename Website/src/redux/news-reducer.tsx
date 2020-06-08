@@ -3,6 +3,7 @@ import { ThunkAction } from 'redux-thunk'
 
 import { NewsType } from '../types/news'
 import { newsAPI } from '../api/api'
+import { setPaginationTotalCount, SetPaginationTotalCountType } from './app-reducer'
 
 const SET_NEWS = 'news/SET_NEWS'
 const TOGGLE_IS_FETCHING = 'news/TOGGLE_IS_FETCHING'
@@ -14,14 +15,17 @@ let initialState = {
 }
 
 type InitialStateType = typeof initialState;
-type ActionsTypes = SetNewsType | ToggleIsFetchingType;
+type ActionsTypes = SetNewsType | ToggleIsFetchingType | SetPaginationTotalCountType;
 
 const newsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
 		case SET_NEWS: {
+			let news = action.news
+			if (action.getMore) 
+				news = [...state.news, ...news]
 			return {
 				...state,
-				news: action.news
+				news: [...news]
 			}
 		}
 		case TOGGLE_IS_FETCHING: {
@@ -37,7 +41,8 @@ const newsReducer = (state = initialState, action: ActionsTypes): InitialStateTy
 
 type SetNewsType = {
 	type: typeof SET_NEWS,
-	news: Array<NewsType>
+	news: Array<NewsType>,
+	getMore?: boolean
 }
 type ToggleIsFetchingType = {
 	type: typeof TOGGLE_IS_FETCHING
@@ -45,20 +50,21 @@ type ToggleIsFetchingType = {
 }
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
-export const setNews = (news: Array<NewsType>): SetNewsType => {
+export const setNews = (news: Array<NewsType>, getMore?: boolean): SetNewsType => {
 	return {
 		type: SET_NEWS,
-		news
+		news,
+		getMore
 	}
 }
 
-export const getNewsFromServer = ():ThunksType => async (dispatch) => {
+export const getNewsFromServer = (page: number, limit: number):ThunksType => async (dispatch) => {
 	
 	dispatch(toggleIsFetching(true))
-	let response = await newsAPI.getNews()	
+	let response = await newsAPI.getNews(page, limit)	
 	dispatch(toggleIsFetching(false))
-
-	dispatch(setNews(response.data))
+	dispatch(setPaginationTotalCount(response.total, 'news'))
+	dispatch(setNews(response.data, page !== 1))
 }
 
 export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingType => {

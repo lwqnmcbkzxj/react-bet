@@ -51,15 +51,18 @@ const Article: FC<ArticlePropsType> = ({ article, commentsFunctions, ...props })
 				<div className={s.articleText} dangerouslySetInnerHTML={{ __html: article.content }}></div>
 
 				<ElementStats
-					comments={article.count_comments}
-					favourites={0}
 					likes={article.rating}
+					likesActive={article.vote}
 
+					comments={article.count_comments}
 					showComments={false}
+
+					favourites={0}
 					showFavourites={false}
 
 					id={article.id}
-					elementType='article' />
+					elementType='article'
+				/>
 			</div>
 			<CommentsBlock
 				comments={article.comments as any}

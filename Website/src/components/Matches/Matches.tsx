@@ -23,10 +23,6 @@ const Matches: FC<MatchesPropsType> = ({ matches, ...props }) => {
 			</div>
 
 			<MatchesList matches={matches} />
-			<div style={{ marginTop: 30 }}>
-				<ActionButton value="Показать дальше" func={() => { console.log('Get more matches') }} />
-			</div>
-
 		</div>
 	)
 }

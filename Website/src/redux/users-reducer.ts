@@ -5,6 +5,7 @@ import { timeFilterEnum, sportTypeFilterEnum, FiltersObjectType, FilterType }fro
 import { UserType } from '../types/users'
 import { usersAPI } from '../api/api'
 import { useSelector } from 'react-redux'
+import { setPaginationTotalCount, SetPaginationTotalCountType } from './app-reducer'
 
 const TOGGLE_FILTER = 'users/TOGGLE_FILTER'
 const TOGGLE_IS_FETCHING = 'users/TOGGLE_IS_FETCHING'
@@ -28,14 +29,17 @@ type ActionsTypes =
 	SetUsersType |
 	ToggleFilterType |
 	ToggleIsFetchingType |
-	SetUsersSportsType;
+	SetUsersSportsType | SetPaginationTotalCountType;
 
 const usersReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
 		case SET_USERS: {
+			let users = action.users
+			if (action.getMore) 
+				users = [...state.users, ...users]
 			return {
 				...state,
-				users: [...action.users]
+				users: [...users]
 			}
 		}
 		case TOGGLE_FILTER: {
@@ -83,6 +87,7 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
 type SetUsersType = {
 	type: typeof SET_USERS
 	users: Array<UserType>
+	getMore?: boolean
 }
 
 type ToggleFilterType = {
@@ -100,18 +105,21 @@ export type SetUsersSportsType = {
 	sports: Array<SportType>
 }
 
-export const getUsersFromServer = (page: number, quanity: number, options = {} as any): ThunksType => async (dispatch) => {		
+export const getUsersFromServer = (page: number, limit: number, options = {} as any): ThunksType => async (dispatch) => {	
+	debugger
 	dispatch(toggleIsFetching(true))
-	let response = await usersAPI.getUsers(page, quanity, options)	
+	let response = await usersAPI.getUsers(page, limit, options)	
 	dispatch(toggleIsFetching(false))
 	
-	dispatch(setUsers(response.data))
+	dispatch(setPaginationTotalCount(response.meta.total, 'users'))
+	dispatch(setUsers(response.data, page !== 1))
 }
 
-export const setUsers = (users: Array<UserType>): SetUsersType => {
+export const setUsers = (users: Array<UserType>, getMore?: boolean): SetUsersType => {
 	return {
 		type: SET_USERS,
-		users
+		users,
+		getMore
 	}
 }
 

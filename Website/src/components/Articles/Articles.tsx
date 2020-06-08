@@ -19,7 +19,7 @@ const Articles: FC<ArticlesPropsType> = ({ articles, ...props }) => {
 				<h1 className="pageName">Статьи</h1>
 			</div>
 
-			<ArticlesList articles={articles}/>
+			<ArticlesList articles={articles} />
 
 		</div>
 	)

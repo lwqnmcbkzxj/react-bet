@@ -9,20 +9,23 @@ import ElementStats from '../Common/ElementStats/ElementStats'
 import { ArticlesPlaceholder } from '../Common/Placeholders/ArticlesPlaceholder'
 
 import { formatDate } from '../../utils/formatDate'
+import useScrollDown from '../../hooks/useScrollDown';
 
 
 type ArticlesPropsType = {
 	articles: Array<ArticleType>
+	instanceName?: string
 }
 
-const ArticlesList: FC<ArticlesPropsType> = ({ articles, ...props }) => {
+const ArticlesList: FC<ArticlesPropsType> = ({ articles, instanceName = "articles", ...props }) => {
 	const isFetching = useSelector<AppStateType, boolean>(state => state.articles.isFetching)
+	useScrollDown(instanceName)
 
 	return (
 		<div className={s.articlesList}>
 			{
 				articles.map((article, counter) =>
-					isFetching ? <ArticlesPlaceholder /> :
+					!article.id || isFetching ? <ArticlesPlaceholder /> :
 
 						<div className={s.article}>
 							<Link to={`/articles/${article.id}`} className="actileLink">
@@ -40,13 +43,17 @@ const ArticlesList: FC<ArticlesPropsType> = ({ articles, ...props }) => {
 
 							<ElementStats
 								likes={article.rating}
-								comments={article.count_comments}
-								favourites={0}
+								likesActive={article.vote}
 
-								showFavourites={false}
+								comments={article.count_comments}
 								showComments={false}
+
+								favourites={0}
+								showFavourites={false}
+
 								id={article.id}
-								elementType={'article'} />
+								elementType='article'
+							/>
 						</div>
 				)
 			}

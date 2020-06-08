@@ -1,38 +1,40 @@
-import React, { FC, useEffect } from 'react'
-import { useDispatch, useSelector} from "react-redux"
+import React, { FC, useEffect, useState, useReducer } from 'react'
+import { useDispatch, useSelector } from "react-redux"
 import { AppStateType } from '../../types/types'
 import Forecasts from './Forecasts'
 
 import { toggleFilter, getForecastsFromServer } from '../../redux/forecasts-reducer'
+import { setPaginationPage } from '../../redux/app-reducer'
 
 import { ForecastType } from '../../types/forecasts'
 import { FiltersObjectType, FilterNames } from '../../types/filters'
 
-import { withRouter, RouteComponentProps  } from 'react-router'
+import { withRouter, RouteComponentProps } from 'react-router'
 
-import {getActiveFilter } from '../../utils/getActiveFilter'
+import { getActiveFilter } from '../../utils/getActiveFilter'
 import { UserType } from '../../types/me'
 interface MatchParams {
-    forecastId: string;
+	forecastId: string;
 }
 
-interface Props extends RouteComponentProps<MatchParams> {}
+interface Props extends RouteComponentProps<MatchParams> { }
 
 const ForecastsContainer: FC<Props> = ({ ...props }) => {
+	const dispatch = useDispatch()
+
 	const forecasts = useSelector<AppStateType, Array<ForecastType>>(state => state.forecasts.forecasts)
 	const filters = useSelector<AppStateType, FiltersObjectType>(state => state.forecasts.filters)
 
+	const page = useSelector<AppStateType, number>(state => state.app.paginationObject.forecasts.page)
+	const limit = useSelector<AppStateType, number>(state => state.app.paginationObject.forecasts.limit)
+
 	// For subscribtion filters
 	const loggedUser = useSelector<AppStateType, UserType>(state => state.me.userInfo)
-	const logged = useSelector<AppStateType, boolean>(state => state.me.logged)
-
-	const dispatch = useDispatch()
 
 	let activeSportFilter = getActiveFilter(filters, 'sportTypeFilter')
 	let activeSubscriptionFilter = getActiveFilter(filters, 'subscriptionFilter')
-	let activeTimeFilter = 	getActiveFilter(filters, 'timeFilter')
+	let activeTimeFilter = getActiveFilter(filters, 'timeFilter')
 
-	debugger
 	let options = {
 		sport: activeSportFilter,
 		time: activeTimeFilter,
@@ -41,12 +43,14 @@ const ForecastsContainer: FC<Props> = ({ ...props }) => {
 	}
 
 	useEffect(() => {
-		dispatch(getForecastsFromServer(1, 15, options))		
-	}, [filters]);
+		dispatch(getForecastsFromServer(page, limit, options))
+	}, [filters, limit, page]);
 
 	const toggleFilterDispatch = (filterName: FilterNames, filtersBlockName: string) => {
+		dispatch(setPaginationPage(1, 'forecasts'))
 		dispatch(toggleFilter(filterName, filtersBlockName))
 	}
+
 
 	return (
 		<Forecasts

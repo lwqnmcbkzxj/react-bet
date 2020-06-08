@@ -7,13 +7,16 @@ import { BookmakerType } from '../../types/bookmakers'
 
 
 const BookmakersContainer: FC = ({ ...props }) => {
+	const dispatch = useDispatch()
 	const bookmakers = useSelector<AppStateType, Array<BookmakerType>>(state => state.bookmakers.bookmakers)
 
-	const dispatch = useDispatch()
+	const page = useSelector<AppStateType, number>(state => state.app.paginationObject.bookmakers.page)
+	const limit = useSelector<AppStateType, number>(state => state.app.paginationObject.bookmakers.limit)
+
 
 	useEffect(() => {
-		dispatch(getBookmakersFromServer())		
-	}, []);
+		dispatch(getBookmakersFromServer(page, limit))		
+	}, [page, limit]);
 
 
 	return (

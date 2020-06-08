@@ -7,14 +7,17 @@ import { MatchType } from '../../types/matches'
 import { getMatchesFromServer } from '../../redux/matches-reducer'
 
 const MatchesContainer: FC = ({ ...props }) => {
+	const dispatch = useDispatch()
 	const matches = useSelector<AppStateType, Array<MatchType>>(state => state.matches.matches)
 
-	const dispatch = useDispatch()
+	const page = useSelector<AppStateType, number>(state => state.app.paginationObject.matches.page)
+	const limit = useSelector<AppStateType, number>(state => state.app.paginationObject.matches.limit)
+
 
 	useEffect(() => {
-		dispatch(getMatchesFromServer())		
-	}, []);
-
+		dispatch(getMatchesFromServer(page, limit))		
+	}, [page, limit]);
+	
 
 	return (
 		<Matches

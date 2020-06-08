@@ -14,6 +14,7 @@ import { MatchType } from '../../types/matches';
 import { BookmakerType } from '../../types/bookmakers';
 import { UserType } from '../../types/users';
 import { getBookmakersFromServer } from '../../redux/bookmakers-reducer';
+import { timeFilterEnum } from '../../types/filters';
 
 const MainPageContainer: FC = () => {
 	const dispatch = useDispatch();
@@ -32,12 +33,12 @@ const MainPageContainer: FC = () => {
 		dispatch(changeMainPageBlockVisibility(blockName))
 	}
 
-
+	
 	useEffect(() => {
 		dispatch(getForecastsFromServer(1, 5))	
-		dispatch(getUsersFromServer(1, 15))	
-		dispatch(getMatchesFromServer())		
-		dispatch(getBookmakersFromServer())		
+		dispatch(getUsersFromServer(1, 15, { time: timeFilterEnum.month, sport: 0 }))	
+		dispatch(getMatchesFromServer(1, 5))		
+		dispatch(getBookmakersFromServer(1, 5))		
 	}, []);
 
 

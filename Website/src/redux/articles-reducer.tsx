@@ -4,18 +4,17 @@ import { ThunkAction } from 'redux-thunk'
 import { ArticleType } from '../types/article'
 import { postsAPI, appAPI } from '../api/api'
 import { showAlert } from '../utils/showAlert'
+import { setPaginationTotalCount, SetPaginationTotalCountType } from './app-reducer'
+
 const SET_ARTICLES = 'articles/SET_ARTICLES'
 const SET_ARTICLE = 'articles/SET_ARTICLE'
 const TOGGLE_IS_FETCHING = 'articles/TOGGLE_IS_FETCHING'
 const SET_ARTICLE_COMMENTS = 'articles/SET_ARTICLE_COMMENTS'
 
-
-
-
 let initialState = {
 	articles: [{}, {}, {}, {}, {}] as Array<ArticleType>,
 	currentArticle: {} as ArticleType,
-    isFetching: false,
+	isFetching: false,
 }
 
 type InitialStateType = typeof initialState;
@@ -23,14 +22,18 @@ type ActionsTypes =
 	SetArticlesType |
 	SetArticleType |
 	SetArticleComments |
-	ToggleIsFetchingType;
+	ToggleIsFetchingType | 
+	SetPaginationTotalCountType;
 
 const articlesReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
 		case SET_ARTICLES: {
+			let articles = action.articles
+			if (action.getMore) 
+				articles = [...state.articles, ...articles]
 			return {
 				...state,
-				articles: action.articles
+				articles: articles
 			}
 		}
 		case SET_ARTICLE: {
@@ -62,6 +65,7 @@ const articlesReducer = (state = initialState, action: ActionsTypes): InitialSta
 type SetArticlesType = {
 	type: typeof SET_ARTICLES,
 	articles: Array<ArticleType>
+	getMore?: boolean
 }
 type SetArticleType = {
 	type: typeof SET_ARTICLE,
@@ -88,13 +92,14 @@ export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingType => {
 	}
 }
 
-export const getArticlesFromServer = ():ThunksType => async (dispatch) => {
+export const getArticlesFromServer = (page: number, limit: number):ThunksType => async (dispatch) => {
 	
 	dispatch(toggleIsFetching(true))
-	let response = await postsAPI.getPosts()	
+	let response = await postsAPI.getPosts(page, limit)	
 	dispatch(toggleIsFetching(false))
-	
-	dispatch(setArticles(response.data))
+
+	dispatch(setPaginationTotalCount(response.meta.total, 'articles'))
+	dispatch(setArticles(response.data, page !== 1))
 }
 
 
@@ -107,10 +112,11 @@ export const getArticleFromServer = (id: number): ThunksType => async (dispatch)
 	dispatch(setArticle(response))
 }
 
-export const setArticles = (articles: Array<ArticleType>): SetArticlesType => {
+export const setArticles = (articles: Array<ArticleType>, getMore?: boolean): SetArticlesType => {
 	return {
 		type: SET_ARTICLES,
-		articles
+		articles,
+		getMore
 	}
 }
 

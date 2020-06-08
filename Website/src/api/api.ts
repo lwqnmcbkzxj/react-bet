@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import qs from 'query-string'
-import { UserType } from '../types/admin';
+import { UserType, BookmakerType, ForecastType } from '../types/admin';
 
 export const apiURL = "https://app.betthub.org/"
 
@@ -84,7 +84,7 @@ export const userAPI = {
 
 export const forecastsAPI = {
 	getForecasts(page: number, limit: number, options: any) {
-		return instance.get(`/forecasts`, {
+		return instance.get(`/forecasts?page=${page}&limit=${limit}`, {
 			params: {
 				sport_id: options.sport,
 				time: options.time
@@ -96,20 +96,20 @@ export const forecastsAPI = {
 	},
 	
 	getUserForecasts(page: number, limit: number, userId: number) {
-		return instance.get(`/users/${userId}/forecasts`)
+		return instance.get(`/users/${userId}/forecasts?page=${page}&limit=${limit}`)
 			.then((response) => {
 				return response.data
 			});
 	},
 
 	getFavouriteForecasts(page: number, limit: number) {
-		return instance.get(`/forecasts/marked`)
+		return instance.get(`/forecasts/marked?page=${page}&limit=${limit}`)
 			.then((response) => {
 				return response.data
 			});
 	},
 	getForecastsBySubscribtions(page: number, limit: number, options: any) {
-		return instance.get(`/users/${options.loggedUserId}/subscription/forecasts`, {
+		return instance.get(`/users/${options.loggedUserId}/subscription/forecasts?page=${page}&limit=${limit}`, {
 			params: {
 				sport_id: options.sport,
 				time: options.time
@@ -155,22 +155,22 @@ export const forecastsAPI = {
 }
 
 export const matchesAPI = {
-	getMatches() {
-		return instance.get(`/events`)
+	getMatches(page: number, limit: number) {
+		return instance.get(`events?page=${page}&limit=${limit}`)
 			.then((response) => {
 				return response.data
 			});
 	},
 	getMatch(id: number) {
-		return instance.get(`/events/${id}`)
+		return instance.get(`events/${id}`)
 			.then((response) => {
 				return response.data
 			});
 	}
 }
 export const bookmakersAPI = {
-	getBookmakers() {
-		return instance.get(`/bookmakers`)
+	getBookmakers(page: number, limit: number) {
+		return instance.get(`/bookmakers?page=${page}&limit=${limit}`)
 			.then((response) => {
 				return response.data
 			});
@@ -184,8 +184,8 @@ export const bookmakersAPI = {
 }
 
 export const newsAPI = {
-	getNews() {
-		return instance.get(`news`)
+	getNews(page: number, limit: number) {
+		return instance.get(`news?page=${page}&limit=${limit}`)
 			.then((response) => {
 				return response.data
 			});
@@ -193,8 +193,8 @@ export const newsAPI = {
 }
 
 export const postsAPI = {
-	getPosts() {
-		return instance.get(`posts`)
+	getPosts(page: number, limit: number) {
+		return instance.get(`posts?page=${page}&limit=${limit}`)
 			.then((response) => {
 				return response.data
 			});
@@ -221,10 +221,15 @@ export const postsAPI = {
 
 export const usersAPI = {
 	getUsers(page: number, limit: number, options: any) {
-		return instance.get(`users`, {
+		let month = 0
+
+		if (+options.time) {
+			month = Math.ceil(options.time / 744) 
+		}
+		return instance.get(`users?page=${page}&limit=${limit}`, {
 			params: {
 				sport_id: options.sport,
-				time: options.time
+				month: month
 			}
 		}).then((response) => {
 			return response.data
@@ -383,7 +388,95 @@ export const adminAPI = {
 				});
 		},
 	},
+	forecsats: {
+		getAdminForecasts(page: number, limit: number, search: string, search_by: string) {
+			let searchString =''
+			if (search && search_by) {
+				searchString = `&search=${search}&search_by=${search_by}`
+			}
+			
+			return instance.get(`admin/forecasts?page=${page}&limit=${limit}` + searchString)
+				.then((response) => {
+					return response.data
+				});
+		},
+		getUserForecasts(page: number, limit: number, search: string, search_by: string) {
+			let searchString =''
+			if (search && search_by) {
+				searchString = `&search=${search}&search_by=${search_by}`
+			}
+			
+			return instance.get(`admin/forecasts?page=${page}&limit=${limit}` + searchString)
+				.then((response) => {
+					return response.data
+				});
+		},
+		getAdminForecast(id: number) {
+			return instance.get(`admin/forecasts/${id}`)
+				.then((response) => {
+					return response.data
+				});
+		},
 
+
+		addForecast(dataObject: ForecastType) {
+			return instance.post(`admin/forecasts`, { ...dataObject })
+				.then((response) => {
+					return response.data
+				});
+		},
+		editForecast(id: number, dataObject: ForecastType) {
+			return instance.post(`admin/forecasts/${id}`, { ...dataObject })
+				.then((response) => {
+					return response.data
+				});
+		},
+		deleteForecast(id: number) {
+			return instance.delete(`admin/forecasts/${id}`)
+				.then((response) => {
+					return response.data
+				});
+		},
+	},
+	boomakers: {
+		getAdminBookmakers(page: number, limit: number, search: string, search_by: string) {
+			let searchString =''
+			if (search && search_by) {
+				searchString = `&search=${search}&search_by=${search_by}`
+			}
+			
+			return instance.get(`admin/bookmakers?page=${page}&limit=${limit}` + searchString)
+				.then((response) => {
+					return response.data
+				});
+		},
+		getAdminBookmaker(id: number) {
+			return instance.get(`admin/bookmakers/${id}`)
+				.then((response) => {
+					return response.data
+				});
+		},
+
+
+		addBookmaker(dataObject: BookmakerType) {
+			return instance.post(`admin/bookmakers`, { ...dataObject })
+				.then((response) => {
+					return response.data
+				});
+		},
+		editBookmaker(id: number, dataObject: BookmakerType) {
+			return instance.post(`admin/bookmakers/${id}`, { ...dataObject })
+				.then((response) => {
+					return response.data
+				});
+		},
+		deleteBookmaker(id: number) {
+			return instance.delete(`admin/bookmakers/${id}`)
+				.then((response) => {
+					return response.data
+				});
+		},
+	},
 	documents: {
 		changePolicy(text: string) {
 			return instance.post(`admin/policy`, { text })

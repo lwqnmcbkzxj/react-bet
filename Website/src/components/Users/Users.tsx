@@ -16,7 +16,6 @@ type UsersPropsType = {
 	users: Array<UserType>
 	filters: FiltersObjectType
 	toggleFilter: (filterName: FilterNames, filtersBlockName: string) => void
-
 }
 const Users: FC<UsersPropsType> = ({ users, filters, toggleFilter, ...props }) => {
 	const [filtersVisible, setFiltersVisible] = useState(false)
@@ -51,7 +50,7 @@ const Users: FC<UsersPropsType> = ({ users, filters, toggleFilter, ...props }) =
 				/>
 			</div>
 
-			<UsersList users={users} />
+			<UsersList users={users}/>
 		</div>
 	)
 }

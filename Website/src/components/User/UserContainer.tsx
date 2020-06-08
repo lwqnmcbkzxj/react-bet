@@ -15,6 +15,8 @@ import { getActiveFilter } from '../../utils/getActiveFilter'
 import { toggleFilter, getUserFromServer, subscribeUser } from '../../redux/user-reducer'
 import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 import { UserProfilePlaceholder } from '../Common/Placeholders/UsersPlaceholder'
+import { selectors } from './User'
+
 interface MatchParams {
 	userId: string;
 }
@@ -65,13 +67,25 @@ const UsersContainer: FC<Props> = ({ ...props }) => {
 
 
 
+	const page = useSelector<AppStateType, number>(state => state.app.paginationObject.forecasts.page)
+	const limit = useSelector<AppStateType, number>(state => state.app.paginationObject.forecasts.limit)
 
+	useEffect(() => {
+		if (!isFetching) {
+			if (activeUserProfileTab === selectors.forecasts) {
+				getUserForecasts()
+			} else if (activeUserProfileTab === selectors.favourites) {
+				getUserFavourites()
+			}
+		}
+		
+	}, [activeUserProfileTab, page, limit])
 
 	const getUserForecasts = () => {
-		dispatch(getForecastsFromServer(1, 15, { userId: userId }))
+		dispatch(getForecastsFromServer(page, limit, { userId: userId }))
 	}
 	const getUserFavourites = () => {
-		dispatch(getForecastsFromServer(1, 15, { favourites: true }))
+		dispatch(getForecastsFromServer(page, limit, { favourites: true }))
 	}
 
 	

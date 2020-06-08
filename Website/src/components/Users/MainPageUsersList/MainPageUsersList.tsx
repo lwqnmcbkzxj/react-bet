@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux"
 import s from './MainPageUsersList.module.scss';
 import classNames from 'classnames'
@@ -11,13 +11,19 @@ import userImgPlaceholder from '../../../assets/img/user-no-image.png'
 import Swiper from 'react-id-swiper';
 import 'swiper/css/swiper.css';
 import { apiURL } from '../../../api/api';
+import { setPaginationPage } from '../../../redux/app-reducer';
 
 type UsersListPropsType = {
 	users: Array<UserType>
 	limit?: number
 }
 const UsersList: FC<UsersListPropsType> = ({ users, limit = 0, ...props }) => {
+	const dispatch = useDispatch()
 	const isFetching = useSelector<AppStateType, boolean>(state => state.users.isFetching)
+
+	useEffect(() => {
+		dispatch(setPaginationPage(1, 'users'))
+	}, []);
 
 	const params = {
 		scrollbar: {

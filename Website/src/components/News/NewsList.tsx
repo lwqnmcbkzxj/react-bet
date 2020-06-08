@@ -6,14 +6,18 @@ import { NewsType } from '../../types/news'
 import { NewslistPlaceholder } from '../Common/Placeholders/NewsPlaceholder'
 import { formatDate } from '../../utils/formatDate';
 import { Link } from 'react-router-dom';
+import useScrollDown from '../../hooks/useScrollDown';
 
 type NewsPropsType = {
 	news: Array<NewsType>
+
+	instanceName?: string
 }
 
-const NewsList: FC<NewsPropsType> = ({ news, ...props }) => {
+const NewsList: FC<NewsPropsType> = ({ news, instanceName = 'news', ...props }) => {
 	const isFetching = useSelector<AppStateType, boolean>(state => state.news.isFetching)
 
+	useScrollDown(instanceName)
 	return (
 		<div className={s.newsList}>
 			{

@@ -58,7 +58,7 @@ const MainPage: FC<MainPagePropsType> = ({ users, forecasts, matches, bookmakers
 		<div className={s.mainBlock}>
 			<div className={s.forecasters}>
 				<h1 className={s.blockHeader}>Лучшие прогнозисты</h1>
-				<UsersList users={users}/>
+				<UsersList users={users} limit={15}/>
 				<NavLink to="/forecasters" className={s.navLinkBtn}><ActionButton value="Посмотреть всех" /></NavLink>
 
 			</div>
