@@ -32,11 +32,10 @@ const SportsBlock: FC<SportsBlockPropsType> = ({toggleFilter, sports, ...props }
 	let sportLinksLimit = sportsBlockVisible ? -1 : 4;
 	let showBtn;
 
-
 	if (sportsBlockVisible) {
 		showBtn = <button className={s.showBtn} onClick={toggleSportsBlockVisibitity}>Скрыть</button>
 	} else {		
-		showBtn = <button className={s.showBtn} onClick={toggleSportsBlockVisibitity}>Показать еще ({sports.length - sportLinksLimit})</button>
+		showBtn = <button className={s.showBtn} onClick={toggleSportsBlockVisibitity}>Показать еще ({sports.length - 1 - sportLinksLimit})</button>
 	}
 	return (
 
@@ -47,7 +46,7 @@ const SportsBlock: FC<SportsBlockPropsType> = ({toggleFilter, sports, ...props }
 					(counter < sportLinksLimit || sportLinksLimit === -1) ? link : null
 				)}
 			</div>
-			{ sportLinksLimit > 4 && showBtn }
+			{sports.length - 1 > 4 && showBtn}
 		</div>
 	)
 }

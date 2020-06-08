@@ -21,6 +21,7 @@ export type CommentType = {
 	user_name: string,
 	user_avatar: string
 	replies_to_name: string | null,
+	vote: null | string
 }
 
 export enum CommentsEnum {
@@ -37,9 +38,6 @@ export type SportType = {
 	image?: string
 }
 
-export enum ForecastsStatusEnum {
-
-}
 export enum RolesEnum {
 	user = 1,
 	robotForecaster = 2,

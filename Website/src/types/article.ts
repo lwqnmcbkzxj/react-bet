@@ -15,5 +15,6 @@ export type ArticleType = {
 	rating: number
 	count_comments: number
 
+	vote: null | string
 	comments?: Array<CommentType>
 }

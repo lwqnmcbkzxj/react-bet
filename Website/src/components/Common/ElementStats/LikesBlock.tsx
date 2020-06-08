@@ -17,12 +17,11 @@ type LikesBlockPropsType = {
 	id: number
 	elementType: string
 
-	likesActive?: string
+	likesActive?: null | string
 }
 const LikesBlock: FC<LikesBlockPropsType> = ({ likes, id, elementType, likesActive, ...props }) => {
 	const logged = useSelector<AppStateType, boolean>(state => state.me.logged)
 	const dispatch = useDispatch()
-	let likesRef = createRef<HTMLDivElement>()
 	// Like - 1, dislike - 2
 	const rateDispatch = (id: number, rateType: number) => {
 		if (elementType === 'forecast')
@@ -33,15 +32,14 @@ const LikesBlock: FC<LikesBlockPropsType> = ({ likes, id, elementType, likesActi
 			dispatch(ratePost(id, rateType))
 		}
 	}
-
-
+	
 	const [likingInProgress, setLikingInProgress] = useState(false)
 	// Получение ISLIKED
 	const [elementLiked, setLiked] = useState(likesActive === 'like')
 	const [elementDisliked, setDisliked] = useState(likesActive === 'dislike')
 	const [likesCount, setLikesCountHook] = useState(likes)
 
-	const [likesArray, setLikesArray] = useState([likesCount + 1, likesCount, likesCount - 1])
+	const [likesArray, setLikesArray] = useState([likesCount + 1, +likesCount, likesCount - 1])
 	const [likesBlockStyle, setLikesBlockStyle] = useState({})
 	const setLikesCount = (likes: number) => {
 		let transition = 300

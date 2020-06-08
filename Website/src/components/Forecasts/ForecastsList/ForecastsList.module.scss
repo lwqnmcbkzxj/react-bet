@@ -55,10 +55,14 @@
 			padding-left: 21px;
 			padding-right: 21px;
 
-			&.mathPreview {
+			&.matchPreview {
 				padding: 0 21px 0 0;
 				display: flex;
 				align-items: center;
+				&.wait {
+					padding-left: 21px;
+					padding-right: 21px;
+				}
 
 				& .profit {
 					padding: 6px 13px 4px 22px;
@@ -75,10 +79,14 @@
 						color: #FFFFFF;
 					}
 
-					&.negative {
+					&.negative, &.back {
 						background: #F2F2F2;
 						color: #393F4D;
 					}
+					&.back {
+						border: 2px solid #0F19AA;
+					}
+					
 				}
 
 				& .matchTitle {
@@ -246,9 +254,9 @@
 	}
 
 	.forecastContent {
-		&>div {
-			padding-left: 13px;
-			padding-right: 13px;
+		&>div, & .matchPreview.wait {
+			padding-left: 13px!important;
+			padding-right: 13px!important;
 		}
 	}
 }
@@ -263,9 +271,9 @@
 		}
 
 		& .forecastContent {
-			&>div {
-				padding-left: 8px;
-				padding-right: 8px;
+			&>div, & .matchPreview.wait {
+				padding-left: 8px!important;
+				padding-right: 8px!important;
 			}
 		}
 
@@ -314,7 +322,7 @@
 			padding-bottom: 20px;
 
 			&>div {
-				&.mathPreview {
+				&.matchPreview {
 					& .matchTitle {
 						font-size: 18px;
 						line-height: 22px;

@@ -41,6 +41,7 @@ const SendComemnt: FC<SendComemntPropsType> = ({
 		if (text !== "") {
 			toggleReplyVisible()
 			sendCommentFunc(text, replyCommentId)
+			inputRef.current.value = ""
 		}
 		
 	}

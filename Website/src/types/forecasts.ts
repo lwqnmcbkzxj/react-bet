@@ -50,6 +50,7 @@ export type ForecastType = {
 		coefficient: string,
 		type: string,
 		pure_profit: number
+		status: ForecastStatusEnum
 	},
 	forecast_stats: {
 		count_subscribers: number,
@@ -61,3 +62,11 @@ export type ForecastType = {
 	vote?: string
 }
 /* FORECAST TYPES */
+
+export enum ForecastStatusEnum {
+	back = 0,
+	wait = 1,
+	win = 2,
+	loss = 3
+		
+}

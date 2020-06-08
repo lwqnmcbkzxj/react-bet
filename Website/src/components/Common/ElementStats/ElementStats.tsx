@@ -21,7 +21,7 @@ type ElementStatsPropsType = {
 	showFavourites?: boolean
 	showComments?: boolean
 
-	likesActive?: string
+	likesActive?: null | string
 	favouritesActive?: boolean
 
 	id: number

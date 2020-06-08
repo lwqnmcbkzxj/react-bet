@@ -8,6 +8,7 @@ import LikesBlock from '../ElementStats/LikesBlock'
 import SendComment from './SendComment';
 import { formatDate } from '../../../utils/formatDate';
 import { CommentType } from '../../../types/types';
+import { apiURL } from '../../../api/api';
 type CommentPropsType = {
 	comment: CommentType
 	comments: Array<CommentType>
@@ -52,7 +53,7 @@ const Comment: FC<CommentPropsType> = ({ comment, comments, sendCommentFunc, ...
 		<div className={classNames(s.comment, { [s.reply]: comment.replies_to, [s.lastReply]: !comment.replies_to })}>
 			
 			<div className={s.commentHeader}>
-				<Link to={`/forecasters/${comment.user_id}`}><img src={userImg} alt="user-img" /></Link>
+				<Link to={`/forecasters/${comment.user_id}`}><img src={comment.user_avatar ? apiURL + comment.user_avatar : userImg} alt="user-img" /></Link>
 
 				<div className={s.info}>
 					<Link to={`/forecasters/${comment.user_id}`} className={s.nickName}>{comment.user_name}</Link>
@@ -62,7 +63,7 @@ const Comment: FC<CommentPropsType> = ({ comment, comments, sendCommentFunc, ...
 						<div className={s.date}>{formatDate(comment.created_at)}</div>
 					</div>
 				</div>
-				<LikesBlock likes={comment.rating} elementType={'comment'} id={comment.id}/>
+				<LikesBlock likes={comment.rating} elementType={'comment'} id={comment.id} likesActive={comment.vote}/>
 			</div>
 			<div className={s.contentText}>{comment.text}</div>
 			<div className={s.replyBtn} onClick={toggleReplyVisible} ref={replyBtnRef}><button>Ответить</button></div>

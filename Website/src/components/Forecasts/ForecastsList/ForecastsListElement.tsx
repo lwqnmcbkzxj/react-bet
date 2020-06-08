@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 import s from './ForecastsList.module.scss';
 import classNames from 'classnames'
-import { ForecastType } from '../../../types/forecasts'
+
+import { ForecastType, ForecastStatusEnum } from '../../../types/forecasts'
 
 import ElementStats from '../../Common/ElementStats/ElementStats'
 import { NavLink, Link } from 'react-router-dom';
@@ -57,10 +58,18 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 				</div>
 
 				<div className={s.forecastContent}>
-					<div className={s.mathPreview}>
-						{forecast.bet_data.pure_profit > 0 ?
-							<div className={classNames(s.profit, s.positive)}>+{(forecast.bet_data.pure_profit * +forecast.bet_data.bet).toFixed(2)} xB</div> :
-							<div className={classNames(s.profit, s.negative)}>-{forecast.bet_data.pure_profit.toFixed(2)} xB</div>}
+					<div className={classNames(s.matchPreview, {[s.wait]: forecast.bet_data.status === ForecastStatusEnum.wait})}> 
+						{
+							forecast.bet_data.status === ForecastStatusEnum.back ? 
+								<div className={classNames(s.profit, s.back)}>{(+forecast.bet_data.bet).toFixed(2)} xB</div> :
+							forecast.bet_data.status === ForecastStatusEnum.wait ? 	
+								<div></div> :
+							forecast.bet_data.status === ForecastStatusEnum.win ? 	
+								<div className={classNames(s.profit, s.positive)}>+{(forecast.bet_data.pure_profit * +forecast.bet_data.bet).toFixed(2)} xB</div> :
+								<div className={classNames(s.profit, s.negative)}>-{forecast.bet_data.bet} xB</div>
+						}
+
+						
 						<Link to={`/forecasts/${forecast.id}`}><div className={s.matchTitle}>{forecast.event_data.event}</div></Link>
 					</div>
 
