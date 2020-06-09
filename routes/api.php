@@ -19,7 +19,7 @@ Route::get('/get/news', 'Api\NewsController@getNews');
 
 // Прогнозы
 Route::get('/bookmakers', function () {
-    return \App\Bookmaker::all(['id', 'title', 'rating', 'bonus', 'logo', 'link']);
+    return \App\Bookmaker::all(['id', 'title', 'rating', 'bonus', 'image', 'link']);
 });
 
 Route::get('/bookmakers/{bookmaker}', function (\App\Bookmaker $bookmaker) {
