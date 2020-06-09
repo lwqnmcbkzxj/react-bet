@@ -18,28 +18,24 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::orderBy('created_at', 'desc');
-        if ($request->has('role') && $request['role'] !== 'all') {
-            $users = $users->where('role_id', $request['role']);
+        if (!$request->has('order_by')) {
+            $request['order_by'] = 'id';
         }
-        if ($request->has('role') && $request['role'] !== 'all') {
-            $users = $users->where('role_id', $request['role']);
+        if (!$request->has('limit')) {
+            $request['limit'] = 15;
         }
-        return $this->sendResponse($users->paginate(10),'Success',200);
+        return $this->sendResponse(User::query()->paginate($request['limit']),'Success',200);
     }
 
     public function search(Request $request) {
-        if ($request->has('s')) {
-            $users = User::where('login', 'LIKE', '%'.$request->get('s').'%');
-            return  json_encode([
-                'users' => $users->paginate(10)->toJSON()
-            ]);
-        }
-        else {
-            return json_encode([
-                'users' => []
-            ]);
-        }
+            if (!$request->has('order_by')) {
+                $request['order_by'] = 'id';
+            }
+            if (!$request->has('limit')) {
+                $request['limit'] = 15;
+            }
+            $users = User::where('login', 'LIKE', '%'.$request->get('search').'%');
+            return $this->sendResponse($users->paginate($request['limit'] = 15),'Success',200);
     }
 
     /**
@@ -84,12 +80,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return $this->sendResponse([
-            'user' => $user,
-            'forecasts' => Forecast::where('user_id', $user->id)->orderBy('created_at', 'DESC')->get(),
-            'subscribers' => $user->subscribers()->get(),
-            'subscriptions' => Subscriber::where('subscriber_id', $user->id)->get()
-        ],'Success', 200);
+        return $this->sendResponse($user,'Success', 200);
     }
 
     /**
@@ -115,7 +106,7 @@ class UserController extends Controller
             $user->update(['avatar' => $image]);
         }
 
-        return json_encode($user);
+        return $this->sendResponse($user,'Success',200);
     }
 
     /**
