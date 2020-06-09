@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\BookmakersExport;
+use App\Exports\ForecastsExport;
+use App\Exports\PostsExport;
 use App\Forecast;
 use App\News;
 use App\Post;
@@ -26,8 +29,16 @@ class DashboardController extends Controller
             'news_count_today' => Forecast::where('created_at', '>=', now()->format('Y-m-d'))->count(),
         ],'Success',200);
     }
-
     public function exportUsers() {
         return Excel::download(new UsersExport, 'users.xlsx');
+    }
+    public function exportForecasts() {
+        return Excel::download(new ForecastsExport, 'forecasts.xlsx');
+    }
+    public function exportPosts() {
+        return Excel::download(new PostsExport, 'posts.xlsx');
+    }
+    public function exportBookmakers() {
+        return Excel::download(new BookmakersExport, 'bookmakers.xlsx');
     }
 }

@@ -84,6 +84,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/admin/feedback','FeedbackController@get');
 
 
+    Route::get('/admin/export/users', 'Admin\DashboardController@exportUsers');
 
     Route::get('/admin/posts', 'PostController@getAll');
     Route::post('/admin/posts', 'PostController@post');
