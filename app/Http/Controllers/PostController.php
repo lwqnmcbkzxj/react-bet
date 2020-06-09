@@ -48,7 +48,7 @@ class PostController extends Controller
         if ($file = $request->file('image')) {
             $name = time() . '-' . uniqid() .'.'. $file->getClientOriginalExtension();;
             $file->move(public_path('storage/posts/' . $post->id), $name);
-            $image = '/storage/posts/'.'$post->id'.'/'.$name;
+            $image = '/storage/posts/'.$post->id.'/'.$name;
             $post->update(['image' => $image]);
         }
         return new \App\Http\Resources\Post($post);
@@ -63,7 +63,7 @@ class PostController extends Controller
         if ($file = $request->file('image')) {
             $name = time() . '-' . uniqid() .'.'. $file->getClientOriginalExtension();;
             $file->move(public_path('storage/posts/' . $post->id), $name);
-            $image = '/storage/posts/'.$name;
+            $image = '/storage/posts/'.$post->id.'/'.$name;
             $post->update(['image' => $image]);
         }
         return new \App\Http\Resources\Post($post);
