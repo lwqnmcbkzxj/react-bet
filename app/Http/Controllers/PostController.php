@@ -42,27 +42,30 @@ class PostController extends Controller
 
     function edit(Request $request, Post $post)
     {
-        $post->title = $request['title'];
-        $post->content = $request['content'];
-        $post->image = $request['image'];
+        $post->update($request->except('image'));
         $post->modified_by = Auth::user()->id;
-        $post->is_published = $request['is_published'];
-        $post->category_name = $request['category_name'];
         $post->save();
+        if ($file = $request->file('image')) {
+            $name = time() . '-' . uniqid();
+            $file->move(public_path('storage/posts/' . $post->id), $name);
+            $image = '/storage/posts/'.$name;
+            $post->update(['image' => $image]);
+        }
         return new \App\Http\Resources\Post($post);
     }
 
     function post(Request $request)
     {
-        $post = new Post();
-        $post->title = $request['title'];
-        $post->content = $request['content'];
-        $post->image = $request['image'];
-        $post->created_by = Auth::user()->id;
+        $post= Post::create($request->except('image'));
         $post->modified_by = Auth::user()->id;
-        $post->is_published = $request['is_published'];
-        $post->category_name = $request['category_name'];
+        $post->created_by = Auth::user()->id;
         $post->save();
+        if ($file = $request->file('image')) {
+            $name = time() . '-' . uniqid();
+            $file->move(public_path('storage/posts/' . $post->id), $name);
+            $image = '/storage/posts/'.$name;
+            $post->update(['image' => $image]);
+        }
         return new \App\Http\Resources\Post($post);
     }
 
