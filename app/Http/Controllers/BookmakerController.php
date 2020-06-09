@@ -47,7 +47,7 @@ class BookmakerController extends Controller
         if ($file = $request->file('logo')) {
             $name = time() . '-' . uniqid() .'.'. $file->getClientOriginalExtension();;
             $file->move(public_path('storage/bookmakers/' . $bookmaker->id), $name);
-            $image = '/storage/bookmakers/'.$name;
+            $image = '/storage/bookmakers/'.$bookmaker->id. '/'. $name;
             $bookmaker->update(['logo' => $image]);
         }
         return $this->sendResponse($bookmaker,'Success', 200);
@@ -59,7 +59,7 @@ class BookmakerController extends Controller
         if ($file = $request->file('logo')) {
             $name = time() . '-' . uniqid() .'.'. $file->getClientOriginalExtension();;
             $file->move(public_path('storage/bookmakers/' . $bookmaker->id), $name);
-            $image = '/storage/bookmakers/'.$name;
+            $image = '/storage/bookmakers/'.$bookmaker->id. '/'. $name;
             $bookmaker->update(['logo' => $image]);
         }
         return $this->sendResponse($bookmaker, 'Success',200);
