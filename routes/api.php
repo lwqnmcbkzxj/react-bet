@@ -77,9 +77,8 @@ Route::get('/news/{news}/comments', function (Request $Request, \App\News $news)
 
 //Доступ к профилям пользователей
 Route::middleware('auth:api')->group(function () {
+    Route::post('/photo', 'UploadController@putImage');
     Route::post('/avatar', 'UploadController@putAvatar');
-    Route::post('/image', 'UploadController@putImage');
-
     Route::get('/admin/dashboard','Admin\DashboardController@index');
     Route::post('/admin/policy', 'PolicyController@post');
     Route::get('/admin/feedback','FeedbackController@get');
