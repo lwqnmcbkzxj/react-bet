@@ -43,24 +43,24 @@ class BookmakerController extends Controller
 
     function edit(Request $request, Bookmaker $bookmaker)
     {
-        $bookmaker->update($request->except('logo'));
-        if ($file = $request->file('logo')) {
+        $bookmaker->update($request->except('image'));
+        if ($file = $request->file('image')) {
             $name = time() . '-' . uniqid() .'.'. $file->getClientOriginalExtension();;
             $file->move(public_path('storage/bookmakers/' . $bookmaker->id), $name);
             $image = '/storage/bookmakers/'.$bookmaker->id. '/'. $name;
-            $bookmaker->update(['logo' => $image]);
+            $bookmaker->update(['image' => $image]);
         }
         return $this->sendResponse($bookmaker,'Success', 200);
     }
 
     function post(Request $request)
     {
-        $bookmaker= Bookmaker::create($request->except('logo'));
-        if ($file = $request->file('logo')) {
+        $bookmaker= Bookmaker::create($request->except('image'));
+        if ($file = $request->file('image')) {
             $name = time() . '-' . uniqid() .'.'. $file->getClientOriginalExtension();;
             $file->move(public_path('storage/bookmakers/' . $bookmaker->id), $name);
             $image = '/storage/bookmakers/'.$bookmaker->id. '/'. $name;
-            $bookmaker->update(['logo' => $image]);
+            $bookmaker->update(['image' => $image]);
         }
         return $this->sendResponse($bookmaker, 'Success',200);
     }

@@ -8,11 +8,5 @@ use Illuminate\Support\Facades\Storage;
 class Bookmaker extends Model
 {
     protected $guarded = ['id'];
-    protected $hidden = ['logo'];
     public $timestamps = false;
-    protected $appends = ['image'];
-    function getImageAttribute()
-    {
-        return Storage::url('bookmakers/'. $this->logo);
-    }
 }
