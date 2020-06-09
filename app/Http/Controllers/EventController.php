@@ -22,7 +22,7 @@ class EventController extends Controller
         `event_id`, COUNT(`event_id`) as forecasts_count
     FROM
         api_betting_hub.forecasts
-    GROUP BY `event_id`) as T"),'event_id','=','id')->where('event_start','>=',now()->format('Y-m-d H:i:s'))->where('event_start','<=',now()->addMonths(2)->format('Y-m-d H:i:s'));;
+    GROUP BY `event_id`) as T"),'event_id','=','id')->where('start','>=',now()->format('Y-m-d H:i:s'))->where('start','<=',now()->addMonths(2)->format('Y-m-d H:i:s'));;
         if (!$request->has('limit') || $request['limit'] == 0) {
             $request['limit'] = 15;
         }
