@@ -53,15 +53,16 @@ class InfoController extends Controller
     {
         $res = DB::table('forecasts_view');
         if ($request->has('search') && !empty($request['search'])) {
-            $res = $res->where(function ($query) use ($request){
-               $query->where('event_title', 'LIKE', "%".($request['search'])."%")
-                   ->orWhere('forecast_text', 'LIKE', "%".($request['search'])."%")
-                   ->orWhere('championship_name', 'LIKE', "%".($request['search'])."%");
+            $res = $res->where(function ($query) use ($request) {
+                $query->where('event_title', 'LIKE', "%" . ($request['search']) . "%")
+                    ->orWhere('forecast_text', 'LIKE', "%" . ($request['search']) . "%")
+                    ->orWhere('championship_name', 'LIKE', "%" . ($request['search']) . "%");
             });
-        }
-        else
-        {
-            $res = $res->where('event_start','>=',now()->format('Y-m-d H:i:s'))->where('event_start','<=',now()->addMonths(2)->format('Y-m-d H:i:s'));
+        } else {
+            if ($request->has('time') && $request['time'] != 0)
+                $res = $res->where('event_start', '>=', now()->format('Y-m-d H:i:s'))->where('event_start', '<=', now()->addHours($request['time'])->format('Y-m-d H:i:s'));
+            else
+                $res = $res->where('event_start', '>=', now()->format('Y-m-d H:i:s'))->where('event_start', '<=', now()->addMonths(2)->format('Y-m-d H:i:s'));
         }
 
         if (!$request->has('limit') || $request['limit'] == 0) {
@@ -121,9 +122,9 @@ class InfoController extends Controller
         if (!$request->has('page') || $request['page'] == 0) {
             $request['page'] = 0;
         }
-        if ($request->has('month') && $request['month'] != 0 && $request->has('sport_id') && $request['sport_id']!=0) {
+        if ($request->has('month') && $request['month'] != 0 && $request->has('sport_id') && $request['sport_id'] != 0) {
             $response = DB::select('call user_rating_sport_proc_month(' . $request['sport_id'] . ')');
-        } elseif ($request->has('sport_id') && $request['sport_id']!=0) {
+        } elseif ($request->has('sport_id') && $request['sport_id'] != 0) {
             $response = DB::select('call user_rating_sport_proc(' . $request['sport_id'] . ')');
         } elseif ($request->has('month') && $request['month'] != 0) {
             $response = DB::select('call user_rating_month_proc()');
