@@ -51,7 +51,19 @@ class InfoController extends Controller
 
     public function forecastsFast(Request $request)
     {
-        $res = DB::table('forecasts_view')->where('event_start','>=',now()->format('Y-m-d H:i:s'))->where('event_start','<=',now()->addMonths(2)->format('Y-m-d H:i:s'));
+        $res = DB::table('forecasts_view');
+        if ($request->has('search') && !empty($request['search'])) {
+            $res = $res->where(function ($query) use ($request){
+               $query->where('event_title', 'LIKE', "%".($request['search'])."%")
+                   ->orWhere('forecast_text', 'LIKE', "%".($request['search'])."%")
+                   ->orWhere('championship_name', 'LIKE', "%".($request['search'])."%");
+            });
+        }
+        else
+        {
+            $res = $res->where('event_start','>=',now()->format('Y-m-d H:i:s'))->where('event_start','<=',now()->addMonths(2)->format('Y-m-d H:i:s'));
+        }
+
         if (!$request->has('limit') || $request['limit'] == 0) {
             $request['limit'] = 6;
         }
@@ -200,7 +212,6 @@ class InfoController extends Controller
                 AND users.role_id = 2
                 GROUP BY users.id
                 ORDER BY roi DESC";
-
             return $this->sendResponse(DB::select($query), 'Success', 200);
         }
     }
