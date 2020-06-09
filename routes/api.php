@@ -92,6 +92,13 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/admin/posts/{post}', 'PostController@delete');
     Route::post('/admin/posts/{post}', 'PostController@edit');
 
+    Route::get('/admin/banners', 'BannerController@getAll');
+    Route::post('/admin/banners', 'BannerController@post');
+    Route::get('/admin/banners/search', 'BannerController@search');
+    Route::get('/admin/banners/{banner}', 'BannerController@get');
+    Route::delete('/admin/banners/{banner}', 'BannerController@delete');
+    Route::post('/admin/banners/{banner}', 'BannerController@edit');
+
 
     Route::get('admin/forecasts','Api\InfoController@forecastsFast');
     Route::post('admin/forecasts','Admin\ForecastController@store');
