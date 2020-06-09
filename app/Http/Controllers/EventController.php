@@ -17,11 +17,14 @@ class EventController extends Controller
     public function getAll(Request $request)
     {
         $date = new DateTime('now', new \DateTimeZone('Europe/Moscow'));
-
+        $events = Event::query();
         if (!$request->has('limit') || $request['limit'] == 0) {
             $request['limit'] = 6;
         }
-        $events = Event::query()->orderBy('id', 'desc')->paginate($request['limit']);
+        if ($request->has('order_by')) {
+            $events = $events->orderBy($request['order_by'], $request['direction']?$request['direction']:'DESC');
+        }
+        $events = $events->orderBy('id', 'desc')->paginate($request['limit']);
         $events = new EventCollection($events);
         return $this->sendResponse(($events), 'Success', 200);
     }
