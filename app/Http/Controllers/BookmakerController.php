@@ -45,7 +45,7 @@ class BookmakerController extends Controller
     {
         $bookmaker->update($request->except('logo'));
         if ($file = $request->file('logo')) {
-            $name = time() . '-' . uniqid();
+            $name = time() . '-' . uniqid() .'.'. $file->getClientOriginalExtension();;
             $file->move(public_path('storage/bookmakers/' . $bookmaker->id), $name);
             $image = '/storage/bookmakers/'.$name;
             $bookmaker->update(['logo' => $image]);
@@ -57,7 +57,7 @@ class BookmakerController extends Controller
     {
         $bookmaker= Bookmaker::create($request->except('logo'));
         if ($file = $request->file('logo')) {
-            $name = time() . '-' . uniqid();
+            $name = time() . '-' . uniqid() .'.'. $file->getClientOriginalExtension();;
             $file->move(public_path('storage/bookmakers/' . $bookmaker->id), $name);
             $image = '/storage/bookmakers/'.$name;
             $bookmaker->update(['logo' => $image]);

@@ -46,7 +46,7 @@ class PostController extends Controller
         $post->modified_by = Auth::user()->id;
         $post->save();
         if ($file = $request->file('image')) {
-            $name = time() . '-' . uniqid();
+            $name = time() . '-' . uniqid() .'.'. $file->getClientOriginalExtension();;
             $file->move(public_path('storage/posts/' . $post->id), $name);
             $image = '/storage/posts/'.$name;
             $post->update(['image' => $image]);
@@ -61,7 +61,7 @@ class PostController extends Controller
         $post->created_by = Auth::user()->id;
         $post->save();
         if ($file = $request->file('image')) {
-            $name = time() . '-' . uniqid();
+            $name = time() . '-' . uniqid() .'.'. $file->getClientOriginalExtension();;
             $file->move(public_path('storage/posts/' . $post->id), $name);
             $image = '/storage/posts/'.$name;
             $post->update(['image' => $image]);
