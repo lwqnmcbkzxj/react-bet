@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
-
+use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManagerStatic as Image;
 class UploadController extends Controller
 {
     public function putAvatar(Request $request)
@@ -15,7 +16,9 @@ class UploadController extends Controller
         ]);
         $image = $request->file('avatar');
         $name = time() . '.' . ($image->getClientOriginalExtension());
-        $path = $image->move(public_path('/storage/users/' . ($request->user()->id)), $name);
+        $image_resize = Image::make($image->getRealPath());
+        $image_resize->resize(70, 70);
+        $image_resize->save(public_path('storage/users/' . ($request->user()->id) . '/' . $name));
         $request->user()->avatar = '/storage/users/' . ($request->user()->id) . '/' . $name;
         $request->user()->save();
         return $this->sendResponse(['avatar' => $request->user()->avatar], 'Success', 200);
