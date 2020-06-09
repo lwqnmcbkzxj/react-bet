@@ -45,7 +45,7 @@ class User extends Authenticatable
     ];
 
     protected $appends = [
-        'rating_position', 'stats', 'last_five'
+        'rating_position', 'stats', 'last_five', 'forecasts_count'
     ];
 
     public function getCountSubscribersAttribute()
@@ -63,7 +63,7 @@ class User extends Authenticatable
         return !is_null($this->forecasts()->find($id));
     }
 
-    public function getCountForecastsAttribute()
+    public function getForecastsCountAttribute()
     {
         return $this->forecasts()->count();
     }
