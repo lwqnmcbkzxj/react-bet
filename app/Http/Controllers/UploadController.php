@@ -27,7 +27,7 @@ class UploadController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
         $file = $request->file('image');
-        $name=time() . '-' . uniqid();
+        $name=time() . '-' . uniqid() .'.'. $file->getClientOriginalExtension();
         $file->move(public_path('storage/images/'), $name);
         $image= '/storage/images/' . $name;
         return $this->sendResponse(['image' => $image], 'Success', 200);
