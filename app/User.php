@@ -3,6 +3,7 @@
 namespace App;
 
 use ErrorException;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -12,7 +13,10 @@ use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
-
+    public function findForPassport($username)
+    {
+        return $this->where('email', $username)->orWhere('login',$username)->first();
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -137,6 +141,10 @@ WHERE `forecasts`.`user_id` = ? and ( `coefficients`.status = 3 or `coefficients
     public function votes()
     {
         return $this->hasMany('App\Vote', 'user_id');
+    }
+    public function comments()
+    {
+        return $this->hasMany('App\Comments', 'user_id');
     }
 
     public function stats()
