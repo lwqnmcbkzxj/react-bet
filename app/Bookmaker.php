@@ -9,6 +9,7 @@ class Bookmaker extends Model
 {
     protected $guarded = ['id'];
     protected $hidden = ['logo'];
+    public $timestamps = false;
     protected $appends = ['image'];
     function getImageAttribute()
     {

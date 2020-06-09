@@ -43,26 +43,25 @@ class BookmakerController extends Controller
 
     function edit(Request $request, Bookmaker $bookmaker)
     {
-        $bookmaker->title = $request['title'];
-        $bookmaker->content = $request['content'];
-        $bookmaker->rating = $request['rating'];
-        $bookmaker->bonus = $request['bonus'];
-        $bookmaker->logo = $request['logo'];
-        $bookmaker->link = $request['link'];
-        $bookmaker->save();
+        $bookmaker->update($request->except('logo'));
+        if ($file = $request->file('logo')) {
+            $name = time() . '-' . uniqid();
+            $file->move(public_path('storage/bookmakers/' . $bookmaker->id), $name);
+            $image = '/storage/bookmakers/'.$name;
+            $bookmaker->update(['logo' => $image]);
+        }
         return $this->sendResponse($bookmaker,'Success', 200);
     }
 
     function post(Request $request)
     {
-        $bookmaker = new Bookmaker();
-        $bookmaker->title = $request['title'];
-        $bookmaker->content = $request['content'];
-        $bookmaker->rating = $request['rating'];
-        $bookmaker->bonus = $request['bonus'];
-        $bookmaker->logo = $request['logo'];
-        $bookmaker->link = $request['link'];
-        $bookmaker->save();
+        $bookmaker= Bookmaker::create($request->except('logo'));
+        if ($file = $request->file('logo')) {
+            $name = time() . '-' . uniqid();
+            $file->move(public_path('storage/bookmakers/' . $bookmaker->id), $name);
+            $image = '/storage/bookmakers/'.$name;
+            $bookmaker->update(['logo' => $image]);
+        }
         return $this->sendResponse($bookmaker, 'Success',200);
     }
 }
