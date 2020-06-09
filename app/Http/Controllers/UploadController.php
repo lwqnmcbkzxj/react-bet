@@ -21,16 +21,15 @@ class UploadController extends Controller
         return $this->sendResponse(['avatar' => $request->user()->avatar], 'Success', 200);
     }
 
-    public function putPostPreview(Request $request, Post $post)
+    public function putImage(Request $request)
     {
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
-        $image = $request->file('image');
-        $name = time().'.'. ($image->getClientOriginalExtension());
-        $image->move(public_path('/storage/posts/' . $post->id), $name);
-        $post->image = '/storage/posts/' . ($post->id) . '/' . $name;
-        $post->save();
-        return $this->sendResponse(['image' => $post->image], 'Success', 200);
+        $file = $request->file('image');
+        $name=time() . '-' . uniqid();
+        $file->move(public_path('storage/images/'), $name);
+        $image= '/storage/images/' . $name;
+        return $this->sendResponse(['image' => $image], 'Success', 200);
     }
 }
