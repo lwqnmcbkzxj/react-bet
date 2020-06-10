@@ -80,7 +80,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return $this->sendResponse($user,'Success', 200);
+        return $this->sendResponse(['user'=>$user],'Success', 200);
     }
 
     /**
