@@ -87,7 +87,7 @@ class ForecastController extends Controller
         }
         $request['coefficient_id'] = $coefficient->id;
         $forecast = Forecast::create($request->except(['status', 'type', 'coefficient']));
-        return  json_encode($forecast);
+        return $this->sendResponse($forecast,'Success',200);
     }
 
     /**
