@@ -125,6 +125,9 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/admin/bookmakers', 'BookmakerController@post');
     Route::post('/admin/bookmakers/{bookmaker}', 'BookmakerController@edit');
 
+
+    Route::get('/admin/events', 'Admin\EventController@index');
+
     Route::post('/admin/users', 'Admin\UserController@store');
     Route::get('/admin/users', 'Admin\UserController@index');
     Route::get('/admin/users/search', 'Admin\UserController@search');

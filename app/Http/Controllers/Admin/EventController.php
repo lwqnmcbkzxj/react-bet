@@ -10,16 +10,19 @@ use App\Http\Controllers\Controller;
 
 class EventController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function index(Request $request)
     {
-        return  json_encode([
-            'events' => Event::orderBy('start', 'DESC')->paginate(10)
-        ]);
+        if (!$request->has('limit')) {
+            $request['limit'] = 16;
+        }
+        if (!$request->has('page')) {
+            $request['page'] = 0;
+        }
+        return $this->sendResponse(Event::query()
+            ->where('start','>=', now()->addMonths(-1)->format('Y-m-d H:i:s'))
+            ->where('start','<=', now()->addMonths(2)->format('Y-m-d H:i:s'))
+            ->orderBy('start','desc')->get()->forPage( $request['page'], $request['limit'] ),'Success',200);
     }
 
     public function search(Request $request) {
