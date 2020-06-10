@@ -85,6 +85,10 @@ Route::middleware('auth:api')->group(function () {
 
 
     Route::get('/admin/export/users', 'Admin\DashboardController@exportUsers');
+    Route::get('/admin/export/posts', 'Admin\DashboardController@exportPosts');
+    Route::get('/admin/export/forecasts', 'Admin\DashboardController@exportForecasts');
+    Route::get('/admin/export/bookmakers', 'Admin\DashboardController@exportBookmakers');
+    Route::get('/admin/export/events', 'Admin\DashboardController@exportEvents');
 
     Route::get('/admin/posts', 'PostController@getAll');
     Route::post('/admin/posts', 'PostController@post');
