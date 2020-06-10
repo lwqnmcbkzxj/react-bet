@@ -27,6 +27,9 @@ Route::get('/bookmakers/{bookmaker}', function (\App\Bookmaker $bookmaker) {
 });
 
 
+
+
+
 Route::get('/forecasts', 'Api\InfoController@forecastsFast');
 Route::middleware('auth:api')->get('/forecasts/marked', 'FollowForecastController@get');
 Route::get('/forecasts/{forecast}', 'Api\InfoController@forecast');
@@ -54,6 +57,12 @@ Route::get('/roles', function () {
 });
 Route::post('/feedback','FeedbackController@post');
 
+
+Route::get('/users/short','ShortResourcesController@users');
+Route::get('/events/short','ShortResourcesController@events');
+Route::get('/championships/short','ShortResourcesController@championships');
+
+
 Route::get('/events', 'EventController@getAll');
 Route::get('/events/{event}', 'EventController@get');
 Route::get('/events/{event}/comments', function (Request $Request, \App\Event $event) {
@@ -77,6 +86,8 @@ Route::get('/options','Admin\OptionController@index');
 
 //Доступ к профилям пользователей
 Route::middleware('auth:api')->group(function () {
+
+
 
     Route::post('/photo', 'UploadController@putImage');
     Route::post('/avatar', 'UploadController@putAvatar');
