@@ -133,6 +133,7 @@ class ParserController extends Controller
 
     public function updateForecasts(Request $request)
     {
+        sleep(30);
         if (!$request['limit']) {
             $request['limit'] = 5;
         }
@@ -140,7 +141,13 @@ class ParserController extends Controller
             $request['page'] = 0;
         }
         set_time_limit(1000);
-        $forecasts = Forecast::query()->whereNotNull('parser_forecast_id')->limit($request['limit'])->offset($request['limit'] * $request['page'])->get();
+
+        $forecasts = Forecast::query()->whereNotNull('parser_forecast_id')->limit($request['limit'])->offset($request['limit'] * $request['page']);
+        if($request['id'])
+        {
+            $forecasts = $forecasts->where($request['id']);
+        }
+        $forecasts = $forecasts->get();
         $query = $forecasts->map(function ($item, $key) {
             return 'url=' . $item->parser_forecast_id;
         })->join('&');
