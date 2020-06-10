@@ -29,7 +29,7 @@ class UserController extends Controller
         {
             $res = $res->where($request->search_by, 'LIKE', "%" . $request->search . "%");
         }
-        return $this->sendResponse(User::query()->paginate($request['limit']),'Success',200);
+        return $this->sendResponse($res->paginate($request['limit']),'Success',200);
     }
 
     public function search(Request $request) {
