@@ -34,8 +34,12 @@ class UserController extends Controller
             if (!$request->has('limit')) {
                 $request['limit'] = 15;
             }
-            $users = User::where('login', 'LIKE', '%'.$request->get('search').'%');
-            return $this->sendResponse($users->paginate($request['limit'] = 15),'Success',200);
+            $res = User::query();
+            if($request->has('search')&&$request->has('search_by') && ($request['search']!='' && $request['search_by']!=''))
+            {
+                $res = $res->where($request->search_by, 'LIKE', "%" . $request->search . "%");
+            }
+            return $this->sendResponse($res->paginate($request['limit'] = 15),'Success',200);
     }
 
     /**
