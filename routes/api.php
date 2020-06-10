@@ -131,6 +131,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/admin/users', 'Admin\UserController@store');
     Route::get('/admin/users', 'Admin\UserController@index');
     Route::get('/admin/users/search', 'Admin\UserController@search');
+    Route::get('/admin/users/{user}/forecasts', 'Api\InfoController@userForecasts');
     Route::get('/admin/users/{user}', 'Admin\UserController@show');
     Route::delete('/admin/users/{user}', 'Admin\UserController@destroy');
     Route::post('/admin/users/{user}', 'Admin\UserController@update');
