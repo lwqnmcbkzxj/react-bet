@@ -105,7 +105,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/admin/banners/{banner}', 'BannerController@edit');
 
 
-    Route::get('admin/forecasts','Api\InfoController@forecastsFast');
+    Route::get('admin/forecasts','Admin\ForecastController@index');
     Route::post('admin/forecasts','Admin\ForecastController@store');
     Route::get('admin/forecasts/{forecast}','Api\InfoController@forecast');
     Route::post('admin/forecasts/{forecast}','Admin\ForecastController@update');

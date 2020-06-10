@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Coefficient;
 use App\Event;
 use App\Forecast;
+use App\Http\Resources\FastForecastCollection;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class ForecastController extends Controller
 {
@@ -16,11 +18,32 @@ class ForecastController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return  json_encode([
-            'forecasts' => Forecast::orderBy('created_at', 'DESC')->paginate(10)
-        ]);
+        $res = DB::table('forecasts_view');
+        if ($request->has('search') && !empty($request['search'])) {
+            $res = $res->where(function ($query) use ($request) {
+                $query->where('event_title', 'LIKE', "%" . ($request['search']) . "%")
+                    ->orWhere('forecast_text', 'LIKE', "%" . ($request['search']) . "%")
+                    ->orWhere('championship_name', 'LIKE', "%" . ($request['search']) . "%");
+            });
+        }
+
+        if (!$request->has('limit') || $request['limit'] == 0) {
+            $request['limit'] = 6;
+        }
+        if ($request->has('sport_id') && $request['sport_id'] != 0) {
+            $res->where('sport_id', '=', $request['sport_id']);
+        }
+        if (!$request->has('direction')) {
+            $request['direction'] = 'desc';
+        }
+        if (!$request->has('order_by')) {
+            $request['order_by'] = 'forecast_id';
+        }
+        $res->orderBy($request['order_by'], $request['direction']);
+
+        return $this->sendResponse((new FastForecastCollection($res->paginate($request['limit']))), 'Success', 200);
     }
 
     public function search(Request $request) {
