@@ -13,16 +13,6 @@ enum RatingStatus: String {
     case dislike
     case none
     
-    func apply(status: RatingStatus) -> RatingStatus {
-        switch (self, status) {
-        case (.like, .like), (.dislike, .dislike): return .none
-        case (.like, .dislike): return .dislike
-        case (.dislike, .like): return .like
-        case (.none, _): return status
-        case (_, .none): return .none
-        }
-    }
-    
     func isOpposite(to status: RatingStatus) -> Bool {
         switch (self, status) {
         case (.like, .dislike), (.dislike, .like): return true
@@ -52,6 +42,16 @@ enum RatingStatus: String {
         ]
         
         return map[final]!
+    }
+    
+    private func apply(status: RatingStatus) -> RatingStatus {
+        switch (self, status) {
+        case (.like, .like), (.dislike, .dislike): return .none
+        case (.like, .dislike): return .dislike
+        case (.dislike, .like): return .like
+        case (.none, _): return status
+        case (_, .none): return .none
+        }
     }
 }
 

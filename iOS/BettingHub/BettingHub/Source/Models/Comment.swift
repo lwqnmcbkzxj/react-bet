@@ -15,16 +15,17 @@ class Comment {
     let username: Observable<String>
     let userAvatar: Observable<String>
     let text: Observable<String>
-    let refTo: Observable<String>
+    let refTo: Observable<CommentType>
     let refId: Observable<Int>
     let updateDate: Observable<Date>
     let createDate: Observable<Date>
     let replyId: Observable<Int?>
+    let replyName: Observable<String?>
     let rating: Observable<Int>
     let ratingStatus: Observable<RatingStatus>
     
     
-    init(id: Int, userId: Int, username: String, userAvatar: String, text: String, refTo: String, refId: Int, updateDate: Date, createDate: Date, replyId: Int?, rating: Int, ratingStatus: RatingStatus) {
+    init(id: Int, userId: Int, username: String, userAvatar: String, text: String, refTo: CommentType, refId: Int, updateDate: Date, createDate: Date, replyId: Int?, replyName: String?, rating: Int, ratingStatus: RatingStatus) {
         self.id = id
         self.userId = Observable(userId)
         self.username = Observable(username)
@@ -35,12 +36,13 @@ class Comment {
         self.updateDate = Observable(updateDate)
         self.createDate = Observable(createDate)
         self.replyId = Observable(replyId)
+        self.replyName = Observable(replyName)
         self.rating = Observable(rating)
         self.ratingStatus = Observable(ratingStatus)
     }
     
     static func stub() -> Comment {
-        .init(id: 0, userId: 0, username: "test", userAvatar: "", text: "testtesttesttest testtesttesttest testtesttesttest testtesttesttest", refTo: "forecast", refId: 0, updateDate: Date(), createDate: Date(), replyId: nil, rating: 10, ratingStatus: .none)
+        .init(id: 0, userId: 0, username: "test", userAvatar: "", text: "testtesttesttest testtesttesttest testtesttesttest testtesttesttest", refTo: .forecasts, refId: 0, updateDate: Date(), createDate: Date(), replyId: nil, replyName: nil, rating: 10, ratingStatus: .none)
     }
 }
 

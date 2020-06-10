@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum CommentsSorting {
+    case byTime
+    case byRating
+}
+
 struct CommentCellViewModelItem {
     
     let comment: Comment
@@ -41,6 +46,8 @@ class CommentsViewModel: TableSectionProvider {
     @LazyInjected
     private var commentService: ICommentService
     
+    let commentsRouter: ICommentsRouter
+    
     private weak var tableView: UITableView!
     let sectionNumber: Int
     private let cellId = "commentCell"
@@ -48,6 +55,7 @@ class CommentsViewModel: TableSectionProvider {
     let commentType: CommentType
     let id: Int
     
+    var commentsSorting: CommentsSorting = .byTime
     
     private let headerView: CommentsSectionHeader = {
         let view = CommentsSectionHeader()
@@ -55,14 +63,21 @@ class CommentsViewModel: TableSectionProvider {
         return view
     }()
     
+    private lazy var footerView: CommentsSectionFooter = {
+        let view = CommentsSectionFooter()
+        view.button.addTarget(self, action: #selector(newComment), for: .touchUpInside)
+        return view
+    }()
+    
     private var items: [CommentCellViewModelItem] = []
     
     init(tableView: UITableView, sectionNumber: Int,
-         type: CommentType, id: Int) {
+         type: CommentType, id: Int, router: ICommentsRouter) {
         self.tableView = tableView
         self.commentType = type
         self.id = id
         self.sectionNumber = sectionNumber
+        self.commentsRouter = router
         
         tableView.register(CommentCell.self, forCellReuseIdentifier: cellId)
     }
@@ -76,6 +91,10 @@ class CommentsViewModel: TableSectionProvider {
         return 60
     }
     
+    func footer() -> UIView? {
+        return footerView
+    }
+    
     func numberOfCells() -> Int {
         return items.count
     }
@@ -83,6 +102,7 @@ class CommentsViewModel: TableSectionProvider {
     func cell(for row: Int) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! CommentCell
         cell.configure(with: items[row])
+        cell.router = commentsRouter
         return cell
     }
     
@@ -90,8 +110,12 @@ class CommentsViewModel: TableSectionProvider {
         commentService.comments(for: commentType, id: id).onComplete { (comments) in
             print("got comments")
             self.items = self.buildCommentsTree(comments: comments)
-            self.tableView.reloadSections([self.sectionNumber], with: .fade)
+            self.tableView.reloadSections([self.sectionNumber], with: .automatic)
         }
+    }
+    
+    @objc private func newComment() {
+        commentsRouter.newComment(type: commentType, id: id)
     }
     
     func buildCommentsTree(comments: [Comment]) -> [CommentCellViewModelItem] {
@@ -146,4 +170,50 @@ class CommentsViewModel: TableSectionProvider {
         
         return items
     }
+    
+//    struct CommentsThread {
+//        var comment: CommentCellViewModelItem
+//        var nested: [CommentsThread]
+//    }
+    
+//    private func buildThread(comments: [CommentCellViewModelItem], level: Int) -> [CommentsThread] {
+//
+//    }
+//
+//    private func sortByTime() -> [CommentCellViewModelItem] {
+//
+//    }
+    
+//    private func buildThreadsByRating(comments: [Comment], topReplyId: Int?) -> [CommentsThread] {
+//
+//        let filterCallback: (Comment) -> Bool = topReplyId == nil
+//            ? { $0.replyId.data == nil }
+//            : { $0.replyId.data == topReplyId! }
+//
+//        let topLevel = comments
+//            .filter(filterCallback)
+//            .sorted { $0.rating.data > $1.rating.data }
+//            .map { CommentCellViewModelItem(with: $0) }
+//            .map { CommentsThread(comment: $0, nested: []) }
+//
+//
+//        let withNested = topLevel.map { (thread) -> CommentsThread in
+//            let nestedComments = comments.filter { $0.replyId.data == thread.comment.comment.id }
+//            let nestedThreads = buildThreadsByRating(comments: nestedComments,
+//                                                     topReplyId: thread.comment.comment.id)
+//            return CommentsThread(comment: thread.comment, nested: nestedThreads)
+//        }
+//
+//        return withNested
+//    }
+    
+//    private func setupLines(for threads: [CommentsThread], level: Int) -> [CommentsThread] {
+//        threads.map { (thread) in
+//            var new = thread.comment
+//            new.parentsCount = level
+//            let newNested =
+//            return CommentsThread(comment: new,
+//                                  nested: thread.nested)
+//        }
+//    }
 }

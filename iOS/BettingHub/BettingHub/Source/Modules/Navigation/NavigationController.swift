@@ -51,8 +51,7 @@ extension UIViewController {
     
     private func backView(text: String?) -> UIView {
         let backView = NavigationBackView(text: text)
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(goBack))
-        backView.addGestureRecognizer(gesture)
+        backView.backGesture.addTarget(self, action: #selector(goBack))
         return backView
     }
     

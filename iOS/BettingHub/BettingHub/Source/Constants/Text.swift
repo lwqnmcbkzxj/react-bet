@@ -142,5 +142,6 @@ class Text {
     static var forecastDesc: String { "forecastDesc".localized }
     static var ordinar: String { "ordinar".localized }
     static var express: String { "express".localized }
+    static var newComment: String { "newComment".localized }
 }
 

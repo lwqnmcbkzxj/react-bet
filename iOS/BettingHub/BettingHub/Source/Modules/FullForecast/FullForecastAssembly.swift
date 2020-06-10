@@ -22,8 +22,9 @@ class FullForecastAssembly {
         
         let comments = CommentsViewModel(tableView: vc.tableView,
                                          sectionNumber: 1,
-                                         type: .forecast,
-                                         id: forecast.id)
+                                         type: .forecasts,
+                                         id: forecast.id,
+                                         router: router)
         
         vc.setSections([headerSection, comments])
         

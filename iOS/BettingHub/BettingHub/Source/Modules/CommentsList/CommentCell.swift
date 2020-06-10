@@ -10,6 +10,20 @@ import UIKit
 
 class CommentCell: UITableViewCell {
     
+    weak var router: ICommentsRouter?
+    
+    private let manager = CommentCellManager()
+    
+    private var comment: Comment? {
+        didSet {
+            guard let comment = comment else {
+                manager.storeBinds([])
+                return
+            }
+            manager.storeBinds(binds(comment: comment))
+        }
+    }
+    
     private let linesStack: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
@@ -21,6 +35,28 @@ class CommentCell: UITableViewCell {
         let view = UIImageView()
         view.layer.cornerRadius = 5
         view.layer.masksToBounds = true
+        view.contentMode = .scaleAspectFill
+        return view
+    }()
+    
+    private let replyToStack: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.spacing = 3
+        return view
+    }()
+    
+    private let replyToLabel: UILabel = {
+        let view = UILabel()
+        view.font = .robotoRegular(size: 9)
+        view.textColor = .textGray
+        return view
+    }()
+    
+    private let replyToImageView: UIImageView = {
+        let image = UIImage(named: "replyToIcon")!.withRenderingMode(.alwaysTemplate)
+        let view = UIImageView(image: image)
+        view.tintColor = .textGray
         view.contentMode = .scaleAspectFill
         return view
     }()
@@ -48,15 +84,17 @@ class CommentCell: UITableViewCell {
         return view
     }()
     
-    private let replyButton: UIButton = {
+    private lazy var replyButton: UIButton = {
         let view = UIButton(type: .system)
         view.setTitle(Text.reply, for: .normal)
         view.setTitleColor(.textGray, for: .normal)
+        view.addTarget(self, action: #selector(respond), for: .touchUpInside)
         return view
     }()
     
-    private let ratingStepper: ArrowsStepperView = {
+    private lazy var ratingStepper: ArrowsStepperView = {
         let view = ArrowsStepperView()
+        view.delegate = self
         return view
     }()
     
@@ -79,6 +117,8 @@ class CommentCell: UITableViewCell {
     }
     
     func configure(with model: CommentCellViewModelItem) {
+        self.comment = model.comment
+        
         addLines(long: model.longLines, short: model.shortLines)
         
         userImageView.setImage(url: model.comment.userAvatar.data)
@@ -86,6 +126,21 @@ class CommentCell: UITableViewCell {
         dateLabel.text = model.dateText
         commentLabel.text = model.comment.text.data
         ratingStepper.setNumber(model.comment.rating.data)
+        ratingStepper.stepperState = model.comment.ratingStatus.data
+        replyToStack.isHidden = model.parentsCount == 0
+        replyToLabel.text = model.comment.replyName.data
+    }
+    
+    private func binds(comment: Comment) -> [ObservableBind] {
+        [
+            comment.rating.bind { self.ratingStepper.setNumber($0) },
+            comment.ratingStatus.bind { self.ratingStepper.stepperState = $0 }
+        ]
+    }
+    
+    @objc private func respond() {
+        guard let comment = comment else { return }
+        router?.reply(to: comment)
     }
     
     private func addLines(long: Int, short: Int) {
@@ -132,15 +187,29 @@ class CommentCell: UITableViewCell {
             make.width.height.equalTo(22)
         }
         
+        replyToStack.addArrangedSubview(replyToLabel)
+        replyToStack.addArrangedSubview(replyToImageView)
+        
+        replyToImageView.snp.makeConstraints { (make) in
+            make.width.height.equalTo(10)
+        }
+        
+        contentView.addSubview(replyToStack)
+        replyToStack.snp.makeConstraints { (make) in
+            make.top.equalTo(userImageView)
+            make.leading.equalTo(userImageView.snp.trailing).offset(8)
+        }
+        
         contentView.addSubview(usernameLabel)
         usernameLabel.snp.makeConstraints { (make) in
-            make.top.bottom.equalTo(userImageView)
-            make.leading.equalTo(userImageView.snp.trailing).offset(9)
+            make.bottom.equalTo(userImageView)
+            make.top.equalTo(replyToStack.snp.bottom)
+            make.leading.equalTo(replyToStack)
         }
         
         contentView.addSubview(dateLabel)
         dateLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(usernameLabel)
+            make.top.bottom.equalTo(usernameLabel)
             make.leading.equalTo(usernameLabel.snp.trailing).offset(18)
         }
         
@@ -165,5 +234,13 @@ class CommentCell: UITableViewCell {
             make.bottom.equalTo(replyButton)
             make.height.equalTo(20)
         }
+    }
+}
+
+extension CommentCell: ArrowsStepperViewDelegate {
+    
+    func arrowsStepper(_ arrowsStepper: ArrowsStepperView, needsStatus status: RatingStatus) {
+        guard let comment = comment else { return }
+        manager.changeRating(to: status, comment: comment)
     }
 }

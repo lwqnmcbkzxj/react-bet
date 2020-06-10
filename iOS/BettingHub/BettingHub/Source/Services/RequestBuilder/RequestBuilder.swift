@@ -43,7 +43,7 @@ class RequestBuilder: IRequestBuilder {
         return req
     }
     
-    func getRequest(fullUrl url: URL, params: [String : String]) -> URLRequest {
+    func getRequest(fullUrl url: URL, params: [String : String?]) -> URLRequest {
         
         let method = "GET"
         let headers = [
@@ -52,7 +52,13 @@ class RequestBuilder: IRequestBuilder {
         ]
         
         var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
-        components.queryItems = params.keys.map { URLQueryItem(name: $0, value: params[$0]) }
+
+        components.queryItems = params.keys.map({ (key) -> URLQueryItem in
+            let name = key
+            let value = params[key] ?? nil
+            return URLQueryItem(name: name, value: value)
+        })
+        
         let reqUrl = try! components.asURL()
         
         var request = URLRequest(url: reqUrl)

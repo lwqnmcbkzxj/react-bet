@@ -16,7 +16,7 @@ import Foundation
 #endif
 
 
-typealias RequestContent = (endpoint: String, params: [String: String])
+typealias RequestContent = (endpoint: String, params: [String: String?])
 
 
 protocol IRequestBuilder: class {
@@ -39,7 +39,7 @@ protocol IRequestBuilder: class {
     
     func getRequest(content: RequestContent) -> URLRequest
     
-    func getRequest(fullUrl: URL, params: [String: String]) -> URLRequest
+    func getRequest(fullUrl: URL, params: [String: String?]) -> URLRequest
     
     
     

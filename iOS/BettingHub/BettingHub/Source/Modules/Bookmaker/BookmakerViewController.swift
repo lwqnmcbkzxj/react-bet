@@ -13,8 +13,8 @@ class BookmakerViewController: UIViewController {
     var vm: BookmakerViewModel!
     
     private lazy var commentsTable: CommentsTableView = {
-        let vm = CommentsTableViewModel()
-        let view = CommentsTableView(viewModel: vm, header: bookmakerHeader)
+//        let vm = CommentsTableViewModel()
+        let view = CommentsTableView(header: bookmakerHeader)
         return view
     }()
     

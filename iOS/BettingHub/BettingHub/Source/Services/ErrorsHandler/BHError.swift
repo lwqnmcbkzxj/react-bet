@@ -16,7 +16,7 @@ enum BHError: Int, Error {
     case tokenExpired
     case unexpectedContent
     case wrongDateFormat
-    
+    case cantDecodeNumber
 }
 
 extension Error {

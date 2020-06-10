@@ -14,11 +14,12 @@ struct CommentApiObject {
     let username: String
     let userAvatar: String
     let text: String
-    let refTo: String
+    let refTo: CommentType
     let refId: Int
     let updateDate: Date
     let createDate: Date
     let replyId: Int?
+    let replyName: String?
     let rating: Int
     let ratingStatus: RatingStatus
 }
@@ -38,7 +39,7 @@ extension CommentApiObject: Decodable {
         }
         self.text = text ?? ""
             
-        refTo = try container.decode(String.self, forKey: .refTo)
+        refTo = try container.decode(CommentType.self, forKey: .refTo)
         refId = try container.decode(Int.self, forKey: .refId)
         
         
@@ -49,6 +50,7 @@ extension CommentApiObject: Decodable {
         createDate = CommentApiObject.formatter.date(from: createString) ?? Date()
         
         replyId = try container.decodeIfPresent(Int.self, forKey: .replyId)
+        replyName = try container.decodeIfPresent(String?.self, forKey: .replyName) ?? nil
         rating = try container.decode(Int.self, forKey: .rating)
         ratingStatus = try container.decodeIfPresent(RatingStatus.self, forKey: .ratingStatus) ?? .none
     }
@@ -64,6 +66,7 @@ extension CommentApiObject: Decodable {
         case updateDate = "updated_at"
         case createDate = "created_at"
         case replyId = "replies_to"
+        case replyName = "replies_to_name"
         case rating = "rating"
         case ratingStatus = "vote"
     }
@@ -91,9 +94,10 @@ extension CommentApiObject: ApiObject {
         object.replyId.data = self.replyId
         object.rating.data = self.rating
         object.ratingStatus.data = self.ratingStatus
+        object.replyName.data = self.replyName
     }
     
     func createObject() -> Comment {
-        Comment(id: id, userId: userId, username: username, userAvatar: userAvatar, text: text, refTo: refTo, refId: refId, updateDate: updateDate, createDate: createDate, replyId: replyId, rating: rating, ratingStatus: ratingStatus)
+        Comment(id: id, userId: userId, username: username, userAvatar: userAvatar, text: text, refTo: refTo, refId: refId, updateDate: updateDate, createDate: createDate, replyId: replyId, replyName: replyName, rating: rating, ratingStatus: ratingStatus)
     }
 }

@@ -28,3 +28,17 @@ class FullForecastRouter: IFullForecastRouter {
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
 }
+
+extension FullForecastRouter: ICommentsRouter {
+    func reply(to comment: Comment) {
+        let vc = coordinator.respondScreen(comment: comment,
+                                           ref: comment.refTo.data,
+                                           id: comment.refId.data)
+        viewController.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func newComment(type: CommentType, id: Int) {
+        let vc = coordinator.respondScreen(comment: nil, ref: type, id: id)
+        viewController.navigationController?.pushViewController(vc, animated: true)
+    }
+}

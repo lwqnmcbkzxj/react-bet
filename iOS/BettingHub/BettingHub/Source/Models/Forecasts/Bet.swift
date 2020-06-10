@@ -28,10 +28,10 @@ struct Bet: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        value = try container.decode(Double.self, forKey: .value)
-        coefficient = try container.decode(Double.self, forKey: .coefficient)
+        value = try container.decode(NumberDecoder.self, forKey: .value).doubleValue
+        coefficient = try container.decode(NumberDecoder.self, forKey: .coefficient).doubleValue
         type = try container.decode(String.self, forKey: .type)
-        pureProfit = try container.decode(Double.self, forKey: .pureProfit)
+        pureProfit = try container.decode(NumberDecoder.self, forKey: .pureProfit).doubleValue
         status = try container.decode(Status.self, forKey: .status)
     }
     

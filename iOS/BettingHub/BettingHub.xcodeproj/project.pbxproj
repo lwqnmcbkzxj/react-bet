@@ -22,8 +22,6 @@
 		1C1134B524820E5D00162555 /* CreateForecastPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1134B424820E5D00162555 /* CreateForecastPresenter.swift */; };
 		1C1134B72482102800162555 /* CreateForecastInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1134B62482102800162555 /* CreateForecastInteractor.swift */; };
 		1C22EF402450830E00A7543D /* CommentsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C22EF3F2450830E00A7543D /* CommentsTableView.swift */; };
-		1C22EF422450838800A7543D /* CommentsTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C22EF412450838800A7543D /* CommentsTableViewModel.swift */; };
-		1C22EF442450884E00A7543D /* CommentsTableViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C22EF432450884E00A7543D /* CommentsTableViewPresenter.swift */; };
 		1C22EF462450899C00A7543D /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C22EF452450899C00A7543D /* CommentCell.swift */; };
 		1C25F83E244DD8C600A24F31 /* LabelWithInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C25F83D244DD8C600A24F31 /* LabelWithInsets.swift */; };
 		1C25F841244DE4A700A24F31 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C25F840244DE4A700A24F31 /* Device.swift */; };
@@ -90,6 +88,11 @@
 		1C56122B2457C18600D02DBB /* MatchesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C56122A2457C18600D02DBB /* MatchesViewModel.swift */; };
 		1C5B0C07244F90880075F95B /* SubscribeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5B0C06244F90880075F95B /* SubscribeButton.swift */; };
 		1C5E3A1B244E4169007F5E0E /* SelectionControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5E3A1A244E4169007F5E0E /* SelectionControl.swift */; };
+		1C61D1802491149D0085FB6D /* RespondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C61D17F2491149D0085FB6D /* RespondViewController.swift */; };
+		1C61D182249116830085FB6D /* RespondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C61D181249116830085FB6D /* RespondView.swift */; };
+		1C61D18424911AA60085FB6D /* RespondPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C61D18324911AA60085FB6D /* RespondPresenter.swift */; };
+		1C61D186249125D10085FB6D /* CommentsSectionFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C61D185249125D10085FB6D /* CommentsSectionFooter.swift */; };
+		1C61D188249127270085FB6D /* CommentsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C61D187249127270085FB6D /* CommentsRouter.swift */; };
 		1C6608F82449E1C3007E9BEB /* TopForecastersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6608F72449E1C3007E9BEB /* TopForecastersView.swift */; };
 		1C6608FB2449E388007E9BEB /* TopForecasterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6608FA2449E388007E9BEB /* TopForecasterCell.swift */; };
 		1C6937B12450FEB900AE01BE /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6937AE2450FEB800AE01BE /* HttpClient.swift */; };
@@ -211,6 +214,7 @@
 		1CC4EFD32447374300D69C67 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1CC4EFD52447374300D69C67 /* Localizable.strings */; };
 		1CC4EFD82447375B00D69C67 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC4EFD72447375B00D69C67 /* String.swift */; };
 		1CC4EFDE2447416900D69C67 /* BottomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC4EFDD2447416900D69C67 /* BottomButton.swift */; };
+		1CC6CF7E2490F3F7005D8105 /* CommentCellManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC6CF7D2490F3F7005D8105 /* CommentCellManager.swift */; };
 		1CC72E4E2482502300A551AE /* ForecastTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC72E4D2482502300A551AE /* ForecastTypePicker.swift */; };
 		1CC72E5024827C9B00A551AE /* BetAmountFieldsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC72E4F24827C9B00A551AE /* BetAmountFieldsManager.swift */; };
 		1CCFB12C244B604C00F431BA /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCFB12B244B604C00F431BA /* UIViewController.swift */; };
@@ -276,8 +280,6 @@
 		1C1134B424820E5D00162555 /* CreateForecastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateForecastPresenter.swift; sourceTree = "<group>"; };
 		1C1134B62482102800162555 /* CreateForecastInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateForecastInteractor.swift; sourceTree = "<group>"; };
 		1C22EF3F2450830E00A7543D /* CommentsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsTableView.swift; sourceTree = "<group>"; };
-		1C22EF412450838800A7543D /* CommentsTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsTableViewModel.swift; sourceTree = "<group>"; };
-		1C22EF432450884E00A7543D /* CommentsTableViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsTableViewPresenter.swift; sourceTree = "<group>"; };
 		1C22EF452450899C00A7543D /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		1C25F83D244DD8C600A24F31 /* LabelWithInsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithInsets.swift; sourceTree = "<group>"; };
 		1C25F840244DE4A700A24F31 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
@@ -344,6 +346,11 @@
 		1C56122A2457C18600D02DBB /* MatchesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesViewModel.swift; sourceTree = "<group>"; };
 		1C5B0C06244F90880075F95B /* SubscribeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeButton.swift; sourceTree = "<group>"; };
 		1C5E3A1A244E4169007F5E0E /* SelectionControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionControl.swift; sourceTree = "<group>"; };
+		1C61D17F2491149D0085FB6D /* RespondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RespondViewController.swift; sourceTree = "<group>"; };
+		1C61D181249116830085FB6D /* RespondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RespondView.swift; sourceTree = "<group>"; };
+		1C61D18324911AA60085FB6D /* RespondPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RespondPresenter.swift; sourceTree = "<group>"; };
+		1C61D185249125D10085FB6D /* CommentsSectionFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsSectionFooter.swift; sourceTree = "<group>"; };
+		1C61D187249127270085FB6D /* CommentsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsRouter.swift; sourceTree = "<group>"; };
 		1C6608F72449E1C3007E9BEB /* TopForecastersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopForecastersView.swift; sourceTree = "<group>"; };
 		1C6608FA2449E388007E9BEB /* TopForecasterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopForecasterCell.swift; sourceTree = "<group>"; };
 		1C6937AE2450FEB800AE01BE /* HttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
@@ -469,6 +476,7 @@
 		1CC4EFD62447374700D69C67 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1CC4EFD72447375B00D69C67 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		1CC4EFDD2447416900D69C67 /* BottomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomButton.swift; sourceTree = "<group>"; };
+		1CC6CF7D2490F3F7005D8105 /* CommentCellManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCellManager.swift; sourceTree = "<group>"; };
 		1CC72E4D2482502300A551AE /* ForecastTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastTypePicker.swift; sourceTree = "<group>"; };
 		1CC72E4F24827C9B00A551AE /* BetAmountFieldsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetAmountFieldsManager.swift; sourceTree = "<group>"; };
 		1CCFB12B244B604C00F431BA /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
@@ -567,11 +575,12 @@
 			isa = PBXGroup;
 			children = (
 				1C22EF452450899C00A7543D /* CommentCell.swift */,
+				1CC6CF7D2490F3F7005D8105 /* CommentCellManager.swift */,
 				1C22EF3F2450830E00A7543D /* CommentsTableView.swift */,
 				1CBBB51A2477F9C0002FC2ED /* CommentsViewModel.swift */,
-				1C22EF412450838800A7543D /* CommentsTableViewModel.swift */,
-				1C22EF432450884E00A7543D /* CommentsTableViewPresenter.swift */,
+				1C61D187249127270085FB6D /* CommentsRouter.swift */,
 				1CDAF85D2478195300789B9F /* CommentsSectionHeader.swift */,
+				1C61D185249125D10085FB6D /* CommentsSectionFooter.swift */,
 			);
 			path = CommentsList;
 			sourceTree = "<group>";
@@ -773,6 +782,16 @@
 				1C2C52502474257A00AACF3A /* MatchesRouter.swift */,
 			);
 			path = TopMatches;
+			sourceTree = "<group>";
+		};
+		1C61D17E2491148B0085FB6D /* Respond */ = {
+			isa = PBXGroup;
+			children = (
+				1C61D181249116830085FB6D /* RespondView.swift */,
+				1C61D17F2491149D0085FB6D /* RespondViewController.swift */,
+				1C61D18324911AA60085FB6D /* RespondPresenter.swift */,
+			);
+			path = Respond;
 			sourceTree = "<group>";
 		};
 		1C6608F62449E1B6007E9BEB /* TableContent */ = {
@@ -1127,6 +1146,7 @@
 			isa = PBXGroup;
 			children = (
 				1CA01F6B2451FA6F0025FF4F /* AppCoordinator.swift */,
+				1C61D17E2491148B0085FB6D /* Respond */,
 				1CDF91F0247FF32000117F5B /* CreateForecast */,
 				1CA43BB2247E627000CAF75E /* News */,
 				1C76C115247974F0005F471A /* FullArticle */,
@@ -1572,6 +1592,7 @@
 				1CE9A4292465B84E004D4696 /* BookmakerViewController.swift in Sources */,
 				1C7FF8E824855C8200E4DDCF /* ForecastCellManager.swift in Sources */,
 				1CE43F78245AF56E00E885EA /* ColumnsSectionHeader.swift in Sources */,
+				1C61D1802491149D0085FB6D /* RespondViewController.swift in Sources */,
 				1CA43BA9247BCBB100CAF75E /* FullArticleViewModel.swift in Sources */,
 				1CC4EFBE2447331C00D69C67 /* Fonts.swift in Sources */,
 				1C2C523524718B1600AACF3A /* MatchView.swift in Sources */,
@@ -1627,7 +1648,9 @@
 				1CC39CB6245F02A2003CED00 /* ProfileDataSource.swift in Sources */,
 				1C39EDB3245EF92A00F405AB /* UserFavoritesViewModel.swift in Sources */,
 				1CA5C8C724704E2C00D470B6 /* BookmakersRouter.swift in Sources */,
+				1C61D188249127270085FB6D /* CommentsRouter.swift in Sources */,
 				1C2C6ABD245C2A990044B5BC /* ProfileSegmenterView.swift in Sources */,
+				1C61D18424911AA60085FB6D /* RespondPresenter.swift in Sources */,
 				1C91348224475A7B00AE4510 /* UITextField.swift in Sources */,
 				1CDF91F42480047B00117F5B /* CreateForecastHeaderView.swift in Sources */,
 				1CF49A74248045A7009DFADF /* CreateForecastTableProvider.swift in Sources */,
@@ -1638,6 +1661,7 @@
 				1CA5C8BF246F571600D470B6 /* IForecasterService.swift in Sources */,
 				1C1134AF2481974000162555 /* CreateForecastHeaderInteractor.swift in Sources */,
 				1C2CFC082451D7E200E1071F /* TokenService.swift in Sources */,
+				1C61D182249116830085FB6D /* RespondView.swift in Sources */,
 				1C6937B42450FEDD00AE01BE /* ITokenService.swift in Sources */,
 				1CA01F78245263920025FF4F /* MainScreenRouter.swift in Sources */,
 				1CC4EFA324472C7400D69C67 /* LoginViewController.swift in Sources */,
@@ -1653,6 +1677,7 @@
 				1C43E2CF244B9105002CF7EB /* Bookmaker.swift in Sources */,
 				1CBA45CA246EF6080072E7A3 /* Bet.swift in Sources */,
 				1CA43BB6247E629900CAF75E /* NewsCell.swift in Sources */,
+				1CC6CF7E2490F3F7005D8105 /* CommentCellManager.swift in Sources */,
 				1CDA5FCB248CE6CE005A3A4F /* Double.swift in Sources */,
 				1CDF91F2247FF35F00117F5B /* CreateForecastViewController.swift in Sources */,
 				1C5612132456744200D02DBB /* UITableView.swift in Sources */,
@@ -1673,7 +1698,6 @@
 				1C2C52412472316C00AACF3A /* MatchViewController.swift in Sources */,
 				1CC39CBE245F11D7003CED00 /* ProfileAssembly.swift in Sources */,
 				1C47CC0A245A05B80031BC27 /* ForecastersViewModel.swift in Sources */,
-				1C22EF422450838800A7543D /* CommentsTableViewModel.swift in Sources */,
 				1C6608FB2449E388007E9BEB /* TopForecasterCell.swift in Sources */,
 				1C39EDB1245EEF5E00F405AB /* UserForecastsViewModel.swift in Sources */,
 				1CBEC899248D146F003F920A /* CommentService.swift in Sources */,
@@ -1718,6 +1742,7 @@
 				1C2C524F24737BFB00AACF3A /* UserService.swift in Sources */,
 				1CA43BBA247E67AA00CAF75E /* NewsPostViewModelItem.swift in Sources */,
 				1CC39CCA246022D1003CED00 /* SocialAccountButton.swift in Sources */,
+				1C61D186249125D10085FB6D /* CommentsSectionFooter.swift in Sources */,
 				1C56121D24575F8900D02DBB /* MenuPannel.swift in Sources */,
 				1C5E3A1B244E4169007F5E0E /* SelectionControl.swift in Sources */,
 				1C05A7A82479926A006FB7BF /* ArticleViewModelItem.swift in Sources */,
@@ -1789,7 +1814,6 @@
 				1CA01F6F24521B1F0025FF4F /* MainTabBarController.swift in Sources */,
 				1C43E2CD244B90FB002CF7EB /* Forecast.swift in Sources */,
 				1C91348A2447A39C00AE4510 /* ErrorView.swift in Sources */,
-				1C22EF442450884E00A7543D /* CommentsTableViewPresenter.swift in Sources */,
 				1C2C524424730DA000AACF3A /* IMatchService.swift in Sources */,
 				1C1134B72482102800162555 /* CreateForecastInteractor.swift in Sources */,
 			);

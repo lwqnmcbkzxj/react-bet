@@ -187,4 +187,11 @@ class AppCoordinator {
         let vc = assembly.screen()
         return vc
     }
+    
+    func respondScreen(comment: Comment?, ref: CommentType, id: Int) -> UIViewController {
+        let presenter = RespondPresenter(comment: comment, ref: ref, id: id)
+        let vc = RespondViewController()
+        vc.presenter = presenter
+        return vc
+    }
 }

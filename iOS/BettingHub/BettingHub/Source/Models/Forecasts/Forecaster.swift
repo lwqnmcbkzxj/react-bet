@@ -51,6 +51,33 @@ class Forecaster {
     }
 }
 
+struct NumberDecoder: Decodable {
+    let intValue: Int
+    let doubleValue: Double
+    let strValue: String
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        
+        if let value = try? container.decode(Double.self) {
+            self.doubleValue = value
+            self.strValue = String(format: "%.2f", value)
+            self.intValue = Int(value)
+        } else if let value = try? container.decode(Int.self) {
+            self.intValue = value
+            self.doubleValue = Double(value)
+            self.strValue = value.description
+        } else if let value = try? container.decode(String.self) {
+            self.strValue = value
+            guard let int = Int(value) else { throw BHError.cantDecodeNumber }
+            self.intValue = int
+            self.doubleValue = Double(int)
+        } else {
+            throw BHError.cantDecodeNumber
+        }
+    }
+}
+
 struct ForecasterStatistics: Codable {
     let roi: Double
     let averageCoefficient: Double
@@ -73,13 +100,13 @@ struct ForecasterStatistics: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        roi = try container.decodeIfPresent(Double.self, forKey: .roi) ?? 0
-        averageCoefficient = try container.decodeIfPresent(Double.self, forKey: .averageCoefficient) ?? 0
-        pureProfit = try container.decodeIfPresent(Double.self, forKey: .pureProfit) ?? 0
-        wins = try container.decode(Int.self, forKey: .wins)
-        loss = try container.decode(Int.self, forKey: .loss)
-        wait = try container.decode(Int.self, forKey: .wait)
-        back = try container.decode(Int.self, forKey: .back)
+        roi = try container.decodeIfPresent(NumberDecoder.self, forKey: .roi)?.doubleValue ?? 0
+        averageCoefficient = try container.decodeIfPresent(NumberDecoder.self, forKey: .averageCoefficient)?.doubleValue ?? 0
+        pureProfit = try container.decode(NumberDecoder.self, forKey: .pureProfit).doubleValue
+        wins = try container.decode(NumberDecoder.self, forKey: .wins).intValue
+        loss = try container.decode(NumberDecoder.self, forKey: .loss).intValue
+        wait = try container.decode(NumberDecoder.self, forKey: .wait).intValue
+        back = try container.decode(NumberDecoder.self, forKey: .back).intValue
     }
     
     static func stub() -> ForecasterStatistics {

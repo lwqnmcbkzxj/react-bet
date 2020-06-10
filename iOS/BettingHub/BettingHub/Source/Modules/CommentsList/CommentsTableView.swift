@@ -13,10 +13,10 @@ class CommentsTableView: UITableView {
     private let cellId = "commentCell"
     private weak var header: UITableViewHeaderFooterView?
     
-    var viewModel: ICommentsTableViewModel
+//    var viewModel: ICommentsTableViewModel
     
-    init(viewModel: ICommentsTableViewModel, header: UITableViewHeaderFooterView) {
-        self.viewModel = viewModel
+    init(header: UITableViewHeaderFooterView) {
+//        self.viewModel = viewModel
         self.header = header
         
         super.init(frame: .zero, style: .grouped)
@@ -37,13 +37,13 @@ class CommentsTableView: UITableView {
     }
     
     private func setupBinds() {
-        viewModel.reloadTableView = { [weak self] in
-            self?.reloadData()
-        }
-        
-        viewModel.updateLoadingStatus = { [weak self] in
-            // update UI
-        }
+//        viewModel.reloadTableView = { [weak self] in
+//            self?.reloadData()
+//        }
+//        
+//        viewModel.updateLoadingStatus = { [weak self] in
+//            // update UI
+//        }
     }
     
     private func registerCells() {
@@ -51,37 +51,36 @@ class CommentsTableView: UITableView {
     }
 }
 
+//TODO: tempUI
+
 extension CommentsTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfRows
+        return 0
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let model = viewModel.viewModelItem(for: indexPath)
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! CommentCell
-        cell.configure(with: model)
-        return cell
+        fatalError()
     }
 }
 
 extension CommentsTableView: UITableViewDelegate {
-    
+
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         return 1000
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return UITableView.automaticDimension
     }
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return header
     }
-    
+
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 170
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }

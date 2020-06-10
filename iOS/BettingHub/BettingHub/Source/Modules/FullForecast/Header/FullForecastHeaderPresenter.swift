@@ -89,8 +89,6 @@ extension FullForecastHeaderPresenter: IFullForecastHeaderPresenter {
     }
     
     func rate(status: RatingStatus) {
-        let curr = forecast().ratingStatus.data
-        let new = curr.apply(status: status)
-        forecastService.rating(status: new, forecast: forecast())
+        forecastService.rating(status: status, forecast: forecast())
     }
 }

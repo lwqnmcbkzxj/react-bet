@@ -41,8 +41,8 @@ class ForecastCellManager {
     }
     
     func changeRating(to status: RatingStatus, forecast: Forecast) {
-        let curr = forecast.ratingStatus.data
-        let new = curr.apply(status: status)
-        forecastsService.rating(status: new, forecast: forecast)
+//        let curr = forecast.ratingStatus.data
+//        let new = curr.apply(status: status)
+        forecastsService.rating(status: status, forecast: forecast)
     }
 }
