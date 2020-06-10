@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Collection;
 use function MongoDB\BSON\toJSON;
 
 class EventProfile extends JsonResource
@@ -15,6 +16,8 @@ class EventProfile extends JsonResource
      */
     public function toArray($request)
     {
+        $coefficients = collect($this->coefficients()->get('type'));
+
         $split_team = preg_split("* - *", $this->title);
         return ['event_id' => $this->id,
             'championship_data' => [
@@ -25,7 +28,7 @@ class EventProfile extends JsonResource
                 'sport_image'=>$this->sport->image,
             ],
             'event' => $this->title,
-            'coefficients' => $this->coefficients()->get(),
+            'coefficients' => $coefficients,
             'event_start' => $this->start,
             'team_1' => ['name' => $split_team[0]],
             'team_2' => ['name' => $split_team[1]],
