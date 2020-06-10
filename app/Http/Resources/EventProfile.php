@@ -16,7 +16,7 @@ class EventProfile extends JsonResource
      */
     public function toArray($request)
     {
-        $coefficients = collect($this->coefficients()->get('type'));
+        $coefficients = collect($this->coefficients()->get());
 
         $split_team = preg_split("* - *", $this->title);
         return ['event_id' => $this->id,
