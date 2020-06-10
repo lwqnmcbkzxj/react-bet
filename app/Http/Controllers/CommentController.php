@@ -24,7 +24,7 @@ class CommentController extends Controller
             $comment->replies_to = $request->replies_to;
         }
         $comment->save();
-        return $this->sendResponse($comment, 'Success', 200);
+        return $this->sendResponse(new \App\Http\Resources\Comment($comment), 'Success', 200);
     }
     public function getAll(Request $request)
     {
@@ -50,7 +50,7 @@ class CommentController extends Controller
     }
     public function getOne(Comment $comment)
     {
-        return $this->sendResponse($comment,'Success',200);
+        return $this->sendResponse(new \App\Http\Resources\Comment($comment), 'Success', 200);
     }
     public function delete(Comment $comment)
     {
