@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\File;
-class PolicyController extends Controller
+class TermsController extends Controller
 {
     public function post(Request $request)
     {
