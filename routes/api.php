@@ -81,6 +81,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/avatar', 'UploadController@putAvatar');
     Route::get('/admin/dashboard','Admin\DashboardController@index');
     Route::post('/admin/policy', 'PolicyController@post');
+    Route::post('/admin/terms', 'TermsController@post');
     Route::get('/admin/feedback','FeedbackController@get');
 
 

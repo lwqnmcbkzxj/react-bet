@@ -9,6 +9,12 @@ Route::get('/policy', function () {
     $type = File::mimeType($path);
     return $file;
 });
+Route::get('/terms', function () {
+    $path = storage_path('terms.json');
+    $file = File::get($path);
+    $type = File::mimeType($path);
+    return $file;
+});
 Route::get('/feedback', function () {
     $path = storage_path('feedback.json');
     $file = File::get($path);
