@@ -29,9 +29,11 @@ class UploadController extends Controller
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
-        $file = $request->file('image');
-        $name=time() . '-' . uniqid() .'.'. $file->getClientOriginalExtension();
-        $file->move(public_path('storage/images/'), $name);
+        $image = $request->file('image');
+        $name=time() . '-' . uniqid() .'.jpg';
+        $image_resize = Image::make($image->getRealPath());
+        $image_resize->resize(null,400)->encode('jpg',80);
+        $image_resize->save(public_path('storage/images/'), $name);
         $image= '/storage/images/' . $name;
         return $this->sendResponse(['image' => $image], 'Success', 200);
     }
