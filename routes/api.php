@@ -104,6 +104,14 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/admin/export/bookmakers', 'Admin\DashboardController@exportBookmakers');
     Route::get('/admin/export/events', 'Admin\DashboardController@exportEvents');
 
+
+    Route::get('/admin/events', 'Admin\EventController@getAll');
+    Route::post('/admin/events', 'Admin\EventController@post');
+    Route::get('/admin/events/{event}', 'Admin\EventController@get');
+    Route::delete('/admin/events/{event}', 'Admin\EventController@delete');
+    Route::post('/admin/events/{event}', 'Admin\EventController@edit');
+
+
     Route::get('/admin/posts', 'PostController@getAll');
     Route::post('/admin/posts', 'PostController@post');
     Route::get('/admin/posts/search', 'PostController@search');
@@ -139,8 +147,6 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/admin/bookmakers', 'BookmakerController@post');
     Route::post('/admin/bookmakers/{bookmaker}', 'BookmakerController@edit');
 
-
-    Route::get('/admin/events', 'Admin\EventController@index');
 
     Route::post('/admin/users', 'Admin\UserController@store');
     Route::get('/admin/users', 'Admin\UserController@index');
