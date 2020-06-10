@@ -72,27 +72,21 @@ class ForecastController extends Controller
      */
     public function store(Request $request)
     {
-        $forecast = Forecast::create($request->except(['status', 'type', 'coefficient']));
         if (!Coefficient::where('event_id', $request->get('event_id'))
             ->where('type', $request->get('type'))
             ->exists()
         )
         {
             $coefficient = Coefficient::create($request->only(['event_id', 'type', 'coefficient', 'status']));
-            $forecast->update([
-                'coefficient_id' => $coefficient->id
-            ]);
         }
         else {
             $coefficient = Coefficient::where('event_id', $request->get('event_id'))
                 ->where('type', $request->get('type'))
                 ->first();
             $coefficient->update($request->only(['event_id', 'type', 'coefficient', 'status']));
-            $forecast->update([
-                'coefficient_id' => $coefficient->id
-            ]);
         }
-
+        $request['coefficient_id'] = $coefficient->id;
+        $forecast = Forecast::create($request->except(['status', 'type', 'coefficient']));
         return  json_encode($forecast);
     }
 
@@ -136,7 +130,7 @@ class ForecastController extends Controller
         $coefficient = $forecast->coefficient()->first();
         $coefficient->update($request->only(['status', 'type', 'coefficient']));
 
-        return  json_encode($forecast);
+        return $this->sendResponse($forecast, 'Success',200);
     }
 
     /**
