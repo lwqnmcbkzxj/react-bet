@@ -73,17 +73,19 @@ Route::get('/news/{news}/comments', function (Request $Request, \App\News $news)
     $Request['referent_id'] = $news->id;
     return app()->call('App\Http\Controllers\CommentController@getAll', [$Request]);
 });
-
+Route::get('/options','Admin\OptionController@index');
 
 //Доступ к профилям пользователей
 Route::middleware('auth:api')->group(function () {
+
     Route::post('/photo', 'UploadController@putImage');
     Route::post('/avatar', 'UploadController@putAvatar');
     Route::get('/admin/dashboard','Admin\DashboardController@index');
     Route::post('/admin/policy', 'PolicyController@post');
     Route::post('/admin/terms', 'TermsController@post');
     Route::get('/admin/feedback','FeedbackController@get');
-
+    Route::post('/admin/options','Admin\OptionController@update');
+    Route::get('/admin/options','Admin\OptionController@index');
 
     Route::get('/admin/export/users', 'Admin\DashboardController@exportUsers');
     Route::get('/admin/export/posts', 'Admin\DashboardController@exportPosts');

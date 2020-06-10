@@ -1,0 +1,15 @@
+{
+    "telegram": "some_value",
+    "vkontakte": "some_value",
+    "twitter": "some_value",
+    "instagram": "some_value",
+    "facebook": "some_value",
+    "ios_link": "some_value",
+    "android_link": "some_value",
+    "copyright": "some_value",
+    "main_page_notification": "some_value",
+    "show_forecast_comments": true,
+    "feedback_email": "some_value",
+    "head_scripts": "some_value",
+    "footer_scripts": "some_value"
+}
