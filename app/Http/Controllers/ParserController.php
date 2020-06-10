@@ -42,7 +42,7 @@ class ParserController extends Controller
             $championship = $this->addChampionship($event_data->championship_data);
             $event->championship_id = $championship->id;
             $event->sport_id = $championship->sport_id;
-            $event->start = $event_data->event_start.":00";
+            $event->start = $event_data->event_start . ":00";
             $event->title = $event_data->event;
             $event->status = 1;
             $event->save();
@@ -58,8 +58,6 @@ class ParserController extends Controller
         if (!$request['page']) {
             $request['page'] = 0;
         }
-        set_time_limit(1000);
-//        $client = new Client();
         $users = DB::table('users')->select(['uid as userid'])->whereNotNull('uid')->orderBy('created_at', 'desc')->limit($request['limit'])->offset($request['limit'] * $request['page'])->get();
         $query = $users->map(function ($item, $key) {
             return 'userid=' . $item->userid;
@@ -85,7 +83,8 @@ class ParserController extends Controller
         $res['query'] = $query;
         $res['count_forecasts'] = 0;
         $res['count_new_forecasts'] = 0;
-        $response->map(function ($item, $key) use (&$res)    {
+        $res['user_count'] = DB::table('users')->select(['uid as userid'])->whereNotNull('uid')->count('uid');
+        $response->map(function ($item, $key) use (&$res) {
             $userforecasts = collect($item->forecasts);
             $user_id = \App\User::query()->select('id')->where('uid', '=', $item->user_id)->first()->id;
             $userforecasts->map(function ($new_forecast, $key) use ($user_id, &$res) {
@@ -133,7 +132,6 @@ class ParserController extends Controller
 
     public function updateForecasts(Request $request)
     {
-        sleep(30);
         if (!$request['limit']) {
             $request['limit'] = 5;
         }
@@ -143,8 +141,7 @@ class ParserController extends Controller
         set_time_limit(1000);
 
         $forecasts = Forecast::query()->whereNotNull('parser_forecast_id')->limit($request['limit'])->offset($request['limit'] * $request['page']);
-        if($request['id'])
-        {
+        if ($request['id']) {
             $forecasts = $forecasts->where($request['id']);
         }
         $forecasts = $forecasts->get();
@@ -164,6 +161,8 @@ class ParserController extends Controller
         ));
         $response = curl_exec($curl);
         $res = collect();
+        $res['forecasts_updated'] = 0;
+        $res['forecasts_count'] = Forecast::query()->whereNotNull('parser_forecast_id')->count();
         $response = collect(json_decode($response));
         curl_close($curl);
         $response->map(function ($item, $key) use (&$res, &$forecasts) {
@@ -174,13 +173,13 @@ class ParserController extends Controller
                     return;
                 }
                 $event = $forecast->event()->first();
-                $res->push($event);
                 $event->score = $item->event_data->score;
                 $event->status = 2;
                 $event->save();
                 $coefficient = $forecast->coefficient()->first();
                 $coefficient->status = $item->bet_data->status;
                 $coefficient->save();
+                $res['forecasts_updated']++;
             } else
                 return;
         });
