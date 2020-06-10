@@ -21,13 +21,14 @@ class EventProfile extends JsonResource
         $coefficients = collect($this->coefficients()->get(['id','type']));
         if($coefficients->count()<6)
         {
-            $limit = 6-$coefficients->count();
+            $limit = 5-$coefficients->count();
             $types = DB::table('coefficients')->select('type')->inRandomOrder()->where('event_id','!=','event_id')->groupBy('type')->limit($limit)->get();
             foreach ($types as $type)
             {
                 $type->forecast_count=0;
                 $coefficients->push($type);
             }
+            $coefficients->push(['type'=>'Другое','forecasts_count'=>0]);
         }
 
         $split_team = preg_split("* - *", $this->title);
