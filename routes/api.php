@@ -111,6 +111,11 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/admin/events/{event}', 'Admin\EventController@delete');
     Route::post('/admin/events/{event}', 'Admin\EventController@edit');
 
+    Route::get('/admin/championships', 'Admin\ChampionshipController@getAll');
+    Route::post('/admin/championships', 'Admin\ChampionshipController@post');
+    Route::get('/admin/championships/{championship}', 'Admin\ChampionshipController@get');
+    Route::delete('/admin/championships/{championship}', 'Admin\ChampionshipController@delete');
+    Route::post('/admin/championships/{championship}', 'Admin\ChampionshipController@edit');
 
     Route::get('/admin/posts', 'PostController@getAll');
     Route::post('/admin/posts', 'PostController@post');
@@ -125,7 +130,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/admin/banners/{banner}', 'BannerController@get');
     Route::delete('/admin/banners/{banner}', 'BannerController@delete');
     Route::post('/admin/banners/{banner}', 'BannerController@edit');
-
 
     Route::get('admin/forecasts','Admin\ForecastController@index');
     Route::post('admin/forecasts','Admin\ForecastController@store');

@@ -3,99 +3,51 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Championship;
-use App\Sport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ChampionshipController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function getAll(Request $request)
     {
-        return  json_encode([
-            'championships' => Championship::orderBy('created_at', 'DESC')->paginate(10)
-        ]);
+        if (!$request->has('order_by')) {
+            $request['order_by'] = 'id';
+        }
+        if (!$request->has('limit')) {
+            $request['limit'] = 15;
+        }
+        if (!$request->has('direction')) {
+            $request['direction'] = 'desc';
+        }
+        $res = Championship::query()->orderBy($request['order_by'], $request['direction']);
+        if($request->has('search')&&($request['search']!=''))
+        {
+            $res = $res->where('name', 'LIKE', "%" . $request->search . "%");
+        }
+        return $this->sendResponse($res->paginate($request['limit']),'Success',200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return  json_encode([
-            'championship' => [],
-            'sports' => Sport::all()
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function post(Request $request)
     {
         $championship = Championship::create($request->all());
-
-        return  json_encode($championship);
+        return $this->sendResponse($championship,'Success',200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function get(Championship $championship)
     {
-        //
+        return $this->sendResponse($championship, 'Success',200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Championship $championship)
-    {
-        return  json_encode([
-            'championship' => $championship,
-            'sports' => Sport::all()
-        ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Championship $championship)
+    public function edit(Request $request, Championship $championship)
     {
         $championship->update($request->all());
-
-        return  json_encode($championship);
+        return $this->sendResponse($championship,'Success',200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Championship $championship)
+    public function delete(Championship $championship)
     {
         $championship->delete();
-
-        return $this->sendResponse('','Удалено успешно', 200);
+        return $this->sendResponse('','Success',200);
     }
 }
