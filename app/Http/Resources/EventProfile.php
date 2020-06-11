@@ -18,17 +18,24 @@ class EventProfile extends JsonResource
      */
     public function toArray($request)
     {
-        $coefficients = collect($this->coefficients()->get(['id','type']));
-        if($coefficients->count()<6)
-        {
-            $limit = 5-$coefficients->count();
-            $types = DB::table('coefficients')->select('type')->inRandomOrder()->where('event_id','!=','event_id')->groupBy('type')->limit($limit)->get();
-            foreach ($types as $type)
-            {
-                $type->forecast_count=0;
-                $coefficients->push($type);
+        $coefficients = collect($this->coefficients()->get(['id', 'type']));
+        if ($coefficients->count() < 6) {
+            $default = collect(['П1', 'П2', 'ФОРА1', 'ФОРА2', 'ТОТАЛ']);
+            $limit = 5 - $coefficients->count();
+            foreach ($default as $item) {
+                if ($limit <= 0)
+                    break;
+                $found = false;
+                foreach ($coefficients as $coefficient) {
+                    if (strpos(strtolower($coefficient['type']), strtolower($item)))
+                        $found = true;
+                }
+                if (!$found) {
+                    $coefficients->push(['type' => $item, 'forecast_count' => 0]);
+                    $limit--;
+                }
             }
-            $coefficients->push(['type'=>'Другое','forecasts_count'=>0]);
+            $coefficients->push(['type' => 'Другое', 'forecasts_count' => 0]);
         }
 
         $split_team = preg_split("* - *", $this->title);
@@ -38,7 +45,7 @@ class EventProfile extends JsonResource
                 'championship' => $this->championship->name,
                 'sport_id' => $this->sport->id,
                 'sport_name' => $this->sport->name,
-                'sport_image'=>$this->sport->image,
+                'sport_image' => $this->sport->image,
             ],
             'event' => $this->title,
             'coefficients' => $coefficients,
