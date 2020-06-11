@@ -23,7 +23,7 @@ class EventController extends Controller
         if (!$request->has('direction')) {
             $request['direction'] = 'desc';
         }
-        $res = Event::query()->orderBy($request['order_by'], $request['direction']);
+        $res = Event::query()->with('sport')->orderBy($request['order_by'], $request['direction']);
         if($request->has('search')&&($request['search']!=''))
         {
             $res = $res->where('title', 'LIKE', "%" . $request->search . "%");
@@ -39,7 +39,7 @@ class EventController extends Controller
 
     public function get(Event $event)
     {
-        return $this->sendResponse($event, 'Success',200);
+        return $this->sendResponse($event->load('sport'), 'Success',200);
     }
 
     public function edit(Request $request, Event $event)
