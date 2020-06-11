@@ -45,7 +45,7 @@ class CommentController extends Controller
             }
             return $this->sendResponse(new \App\Http\Resources\CommentCollection($res), 'Success', 200);
         }
-        $res = Comment::query();
+        $res = Comment::query()->orderBy('id','desc');
         if ($request->has('limit'))
             $res->limit($request['$request']);
         $res = $res->get();
