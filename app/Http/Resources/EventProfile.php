@@ -27,7 +27,7 @@ class EventProfile extends JsonResource
                     break;
                 $found = false;
                 foreach ($coefficients as $coefficient) {
-                    if (strpos(strtolower($coefficient['type']), strtolower($item)))
+                    if (strpos(strtolower($item), strtolower($coefficient['type']))!==false)
                         $found = true;
                 }
                 if (!$found) {

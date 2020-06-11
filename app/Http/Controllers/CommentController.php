@@ -19,39 +19,44 @@ class CommentController extends Controller
         $comment->user_id = $user->id;
         $comment->reference_to = $request->reference_to;
         $comment->referent_id = $request->referent_id;
-        if($request->has('replies_to'))
-        {
+        $comment->referent_title = $request->referent_title;
+        if ($request->has('replies_to')) {
             $comment->replies_to = $request->replies_to;
         }
         $comment->save();
         return $this->sendResponse(new \App\Http\Resources\Comment($comment), 'Success', 200);
     }
+
     public function getAll(Request $request)
     {
-        $res = Comment::all();
-        if($request->has('reference_to') && $request->has('referent_id'))
-        {
-            $res = $res->where('reference_to', '=', $request['reference_to'])->where('referent_id', '=',  $request['referent_id']);
+
+        if ($request->has('reference_to') && $request->has('referent_id')) {
+            $res = Comment::all();
+            $res = $res->where('reference_to', '=', $request['reference_to'])->where('referent_id', '=', $request['referent_id']);
+            if ($request->has('order_by')) {
+                if (!$request->has('direction'))
+                    $request['direction'] = 'DESC';
+                if ($request['direction'] == 'DESC')
+                    $res = $res->sortByDesc($request['order_by']);
+                else
+                    $res = $res->sortBy($request['order_by']);
+            } else {
+                $res = $res->sortByDesc('id');
+            }
+            return $this->sendResponse(new \App\Http\Resources\CommentCollection($res), 'Success', 200);
         }
-        if($request->has('order_by'))
-        {
-            if(!$request->has('direction'))
-                $request['direction'] = 'DESC';
-            if($request['direction']=='DESC')
-                $res = $res->sortByDesc($request['order_by']);
-            else
-                $res = $res->sortBy($request['order_by']);
-        }
-        else
-        {
-            $res = $res->sortByDesc('id');
-        }
+        $res = Comment::query();
+        if ($request->has('limit'))
+            $res->limit($request['$request']);
+        $res = $res->get();
         return $this->sendResponse(new \App\Http\Resources\CommentCollection($res), 'Success', 200);
     }
+
     public function getOne(Comment $comment)
     {
         return $this->sendResponse(new \App\Http\Resources\Comment($comment), 'Success', 200);
     }
+
     public function delete(Comment $comment)
     {
         try {

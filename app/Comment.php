@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    protected $fillable = ['text', 'referenced_to', 'referent_id', 'replies_to'];
-
+    protected $fillable = ['text', 'referenced_to', 'referent_id', 'referent_title', 'replies_to'];
     protected $appends = ['rating'];
 
 

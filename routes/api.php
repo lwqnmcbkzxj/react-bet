@@ -220,16 +220,19 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/news/{news}/comment', function (Request $Request, \App\News $news) {
         $Request['reference_to'] = 'news';
         $Request['referent_id'] = $news->id;
+        $Request['referent_title'] = $news->title;
         return app()->call('App\Http\Controllers\CommentController@post', [$Request]);
     });
     Route::post('/forecasts/{forecast}/comment', function (Request $Request, \App\Forecast $forecast) {
         $Request['reference_to'] = 'forecasts';
         $Request['referent_id'] = $forecast->id;
+        $Request['referent_title'] = $forecast->event->title;
         return app()->call('App\Http\Controllers\CommentController@post', [$Request]);
     });
     Route::post('/posts/{post}/comment', function (Request $Request, \App\Post $post) {
         $Request['reference_to'] = 'posts';
         $Request['referent_id'] = $post->id;
+        $Request['referent_title'] = $post->title;
         return app()->call('App\Http\Controllers\CommentController@post', [$Request]);
     });
     Route::post('/forecasts/{forecast}/mark', 'FollowForecastController@post');
