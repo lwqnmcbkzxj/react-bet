@@ -14,10 +14,6 @@ class Promise<Data> {
     
     private var completeBind: ObservableBind?
     
-    deinit {
-        print("promis deinit")
-    }
-    
     func fullfil(with data: Data) {
         obs?.data = data
     }

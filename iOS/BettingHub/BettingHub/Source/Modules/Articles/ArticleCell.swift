@@ -10,6 +10,10 @@ import UIKit
 
 class ArticleCell: UITableViewCell {
     
+    let manager = ArticleCellManager()
+    
+    var article: Article?
+    
     private let panelView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -23,6 +27,7 @@ class ArticleCell: UITableViewCell {
     private let articleImage: UIImageView = {
         let view = UIImageView()
         view.layer.cornerRadius = 5
+        view.clipsToBounds = true
         view.contentMode = .scaleAspectFill
         view.backgroundColor = .lightGray
         view.isSkeletonable = true
@@ -77,10 +82,11 @@ class ArticleCell: UITableViewCell {
         return view
     }()
     
-    private let ratingView: ArrowsStepperView = {
+    private lazy var ratingView: ArrowsStepperView = {
         let view = ArrowsStepperView()
         view.setNumber(23)
         view.isSkeletonable = true
+        view.delegate = self
         return view
     }()
     
@@ -97,19 +103,30 @@ class ArticleCell: UITableViewCell {
     }
     
     func configure(with article: Article) {
+        self.article = article
+        manager.storeBinds(binds(to: article))
         let vm = ArticleViewModelItem(article: article)
         
-        articleImage.setImage(url: article.image, placeholder: nil)
+        articleImage.setImage(url: article.image.data, placeholder: nil)
         categoryName.text = article.category
         dateLabel.text = vm.dateText
         articleTitle.text = article.name
-        articleTextLabel.attributedText = article.text.html2AttributedString
-        commentsView.setNumber(article.commentsCount)
-        ratingView.setNumber(article.rating)
+        articleTextLabel.text = article.text.data.html2String
+        commentsView.setNumber(article.commentsCount.data)
+        ratingView.setNumber(article.rating.data)
+        ratingView.stepperState = article.ratingStatus.data
+    }
+    
+    private func binds(to article: Article) -> [ObservableBind] {
+        [
+            article.rating.bind { self.ratingView.setNumber($0) },
+            article.ratingStatus.bind { self.ratingView.stepperState = $0 },
+            article.commentsCount.bind { self.commentsView.setNumber($0) }
+        ]
     }
     
     private func makeLayout() {
-        addSubview(panelView)
+        contentView.addSubview(panelView)
         panelView.snp.makeConstraints { (make) in
             make.leading.top.trailing.equalToSuperview()
             make.bottom.equalToSuperview().offset(-20)
@@ -150,29 +167,33 @@ class ArticleCell: UITableViewCell {
             
         }
         
-        //TODO: tempUI
-        articleTextLabel.snp.makeConstraints { (make) in
-            make.bottom.equalToSuperview().offset(-12)
+        panelView.addSubview(separatorLine)
+        separatorLine.snp.makeConstraints { (make) in
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-43)
+            make.top.equalTo(articleTextLabel.snp.bottom).offset(12)
         }
-//        panelView.addSubview(separatorLine)
-//        separatorLine.snp.makeConstraints { (make) in
-//            make.leading.trailing.equalToSuperview()
-//            make.bottom.equalToSuperview().offset(-43)
-//            make.top.equalTo(articleTextLabel.snp.bottom).offset(16)
-//        }
-//
-//        panelView.addSubview(commentsView)
-//        commentsView.snp.makeConstraints { (make) in
-//            make.leading.equalToSuperview().offset(9)
-//            make.top.equalTo(separatorLine.snp.bottom).offset(12)
-//            make.height.equalTo(18)
-//        }
-//
-//        panelView.addSubview(ratingView)
-//        ratingView.snp.makeConstraints { (make) in
-//            make.trailing.equalToSuperview().offset(-9)
-//            make.top.equalTo(commentsView)
-//            make.height.equalTo(18)
-//        }
+
+        panelView.addSubview(commentsView)
+        commentsView.snp.makeConstraints { (make) in
+            make.leading.equalToSuperview().offset(9)
+            make.top.equalTo(separatorLine.snp.bottom).offset(12)
+            make.height.equalTo(18)
+        }
+
+        panelView.addSubview(ratingView)
+        ratingView.snp.makeConstraints { (make) in
+            make.trailing.equalToSuperview().offset(-9)
+            make.top.equalTo(commentsView)
+            make.height.equalTo(18)
+        }
+    }
+}
+
+extension ArticleCell: ArrowsStepperViewDelegate {
+    
+    func arrowsStepper(_ arrowsStepper: ArrowsStepperView, needsStatus status: RatingStatus) {
+        guard let article = article else { return }
+        manager.rating(to: status, article: article)
     }
 }

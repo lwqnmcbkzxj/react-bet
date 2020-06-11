@@ -35,14 +35,8 @@ class SimilarArticlesViewModel: TableSectionProvider {
         
         tableView.register(ArticleCell.self, forCellReuseIdentifier: cellId)
         
-        articleService.articles(page: 1, limit: 3) { (result) in
-            switch result {
-            case .success(let articles):
-                self.items = articles
-                
-            case .failure(let err):
-                print(err.localizedDescription)
-            }
+        articleService.articles(page: 1, limit: 3).onComplete { (articles) in
+            self.items = articles
         }
     }
     

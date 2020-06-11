@@ -11,6 +11,7 @@ import Foundation
 enum CommentType: String, Decodable {
     case forecasts
     case match
+    case articles = "posts"
 }
 
 protocol ICommentService: class {

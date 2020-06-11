@@ -47,8 +47,6 @@ class AppCoordinator {
         router.viewController = vc
         let nav = NavigationController(rootViewController: vc)
         
-        mainTabBar.addDelegate(vc)
-        
         return nav
     }
     
@@ -163,13 +161,8 @@ class AppCoordinator {
     }
     
     func fullArticleScreen(article: Article) -> UIViewController {
-        let vc = FullArticleViewController()
-        let vm = FullArticleViewModel(article: article)
-        let router = FullArticleRouter()
-        router.coordinator = self
-        router.viewController = vc
-        vc.router = router
-        vc.vm = vm
+        let assembly = FullArticleAssembly()
+        let vc = assembly.module(article: article, coordinator: self)
         return vc
     }
     

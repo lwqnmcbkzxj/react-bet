@@ -21,10 +21,6 @@ class FullArticleSectionProvider: TableSectionProvider {
     
     private weak var tableView: UITableView!
     
-    required init(tableView: UITableView) {
-        fatalError("Use another init lol")
-    }
-    
     init(tableView: UITableView, article: Article) {
         self.tableView = tableView
         self.article = article

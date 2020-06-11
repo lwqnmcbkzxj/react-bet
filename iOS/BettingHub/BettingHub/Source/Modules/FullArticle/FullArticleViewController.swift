@@ -11,9 +11,9 @@ import UIKit
 class FullArticleViewController: UIViewController {
     
     var router: IFullArticleRouter!
-    var vm: FullArticleViewModel!
+    var sections: [TableSectionProvider] = []
     
-    private let tableView: UITableView = {
+    let tableView: UITableView = {
         let view = UITableView(frame: .zero, style: .grouped)
         view.backgroundColor = .white
         view.separatorColor = .clear
@@ -22,10 +22,6 @@ class FullArticleViewController: UIViewController {
         return view
     }()
     
-    
-    
-    private lazy var sections: [TableSectionProvider]! = vm.createProviders(with: tableView)
-    
     override func loadView() {
         super.loadView()
         view.backgroundColor = .white
@@ -33,6 +29,12 @@ class FullArticleViewController: UIViewController {
         setView(tableView, insets: .init(top: 0, left: 15, bottom: 0, right: 15))
         tableView.delegate = self
         tableView.dataSource = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        sections.forEach { $0.reload() }
     }
 }
 
@@ -65,8 +67,16 @@ extension FullArticleViewController: UITableViewDelegate {
         return sections[indexPath.section].cellHeight()
     }
     
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return sections[section].footer()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return sections[section].footerHeight()
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section ==  1 { //article
+        if indexPath.section ==  2 { //article
             router.show(article: .stub())
         }
     }

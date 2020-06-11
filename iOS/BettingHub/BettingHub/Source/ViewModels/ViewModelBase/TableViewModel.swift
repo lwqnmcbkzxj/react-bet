@@ -44,6 +44,15 @@ class TableViewModel<Item, State> {
         currentPage(1)
     }
     
+    func willDisplay(row: Int) {
+        let cellPage = (row / pageSize) + 1
+        currentPage(cellPage)
+        
+        let isEnd = numberOfItems() == row + 1
+        let lastPageIsIncomplete = (numberOfItems() % pageSize) != 0
+        if isEnd && !lastPageIsIncomplete { currentPage(cellPage + 1) }
+    }
+    
     //Implementation overrides
     
     /// Provide value if paging supported by view model.

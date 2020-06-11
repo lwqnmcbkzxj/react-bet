@@ -120,12 +120,7 @@ extension ProfileForecastsDataSource: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cellPage = (indexPath.row / viewModel.pageSize) + 1
-        viewModel.currentPage(cellPage)
-
-        let isEnd = viewModel.numberOfItems() == indexPath.row + 1
-        if isEnd {
-            viewModel.currentPage(cellPage + 1)
-        }
+        
+        viewModel.willDisplay(row: indexPath.row)
     }
 }

@@ -101,6 +101,7 @@ class RequestBuilder: IRequestBuilder {
     }
     
     func idRequest(url: String, id: Int) -> RequestContent {
+        let url = url.last == "/" ? url.dropLast(1).description : url
         return ("\(url)/\(id)", [String: String]())
     }
     

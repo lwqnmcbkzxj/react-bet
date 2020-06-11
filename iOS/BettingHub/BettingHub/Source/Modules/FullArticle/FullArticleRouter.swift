@@ -14,13 +14,31 @@ protocol IFullArticleRouter: class {
 }
 
 
-class FullArticleRouter: IFullArticleRouter {
+class FullArticleRouter {
     
     weak var coordinator: AppCoordinator!
     weak var viewController: UIViewController!
+}
+
+extension FullArticleRouter: IFullArticleRouter {
     
     func show(article: Article) {
         let vc = coordinator.fullArticleScreen(article: article)
+        viewController.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension FullArticleRouter: ICommentsRouter {
+    
+    func reply(to comment: Comment) {
+        let vc = coordinator.respondScreen(comment: comment,
+                                           ref: comment.refTo.data,
+                                           id: comment.refId.data)
+        viewController.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func newComment(type: CommentType, id: Int) {
+        let vc = coordinator.respondScreen(comment: nil, ref: type, id: id)
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
 }

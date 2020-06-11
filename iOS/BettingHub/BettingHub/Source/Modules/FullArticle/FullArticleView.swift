@@ -10,6 +10,8 @@ import UIKit
 
 class FullArticleView: UITableViewHeaderFooterView {
     
+    private var presenter: FullArticleViewPresenter?
+    
     private let articleTitleLabel: UILabel = {
         let view = UILabel()
         view.textColor = .titleBlack
@@ -42,9 +44,10 @@ class FullArticleView: UITableViewHeaderFooterView {
         return view
     }()
     
-    private let ratingView: ArrowsStepperView = {
+    private lazy var ratingView: ArrowsStepperView = {
         let view = ArrowsStepperView()
-        view.setNumber(23)
+        view.setNumber(0)
+        view.delegate = self
         return view
     }()
     
@@ -59,11 +62,22 @@ class FullArticleView: UITableViewHeaderFooterView {
     }
     
     func configure(with article: Article) {
+        presenter = FullArticleViewPresenter(article: article)
+        presenter?.storeBinds(binds(to: article))
         articleTitleLabel.text = article.name
-        articleImage.setImage(url: article.image, placeholder: nil)
-        articleTextLabel.text = article.text
-        commentsView.setNumber(article.commentsCount)
-        ratingView.setNumber(article.rating)
+        articleImage.setImage(url: article.image.data, placeholder: nil)
+        articleTextLabel.text = article.text.data.html2String
+        commentsView.setNumber(article.commentsCount.data)
+        ratingView.setNumber(article.rating.data)
+        ratingView.stepperState = article.ratingStatus.data
+    }
+    
+    private func binds(to article: Article) -> [ObservableBind] {
+        [
+            article.rating.bind { self.ratingView.setNumber($0) },
+            article.ratingStatus.bind { self.ratingView.stepperState = $0 },
+            article.commentsCount.bind { self.commentsView.setNumber($0) }
+        ]
     }
     
     private func makeLayout() {
@@ -101,5 +115,12 @@ class FullArticleView: UITableViewHeaderFooterView {
             make.height.equalTo(18)
             make.bottom.equalToSuperview()
         }
+    }
+}
+
+extension FullArticleView: ArrowsStepperViewDelegate {
+    
+    func arrowsStepper(_ arrowsStepper: ArrowsStepperView, needsStatus status: RatingStatus) {
+        presenter?.rating(to: status)
     }
 }

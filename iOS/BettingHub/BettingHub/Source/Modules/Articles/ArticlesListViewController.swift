@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class ArticlesListViewController: UIViewController {
     
@@ -20,6 +21,7 @@ class ArticlesListViewController: UIViewController {
         view.separatorColor = .clear
         view.scrollIndicatorInsets = .init(top: 0, left: 0, bottom: 0, right: -15)
         view.clipsToBounds = false
+        view.isSkeletonable = true
         return view
     }()
     
@@ -64,7 +66,7 @@ class ArticlesListViewController: UIViewController {
         super.viewDidLoad()
         
         setupBinds()
-        articlesViewModel.currentPage(1)
+        articlesViewModel.reload()
     }
     
     private func setupBinds() {
@@ -96,7 +98,7 @@ class ArticlesListViewController: UIViewController {
     }
 }
 
-extension ArticlesListViewController: UITableViewDataSource {
+extension ArticlesListViewController: SkeletonTableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return articlesViewModel.numberOfItems()
@@ -106,6 +108,10 @@ extension ArticlesListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! ArticleCell
         cell.configure(with: articlesViewModel.item(for: indexPath.row))
         return cell
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return cellId
     }
 }
 
@@ -123,14 +129,11 @@ extension ArticlesListViewController: UITableViewDelegate {
         return UITableView.automaticDimension
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cellPage = (indexPath.row / articlesViewModel.pageSize) + 1
-        articlesViewModel.currentPage(cellPage)
-
-        let isEnd = articlesViewModel.numberOfItems() == indexPath.row + 1
-        if isEnd {
-            articlesViewModel.currentPage(cellPage + 1)
-        }
+    func tableView(_ tableView: UITableView,
+                   willDisplay cell: UITableViewCell,
+                   forRowAt indexPath: IndexPath) {
+        
+        articlesViewModel.willDisplay(row: indexPath.row)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

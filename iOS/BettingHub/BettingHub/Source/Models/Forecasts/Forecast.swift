@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Forecast {
+class Forecast {
     
     let id: Int
     let user: Forecaster

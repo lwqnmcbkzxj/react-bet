@@ -49,11 +49,3 @@ class SettingsPresenter: ISettingsPresenter {
     }
 }
 
-//extension SettingsPresenter: IUserServiceDelegate {
-//
-//    func dataChanged(userService: IUserService) {
-//        guard let userInfo = userService.currentUserInfo else { return }
-//        dataChanged?(userInfo)
-//    }
-//}
-

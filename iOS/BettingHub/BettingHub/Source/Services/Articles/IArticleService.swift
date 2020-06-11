@@ -10,5 +10,11 @@ import Foundation
 
 protocol IArticleService: class {
     
-    func articles(page: Int, limit: Int, callback: (ServiceCallback<[Article]>)?)
+    var storage: UnifyingStorage<Article, ArticleApiObject> { get }
+    
+    func articles(page: Int, limit: Int) -> Promise<[Article]>
+    
+    func article(id: Int) -> Promise<Article>
+    
+    func rating(to status: RatingStatus, article: Article)
 }

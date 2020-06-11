@@ -42,10 +42,6 @@ class SettingsViewController: UIViewController {
         ].map { $0.invoked() }
     }
     
-//    func configure(userInfo: UserInfo) {
-//        settingsView.configure(with: userInfo)
-//    }
-    
     private func attachTapped(network: SocialNetwork) {
          
     }
@@ -59,7 +55,6 @@ class SettingsViewController: UIViewController {
     }
     
     @objc private func profileImageTapped() {
-        
         let picker = UIImagePickerController()
         picker.sourceType = .photoLibrary
         picker.allowsEditing = true

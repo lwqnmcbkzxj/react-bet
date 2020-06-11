@@ -129,12 +129,6 @@ extension NewsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cellPage = (indexPath.row / vm.pageSize) + 1
-        vm.currentPage(cellPage)
-
-        let isEnd = vm.numberOfItems() == indexPath.row + 1
-        if isEnd {
-            vm.currentPage(cellPage + 1)
-        }
+        vm.willDisplay(row: indexPath.row)
     }
 }

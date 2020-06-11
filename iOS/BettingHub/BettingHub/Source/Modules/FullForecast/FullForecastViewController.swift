@@ -33,10 +33,6 @@ class FullForecastViewController: UIViewController {
         setView(tableView, insets: .init(top: 0, left: 15, bottom: 0, right: 15))
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         

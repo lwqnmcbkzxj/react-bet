@@ -140,12 +140,7 @@ extension ForecastsViewController: SkeletonTableViewDataSource {
 extension ForecastsViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cellPage = (indexPath.row / viewModel.pageSize) + 1
-        viewModel.currentPage(cellPage)
-        let isEnd = viewModel.numberOfItems() == indexPath.row + 1
-        if isEnd {
-            viewModel.currentPage(cellPage + 1)
-        }
+        viewModel.willDisplay(row: indexPath.row)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -158,14 +153,5 @@ extension ForecastsViewController: ForecastCellDelegate {
     
     func userViewTapped(forecast: Forecast) {
         router.showUserScreen(forecast.user)
-    }
-}
-
-extension ForecastsViewController: IMainTabBarDelegate {
-    
-    func showed(tabBar: IMainTabBar, screen: MainTabBarScreen) {
-//        if screen == .forecasts {
-//            viewModel.reload()
-//        }
     }
 }

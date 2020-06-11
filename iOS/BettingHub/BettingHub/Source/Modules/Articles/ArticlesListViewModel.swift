@@ -23,13 +23,8 @@ class ArticlesListViewModel: TableViewModel<Article, Any> {
     
     private func fetchMore() {
         isLoading = true
-        articlesService.articles(page: loadedPages + 1, limit: 10) { (result) in
-            switch result {
-            case .success(let articles):
-                self.items += articles
-            case .failure(let err):
-                print(err.localizedDescription)
-            }
+        articlesService.articles(page: loadedPages + 1, limit: pageSize).onComplete { (articles) in
+            self.items += articles
             self.isLoading = false
         }
     }
