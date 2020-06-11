@@ -1,5 +1,5 @@
 //
-//  ProfileSegmenterView.swift
+//  UnderlineSelector.swift
 //  BettingHub
 //
 //  Created by Maxim Bezdenezhnykh on 01.05.2020.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileSegmenterView: UIControl {
+class UnderlineSelector: UIControl {
     
     var selectedIndex: Int? {
         didSet {
@@ -93,7 +93,9 @@ class ProfileSegmenterView: UIControl {
         let itemWidth = bounds.width / CGFloat(items.count)
         let selectedItem = Int((xCoordinate / itemWidth))
         
-        selectedIndex = selectedItem
+        if selectedIndex != selectedItem {
+            selectedIndex = selectedItem
+        }
     }
     
     private func updateState() {

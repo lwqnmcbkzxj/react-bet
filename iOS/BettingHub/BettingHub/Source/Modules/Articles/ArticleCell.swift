@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ArticleCell: UITableViewCell {
     
@@ -24,6 +25,7 @@ class ArticleCell: UITableViewCell {
         return view
     }()
     
+    private var articleImageHeightZero: Constraint?
     private let articleImage: UIImageView = {
         let view = UIImageView()
         view.layer.cornerRadius = 5
@@ -108,6 +110,8 @@ class ArticleCell: UITableViewCell {
         let vm = ArticleViewModelItem(article: article)
         
         articleImage.setImage(url: article.image.data, placeholder: nil)
+        articleImageHeightZero?.isActive = article.image.data == nil
+        
         categoryName.text = article.category
         dateLabel.text = vm.dateText
         articleTitle.text = article.name
@@ -136,7 +140,9 @@ class ArticleCell: UITableViewCell {
         articleImage.snp.makeConstraints { (make) in
             make.leading.top.equalToSuperview().offset(8)
             make.trailing.equalToSuperview().offset(-8)
-            make.height.equalTo(articleImage.snp.width).dividedBy(1.91)
+            make.height.equalTo(articleImage.snp.width).dividedBy(1.91).priority(999)
+            self.articleImageHeightZero = make.height.equalTo(0).constraint
+            self.articleImageHeightZero?.isActive = false
         }
         
         panelView.addSubview(categoryName)

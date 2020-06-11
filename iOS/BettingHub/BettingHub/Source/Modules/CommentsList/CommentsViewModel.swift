@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum CommentsSorting {
+enum CommentsSorting: String {
     case byTime
     case byRating
 }
@@ -55,11 +55,18 @@ class CommentsViewModel: TableSectionProvider {
     let commentType: CommentType
     let id: Int
     
-    var commentsSorting: CommentsSorting = .byTime
+    var commentsSorting: CommentsSorting {
+        guard let index = headerView.sortingSelector.selectedIndex else {
+            return .byRating
+        }
+        
+        return headerView.sortingSelector.sortings[index]
+    }
     
-    private let headerView: CommentsSectionHeader = {
+    private lazy var headerView: CommentsSectionHeader = {
         let view = CommentsSectionHeader()
         view.configure(commentsCount: 0)
+        view.delegate = self
         return view
     }()
     
@@ -87,10 +94,6 @@ class CommentsViewModel: TableSectionProvider {
         return headerView
     }
     
-    func headerHeight() -> CGFloat {
-        return 60
-    }
-    
     func footer() -> UIView? {
         return footerView
     }
@@ -108,8 +111,7 @@ class CommentsViewModel: TableSectionProvider {
     
     func reload() {
         commentService.comments(for: commentType, id: id).onComplete { (comments) in
-            print("got comments")
-            self.items = self.buildCommentsTree(comments: comments)
+            self.items = self.buildTree(sorting: self.commentsSorting, items: comments)
             self.tableView.reloadSections([self.sectionNumber], with: .automatic)
         }
     }
@@ -118,41 +120,73 @@ class CommentsViewModel: TableSectionProvider {
         commentsRouter.newComment(type: commentType, id: id)
     }
     
-    func buildCommentsTree(comments: [Comment]) -> [CommentCellViewModelItem] {
-        var items = [CommentCellViewModelItem]()
-        var map: [Int: CommentCellViewModelItem] = [:] //id: item
-        var replies: [Int: [Int]] = [:] // id: replies ids
-        
-        func countNestedTo(id: Int) -> Int {
-            let nested = replies[id] ?? []
-            let count = nested.reduce(1) { $0 + countNestedTo(id: $1) }
-            return count
-        }
-        
-        for comment in comments.reversed() {
-            var item = CommentCellViewModelItem(with: comment)
+    private func buildTree(sorting: CommentsSorting, items: [Comment]) -> [CommentCellViewModelItem] {
+        let threads = buildThreads(comments: items, topReplyId: nil, sorting: sorting)
+        let linear = buildLinear(from: threads)
+        let withLines = setupLines(items: linear)
+        return withLines
+    }
+    
+    private struct CommentsThread {
+        var comment: CommentCellViewModelItem
+        var nested: [CommentsThread]
+    }
+    
+    private func sortingCallback(for sorting: CommentsSorting) -> ((Comment, Comment) -> Bool) {
+        switch sorting {
+        case .byRating:
+            return { $0.rating.data > $1.rating.data }
             
-            //count spacing
-            if let parentId = comment.replyId.data, let parentItem = map[parentId] {
-                item.parentsCount = parentItem.parentsCount + 1 > item.maximumNesting
-                                    ? item.maximumNesting
-                                    : parentItem.parentsCount + 1
-                
-                let totalReplies = countNestedTo(id: parentId)
-                let parentIndex = items.firstIndex(where: { $0.comment.id == parentId} )!
-                
-                replies[parentId] = (replies[parentId] ?? []) + [comment.id]
-                items.insert(item, at: parentIndex + totalReplies)
-            } else {
-                items.append(item)
+        case .byTime:
+            return { $0.createDate.data < $1.createDate.data }
+        }
+    }
+    
+    private func buildThreads(comments: [Comment],
+                              topReplyId: Int?,
+                              sorting: CommentsSorting) -> [CommentsThread] {
+
+        let filterCallback: (Comment) -> Bool = topReplyId == nil
+            ? { $0.replyId.data == nil }
+            : { $0.replyId.data == topReplyId! }
+        
+        let sortingCallback = self.sortingCallback(for: sorting)
+        
+        let topLevel = comments
+            .filter(filterCallback)
+            .sorted(by: sortingCallback)
+            .map { CommentCellViewModelItem(with: $0) }
+
+
+        let withNested = topLevel.map { (commentItem) -> CommentsThread in
+            let possibleNested = comments.filter { (comment) -> Bool in
+                !topLevel.contains { $0.comment.id == comment.id }
             }
-            
-            map[comment.id] = item
+            let nestedThreads = buildThreads(comments: possibleNested,
+                                             topReplyId: commentItem.comment.id,
+                                             sorting: sorting)
+            return CommentsThread(comment: commentItem, nested: nestedThreads)
         }
         
-        
-        //setup lines
+        let withParents = setupParents(for: withNested, level: 0)
+
+        return withParents
+    }
+    
+    private func setupParents(for threads: [CommentsThread], level: Int) -> [CommentsThread] {
+        threads.map { (thread) in
+            var new = thread.comment
+            new.parentsCount = level
+            let newNested = setupParents(for: thread.nested, level: level + 1)
+            return CommentsThread(comment: new,
+                                  nested: newNested)
+        }
+    }
+    
+    private func setupLines(items: [CommentCellViewModelItem]) -> [CommentCellViewModelItem] {
         if items.count < 1 { return items }
+        
+        var withLines = [CommentCellViewModelItem]()
         
         for i in 0..<items.count - 1 {
             var item = items[i]
@@ -161,59 +195,27 @@ class CommentsViewModel: TableSectionProvider {
             if item.shortLines < 0 { item.shortLines = 0 }
             item.longLines = item.parentsCount - item.shortLines
             
-            items[i] = item
+            withLines.append(item)
         }
         
         var last = items[items.count - 1]
         last.longLines = last.parentsCount
-        items[items.count - 1] = last
+        withLines.append(last)
         
-        return items
+        return withLines
     }
     
-//    struct CommentsThread {
-//        var comment: CommentCellViewModelItem
-//        var nested: [CommentsThread]
-//    }
+    private func buildLinear(from threads: [CommentsThread]) -> [CommentCellViewModelItem] {
+        let linear = threads
+            .map { [$0.comment] + buildLinear(from: $0.nested) }
+            .reduce([], +)
+        return linear
+    }
+}
+
+extension CommentsViewModel: CommentsSectionHeaderDelegate {
     
-//    private func buildThread(comments: [CommentCellViewModelItem], level: Int) -> [CommentsThread] {
-//
-//    }
-//
-//    private func sortByTime() -> [CommentCellViewModelItem] {
-//
-//    }
-    
-//    private func buildThreadsByRating(comments: [Comment], topReplyId: Int?) -> [CommentsThread] {
-//
-//        let filterCallback: (Comment) -> Bool = topReplyId == nil
-//            ? { $0.replyId.data == nil }
-//            : { $0.replyId.data == topReplyId! }
-//
-//        let topLevel = comments
-//            .filter(filterCallback)
-//            .sorted { $0.rating.data > $1.rating.data }
-//            .map { CommentCellViewModelItem(with: $0) }
-//            .map { CommentsThread(comment: $0, nested: []) }
-//
-//
-//        let withNested = topLevel.map { (thread) -> CommentsThread in
-//            let nestedComments = comments.filter { $0.replyId.data == thread.comment.comment.id }
-//            let nestedThreads = buildThreadsByRating(comments: nestedComments,
-//                                                     topReplyId: thread.comment.comment.id)
-//            return CommentsThread(comment: thread.comment, nested: nestedThreads)
-//        }
-//
-//        return withNested
-//    }
-    
-//    private func setupLines(for threads: [CommentsThread], level: Int) -> [CommentsThread] {
-//        threads.map { (thread) in
-//            var new = thread.comment
-//            new.parentsCount = level
-//            let newNested =
-//            return CommentsThread(comment: new,
-//                                  nested: thread.nested)
-//        }
-//    }
+    func changedSorting(_ header: CommentsSectionHeader) {
+        reload()
+    }
 }

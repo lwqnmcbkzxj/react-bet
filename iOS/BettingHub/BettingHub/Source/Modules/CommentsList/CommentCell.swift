@@ -120,6 +120,7 @@ class CommentCell: UITableViewCell {
         self.comment = model.comment
         
         addLines(long: model.longLines, short: model.shortLines)
+//        addLines(long: model.parentsCount, short: 0)
         
         userImageView.setImage(url: model.comment.userAvatar.data)
         usernameLabel.text = model.comment.username.data

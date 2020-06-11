@@ -45,7 +45,7 @@
 		1C2C525324742CFA00AACF3A /* ForecasterViewModelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C525224742CFA00AACF3A /* ForecasterViewModelItem.swift */; };
 		1C2C6AB8245AF62E0044B5BC /* ColumnsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C6AB7245AF62E0044B5BC /* ColumnsView.swift */; };
 		1C2C6ABB245C27F50044B5BC /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C6ABA245C27F50044B5BC /* ProfileHeaderView.swift */; };
-		1C2C6ABD245C2A990044B5BC /* ProfileSegmenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C6ABC245C2A990044B5BC /* ProfileSegmenterView.swift */; };
+		1C2C6ABD245C2A990044B5BC /* UnderlineSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C6ABC245C2A990044B5BC /* UnderlineSelector.swift */; };
 		1C2CFC082451D7E200E1071F /* TokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2CFC072451D7E200E1071F /* TokenService.swift */; };
 		1C2CFC0A2451D88600E1071F /* AuthToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2CFC092451D88600E1071F /* AuthToken.swift */; };
 		1C2CFC0F2451DD3F00E1071F /* BHError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2CFC0E2451DD3F00E1071F /* BHError.swift */; };
@@ -99,6 +99,8 @@
 		1C6892C024925AA4006CD0CC /* ArticleCellManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6892BF24925AA3006CD0CC /* ArticleCellManager.swift */; };
 		1C6892C224927832006CD0CC /* FullArticleViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6892C124927832006CD0CC /* FullArticleViewPresenter.swift */; };
 		1C6892C424927F3E006CD0CC /* FullArticleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6892C324927F3E006CD0CC /* FullArticleAssembly.swift */; };
+		1C6892C62492B4F8006CD0CC /* CommentsSortingSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6892C52492B4F8006CD0CC /* CommentsSortingSelector.swift */; };
+		1C6892C82492B7AD006CD0CC /* SmallTextSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6892C72492B7AD006CD0CC /* SmallTextSectionHeader.swift */; };
 		1C6937B12450FEB900AE01BE /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6937AE2450FEB800AE01BE /* HttpClient.swift */; };
 		1C6937B42450FEDD00AE01BE /* ITokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6937B32450FEDD00AE01BE /* ITokenService.swift */; };
 		1C6937B7245101F000AE01BE /* IRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6937B6245101F000AE01BE /* IRequestBuilder.swift */; };
@@ -306,7 +308,7 @@
 		1C2C525224742CFA00AACF3A /* ForecasterViewModelItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecasterViewModelItem.swift; sourceTree = "<group>"; };
 		1C2C6AB7245AF62E0044B5BC /* ColumnsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnsView.swift; sourceTree = "<group>"; };
 		1C2C6ABA245C27F50044B5BC /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
-		1C2C6ABC245C2A990044B5BC /* ProfileSegmenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSegmenterView.swift; sourceTree = "<group>"; };
+		1C2C6ABC245C2A990044B5BC /* UnderlineSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineSelector.swift; sourceTree = "<group>"; };
 		1C2CFC072451D7E200E1071F /* TokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenService.swift; sourceTree = "<group>"; };
 		1C2CFC092451D88600E1071F /* AuthToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthToken.swift; sourceTree = "<group>"; };
 		1C2CFC0E2451DD3F00E1071F /* BHError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BHError.swift; sourceTree = "<group>"; };
@@ -360,6 +362,8 @@
 		1C6892BF24925AA3006CD0CC /* ArticleCellManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCellManager.swift; sourceTree = "<group>"; };
 		1C6892C124927832006CD0CC /* FullArticleViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullArticleViewPresenter.swift; sourceTree = "<group>"; };
 		1C6892C324927F3E006CD0CC /* FullArticleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullArticleAssembly.swift; sourceTree = "<group>"; };
+		1C6892C52492B4F8006CD0CC /* CommentsSortingSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsSortingSelector.swift; sourceTree = "<group>"; };
+		1C6892C72492B7AD006CD0CC /* SmallTextSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallTextSectionHeader.swift; sourceTree = "<group>"; };
 		1C6937AE2450FEB800AE01BE /* HttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
 		1C6937B32450FEDD00AE01BE /* ITokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITokenService.swift; sourceTree = "<group>"; };
 		1C6937B6245101F000AE01BE /* IRequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRequestBuilder.swift; sourceTree = "<group>"; };
@@ -586,6 +590,7 @@
 				1CBBB51A2477F9C0002FC2ED /* CommentsViewModel.swift */,
 				1C61D187249127270085FB6D /* CommentsRouter.swift */,
 				1CDAF85D2478195300789B9F /* CommentsSectionHeader.swift */,
+				1C6892C52492B4F8006CD0CC /* CommentsSortingSelector.swift */,
 				1C61D185249125D10085FB6D /* CommentsSectionFooter.swift */,
 			);
 			path = CommentsList;
@@ -920,6 +925,7 @@
 				1C76C11824797A6C005F471A /* FullArticleView.swift */,
 				1C6892C124927832006CD0CC /* FullArticleViewPresenter.swift */,
 				1C76C11A247983EF005F471A /* SimilarArticlesViewModel.swift */,
+				1C6892C72492B7AD006CD0CC /* SmallTextSectionHeader.swift */,
 				1C05A7A524798FA8006FB7BF /* FullArticleSectionProvider.swift */,
 			);
 			path = FullArticle;
@@ -1354,7 +1360,7 @@
 		1CE31B3C2487E061007AD31B /* Header */ = {
 			isa = PBXGroup;
 			children = (
-				1C2C6ABC245C2A990044B5BC /* ProfileSegmenterView.swift */,
+				1C2C6ABC245C2A990044B5BC /* UnderlineSelector.swift */,
 				1C2C6ABA245C27F50044B5BC /* ProfileHeaderView.swift */,
 				1CE31B3D2487E06F007AD31B /* ProfileHeaderPresenter.swift */,
 			);
@@ -1643,11 +1649,13 @@
 				1CA01F662451F6400025FF4F /* LoginPresenter.swift in Sources */,
 				1CC39CC1245F440F003CED00 /* FullForecastRouter.swift in Sources */,
 				1CDA5FD4248D0F48005A3A4F /* CommentApiObject.swift in Sources */,
+				1C6892C62492B4F8006CD0CC /* CommentsSortingSelector.swift in Sources */,
 				1C2C524624730E4E00AACF3A /* MatchService.swift in Sources */,
 				1C7A356C2448E15A00E3AB9B /* NavigationBackView.swift in Sources */,
 				1C833EB6245A09F00012F1F5 /* ForecastersHeader.swift in Sources */,
 				1CBEC89F248D39A6003F920A /* Promise.swift in Sources */,
 				1C6892C224927832006CD0CC /* FullArticleViewPresenter.swift in Sources */,
+				1C6892C82492B7AD006CD0CC /* SmallTextSectionHeader.swift in Sources */,
 				1CBBB519247534DF002FC2ED /* BookmakerService.swift in Sources */,
 				1C779B8C244F2F26008C1FDB /* FullForecastViewController.swift in Sources */,
 				1CD3DDB52474789800B160F3 /* AddForecastViewController.swift in Sources */,
@@ -1659,7 +1667,7 @@
 				1C39EDB3245EF92A00F405AB /* UserFavoritesViewModel.swift in Sources */,
 				1CA5C8C724704E2C00D470B6 /* BookmakersRouter.swift in Sources */,
 				1C61D188249127270085FB6D /* CommentsRouter.swift in Sources */,
-				1C2C6ABD245C2A990044B5BC /* ProfileSegmenterView.swift in Sources */,
+				1C2C6ABD245C2A990044B5BC /* UnderlineSelector.swift in Sources */,
 				1C61D18424911AA60085FB6D /* RespondPresenter.swift in Sources */,
 				1C91348224475A7B00AE4510 /* UITextField.swift in Sources */,
 				1CDF91F42480047B00117F5B /* CreateForecastHeaderView.swift in Sources */,

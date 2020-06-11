@@ -123,8 +123,8 @@ class ProfileHeaderView: UIView {
         return view
     }()
     
-    let segmenter: ProfileSegmenterView = {
-        let view = ProfileSegmenterView()
+    let segmenter: UnderlineSelector = {
+        let view = UnderlineSelector()
         view.layer.borderColor = UIColor.lineGray.cgColor
         view.layer.borderWidth = 1
         view.backgroundColor = .white
