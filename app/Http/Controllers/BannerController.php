@@ -7,9 +7,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 class BannerController extends Controller
 {
-    function getAll(Request $request)
+    function getActive(Request $request)
     {
-        return $this->search($request);
+        $res = Banner::query()->where('status','=',1);
+        if($request->has('search')&&$request->has('search_by') && ($request['search']!='' && $request['search_by']!=''))
+        {
+            $res = $res->where($request->search_by, 'LIKE', "%" . $request->search . "%");
+        }
+        if (!$request->has('order_by')) {
+            $request['order_by'] = 'id';
+        }
+        if (!$request->has('limit')) {
+            $request['limit'] = 16;
+        }
+        return $this->sendResponse($res->orderBy($request['order_by'], 'desc')->paginate($request['limit']),'Success',200);
     }
 
     function get(Request $request,  $banner)
@@ -23,7 +34,7 @@ class BannerController extends Controller
         return $this->sendResponse("", "Success deleted", 200);
     }
 
-    function search(Request $request)
+    function getAll(Request $request)
     {
         $res = Banner::query();
         if($request->has('search')&&$request->has('search_by') && ($request['search']!='' && $request['search_by']!=''))

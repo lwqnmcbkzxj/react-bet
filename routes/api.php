@@ -57,7 +57,7 @@ Route::get('/roles', function () {
 });
 Route::post('/feedback','FeedbackController@post');
 
-Route::get('/banners', 'BannerController@getAll');
+Route::get('/banners', 'BannerController@getActive');
 
 Route::get('/users/short','ShortResourcesController@users');
 Route::get('/events/short','ShortResourcesController@events');
@@ -127,7 +127,6 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('/admin/banners', 'BannerController@getAll');
     Route::post('/admin/banners', 'BannerController@post');
-    Route::get('/admin/banners/search', 'BannerController@search');
     Route::get('/admin/banners/{banner}', 'BannerController@get');
     Route::delete('/admin/banners/{banner}', 'BannerController@delete');
     Route::post('/admin/banners/{banner}', 'BannerController@edit');
