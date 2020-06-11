@@ -20,7 +20,7 @@ class ChampionshipController extends Controller
         if (!$request->has('direction')) {
             $request['direction'] = 'desc';
         }
-        $res = Championship::query()->orderBy($request['order_by'], $request['direction']);
+        $res = Championship::query()->with('sport')->orderBy($request['order_by'], $request['direction']);
         if($request->has('search')&&($request['search']!=''))
         {
             $res = $res->where('name', 'LIKE', "%" . $request->search . "%");
@@ -36,7 +36,7 @@ class ChampionshipController extends Controller
 
     public function get(Championship $championship)
     {
-        return $this->sendResponse($championship, 'Success',200);
+        return $this->sendResponse($championship->load('sport'), 'Success',200);
     }
 
     public function edit(Request $request, Championship $championship)
