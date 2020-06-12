@@ -1,15 +1,15 @@
 import React, { FC } from 'react'
 import { useDispatch } from 'react-redux'
 import { reduxForm, InjectedFormProps } from 'redux-form'
-import { Input, createField, File, Textarea } from '../../Common/FormComponents/FormComponents'
+import { Input, createField, File, Textarea, FormatTextarea } from '../../Common/FormComponents/FormComponents'
 
 import ActionButton from '../../Common/ActionButton/ActionButton'
 
 import { required } from '../../../utils/formValidation'
-import { OptionsType } from './types'
+import { OptionsType } from '../../../types/types'
 
 type FormType = {
-	initialValues: any,
+	initialValues: OptionsType,
 	onSubmitFunc: (optionsObject: OptionsType) => void
 }
 type FormValuesType = {
@@ -23,25 +23,25 @@ const OptionsForm: FC<FormValuesType & InjectedFormProps<{}, FormValuesType>> = 
 	return (
 		<form onSubmit={props.handleSubmit}>
 
-			 {createField('title', File, 'Favicon')}
+			 {/* {createField('favicon', File, 'Favicon')} */}
 			{createField('telegram', Input, 'Телеграм')}
 			{createField('vkontakte', Input, 'Вконтакте')}
 			{createField('twitter', Input, 'Твиттер')}
 			{createField('instagram', Input, 'Инстаграм')}
 			{createField('facebook', Input, 'Фейсбук')}
 
-			{createField('ios-link', Input, 'Ссылка на мобильное приложение (IOS)')}
-			{createField('android-link', Input, 'Ссылка на мобильное приложение (Android)')}
+			{createField('ios_link', Input, 'Ссылка на мобильное приложение (IOS)')}
+			{createField('android_link', Input, 'Ссылка на мобильное приложение (Android)')}
 			
 			{createField('copyright', Input, 'Копирайт')}
 		
 
-			{createField('main-page-notification', Textarea, 'Уведомление на главной')}
-			{createField('show-forecast-comments', Input, 'Показать комментарии прогнозов', { type: 'checkbox' })}
+			{createField('main_page_notification', FormatTextarea, 'Уведомление на главной')}
+			{createField('show_forecast_comments', Input, 'Показать комментарии прогнозов', { type: 'checkbox' })}
 
-			{createField('feedback-email', Input, 'Email для приема сообщений с формы обратной связи')}
-			{createField('head-scripts', Textarea, 'Скрипты в head')}
-			{createField('footer-scripts', Textarea, 'Скрипты в footer')} 
+			{createField('feedback_email', Input, 'Email для приема сообщений с формы обратной связи')}
+			{createField('head_scripts', Textarea, 'Скрипты в head')}
+			{createField('footer_scripts', Textarea, 'Скрипты в footer')} 
 
 			<div><ActionButton value={"Подтвердить"} /></div>
 		</form>
@@ -51,8 +51,8 @@ const OptionsForm: FC<FormValuesType & InjectedFormProps<{}, FormValuesType>> = 
 const OptionsFormBlock: FC<FormType> = ({ initialValues, onSubmitFunc, ...props }) => {
 	const dispatch = useDispatch()
 
-	const handleSave = (formData: any) => {
-		onSubmitFunc({})
+	const handleSave = (formData: OptionsType | any) => {
+		onSubmitFunc(formData)
 	}
 
 	

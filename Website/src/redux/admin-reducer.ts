@@ -1,8 +1,10 @@
-import { AppStateType } from '../types/types'
+import { AppStateType, OptionsType, BannerType } from '../types/types'
 import { ThunkAction } from 'redux-thunk'
-import { ArticleType, DashboardType, UserType, ForecastType, BookmakerType } from '../types/admin';
-import { postsAPI, appAPI, adminAPI } from '../api/api'
+import { ArticleType, DashboardType, UserType, ForecastType, BookmakerType, EventType, ChampionshipType } from '../types/admin';
+import { adminAPI } from '../api/api'
 import { showAlert } from '../utils/showAlert';
+import FileSaver, { saveAs } from 'file-saver'
+
 const SET_USERS = 'admin/SET_USERS'
 const SET_USER = 'admin/SET_USER'
 
@@ -15,6 +17,8 @@ const SET_BOOKMAKER = 'admin/SET_BOOKMAKER'
 const SET_FORECASTS = 'admin/SET_FORECASTS'
 const SET_FORECAST = 'admin/SET_FORECAST'
 
+const SET_BANNERS = 'admin/SET_BANNERS'
+const SET_BANNER = 'admin/SET_BANNER'
 const SET_PAGES_COUNT = 'admin/SET_PAGES_COUNT'
 const TOGGLE_IS_FETCHING = 'admin/TOGGLE_IS_FETCHING'
 
@@ -38,6 +42,10 @@ let initialState = {
 		bookmakers: [] as Array<BookmakerType>,
 		currentBookmaker: {} as BookmakerType
 	},
+	banners: {
+		banners: [] as Array<BannerType>,
+		currentBanner: {} as BannerType
+	},
 	pagesCount: 1 as number,
 	isFetchingArray: [] as Array<string>
 }
@@ -48,6 +56,7 @@ type ActionsTypes =
 	SetArticlesType | SetArticleType |
 	SetBookmakersType | SetBookmakerType |
 	SetForecastsType | SetForecastType |
+	SetBannersType | SetBannerType |
 	SetPagesCountType |
 	SetDashboardType | 
 	ToggleIsFetchingType;
@@ -130,6 +139,25 @@ const adminReducer = (state = initialState, action: ActionsTypes): InitialStateT
 			}
 		}
 			
+		case SET_BANNERS: {
+			return {
+				...state,
+				banners: {
+					...state.banners,
+					banners: [...action.banners]
+				}
+			}
+		}
+		case SET_BANNER: {
+			return {
+				...state,
+				banners: {
+					...state.banners,
+					currentBanner: action.banner
+				}
+			}
+		}
+			
 		case SET_PAGES_COUNT: {
 
 			return {
@@ -200,6 +228,18 @@ type SetBookmakerType = {
 	type: typeof SET_BOOKMAKER,
 	bookmaker: BookmakerType
 }
+
+type SetBannersType = {
+	type: typeof SET_BANNERS,
+	banners: Array<BannerType>
+}
+type SetBannerType = {
+	type: typeof SET_BANNER,
+	banner: BannerType
+}
+
+
+
 
 type SetPagesCountType = {
 	type: typeof SET_PAGES_COUNT,
@@ -368,12 +408,17 @@ const setArticle = (article: ArticleType): SetArticleType => {
 		article
 	}
 }
-export const addArticle = (formData: ArticleType):ThunksType => async (dispatch) => {
+export const addArticle = (formData: ArticleType): ThunksType => async (dispatch) => {
+	dispatch(toggleIsFetching('article-action'))
 	let response = await adminAPI.posts.addPost(formData)
+	dispatch(toggleIsFetching('article-action'))
 	showAlert('success', 'Статья успешно добавлена')
 }
-export const editArticle = (id: number, formData: ArticleType):ThunksType => async (dispatch) => {
+export const editArticle = (id: number, formData: ArticleType): ThunksType => async (dispatch) => {
+	dispatch(toggleIsFetching('article-action'))
 	let response = await adminAPI.posts.editPost(id, formData)
+	
+	dispatch(toggleIsFetching('article-action'))
 	showAlert('success', 'Статья успешно изменена')
 }
 export const deleteArticle = (id: number):ThunksType => async (dispatch) => {
@@ -427,17 +472,27 @@ export const deleteBookmaker = (id: number):ThunksType => async (dispatch) => {
 
 // DOCUMETNS START
 export const changePolicy = (text: string):ThunksType => async (dispatch) => {
-	let response = await adminAPI.documents.changePolicy(text)
+	let response = await adminAPI.app.changePolicy(text)
 	showAlert('success', 'Успешно изменено')
 
 }
 export const changeTerms = (text: string):ThunksType => async (dispatch) => {
-	let response = await adminAPI.documents.changeTerms(text)
+	let response = await adminAPI.app.changeTerms(text)
 	showAlert('success', 'Успешно изменено')
 }
-// DOCUMENTS END
+export const editOptions = (options: OptionsType):ThunksType => async (dispatch) => {
+	let response = await adminAPI.app.editOptions(options)
+	showAlert('success', 'Опции успешно изменены')
+}
+// APP END
 
+export const exportAdminData = (instanceName: string):ThunksType => async (dispatch) => {
+	// let response = await appAPI.exportData(`admin/export/${instanceName}`) as string
 
+    // let blob = new Blob(["Hello, world!"], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"});
+	// saveAs(blob, `${instanceName}.xlsx`);
+	
+}
 
 
 

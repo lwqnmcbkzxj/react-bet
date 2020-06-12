@@ -69,8 +69,7 @@ const Admin: FC = ({ ...props }) => {
 					<Route path="/admin/terms" render={withSuspense(TermsContainer)} />
 
 					<Route path="/admin/options" render={withSuspense(OptionsContainer)} />
-
-
+					<Route path="/admin/information" render={() => <div>Управлеине информацией</div>} />
 					<Route render={NotFound} />
 				</Switch>
 			</div>

@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import qs from 'query-string'
 import { UserType, BookmakerType, ForecastType } from '../types/admin';
+import { OptionsType } from '../types/types';
 
 export const apiURL = "https://app.betthub.org"
 
@@ -282,6 +283,15 @@ export const appAPI = {
 				return response.data
 			});
 	},
+
+	getOptions() {
+		return instance.get(`options`)
+			.then((response) => {
+				return response.data
+			});
+	},
+	getBanners() {
+		return instance.get(`banners`)
 		.then((response) => {
 			return response.data
 		});
@@ -512,6 +522,18 @@ export const adminAPI = {
 					return response.data
 				});
 		},
+		editOptions(options: OptionsType) {
+			return instance.post(`admin/options`, { ...options })
+				.then((response) => {
+					return response.data
+				});
+		},
+		getBanners() {
+			return instance.get(`admin/banners`)
+				.then((response) => {
+					return response.data
+				});
+		}
 	},
 
 

@@ -18,19 +18,11 @@ export const setSportFiltersEnum = (sports: Array<SportType>) => {
 	// sportTypeFilterEnum.allSports = "asdas"
  }
 
-export const sportTypeFilterEnum = {
-	// allSports: '0',
-	// football: '1',
-	// tennis: '2',
-	// basketball: '3',
-	// hockey: '4',
-	// another: '5',
-} as any
 
 
 export type FilterType = {
 	index: number
-	name: timeFilterEnum | subscriptionFilterEnum | typeof sportTypeFilterEnum
+	name: timeFilterEnum | subscriptionFilterEnum 
 	visibleText: string
 	active: boolean
 }
@@ -42,7 +34,7 @@ export type FiltersObjectType = {
 }
 
 
-export type FilterNames = timeFilterEnum | typeof sportTypeFilterEnum | subscriptionFilterEnum | languageEnum
+export type FilterNames = timeFilterEnum | subscriptionFilterEnum | languageEnum
 
 export enum languageEnum {
 	rus = 'rus',

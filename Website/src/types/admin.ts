@@ -7,7 +7,7 @@ export type ArticleType = {
 	created_by?: number
 	created_by_login?: string
 	modified_by?: number
-	is_published?: boolean
+	is_published?: boolean | number
 	created_at?: string
 	updated_at?: string
 }
@@ -18,6 +18,8 @@ export type DashboardType = {
 	news_count: number,
 	users_count_today: number,
 	forecasts_count_today: number
+	news_count_today: number
+	posts_count_today: number
 }
 
 export type UserType = {
@@ -52,13 +54,13 @@ export type UserType = {
 }
 
 export type BookmakerType = {
-    id: number,
-    title: string
-    content: string
-    rating: number,
-    bonus: number,
-    link: string,
-    image: string
+	id: number,
+	title: string
+	content: string
+	rating: number,
+	bonus: number,
+	link: string,
+	image: string
 }
 
 export type ForecastType = {

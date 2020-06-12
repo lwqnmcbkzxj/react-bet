@@ -51,10 +51,19 @@ const DesktopHeader: FC<HeaderPropsType> = ({ user, ...props }) => {
 
 						{popupVisible &&
 							<div className={s.userPopup} ref={userPopupRef}>
-								<Link to="/" className={s.popupRow + ' ' + s.logoutRow} onClick={toggleUserPopupVisibility}>
+							
+							<Link
+								to={`/forecasters/${user.id}`}
+								className={s.popupRow}
+								onClick={toggleUserPopupVisibility}
+							>
+								<img src={apiURL + user.avatar} alt="user-img" />
+								<p>В профиль</p>
+							</Link>
+								{/* <Link to="/" className={s.popupRow + ' ' + s.logoutRow} onClick={toggleUserPopupVisibility}>
 									<img src={exitIcon} alt="door-img" />
 									<p>Выйти</p>
-								</Link>
+								</Link> */}
 							</div>}
 					</div>
 				</div>

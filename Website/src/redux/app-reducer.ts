@@ -6,6 +6,7 @@ import { appAPI } from '../api/api'
 
 import { showAlert } from '../utils/showAlert'
 import { stopSubmit } from 'redux-form'
+import { OptionsType, BannerType } from '../types/types'
 
 const TOGGLE_AUTH_FORM_VISIBILITY = 'app/TOGGLE_AUTH_FORM_VISIBILITY'
 const TOGGLE_COMMENTS_BLOCK_VISIBILITY = 'app/TOGGLE_COMMENTS_BLOCK_VISIBILITY'
@@ -15,8 +16,12 @@ const CHANGE_LANGUAGE = 'app/CHANGE_LANGUAGE'
 const SET_REDIRECT_LINK = 'app/SET_REDIRECT_LINK'
 const SET_SHOULD_REDIRECT = 'app/SET_SHOULD_REDIRECT'
 const CHANGE_USER_PAGE_TAB = 'app/CHANGE_USER_PAGE_TAB'
+
 const SET_SPORTS = 'app/SET_SPORTS'
 const SET_POLICY = 'app/SET_POLICY'
+const SET_TERMS = 'app/SET_TERMS'
+const SET_OPTIONS = 'app/SET_OPTIONS'
+const SET_BANNERS = 'app/SET_BANNERS'
 
 const SET_PAGINATION_LIMIT = 'app/SET_PAGINATION_LIMIT'
 const SET_PAGINATION_PAGE = 'app/SET_PAGINATION_PAGE'
@@ -36,11 +41,10 @@ let initialState = {
 		{ index: 2, name: languageEnum.eng, visibleText: 'English', active: false },
 	],
 	sports: [] as Array<SportType>,
-	mobileAppLinks: {
-		android: 'https://play.google.com/store/apps/details?id=com.bettinghub.forecasts',
-		ios: ''
-	},
 	policy: "",
+	terms: "",
+	options: {} as OptionsType,
+	banners: [] as Array<BannerType>,
 	paginationObject: {
 		forecasts: { totalCount: 0, page: 1, limit: 5 },
 		articles: { totalCount: 0, page: 1, limit: 5 },
@@ -61,9 +65,9 @@ type ActionsTypes =
 	ChangeMainPageBlockVisibilityType |
 	ChangeLanguageType |
 	ChangeUserPageActiveTabType |
-	SetPolicyType |
-	SetSportsType |
-	SetPaginationLimitType | SetPaginationPageType | SetPaginationTotalCountType;
+	SetPolicyType | SetTermsType |
+	SetSportsType | SetOptionsType |
+	SetBannersType |
 
 const appReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
@@ -167,7 +171,18 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 				policy: action.policy
 			}
 		}
-			
+		case SET_TERMS: {
+			return {
+				...state,
+				terms: action.terms
+			}
+		}
+		case SET_OPTIONS: {
+			return {
+				...state,
+				options: {...action.options}
+			}	
+		}
 		case SET_PAGINATION_LIMIT: {
 			let key = action.instanceName as "forecasts" | "articles" | "users" | "bookmakers"
 			let instanceObject = state.paginationObject[key]
@@ -220,6 +235,13 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 				}
 			}
 		}
+			
+		case SET_BANNERS: {
+			return {
+				...state,
+				banners: [...action.banners]
+			}
+		}
 		default:
 			return state;
 	}
@@ -266,6 +288,19 @@ type SetPolicyType = {
 	type: typeof SET_POLICY,
 	policy: string
 }
+type SetTermsType = {
+	type: typeof SET_TERMS,
+	terms: string
+}
+type SetOptionsType = {
+	type: typeof SET_OPTIONS, 
+	options: OptionsType
+}
+
+type SetBannersType = {
+	type: typeof SET_BANNERS,
+	banners: Array<BannerType>
+}
 
 
 export type SetPaginationLimitType = {
@@ -287,8 +322,11 @@ export type SetPaginationTotalCountType = {
 
 
 export const initApp = (): ThunksType => async (dispatch) => {
+	dispatch(getBanners())
+	dispatch(getOptions())
 	dispatch(getSportsFromServer())
 	dispatch(getPolicy())
+	dispatch(getTerms())
 }
 
 
@@ -409,6 +447,28 @@ const setPolicy = (policy: string): SetPolicyType => {
 		policy
 	}
 }
+export const getTerms = (): ThunksType => async (dispatch) => {
+	let response = await appAPI.getTerms()
+	dispatch(setTerms(response.text))
+}
+const setTerms = (terms: string): SetTermsType => {
+	return {
+		type: SET_TERMS,
+		terms
+	}
+}
+
+export const getOptions = (): ThunksType => async (dispatch) => {
+	let response = await appAPI.getOptions()
+	dispatch(setOptions(response))
+}
+const setOptions = (options: OptionsType): SetOptionsType => {
+	return {
+		type: SET_OPTIONS,
+		options
+	}
+}
+
 
 export const setPaginationLimitType = (limit: number, instanceName: string): SetPaginationLimitType => {
 	return {
@@ -417,10 +477,6 @@ export const setPaginationLimitType = (limit: number, instanceName: string): Set
 		instanceName
 	}
 }
-// export const setPaginationPage = (page: number, instanceName: string, isFetching: boolean): SetPaginationPageType => {
-// }
-
-
 export const setPaginationPage = (page: number, instanceName: string): ThunksType => async (dispatch, getState) => { 
 	let isFetching = getState()[instanceName as "forecasts" | "articles" | "users" | "bookmakers"].isFetching
 
@@ -431,8 +487,6 @@ export const setPaginationPage = (page: number, instanceName: string): ThunksTyp
 		isFetching
 	})
 }
-
-
 export const setPaginationTotalCount = (totalCount: number, instanceName: string): SetPaginationTotalCountType => { 
 	return {
 		type: SET_PAGINATION_TOTAL_COUNT,
@@ -441,6 +495,17 @@ export const setPaginationTotalCount = (totalCount: number, instanceName: string
 	}
 }
 
+
+export const getBanners = (): ThunksType => async (dispatch) => {
+	let response = await appAPI.getBanners()
+	dispatch(setBanners(response.data))
+}
+const setBanners = (banners: Array<BannerType>): SetBannersType => {
+	return {
+		type: SET_BANNERS,
+		banners,
+	}
+}
 
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 

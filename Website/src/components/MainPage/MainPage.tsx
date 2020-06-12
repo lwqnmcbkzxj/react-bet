@@ -6,23 +6,20 @@ import { NavLink } from 'react-router-dom';
 import ForecastsList from '../Forecasts/ForecastsList/ForecastsList'
 import MatchesList from '../Matches/MatchesList'
 import BookmakersList from '../Bookmakers/BookmakersList/BookmakersList'
-
 import UsersList from '../Users/MainPageUsersList/MainPageUsersList'
 
-
+import Notification from './Notification'
 import ActionButton from '../Common/ActionButton/ActionButton'
 
 import { ForecastType } from '../../types/forecasts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
-import useMobile from '../../hooks/useMobile'
 
 
 import { getArrayFromEnum } from '../../utils/enumToArray'
 import { MatchType } from '../../types/matches';
 import { BookmakerType } from '../../types/bookmakers';
 import { UserType } from '../../types/users';
-import { showAlert } from '../../utils/showAlert';
 
 enum blocksNamesEnum {
 	bookmakers = 'bookmakers'
@@ -37,9 +34,16 @@ type MainPagePropsType = {
 	mainPageBlocksVisibility: any
 	setMainPageBlocksVisibility: (blockNames: Array<string>) => void
 	changeMainPageBlockVisibility: (blockName: string) => void
+
+	notification: string
 }
 
-const MainPage: FC<MainPagePropsType> = ({ users, forecasts, matches, bookmakers, mainPageBlocksVisibility, setMainPageBlocksVisibility, changeMainPageBlockVisibility, ...props }) => {
+const MainPage: FC<MainPagePropsType> = ({
+	users, forecasts, matches, bookmakers,
+	mainPageBlocksVisibility, setMainPageBlocksVisibility, changeMainPageBlockVisibility,
+	notification,
+	...props }) => {
+	
 	// Force update for toggling blocks
 	const [, updateState] = useState();
 	const forceUpdate = useCallback(() => updateState({}), []);
@@ -62,6 +66,9 @@ const MainPage: FC<MainPagePropsType> = ({ users, forecasts, matches, bookmakers
 				<NavLink to="/forecasters" className={s.navLinkBtn}><ActionButton value="Посмотреть всех" /></NavLink>
 
 			</div>
+
+
+			<Notification notification={notification}/>
 
 			<div className={s.bookMakers}>
 				<div className={classNames(

@@ -44,4 +44,7 @@ export enum RolesEnum {
 	moderator = 3,
 	admin = 4,
 	techAdmin = 5
+export type ShortDataElementType = {
+	id: number,
+	value: string
 }

@@ -20,12 +20,6 @@ import Policy from './components/Common/Documents/Policy'
 import Terms from './components/Common/Documents/Terms'
 import Feedback from './components/Common/Feedback/Feedback'
 
-import Admin from './components/Admin/Admin'
-
-// import ForecastsContainer from './components/Forecasts/ForecastsContainer'
-// import ForecastContainer from './components/Forecast/ForecastContainer'
-// import AddElementContainer from './components/Forecasts/AddElement/AddElementContainer'
-
 import UsersContainer from './components/Users/UsersContainer'
 import UserContainer from './components/User/UserContainer'
 import SettingsContainer from './components/User/Settings/SettingsContainer'
@@ -37,13 +31,12 @@ import MatchesContainer from './components/Matches/MatchesContainer'
 import MatchContainer from './components/Match/MatchContainer'
 
 import NewsContainer from './components/News/NewsContainer'
-// import NewsSingleContainer from './components/NewsSingle/NewsSingleContainer'
 
 import ArticleContainer from './components/Article/ArticleContainer'
 import ArticlesContainer from './components/Articles/ArticlesContainer'
 
 import { useDispatch, useSelector } from "react-redux"
-import { AppStateType } from './types/types'
+import { AppStateType, OptionsType } from './types/types'
 import { withSuspense } from './hoc/withSuspense';
 
 import { initApp } from './redux/app-reducer'
@@ -59,6 +52,7 @@ const MainPageContainer = React.lazy(() => import('./components/MainPage/MainPag
 const App = (props: any) => {
 	const isMobile = useMobile(768)
 	const dispatch = useDispatch()
+	const options = useSelector<AppStateType, OptionsType>(state => state.app.options)
 
 	const loggedUser = useSelector<AppStateType, UserType>(state => state.me.userInfo)
 	useEffect(() => {
@@ -66,6 +60,19 @@ const App = (props: any) => {
 		dispatch(authUser())
 	}, [])
 
+
+	useEffect(() => {
+		if (options.head_scripts) {
+			const script = document.createElement('script');
+  			script.src = eval(options.head_scripts);
+  			document.head.appendChild(script);
+		}
+		if (options.footer_scripts) {
+			const script = document.createElement('script');
+  			script.src = eval(options.head_scripts);
+  			document.body.appendChild(script);
+		}
+	}, [options])
 	return (
 		<Switch>
 			{/* { loggedUser.role_id >  2 &&  */}

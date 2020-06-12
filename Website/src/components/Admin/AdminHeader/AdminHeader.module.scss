@@ -63,7 +63,7 @@
 			& .userPopup {
 				position: absolute;
 				top: 40px;
-				right: -40px;
+				right: -0px;
 
 				display: flex;
 				flex-direction: column;
@@ -85,7 +85,7 @@
 					color: #818181;
 
 					white-space: nowrap;
-					padding: 10px 15px;
+					padding: 8px 30px 8px 10px;
 					box-sizing: border-box;
 					border-top: 1px solid #E5E2E2;
 					width: 100%;
@@ -97,8 +97,9 @@
 					}
 
 					& img {
-						width: 14px;
+						width: 20px;
 						height: auto;
+						border-radius: 2px;
 					}
 
 					&.userRow {

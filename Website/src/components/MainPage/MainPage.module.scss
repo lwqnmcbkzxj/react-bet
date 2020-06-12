@@ -52,6 +52,20 @@
 			}
 		}
 	}
+
+	.notificationBlock {
+		display: flex;
+		width: 100%;
+		background: #FFFAF1;
+		margin-bottom: 30px;
+		padding: 10px 20px;
+		box-sizing: border-box;
+		font-size: 17px;
+		line-height: 20px;
+		& button {
+			margin-left: 10px;
+		}
+	}
 }
 
 @media screen and (max-width: 768px) {

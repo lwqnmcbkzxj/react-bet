@@ -14,7 +14,7 @@ import { MatchType } from '../../types/matches';
 import { BookmakerType } from '../../types/bookmakers';
 import { UserType } from '../../types/users';
 import { getBookmakersFromServer } from '../../redux/bookmakers-reducer';
-import { timeFilterEnum } from '../../types/filters';
+import { timeFilterEnum, FiltersObjectType } from '../../types/filters';
 
 const MainPageContainer: FC = () => {
 	const dispatch = useDispatch();
@@ -25,6 +25,7 @@ const MainPageContainer: FC = () => {
 
 	const mainPageBlocksVisibility = useSelector<AppStateType, Array<ForecastType>>(state => state.app.mainPageBlocksVisibility)
 
+	const notification = useSelector<AppStateType, string>(state => state.app.options.main_page_notification)
 	
 	const setMainPageBlocksVisibilityDispatch = (blockNames: Array<string>) => {
 		dispatch(setMainPageBlocksVisibility(blockNames))
@@ -33,10 +34,13 @@ const MainPageContainer: FC = () => {
 		dispatch(changeMainPageBlockVisibility(blockName))
 	}
 
+	const usersFilters = useSelector<AppStateType, FiltersObjectType>(state => state.users.filters)
+	let activeSportFilter = getActiveFilter(usersFilters, 'sportTypeFilter')
+	let activeTimeFilter = 	getActiveFilter(usersFilters, 'timeFilter')
 	
 	useEffect(() => {
 		dispatch(getForecastsFromServer(1, 5))	
-		dispatch(getUsersFromServer(1, 15, { time: timeFilterEnum.month, sport: 0 }))	
+		dispatch(getUsersFromServer(1, 15, { time: activeTimeFilter, sport: activeSportFilter }))	
 		dispatch(getMatchesFromServer(1, 5))		
 		dispatch(getBookmakersFromServer(1, 5))		
 	}, []);
@@ -52,6 +56,8 @@ const MainPageContainer: FC = () => {
 			mainPageBlocksVisibility={mainPageBlocksVisibility}
 			setMainPageBlocksVisibility={setMainPageBlocksVisibilityDispatch}
 			changeMainPageBlockVisibility={changeMainPageBlockVisibilityDispatch}
+
+			notification={notification}
 		/>
 	)
 }
