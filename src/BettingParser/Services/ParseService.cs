@@ -173,6 +173,11 @@ namespace BettingParser.Services
                     var get = new HttpRequestMessage(HttpMethod.Get, url);
                     var response = await client.SendAsync(get);
 
+                    if (response.StatusCode == HttpStatusCode.Forbidden)
+                    {
+                        throw new Exception("cookie expired");
+                    }
+                    
                     if (response.Headers.ConnectionClose.HasValue && response.Headers.ConnectionClose.Value)
                         throw new Exception("cookie expired");
 
@@ -325,6 +330,11 @@ namespace BettingParser.Services
                     var get = new HttpRequestMessage(HttpMethod.Get, $"/engine/gouser.php?userid={userId}");
                     var response = await client.SendAsync(get);
 
+                    if (response.StatusCode == HttpStatusCode.Forbidden)
+                    {
+                        throw new Exception("cookie expired");
+                    }
+
                     if (response.Headers.ConnectionClose.HasValue && response.Headers.ConnectionClose.Value)
                         throw new Exception("cookie expired");
 
@@ -357,6 +367,11 @@ namespace BettingParser.Services
                     if (response.StatusCode == HttpStatusCode.BadRequest)
                     {
                         return null;
+                    }
+
+                    if (response.StatusCode == HttpStatusCode.Forbidden)
+                    {
+                        throw new Exception("cookie expired");
                     }
 
                     if (response.Headers.ConnectionClose.HasValue && response.Headers.ConnectionClose.Value)
