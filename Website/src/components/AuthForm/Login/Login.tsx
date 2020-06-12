@@ -7,14 +7,14 @@ import { Input, createField } from '../../Common/FormComponents/FormComponents'
 import ActionButton from '../../Common/ActionButton/ActionButton'
 
 import { emailRegExp } from '../../../types/types'
-// import LoginThrough from './LoginThrough/LoginThrough'
+import LoginThrough from '../LoginThrough/LoginThrough'
 
 type AuthFormPropsType = {
-	login: (email: string, password: string) => void
+	login: (login: string, password: string) => void
 	changeAuthFormPhase: (phase: string) => void
 }
 type LoginFormValuesType = {
-	email: string
+	login: string
 	password: string
 }
 
@@ -25,7 +25,7 @@ const LoginForm: FC<InjectedFormProps<LoginFormValuesType>> = (props: any) => {
 			
 			<h1>Вход</h1>
 
-			{createField("email", Input, "Ваша почта или никнейм")}
+			{createField("login", Input, "Ваша почта или никнейм")}
 			{createField("password", Input, "Пароль", { type: "password", canSeeInputValue: true })}
 
 			
@@ -39,14 +39,14 @@ const ReduxLoginForm = reduxForm<LoginFormValuesType>({ form: 'login' })(LoginFo
 const Login: FC<AuthFormPropsType> = ({ login, ...props }) => {
 
 	const handleLogin = (formData: LoginFormValuesType) => {
-		if (!formData.email || !formData.password) 		
+		if (!formData.login || !formData.password) 		
 			throw new SubmissionError({ _error: 'Заполните все поля' })
-		else if (!formData.email.match(emailRegExp))
-			throw new SubmissionError({ _error: 'Введен некорректный email' })
+		// else if (!formData.email.match(emailRegExp))
+			// throw new SubmissionError({ _error: 'Введен некорректный email' })
 		else if (formData.password.length < 8){
 			throw new SubmissionError({ _error: 'Длина пароля должна быть не меньше 8 символов' })
 		} else {
-			login(formData.email, formData.password)
+			login(formData.login, formData.password)
 			throw new SubmissionError({ _error: '' })
 		}
 	}
@@ -58,7 +58,7 @@ const Login: FC<AuthFormPropsType> = ({ login, ...props }) => {
 
 			<div className={s.orLine}><p>или</p></div>
 
-			{/* <LoginThrough /> */}
+			<LoginThrough />
 			<div className={s.actions}>
 				<p><button onClick={() => { props.changeAuthFormPhase('reset-password') }}>
 					Забыли пароль?</button></p>

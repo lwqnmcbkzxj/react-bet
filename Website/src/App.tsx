@@ -6,11 +6,10 @@ import './assets/scss/CommonStyle.scss'
 import { Route, NavLink } from "react-router-dom"
 import { Switch } from 'react-router'
 import { withRouter } from 'react-router'
-
+import qs from 'query-string'
 
 import AuthFormContainer from './components/AuthForm/AuthFormContainer'
 
-// import MainPageContainer from './components/MainPage/MainPageContainer'
 import HeaderContainer from './components/Header/HeaderContainer'
 import MenuContainer from './components/Menu/MenuContainer'
 import CommentsContainer from './components/Comments/CommentsContainer'
@@ -40,9 +39,11 @@ import { AppStateType, OptionsType } from './types/types'
 import { withSuspense } from './hoc/withSuspense';
 
 import { initApp } from './redux/app-reducer'
-import { authUser } from './redux/me-reducer'
+import { authUser, setLogged, setAccessToken } from './redux/me-reducer'
 import useMobile from './hooks/useMobile'
 import { UserType } from './types/me'
+import Cookies from 'js-cookie'
+
 
 const Admin = React.lazy(() => import('./components/Admin/Admin'))
 const ForecastsContainer = React.lazy(() => import('./components/Forecasts/ForecastsContainer'))
@@ -75,6 +76,17 @@ const App = (props: any) => {
   			document.body.appendChild(script);
 		}
 	}, [options])
+
+	if (props.location.search) {
+		let params = qs.parse(props.location.search)
+		if (params.token) {
+			props.history.push("/")
+			Cookies.set('access-token', params.token + "", { expires: 10 / 24 });
+			dispatch(authUser())
+		}
+	}
+
+
 	return (
 		<Switch>
 			{loggedUser.role_id > 2 &&

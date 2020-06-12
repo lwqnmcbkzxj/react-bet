@@ -77,7 +77,8 @@ export const userAPI = {
 		return instance.get(`users/profile`)
 			.then((response) => {
 				return response.data
-			});
+			})
+			.catch((err) => err);
 	}
 }
 

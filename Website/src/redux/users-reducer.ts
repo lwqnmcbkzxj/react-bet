@@ -1,6 +1,6 @@
 import { AppStateType, SportType } from '../types/types'
 import { ThunkAction } from 'redux-thunk'
-import { timeFilterEnum, sportTypeFilterEnum, FiltersObjectType, FilterType }from '../types/filters'
+import { timeFilterEnum, FiltersObjectType, FilterType }from '../types/filters'
 
 import { UserType } from '../types/users'
 import { usersAPI } from '../api/api'
@@ -16,8 +16,8 @@ let initialState = {
 	users: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}] as Array<UserType>,
 	filters: {
 		timeFilter: [
-			{index: 1, name: timeFilterEnum.allTime, visibleText: 'Все время', active: true},
-			{index: 2, name: timeFilterEnum.month, visibleText: 'Месяц', active: false},
+			{index: 1, name: timeFilterEnum.allTime, visibleText: 'Все время', active: false},
+			{index: 2, name: timeFilterEnum.month, visibleText: 'Месяц', active: true},
 		],
 		sportTypeFilter: []
 	} as FiltersObjectType,
@@ -92,7 +92,7 @@ type SetUsersType = {
 
 type ToggleFilterType = {
 	type: typeof TOGGLE_FILTER
-	filterName: timeFilterEnum | typeof sportTypeFilterEnum
+	filterName: timeFilterEnum
 	filtersBlockName: keyof FiltersObjectType
 }
 type ToggleIsFetchingType = {
@@ -106,10 +106,12 @@ export type SetUsersSportsType = {
 }
 
 export const getUsersFromServer = (page: number, limit: number, options = {} as any): ThunksType => async (dispatch) => {	
-	debugger
-	dispatch(toggleIsFetching(true))
+	if (page === 1)
+		dispatch(toggleIsFetching(true))
+	
 	let response = await usersAPI.getUsers(page, limit, options)	
-	dispatch(toggleIsFetching(false))
+	if (page === 1)
+		dispatch(toggleIsFetching(false))
 	
 	dispatch(setPaginationTotalCount(response.meta.total, 'users'))
 	dispatch(setUsers(response.data, page !== 1))

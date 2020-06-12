@@ -60,7 +60,8 @@
 		padding-bottom: 65px;
 
 		& .orLine,
-		& .actions {
+		& .actions, 
+		& .loginThrough {
 			padding: 0 65px;
 			box-sizing: border-box;
 		}
@@ -167,6 +168,33 @@
 	}
 }
 
+.loginThrough {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 5fr 1fr 1fr;
+	grid-gap: 8px;
+	& .login__link {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid #D5D8DD;
+		border-radius: 6px;
+		padding: 6px;
+		height: 40px;
+		box-sizing: border-box;
+		& p {
+			margin-left: 10px;
+		}
+		&:not(:first-child) {
+			width: 40px;
+			& img {
+				width: 26px;
+
+			}
+		}
+	}
+}
+
 .actions {
 	width: 100%;
 	box-sizing: border-box;
@@ -187,38 +215,6 @@
 	}
 }
 
-@keyframes showPopup {
-	0% {
-		z-index: -1;
-		opacity: 0
-	}
-
-	50% {
-		z-index: 3;
-		opacity: .5
-	}
-
-	100% {
-		z-index: 7;
-		opacity: 1
-	}
-}
-
-@keyframes hidePopup {
-	0% {
-		z-index: 7;
-		opacity: 1
-	}
-
-	50% {
-		opacity: 0
-	}
-
-	100% {
-		z-index: -1;
-		opacity: 0
-	}
-}
 
 @media screen and (max-width: 480px) {
 	.authBlock {
@@ -249,7 +245,9 @@
 			padding: 0 38px !important;
 			width: calc(100% - 100px);
 		}
-
+		.loginThrough {
+			padding: 0 38px !important;
+		}
 		& h1 {
 			padding: 33px 38px 26px 38px !important;
 		}

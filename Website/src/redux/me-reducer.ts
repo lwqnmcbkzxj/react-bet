@@ -107,9 +107,10 @@ export const authUser = (): ThunksType => async (dispatch) => {
 	
 	if (token) {
 		dispatch(setAccessToken(token))
-		dispatch(getUserInfo())
 		dispatch(setLogged(true))
 		dispatch(setShouldRedirect(true))
+
+		dispatch(getUserInfo())
 	}
 }
 
@@ -157,8 +158,11 @@ export const logout = (): ThunksType => async (dispatch) => {
 
 export const getUserInfo = (): ThunksType => async (dispatch) => {
 	let response = await userAPI.getUserInfo()
+	debugger
 	if (!response.message) {
 		dispatch(setUserInfo(response))
+	} else {
+		dispatch(logout())
 	}
 }
 export const setUserInfo = (userInfo: any): SetUserInfo => {
@@ -168,7 +172,7 @@ export const setUserInfo = (userInfo: any): SetUserInfo => {
 	}
 }
 
-const setAccessToken = (token: string): ThunksType => async (dispatch) => {
+export const setAccessToken = (token: string): ThunksType => async (dispatch) => {
 	dispatch(setTokenSuccess(token))
 	setTokenForAPI(token)
 }
