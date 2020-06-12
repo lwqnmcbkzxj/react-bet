@@ -3,13 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\User;
-use http\Client;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Facade;
 use Laravel\Socialite\Facades\Socialite;
 
 
@@ -71,6 +67,6 @@ class LoginController extends Controller
             $user->save();
         }
         $token = $user->createToken('social')->accessToken;
-        return redirect($request->get('state', $this->FRONTEND_REDIRECT) .'?token='.$token);
+        return redirect()->to($request->get('state', $this->FRONTEND_REDIRECT) .'?token='.$token);
     }
 }
