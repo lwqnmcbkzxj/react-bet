@@ -14,15 +14,15 @@ export const getTimeSinceSending = (timestamp: number) => {
 	if (dateDifference < 5) {
 		timeSince = 'Только что'
 	} else if (dateDifference / minute < 1) {
-		timeSince = Math.ceil(dateDifference) + 'с'
+		timeSince = Math.floor(dateDifference) + 'с'
 	} else if (dateDifference / hour < 1) {
-		timeSince = Math.ceil(dateDifference / minute) + 'м'
+		timeSince = Math.floor(dateDifference / minute) + 'м'
 	} else if (dateDifference / day < 1) {
-		timeSince = Math.round(dateDifference / hour) + 'ч'
+		timeSince = Math.floor(dateDifference / hour) + 'ч'
 	} else if (dateDifference / month < 1) {
-		timeSince = Math.ceil(dateDifference / day) + 'д'
+		timeSince = Math.floor(dateDifference / day) + 'д'
 	} else if (dateDifference / month < 1) {
-		timeSince = Math.ceil(dateDifference / month) + 'мес'
+		timeSince = Math.floor(dateDifference / month) + 'мес'
 	} 
 
 	return timeSince;

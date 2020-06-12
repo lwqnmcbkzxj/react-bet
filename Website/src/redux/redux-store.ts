@@ -12,7 +12,7 @@ import bookmakersReducer from "./bookmakers-reducer"
 import newsReducer from "./news-reducer"
 import forecastsReducer from "./forecasts-reducer"
 import appReducer from "./app-reducer"
-import liveCommentsReducer from "./liveComments-reducer"
+import commentsReducer from "./comments-reducer"
 
 import { reducer as formReducer } from "redux-form";
 import articlesReducer from './articles-reducer'
@@ -23,7 +23,7 @@ let rootReducer = combineReducers({
 	admin: adminReducer,
 
 	app: appReducer,
-	liveComments: liveCommentsReducer,
+	comments: commentsReducer,
 
 	matches: matchesReducer,
 	articles: articlesReducer,

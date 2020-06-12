@@ -2,7 +2,7 @@ import { AppStateType, CommentType } from '../types/types'
 import { ThunkAction } from 'redux-thunk'
 
 import { ArticleType } from '../types/article'
-import { postsAPI, appAPI } from '../api/api'
+import { postsAPI, commentsAPI } from '../api/api'
 import { showAlert } from '../utils/showAlert'
 import { setPaginationTotalCount, SetPaginationTotalCountType } from './app-reducer'
 
@@ -137,7 +137,7 @@ export const ratePost = (id: number, type: number): ThunksType => async (dispatc
 }
 
 export const getArticleComments = (id: number, filterName: string): ThunksType => async (dispatch) => {
-	let response = await appAPI.comments.getComments(id, 'posts', filterName)
+	let response = await commentsAPI.getComments(id, 'posts', filterName)
 
 	dispatch({
 		type: SET_ARTICLE_COMMENTS,

@@ -3,7 +3,7 @@ import s from './CommentsBlock.module.scss';
 import SendComment from './SendComment'
 import Comment from './Comment'
 import { CommentType } from '../../../types/types';
-import { toggleAuthFormVisiblility, sendComment } from '../../../redux/app-reducer'
+import { sendComment } from '../../../redux/comments-reducer'
 
 import { useDispatch, useSelector } from "react-redux"
 
