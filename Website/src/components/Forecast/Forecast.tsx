@@ -48,7 +48,7 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, commentsFunctions, ...props
 			userAvatar = userImgHolder
 		}
 
-		userRoi = +(+forecast.user_data.stats.roi).toFixed(2)
+		userRoi = +(+forecast.user_data.stats.roi * 100).toFixed(2)
 		forecastTitle = forecast.event_data.event + ' ' + forecast.bet_data.type
 
 		if (forecast.event_data.championship_data.sport_id !== 5) {
@@ -63,14 +63,27 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, commentsFunctions, ...props
 			<GoBackBlock
 				link={'forecasts'}
 				linkText={'Прогнозы'}
-				icon={faBookmark}
-				func={() => { console.log('s') }}
+				iconBlock={
+					<ElementStats
+						comments={0}
+						likes={0}
+						favourites={forecast.forecast_stats.count_subscribers}
+						id={forecast.id}
+						elementType={'forecast'}
+
+						showComments={false}
+						showLikes={false}
+
+						showFavCount={false}
+						favouritesActive={forecast.is_marked}
+					/>
+				}
 			/>
 
 			<Breadcrumbs pathParams={[
 				{ text: 'Главная', link: '' },
 				{ text: 'Прогнозы', link: '/forecasts' },
-				{ text: `${forecastTitle}`, link: `/forecasts/${forecast.id}` } ]} />
+				{ text: `${forecastTitle}`, link: `/forecasts/${forecast.id}` }]} />
 
 			<div className={s.forecastHeader}>
 				<div className={s.headerDetails}>
@@ -82,13 +95,13 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, commentsFunctions, ...props
 
 			<div className={s.teams}>
 				<div className={s.team}>
-					<img src={ apiURL + forecast.event_data.championship_data.sport_image} alt="teamImg" />
+					<img src={apiURL + forecast.event_data.championship_data.sport_image} alt="teamImg" />
 					<p>{forecast.event_data.team_1.name}</p>
 				</div>
 				<div className={s.vsBlock}>VS</div>
 				<div className={s.team}>
 					<p>{forecast.event_data.team_2.name}</p>
-					<img src={ apiURL + forecast.event_data.championship_data.sport_image} alt="teamImg" />
+					<img src={apiURL + forecast.event_data.championship_data.sport_image} alt="teamImg" />
 				</div>
 			</div>
 
@@ -123,7 +136,7 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, commentsFunctions, ...props
 				<div className={s.details_cash}>
 					<p>Чистая прибыль</p>
 					<p className={s.splitter}></p>
-					<p>{(+forecast.bet_data.pure_profit * +forecast.bet_data.bet).toFixed(2)}
+					<p>{(+forecast.bet_data.pure_profit * +forecast.bet_data.bet).toFixed(0)}
 						<span><FontAwesomeIcon icon={faRubleSign} /></span>
 					</p>
 				</div>
@@ -141,8 +154,8 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, commentsFunctions, ...props
 						</Link>
 						<p className={s.mobileUserProfit}>Прибыль:
 								{+userRoi === 0 ? <span className={classNames(s.mobileUserProfit)}>{userRoi}</span> :
-								+userRoi < 0 ? <span className={classNames(s.mobileUserProfit, s.positive)}>+{userRoi}%</span> :
-								<span className={classNames(s.mobileUserProfit, s.negative)}>-{userRoi}%</span>}
+								+userRoi > 0 ? <span className={classNames(s.mobileUserProfit, s.positive)}>+{userRoi}%</span> :
+									<span className={classNames(s.mobileUserProfit, s.negative)}>{userRoi}%</span>}
 						</p>
 					</div>
 				</div>
@@ -163,17 +176,17 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, commentsFunctions, ...props
 								[s.positive]: +userRoi > 0,
 								[s.neutral]: +userRoi === 0,
 							})}>
-								{+userRoi === 0 ? "" : +userRoi < 0 ? "+" : " -" }
-							{userRoi}</p>
+								{+userRoi > 0 ? "+" : ""}
+								{userRoi}</p>
 						}
-						
+
 					</div>
 					<div className={s.statBlock}>
 						<p>Ср. кф</p>
 						<p>{(+forecast.user_data.stats.average_cofficient).toFixed(2)}</p>
 					</div>
 				</div>
-				<SubscribeButton userId={forecast.user_data.id} responsive={false} isSubscribed={forecast.user_data.is_subscribed}/>
+				<SubscribeButton userId={forecast.user_data.id} responsive={false} isSubscribed={forecast.user_data.is_subscribed} />
 			</div>
 
 			<div className={s.forecastDescription}>
@@ -186,7 +199,7 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, commentsFunctions, ...props
 				likes={forecast.forecast_stats.rating}
 				id={forecast.id}
 				elementType={'forecast'}
-						
+
 				likesActive={forecast.vote}
 				favouritesActive={forecast.is_marked}
 			/>

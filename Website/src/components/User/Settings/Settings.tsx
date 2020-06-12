@@ -26,7 +26,8 @@ type SettingsPropsType = {
 }
 const Settings: FC<SettingsPropsType> = ({ loggedUser, languages, changeLanguage, logout, ...props }) => {
 	const dispatch = useDispatch()
-	const mobileAppLinks = useSelector<AppStateType, any>(state => state.app.mobileAppLinks)
+	const androidLink = useSelector<AppStateType, any>(state => state.app.options.android_link)
+	const iosLink = useSelector<AppStateType, any>(state => state.app.options.ios_link)
 
 	let initialValues = { email: loggedUser.email }
 
@@ -80,8 +81,8 @@ const Settings: FC<SettingsPropsType> = ({ loggedUser, languages, changeLanguage
 			<div className={s.settings}>
 				<div className={s.common}>
 					<div className={s.download}>
-						<a href={mobileAppLinks.android} target="_blank"><img src={androidDownload} alt="android-download"/></a>
-						<a href={mobileAppLinks.ios} target="_blank"><img src={iosDownload} alt="ios-download"/></a>
+						<a href={androidLink} target="_blank"><img src={androidDownload} alt="android-download"/></a>
+						<a href={iosLink} target="_blank"><img src={iosDownload} alt="ios-download"/></a>
 					</div>
 					{/* <Selectors
 						selectors={languages}

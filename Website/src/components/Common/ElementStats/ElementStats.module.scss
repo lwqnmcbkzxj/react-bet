@@ -2,7 +2,7 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-
+	
 	& .leftBlock {
 		display: flex;
 		justify-content: space-between;
@@ -23,11 +23,20 @@
 		}
 	}
 
-	& .favourites button {
+	
 
-		&.active,
-		&:hover {
-			color: #E84755;
+	& .favourites {
+		&.noPadding {
+			margin-right: 0px;
+			& span {
+				display: none;
+			}
+		}
+		& button {
+			&.active,
+			&:hover {
+				color: #E84755;
+			}
 		}
 	}
 }
@@ -91,5 +100,8 @@
 @media screen and (max-width: 768px) {
 	.elementStats {
 		padding: 10px 8px 10px 8px;
+		&.noPadding {
+			padding: 0!important;
+		}
 	}
 }

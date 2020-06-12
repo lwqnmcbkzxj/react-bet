@@ -13,6 +13,8 @@ import ActionButton from '../Common/ActionButton/ActionButton'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
+import { setPaginationPage } from '../../redux/app-reducer';
+import { useDispatch } from 'react-redux';
 
 
 type ForecastsPropsType = {
@@ -22,6 +24,7 @@ type ForecastsPropsType = {
 
 }
 const Forecasts: FC<ForecastsPropsType> = ({ forecasts, filters, toggleFilter, ...props }) => {
+	const dispatch = useDispatch()
 
 	const [filtersVisible, setFiltersVisible] = useState(false)
 
@@ -60,7 +63,9 @@ const Forecasts: FC<ForecastsPropsType> = ({ forecasts, filters, toggleFilter, .
 			</div>
 
 
-			<ForeCastsList forecasts={forecasts}/>
+			<ForeCastsList forecasts={forecasts} />
+		
+			<div><ActionButton value="Показать больше" func={() => { dispatch(setPaginationPage(-1, 'forecasts')) }}/></div>
 		</div>
 	)
 }

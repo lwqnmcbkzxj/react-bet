@@ -111,8 +111,8 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 							{(+ forecast.user_data.stats.roi === 0) ?
 								<span className={classNames(s.neutral)}>{(+forecast.user_data.stats.roi * 100).toFixed()}</span> :
 								(+ forecast.user_data.stats.roi > 0) ?
-								<span className={classNames(s.positive)}>+{(+forecast.user_data.stats.roi * 100).toFixed(1)}%</span> :
-								<span className={classNames(s.negative)}>-{(+forecast.user_data.stats.roi * 100).toFixed(1)}%</span>
+								<span className={classNames(s.positive)}>+{(+forecast.user_data.stats.roi * 100).toFixed(0)}%</span> :
+								<span className={classNames(s.negative)}>{(+forecast.user_data.stats.roi * 100).toFixed(0)}%</span>
 							}
 						</div>
 					</div>

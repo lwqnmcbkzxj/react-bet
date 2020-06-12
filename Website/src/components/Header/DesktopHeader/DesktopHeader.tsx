@@ -22,6 +22,13 @@ type HeaderPropsType = {
 	isCommentsBlockVisible: boolean
 	toggleAuthFormVisiblility: () => void
 	toggleCommentsBlockVisibility: () => void
+
+
+	search: {
+		searchText: string
+		handleSearchTextChange: (searchText: string) => void
+		handleSearch: () => void
+	}
 }
 
 const DesktopHeader: FC<HeaderPropsType> = ({ logged, logout, user, isCommentsBlockVisible, toggleAuthFormVisiblility, toggleCommentsBlockVisibility, ...props }) => {
@@ -83,7 +90,7 @@ const DesktopHeader: FC<HeaderPropsType> = ({ logged, logout, user, isCommentsBl
 			<div className={s.advert}></div>
 			<header>
 				<NavLink to="/" className={s.logoLink}><img src={logo} className={s.logo} alt="logo" /></NavLink>
-				<Search />
+				<Search search={props.search} />
 
 				{authedBlock}
 

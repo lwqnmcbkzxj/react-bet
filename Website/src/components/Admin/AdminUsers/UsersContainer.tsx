@@ -6,13 +6,10 @@ import Users from './Users'
 import { AppStateType } from '../../../types/types'
 
 import { UserType } from '../../../types/admin'
-// import { deleteArticle } from '../../../redux/admin-reducer'
 import { formatDate } from '../../../utils/formatDate'
 import { getAdminUsersFromServer, deleteUser } from '../../../redux/admin-reducer'
+import { getRoleName } from '../../../utils/getRoleName'
 
-enum rolesNamesEnum {
-
-}
 
 const UsersContainer: FC = ({ ...props }) => {
 	const dispatch = useDispatch()
@@ -36,9 +33,6 @@ const UsersContainer: FC = ({ ...props }) => {
 	useEffect(() => {
 		getUsers()
 	}, [currentPage, pagesPerPage])
-	useEffect(() => {
-		getUsers()
-	}, [])
 
 
 	const handleSearch = (searchText: string) => {
@@ -52,8 +46,7 @@ const UsersContainer: FC = ({ ...props }) => {
 
 	let dataArray = [] as any
 	users.map(dataObj => dataArray.push([
-		dataObj.id, dataObj.login, formatDate(dataObj.created_at), dataObj.platform, 0, 0
-		
+		dataObj.id, dataObj.login, formatDate(dataObj.created_at), dataObj.platform, getRoleName(dataObj.role_id), dataObj.forecasts_count
 	]))
 
 

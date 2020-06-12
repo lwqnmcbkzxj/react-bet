@@ -8,11 +8,13 @@ import { toggleFilter } from '../../redux/users-reducer'
 import { withRouter, RouteComponentProps } from 'react-router'
 import { getUsersFromServer } from '../../redux/users-reducer'
 import { getActiveFilter } from '../../utils/getActiveFilter'
+import { setPaginationPage } from '../../redux/app-reducer'
 const UsersContainer: FC = ({ ...props }) => {
 	const users = useSelector<AppStateType, Array<UserType>>(state => state.users.users)
 	const filters = useSelector<AppStateType, FiltersObjectType>(state => state.users.filters)
 	const dispatch = useDispatch()
 	const toggleFilterDispatch = (filterName: FilterNames, filtersBlockName: string) => {
+		dispatch(setPaginationPage(1, 'users'))
 		dispatch(toggleFilter(filterName, filtersBlockName))
 	}
 

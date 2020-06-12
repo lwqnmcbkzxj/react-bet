@@ -54,9 +54,15 @@
 				}
 
 				& .actionsBlock {
-					display: grid;
-					grid-template-columns: 1fr 1fr;
-					grid-gap: 10px;
+					display: flex;
+					align-items: center;
+					justify-content: space-around;
+					& a, & button {
+						margin-right: 8px;
+						&:last-child {
+							margin: 0;
+						}
+					}
 				}
 			}
 		}

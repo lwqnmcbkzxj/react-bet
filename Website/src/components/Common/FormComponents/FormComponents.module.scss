@@ -95,8 +95,9 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
-.inputBlock {
+.dropdownBlock {
 	position: relative;
+	margin-bottom: 16px;
 	& .dropDownElement {
 		padding: 12px 13px 13px 13px;
 		height: 48px;
@@ -106,7 +107,12 @@ input[type=number] {
 		justify-content: flex-start;
 		transition: .3s;
 		background: #fff;
-
+		& label {
+			color: #343638;
+			font-size: 19px;
+			line-height: 23px;
+			margin: 0;
+		}
 		&:hover {
 			background: #F5F5F5;
 			cursor: pointer;
@@ -116,37 +122,34 @@ input[type=number] {
 			border-radius: 5px;
 			display: flex;
 			justify-content: space-between;
+			margin-top: 6px;
 			& .dropDownArrow {
 				transition: .3s;
 			}
 		}
-		& label {
-			color: #343638;
-			font-size: 19px;
-			line-height: 23px;
-			margin: 0;
-		}
+		
 		& input[type=radio] {
 			display: none;
 		}
 	}
 	& .elementsList {
 		position: absolute;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: space-between;
 		width: 100%;
 		overflow: hidden;
-		top: 66px;
 		z-index: 6;
+		max-height: 350px;
+		overflow-y: auto;
+		border-bottom: 1px solid #D5D8DD;
+		
 		& .dropDownElement {
 			z-index: 7;
 			width: 100%;
 			border: 1px solid #D5D8DD;
 			border-bottom: none;
 
-			
+			&.selected {
+				height: 0;
+			}
 
 			&:last-child {
 				border-bottom: 1px solid #D5D8DD;

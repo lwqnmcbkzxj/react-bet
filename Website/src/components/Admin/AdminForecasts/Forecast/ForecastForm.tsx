@@ -1,92 +1,122 @@
-import React, { FC } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import s from './Forecast.module.scss'
 import { reduxForm, InjectedFormProps, SubmissionError, Field } from 'redux-form'
-import { Input, Textarea, createField, File, FormatTextarea } from '../../../Common/FormComponents/FormComponents'
+import { Input, Textarea, createField, File, FormatTextarea, createDropdown } from '../../../Common/FormComponents/FormComponents'
 
 import ActionButton from '../../../Common/ActionButton/ActionButton'
-import { ArticleType } from '../../../../types/admin'
+import { ForecastType } from '../../../../types/admin'
 import Breadcrumbs from '../../../Common/Breadcrumbs/Breadcrumbs'
 
-import { required } from '../../../../utils/formValidation'
-import { Redirect } from 'react-router'
-import { Editor } from '@tinymce/tinymce-react';
-
-import contentHolder from '../../../../assets/img/content-img-holder.png'
-import { apiURL } from '../../../../api/api'
+import { required, number } from '../../../../utils/formValidation'
+import { ForecastStatusEnum } from '../../../../types/forecasts'
+import { sortDropdownValues } from '../../../../utils/sortDropdownValues'
+import { ShortDataElementType } from '../../../../types/types'
 
 type FormType = {
 	initialValues: any,
-	onSubmitFunc: (formData: ArticleType) => void
+	onSubmitFunc: (formData: ForecastType) => void
 	breadcrumbs: Array<{
 		link: string
 		text: string
 	}>
 	buttonText: string
+
+	dropdownLists: {
+		users: Array<ShortDataElementType>
+		events: Array<ShortDataElementType>
+	}
 }
 type FormValuesType = {
-	initialValues: ArticleType
+	initialValues: ForecastType
 	buttonText: string
+	dropdownLists: {
+		users: Array<ShortDataElementType>
+		events: Array<ShortDataElementType>
+	}
 }
 	
 
+const formName = 'admin-forecast-form'
+const ForecastForm: FC<FormValuesType & InjectedFormProps<{}, FormValuesType>> = (props: any) => {
+	let [isStatusSorted, setIsStatusSorted] = useState(false)
+	let [isUsersSorted, setIsUsersSorted] = useState(false)
+	let [isEventsSorted, setIsEventsSorted] = useState(false)
 
-const ArticleForm: FC<FormValuesType & InjectedFormProps<{}, FormValuesType>> = (props: any) => {
-	const setPreviewImage = (file: File) => {
-		let fileReader = new FileReader()
-		fileReader.onload = function (event: any) {
-			document.getElementById('admin-article-img-holder')?.setAttribute("src", event.target.result)
+	let [statusArr, setStatusArr] = useState([
+		{ id: ForecastStatusEnum.back, value: 'Возврат ставки' },
+		{ id: ForecastStatusEnum.wait, value: 'Ставка еще не сыграла' },
+		{ id: ForecastStatusEnum.win, value: 'Ставка прошла' },
+		{ id: ForecastStatusEnum.loss, value: 'Ставка не прошла' },
+	])
+	let [usersArr, setUsersArr] = useState([])
+	let [eventsArr, setEventsArr] = useState([])
+	
+	useEffect(() => {
+		if (props.initialValues) {
+			sortDropdownValues(props.initialValues.status, statusArr, setStatusArr, setIsStatusSorted)
+
+			props.dropdownLists.users.length > 0 && sortDropdownValues(props.initialValues.user_id, props.dropdownLists.users, setUsersArr, setIsUsersSorted)
+			props.dropdownLists.events.length > 0 && sortDropdownValues(props.initialValues.event_id, props.dropdownLists.events, setEventsArr, setIsEventsSorted)
+		} else {
+			setEventsArr(props.dropdownLists.events)
+			setUsersArr(props.dropdownLists.users)
+			setIsUsersSorted(true)
+			setIsEventsSorted(true)
 		}
-
-		fileReader.readAsDataURL(file)
-	}
-
+	}, [props.initialValues, props.dropdownLists.events, props.dropdownLists.users]);
 
 	return (
 		<form onSubmit={props.handleSubmit}>
 
-			{createField("title", Input, "Название статьи", { valiadtors: [required] })}
-			{createField("category_name", Input, "Название категории", { valiadtors: [required] })}
+			{isStatusSorted && createDropdown("status", "Статус", props.form, { elements: [...statusArr] })}
 
-			{createField("content", FormatTextarea, "Описание статьи", { valiadtors: [required] })}
-			
-			<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-				{createField("image", File, "Превью", { formName: 'article-form', onChangeFunc: setPreviewImage })}
+			{isUsersSorted && createDropdown("user_id", "Прогноз от", props.form, { elements: [...usersArr] })}
+			{isEventsSorted && createDropdown("event_id", "Событие", props.form, { elements: [...eventsArr] })}
+
+			{createField("forecast_text", Textarea, "Содержание", { valiadtors: [required] })}
+			{createField("bet", Input, "Ставка", { valiadtors: [required, number] })}
+			{createField("type", Input, "Исход", { valiadtors: [required] })}
+			{createField("coefficient", Input, "Коэффициент", { valiadtors: [required] })}
+
+
+			<div>
+				
 			</div>
-
-			<div className={s.previewImg}>
-				<img src={props.initialValues.image ? apiURL + props.initialValues.image : contentHolder} alt="article-img" id="admin-article-img-holder"/>
-			</div>
-
-			{createField("meta_title", Input, "Мета-заголовок", {  })}
-			{createField("meta_description", Input, "Мета-описание", {  })}
-			{createField("meta_key_words", Input, "Мета-ключевые слова", {  })}
-			{createField("meta_title", Input, "Мета-заголовок", {  })}
-			{createField("is_published", Input, "Опубликована", { type: 'checkbox' })}
-			{createField("no_index", Input, "Не индексировать", { type: 'checkbox' })}
 
 			<div className={s.btnHolder}><ActionButton value={props.buttonText} /></div>
 		</form>
 	);
 }
-const ReduxArticleForm = reduxForm<{}, FormValuesType>({ form: 'forecast-form', enableReinitialize: true  })(ArticleForm)
+const ReduxForecastForm = reduxForm<{}, FormValuesType>({ form: formName, enableReinitialize: true  })(ForecastForm)
 
 
-const ArticleFormBlock: FC<FormType> = ({ initialValues, onSubmitFunc, breadcrumbs = [], buttonText = "", ...props }) => {
+const ForecastFormBlock: FC<FormType> = ({ initialValues, onSubmitFunc, breadcrumbs = [], buttonText = "", ...props }) => {
 	console.log(initialValues)
 	const dispatch = useDispatch()
-	const handleSave = (formData: ArticleType) => {
+	const handleSave = (formData: ForecastType | any) => {
 		onSubmitFunc(formData)
-		
 	}
+
+	let initialData = initialValues.id && {
+		user_id: initialValues.user_data.id,
+		event_id: initialValues.event_data.event_id,
+		type: initialValues.bet_data.type,
+		coefficient: initialValues.bet_data.coefficient,
+		bet: initialValues.bet_data.bet,
+		forecast_text: initialValues.forecast_text,
+		status: initialValues.bet_data.status,
+	} as ForecastType | any
+
 
 	return (
 		<div>
 			<Breadcrumbs pathParams={breadcrumbs} />
-			<ReduxArticleForm
+			<ReduxForecastForm
 				onSubmit={handleSave}
-				initialValues={initialValues}
+				initialValues={initialData}
 				buttonText={buttonText}
+				dropdownLists={props.dropdownLists}
 			/>
 		</div>
 
@@ -95,4 +125,4 @@ const ArticleFormBlock: FC<FormType> = ({ initialValues, onSubmitFunc, breadcrum
 
 
 
-export default ArticleFormBlock;
+export default ForecastFormBlock;

@@ -1,11 +1,12 @@
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { withRouter, RouteComponentProps, Redirect } from 'react-router'
-import { AppStateType } from '../../../../types/types'
+import { AppStateType, ShortDataElementType } from '../../../../types/types'
 import { ForecastType } from '../../../../types/admin'
 import ForecastForm from './ForecastForm'
 
 import { getAdminForecastFromSErver, addForecast, editForecast } from '../../../../redux/admin-reducer'
+import { getShortData } from '../../../../redux/app-reducer'
 
 interface MatchParams {
 	forecastId: string;
@@ -17,7 +18,19 @@ const ForecastContainer: FC<Props> = ({ ...props }) => {
 	const forecast = useSelector<AppStateType, ForecastType>(state => state.admin.forecasts.currentForecast)
 	const dispatch = useDispatch()
 
+	let users = useSelector<AppStateType, Array<ShortDataElementType>>(state => state.app.shortData.users)
+	let events = useSelector<AppStateType, Array<ShortDataElementType>>(state => state.app.shortData.events)
+
+
 	let forecastId = props.match.params.forecastId;
+	useEffect(() => {
+		if (forecastId) {
+			dispatch(getAdminForecastFromSErver(+forecastId))
+		}
+		dispatch(getShortData('users'))
+		dispatch(getShortData('events'))
+	}, []);
+
 
 
 	const addForecastDispatch = async (formData: ForecastType) => {
@@ -54,14 +67,10 @@ const ForecastContainer: FC<Props> = ({ ...props }) => {
 		breadcrumbsObj = { text: 'Добавление прогноза', link: '/admin/forecasts/add' }
 		buttonText = "Добавить прогноз"
 	}
-	
-	useEffect(() => {
-		if (forecastId) {
-			dispatch(getAdminForecastFromSErver(+forecastId))
-		}
-	}, []);
-	
-	
+
+
+
+
 	return (
 		<ForecastForm
 			initialValues={initialValues}
@@ -72,6 +81,11 @@ const ForecastContainer: FC<Props> = ({ ...props }) => {
 				{ ...breadcrumbsObj }
 			]}
 			buttonText={buttonText}
+
+			dropdownLists={{
+				users: users,
+				events: events,
+			}}
 		/>
 	)
 }

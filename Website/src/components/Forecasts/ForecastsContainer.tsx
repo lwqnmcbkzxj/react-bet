@@ -24,6 +24,7 @@ const ForecastsContainer: FC<Props> = ({ ...props }) => {
 
 	const forecasts = useSelector<AppStateType, Array<ForecastType>>(state => state.forecasts.forecasts)
 	const filters = useSelector<AppStateType, FiltersObjectType>(state => state.forecasts.filters)
+	const searchText = useSelector<AppStateType, string>(state => state.forecasts.searchText)
 
 	const page = useSelector<AppStateType, number>(state => state.app.paginationObject.forecasts.page)
 	const limit = useSelector<AppStateType, number>(state => state.app.paginationObject.forecasts.limit)
@@ -39,7 +40,8 @@ const ForecastsContainer: FC<Props> = ({ ...props }) => {
 		sport: activeSportFilter,
 		time: activeTimeFilter,
 		subscribtion: activeSubscriptionFilter,
-		loggedUserId: loggedUser.id
+		loggedUserId: loggedUser.id,
+		search: searchText
 	}
 
 	useEffect(() => {

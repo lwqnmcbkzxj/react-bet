@@ -68,15 +68,22 @@ const UsersList: FC<UsersListPropsType> = ({ users, limit = 0, ...props }) => {
 	users.map((user, counter) => {
 		if (counter < limit || limit === 0) {
 			elements.push(
-				isFetching ? <div className={s.user}><MainPageUsersPlaceholder /></div>
+				!user.id || isFetching ? <div className={s.user}><MainPageUsersPlaceholder /></div>
 					:
 					<div>
 						<Link to={`/forecasters/${user.id}`}  className={s.user}>
 						<img className={s.userImg} src={user.avatar ? apiURL + user.avatar : userImgPlaceholder} alt="user-img" />
 						<div className={s.nickName}>{user.login}</div>
 						<div className={s.stats}>
-							<img src={statsImg} alt="stats-img" />
-							<p className={classNames(s.profit, s.positive)}>{user.stats && (+user.stats.roi).toFixed(2)}</p>
+								<img src={statsImg} alt="stats-img" />
+								{									
+									<p className={classNames(s.profit, {
+										[s.positive]: +user.stats.roi > 0,
+										[s.negative]: +user.stats.roi < 0,
+									})}>										
+										{user.stats && (100 * +user.stats.roi).toFixed(0) + "%"}
+									</p>
+								}
 						</div>
 					</Link>
 					</div>)

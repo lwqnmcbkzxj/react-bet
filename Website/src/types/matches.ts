@@ -35,3 +35,8 @@ export type MatchCoefficientType = {
 	updated_at: string
 	forecasts_count: number
 }
+
+export enum MatchStatusEnum {
+	uncompleted = 1,
+	completed = 2,
+}

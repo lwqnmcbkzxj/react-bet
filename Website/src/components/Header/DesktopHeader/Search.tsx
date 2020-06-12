@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { FC } from 'react';
 import s from './Header.module.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
-const Search = () => {
+type SearchPropsType = {
+	search: {
+		searchText: string
+		handleSearchTextChange: (searchText: string) => void
+		handleSearch: () => void
+	}
+}
+
+const Search: FC<SearchPropsType> = ({ ...props }) => {
+	let searchObj = props.search
 	return (
 		<div className={s.search_block} >
-			<input type="text" placeholder="поиск..."/>
-			<button><FontAwesomeIcon icon={faSearch} className={ s.searchIcon }/></button>
+			<input type="text" placeholder="поиск..." value={searchObj.searchText} onChange={(e) => { searchObj.handleSearchTextChange(e.target.value) }}/>
+			<button onClick={searchObj.handleSearch}><FontAwesomeIcon icon={faSearch} className={ s.searchIcon }/></button>
 		</div>
 	)
 }

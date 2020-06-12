@@ -17,8 +17,17 @@ const SET_BOOKMAKER = 'admin/SET_BOOKMAKER'
 const SET_FORECASTS = 'admin/SET_FORECASTS'
 const SET_FORECAST = 'admin/SET_FORECAST'
 
+const SET_EVENTS = 'admin/SET_EVENTS'
+const SET_EVENT = 'admin/SET_EVENT'
+
+const SET_CHAMPIONSHIPS = 'admin/SET_CHAMPIONSHIPS'
+const SET_CHAMPIONSHIP = 'admin/SET_CHAMPIONSHIP'
+
 const SET_BANNERS = 'admin/SET_BANNERS'
 const SET_BANNER = 'admin/SET_BANNER'
+
+
+
 const SET_PAGES_COUNT = 'admin/SET_PAGES_COUNT'
 const TOGGLE_IS_FETCHING = 'admin/TOGGLE_IS_FETCHING'
 
@@ -42,6 +51,14 @@ let initialState = {
 		bookmakers: [] as Array<BookmakerType>,
 		currentBookmaker: {} as BookmakerType
 	},
+	events: {
+		events: [] as Array<EventType>,
+		currentEvent: {} as EventType
+	},
+	championships: {
+		championships: [] as Array<ChampionshipType>,
+		currentChampionship: {} as ChampionshipType
+	},
 	banners: {
 		banners: [] as Array<BannerType>,
 		currentBanner: {} as BannerType
@@ -56,6 +73,8 @@ type ActionsTypes =
 	SetArticlesType | SetArticleType |
 	SetBookmakersType | SetBookmakerType |
 	SetForecastsType | SetForecastType |
+	SetEventsType | SetEventType |
+	SetChampionshipsType | SetChampionshipType |
 	SetBannersType | SetBannerType |
 	SetPagesCountType |
 	SetDashboardType | 
@@ -135,6 +154,44 @@ const adminReducer = (state = initialState, action: ActionsTypes): InitialStateT
 				bookmakers: {
 					...state.bookmakers,
 					currentBookmaker: action.bookmaker
+				}
+			}
+		}
+			
+		case SET_EVENTS: {
+			return {
+				...state,
+				events: {
+					...state.events,
+					events: [...action.events]
+				}
+			}
+		}
+		case SET_EVENT: {
+			return {
+				...state,
+				events: {
+					...state.events,
+					currentEvent: action.event
+				}
+			}
+		}
+			
+		case SET_CHAMPIONSHIPS: {
+			return {
+				...state,
+				championships: {
+					...state.championships,
+					championships: [...action.championships]
+				}
+			}
+		}
+		case SET_CHAMPIONSHIP: {
+			return {
+				...state,
+				championships: {
+					...state.championships,
+					currentChampionship: action.championship
 				}
 			}
 		}
@@ -228,6 +285,25 @@ type SetBookmakerType = {
 	type: typeof SET_BOOKMAKER,
 	bookmaker: BookmakerType
 }
+
+type SetEventsType = {
+	type: typeof SET_EVENTS,
+	events: Array<EventType>
+}
+type SetEventType = {
+	type: typeof SET_EVENT,
+	event: EventType
+}
+
+type SetChampionshipsType = {
+	type: typeof SET_CHAMPIONSHIPS,
+	championships: Array<ChampionshipType>
+}
+type SetChampionshipType = {
+	type: typeof SET_CHAMPIONSHIP,
+	championship: ChampionshipType
+}
+
 
 type SetBannersType = {
 	type: typeof SET_BANNERS,
@@ -333,13 +409,13 @@ export const getAdminForecastsFromServer = (page: number, limit: number, search 
 	dispatch(toggleIsFetching('forecasts'))
 	let response 
 	if (userId)
-		response = await adminAPI.forecsats.getAdminForecasts(page, limit, search, search_by)
+		response = await adminAPI.forecsats.getUserForecasts(page, limit, search, search_by, userId)	
 	else 
-		response = await adminAPI.forecsats.getUserForecasts(page, limit, search, search_by)	
+		response = await adminAPI.forecsats.getAdminForecasts(page, limit, search, search_by)
 		
 	dispatch(toggleIsFetching('forecasts'))
 	
-	dispatch(setPagesCount(response.last_page))
+	dispatch(setPagesCount(response.meta.last_page))
 	dispatch(setForecasts(response.data))
 }
 
@@ -470,7 +546,99 @@ export const deleteBookmaker = (id: number):ThunksType => async (dispatch) => {
 }
 // BOOKMAKERS END
 
-// DOCUMETNS START
+
+// EVENTS START
+export const getAdminEventsFromServer = (page: number, limit: number, search = "", search_by = ""):ThunksType => async (dispatch) => {
+	dispatch(toggleIsFetching('events'))
+	let response = await adminAPI.events.getAdminEvents(page, limit, search, search_by)	
+	dispatch(toggleIsFetching('events'))
+	
+	dispatch(setPagesCount(response.last_page))
+	dispatch(setEvents(response.data))
+}
+export const getAdminEventFromServer = (id: number): ThunksType => async (dispatch) => {
+
+	dispatch(toggleIsFetching('event'))
+	let response = await adminAPI.events.getAdminEvent(id)	
+	dispatch(toggleIsFetching('event'))
+
+	dispatch(setEvent(response))
+}
+const setEvents = (events: Array<EventType>): SetEventsType => {
+	return {
+		type: SET_EVENTS,
+		events
+	}
+}
+const setEvent = (event: EventType): SetEventType => {
+	return {
+		type: SET_EVENT,
+		event
+	}
+}
+export const addEvent = (formData: EventType):ThunksType => async (dispatch) => {
+	let response = await adminAPI.events.addEvent(formData)
+	showAlert('success', 'Событие успешно добавлено')
+}
+export const editEvent = (id: number, formData: EventType):ThunksType => async (dispatch) => {
+	let response = await adminAPI.events.editEvent(id, formData)
+	showAlert('success', 'Событие успешно изменено')
+}
+export const deleteEvent = (id: number):ThunksType => async (dispatch) => {
+	let response = await adminAPI.events.deleteEvent(id)
+	showAlert('success', 'Событие успешно удалено')
+}
+// EVENTS END
+
+
+// EVENTS START
+export const getAdminChampionshipsFromServer = (page: number, limit: number, search = "", search_by = ""):ThunksType => async (dispatch) => {
+	dispatch(toggleIsFetching('championships'))
+	let response = await adminAPI.championships.getAdminChampionships(page, limit, search, search_by)	
+	dispatch(toggleIsFetching('championships'))
+	
+	dispatch(setPagesCount(response.last_page))
+	dispatch(setChampionships(response.data))
+}
+export const getAdminChampionshipFromServer = (id: number): ThunksType => async (dispatch) => {
+
+	dispatch(toggleIsFetching('championship'))
+	let response = await adminAPI.championships.getAdminChampionship(id)	
+	dispatch(toggleIsFetching('championship'))
+
+	dispatch(setChampionship(response))
+}
+const setChampionships = (championships: Array<ChampionshipType>): SetChampionshipsType => {
+	return {
+		type: SET_CHAMPIONSHIPS,
+		championships
+	}
+}
+const setChampionship = (championship: ChampionshipType): SetChampionshipType => {
+	return {
+		type: SET_CHAMPIONSHIP,
+		championship
+	}
+}
+export const addChampionship = (formData: ChampionshipType):ThunksType => async (dispatch) => {
+	let response = await adminAPI.championships.addChampionship(formData)
+	showAlert('success', 'Чемпионат успешно добавлен')
+}
+export const editChampionship = (id: number, formData: ChampionshipType):ThunksType => async (dispatch) => {
+	let response = await adminAPI.championships.editChampionship(id, formData)
+	showAlert('success', 'Чемпионат успешно изменен')
+}
+export const deleteChampionship = (id: number):ThunksType => async (dispatch) => {
+	let response = await adminAPI.championships.deleteChampionship(id)
+	showAlert('success', 'Чемпионат успешно удален')
+}
+// EVENTS END
+
+
+
+
+
+// APP START
 export const changePolicy = (text: string):ThunksType => async (dispatch) => {
 	let response = await adminAPI.app.changePolicy(text)
 	showAlert('success', 'Успешно изменено')

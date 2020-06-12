@@ -117,7 +117,7 @@ type FormType = {
 	insideComponent: any
 }
 
-
+const formName = 'add-express'
 const AddElementForm: FC<FormType & InjectedFormProps<{}, FormType>> = (props: any) => {
 	let sports = ['Футбол', 'Теннис', 'Хоккей', 'Другое'];
 	let bookmakers = ['1XСТАВКА', 'BETCITY', 'ЛигаСтавок'];
@@ -129,11 +129,11 @@ const AddElementForm: FC<FormType & InjectedFormProps<{}, FormType>> = (props: a
 		<form onSubmit={props.handleSubmit}>
 
 			<div className={s.groupedInputs}>
-				{createDropdown('bookmaker', 'Букмекерская контора', { elements: bookmakers })}
-				{createDropdown('sport', 'Вид спорта', { elements: sports })}
+				{createDropdown('bookmaker', 'Букмекерская контора', props.formName, { elements: bookmakers })}
+				{createDropdown('sport', 'Вид спорта', props.formName, { elements: sports })}
 			</div>
-			{createDropdown('championship', 'Чемпионат', { elements: champinships })}
-			{createDropdown('team', 'Команды', { elements: teams })}
+			{createDropdown('championship', 'Чемпионат', props.formName, { elements: champinships })}
+			{createDropdown('team', 'Команды', props.formName, { elements: teams })}
 
 			<div className={s.groupedInputs}>
 				{createField('date', Input, 'Дата события', { mask: dateMask })}
@@ -181,7 +181,7 @@ const AddElementForm: FC<FormType & InjectedFormProps<{}, FormType>> = (props: a
 
 
 
-let ReduxAddElementForm = reduxForm<{}, FormType>({ form: 'add-express', enableReinitialize: true })(AddElementForm)
+let ReduxAddElementForm = reduxForm<{}, FormType>({ form: formName, enableReinitialize: true })(AddElementForm)
 
 
 export default AddElement;

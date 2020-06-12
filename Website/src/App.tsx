@@ -44,10 +44,12 @@ import { authUser } from './redux/me-reducer'
 import useMobile from './hooks/useMobile'
 import { UserType } from './types/me'
 
+const Admin = React.lazy(() => import('./components/Admin/Admin'))
 const ForecastsContainer = React.lazy(() => import('./components/Forecasts/ForecastsContainer'))
 const ForecastContainer = React.lazy(() => import('./components/Forecast/ForecastContainer'))
 const AddElementContainer = React.lazy(() => import('./components/Forecasts/AddElement/AddElementContainer'))
 const MainPageContainer = React.lazy(() => import('./components/MainPage/MainPageContainer'))
+
 
 const App = (props: any) => {
 	const isMobile = useMobile(768)
@@ -75,9 +77,9 @@ const App = (props: any) => {
 	}, [options])
 	return (
 		<Switch>
-			{/* { loggedUser.role_id >  2 &&  */}
-				<Route path="/admin" render={() => <Admin />} />
-			 {/* } */}
+			{loggedUser.role_id > 2 &&
+				<Route path="/admin" render={withSuspense(Admin)} />
+			}
 
 			<Route component={() =>
 				<div className="app-wrapper">
@@ -98,8 +100,6 @@ const App = (props: any) => {
 								<Route exact path="/forecasts/:forecastId" render={withSuspense(ForecastContainer)} />
 								<Route path="/forecasts/add" render={withSuspense(AddElementContainer)} />
 
-
-
 								<Route exact path="/bookmakers" render={() => <BookmakersContainer />} />
 								<Route exact path="/bookmakers/:bookmakerId" render={() => <BookmakerContainer />} />
 
@@ -110,7 +110,6 @@ const App = (props: any) => {
 								<Route exact path="/articles/:articleId" render={() => <ArticleContainer />} />
 
 								<Route exact path="/news" render={() => <NewsContainer />} />
-								{/* <Route exact path="/news/:newsId" render={() => <NewsSingleContainer />} /> */}
 
 								<Route exact path="/feedback" render={() => <Feedback />} />
 								<Route exact path="/policy" render={() => <Policy />} />

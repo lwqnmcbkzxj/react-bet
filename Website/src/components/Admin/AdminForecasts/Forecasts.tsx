@@ -22,7 +22,7 @@ type ForecastsProps = {
 
 const Forecasts: FC<ForecastsProps> = ({ handleSearch, deleteFunction, pages, data, ...props }) => {
 	return (
-		<div className={s.articlesAdminPage}>
+		<div className={s.forecastsAdminPage}>
 			<AdminTablePage
 				pageLink={'forecasts'}
 				breadcrumbs={[
@@ -31,7 +31,7 @@ const Forecasts: FC<ForecastsProps> = ({ handleSearch, deleteFunction, pages, da
 				]}
 				actions={{
 					search: {
-						placeholder: 'Поиск по событию',
+						placeholder: 'Поиск',
 						handleSearch: handleSearch
 					},
 					addNewElementText: 'Добавить новый прогноз',

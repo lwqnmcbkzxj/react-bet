@@ -19,7 +19,7 @@ type AdminTableType = {
 		dataArray: Array<any>
 	}
 	deleteFunction: (id: number) => void
-
+	AdditionalActionComponent?: any
 	pages: {
 		pagesCount: number
 		currentPage: number
@@ -35,6 +35,7 @@ const AdminTable: FC<AdminTableType> = ({
 	labels = ['ID', 'Заголовок'],
 	data,
 	deleteFunction,
+	AdditionalActionComponent,
 	pages,
 	...props }) => {
 
@@ -66,6 +67,7 @@ const AdminTable: FC<AdminTableType> = ({
 									id={dataItem.id}
 									pageLink={pageLink}
 									deleteFunction={deleteFunction}
+									AdditionalActionComponent={AdditionalActionComponent}
 								/>
 							</td>
 						</tr>

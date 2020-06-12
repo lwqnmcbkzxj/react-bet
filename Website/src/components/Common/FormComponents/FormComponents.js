@@ -7,6 +7,7 @@ import { faEye, faEyeSlash, faCaretDown } from '@fortawesome/free-solid-svg-icon
 import { useDispatch, } from 'react-redux';
 import { Editor } from '@tinymce/tinymce-react';
 import TinyMCEditorComponent from '../TinyMCEditor/TinyMCEditor'
+import { List, AutoSizer, CellMeasurer } from 'react-virtualized';
 
 export function createField(
 	name,
@@ -102,25 +103,6 @@ export const FormatTextarea = (props) => {
 				content={input.value}
 				onChange={handleEditorChange}
 			/>
-			{/* <Editor
-			initialValue=""
-			apiKey="f9t701hao1hpemnseqy90ucyvi5sg9rw6f392kvzckjc8fjh"
-			value={input.value}
-			init={{
-				height: 500,
-				menubar: false,
-				plugins: [
-					'advlist autolink lists charmap print preview anchor media file image forecolor backcolor autolink link',
-					'searchreplace visualblocks code fullscreen wordcount',
-					'insertdatetime media table contextmenu paste code',
-				  ].join(' '),
-				toolbar: `undo redo | insert | styleselect | bold italic forecolor backcolor | 
-				alignleft aligncenter alignright alignjustify | 
-				  bullist numlist outdent indent | file media image link`,
-				 
-			}}
-			onEditorChange={handleEditorChange}
-		/>  */}
 		</div>
 
 	)
@@ -145,7 +127,6 @@ export const File = (props) => {
 						e.preventDefault();
 						const files = [...e.target.files];
 						dispatch(change(props.formName, input.name, files[0]))
-						debugger
 						props.onChangeFunc(files[0])
 					}
 				}
@@ -217,14 +198,16 @@ export const Number = (props) => {
 export function createDropdown(
 	name = "",
 	label = "",
+	formName = "",
 	props = {}) {
 	return (
-		<DropDownSelect label={label} name={name}  {...props} />
+		<DropDownSelect label={label} name={name} formName={formName} {...props} />
 	)
 }
 
 
-export const DropDownSelect = ({ elements, name, ...props }) => {
+export const DropDownSelect = ({ elements, name, formName, ...props }) => {
+	debugger
 	const dispatch = useDispatch()
 	const { input, label } = props;
 
@@ -247,48 +230,65 @@ export const DropDownSelect = ({ elements, name, ...props }) => {
 		};
 	}, [dropdownVisible]);
 
-	const [activeElement, setActiveElement] = useState(elements[0])
-
+	const [activeElement, setActiveElement] = useState(elements.length > 0 && elements[0])
+	useEffect(() => {
+		if (elements.length > 0)
+			setActiveElement(elements[0])
+	}, [elements])
 	const handleSetActiveElement = (value) => {
 		setActiveElement(value)
-		dispatch(change('add-element', name, value))
+		dispatch(change(formName, name, value.id))
 	}
 
-	const getListElementFromValue = (value, key = 0) => {
-		let isActive = (value === activeElement)
+	const getListElementFromValue = (element) => {
+		let isActive = (element.id === activeElement.id)
 		return (
 			<div
 				className={cn(s.dropDownElement, { [s.activeDropdownElement]: isActive })}
-				key={key}
+				key={element.id}
 				onClick={(e) => {
-					handleSetActiveElement(value)
+					handleSetActiveElement(element)
 					toggleDropdownVisibility()
 				}}
 			>
-				<Field type="radio" component="input" name={name} id={name + "." + value} value={value} />
-				<label htmlFor={name + "." + value} >{value}</label>
+				<Field type="radio" component="input" name={name} id={name + "." + element.id} value={element.id} />
+				<label htmlFor={name + "." + element.id} >{element.value}</label>
 				{isActive && <FontAwesomeIcon className={cn(s.dropDownArrow, { ["fa-rotate-180"]: dropdownVisible })} icon={faCaretDown} />}
 			</div>
 		)
 	}
 	let activeElementBlock = getListElementFromValue(activeElement)
+	elements = elements.filter(element => element.id !== activeElement.id)
 
+	
+	function rowRenderer({ key, index, style }) {
+		return (
+			<div key={key} style={style}>
+				{elements[index].id !== activeElement.id && getListElementFromValue(elements[index])}
+			</div>
+		);
+	}
 
-	let elementsList = elements.map((element, counter = 1) =>
-		element !== activeElement &&
-		getListElementFromValue(element, counter)
-	)
-
-
+	let lineHeight = 46
 	return (
-		<div className={s.inputBlock} ref={dropDownRef}>
+		<div className={s.dropdownBlock} ref={dropDownRef}>
 			<label htmlFor={label}>{label}</label>
 			{activeElementBlock}
 
 			{dropdownVisible &&
-				<div className={s.elementsList}>
-					{elementsList}
-				</div>}
+				<AutoSizer>
+					{({ height, width }) => (
+						<List
+							className={cn(s.elementsList)}
+							width={width}
+							height={7 * lineHeight + 2}
+							rowCount={elements.length}
+							rowHeight={lineHeight}
+							rowRenderer={rowRenderer}
+						/>
+					)}
+				</AutoSizer>
+			}
 		</div>
 	);
 }

@@ -44,7 +44,6 @@ const SubscribeButton: FC<SubscribeButtonPropsType> = ({ userId, responsive = tr
 
 
 	let profileBtn
-	debugger
 	if (subscribed) {
 		
 		let icon

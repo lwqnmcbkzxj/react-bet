@@ -26,6 +26,7 @@ type AdminTablePageType = {
 			pagesPerPage: number
 			handleChangePagesPerPage: (pagesPerPage: number) => void
 		}
+		AdditionalActionComponent?: any
 	}
 	tableData: {
 		labels: Array<string>
@@ -60,6 +61,7 @@ const AdminTablePage: FC<AdminTablePageType> = ({ pageLink, breadcrumbs, actions
 				}}
 				deleteFunction={actions.deleteFunction}
 				pages={actions.pages}
+				AdditionalActionComponent={actions.AdditionalActionComponent}
 			/>
 		</div>
 	)

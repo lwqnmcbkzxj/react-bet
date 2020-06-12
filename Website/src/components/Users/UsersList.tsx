@@ -64,14 +64,14 @@ const UsersList: FC<UsersListPropsType> = ({ users, limit = 0, instanceName = "u
 							[s.positive] : +user.stats.roi > 0,
 							[s.negative] : +user.stats.roi < 0,
 						})}>
-							{+user.stats.roi > 0 ? "+" : +user.stats.roi < 0 ? "-" : ""}{(+user.stats.roi).toFixed(2)}
+							{+user.stats.roi > 0 ? "+" : ""}{(100 * +user.stats.roi).toFixed(0) + "%"}
 						</div>
 						
 						<div className={classNames(s.profit, {
 							[s.positive] : +user.stats.pure_profit > 0,
 							[s.negative] : +user.stats.pure_profit < 0,
 						})}>
-							{+user.stats.pure_profit > 0 ? "+" : +user.stats.pure_profit < 0 ? "-" : ""}{(+user.stats.pure_profit)}
+							{+user.stats.pure_profit > 0 ? "+" : ""}{(+user.stats.pure_profit).toFixed(0)}
 						</div>
 
 					</div>

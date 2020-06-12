@@ -1,0 +1,10 @@
+.usersAdminPage {
+	& table {
+		& th:nth-child(3) div, & td:nth-child(3) div {
+			min-width: 140px;
+		}
+		& th:nth-child(5) div, & td:nth-child(5) div {
+			min-width: 140px;
+		}
+	}
+}

@@ -10,7 +10,7 @@ import { toggleAuthFormVisiblility } from '../../../redux/app-reducer'
 
 import { rateForecast } from '../../../redux/forecasts-reducer'
 import { ratePost } from '../../../redux/articles-reducer'
-import { rateComment } from '../../../redux/app-reducer'
+import { rateComment } from '../../../redux/comments-reducer'
 
 type LikesBlockPropsType = {
 	likes: number

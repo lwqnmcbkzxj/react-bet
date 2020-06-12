@@ -68,5 +68,4 @@ export enum ForecastStatusEnum {
 	wait = 1,
 	win = 2,
 	loss = 3
-		
 }

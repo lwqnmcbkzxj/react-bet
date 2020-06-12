@@ -1,11 +1,11 @@
 import { AppStateType, CommentType } from '../types/types'
 
 import { ForecastType } from '../types/forecasts'
-import { timeFilterEnum, subscriptionFilterEnum, sportTypeFilterEnum, FilterNames, FiltersObjectType, FilterType } from '../types/filters'
+import { timeFilterEnum, subscriptionFilterEnum, FilterNames, FiltersObjectType, FilterType } from '../types/filters'
 import { SportType } from '../types/types'
 
 import { ThunkAction } from 'redux-thunk'
-import { forecastsAPI, appAPI } from '../api/api'
+import { forecastsAPI, commentsAPI } from '../api/api'
 
 import { setPaginationTotalCount, SetPaginationTotalCountType } from './app-reducer'
 
@@ -15,6 +15,8 @@ const SET_FORECASTS = 'forecasts/SET_FORECASTS'
 const SET_FORECAST = 'forecasts/SET_FORECAST'
 const SET_SPORTS = 'app/SET_SPORTS'
 const SET_FORECAST_COMMENTS = 'forecasts/SET_FORECAST_COMMENTS'
+const SET_SEARCH_TEXT = 'forecasts/SET_SEARCH_TEXT'
+const SET_FORECAST_FAVOURITE = 'forecasts/SET_FORECAST_FAVOURITE'
 
 let initialState = {
 	forecasts: [{}, {}, {}, {}, {}] as Array<ForecastType>,
@@ -35,6 +37,7 @@ let initialState = {
 
 	} as FiltersObjectType,
 	currentForecast: {} as ForecastType,
+	searchText: '' as string, // Forecast content, championship, event name
 	isFetching: false,
 }
 
@@ -43,9 +46,10 @@ type ActionsTypes =
 	ToggleFilterType |
 	SetForecastsType |
 	SetForecastType |
-	SetForecastComments |
+	SetForecastComments | SetForecastFavourite |
 	ToggleIsFetchingType |
 	SetForecastsSportsType |
+	SetSearchTextType |
 	SetPaginationTotalCountType;
 
 const forecastsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
@@ -97,7 +101,30 @@ const forecastsReducer = (state = initialState, action: ActionsTypes): InitialSt
 				isFetching: action.isFetching
 			}
 		}
-		
+		case SET_SEARCH_TEXT: {
+			return {
+				...state,
+				searchText: action.searchText
+			}			
+		}
+		case SET_FORECAST_FAVOURITE: {
+			let decision = 1
+			if (state.currentForecast.is_marked)
+				decision = -1
+			return {
+				...state,
+				currentForecast: {
+					...state.currentForecast,
+					is_marked: !state.currentForecast.is_marked,
+					forecast_stats: {
+						...state.currentForecast.forecast_stats,
+						count_subscribers: state.currentForecast.forecast_stats.count_subscribers + decision
+					}
+				}
+			}
+		}
+			
+			
 		case SET_SPORTS: {
 			let filters = state.filters
 			if (action.sports.length > 0) {
@@ -144,7 +171,14 @@ type SetForecastComments = {
 	id: number
 	comments: Array<CommentType>
 }
+type SetSearchTextType = {
+	type: typeof SET_SEARCH_TEXT,
+	searchText: string
+}
 
+type SetForecastFavourite = {
+	type: typeof SET_FORECAST_FAVOURITE
+}
 
 export type SetForecastsSportsType = {
 	type: typeof SET_SPORTS
@@ -208,6 +242,12 @@ export const toggleIsForecastsFetching = (isFetching: boolean): ToggleIsFetching
 	}
 }
 
+export const setSearchText = (searchText: string): SetSearchTextType => {
+	return {
+		type: SET_SEARCH_TEXT,
+		searchText
+	}
+}
 export const rateForecast = (id: number, type: number): ThunksType => async (dispatch) => {
 	if (type === 1) {
 		let response = await forecastsAPI.likeForecast(id)
@@ -217,10 +257,14 @@ export const rateForecast = (id: number, type: number): ThunksType => async (dis
 }
 export const favouriteForecast = (id: number): ThunksType => async (dispatch) => {
 	let response = await forecastsAPI.favouriteForecast(id)
+
+	dispatch({
+		type: SET_FORECAST_FAVOURITE
+	})
 }
 
 export const getForecastComments = (id: number, filterName: string): ThunksType => async (dispatch) => {
-	let response = await appAPI.comments.getComments(id, 'forecasts', filterName)
+	let response = await commentsAPI.getComments(id, 'forecasts', filterName)
 
 	dispatch({
 		type: SET_FORECAST_COMMENTS,

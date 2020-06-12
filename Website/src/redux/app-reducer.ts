@@ -1,4 +1,4 @@
-import { AppStateType } from '../types/types'
+import { AppStateType, ShortDataElementType } from '../types/types'
 import { languageEnum, LanguageType } from '../types/filters'
 import { ThunkAction } from 'redux-thunk'
 import { SportType } from '../types/types'
@@ -27,13 +27,15 @@ const SET_PAGINATION_LIMIT = 'app/SET_PAGINATION_LIMIT'
 const SET_PAGINATION_PAGE = 'app/SET_PAGINATION_PAGE'
 const SET_PAGINATION_TOTAL_COUNT = 'app/SET_PAGINATION_TOTAL_COUNT'
 
+const SET_SHORT_DATA = 'app/SET_SHORT_DATA'
+
 
 
 let initialState = {
 	redirectLink: "",
 	shouldRedirect: false,
 	isAuthFormVisible: false,
-	isCommentsBlockVisible: false,
+	isCommentsBlockVisible: true,
 	mainPageBlocksVisibility: {} as any,
 	activeProfileTab: "forecasts",
 	languages: [
@@ -52,6 +54,12 @@ let initialState = {
 		bookmakers: { totalCount: 0, page: 1, limit: 15 },
 		matches: { totalCount: 0, page: 1, limit: 15 },
 		news: { totalCount: 0, page: 1, limit: 15 },
+	},
+	shortData: {
+		users: [] as Array<ShortDataElementType>,
+		events: [] as Array<ShortDataElementType>,
+		championships: [] as Array<ShortDataElementType>,
+		bookmakers: [] as Array<ShortDataElementType>,
 	}
 }
 
@@ -67,7 +75,9 @@ type ActionsTypes =
 	ChangeUserPageActiveTabType |
 	SetPolicyType | SetTermsType |
 	SetSportsType | SetOptionsType |
+	SetPaginationLimitType | SetPaginationPageType | SetPaginationTotalCountType |
 	SetBannersType |
+	SetShortDataType;
 
 const appReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
@@ -85,7 +95,7 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 		case TOGGLE_COMMENTS_BLOCK_VISIBILITY: {
 			return {
 				...state,
-				// isCommentsBlockVisible: !state.isCommentsBlockVisible
+				isCommentsBlockVisible: !state.isCommentsBlockVisible
 			}
 		}
 
@@ -198,7 +208,6 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 			}
 		}
 		case SET_PAGINATION_PAGE: {
-			debugger
 			let key = action.instanceName as "forecasts" | "articles" | "users" | "bookmakers"
 			let instanceObject = state.paginationObject[key]
 
@@ -240,6 +249,16 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 			return {
 				...state,
 				banners: [...action.banners]
+			}
+		}
+		case SET_SHORT_DATA: {
+			let key = action.instanceName as "users" | "events" | "championships" | "bookmakers"
+			return {
+				...state,
+				shortData: {
+					...state.shortData,
+					[key]:  [...action.data]
+				}
 			}
 		}
 		default:
@@ -302,6 +321,11 @@ type SetBannersType = {
 	banners: Array<BannerType>
 }
 
+type SetShortDataType = {
+	type: typeof SET_SHORT_DATA,
+	data: Array<ShortDataElementType>
+	instanceName: string
+}
 
 export type SetPaginationLimitType = {
 	type: typeof SET_PAGINATION_LIMIT,
@@ -414,29 +438,6 @@ export const sendEmail = (email: string, text: string): ThunksType => async (dis
 	dispatch(stopSubmit("feedback", { _error: '' }))
 }
 
-export const sendComment = (id: number, type: string, text: string, reply_id?: number): ThunksType => async (dispatch) => {
-	let response
-
-	if (reply_id === -1) {
-		response = await appAPI.comments.sendComment(id, type, text)
-	} else {
-		response = await appAPI.comments.sendComment(id, type, text, reply_id)
-	}
-
-	if (!response.message)
-		showAlert('success', 'Комментарий отправлен')
-	else 
-		showAlert('error', 'Не удалось отправить комментарий')
-}
-export const rateComment = (id: number, rateType: number): ThunksType => async (dispatch) => {
-	let response
-	if (rateType === 1) {
-		response = await appAPI.comments.likeComment(id)
-	} else if (rateType === 2) {
-		response = await appAPI.comments.dislikeComment(id)
-	}
-}
-
 export const getPolicy = (): ThunksType => async (dispatch) => {
 	let response = await appAPI.getPolicy()
 	dispatch(setPolicy(response.text))
@@ -506,6 +507,19 @@ const setBanners = (banners: Array<BannerType>): SetBannersType => {
 		banners,
 	}
 }
+
+export const getShortData = (instanceName: string): ThunksType => async (dispatch) => {
+	let response = await appAPI.getShortData(instanceName)
+	dispatch(setShortData(response, instanceName))
+}
+const setShortData = (data: Array<ShortDataElementType>, instanceName: string): SetShortDataType => {
+	return {
+		type: SET_SHORT_DATA,
+		data,
+		instanceName
+	}
+}
+
 
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 

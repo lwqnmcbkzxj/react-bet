@@ -94,7 +94,7 @@
 		& .tableHeader,
 		& .bet {
 			display: grid;
-			grid-template-columns: 4fr 1fr 2fr 2fr;
+			grid-template-columns: 3fr 2fr 2fr 2fr;
 			grid-gap: 10px;
 			justify-items: center;
 			align-items: center;
@@ -105,6 +105,9 @@
 
 			& .forecaster {
 				justify-self: flex-start;
+			}
+			& .betType {
+				text-align: center;
 			}
 		}
 
@@ -189,7 +192,7 @@
 			& .tableHeader,
 			& .bet {
 				display: grid;
-				grid-template-columns: 4fr 1fr 2fr 2fr;
+				grid-template-columns: 4fr 2fr 2fr 2fr;
 				font-size: 14px;
 				line-height: 16px;
 			}

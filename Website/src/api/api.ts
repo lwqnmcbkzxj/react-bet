@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import qs from 'query-string'
-import { UserType, BookmakerType, ForecastType } from '../types/admin';
+import { UserType, BookmakerType, ForecastType, ChampionshipType, EventType } from '../types/admin';
 import { OptionsType } from '../types/types';
 
 export const apiURL = "https://app.betthub.org"
@@ -72,7 +72,7 @@ export const userAPI = {
 			.then((response) => {
 				return response.data
 			}).catch(err => err);
-	},	
+	},
 	getUserInfo() {
 		return instance.get(`users/profile`)
 			.then((response) => {
@@ -81,11 +81,12 @@ export const userAPI = {
 	}
 }
 
-
-
 export const forecastsAPI = {
 	getForecasts(page: number, limit: number, options: any) {
-		return instance.get(`/forecasts?page=${page}&limit=${limit}`, {
+		let searchText = ''
+		if (options.search)
+			searchText = `&search=${options.search}`
+		return instance.get(`/forecasts?page=${page}&limit=${limit}${searchText}`, {
 			params: {
 				sport_id: options.sport,
 				time: options.time
@@ -126,14 +127,14 @@ export const forecastsAPI = {
 			.then((response) => {
 				return response.data
 			});
-	},	
+	},
 	likeForecast(id: number) {
 		return instance.post(`forecasts/${id}/like`)
 			.then((response) => {
 				return response.data
-			
+
 			});
-	},	
+	},
 	dislikeForecast(id: number) {
 		return instance.post(`forecasts/${id}/dislike`)
 			.then((response) => {
@@ -217,7 +218,7 @@ export const postsAPI = {
 			.then((response) => {
 				return response.data
 			});
-	},	
+	},
 }
 
 export const usersAPI = {
@@ -225,7 +226,7 @@ export const usersAPI = {
 		let month = 0
 
 		if (+options.time) {
-			month = Math.ceil(options.time / 744) 
+			month = Math.ceil(options.time / 744)
 		}
 		return instance.get(`users?page=${page}&limit=${limit}`, {
 			params: {
@@ -247,6 +248,39 @@ export const usersAPI = {
 			.then((response) => {
 				return response.data
 			});
+	}
+}
+
+export const commentsAPI = {
+	getLiveComments(timestamp: number) {
+		return instance.get(`/comments?timestamp=${timestamp}`)
+			.then((response) => {
+				return response.data
+			}).catch(err => err);
+	},
+	getComments(id: number, type: string, filterName: string) {
+		return instance.get(`/${type}/${id}/comments?order_by=${filterName}`)
+			.then((response) => {
+				return response.data
+			}).catch(err => err);
+	},
+	sendComment(id: number, type: string, text: string, reply_id?: number) {
+		return instance.post(`${type}/${id}/comment`, { text, replies_to: reply_id })
+			.then((response) => {
+				return response.data
+			}).catch(err => err);
+	},
+	likeComment(id: number) {
+		return instance.post(`comments/${id}/like`)
+			.then((response) => {
+				return response.data
+			}).catch(err => err);
+	},
+	dislikeComment(id: number) {
+		return instance.post(`comments/${id}/dislike`)
+			.then((response) => {
+				return response.data
+			}).catch(err => err);
 	}
 }
 
@@ -297,43 +331,23 @@ export const appAPI = {
 		});
 	},
 
-	comments: {
-		getComments(id: number, type: string, filterName: string) {
-			return instance.get(`/${type}/${id}/comments?order_by=${filterName}`)
-				.then((response) => {
-					return response.data
-				}).catch(err => err);
-		},
-		sendComment(id: number, type: string, text: string, reply_id?: number) {
-			return instance.post(`${type}/${id}/comment`, { text, replies_to: reply_id } )
-				.then((response) => {
-					return response.data
-				}).catch(err => err);
-		},
-		likeComment(id: number) {
-			return instance.post(`comments/${id}/like` )
-				.then((response) => {
-					return response.data
-				}).catch(err => err);
-		},
-		dislikeComment(id: number) {
-			return instance.post(`comments/${id}/dislike` )
-				.then((response) => {
-					return response.data
-				}).catch(err => err);
-		}
-	}
-	
+	// short data for dropdowns (users,championships, )
+	getShortData(instanceName: String) {
+		return instance.get(`/${instanceName}/short`)
+			.then((response) => {
+				return response.data
+			}).catch(err => err);
+	},
 }
 
 export const adminAPI = {
 	posts: {
 		getAdminPosts(page: number, limit: number, search: string, search_by: string) {
-			let searchString =''
+			let searchString = ''
 			if (search && search_by) {
 				searchString = `&search=${search}&search_by=${search_by}`
 			}
-			
+
 			return instance.get(`admin/posts?page=${page}&limit=${limit}` + searchString)
 				.then((response) => {
 					return response.data
@@ -373,14 +387,13 @@ export const adminAPI = {
 				});
 		},
 	},
-
 	users: {
 		getAdminUsers(page: number, limit: number, search: string, search_by: string) {
-			let searchString =''
+			let searchString = ''
 			if (search && search_by) {
 				searchString = `&search=${search}&search_by=${search_by}`
 			}
-			
+
 			return instance.get(`admin/users?page=${page}&limit=${limit}` + searchString)
 				.then((response) => {
 					return response.data
@@ -394,14 +407,22 @@ export const adminAPI = {
 		},
 
 
-		addUser(userObject: UserType) {
-			return instance.post(`admin/users`, { ...userObject })
+		addUser(userObject: UserType | any) {
+			let formData = new FormData()
+			for (let key in userObject) {
+				formData.append(key, userObject[key])
+			}
+			return instance.post(`admin/users`, formData, { headers: { 'Content-type': 'multipart/form-data' } })
 				.then((response) => {
 					return response.data
 				});
 		},
-		editUser(id: number, userObject: UserType) {
-			return instance.post(`admin/users/${id}`, { ...userObject })
+		editUser(id: number, userObject: UserType | any) {
+			let formData = new FormData()
+			for (let key in userObject) {
+				formData.append(key, userObject[key])
+			}
+			return instance.post(`admin/users/${id}`, formData, { headers: { 'Content-type': 'multipart/form-data' } })
 				.then((response) => {
 					return response.data
 				});
@@ -415,23 +436,23 @@ export const adminAPI = {
 	},
 	forecsats: {
 		getAdminForecasts(page: number, limit: number, search: string, search_by: string) {
-			let searchString =''
-			if (search && search_by) {
-				searchString = `&search=${search}&search_by=${search_by}`
+			let searchString = ''
+			if (search) {
+				searchString = `&search=${search}`
 			}
-			
+
 			return instance.get(`admin/forecasts?page=${page}&limit=${limit}` + searchString)
 				.then((response) => {
 					return response.data
 				});
 		},
-		getUserForecasts(page: number, limit: number, search: string, search_by: string) {
-			let searchString =''
-			if (search && search_by) {
-				searchString = `&search=${search}&search_by=${search_by}`
+		getUserForecasts(page: number, limit: number, search: string, search_by: string, userId: number) {
+			let searchString = ''
+			if (search) {
+				searchString = `&search=${search}`
 			}
-			
-			return instance.get(`admin/forecasts?page=${page}&limit=${limit}` + searchString)
+
+			return instance.get(`admin/users/${userId}/forecasts?page=${page}&limit=${limit}` + searchString)
 				.then((response) => {
 					return response.data
 				});
@@ -509,7 +530,87 @@ export const adminAPI = {
 				});
 		},
 	},
-	documents: {
+	events: {
+		getAdminEvents(page: number, limit: number, search: string, search_by: string) {
+			let searchString = ''
+			if (search && search_by) {
+				searchString = `&search=${search}&search_by=${search_by}`
+			}
+
+			return instance.get(`admin/events?page=${page}&limit=${limit}` + searchString)
+				.then((response) => {
+					return response.data
+				});
+		},
+		getAdminEvent(id: number) {
+			return instance.get(`admin/events/${id}`)
+				.then((response) => {
+					return response.data
+				});
+		},
+
+		addEvent(dataObject: EventType) {
+			
+			return instance.post(`admin/events`, {...dataObject})
+				.then((response) => {
+					return response.data
+				});
+		},
+		editEvent(id: number, dataObject: EventType) {
+			
+			return instance.post(`admin/events/${id}`, {...dataObject})
+				.then((response) => {
+					return response.data
+				});
+		},
+		deleteEvent(id: number) {
+			return instance.delete(`admin/events/${id}`)
+				.then((response) => {
+					return response.data
+				});
+		},
+	},
+	championships: {
+		getAdminChampionships(page: number, limit: number, search: string, search_by: string) {
+			let searchString = ''
+			if (search && search_by) {
+				searchString = `&search=${search}&search_by=${search_by}`
+			}
+
+			return instance.get(`admin/championships?page=${page}&limit=${limit}` + searchString)
+				.then((response) => {
+					return response.data
+				});
+		},
+		getAdminChampionship(id: number) {
+			return instance.get(`admin/championships/${id}`)
+				.then((response) => {
+					return response.data
+				});
+		},
+
+		addChampionship(dataObject: ChampionshipType) {
+			
+			return instance.post(`admin/championships`, {...dataObject})
+				.then((response) => {
+					return response.data
+				});
+		},
+		editChampionship(id: number, dataObject: ChampionshipType) {
+			
+			return instance.post(`admin/championships/${id}`, {...dataObject})
+				.then((response) => {
+					return response.data
+				});
+		},
+		deleteChampionship(id: number) {
+			return instance.delete(`admin/championships/${id}`)
+				.then((response) => {
+					return response.data
+				});
+		},
+	},
+	app: {
 		changePolicy(text: string) {
 			return instance.post(`admin/policy`, { text })
 				.then((response) => {

@@ -10,12 +10,14 @@ type AdminTableType = {
 	id: number
 	pageLink: string
 	deleteFunction: (id: number) => void
+	AdditionalActionComponent?: any
 }
 
 
-const ActionsBlock: FC<AdminTableType> = ({ id, pageLink, deleteFunction, ...props }) => {
+const ActionsBlock: FC<AdminTableType> = ({ id, pageLink, deleteFunction, AdditionalActionComponent, ...props }) => {
 	return (
 		<div className={s.actionsBlock}>
+			{AdditionalActionComponent && <AdditionalActionComponent id={id} />}
 			<Link to={`${pageLink}/${id}/edit`}><FontAwesomeIcon icon={faPencilAlt} /></Link>
 			<button onClick={() => { deleteFunction(id) }}><FontAwesomeIcon icon={faTrashAlt} /></button>
 			

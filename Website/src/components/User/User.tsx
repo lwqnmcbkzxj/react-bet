@@ -106,8 +106,8 @@ const User: FC<UsersPropsType> = ({
 		ROIBlock =
 			<div className={s.roi}>
 				{+user.stats.roi >= 0 ?
-					<><span className={classNames(s.positive)}>+{(+user.stats.roi).toFixed(2)}%</span> ROI </> :
-					<><span className={classNames(s.negative)}>-{(+user.stats.roi).toFixed(2)}%</span> ROI</>}
+					<><span className={classNames(s.positive)}>+{(+user.stats.roi * 100).toFixed(2)}%</span> ROI </> :
+					<><span className={classNames(s.negative)}>{(+user.stats.roi * 100).toFixed(2)}%</span> ROI</>}
 			</div>
 	}
 

@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import s from './DesktopMenu.module.scss';
 import { NavLink } from 'react-router-dom';
 import { SportType } from '../../../types/types'
-import { sportTypeFilterEnum, FilterNames } from '../../../types/filters'
+import { FilterNames } from '../../../types/filters'
 
 import { apiURL } from '../../../api/api'
 

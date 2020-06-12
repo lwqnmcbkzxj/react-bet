@@ -10,9 +10,15 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 type HeaderPropsType = {
 	logged: boolean
+	
+	search: {
+		searchText: string
+		handleSearchTextChange: (searchText: string) => void
+		handleSearch: () => void
+	}
 }
 
-const MobileHeader: FC<HeaderPropsType> = ({ logged, ...props }) => {
+const MobileHeader: FC<HeaderPropsType> = ({ logged, search, ...props }) => {
 	const [seactBlockVisible, setSearchBlockVisibility] = useState(false)
 
 	const toggleSeachBlockVisibility = () => {
@@ -31,8 +37,14 @@ const MobileHeader: FC<HeaderPropsType> = ({ logged, ...props }) => {
 
 
 				<div className={classNames(s.search_block, { [s.active]: seactBlockVisible })}>
-					<button className={s.seachIcon}><FontAwesomeIcon icon={faSearch} /></button>
-					<input type="text" placeholder="поиск..." ref={inputRef} onBlur={toggleSeachBlockVisibility} />
+					<button className={s.seachIcon} onClick={search.handleSearch}><FontAwesomeIcon icon={faSearch} /></button>
+					<input
+						type="text"
+						placeholder="поиск..."
+						ref={inputRef}
+						onBlur={toggleSeachBlockVisibility}
+						value={search.searchText}
+						onChange={(e) => { search.handleSearchTextChange(e.target.value) }} />
 				</div>
 			</header>
 			

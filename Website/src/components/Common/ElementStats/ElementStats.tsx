@@ -21,6 +21,8 @@ type ElementStatsPropsType = {
 	showFavourites?: boolean
 	showComments?: boolean
 
+	showFavCount?:boolean
+
 	likesActive?: null | string
 	favouritesActive?: boolean
 
@@ -30,6 +32,7 @@ type ElementStatsPropsType = {
 const ElementStats: FC<ElementStatsPropsType> = ({
 	comments, likes, favourites,
 	showLikes = true, showFavourites = true, showComments = true,
+	showFavCount = true,
 	likesActive = "", favouritesActive = false,
 	id, elementType, ...props }) => {
 
@@ -41,11 +44,16 @@ const ElementStats: FC<ElementStatsPropsType> = ({
 			dispatch(favouriteForecast(id))
 	}
 
-
 	const [isFavourite, setFavourite] = useState(favouritesActive)
 	const [favouriteCount, setFavouriteCount] = useState(favourites)
 
-	const toggleFavourite = (id: number) => {
+
+	useEffect(() => {
+		if (isFavourite !== favouritesActive)
+		toggleFavourite()
+	}, [favouritesActive])
+
+	const toggleFavourite = (id?: number) => {
 		if (!logged) {
 			dispatch(toggleAuthFormVisiblility())
 			return 0
@@ -56,7 +64,8 @@ const ElementStats: FC<ElementStatsPropsType> = ({
 			setFavouriteCount(favouriteCount + 1)
 
 		setFavourite(!isFavourite)
-		favouriteDispatch(id)
+		if (id)
+			favouriteDispatch(id)
 	}
 
 
@@ -69,13 +78,13 @@ const ElementStats: FC<ElementStatsPropsType> = ({
 	}
 
 	return (
-		<div className={s.elementStats}>
+		<div className={classNames(s.elementStats, {[s.noPadding]: !showFavCount})}>
 			<div className={s.leftBlock}>
 				{showComments && <div className={s.comments}>
 					<FontAwesomeIcon icon={faCommentAlt} />
 					<span className={comments === 0 ? s.hidden : ""}>{comments}</span>
 				</div>}
-				{showFavourites && <div className={s.favourites}>
+				{showFavourites && <div className={classNames(s.favourites, {[s.noPadding]: !showFavCount})}>
 					{favouritesButton}
 					<span className={favouriteCount === 0 ? s.hidden : ""}>{favouriteCount}</span>
 				</div>}

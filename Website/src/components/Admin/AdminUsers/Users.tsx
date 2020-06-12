@@ -1,8 +1,9 @@
 import React, { FC, useEffect } from 'react'
-import { useDispatch, useSelector } from "react-redux"
 import s from './Users.module.scss'
-import { Switch, Route } from 'react-router'
 import AdminTablePage from '../Common/AdminTablePage/AdminTablePage'
+import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChromecast  } from '@fortawesome/free-brands-svg-icons'
 
 
 type UsersProps = {
@@ -21,8 +22,13 @@ type UsersProps = {
 		dataArray: Array<any>
 	}
 }
-
+const AdditionalActionComponent = ({...propsValues}) => {
+	return <Link to={`/admin/users/${propsValues.id}/forecasts`}>
+		<FontAwesomeIcon icon={faChromecast}/>
+	</Link>
+}
 const Users: FC<UsersProps> = ({ handleSearch, deleteFunction, pages, data, ...props }) => {
+	
 	return (
 		<div className={s.usersAdminPage}>
 			<AdminTablePage
@@ -38,6 +44,7 @@ const Users: FC<UsersProps> = ({ handleSearch, deleteFunction, pages, data, ...p
 					},
 					addNewElementText: 'Добавить нового пользователя',
 					deleteFunction: deleteFunction,
+					AdditionalActionComponent: AdditionalActionComponent,
 					pages: pages
 				}}
 				tableData={data}

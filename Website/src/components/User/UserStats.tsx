@@ -57,17 +57,26 @@ const UserStats: FC<UserStatsPropsType> = ({ stats, filters, toggleFilter, ...pr
 				<div className={s.roi}>
 					<p>ROI</p>
 					<p className={s.splitter}></p>
-					<p className={classNames({ [s.positive]: true, [s.negative]: false })}>{(+stats.roi).toFixed(2)}%</p>
+					<p className={classNames({
+						[s.positive]: +stats.roi > 0,
+						[s.negative]: +stats.roi < 0
+					})}>{(+stats.roi * 100).toFixed(2)}%</p>
 				</div>
 				<div>
 					<p>Чистая Прибыль</p>
 					<p className={s.splitter}></p>
-					<p className={classNames({ [s.positive]: true, [s.negative]: false })}>{(+stats.pure_profit).toFixed(2)}</p>
+					<p className={classNames({
+						[s.positive]: +stats.pure_profit > 0,
+						[s.negative]: +stats.pure_profit < 0
+					})}>{(+stats.pure_profit).toFixed(2)}</p>
 				</div>
 				<div className={s.successPercent}>
 					<p>Проходимость</p>
 					<p className={s.splitter}></p>
-					<p className={classNames({ [s.positive]: true, [s.negative]: false })}>65%</p>
+					<p className={classNames({
+						[s.positive]: true,
+						[s.negative]: false
+					})}>65%</p>
 				</div>
 				<div>
 					<p>Средний коэффициент</p>

@@ -12,7 +12,6 @@ type BetsListPropsType = {
 	forecasts?: Array<ForecastType>
 }
 const BetsList: FC<BetsListPropsType> = ({ forecasts = [], ...props }) => {
-	debugger
 	const getUserStatsColor = (value: number) => {
 		if (value > 0) return s.positive
 		if (value < 0) return s.negative
@@ -32,20 +31,21 @@ const BetsList: FC<BetsListPropsType> = ({ forecasts = [], ...props }) => {
 
 			{forecasts.map((forecast, counter) =>
 				<div className={s.bet} key={counter}>
-					<Link to={`/users/${forecast.user_data.id}`} className={s.forecaster}>
+					<Link to={`/forecasters/${forecast.user_data.id}`} className={s.forecaster}>
 						<img src={forecast.user_data.avatar ? apiURL + forecast.user_data.avatar : userNoImg} alt="user-img" />
 						<div className={s.userName}>{forecast.user_data.login}</div>
 					</Link>
-					<div className={s.betType}>{forecast.bet_data.type}</div>
 
-					<div className={classNames(s.passability, getUserStatsColor(+forecast.user_data.stats.roi))}>
+					<Link to={`/forecasts/${forecast.id}`} className={s.betType}>{forecast.bet_data.type}</Link>
+
+					<Link to={`/forecasts/${forecast.id}`} className={classNames(s.passability, getUserStatsColor(+forecast.user_data.stats.roi))}>
 						{(+forecast.user_data.stats.roi * 100).toFixed(2)}%
-						</div>
+						</Link>
 
-					<div className={classNames(s.profit, getUserStatsColor(+forecast.user_data.stats.roi))}>
+					<Link to={`/forecasts/${forecast.id}`} className={classNames(s.profit, getUserStatsColor(+forecast.user_data.stats.roi))}>
 						{getUserStatsDigit(+forecast.user_data.stats.pure_profit)}
 						{(+forecast.user_data.stats.pure_profit).toFixed(2)}
-					</div>
+					</Link>
 
 				</div>
 			)}
