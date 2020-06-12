@@ -59,7 +59,8 @@ class CommentsSectionHeader: UITableViewHeaderFooterView {
         
         addSubview(label)
         label.snp.makeConstraints { (make) in
-            make.top.leading.equalToSuperview()
+            make.top.equalToSuperview().offset(12)
+            make.leading.equalToSuperview()
             make.trailing.equalToSuperview().offset(-8)
         }
         

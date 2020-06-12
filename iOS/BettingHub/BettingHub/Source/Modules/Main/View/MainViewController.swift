@@ -18,8 +18,11 @@ class MainViewController: UIViewController {
     
     private lazy var cellsProvider = MainScreenCellsProvider(tableView: mainView.tableView,
                                                              dataProvider: dataProvider,
+                                                             bookmakersHeaderDelegate: self,
                                                              buttonFooterDelegate: self,
                                                              forecastCellDelegate: self)
+    
+    private var bookmakersCollapsed: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,6 +100,7 @@ extension MainViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sec = self.section(at: section)
+        if sec == .topBookmakers, bookmakersCollapsed { return 0 }
         return cellsProvider.numberOfCells(at: sec)
     }
     
@@ -178,9 +182,10 @@ extension MainViewController: TopForecasterViewDelegate {
     }
 }
 
-extension MainViewController: IMainTabBarDelegate {
+extension MainViewController: TopBookmakersHeaderViewDelegate {
     
-    func showed(tabBar: IMainTabBar, screen: MainTabBarScreen) {
-//        mainView.tableView.reloadData()
+    func collapseTapped(_ collapse: Bool) {
+        bookmakersCollapsed = collapse
+        mainView.tableView.reloadData()
     }
 }

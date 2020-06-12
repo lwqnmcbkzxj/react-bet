@@ -34,8 +34,6 @@ class AppCoordinator {
         router.viewController = vc
         let nav = NavigationController(rootViewController: vc)
         
-        mainTabBar.addDelegate(vc)
-        
         return nav
     }
     

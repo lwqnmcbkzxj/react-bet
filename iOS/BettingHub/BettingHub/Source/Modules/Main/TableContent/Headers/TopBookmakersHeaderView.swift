@@ -7,26 +7,27 @@
 //
 
 import UIKit
+import SnapKit
+
+protocol TopBookmakersHeaderViewDelegate: class {
+    
+    func collapseTapped(_ collapse: Bool)
+}
 
 class TopBookmakersHeaderView: UITableViewHeaderFooterView {
     
-    private let topBackGrayView: UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = 7
-        view.backgroundColor = .lineGray
-        return view
-
-    }()
-    private let bottomBackGrayView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lineGray
-        return view
-    }()
+    weak var delegate: TopBookmakersHeaderViewDelegate?
+    
+    private var compactConstraint: Constraint?
 
     private let frontWhiteView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 7
         view.backgroundColor = .white
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 7
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.lineGray.cgColor
         return view
     }()
     
@@ -44,46 +45,49 @@ class TopBookmakersHeaderView: UITableViewHeaderFooterView {
         return label
     }()
     
-    let arrowButton: UIButton = {
+    lazy var arrowButton: UIButton = {
         let button = UIButton(type: .system)
         let image = UIImage(named:"hideArrow")?.withRenderingMode(.alwaysOriginal)
         button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(arrowsButtonTapped), for: .touchUpInside)
         return button
     }()
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         makeLayout()
+        clipsToBounds = true
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc private func arrowsButtonTapped() {
+        guard let transform = arrowButton.imageView?.transform else { return }
+        let needColapse = transform == .identity
+        arrowButton.imageView?.transform = needColapse ? .init(rotationAngle:.pi) : .identity
+        columnsHeaderView.isHidden = needColapse
+        compactConstraint?.isActive = needColapse
+        delegate?.collapseTapped(needColapse)
+    }
+    
     private func makeLayout() {
-        addSubview(topBackGrayView)
-        topBackGrayView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-            make.height.equalTo(79)
-        }
-
-        addSubview(bottomBackGrayView)
-        bottomBackGrayView.snp.makeConstraints { (make) in
-            make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalTo(31)
-        }
-
+        
         addSubview(frontWhiteView)
         frontWhiteView.snp.makeConstraints { (make) in
-            make.top.leading.equalTo(topBackGrayView).offset(1)
-            make.bottom.trailing.equalTo(topBackGrayView).offset(-1)
+            make.top.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview().offset(4).priority(999)
+            compactConstraint = make.height.equalTo(48).constraint
         }
+        compactConstraint?.isActive = false
 
         addSubview(columnsHeaderView)
         columnsHeaderView.snp.makeConstraints { (make) in
-            make.leading.equalTo(bottomBackGrayView).offset(1)
-            make.trailing.equalTo(bottomBackGrayView).offset(-1)
-            make.top.bottom.equalTo(bottomBackGrayView)
+            make.bottom.equalToSuperview()
+            make.leading.equalToSuperview().offset(1)
+            make.trailing.equalToSuperview().offset(-1)
+            make.height.equalTo(31)
         }
 
         addSubview(titleLabel)

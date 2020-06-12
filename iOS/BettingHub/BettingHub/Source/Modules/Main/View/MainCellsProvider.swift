@@ -13,15 +13,18 @@ class MainScreenCellsProvider {
     let tableView: UITableView
     
     weak var dataProvider: MainScreenDataProvider!
+    weak var bookmakersHeaderDelegate: TopBookmakersHeaderViewDelegate!
     weak var buttonFooterDelegate: ButtonFooterDelegate!
     weak var forecastCellDelegate: ForecastCellDelegate!
     
     init(tableView: UITableView,
          dataProvider: MainScreenDataProvider,
+         bookmakersHeaderDelegate: TopBookmakersHeaderViewDelegate,
          buttonFooterDelegate: ButtonFooterDelegate,
          forecastCellDelegate: ForecastCellDelegate) {
         self.tableView = tableView
         self.dataProvider = dataProvider
+        self.bookmakersHeaderDelegate = bookmakersHeaderDelegate
         self.buttonFooterDelegate = buttonFooterDelegate
         self.forecastCellDelegate = forecastCellDelegate
         register()
@@ -93,6 +96,7 @@ class MainScreenCellsProvider {
                 header.columnsHeaderView.setMode(mode)
             }
             header.arrowButton.isHidden = sec == .topBookmakers ? false : true
+            header.delegate = bookmakersHeaderDelegate
             return header
            
         case .topMatches:
