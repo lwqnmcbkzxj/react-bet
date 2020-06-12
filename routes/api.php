@@ -8,6 +8,18 @@ use Illuminate\Support\Facades\Route;
 
 // Регистрация
 
+Route::get('login/test', function ()
+{
+    return redirect('https://betthub.org/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiZTdiMjBmZGI5OTVmNzFlZTRhZmM2ZWE2MWRlNGM0N2Q2ZTZhOThiNzZiMmZmMGE4ZmM4NmEzZTBjNmY5ZjdhOTI0MDJhYTA4NWM1ODg0MDQiLCJpYXQiOjE1OTE2ODM4MjYsIm5iZiI6MTU5MTY4MzgyNiwiZXhwIjoxNjIzMjE5ODI2LCJzdWIiOiIyMTciLCJzY29wZXMiOlsiKiJdfQ.fqekqWLSA1-G_dkeXrc42LZROnSDMo1v9i4hOhGHI6cu39eDycWDxjNGZDmu8fcT0LAkUXLJwAqZye6G03GxnoBQI-sJTGrW4Ym-28jS6aO24ISe7SgXxWoPbbOg0rwFeR4TIhCFXH9AfoqcW5GhAaiixsYPHvLKM9Jt4XU6TzGTeX_uz9rlTI1v2CD4NhinVh27QoiI0rsJJIWh2G51lV8hdkbTvi2OtFMVwc4lZ3X4dIadLxs1KIIjKVQAK-e4HVWLFiMNtmVm5EveRi_HJZpyFU5ul9BRanV6rPhCmAatxlbPOJ_KGsMBtNiA9ioYUr5oTT-2L7sSQoYjUSN6-29sIrk3nHle04-tH6ucfRBat_oHAu-nY5Vui-zGE7kus8YQ0dPKEXrKFmmKshe26c-2GqQ0I27Ydl5mXkb6PKTDE3EBm0ZJqOjsgVgWN94cxZjdJJ_dc2KMA3W9GdeV_IblgwuyZ0e05p3fO0EFOf-KIvGG1PXqZwj3E5vFgVoQR6pT8DXZoo3z8xgTOsRmTFEOAp4pCOhZimdq7HdzKGTHv9lur9395VmCW7h6lrt9N37QXSn07eZ1lmH72V3Al1yc8KgGwcXXT2EPFy8Ij4amLyJ_wkUdqSEYdA6rcp7VXzkgWA_RU7mn5EfAESshxQ-ZscR7xmoq7_3V4HSivDs');
+});
+
+//Route::get('login/{driver}', 'Auth\LoginController@redirectToProvider');
+//Route::get('login/{driver}/callback', 'Auth\LoginController@handleProviderCallback');
+
+
+
+
+
 Route::post('/register', 'RegisterController@register');
 // Прогнозы
 Auth::routes(['verify' => true]);
@@ -88,8 +100,6 @@ Route::get('/options','Admin\OptionController@index');
 //Доступ к профилям пользователей
 Route::middleware('auth:api')->group(function () {
 
-
-
     Route::post('/photo', 'UploadController@putImage');
     Route::post('/avatar', 'UploadController@putAvatar');
     Route::get('/admin/dashboard','Admin\DashboardController@index');
@@ -104,7 +114,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/admin/export/forecasts', 'Admin\DashboardController@exportForecasts');
     Route::get('/admin/export/bookmakers', 'Admin\DashboardController@exportBookmakers');
     Route::get('/admin/export/events', 'Admin\DashboardController@exportEvents');
-
 
     Route::get('/admin/events', 'Admin\EventController@getAll');
     Route::post('/admin/events', 'Admin\EventController@post');
@@ -124,6 +133,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/admin/posts/{post}', 'PostController@get');
     Route::delete('/admin/posts/{post}', 'PostController@delete');
     Route::post('/admin/posts/{post}', 'PostController@edit');
+
+
 
     Route::get('/admin/banners', 'BannerController@getAll');
     Route::post('/admin/banners', 'BannerController@post');
