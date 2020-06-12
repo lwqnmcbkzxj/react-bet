@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using HtmlAgilityPack;
 
 namespace BettingParser.Models
 {
@@ -9,5 +10,7 @@ namespace BettingParser.Models
         public long UserId { get; set; }
         
         public IEnumerable<Forecast> Forecasts { get; set; }
+        
+        public double Balance { get; set; }
     }
 }

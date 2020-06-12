@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -168,12 +169,26 @@ namespace BettingParser.Services
 
             var doc = GetHtmlDocument(source);
             var trs = doc.DocumentNode.SelectNodes(@"//*[@id=""usertable""]/tbody/tr");
+            var balance = doc?.DocumentNode
+                ?.SelectSingleNode(
+                    @"/html/body/div[1]/div[1]/section/div/article/div/div[2]/div[2]/div[1]/div/div[1]/dl[1]/dd/span")
+                ?.InnerText?.Trim();
+            if (string.IsNullOrWhiteSpace(balance))
+                throw new ParserException(nameof(balance));
+
+            var trs = doc?.DocumentNode?.SelectNodes(@"//*[@id=""usertable""]/tbody/tr");
 
             return new UserForecast
             {
                 UserId = userId,
+                Balance = getBalance(balance),
                 Forecasts = await GetLastForecast(trs)
             };
+        }
+
+        private double getBalance(string data)
+        {
+            return double.Parse(data.SplitWithTrimming(' ').First());
         }
 
         private async Task<IEnumerable<Forecast>> GetLastForecast(HtmlNodeCollection trs)
