@@ -9,5 +9,7 @@ namespace BettingParser.Abstractions
         Task<Forecast> GetForecastScores(string url);
         
         Task<UserForecast> GetLastForecasts(long userId);
+
+        Task<IEnumerable<UserStat>> GetStat();
     }
 }

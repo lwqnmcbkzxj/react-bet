@@ -26,6 +26,33 @@ namespace BettingParser.Services
             _clientFactory = clientFactory ?? throw new ArgumentNullException(nameof(clientFactory));
         }
 
+        public async Task<IEnumerable<UserStat>> GetStat()
+        {
+            var source = await GetForecastScore("https://vprognoze.ru/statalluser/");
+            var doc = GetHtmlDocument(source);
+            var rates = doc?.GetElementbyId("ratingTable")?.ChildNodes;
+
+            var userstats = new List<UserStat>();
+            for (var i = 3; i < rates?.Count; i += 2)
+            {
+                var login = rates[i]?.ChildNodes[3]?.ChildNodes[0]?.InnerText?.Trim();
+                var id = rates[i]?.ChildNodes[3]?.ChildNodes[0]?.Attributes[1]?.Value?.Trim();
+
+                userstats.Add(new UserStat
+                {
+                    Login = login,
+                    Id = GetId(id)
+                });
+            }
+
+            return userstats;
+        }
+
+        private long GetId(string data)
+        {
+            return long.Parse(Regex.Matches(data, "\'.*?\'", RegexOptions.Compiled)[0].Value.Replace("'", string.Empty));
+        }
+
         public async Task<Forecast> GetForecastScores(string url)
         {
             var source = await GetForecastScore(url);
@@ -46,48 +73,48 @@ namespace BettingParser.Services
                 .GetAttributeValue("title", null);
             if (string.IsNullOrWhiteSpace(bookmakerName))
                 throw new ParserException(nameof(bookmakerName));
-            
+
             var scores = title?.ChildNodes[11]?.ChildNodes[1]?.ChildNodes[3]?.ChildNodes[1];
             if (scores == null)
                 throw new ParserException(nameof(scores));
-            
+
             var scoreLeft = scores?.ChildNodes[1]?.InnerText?.Trim();
             if (string.IsNullOrWhiteSpace(scoreLeft))
                 throw new ParserException(nameof(scoreLeft));
-            
+
             var scoreRight = scores?.ChildNodes[3]?.InnerText?.Trim();
             if (string.IsNullOrWhiteSpace(scoreRight))
                 throw new ParserException(nameof(scoreRight));
-            
+
             var xpath1 = @"//*[@id=""dle-content""]/div[1]/div/div/div[3]/div[2]/div[1]/div";
             var predict = doc.DocumentNode.SelectSingleNode(xpath1);
             if (predict == null)
                 throw new ParserException(nameof(predict));
-            
+
             var type = predict?.ChildNodes[1]?.ChildNodes[1]?.ChildNodes[3]?.InnerText?.Trim();
             if (string.IsNullOrWhiteSpace(type))
                 throw new ParserException(nameof(type));
-            
+
             var coefficient = predict?.ChildNodes[1]?.ChildNodes[3]?.ChildNodes[3]?.InnerText?.Trim() ?? "";
             if (string.IsNullOrWhiteSpace(coefficient))
                 throw new ParserException(nameof(coefficient));
-            
+
             var bet = predict?.ChildNodes[1]?.ChildNodes[5]?.ChildNodes[3]?.InnerText?.Trim() ?? "";
             if (string.IsNullOrWhiteSpace(bet))
                 throw new ParserException(nameof(bet));
-            
+
             var eventStart = predict?.ChildNodes[5]?.ChildNodes[1]?.ChildNodes[1]?.InnerText?.Trim();
             if (string.IsNullOrWhiteSpace(eventStart))
                 throw new ParserException(nameof(eventStart));
-            
+
             var forecastText = predict?.ChildNodes[10]?.InnerText?.Trim();
             if (string.IsNullOrWhiteSpace(forecastText))
                 throw new ParserException(nameof(forecastText));
-            
+
             var income = predict?.ChildNodes[3]?.ChildNodes[5]?.ChildNodes[5]?.InnerText?.Trim();
             if (string.IsNullOrWhiteSpace(income))
                 throw new ParserException(nameof(income));
-            
+
             var (championship, sportName) = GetChampionshipData(championships);
             var eventStartFormatted = GetEventData(eventStart);
             var status = GetIncomeStatus(income);
@@ -168,7 +195,6 @@ namespace BettingParser.Services
             var source = await GetUserAsync(userId);
 
             var doc = GetHtmlDocument(source);
-            var trs = doc.DocumentNode.SelectNodes(@"//*[@id=""usertable""]/tbody/tr");
             var balance = doc?.DocumentNode
                 ?.SelectSingleNode(
                     @"/html/body/div[1]/div[1]/section/div/article/div/div[2]/div[2]/div[1]/div/div[1]/dl[1]/dd/span")

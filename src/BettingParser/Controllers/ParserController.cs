@@ -44,5 +44,12 @@ namespace BettingParser.Controllers
 
             return Task.WhenAll(tasks);
         }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public Task<IEnumerable<UserStat>> GetStat()
+        {
+            return _parseService.GetStat();
+        }
     }
 }
