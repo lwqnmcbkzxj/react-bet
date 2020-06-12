@@ -31,9 +31,11 @@ class LoginController extends Controller
     }
 
     use AuthenticatesUsers;
-    public function redirectToProvider(string $driver)
+    public function redirectToProvider(Request $request, string $driver)
     {
-        return Socialite::driver($driver)->stateless()->redirect();
+        if(!$request->has('redirect_to'))
+            $request['redirect_to']=$this->FRONTEND_REDIRECT;
+        return Socialite::driver($driver)->stateless()->with(['state'=>$request['redirect_to']])->redirect();
     }
     private function translit($s) {
         $s = (string) $s;
@@ -51,7 +53,7 @@ class LoginController extends Controller
         else
             return 'user_'.uniqid();
     }
-    public function handleProviderCallback(string $driver)
+    public function handleProviderCallback(Request $request, string $driver)
     {
         $auth_user = Socialite::driver($driver)->stateless()->user();
         if($auth_user->email)
@@ -69,6 +71,6 @@ class LoginController extends Controller
             $user->save();
         }
         $token = $user->createToken('social')->accessToken;
-        return redirect($this->FRONTEND_REDIRECT .'?token='.$token);
+        return redirect($request->get('state', $this->FRONTEND_REDIRECT) .'?token='.$token);
     }
 }
