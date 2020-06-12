@@ -32,16 +32,16 @@ return [
     'vkontakte' => [
         'client_id' => env('VK_CLIENT_ID'),
         'client_secret' => env('VK_CLIENT_SECRET'),
-        'redirect' => 'http://localhost:8000/api/login/vkontakte/callback',
+        'redirect' => 'https://app.betthub.org/api/login/vkontakte/callback',
     ],
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => 'http://localhost:8000/api/login/google/callback',
+        'redirect' => 'https://app.betthub.org/api/login/google/callback',
     ],
     'facebook' => [
         'client_id' => env('FACEBOOK_CLIENT_ID'),
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-        'redirect' => 'http://localhost:8000/api/login/facebook/callback',
+        'redirect' => 'https://app.betthub.org/api/login/facebook/callback',
     ],
 ];
