@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import s from './Article.module.scss'
-import { reduxForm, InjectedFormProps, SubmissionError, Field } from 'redux-form'
+import { reduxForm, InjectedFormProps, SubmissionError, Field, change } from 'redux-form'
 import { Input, Textarea, createField, File, FormatTextarea } from '../../../Common/FormComponents/FormComponents'
 
 import ActionButton from '../../../Common/ActionButton/ActionButton'
@@ -9,11 +9,12 @@ import { ArticleType } from '../../../../types/admin'
 import Breadcrumbs from '../../../Common/Breadcrumbs/Breadcrumbs'
 
 import { required } from '../../../../utils/formValidation'
-import { Redirect } from 'react-router'
-import { Editor } from '@tinymce/tinymce-react';
 
+import Loader from '../../../Common/Preloader/Preloader'
 import contentHolder from '../../../../assets/img/content-img-holder.png'
 import { apiURL } from '../../../../api/api'
+import { loadImage } from '../../../../utils/loadImage'
+import { AppStateType } from '../../../../types/types'
 
 type FormType = {
 	initialValues: any,
@@ -25,22 +26,15 @@ type FormType = {
 	buttonText: string
 }
 type FormValuesType = {
-	initialValues: ArticleType
 	buttonText: string
 }
 	
-
-
 const ArticleForm: FC<FormValuesType & InjectedFormProps<{}, FormValuesType>> = (props: any) => {
+	const isFetchingArray = useSelector<AppStateType, Array<string>>(state => state.admin.isFetchingArray)
+	const dispatch = useDispatch()
 	const setPreviewImage = (file: File) => {
-		let fileReader = new FileReader()
-		fileReader.onload = function (event: any) {
-			document.getElementById('admin-article-img-holder')?.setAttribute("src", event.target.result)
-		}
-
-		fileReader.readAsDataURL(file)
+		loadImage(file, props.formName, 'image', 'admin-article-img-holder', dispatch)
 	}
-
 
 	return (
 		<form onSubmit={props.handleSubmit}>
@@ -65,7 +59,12 @@ const ArticleForm: FC<FormValuesType & InjectedFormProps<{}, FormValuesType>> = 
 			{createField("is_published", Input, "Опубликована", { type: 'checkbox' })}
 			{createField("no_index", Input, "Не индексировать", { type: 'checkbox' })}
 
-			<div className={s.btnHolder}><ActionButton value={props.buttonText} /></div>
+			<div className={s.btnHolder}>
+				{isFetchingArray.includes('article-action') ?
+					<Loader /> :
+					<ActionButton value={props.buttonText} />
+				}
+			</div>
 		</form>
 	);
 }
@@ -73,11 +72,20 @@ const ReduxArticleForm = reduxForm<{}, FormValuesType>({ form: 'article-form', e
 
 
 const ArticleFormBlock: FC<FormType> = ({ initialValues, onSubmitFunc, breadcrumbs = [], buttonText = "", ...props }) => {
-	console.log(initialValues)
 	const dispatch = useDispatch()
-	const handleSave = (formData: ArticleType) => {
-		onSubmitFunc(formData)
-		
+	const handleSave = (formData: any) => {
+		let dataObject = {} as ArticleType
+
+		if (formData.id) dataObject.id = formData.id
+		dataObject = {
+			title: formData.title,
+			category_name: formData.category_name,
+			content: formData.content,
+			image: formData.image,
+			is_published: +formData.is_published
+		}
+
+		onSubmitFunc({...dataObject })
 	}
 
 	return (

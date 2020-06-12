@@ -20,3 +20,9 @@ export const required = (value) => {
 
     return "Field is required";
 }
+
+export const number = (value) => {
+    if (+value !== NaN) return undefined;
+
+    return "Field must be numeric";
+}

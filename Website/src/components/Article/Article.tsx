@@ -9,10 +9,12 @@ import GoBackBlock from '../Common/GoBackBlock/GoBackBlock'
 import articleImg from '../../assets/img/article-img.png'
 import CommentsBlock from '../Common/CommentsBlock/CommentsBlock';
 import { formatDate } from '../../utils/formatDate';
-
+import { apiURL } from '../../api/api';
+import SimilarArticles from './SimilarArticles/SimilarArticles'
 
 type ArticlePropsType = {
 	article: ArticleType
+	similarArticles: Array<ArticleType>
 
 	commentsFunctions: {
 		refreshComments: () => void
@@ -20,10 +22,8 @@ type ArticlePropsType = {
 		setCommentFilter: (filterName: any) => void
 	}
 }
-function createMarkup(htmlText: string) {
-	return { __html: htmlText };
-}
-const Article: FC<ArticlePropsType> = ({ article, commentsFunctions, ...props }) => {
+
+const Article: FC<ArticlePropsType> = ({ article, commentsFunctions, similarArticles, ...props }) => {
 	return (
 		<div className={s.articlePage}>
 			<GoBackBlock
@@ -47,7 +47,7 @@ const Article: FC<ArticlePropsType> = ({ article, commentsFunctions, ...props })
 					<div className={s.date}>{formatDate(article.created_at)}</div>
 				</div>
 				<div className={s.articleTitle}>{article.title}</div>
-				{article.image && <img src={article.image} alt="article-img" />}
+				{article.image && <img src={apiURL + article.image} alt="article-img" />}
 				<div className={s.articleText} dangerouslySetInnerHTML={{ __html: article.content }}></div>
 
 				<ElementStats
@@ -64,6 +64,7 @@ const Article: FC<ArticlePropsType> = ({ article, commentsFunctions, ...props })
 					elementType='article'
 				/>
 			</div>
+			<SimilarArticles articles={similarArticles}/>
 			<CommentsBlock
 				comments={article.comments as any}
 				elementId={article.id}

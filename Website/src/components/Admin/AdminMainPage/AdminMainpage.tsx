@@ -21,11 +21,11 @@ const AdminMainPage: FC<PropsType> = ({ dashboard, ...props }) => {
 			</div>
 			<div className={s.mainPageGroup}>
 				<MainpageStatBlock text="Статей" value={dashboard.posts_count}/>
-				<MainpageStatBlock text="Статей за сегодня" value={0}/>
+				<MainpageStatBlock text="Статей за сегодня" value={dashboard.posts_count_today}/>
 			</div>
 			<div className={s.mainPageGroup}>
 				<MainpageStatBlock text="Новостей" value={dashboard.news_count}/>
-				<MainpageStatBlock text="Новостей за сегодня" value={0}/>
+				<MainpageStatBlock text="Новостей за сегодня" value={dashboard.news_count_today}/>
 			</div>
 		</div>
 	)

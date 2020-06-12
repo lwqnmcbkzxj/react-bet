@@ -1,7 +1,10 @@
 .previewImg {
 	max-width: 500px;
-	max-height: 300px;
+	height: auto;
 	width: 100%;
 	height: auto;
 	margin: 0 auto;
+	& img {
+		width: 100%;
+	}
 }

@@ -2,10 +2,10 @@ import Axios from 'axios';
 import qs from 'query-string'
 import { UserType, BookmakerType, ForecastType } from '../types/admin';
 
-export const apiURL = "https://app.betthub.org/"
+export const apiURL = "https://app.betthub.org"
 
 const instance = Axios.create({
-	baseURL: 'https://app.betthub.org/api/',
+	baseURL: `${apiURL}/api/`,
 	headers: {
 
 	}
@@ -94,7 +94,7 @@ export const forecastsAPI = {
 				return response.data
 			});
 	},
-	
+
 	getUserForecasts(page: number, limit: number, userId: number) {
 		return instance.get(`/users/${userId}/forecasts?page=${page}&limit=${limit}`)
 			.then((response) => {
@@ -257,22 +257,31 @@ export const appAPI = {
 			});
 	},
 	sendEmail(email: string, text: string) {
-		return instance.post(`feedback`, {email, text})
+		return instance.post(`feedback`, { email, text })
 			.then((response) => {
 				return response.data
 			});
-	},	
-	
-	
-	getPolicy() {
-		return instance.get(`${apiURL}policy`)
-		.then((response) => {
-			return response.data
-		});
 	},
-	
+	exportData(link: string) {
+		return instance.get(`${link}`)
+			.then((response) => {
+				return response.data
+			});
+	},
+
+	getPolicy() {
+		return instance.get(`${apiURL}/policy`)
+			.then((response) => {
+				return response.data
+			});
+	},
+
 	getTerms() {
-		return instance.get(`terms`)
+		return instance.get(`${apiURL}/terms`)
+			.then((response) => {
+				return response.data
+			});
+	},
 		.then((response) => {
 			return response.data
 		});
@@ -327,16 +336,22 @@ export const adminAPI = {
 				});
 		},
 		addPost(postObject: any) {
-	
-			// let formData = new FormData()
-			// formData.append('image', postObject.image)
-			return instance.post(`admin/posts`, { ...postObject })
+			let formData = new FormData()
+			for (let key in postObject) {
+				formData.append(key, postObject[key])
+			}
+
+			return instance.post(`admin/posts`, formData, { headers: { 'Content-type': 'multipart/form-data' } })
 				.then((response) => {
 					return response.data
 				});
 		},
 		editPost(id: number, postObject: any) {
-			return instance.post(`admin/posts/${id}`, { ...postObject })
+			let formData = new FormData()
+			for (let key in postObject) {
+				formData.append(key, postObject[key])
+			}
+			return instance.post(`admin/posts/${id}`, formData, { headers: { 'Content-type': 'multipart/form-data' } })
 				.then((response) => {
 					return response.data
 				});
@@ -440,11 +455,11 @@ export const adminAPI = {
 	},
 	boomakers: {
 		getAdminBookmakers(page: number, limit: number, search: string, search_by: string) {
-			let searchString =''
+			let searchString = ''
 			if (search && search_by) {
 				searchString = `&search=${search}&search_by=${search_by}`
 			}
-			
+
 			return instance.get(`admin/bookmakers?page=${page}&limit=${limit}` + searchString)
 				.then((response) => {
 					return response.data
@@ -457,15 +472,22 @@ export const adminAPI = {
 				});
 		},
 
-
-		addBookmaker(dataObject: BookmakerType) {
-			return instance.post(`admin/bookmakers`, { ...dataObject })
+		addBookmaker(dataObject: BookmakerType | any) {
+			let formData = new FormData()
+			for (let key in dataObject) {
+				formData.append(key, dataObject[key])
+			}
+			return instance.post(`admin/bookmakers`, formData, { headers: { 'Content-type': 'multipart/form-data' } })
 				.then((response) => {
 					return response.data
 				});
 		},
-		editBookmaker(id: number, dataObject: BookmakerType) {
-			return instance.post(`admin/bookmakers/${id}`, { ...dataObject })
+		editBookmaker(id: number, dataObject: BookmakerType | any) {
+			let formData = new FormData()
+			for (let key in dataObject) {
+				formData.append(key, dataObject[key])
+			}
+			return instance.post(`admin/bookmakers/${id}`, formData, { headers: { 'Content-type': 'multipart/form-data' } })
 				.then((response) => {
 					return response.data
 				});
@@ -485,14 +507,14 @@ export const adminAPI = {
 				});
 		},
 		changeTerms(text: string) {
-			return instance.post(`terms`, { text })
+			return instance.post(`admin/terms`, { text })
 				.then((response) => {
 					return response.data
 				});
 		},
 	},
-	
-	
+
+
 	getAdminDashboard() {
 		return instance.get(`admin/dashboard`)
 			.then((response) => {

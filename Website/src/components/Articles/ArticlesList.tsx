@@ -10,6 +10,7 @@ import { ArticlesPlaceholder } from '../Common/Placeholders/ArticlesPlaceholder'
 
 import { formatDate } from '../../utils/formatDate'
 import useScrollDown from '../../hooks/useScrollDown';
+import { apiURL } from '../../api/api';
 
 
 type ArticlesPropsType = {
@@ -29,7 +30,7 @@ const ArticlesList: FC<ArticlesPropsType> = ({ articles, instanceName = "article
 
 						<div className={s.article}>
 							<Link to={`/articles/${article.id}`} className="actileLink">
-								{article.image && <img src={article.image} alt="article-img" />}
+								{article.image && <img src={apiURL + article.image} alt="article-img" />}
 
 								<div className={s.articleHeader}>
 									<div className={s.categoryName}>{article.category_name}</div>

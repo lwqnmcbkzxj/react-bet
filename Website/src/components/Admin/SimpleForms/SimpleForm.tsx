@@ -31,8 +31,6 @@ const SimpleForm: FC<FormValuesType & InjectedFormProps<{}, FormValuesType>> = (
 
 			{createField('title', Input, 'Название', { valiadtors: [required] })}
 			{createField('content', FormatTextarea, 'Содержание', { valiadtors: [required] })}
-			{/* {createField('content', Textarea, 'Содержание', { valiadtors: [required] })} */}
-
 
 			<div><ActionButton value={"Подтвердить"} /></div>
 		</form>

@@ -18,7 +18,7 @@ const useScrollDown = (instanceName = "") => {
 	}, []);
 
 	const handleScroll = () => {
-		if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+		if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
 			dispatch(setPaginationPage(-1, instanceName))
 		}
 	}

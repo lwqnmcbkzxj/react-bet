@@ -120,7 +120,7 @@ const Bookmaker: FC<BookmakerPropsType> = ({ bookmaker, ...props }) => {
 			</div>
 
 			<div className={s.bookmakerText}>
-				<p>{bookmaker.content}</p>
+				<p  dangerouslySetInnerHTML={{ __html: bookmaker.content }}></p>
 			</div>
 			{/* <CommentsBlock comments={[]} /> */}
 		</div >

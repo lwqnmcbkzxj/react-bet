@@ -16,7 +16,8 @@ import MenuContainer from './components/Menu/MenuContainer'
 import CommentsContainer from './components/Comments/CommentsContainer'
 import Footer from './components/Common/Footer/Footer'
 import NotFound from './components/NotFound/NotFound'
-import Policy from './components/Common/Policy/Policy'
+import Policy from './components/Common/Documents/Policy'
+import Terms from './components/Common/Documents/Terms'
 import Feedback from './components/Common/Feedback/Feedback'
 
 import Admin from './components/Admin/Admin'
@@ -106,6 +107,7 @@ const App = (props: any) => {
 
 								<Route exact path="/feedback" render={() => <Feedback />} />
 								<Route exact path="/policy" render={() => <Policy />} />
+								<Route exact path="/terms" render={() => <Terms />} />
 
 								<Route component={NotFound} />
 
