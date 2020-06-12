@@ -57,8 +57,6 @@ class FollowForecastController extends Controller
             'forecasts_view.event_title as event_title',
             'forecasts_view.event_start as event_start',
             'forecasts_view.event_status as event_status',
-            'forecasts_view.event_team1_id as event_team1_id',
-            'forecasts_view.event_team2_id as event_team2_id',
             'forecasts_view.championship_id as championship_id',
             'forecasts_view.championship_name as championship_name',
             'forecasts_view.sport_id as sport_id',
