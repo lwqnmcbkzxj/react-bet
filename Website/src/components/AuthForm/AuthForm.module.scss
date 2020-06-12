@@ -182,6 +182,9 @@
 		padding: 6px;
 		height: 40px;
 		box-sizing: border-box;
+		& img {
+			width: 28px;
+		}
 		& p {
 			margin-left: 10px;
 		}
@@ -189,7 +192,6 @@
 			width: 40px;
 			& img {
 				width: 26px;
-
 			}
 		}
 	}

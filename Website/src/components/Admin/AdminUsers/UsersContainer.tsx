@@ -19,12 +19,8 @@ const UsersContainer: FC = ({ ...props }) => {
 	const [currentPage, changeCurrentPage] = useState(0)
 	const [pagesPerPage, changePagesPerPage] = useState(10)
 
-	const handleChangeCurrentPage = (page: number) => {
-		changeCurrentPage(page)
-	}
-	const handleChangePagesPerPage = (pagesPerPage: number) => {
-		changePagesPerPage(pagesPerPage)
-	}
+	const [sortedLabel, setSortedLabel] = useState('id')
+	const [sortDirection, setSortDirection] = useState('desc')
 
 	const getUsers = (searchText = "") => {
 		dispatch(getAdminUsersFromServer(currentPage + 1, pagesPerPage, searchText, 'login'))
@@ -52,21 +48,34 @@ const UsersContainer: FC = ({ ...props }) => {
 
 	return (
 		<Users
-		handleSearch={handleSearch}
-		deleteFunction={deleteFunction}
-		pages={{
-			pagesCount: pagesCount,
-			currentPage: currentPage,
-			handlePageChange: handleChangeCurrentPage,
-			pagesPerPage: pagesPerPage,
-			handleChangePagesPerPage: handleChangePagesPerPage,
-		}}
-		data={{
-			labels: ['ID', 'Логин', 'Дата регистрации', 'Платформа', 'Роль', 'Кол-во прогнозов'],
-			data: users,
-			dataArray: dataArray
-		}}
-		
+			handleSearch={handleSearch}
+			deleteFunction={deleteFunction}
+			pages={{
+				pagesCount: pagesCount,
+				currentPage: currentPage,
+				handlePageChange: changeCurrentPage,
+				pagesPerPage: pagesPerPage,
+				handleChangePagesPerPage: changePagesPerPage,
+			}}
+			data={{
+				labels: [
+					{ name: 'id', value: 'ID' },
+					{ name: 'login', value: 'Логин' },
+					{ name: 'created_at', value: 'Дата регистрации' },
+					{ name: 'platform', value: 'Платформа' },
+					{ name: 'role', value: 'Роль' },
+					{ name: 'forecasts_count', value: 'Кол-во прогнозов' },
+				],
+				data: users,
+				dataArray: dataArray
+			}}
+			sorting={{
+				sortedLabel,
+				sortDirection,
+				setSortedLabel,
+				setSortDirection
+			}}
+
 		/>
 	)
 }

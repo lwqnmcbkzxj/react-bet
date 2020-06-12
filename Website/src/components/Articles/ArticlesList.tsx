@@ -11,6 +11,7 @@ import { ArticlesPlaceholder } from '../Common/Placeholders/ArticlesPlaceholder'
 import { formatDate } from '../../utils/formatDate'
 import useScrollDown from '../../hooks/useScrollDown';
 import { apiURL } from '../../api/api';
+import AdvertBlock from '../Adverts/AdvertBlock';
 
 
 type ArticlesPropsType = {
@@ -28,6 +29,7 @@ const ArticlesList: FC<ArticlesPropsType> = ({ articles, instanceName = "article
 				articles.map((article, counter) =>
 					!article.id || isFetching ? <ArticlesPlaceholder /> :
 
+						<>
 						<div className={s.article}>
 							<Link to={`/articles/${article.id}`} className="actileLink">
 								{article.image && <img src={apiURL + article.image} alt="article-img" />}
@@ -55,7 +57,9 @@ const ArticlesList: FC<ArticlesPropsType> = ({ articles, instanceName = "article
 								id={article.id}
 								elementType='article'
 							/>
-						</div>
+							</div>
+							{(counter + 1) % 1 === 0 && <AdvertBlock />}
+						</>
 				)
 			}
 		</div>

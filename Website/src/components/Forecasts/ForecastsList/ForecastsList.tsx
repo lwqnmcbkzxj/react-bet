@@ -7,7 +7,8 @@ import { AppStateType } from '../../../types/types'
 
 import ForecastsListElement from './ForecastsListElement'
 import useScrollDown from '../../../hooks/useScrollDown';
- 
+import AdvertBlock from '../../Adverts/AdvertBlock';
+
 type ForecastsListPropsType = {
 	forecasts: Array<ForecastType>
 	limit?: number
@@ -24,7 +25,11 @@ const ForecastsList: FC<ForecastsListPropsType> = ({ forecasts, limit = 0, insta
 	return (
 		<div className={s.forecastList}>
 			{forecasts.map((forecast, counter) =>
-				(counter < limit || limit === 0) ? <ForecastsListElement forecast={forecast} isFetching={isFetching} key={forecast.id ? forecast.id : counter} /> : null
+				(counter < limit || limit === 0) ?
+					<>
+						<ForecastsListElement forecast={forecast} isFetching={isFetching} key={forecast.id ? forecast.id : counter} />
+						{(counter + 1) % 5 === 0 && <AdvertBlock />}
+					</> : null
 			)}
 
 		</div>

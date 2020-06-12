@@ -4,6 +4,7 @@ import s from './Bookmakers.module.scss'
 import { Switch, Route } from 'react-router'
 import Breadcrumbs from '../../Common/Breadcrumbs/Breadcrumbs'
 import AdminTablePage from '../Common/AdminTablePage/AdminTablePage'
+import { SortedLabelType } from '../../../types/types'
 
 type ArticlesProps = {
 	handleSearch: (searchText: string) => void
@@ -16,14 +17,20 @@ type ArticlesProps = {
 		handleChangePagesPerPage: (pagesPerPage: number) => void
 	}
 	data: {
-		labels: Array<string>
+		labels: Array<SortedLabelType>
 		data: Array<any>
 		dataArray: Array<any>
+	}
+	sorting: {
+		sortDirection: string,
+		setSortDirection: (direction: string) => void,
+		sortedLabel: string
+		setSortedLabel: (labelName: string) => void
 	}
 	getAllData:() => void
 }
 
-const Articles: FC<ArticlesProps> = ({ handleSearch, deleteFunction, pages, data, ...props }) => {
+const Articles: FC<ArticlesProps> = ({ handleSearch, deleteFunction, pages, data, sorting, ...props }) => {
 	return (
 		<div className={s.articlesAdminPage}>
 			<AdminTablePage
@@ -39,7 +46,8 @@ const Articles: FC<ArticlesProps> = ({ handleSearch, deleteFunction, pages, data
 					},
 					addNewElementText: 'Добавить нового букмекера',
 					deleteFunction: deleteFunction,
-					pages: pages
+					pages: pages,
+					sorting: sorting
 				}}
 				tableData={data}
 				getAllData={props.getAllData}

@@ -6,7 +6,6 @@ export const getUserImg = (avatar) => {
 	let avatarImg = ''
 
 	if (avatar) {
-		debugger
 		if (avatar.includes('http'))
 			avatarImg = avatar
 		else 

@@ -65,7 +65,7 @@ const Forecasts: FC<ForecastsPropsType> = ({ forecasts, filters, toggleFilter, .
 
 			<ForeCastsList forecasts={forecasts} />
 		
-			<div><ActionButton value="Показать больше" func={() => { dispatch(setPaginationPage(-1, 'forecasts')) }}/></div>
+			<div className={s.actionBtnHoder}><ActionButton value="Показать больше" func={() => { dispatch(setPaginationPage(-1, 'forecasts')) }}/></div>
 		</div>
 	)
 }

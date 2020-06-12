@@ -1,25 +1,30 @@
 import React, { FC, useEffect } from 'react';
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppStateType, CommentType } from '../../types/types'
 import Comments from './Comments'
 
-import { toggleCommentsBlockVisibility,  } from '../../redux/app-reducer'
+import { toggleCommentsBlockVisibility, } from '../../redux/app-reducer'
 import { getLiveComments } from '../../redux/comments-reducer'
 
 const CommentsContainer: FC = ({ ...props }) => {
 	const dispatch = useDispatch()
 	const comments = useSelector<AppStateType, Array<CommentType>>(state => state.comments.liveComments);
+	const isGetting = useSelector<AppStateType, boolean>(state => state.comments.isGetting);
 	const isCommentsBlockVisible = useSelector<AppStateType, boolean>(state => state.app.isCommentsBlockVisible);
 
 
 	useEffect(() => {
-		getComments()
+		if (!isGetting)
+			getComments()
+		
 		let interval = setInterval(() => {
 			getComments()
 		}, 30000);
-		
 		return () => clearInterval(interval);;
-	}, []);
+
+
+
+	}, [isGetting]);
 
 
 	const getComments = () => {

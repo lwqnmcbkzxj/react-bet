@@ -8,6 +8,7 @@ import ActionButton from '../../../Common/ActionButton/ActionButton'
 import Search from '../Search/Search'
 import ExportButton from '../ExportButton/ExportButton'
 import AdminTable from './AdminTable/AdminTable'
+import { SortedLabelType } from '../../../../types/types'
 
 type AdminTablePageType = {
 	pageLink: string
@@ -27,9 +28,15 @@ type AdminTablePageType = {
 			handleChangePagesPerPage: (pagesPerPage: number) => void
 		}
 		AdditionalActionComponent?: any
+		sorting: {
+			sortDirection: string,
+			setSortDirection: (direction: string) => void,
+			sortedLabel: string
+			setSortedLabel: (labelName: string) => void
+		}
 	}
 	tableData: {
-		labels: Array<string>
+		labels: Array<SortedLabelType>
 		data: Array<any>
 		dataArray: Array<any>
 	}
@@ -61,6 +68,7 @@ const AdminTablePage: FC<AdminTablePageType> = ({ pageLink, breadcrumbs, actions
 				}}
 				deleteFunction={actions.deleteFunction}
 				pages={actions.pages}
+				sorting={actions.sorting}
 				AdditionalActionComponent={actions.AdditionalActionComponent}
 			/>
 		</div>

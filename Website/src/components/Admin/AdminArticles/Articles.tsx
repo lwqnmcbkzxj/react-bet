@@ -4,6 +4,7 @@ import s from './Articles.module.scss'
 import { Switch, Route } from 'react-router'
 import Breadcrumbs from '../../Common/Breadcrumbs/Breadcrumbs'
 import AdminTablePage from '../Common/AdminTablePage/AdminTablePage'
+import { SortedLabelType } from '../../../types/types'
 
 type ArticlesProps = {
 	handleSearch: (searchText: string) => void
@@ -15,14 +16,20 @@ type ArticlesProps = {
 		pagesPerPage: number
 		handleChangePagesPerPage: (pagesPerPage: number) => void
 	}
+	sorting: {
+		sortDirection: string,
+		setSortDirection: (direction: string) => void,
+		sortedLabel: string
+		setSortedLabel: (labelName: string) => void
+	}
 	data: {
-		labels: Array<string>
+		labels: Array<SortedLabelType>
 		data: Array<any>
 		dataArray: Array<any>
 	}
 }
 
-const Articles: FC<ArticlesProps> = ({ handleSearch, deleteFunction, pages, data, ...props }) => {
+const Articles: FC<ArticlesProps> = ({ handleSearch, deleteFunction, pages, data, sorting, ...props }) => {
 	return (
 		<div className={s.articlesAdminPage}>
 			<AdminTablePage
@@ -38,7 +45,8 @@ const Articles: FC<ArticlesProps> = ({ handleSearch, deleteFunction, pages, data
 					},
 					addNewElementText: 'Добавить новую статью',
 					deleteFunction: deleteFunction,
-					pages: pages
+					pages: pages,
+					sorting: sorting
 				}}
 				tableData={data}
 			/>

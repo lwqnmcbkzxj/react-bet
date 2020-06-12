@@ -4,6 +4,7 @@ import AdminTablePage from '../Common/AdminTablePage/AdminTablePage'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChromecast  } from '@fortawesome/free-brands-svg-icons'
+import { SortedLabelType } from '../../../types/types'
 
 
 type UsersProps = {
@@ -16,8 +17,14 @@ type UsersProps = {
 		pagesPerPage: number
 		handleChangePagesPerPage: (pagesPerPage: number) => void
 	}
+	sorting: {
+		sortDirection: string,
+		setSortDirection: (direction: string) => void,
+		sortedLabel: string
+		setSortedLabel: (labelName: string) => void
+	}
 	data: {
-		labels: Array<string>
+		labels: Array<SortedLabelType>
 		data: Array<any>
 		dataArray: Array<any>
 	}
@@ -27,7 +34,7 @@ const AdditionalActionComponent = ({...propsValues}) => {
 		<FontAwesomeIcon icon={faChromecast}/>
 	</Link>
 }
-const Users: FC<UsersProps> = ({ handleSearch, deleteFunction, pages, data, ...props }) => {
+const Users: FC<UsersProps> = ({ handleSearch, deleteFunction, pages, data, sorting, ...props }) => {
 	
 	return (
 		<div className={s.usersAdminPage}>
@@ -45,7 +52,8 @@ const Users: FC<UsersProps> = ({ handleSearch, deleteFunction, pages, data, ...p
 					addNewElementText: 'Добавить нового пользователя',
 					deleteFunction: deleteFunction,
 					AdditionalActionComponent: AdditionalActionComponent,
-					pages: pages
+					pages: pages,
+					sorting: sorting
 				}}
 				tableData={data}
 			/>

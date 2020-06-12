@@ -12,7 +12,7 @@
 		box-sizing: border-box;
 		text-align: center;
 		color: #343638;
-		border-radius: 0 0 8px 8px ;
+		border-radius: 0 0 8px 8px;
 	}
 
 	& .adminTable {
@@ -21,7 +21,7 @@
 		border-bottom: none;
 		border-radius: 8px;
 		width: 100%;
-		
+
 		& .tableHeader,
 		& .tableBody .tableRow {
 			width: 100%;
@@ -43,7 +43,6 @@
 					text-align: left;
 				}
 
-
 				&:first-child {
 					width: 50px;
 				}
@@ -57,8 +56,11 @@
 					display: flex;
 					align-items: center;
 					justify-content: space-around;
-					& a, & button {
+
+					& a,
+					& button {
 						margin-right: 8px;
+
 						&:last-child {
 							margin: 0;
 						}
@@ -69,9 +71,33 @@
 
 		& .tableHeader {
 			background: #F5F5F5;
+			& .tableCell {
+				& div {
+					opacity: 0.76;		
+					display: flex;
+					align-items: center;
+					& p { padding-right: 19px; }
+				}
+				& .sortingIcon { 
+					display: none;
+					opacity: .5;
+					transition: .3s;
+					&.rotate {
+						transform: rotate(180deg);
+					}
+				 }
+				&:hover {
+					& .sortingIcon{
+						display: block;
+					}
+					& p { padding-right: 5px; }
+				}
 
-			& div {
-				opacity: 0.76;
+				&.active {
+					& div {	font-family: Roboto Medium; }
+					& .sortingIcon { display: block; }
+					& p { padding-right: 5px; }
+				}
 			}
 		}
 	}
@@ -169,5 +195,4 @@
 			}
 		}
 	}
-
 }

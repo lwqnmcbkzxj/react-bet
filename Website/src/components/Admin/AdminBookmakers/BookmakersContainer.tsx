@@ -17,13 +17,9 @@ const BookmakersContainer: FC = ({ ...props }) => {
 	const [currentPage, changeCurrentPage] = useState(0)
 	const [pagesPerPage, changePagesPerPage] = useState(10)
 
-	const handleChangeCurrentPage = (page: number) => {
-		changeCurrentPage(page)
-	}
-	const handleChangePagesPerPage = (pagesPerPage: number) => {
-		changePagesPerPage(pagesPerPage)
-	}
-
+	
+	const [sortedLabel, setSortedLabel] = useState('id')
+	const [sortDirection, setSortDirection] = useState('desc')
 	const getBookmakers = (searchText = "") => {
 		dispatch(getBookmakersFromServer(currentPage + 1, pagesPerPage, searchText, 'title'))
 	}
@@ -61,17 +57,30 @@ const BookmakersContainer: FC = ({ ...props }) => {
 			pages={{
 				pagesCount: pagesCount,
 				currentPage: currentPage,
-				handlePageChange: handleChangeCurrentPage,
+				handlePageChange: changeCurrentPage,
 				pagesPerPage: pagesPerPage,
-				handleChangePagesPerPage: handleChangePagesPerPage,
+				handleChangePagesPerPage: changePagesPerPage,
 			}}
 
 			data={{
-				labels: ['ID', 'Название', 'Описание', 'Рейтинг', 'Бонус', 'Ссылка'],
+				labels: [
+					{ value: 'ID', name: 'id' },
+					{ value: 'Название', name: 'title' },
+					{ value: 'Описание', name: 'content' },
+					{ value: 'Рейтинг', name: 'rating' },
+					{ value: 'Бонус', name: 'bonus' },
+					{ value: 'Ссылка', name: 'link' },
+				],
 				data: bookmakers,
 				dataArray: dataArray
 			}}
 			getAllData={exportData}
+			sorting={{
+				sortedLabel,
+				sortDirection,
+				setSortedLabel,
+				setSortDirection
+			}}
 		/>
 	)
 }

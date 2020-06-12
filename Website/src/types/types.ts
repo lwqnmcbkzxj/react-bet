@@ -79,3 +79,8 @@ export type ShortDataElementType = {
 	id: number,
 	value: string
 }
+
+export type SortedLabelType = {
+	name: string
+	value: string
+}

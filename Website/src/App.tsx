@@ -43,6 +43,7 @@ import { authUser, setLogged, setAccessToken } from './redux/me-reducer'
 import useMobile from './hooks/useMobile'
 import { UserType } from './types/me'
 import Cookies from 'js-cookie'
+import { showAlert } from './utils/showAlert'
 
 
 const Admin = React.lazy(() => import('./components/Admin/Admin'))
@@ -87,11 +88,23 @@ const App = (props: any) => {
 	}
 
 
+
+	useEffect(() => {
+		window.addEventListener("unhandledrejection", catchAllUnhandledErrors as any);
+		return () => { window.removeEventListener("unhandledrejection", catchAllUnhandledErrors as any);	 }
+	}, [])
+	const catchAllUnhandledErrors = (reason: any, promiseRejectionEvent: any) => {
+		console.error(reason + '\n' + promiseRejectionEvent);
+        showAlert('error', "Произошла непредвиденная ошибка");
+	}
+	
+
+
 	return (
 		<Switch>
-			{loggedUser.role_id > 2 &&
+			{/* {loggedUser.role_id > 2 && */}
 				<Route path="/admin" render={withSuspense(Admin)} />
-			}
+			{/* } */}
 
 			<Route component={() =>
 				<div className="app-wrapper">

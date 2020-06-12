@@ -7,6 +7,7 @@ import { ArticleType } from '../../../types/admin'
 
 import { getAdminArticlesFromServer, deleteArticle } from '../../../redux/admin-reducer'
 import { formatDate } from '../../../utils/formatDate'
+import { SortDirection } from 'react-virtualized'
 
 const ArticlesContainer: FC = ({ ...props }) => {
 	const dispatch = useDispatch()
@@ -16,12 +17,9 @@ const ArticlesContainer: FC = ({ ...props }) => {
 	const [currentPage, changeCurrentPage] = useState(0)
 	const [pagesPerPage, changePagesPerPage] = useState(10)
 
-	const handleChangeCurrentPage = (page: number) => {
-		changeCurrentPage(page)
-	}
-	const handleChangePagesPerPage = (pagesPerPage: number) => {
-		changePagesPerPage(pagesPerPage)
-	}
+	const [sortedLabel, setSortedLabel] = useState('id')
+	const [sortDirection, setSortDirection] = useState('desc')
+	
 
 	const getArticles = (searchText = "") => {
 		dispatch(getAdminArticlesFromServer(currentPage + 1, pagesPerPage, searchText, 'content'))
@@ -57,24 +55,29 @@ const ArticlesContainer: FC = ({ ...props }) => {
 			pages={{
 				pagesCount: pagesCount,
 				currentPage: currentPage,
-				handlePageChange: handleChangeCurrentPage,
+				handlePageChange: changeCurrentPage,
 				pagesPerPage: pagesPerPage,
-				handleChangePagesPerPage: handleChangePagesPerPage,
+				handleChangePagesPerPage: changePagesPerPage,
 			}}
 
 			data={{
-				// labels: [
-				// 	{ value: 'ID', name: 'id' },
-				// 	{ value: 'Название', name: 'title' },
-				// 	{ value: 'Категория', name: 'category_name' },
-				// 	{ value: 'Содержание', name: 'content' },
-				// 	{ value: 'Опубликована', name: 'is_published' },
-				// 	{ value: 'Дата создания', name: 'created_at' },
-				// 	{ value: 'Создан', name: 'created_by_login' },
-				// ],
-				labels: ['ID', 'Название', 'Категория', 'Содержание', 'Опубликована', 'Дата создания', 'Создан'],
+				labels: [
+					{ value: 'ID', name: 'id' },
+					{ value: 'Название', name: 'title' },
+					{ value: 'Категория', name: 'category_name' },
+					{ value: 'Содержание', name: 'content' },
+					{ value: 'Опубликована', name: 'is_published' },
+					{ value: 'Дата создания', name: 'created_at' },
+					{ value: 'Создан', name: 'created_by_login' },
+				],
 				data: articles,
 				dataArray: dataArray
+			}}
+			sorting={{
+				sortedLabel,
+				sortDirection,
+				setSortedLabel,
+				setSortDirection
 			}}
 		/>
 	)

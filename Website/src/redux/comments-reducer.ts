@@ -23,7 +23,8 @@ type ActionsTypes = SetCommentsType | SetCommentsIsGettingType;
 const commentsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
 		case SET_COMMENTS: {
-			let comments = [] as Array<CommentType>
+			let comments = [{}] as Array<CommentType>
+			debugger
 			if (action.comments) 
 				comments = [...action.comments]
 			return {

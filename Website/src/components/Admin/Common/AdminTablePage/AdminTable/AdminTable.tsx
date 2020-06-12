@@ -7,13 +7,14 @@ import classNames from 'classnames'
 import ActionsBlock from './ActionsBlock'
 
 import { Paginator } from './Paginator/Paginator'
-import parse from 'html-react-parser';
 import Preloader from '../../../../Common/Preloader/Preloader'
-import { AppStateType } from '../../../../../types/types'
+import { AppStateType, SortedLabelType } from '../../../../../types/types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 
 type AdminTableType = {
 	pageLink: string
-	labels: Array<string>
+	labels: Array<SortedLabelType>
 	data: {
 		data: Array<any>
 		dataArray: Array<any>
@@ -27,27 +28,56 @@ type AdminTableType = {
 		pagesPerPage: number
 		handleChangePagesPerPage: (pagesPerPage: number) => void
 	}
+	sorting: {
+		sortDirection: string,
+		setSortDirection: (direction: string) => void,
+		sortedLabel: string
+		setSortedLabel: (labelName: string) => void
+	}
 }
 
 
 const AdminTable: FC<AdminTableType> = ({
 	pageLink = "",
-	labels = ['ID', 'Заголовок'],
+	labels = [
+		{ name: 'id', value: 'ID' },
+		{ name: 'title', value: 'Заголовок' },
+	],
 	data,
 	deleteFunction,
 	AdditionalActionComponent,
+	sorting,
 	pages,
 	...props }) => {
 
 	const isFetchingArray = useSelector<AppStateType, Array<string>>(state => state.admin.isFetchingArray)
 
+	
 	return (
 		<div className={s.adminTableHolder}>
 
 			<table className={s.adminTable}>
 				<tr className={s.tableHeader}>
 					{labels.map((label, counter) =>
-						<th className={s.tableCell} key={'label' + counter}><div>{label}</div></th>
+						<th key={'label' + counter}
+							className={classNames(s.tableCell, { [s.active]: sorting.sortedLabel === label.name })}
+							onClick={() => {
+								sorting.setSortedLabel(label.name)
+
+
+								if (sorting.sortedLabel === label.name && sorting.sortDirection === 'desc') {
+									sorting.setSortDirection('asc')
+								} else {
+									sorting.setSortDirection('desc')
+								}
+							}}
+
+						>
+							<div>
+								<p>{label.value}</p>
+								<FontAwesomeIcon icon={faChevronDown} className={classNames(s.sortingIcon, {[s.rotate]: sorting.sortDirection === 'asc'})}/>
+							</div>
+						</th>
 					)}
 					<th className={s.tableCell}><div>Действие</div></th>
 				</tr>

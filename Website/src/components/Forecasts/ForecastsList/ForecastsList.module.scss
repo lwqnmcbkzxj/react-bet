@@ -1,11 +1,11 @@
 .forecast {
 	margin-top: 20px;
-	border: 1px solid #F4F4F4;
+	border: 1px solid #E5E2E2;
 	border-radius: 7px;
 
 	& .forecastHeader {
 		padding: 11px 21px 8px 21px;
-		border-bottom: 1px solid #F4F4F4;
+		border-bottom: 1px solid #E5E2E2;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -152,7 +152,7 @@
 
 	& .forecastFooter {
 		padding: 9px 21px;
-		border-top: 1px solid #F4F4F4;
+		border-top: 1px solid #E5E2E2;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -294,7 +294,7 @@
 				margin: 0;
 				justify-content: flex-start;
 				padding-bottom: 10px;
-				border-bottom: 1px solid #F4F4F4;		
+				border-bottom: 1px solid #E5E2E2;		
 				& .userProfit {
 					p {
 						display: none;

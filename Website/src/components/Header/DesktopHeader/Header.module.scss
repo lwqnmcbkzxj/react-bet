@@ -8,7 +8,7 @@
 
 .desktopHeader header {
 	height: 50px;
-	padding: 0 17.5%;
+	padding: 0 35% 0 30px;
 	width: 65%;
 	background: #202E48;
 
@@ -262,7 +262,7 @@
 
 @media screen and (max-width: 1600px) {
 	.desktopHeader header {
-		padding: 0 12.5%;
+		padding: 0 25% 0 30px;
 		width: 75%;
 	}
 
@@ -277,7 +277,7 @@
 
 @media screen and (max-width: 1400px) {
 	.desktopHeader header {
-		padding: 0 7.5%;
+		padding: 0 15% 0 30px;
 		width: 85%;
 	}
 

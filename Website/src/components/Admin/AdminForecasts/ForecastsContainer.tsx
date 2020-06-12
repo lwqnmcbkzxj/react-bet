@@ -25,12 +25,10 @@ const ForecastsContainer: FC<Props> = ({ ...props }) => {
 	const [currentPage, changeCurrentPage] = useState(0)
 	const [pagesPerPage, changePagesPerPage] = useState(10)
 
-	const handleChangeCurrentPage = (page: number) => {
-		changeCurrentPage(page)
-	}
-	const handleChangePagesPerPage = (pagesPerPage: number) => {
-		changePagesPerPage(pagesPerPage)
-	}
+	const [sortedLabel, setSortedLabel] = useState('id')
+	const [sortDirection, setSortDirection] = useState('desc')
+
+
 	let userId = props.match.params.userId;
 	const getForecasts = (searchText = "") => {
 		dispatch(getAdminForecastsFromServer(currentPage + 1, pagesPerPage, searchText, '', +userId))
@@ -70,14 +68,26 @@ const ForecastsContainer: FC<Props> = ({ ...props }) => {
 			pages={{
 				pagesCount: pagesCount,
 				currentPage: currentPage,
-				handlePageChange: handleChangeCurrentPage,
+				handlePageChange: changeCurrentPage,
 				pagesPerPage: pagesPerPage,
-				handleChangePagesPerPage: handleChangePagesPerPage,
+				handleChangePagesPerPage: changePagesPerPage,
 			}}
 			data={{
-				labels: ['ID', 'Прогноз от', 'Событие', 'Дата создания', 'Статус'],
+				labels: [
+					{ name: 'id', value: 'ID' },
+					{ name: 'user_id', value: 'Прогноз от' },
+					{ name: 'event', value: 'Событие' },
+					{ name: 'created_at', value: 'Дата создания' },
+					{ name: 'status', value: 'Статус' },
+				],
 				data: forecasts,
 				dataArray: dataArray
+			}}
+			sorting={{
+				sortedLabel,
+				sortDirection,
+				setSortedLabel,
+				setSortDirection
 			}}
 		/>
 	)

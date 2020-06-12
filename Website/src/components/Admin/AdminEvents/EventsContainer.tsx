@@ -18,12 +18,8 @@ const EventsContainer: FC = ({ ...props }) => {
 	const [currentPage, changeCurrentPage] = useState(0)
 	const [pagesPerPage, changePagesPerPage] = useState(10)
 
-	const handleChangeCurrentPage = (page: number) => {
-		changeCurrentPage(page)
-	}
-	const handleChangePagesPerPage = (pagesPerPage: number) => {
-		changePagesPerPage(pagesPerPage)
-	}
+	const [sortedLabel, setSortedLabel] = useState('id')
+	const [sortDirection, setSortDirection] = useState('desc')
 
 	const getEvents = (searchText = "") => {
 		dispatch(getAdminEventsFromServer(currentPage + 1, pagesPerPage, searchText, 'login'))
@@ -51,21 +47,34 @@ const EventsContainer: FC = ({ ...props }) => {
 
 	return (
 		<Events
-		handleSearch={handleSearch}
-		deleteFunction={deleteFunction}
-		pages={{
-			pagesCount: pagesCount,
-			currentPage: currentPage,
-			handlePageChange: handleChangeCurrentPage,
-			pagesPerPage: pagesPerPage,
-			handleChangePagesPerPage: handleChangePagesPerPage,
-		}}
-		data={{
-			labels: ['ID', 'Событие', 'Вид спорта', 'Статус', 'Кол-во прогнозов', 'Дата создания'],
-			data: events,
-			dataArray: dataArray
-		}}
-		
+			handleSearch={handleSearch}
+			deleteFunction={deleteFunction}
+			pages={{
+				pagesCount: pagesCount,
+				currentPage: currentPage,
+				handlePageChange: changeCurrentPage,
+				pagesPerPage: pagesPerPage,
+				handleChangePagesPerPage: changePagesPerPage,
+			}}
+			data={{
+				labels: [
+					{ name: 'id', value: 'ID' },
+					{ name: 'event_name', value: 'Событие' },
+					{ name: 'sport_name', value: 'Вид спорта' },
+					{ name: 'status', value: 'Статус' },
+					{ name: 'forecasts_count', value: 'Кол-во прогнозов' },
+					{ name: 'created_at', value: 'Дата создания' },
+				],
+				data: events,
+				dataArray: dataArray
+			}}
+			sorting={{
+				sortedLabel,
+				sortDirection,
+				setSortedLabel,
+				setSortDirection
+			}}
+
 		/>
 	)
 }

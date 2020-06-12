@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from 'react'
 import s from './Championships.module.scss'
 import AdminTablePage from '../Common/AdminTablePage/AdminTablePage'
+import { SortedLabelType } from '../../../types/types'
 
 
 type Props = {
@@ -13,14 +14,20 @@ type Props = {
 		pagesPerPage: number
 		handleChangePagesPerPage: (pagesPerPage: number) => void
 	}
+	sorting: {
+		sortDirection: string,
+		setSortDirection: (direction: string) => void,
+		sortedLabel: string
+		setSortedLabel: (labelName: string) => void
+	}
 	data: {
-		labels: Array<string>
+		labels: Array<SortedLabelType>
 		data: Array<any>
 		dataArray: Array<any>
 	}
 }
 
-const Championships: FC<Props> = ({ handleSearch, deleteFunction, pages, data, ...props }) => {
+const Championships: FC<Props> = ({ handleSearch, deleteFunction, pages, data, sorting, ...props }) => {
 	
 	return (
 		<div className={s.championshipsAdminPage}>
@@ -37,7 +44,9 @@ const Championships: FC<Props> = ({ handleSearch, deleteFunction, pages, data, .
 					},
 					addNewElementText: 'Добавить новый чемпионат',
 					deleteFunction: deleteFunction,
-					pages: pages
+					pages: pages,
+					sorting: sorting
+
 				}}
 				tableData={data}
 			/>

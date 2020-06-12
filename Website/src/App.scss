@@ -13,7 +13,7 @@ button:hover {
 
 .app-container {
 	width: 65%;
-	margin: 0 auto;
+	margin: 0 auto 0 30px;
 	display: grid;
 	grid-template-columns: 180px auto 250px;
 }
@@ -52,6 +52,7 @@ button:hover {
 
 @media screen and (max-width: 1224px) {
 	.app-container {
+		margin: 0 auto;
 		width: 95%;
 	}
 
