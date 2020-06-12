@@ -12,6 +12,7 @@ import exitIcon from '../../../assets/img/exit-icon.png'
 
 import AdminMenu from './AdminMenu/AdminMenu'
 import { apiURL } from '../../../api/api';
+import { getUserImg } from '../../../utils/getUserImg';
 
 type HeaderPropsType = {
 	user: UserType
@@ -42,7 +43,7 @@ const DesktopHeader: FC<HeaderPropsType> = ({ user, ...props }) => {
 				<div className={s.headerUserBlock}>
 					<div className={s.loggedUser} onClick={toggleUserPopupVisibility}>
 						<p className={s.userLogin}>{user.login }</p>
-						<img src={user.avatar ? apiURL + user.avatar : userImgPlaceholder} alt="user-img" />
+						<img src={getUserImg(user.avatar)} alt="user-img" />
 						<button>
 							<FontAwesomeIcon
 								icon={faCaretDown}
@@ -57,7 +58,7 @@ const DesktopHeader: FC<HeaderPropsType> = ({ user, ...props }) => {
 								className={s.popupRow}
 								onClick={toggleUserPopupVisibility}
 							>
-								<img src={apiURL + user.avatar} alt="user-img" />
+								<img src={getUserImg(user.avatar)} alt="user-img" />
 								<p>В профиль</p>
 							</Link>
 								{/* <Link to="/" className={s.popupRow + ' ' + s.logoutRow} onClick={toggleUserPopupVisibility}>

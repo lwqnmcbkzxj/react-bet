@@ -22,6 +22,7 @@ import userImgHolder from '../../assets/img/user-no-image.png'
 import { apiURL } from '../../api/api'
 import SubscribeButton from '../Common/SubscibeButton/SubscribeButton';
 import { formatDate, formatStartDate } from '../../utils/formatDate'
+import { getUserImg } from '../../utils/getUserImg';
 
 type ForecastPropsType = {
 	forecast: ForecastType
@@ -34,19 +35,13 @@ type ForecastPropsType = {
 }
 
 const Forecast: FC<ForecastPropsType> = ({ forecast, commentsFunctions, ...props }) => {
-	let userAvatar = ""
 	let userRoi = 0
 
 	let forecastTitle = ''
 	let tournamentName = ''
 
-
+	
 	if (forecast.id) {
-		if (forecast.user_data.avatar) {
-			userAvatar = apiURL + forecast.user_data.avatar
-		} else {
-			userAvatar = userImgHolder
-		}
 
 		userRoi = +(+forecast.user_data.stats.roi * 100).toFixed(2)
 		forecastTitle = forecast.event_data.event + ' ' + forecast.bet_data.type
@@ -146,7 +141,7 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, commentsFunctions, ...props
 			<div className={s.userBlock}>
 				<div className={s.userInfo}>
 					<Link to={`/forecasters/${forecast.user_data.id}`}>
-						<img src={userAvatar} alt="forecastUserImg" />
+						<img src={getUserImg(forecast.user_data.avatar)} alt="forecastUserImg" />
 					</Link>
 					<div className={s.userDetails}>
 						<Link to={`/forecasters/${forecast.user_data.id}`}>

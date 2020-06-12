@@ -12,6 +12,7 @@ import Swiper from 'react-id-swiper';
 import 'swiper/css/swiper.css';
 import { apiURL } from '../../../api/api';
 import { setPaginationPage } from '../../../redux/app-reducer';
+import { getUserImg } from '../../../utils/getUserImg';
 
 type UsersListPropsType = {
 	users: Array<UserType>
@@ -72,7 +73,7 @@ const UsersList: FC<UsersListPropsType> = ({ users, limit = 0, ...props }) => {
 					:
 					<div>
 						<Link to={`/forecasters/${user.id}`}  className={s.user}>
-						<img className={s.userImg} src={user.avatar ? apiURL + user.avatar : userImgPlaceholder} alt="user-img" />
+						<img className={s.userImg} src={getUserImg(user.avatar)} alt="user-img" />
 						<div className={s.nickName}>{user.login}</div>
 						<div className={s.stats}>
 								<img src={statsImg} alt="stats-img" />

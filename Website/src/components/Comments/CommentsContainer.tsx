@@ -14,7 +14,6 @@ const CommentsContainer: FC = ({ ...props }) => {
 
 	useEffect(() => {
 		getComments()
-
 		let interval = setInterval(() => {
 			getComments()
 		}, 30000);

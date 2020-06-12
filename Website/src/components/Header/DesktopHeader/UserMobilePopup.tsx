@@ -16,6 +16,7 @@ import { changeUserPageActiveTab } from '../../../redux/app-reducer'
 import { UserType as LoggedUserType } from '../../../types/me'
 import userImgPlaceholder from '../../../assets/img/user-no-image.png'
 import { apiURL } from '../../../api/api';
+import { getUserImg } from '../../../utils/getUserImg';
 
 type UserPopupPropsType = {
 	logout: () => void
@@ -40,7 +41,7 @@ const UserMobilePopup: FC<UserPopupPropsType> = ({ logout, loggedUser, toggleUse
 			<div className={s.popupHeader}>Профиль</div>
 
 			<NavLink to={`/forecasters/${loggedUser.id}`} className={s.popupRow + ' ' + s.userRow} onClick={toggleUserPopupVisibility}>
-				<img src={loggedUser.avatar ? apiURL + loggedUser.avatar : userImgPlaceholder} alt="user-img" />
+				<img src={ getUserImg(loggedUser.avatar) } alt="user-img" />
 				<p>{loggedUser.login}</p>
 			</NavLink>
 

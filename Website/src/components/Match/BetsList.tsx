@@ -7,6 +7,7 @@ import { AppStateType } from '../../types/types'
 import { ForecastType } from '../../types/forecasts';
 import userNoImg from '../../assets/img/user-no-image.png'
 import { apiURL } from '../../api/api';
+import { getUserImg } from '../../utils/getUserImg';
 
 type BetsListPropsType = {
 	forecasts?: Array<ForecastType>
@@ -32,7 +33,7 @@ const BetsList: FC<BetsListPropsType> = ({ forecasts = [], ...props }) => {
 			{forecasts.map((forecast, counter) =>
 				<div className={s.bet} key={counter}>
 					<Link to={`/forecasters/${forecast.user_data.id}`} className={s.forecaster}>
-						<img src={forecast.user_data.avatar ? apiURL + forecast.user_data.avatar : userNoImg} alt="user-img" />
+						<img src={ getUserImg(forecast.user_data.avatar)} alt="user-img" />
 						<div className={s.userName}>{forecast.user_data.login}</div>
 					</Link>
 

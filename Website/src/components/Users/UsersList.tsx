@@ -12,6 +12,7 @@ import { UsersPlaceholder } from '../Common/Placeholders/UsersPlaceholder'
 import userImgPlaceholder from '../../assets/img/user-no-image.png'
 import { apiURL } from '../../api/api';
 import useScrollDown from '../../hooks/useScrollDown';
+import { getUserImg } from '../../utils/getUserImg';
 
 type UsersListPropsType = {
 	users: Array<UserType>
@@ -48,7 +49,7 @@ const UsersList: FC<UsersListPropsType> = ({ users, limit = 0, instanceName = "u
 							<span>{counter + 1}</span>
 						</div>
 						<NavLink to={`/forecasters/${user.id}`} className={s.nickName}>
-							<img src={user.avatar ? apiURL + user.avatar : userImgPlaceholder} alt="user-img" />
+							<img src={ getUserImg(user.avatar) } alt="user-img" />
 							<p>{user.login}</p>
 						</NavLink>
 						<div className={s.averageCoef}>{(+user.stats.average_cofficient).toFixed(2)}</div>

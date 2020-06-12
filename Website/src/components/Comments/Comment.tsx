@@ -6,6 +6,7 @@ import { getTimeSinceSending } from '../../utils/commentTime'
 import { apiURL } from '../../api/api';
 
 import userImgHolder from '../../assets/img/user-no-image.png'
+import { getUserImg } from '../../utils/getUserImg';
 
 type CommentPropsType = {
 	comment: CommentType
@@ -18,7 +19,7 @@ const Comment: FC<CommentPropsType> = ({ comment, ...props }) => {
 		<div className={s.comment}>
 			<div className={s.commentInfo}>
 				<Link className={s.commentatorInfo} to={`/forecasters/${comment.user_id}`}>
-					<img src={comment.user_avatar ? apiURL + comment.user_avatar : userImgHolder} alt="comentatorImg" />
+					<img src={getUserImg(comment.user_avatar)} alt="comentatorImg" />
 					<div className={s.comentatorName}>{comment.user_name}</div>
 
 				</Link>

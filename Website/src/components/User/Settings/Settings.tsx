@@ -17,6 +17,7 @@ import iosDownload from '../../../assets/img/app-store-btn.png'
 import { apiURL } from '../../../api/api';
 import { change } from 'redux-form';
 import { AppStateType } from '../../../types/types';
+import { getUserImg } from '../../../utils/getUserImg';
 
 type SettingsPropsType = {
 	loggedUser: LoggedUserType
@@ -32,7 +33,7 @@ const Settings: FC<SettingsPropsType> = ({ loggedUser, languages, changeLanguage
 	let initialValues = { email: loggedUser.email }
 
 
-	let userAvatar = loggedUser.avatar ? apiURL + loggedUser.avatar : userNoImg
+	let userAvatar = getUserImg(loggedUser.avatar)
 
 	const changePhoto = (e: any) => {
 		dispatch(change('profile-form', 'file', e.currentTarget.files[0]))

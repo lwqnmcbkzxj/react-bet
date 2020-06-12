@@ -15,6 +15,7 @@ import { ForecastsListElementPlaceholder } from '../../Common/Placeholders/Forec
 import { formatDate, formatStartDate } from '../../../utils/formatDate'
 
 import { apiURL } from '../../../api/api'
+import { getUserImg } from '../../../utils/getUserImg';
 
 type ForecastPropsType = {
 	forecast: ForecastType
@@ -22,16 +23,8 @@ type ForecastPropsType = {
 }
 
 const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) => {
-	let userAvatar = ''
 	let tournamentName
 	if (forecast.id) {
-
-		if (forecast.user_data.avatar) {
-			userAvatar = apiURL + forecast.user_data.avatar
-		} else {
-			userAvatar = userImgHolder
-		}
-
 		if (forecast.event_data.championship_data.sport_id !== 5) {
 			tournamentName = forecast.event_data.championship_data.championship.split('.').slice(1).join('.')
 		} else {
@@ -94,7 +87,7 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 				<div className={s.forecastFooter}>
 					<div className={s.userStats}>
 						<NavLink to={`/forecasters/${forecast.user_data.id}`} className={s.userInfo}>
-							<img src={userAvatar} alt="userImg" />
+							<img src={getUserImg(forecast.user_data.avatar)} alt="userImg" />
 							<p className={s.userNickName}>{forecast.user_data.login}</p>
 						</NavLink>
 						<div className={s.userMatches}>

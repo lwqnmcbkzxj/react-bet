@@ -19,6 +19,7 @@ import { useDispatch } from 'react-redux';
 import { apiURL } from '../../api/api';
 import SubscribeButton from '../Common/SubscibeButton/SubscribeButton';
 import BorderedSelectors from '../Common/Selectors/BorderedSelector/BorderedSelector';
+import { getUserImg } from '../../utils/getUserImg';
 
 export enum selectors {
 	forecasts = 'forecasts',
@@ -117,7 +118,7 @@ const User: FC<UsersPropsType> = ({
 				<div className={s.user}>
 					<div className={s.userInfo}>
 						<div className={s.userDetails}>
-							<img src={user.avatar ? apiURL + user.avatar : userNoImg} alt="user-img" />
+							<img src={getUserImg(user.avatar)} alt="user-img" />
 							<div className={s.nickName}>
 								<p>{user.login}</p>
 								<div className={s.userStats}>

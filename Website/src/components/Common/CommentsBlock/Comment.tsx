@@ -9,6 +9,7 @@ import SendComment from './SendComment';
 import { formatDate } from '../../../utils/formatDate';
 import { CommentType } from '../../../types/types';
 import { apiURL } from '../../../api/api';
+import { getUserImg } from '../../../utils/getUserImg';
 type CommentPropsType = {
 	comment: CommentType
 	comments: Array<CommentType>
@@ -53,7 +54,9 @@ const Comment: FC<CommentPropsType> = ({ comment, comments, sendCommentFunc, ...
 		<div className={classNames(s.comment, { [s.reply]: comment.replies_to, [s.lastReply]: !comment.replies_to })}>
 			
 			<div className={s.commentHeader}>
-				<Link to={`/forecasters/${comment.user_id}`}><img src={comment.user_avatar ? apiURL + comment.user_avatar : userImg} alt="user-img" /></Link>
+				<Link to={`/forecasters/${comment.user_id}`}>
+					<img src={getUserImg(comment.user_avatar)} alt="user-img" />
+				</Link>
 
 				<div className={s.info}>
 					<Link to={`/forecasters/${comment.user_id}`} className={s.nickName}>{comment.user_name}</Link>

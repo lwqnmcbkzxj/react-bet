@@ -12,6 +12,7 @@ import Search from './Search'
 import LiveBtn from '../LiveBtn/LiveBtn';
 import { UserType } from '../../../types/me';
 import { apiURL } from '../../../api/api';
+import { getUserImg } from '../../../utils/getUserImg';
 
 type HeaderPropsType = {
 	logged: boolean
@@ -55,9 +56,8 @@ const DesktopHeader: FC<HeaderPropsType> = ({ logged, logout, user, isCommentsBl
 				<div className={s.bankBlock}>Банк: <span>
 					{user.balance ? (+user.balance).toLocaleString() : 0} xB</span></div>
 				<div className={s.loggedUser}>
-
 				<div onClick={toggleUserPopupVisibility} className={s.userImgBlock}>
-						<img src={user.avatar ? apiURL + user.avatar : userImgPlaceholder} alt="user-img" />
+						<img src={getUserImg(user.avatar)} alt="user-img" />
 						<button className={s.userBlockToggler} >
 							<FontAwesomeIcon icon={faCaretDown} />
 						</button>

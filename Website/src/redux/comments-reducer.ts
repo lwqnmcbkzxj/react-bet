@@ -7,16 +7,18 @@ import { appAPI } from '../api/api'
 import { showAlert } from '../utils/showAlert'
 
 const SET_COMMENTS = 'comments/SET_COMMENTS'
+const SET_COMMENTS_IS_GETTING = 'comments/SET_COMMENTS_IS_GETTING'
 
 
 
 
 let initialState = {
-	liveComments: [] as Array<CommentType>
+	liveComments: [] as Array<CommentType>,
+	isGetting: false
 }
 
 type InitialStateType = typeof initialState;
-type ActionsTypes = SetCommentsType;
+type ActionsTypes = SetCommentsType | SetCommentsIsGettingType;
 
 const commentsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
@@ -29,6 +31,12 @@ const commentsReducer = (state = initialState, action: ActionsTypes): InitialSta
 				liveComments: [...comments]
 			}
 		}
+		case SET_COMMENTS_IS_GETTING: {
+			return {
+				...state,
+				isGetting: action.isGetting
+			}	
+		}
 
 		default:
 			return state;
@@ -39,8 +47,10 @@ type SetCommentsType = {
 	type: typeof SET_COMMENTS,
 	comments: Array<CommentType>
 }
-
-
+type SetCommentsIsGettingType = {
+	type: typeof SET_COMMENTS_IS_GETTING,
+	isGetting: boolean
+}
 
 
 
@@ -49,7 +59,7 @@ type SetCommentsType = {
 
 export const getLiveComments = (currentTimeStamp: number): ThunksType => async (dispatch) => {
 	let response = await commentsAPI.getLiveComments(currentTimeStamp)
-
+	dispatch(setCommentsIsGetting(true))
 	dispatch(setComments(response))
 }
 export const setComments = (comments: Array<CommentType>): SetCommentsType => {
@@ -58,8 +68,13 @@ export const setComments = (comments: Array<CommentType>): SetCommentsType => {
 		comments
 	}
 }
-	
-	
+export const setCommentsIsGetting = (isGetting: boolean): SetCommentsIsGettingType => {
+	return {
+		type: SET_COMMENTS_IS_GETTING,
+		isGetting
+	}
+}
+
 	
 	
 	
