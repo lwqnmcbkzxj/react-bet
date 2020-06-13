@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Coefficient;
 use App\Event;
 use App\Forecast;
+use App\Http\Resources\AdminForecastCollection;
+use App\Http\Resources\FastForecast;
 use App\Http\Resources\FastForecastCollection;
 use App\User;
 use Illuminate\Http\Request;
@@ -43,7 +45,7 @@ class ForecastController extends Controller
         }
         $res->orderBy($request['order_by'], $request['direction']);
 
-        return $this->sendResponse((new FastForecastCollection($res->paginate($request['limit']))), 'Success', 200);
+        return $this->sendResponse((new AdminForecastCollection($res->paginate($request['limit']))), 'Success', 200);
     }
 
     public function search(Request $request) {
@@ -119,10 +121,12 @@ class ForecastController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function forecast(Forecast $forecast)
     {
-        //
+        $res = DB::table('forecasts_view')->where('forecast_id', '=', $forecast->id)->first();
+        return $this->sendResponse(new AdminForecast($res), 'Success', 200);
     }
+
 
     /**
      * Show the form for editing the specified resource.

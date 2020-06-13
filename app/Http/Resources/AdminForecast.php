@@ -9,7 +9,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class FastForecast extends JsonResource
+class AdminForecast extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -63,7 +63,8 @@ class FastForecast extends JsonResource
                 'team_1' => ['name' => $split_team[0]],
                 'team_2' => ['name' => $split_team[1]]
             ],
-            'forecast_text' => $this->is_shown == 1 ? $this->forecast_text : '',
+            'forecast_text' => $this->forecast_text,
+            'is_shown' => $this->is_shown,
             'forecast_created_at' => $this->created_at,
             'bet_data' => [
                 'bet' => $this->bet,
