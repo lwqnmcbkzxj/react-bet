@@ -10,6 +10,15 @@ import Foundation
 
 extension Result {
     
+    func err() -> Error? {
+        switch self {
+        case .success(_):
+            return nil
+        case .failure(let err):
+            return err
+        }
+    }
+    
     @discardableResult
     func onSuccess(_ completion: (Success) -> Void) -> Result<Success, Failure> {
         switch self {

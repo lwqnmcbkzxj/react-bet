@@ -27,6 +27,11 @@ class CommentCellManager {
         return authService.authError == nil
     }
     
+    func canReply(to comment: Comment) -> Bool {
+        return commentService.canComment(for: comment.refTo.data,
+                                         id: comment.refId.data)
+    }
+    
     func changeRating(to status: RatingStatus, comment: Comment) {
         if !canRate() {
             print("can't change rating. Unauthorized")

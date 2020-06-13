@@ -120,7 +120,6 @@ class CommentCell: UITableViewCell {
         self.comment = model.comment
         
         addLines(long: model.longLines, short: model.shortLines)
-//        addLines(long: model.parentsCount, short: 0)
         
         userImageView.setImage(url: model.comment.userAvatar.data)
         usernameLabel.text = model.comment.username.data
@@ -141,7 +140,9 @@ class CommentCell: UITableViewCell {
     
     @objc private func respond() {
         guard let comment = comment else { return }
-        router?.reply(to: comment)
+        if manager.canReply(to: comment) {
+            router?.reply(to: comment)
+        }
     }
     
     private func addLines(long: Int, short: Int) {

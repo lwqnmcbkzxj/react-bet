@@ -53,13 +53,16 @@ extension AuthService: IAuthService {
     
     var authError: BHError? {
         let authToken = tokenService.authToken()
-        switch authToken {
-        case .success(_):
-            return nil
-            
-        case .failure(let error):
-            return error
-        }
+        
+        let tokenErr = authToken.err()
+        if tokenErr != nil { return tokenErr?.asBHError() }
+        
+        let userInfoErr = (userService.currentUserInfo.forecaster.data == nil)
+            ? BHError.unspecified
+            : nil
+        if userInfoErr != nil { return userInfoErr }
+        
+        return nil
     }
     
     func register(username: String, email: String, password: String, callback: @escaping ((BHError?) -> Void)) {

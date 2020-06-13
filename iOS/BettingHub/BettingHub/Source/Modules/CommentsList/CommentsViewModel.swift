@@ -117,7 +117,9 @@ class CommentsViewModel: TableSectionProvider {
     }
     
     @objc private func newComment() {
-        commentsRouter.newComment(type: commentType, id: id)
+        if commentService.canComment(for: commentType, id: id) {
+            commentsRouter.newComment(type: commentType, id: id)
+        }
     }
     
     private func buildTree(sorting: CommentsSorting, items: [Comment]) -> [CommentCellViewModelItem] {

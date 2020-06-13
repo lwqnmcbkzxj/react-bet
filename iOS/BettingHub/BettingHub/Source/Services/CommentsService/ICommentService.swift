@@ -24,4 +24,6 @@ protocol ICommentService: class {
     
     @discardableResult
     func addComment(id: Int, replyId: Int?, type: CommentType, text: String) -> Promise<Bool>
+    
+    func canComment(for type: CommentType, id: Int) -> Bool
 }

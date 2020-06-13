@@ -120,4 +120,8 @@ extension CommentService: ICommentService {
         
         return promise
     }
+    
+    func canComment(for type: CommentType, id: Int) -> Bool {
+        return authService.authError == nil
+    }
 }
