@@ -54,7 +54,7 @@ Route::get('/news', 'Api\InfoController@news');
 Route::get('/news/{news}', 'Api\InfoController@news');
 
 Route::get('/sports', function () {
-    return \App\Sport::all();
+    return \App\Sport::query()->orderBy('order_id')->get();
 });
 Route::get('/options', function () {
     return \App\Option::all();
@@ -139,7 +139,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('admin/forecasts','Admin\ForecastController@index');
     Route::post('admin/forecasts','Admin\ForecastController@store');
-    Route::get('admin/forecasts/{forecast}','Api\InfoController@forecast');
+    Route::get('admin/forecasts/{forecast}','Admin\ForecastController@forecast');
     Route::post('admin/forecasts/{forecast}','Admin\ForecastController@update');
     Route::delete('admin/forecasts/{forecast}','Admin\ForecastController@destroy');
 
