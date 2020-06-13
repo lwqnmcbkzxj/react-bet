@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Coefficient;
 use App\Event;
 use App\Forecast;
+use App\Http\Resources\AdminForecast;
 use App\Http\Resources\AdminForecastCollection;
 use App\Http\Resources\FastForecast;
 use App\Http\Resources\FastForecastCollection;
