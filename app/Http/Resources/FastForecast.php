@@ -63,7 +63,7 @@ class FastForecast extends JsonResource
                 'team_1' => ['name' => $split_team[0]],
                 'team_2' => ['name' => $split_team[1]]
             ],
-            'forecast_text' => $this->is_shown == 1 ? $this->forecast_text : '',
+            'forecast_text' => conf()->get('show_forecast_comments') ? $this->forecast_text : '',
             'forecast_created_at' => $this->created_at,
             'bet_data' => [
                 'bet' => $this->bet,
