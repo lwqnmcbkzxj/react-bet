@@ -222,6 +222,9 @@
 		1CC6CF7E2490F3F7005D8105 /* CommentCellManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC6CF7D2490F3F7005D8105 /* CommentCellManager.swift */; };
 		1CC72E4E2482502300A551AE /* ForecastTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC72E4D2482502300A551AE /* ForecastTypePicker.swift */; };
 		1CC72E5024827C9B00A551AE /* BetAmountFieldsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC72E4F24827C9B00A551AE /* BetAmountFieldsManager.swift */; };
+		1CCEA9E02493CADB00B444FB /* SocialAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCEA9DF2493CADB00B444FB /* SocialAuthViewController.swift */; };
+		1CCEA9E32493CC7700B444FB /* SocialAuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCEA9E22493CC7700B444FB /* SocialAuthAssembly.swift */; };
+		1CCEA9E52493CCE000B444FB /* SocialAuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCEA9E42493CCE000B444FB /* SocialAuthPresenter.swift */; };
 		1CCFB12C244B604C00F431BA /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCFB12B244B604C00F431BA /* UIViewController.swift */; };
 		1CD0F1C5244F8A49008436CD /* InfoStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD0F1C4244F8A49008436CD /* InfoStackView.swift */; };
 		1CD3DDB52474789800B160F3 /* AddForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3DDB42474789800B160F3 /* AddForecastViewController.swift */; };
@@ -489,6 +492,9 @@
 		1CC6CF7D2490F3F7005D8105 /* CommentCellManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCellManager.swift; sourceTree = "<group>"; };
 		1CC72E4D2482502300A551AE /* ForecastTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastTypePicker.swift; sourceTree = "<group>"; };
 		1CC72E4F24827C9B00A551AE /* BetAmountFieldsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetAmountFieldsManager.swift; sourceTree = "<group>"; };
+		1CCEA9DF2493CADB00B444FB /* SocialAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialAuthViewController.swift; sourceTree = "<group>"; };
+		1CCEA9E22493CC7700B444FB /* SocialAuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialAuthAssembly.swift; sourceTree = "<group>"; };
+		1CCEA9E42493CCE000B444FB /* SocialAuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialAuthPresenter.swift; sourceTree = "<group>"; };
 		1CCFB12B244B604C00F431BA /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		1CD0F1C4244F8A49008436CD /* InfoStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoStackView.swift; sourceTree = "<group>"; };
 		1CD3DDB42474789800B160F3 /* AddForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddForecastViewController.swift; sourceTree = "<group>"; };
@@ -1185,6 +1191,7 @@
 				1CEE8BDD2448BC74007F2FDB /* Navigation */,
 				1C91348B2448B07300AE4510 /* Main */,
 				1CC4EFA124472C5C00D69C67 /* Login */,
+				1CCEA9E12493CC6300B444FB /* SocialAuth */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1298,6 +1305,16 @@
 				1CBEC89C248D3767003F920A /* UILabel.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		1CCEA9E12493CC6300B444FB /* SocialAuth */ = {
+			isa = PBXGroup;
+			children = (
+				1CCEA9E22493CC7700B444FB /* SocialAuthAssembly.swift */,
+				1CCEA9DF2493CADB00B444FB /* SocialAuthViewController.swift */,
+				1CCEA9E42493CCE000B444FB /* SocialAuthPresenter.swift */,
+			);
+			path = SocialAuth;
 			sourceTree = "<group>";
 		};
 		1CD0F1C6244F8C44008436CD /* Header */ = {
@@ -1709,6 +1726,7 @@
 				1C2CFC142451DF2A00E1071F /* AppInitializer.swift in Sources */,
 				1CD3DDBB2474B26B00B160F3 /* Decoding.swift in Sources */,
 				1CDA5FD2248D0A4B005A3A4F /* UnifyingStorage.swift in Sources */,
+				1CCEA9E52493CCE000B444FB /* SocialAuthPresenter.swift in Sources */,
 				1C99B60B246F05E9009A5386 /* ForecastViewModelItem.swift in Sources */,
 				1C2C523D2471E3A900AACF3A /* MatchBetsChart.swift in Sources */,
 				1C76C11724797523005F471A /* FullArticleViewController.swift in Sources */,
@@ -1718,6 +1736,7 @@
 				1CC39CBE245F11D7003CED00 /* ProfileAssembly.swift in Sources */,
 				1C47CC0A245A05B80031BC27 /* ForecastersViewModel.swift in Sources */,
 				1C6608FB2449E388007E9BEB /* TopForecasterCell.swift in Sources */,
+				1CCEA9E32493CC7700B444FB /* SocialAuthAssembly.swift in Sources */,
 				1C39EDB1245EEF5E00F405AB /* UserForecastsViewModel.swift in Sources */,
 				1CBEC899248D146F003F920A /* CommentService.swift in Sources */,
 				1CC39CCC246024F0003CED00 /* SocialNetwork.swift in Sources */,
@@ -1783,6 +1802,7 @@
 				1CC4EFBC2447330D00D69C67 /* Text.swift in Sources */,
 				1CA43BBC247E6DC400CAF75E /* NewsListViewModel.swift in Sources */,
 				1C25F83E244DD8C600A24F31 /* LabelWithInsets.swift in Sources */,
+				1CCEA9E02493CADB00B444FB /* SocialAuthViewController.swift in Sources */,
 				1CA43BAD247BF3FA00CAF75E /* BookmakerViewModel.swift in Sources */,
 				1C91348F2448B08500AE4510 /* MainViewController.swift in Sources */,
 				1C5612172456854000D02DBB /* MainScreenInteractor.swift in Sources */,

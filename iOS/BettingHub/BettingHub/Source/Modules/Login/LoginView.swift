@@ -72,28 +72,24 @@ class LoginView: UIView {
             make.centerY.equalToSuperview().offset(-1.5)
             make.width.equalTo(56)
         }
-        view.isHidden = true //TODO: tempUI
         return view
     }()
     
     let googleButton: UIButton = {
         let button = SocialButton(network: .google)
         button.setTitle(Text.loginWithGoogle, for: .normal)
-        button.isHidden = true //TODO: tempUI
         return button
     }()
     
     let facebookButton: UIButton = {
         let view = SocialButton(network: .facebook)
-        view.isHidden = true //TODO: tempUI
         return view
     }()
     
     let vkButton: UIButton = {
-           let view = SocialButton(network: .vk)
-           view.isHidden = true //TODO: tempUI
-           return view
-       }()
+       let view = SocialButton(network: .vk)
+       return view
+    }()
     
     let passwordButton: UIButton = {
         let button = UIItems.authTextButton
@@ -128,7 +124,6 @@ class LoginView: UIView {
     }
     
     func setForState(_ state: LoginScreenState) {
-//        mailInput.isHidden = state != .register
         usernameInput.isHidden = state != .register
         passwordInput.isHidden = state == .restore
         confirmPasswordInput.isHidden = state != .register

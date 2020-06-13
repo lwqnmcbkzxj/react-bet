@@ -19,6 +19,7 @@ class BetStatusView: UIView {
         view.textColor = .white
         view.font = .robotoMedium(size: 14)
         view.snp.contentCompressionResistanceHorizontalPriority = 1000
+        view.snp.contentHuggingHorizontalPriority = 1000
         return view
     }()
     
@@ -53,10 +54,7 @@ class BetStatusView: UIView {
             label.textColor = .titleBlack
             label.text = bet.value.description(f: 2) + xb
         case .wait:
-//            backgroundColor = grayColor
-//            layer.borderColor = UIColor.clear.cgColor
-//            label.textColor = .titleBlack
-//            label.text = profit.description(f: 2) + xb
+            backgroundColor = grayColor
             backgroundColor = .clear
             layer.borderColor = UIColor.clear.cgColor
             label.textColor = .clear
@@ -77,9 +75,10 @@ class BetStatusView: UIView {
     private func makeLayout() {
         addSubview(label)
         label.snp.makeConstraints { (make) in
-            make.centerY.equalToSuperview()
+            make.top.bottom.equalToSuperview()
             make.leading.equalToSuperview().offset(8)
             make.trailing.equalToSuperview().offset(-4)
+            make.width.equalTo(0).priority(900)
         }
     }
 }

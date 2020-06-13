@@ -17,4 +17,8 @@ protocol IAuthService: class {
     func logIn(usernameOrMail: String, password: String, callback: @escaping ((BHError?) -> Void))
     
     func logOut()
+    
+    func url(for network: SocialNetwork) -> URL
+    
+    func redirectedAuth(with url: URL)
 }

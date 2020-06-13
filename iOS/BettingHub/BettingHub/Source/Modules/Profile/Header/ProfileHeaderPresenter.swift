@@ -44,11 +44,6 @@ class ProfileHeaderPresenter {
         
         let forecaster = forecaster ?? userService.currentUserInfo.forecaster.data!
         self.forecaster = forecaster
-//        userService.addDelegate(self)
-    }
-    
-    deinit {
-//        userService.removeDelegate(self)
     }
 }
 

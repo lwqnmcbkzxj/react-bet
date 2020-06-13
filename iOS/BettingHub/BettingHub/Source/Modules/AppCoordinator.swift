@@ -185,4 +185,10 @@ class AppCoordinator {
         vc.presenter = presenter
         return vc
     }
+    
+    func socialNetworkAuth(network: SocialNetwork) -> UIViewController {
+        let assembly = SocialAuthAssembly()
+        let vc = assembly.module(social: network)
+        return vc
+    }
 }

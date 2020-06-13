@@ -7,12 +7,15 @@
 //
 
 import Foundation
+import UIKit
 
 protocol ILoginPresenter: class {
     
     func register(username: String, email: String, password: String, confirmPassword: String)
     
     func logIn(usernameOrMail: String, password: String)
+    
+    func auth(with network: SocialNetwork)
 }
 
 class LoginPresenter: ILoginPresenter {
@@ -62,6 +65,12 @@ class LoginPresenter: ILoginPresenter {
             
             self.loadDataAfterLogin()
         }
+    }
+    
+    func auth(with network: SocialNetwork) {
+        
+        let url = authService.url(for: network)
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }
 

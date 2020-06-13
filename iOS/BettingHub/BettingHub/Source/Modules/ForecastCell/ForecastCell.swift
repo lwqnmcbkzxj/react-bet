@@ -232,7 +232,6 @@ class ForecastCell: UITableViewCell {
         matchStartLabel.text = vm.startDateText
         betStatusView.configure(with: bet)
         
-        
         let user = forecast.user
         usernameLabel.text = user.login.data
         userImageView.setImage(url: user.avatar.data)

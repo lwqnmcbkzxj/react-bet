@@ -37,5 +37,6 @@ class ServiceLocator {
         container.register(IArticleService.self) { ArticleService() }
         container.register(INewsService.self, registrationBlock: NewsService.init)
         container.register(ICommentService.self, registrationBlock: CommentService.init)
+        container.register(AppCoordinator.self, registrationBlock: AppCoordinator.init)
     }
 }

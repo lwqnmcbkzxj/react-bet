@@ -11,6 +11,8 @@ import UIKit
 protocol ILoginRouter: class {
     
     func proceed()
+    
+    func auth(with network: SocialNetwork)
 }
 
 class LoginRouter: ILoginRouter {
@@ -24,8 +26,11 @@ class LoginRouter: ILoginRouter {
     }
     
     func proceed() {
-//        let tabBar = coordinator.mainTabBarScreen
-//        viewController?.present(tabBar, animated: true, completion: nil)
         coordinator.mainTabBar.setState(isAuthorized: true)
+    }
+    
+    func auth(with network: SocialNetwork) {
+        let vc = coordinator.socialNetworkAuth(network: network)
+        viewController.present(vc, animated: true, completion: nil)
     }
 }

@@ -182,7 +182,6 @@ class ProfileHeaderView: UIView {
     @objc private func subscribeTapped() {
         if !presenter.canSubscribe() { return }
         presenter.subscribe()
-//        presenter.subscribe(callback: nil)
     }
     
     private func makeLayout() {
@@ -207,15 +206,17 @@ class ProfileHeaderView: UIView {
         }
         
         panel.addSubview(usernameLabel)
+        usernameLabel.snp.contentCompressionResistanceHorizontalPriority = 999
         usernameLabel.snp.makeConstraints { (make) in
             make.leading.equalTo(profileImageView.snp.trailing).offset(12)
             make.top.equalTo(profileImageView)
         }
         
         panel.addSubview(statsLabel)
+        statsLabel.snp.contentCompressionResistanceHorizontalPriority = 1000
         statsLabel.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(10)
-            make.leading.equalTo(usernameLabel.snp.trailing).offset(10)
+            make.leading.equalTo(usernameLabel.snp.trailing).offset(4)
         }
         
         let bankStack = UIStackView()
@@ -236,6 +237,7 @@ class ProfileHeaderView: UIView {
             make.top.equalToSuperview().offset(14)
             make.trailing.equalToSuperview().offset(-8)
             make.width.height.equalTo(45)
+            make.leading.greaterThanOrEqualTo(statsLabel.snp.trailing).offset(4)
         }
         
         let roiStack = UIStackView()

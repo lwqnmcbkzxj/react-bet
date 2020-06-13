@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WebKit
 
 enum LoginScreenState {
     case login, register, restore
@@ -60,6 +61,16 @@ class LoginViewController: UIViewController {
         
         loginView.loginButton.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
         
+        loginView.googleButton.addTarget(self,
+                                         action: #selector(socialButtonPressed(sender:)),
+                                         for: .touchUpInside)
+        loginView.facebookButton.addTarget(self,
+                                           action: #selector(socialButtonPressed(sender:)),
+                                           for: .touchUpInside)
+        loginView.vkButton.addTarget(self,
+                                     action: #selector(socialButtonPressed(sender:)),
+                                     for: .touchUpInside)
+        
         loginView.setForState(state)
     }
     
@@ -96,6 +107,12 @@ class LoginViewController: UIViewController {
         case .restore:
             break
         }
+    }
+    
+    @objc private func socialButtonPressed(sender: UIButton) {
+        guard let social = sender as? SocialButton else { return }
+        
+        presenter.auth(with: social.network)
     }
 }
 

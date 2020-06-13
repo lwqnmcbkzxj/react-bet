@@ -14,6 +14,7 @@ class AuthService {
     @LazyInjected private var httpClient: IHttpClient
     @LazyInjected private var reqBuilder: IRequestBuilder
     @LazyInjected private var userService: IUserService
+    @LazyInjected private var coordinator: AppCoordinator
     
     func registerRequest(username: String, email: String, password: String) -> (RequestContent, URLRequest) {
         let endpoint = "api/register"
@@ -91,5 +92,42 @@ extension AuthService: IAuthService {
         tokenService.deleteToken()
         userService.clearInfo()
         
+    }
+    
+    func url(for network: SocialNetwork) -> URL {
+       
+        let redirectStr = "?redirect_to=betthub://auth"
+        
+        let urlStr =
+        [
+            SocialNetwork.vk: "https://app.betthub.org/api/login/vkontakte\(redirectStr)",
+            SocialNetwork.google: "https://app.betthub.org/api/login/google\(redirectStr)",
+            SocialNetwork.facebook: "https://app.betthub.org/api/login/facebook\(redirectStr)"
+        ][network]!
+        
+        let url = URL(string: urlStr)!
+        
+        return url
+    }
+    
+    func redirectedAuth(with url: URL) {
+        guard
+            let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
+            let params = components.queryItems,
+            let token = params.first(where: { $0.name == "token" })?.value
+        else { return }
+        
+        let oneYear: TimeInterval = 60 * 60 * 24 * 365 //365 days
+        let auth = AuthToken(access_token: token, refresh_token: "", expires_in: oneYear)
+        tokenService.saveAuthToken(auth)
+        
+        userService.reloadInfo { (err) in
+            if let err = err {
+                print(err)
+            }
+            
+            let isAuthorized = self.authError == nil && err == nil
+            self.coordinator.mainTabBar.setState(isAuthorized: isAuthorized)
+        }
     }
 }

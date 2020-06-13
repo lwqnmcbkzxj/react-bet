@@ -40,14 +40,6 @@ class UserService {
 
 extension UserService: IUserService {
     
-//    func addDelegate(_ delegate: IUserServiceDelegate) {
-//        delegates.add(delegate: delegate)
-//    }
-//    
-//    func removeDelegate(_ delegate: IUserServiceDelegate) {
-//        delegates.remove(delegate: delegate)
-//    }
-    
     var currentUserInfo: UserInfo {
         return _userInfo
     }
@@ -83,28 +75,6 @@ extension UserService: IUserService {
                 callback?(err)
             }
         }
-        
-//        httpClient.request(request: request) { (result) in
-//            switch result {
-//            case .success(let data):
-//                guard let userData = try? JSONDecoder().decode(UserInfo.self, from: data) else {
-//                    self._userInfo = self.persistantStorage.get(UserInfo.self)
-//                    callback?(.unexpectedContent)
-//                    return
-//                }
-//                self.persistantStorage.save(userData)
-//                self._userInfo = userData
-//
-//                self.delegates.invoke { (delegate) in
-//                    delegate.dataChanged(userService: self)
-//                }
-//
-//                callback?(nil)
-//
-//            case .failure(let err):
-//                callback?(err.asBHError())
-//            }
-//        }
     }
     
     func clearInfo() {

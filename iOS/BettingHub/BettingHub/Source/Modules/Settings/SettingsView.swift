@@ -205,7 +205,7 @@ class SettingsView: UIView {
         }
         
         add(item: buildPanel(), itemHeight: 77, additionalTopInset: 0, itemWidth: nil)
-//        add(item: rateButton, itemHeight: 45, additionalTopInset: 12, itemWidth: nil)
+        add(item: rateButton, itemHeight: 45, additionalTopInset: 12, itemWidth: nil)
 //        add(item: langSelector, itemHeight: 33, additionalTopInset: 22,itemWidth: 160)
 //        add(item: personalLabel, itemHeight: 24, additionalTopInset: 14, itemWidth: nil)
 //        add(item: emailInput, itemHeight: 76, additionalTopInset: 0, itemWidth: nil)

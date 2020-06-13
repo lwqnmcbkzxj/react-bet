@@ -31,6 +31,8 @@ class SettingsViewController: UIViewController {
         
         settingsView.exitButton.addTarget(self, action: #selector(exitTapped), for: .touchUpInside)
         
+        settingsView.rateButton.addTarget(self, action: #selector(rateTapped), for: .touchUpInside)
+        
     }
     
     func binds() -> [ObservableBind] {
@@ -61,6 +63,10 @@ class SettingsViewController: UIViewController {
         picker.delegate = self
         
         present(picker, animated: true, completion: nil)
+    }
+    
+    @objc private func rateTapped() {
+        presenter.rate()
     }
 }
 

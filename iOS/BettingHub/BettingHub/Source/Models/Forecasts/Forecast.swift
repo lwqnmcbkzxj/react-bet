@@ -60,7 +60,7 @@ struct ForecastApiObject: Decodable {
         id = try container.decode(Int.self, forKey: .id)
         user = try container.decode(ForecasterApiObject.self, forKey: .user)
         event = try container.decode(Match.self, forKey: .event)
-        text = try container.decode(String.self, forKey: .text)
+        text = try container.decode(String?.self, forKey: .text) ?? ""
         bet = try container.decode(Bet.self, forKey: .bet)
         
         let creationString = try container.decode(String.self, forKey: .creationDate)

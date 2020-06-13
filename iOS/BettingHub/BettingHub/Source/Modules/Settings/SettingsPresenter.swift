@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import StoreKit
 
 protocol ISettingsPresenter: class {
     
@@ -17,6 +18,8 @@ protocol ISettingsPresenter: class {
     func logOut()
     
     func uploadAvatar(_ image: UIImage)
+    
+    func rate()
 }
 
 class SettingsPresenter: ISettingsPresenter {
@@ -46,6 +49,12 @@ class SettingsPresenter: ISettingsPresenter {
     func uploadAvatar(_ image: UIImage) {
         guard let data = image.pngData() else { return }
         userService.uploadAvatar(data: data)
+    }
+    
+    func rate() {
+        if #available(iOS 10.3, *) {
+            SKStoreReviewController.requestReview()
+        }
     }
 }
 
