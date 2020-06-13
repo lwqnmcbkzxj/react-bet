@@ -23,7 +23,7 @@ class BannerController extends Controller
         return $this->sendResponse($res->orderBy($request['order_by'], 'desc')->paginate($request['limit']),'Success',200);
     }
 
-    function get(Request $request,  $banner)
+    function get(Request $request, Banner $banner)
     {
         return $this->sendResponse($banner,'Success',200);
     }

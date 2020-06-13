@@ -65,6 +65,7 @@ Route::get('/roles', function () {
 Route::post('/feedback','FeedbackController@post');
 
 Route::get('/banners', 'BannerController@getActive');
+Route::get('/banners/{banner}', 'BannerController@get');
 
 Route::get('/users/short','ShortResourcesController@users');
 Route::get('/events/short','ShortResourcesController@events');

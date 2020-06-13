@@ -55,9 +55,9 @@ class BannerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Banner $banner)
     {
-        //
+        return $this->sendResponse($banner,'Success',200);
     }
 
     /**
