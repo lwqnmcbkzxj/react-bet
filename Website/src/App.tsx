@@ -35,15 +35,18 @@ import ArticleContainer from './components/Article/ArticleContainer'
 import ArticlesContainer from './components/Articles/ArticlesContainer'
 
 import { useDispatch, useSelector } from "react-redux"
-import { AppStateType, OptionsType } from './types/types'
+import { AppStateType, OptionsType, BannerPositionEnum } from './types/types'
 import { withSuspense } from './hoc/withSuspense';
 
-import { initApp } from './redux/app-reducer'
+import { initApp, getLanguage } from './redux/app-reducer'
 import { authUser, setLogged, setAccessToken } from './redux/me-reducer'
 import useMobile from './hooks/useMobile'
 import { UserType } from './types/me'
 import Cookies from 'js-cookie'
 import { showAlert } from './utils/showAlert'
+import { Banner } from './components/Adverts/Banner'
+import { LanguageType } from './types/filters'
+import Preloader from './components/Common/Preloader/Preloader'
 
 
 const Admin = React.lazy(() => import('./components/Admin/Admin'))
@@ -59,22 +62,34 @@ const App = (props: any) => {
 	const options = useSelector<AppStateType, OptionsType>(state => state.app.options)
 
 	const loggedUser = useSelector<AppStateType, UserType>(state => state.me.userInfo)
+	const language = useSelector<AppStateType, Array<LanguageType>>(state => state.app.languages).filter(lang  => lang.active === true)[0]
+
+	const isIniting = useSelector<AppStateType, boolean>(state => state.app.isIniting)
+
 	useEffect(() => {
-		dispatch(initApp())
-		dispatch(authUser())
+		dispatch(getLanguage())
+	}, [])
+
+	useEffect(() => {
+		if (language && !isIniting) {
+			dispatch(initApp())
+			dispatch(authUser())
+		}
 	}, [])
 
 
 	useEffect(() => {
-		if (options.head_scripts) {
-			const script = document.createElement('script');
-  			script.src = eval(options.head_scripts);
-  			document.head.appendChild(script);
-		}
-		if (options.footer_scripts) {
-			const script = document.createElement('script');
-  			script.src = eval(options.head_scripts);
-  			document.body.appendChild(script);
+		if (!isIniting) {
+			if (options.head_scripts) {
+				const script = document.createElement('script');
+				  script.src = eval(options.head_scripts);
+				  document.head.appendChild(script);
+			}
+			if (options.footer_scripts) {
+				const script = document.createElement('script');
+				  script.src = eval(options.head_scripts);
+				  document.body.appendChild(script);
+			}
 		}
 	}, [options])
 
@@ -98,17 +113,19 @@ const App = (props: any) => {
         showAlert('error', "Произошла непредвиденная ошибка");
 	}
 	
-
+	if (isIniting) {
+		return <Preloader />
+	} else 
 
 	return (
 		<Switch>
 			{/* {loggedUser.role_id > 2 && */}
 				<Route path="/admin" render={withSuspense(Admin)} />
-			{/* } */}
+			{/* }  */}
 
 			<Route component={() =>
+			
 				<div className="app-wrapper">
-
 					<HeaderContainer />
 					<AuthFormContainer />
 					<div className='app-container'>

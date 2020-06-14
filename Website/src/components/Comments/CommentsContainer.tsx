@@ -14,16 +14,16 @@ const CommentsContainer: FC = ({ ...props }) => {
 
 
 	useEffect(() => {
-		if (!isGetting)
-			getComments()
-		
-		let interval = setInterval(() => {
-			getComments()
-		}, 30000);
-		return () => clearInterval(interval);;
+		setTimeout(() => {
+			if (!isGetting) {
+				getComments()
+			}
+			let interval = setInterval(() => {
+				getComments()
+			}, 30000);
 
-
-
+			return () => clearInterval(interval);
+		}, 2000)
 	}, [isGetting]);
 
 

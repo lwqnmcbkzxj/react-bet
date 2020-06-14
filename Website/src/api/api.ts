@@ -2,11 +2,18 @@ import Axios from 'axios';
 import qs from 'query-string'
 import { UserType, BookmakerType, ForecastType, ChampionshipType, EventType } from '../types/admin';
 import { OptionsType, BannerType } from '../types/types';
+import { languageEnum } from '../types/filters';
 
-export const apiURL = "https://app.betthub.org"
+
+let apiURIObject = {
+	rus: "https://app.betthub.org",
+	eng: "https://api.betthub.org"
+}
+
+export let apiURL = ""
 
 const instance = Axios.create({
-	baseURL: `${apiURL}/api/`,
+	baseURL: ``,
 	headers: {
 
 	}
@@ -15,7 +22,11 @@ const instance = Axios.create({
 export const setTokenForAPI = (token: string) => {
 	instance.defaults.headers.Authorization = "Bearer " + token;
 }
+export const setApiLanguage = (lang: languageEnum) => {
+	apiURL = apiURIObject[lang]
+	instance.defaults.baseURL = `${apiURIObject[lang]}/api`
 
+}
 
 
 export const userAPI = {

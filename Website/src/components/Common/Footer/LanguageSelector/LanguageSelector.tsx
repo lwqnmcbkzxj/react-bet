@@ -14,7 +14,7 @@ type MenuFooterPropsType = { }
 const LanguageSelector: FC<MenuFooterPropsType> = ({ ...props }) => {
 	const dispatch = useDispatch();
 	const languagesState = useSelector<AppStateType, Array<LanguageType>>(state => state.app.languages)
-	let currentLanguage = languagesState.filter(filter => filter.active === true)[0].visibleText
+	let currentLanguage = languagesState.filter(filter => filter.active === true)[0]
 
 	// Changing language
 	const handleChangeLanguage = (language: languageEnum) => {
@@ -24,7 +24,7 @@ const LanguageSelector: FC<MenuFooterPropsType> = ({ ...props }) => {
 
 
 	let languages = languagesState.map(language => {
-		if (language.visibleText !== currentLanguage) {
+		if (language.visibleText !== currentLanguage.visibleText) {
 			return <p
 				className={s.language}
 				onClick={() => { handleChangeLanguage(language.name) }}
@@ -43,7 +43,7 @@ const LanguageSelector: FC<MenuFooterPropsType> = ({ ...props }) => {
 
 	return (
 		<div className={s.languageSelector}>
-			<p onClick={toggleLanguageSelectorVisibility}>Язык: {currentLanguage}</p>
+			<p onClick={toggleLanguageSelectorVisibility}>Язык: {currentLanguage.visibleText}</p>
 			<div className={classNames(s.languagesList, { [s.active]: languageSelectorVisible })}>
 				{languages}
 			</div>

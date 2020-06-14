@@ -2,11 +2,14 @@ import { AppStateType, ShortDataElementType } from '../types/types'
 import { languageEnum, LanguageType } from '../types/filters'
 import { ThunkAction } from 'redux-thunk'
 import { SportType } from '../types/types'
-import { appAPI } from '../api/api'
+import { appAPI, setApiLanguage } from '../api/api'
 
 import { showAlert } from '../utils/showAlert'
 import { stopSubmit } from 'redux-form'
 import { OptionsType, BannerType } from '../types/types'
+import Cookies from 'js-cookie'
+
+const TOGGLE_IS_INITING = 'app/TOGGLE_IS_INITING'
 
 const TOGGLE_AUTH_FORM_VISIBILITY = 'app/TOGGLE_AUTH_FORM_VISIBILITY'
 const TOGGLE_COMMENTS_BLOCK_VISIBILITY = 'app/TOGGLE_COMMENTS_BLOCK_VISIBILITY'
@@ -32,6 +35,7 @@ const SET_SHORT_DATA = 'app/SET_SHORT_DATA'
 
 
 let initialState = {
+	isIniting: false,
 	redirectLink: "",
 	shouldRedirect: false,
 	isAuthFormVisible: false,
@@ -41,7 +45,7 @@ let initialState = {
 	languages: [
 		{ index: 1, name: languageEnum.rus, visibleText: 'Русский', active: true },
 		{ index: 2, name: languageEnum.eng, visibleText: 'English', active: false },
-	],
+	] as Array<LanguageType>,
 	sports: [] as Array<SportType>,
 	policy: "",
 	terms: "",
@@ -65,6 +69,7 @@ let initialState = {
 
 type InitialStateType = typeof initialState;
 type ActionsTypes =
+	ToggleIsInitingType |
 	SetRedirectLinkType |
 	SetShouldRedirectType |
 	ToggleAuthFormVisiblilityType |
@@ -81,6 +86,12 @@ type ActionsTypes =
 
 const appReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
+		case TOGGLE_IS_INITING: {
+			return {
+				...state,
+				isIniting: action.value
+			}
+		}
 		case TOGGLE_AUTH_FORM_VISIBILITY: {
 			let value = !state.isAuthFormVisible
 			if (action.value === false || action.value === true) {
@@ -190,8 +201,8 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 		case SET_OPTIONS: {
 			return {
 				...state,
-				options: {...action.options}
-			}	
+				options: { ...action.options }
+			}
 		}
 		case SET_PAGINATION_LIMIT: {
 			let key = action.instanceName as "forecasts" | "articles" | "users" | "bookmakers"
@@ -215,10 +226,10 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 			if (!action.isFetching && action.page !== page && instanceObject.totalCount > instanceObject.page * instanceObject.limit) {
 				if (action.page === -1)
 					page = instanceObject.page + 1
-				else 
-					page = action.page 
+				else
+					page = action.page
 			}
-			
+
 			return {
 				...state,
 				paginationObject: {
@@ -244,7 +255,7 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 				}
 			}
 		}
-			
+
 		case SET_BANNERS: {
 			return {
 				...state,
@@ -257,7 +268,7 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 				...state,
 				shortData: {
 					...state.shortData,
-					[key]:  [...action.data]
+					[key]: [...action.data]
 				}
 			}
 		}
@@ -267,7 +278,10 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 }
 
 
-
+type ToggleIsInitingType = {
+	type: typeof TOGGLE_IS_INITING,
+	value: boolean
+}
 type ToggleAuthFormVisiblilityType = {
 	type: typeof TOGGLE_AUTH_FORM_VISIBILITY
 	value?: boolean
@@ -312,7 +326,7 @@ type SetTermsType = {
 	terms: string
 }
 type SetOptionsType = {
-	type: typeof SET_OPTIONS, 
+	type: typeof SET_OPTIONS,
 	options: OptionsType
 }
 
@@ -345,14 +359,28 @@ export type SetPaginationTotalCountType = {
 }
 
 
-export const initApp = (): ThunksType => async (dispatch) => {
-	dispatch(getBanners())
-	dispatch(getOptions())
-	dispatch(getSportsFromServer())
-	dispatch(getPolicy())
-	dispatch(getTerms())
-}
+export const initApp = (): ThunksType => async (dispatch, getState) => {
+	dispatch(setIsIniting(true))
 
+	if (getState().app.languages.filter(lang => lang.active === true)[0]) {
+		await dispatch(getBanners())
+		await dispatch(getOptions())
+		await dispatch(getSportsFromServer())
+		await dispatch(getPolicy())
+		await dispatch(getTerms())
+
+		dispatch(setIsIniting(false))
+	}
+
+
+
+}
+const setIsIniting = (value: boolean): ToggleIsInitingType => {
+	return {
+		type: TOGGLE_IS_INITING,
+		value
+	}
+}
 
 export const toggleAuthFormVisiblility = (value?: boolean): ToggleAuthFormVisiblilityType => {
 	return {
@@ -378,10 +406,29 @@ export const changeMainPageBlockVisibility = (blockName: string): ChangeMainPage
 	}
 }
 
-export const changeLanguage = (language: languageEnum): ChangeLanguageType => {
-	return {
+export const getLanguage = (): ThunksType => async (dispatch) => {
+	let language = languageEnum.rus
+	if (Cookies.get('language')) {
+		language = Cookies.get('language') as languageEnum
+	} else {
+		Cookies.set('language', language, { expires: 14 * 24 })
+	}
+
+	setApiLanguage(language)
+
+	dispatch({
 		type: CHANGE_LANGUAGE,
 		language
+	})
+}
+
+export const changeLanguage = (language: languageEnum): ThunksType => async (dispatch, getState) => {
+	let activeLanguage = getState().app.languages.filter(lang => lang.active === true) as any
+
+	if (activeLanguage.name !== language) {
+		Cookies.set('language', language, { expires: 14 * 24 })
+		window.location.reload()
+
 	}
 }
 
@@ -422,7 +469,7 @@ const setSports = (sports: Array<SportType>): ThunksType => async (dispatch) => 
 		type: SET_SPORTS,
 		sports: customSports
 	})
-	
+
 }
 
 export const getSportsFromServer = (): ThunksType => async (dispatch) => {
@@ -478,7 +525,7 @@ export const setPaginationLimitType = (limit: number, instanceName: string): Set
 		instanceName
 	}
 }
-export const setPaginationPage = (page: number, instanceName: string): ThunksType => async (dispatch, getState) => { 
+export const setPaginationPage = (page: number, instanceName: string): ThunksType => async (dispatch, getState) => {
 	let isFetching = getState()[instanceName as "forecasts" | "articles" | "users" | "bookmakers"].isFetching
 
 	dispatch({
@@ -488,7 +535,7 @@ export const setPaginationPage = (page: number, instanceName: string): ThunksTyp
 		isFetching
 	})
 }
-export const setPaginationTotalCount = (totalCount: number, instanceName: string): SetPaginationTotalCountType => { 
+export const setPaginationTotalCount = (totalCount: number, instanceName: string): SetPaginationTotalCountType => {
 	return {
 		type: SET_PAGINATION_TOTAL_COUNT,
 		totalCount,
