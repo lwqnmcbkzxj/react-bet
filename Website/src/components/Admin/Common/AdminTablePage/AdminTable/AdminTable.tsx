@@ -52,7 +52,7 @@ const AdminTable: FC<AdminTableType> = ({
 
 	const isFetchingArray = useSelector<AppStateType, Array<string>>(state => state.admin.isFetchingArray)
 
-	
+
 	return (
 		<div className={s.adminTableHolder}>
 
@@ -60,22 +60,23 @@ const AdminTable: FC<AdminTableType> = ({
 				<tr className={s.tableHeader}>
 					{labels.map((label, counter) =>
 						<th key={'label' + counter}
-							className={classNames(s.tableCell, { [s.active]: sorting.sortedLabel === label.name })}
+							className={classNames(s.tableCell, { [s.active]: sorting.sortedLabel === label.name && label.name !== "" })}
 							onClick={() => {
-								sorting.setSortedLabel(label.name)
+								if (label.name !== "") {
+									sorting.setSortedLabel(label.name)
 
-
-								if (sorting.sortedLabel === label.name && sorting.sortDirection === 'desc') {
-									sorting.setSortDirection('asc')
-								} else {
-									sorting.setSortDirection('desc')
+									if (sorting.sortedLabel === label.name && sorting.sortDirection === 'asc') {
+										sorting.setSortDirection('desc')
+									} else {
+										sorting.setSortDirection('asc')
+									}
 								}
 							}}
 
 						>
 							<div>
 								<p>{label.value}</p>
-								<FontAwesomeIcon icon={faChevronDown} className={classNames(s.sortingIcon, {[s.rotate]: sorting.sortDirection === 'asc'})}/>
+								<FontAwesomeIcon icon={faChevronDown} className={classNames(s.sortingIcon, { [s.rotate]: sorting.sortDirection === 'asc' })} />
 							</div>
 						</th>
 					)}

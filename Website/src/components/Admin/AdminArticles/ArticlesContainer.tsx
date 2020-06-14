@@ -62,13 +62,13 @@ const ArticlesContainer: FC = ({ ...props }) => {
 
 			data={{
 				labels: [
-					{ value: 'ID', name: 'id' },
-					{ value: 'Название', name: 'title' },
-					{ value: 'Категория', name: 'category_name' },
-					{ value: 'Содержание', name: 'content' },
-					{ value: 'Опубликована', name: 'is_published' },
-					{ value: 'Дата создания', name: 'created_at' },
-					{ value: 'Создан', name: 'created_by_login' },
+					{ value: 'ID', name: '' },
+					{ value: 'Название', name: '' },
+					{ value: 'Категория', name: '' },
+					{ value: 'Содержание', name: '' },
+					{ value: 'Опубликована', name: '' },
+					{ value: 'Дата создания', name: '' },
+					{ value: 'Создан', name: '' },
 				],
 				data: articles,
 				dataArray: dataArray

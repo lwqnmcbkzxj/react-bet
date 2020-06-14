@@ -25,6 +25,7 @@ type FormType = {
 	dropdownLists: {
 		users: Array<ShortDataElementType>
 		events: Array<ShortDataElementType>
+		statuses: Array<ShortDataElementType>
 	}
 }
 type FormValuesType = {
@@ -33,6 +34,7 @@ type FormValuesType = {
 	dropdownLists: {
 		users: Array<ShortDataElementType>
 		events: Array<ShortDataElementType>
+		statuses: Array<ShortDataElementType>
 	}
 }
 	
@@ -43,28 +45,18 @@ const ForecastForm: FC<FormValuesType & InjectedFormProps<{}, FormValuesType>> =
 	let [isUsersSorted, setIsUsersSorted] = useState(false)
 	let [isEventsSorted, setIsEventsSorted] = useState(false)
 
-	let [statusArr, setStatusArr] = useState([
-		{ id: ForecastStatusEnum.back, value: 'Возврат ставки' },
-		{ id: ForecastStatusEnum.wait, value: 'Ставка еще не сыграла' },
-		{ id: ForecastStatusEnum.win, value: 'Ставка прошла' },
-		{ id: ForecastStatusEnum.loss, value: 'Ставка не прошла' },
-	])
+	let [statusArr, setStatusArr] = useState([])
 	let [usersArr, setUsersArr] = useState([])
 	let [eventsArr, setEventsArr] = useState([])
 	
 	useEffect(() => {
 		if (props.initialValues) {
-			sortDropdownValues(props.initialValues.status, statusArr, setStatusArr, setIsStatusSorted)
+			props.dropdownLists.statuses > 0 && sortDropdownValues(props.initialValues.status, statusArr, setStatusArr, setIsStatusSorted)
 
 			props.dropdownLists.users.length > 0 && sortDropdownValues(props.initialValues.user_id, props.dropdownLists.users, setUsersArr, setIsUsersSorted)
 			props.dropdownLists.events.length > 0 && sortDropdownValues(props.initialValues.event_id, props.dropdownLists.events, setEventsArr, setIsEventsSorted)
-		} else {
-			setEventsArr(props.dropdownLists.events)
-			setUsersArr(props.dropdownLists.users)
-			setIsUsersSorted(true)
-			setIsEventsSorted(true)
-		}
-	}, [props.initialValues, props.dropdownLists.events, props.dropdownLists.users]);
+		} 
+	}, [props.initialValues, props.dropdownLists.events, props.dropdownLists.users, props.dropdownLists.statuses]);
 
 	return (
 		<form onSubmit={props.handleSubmit}>

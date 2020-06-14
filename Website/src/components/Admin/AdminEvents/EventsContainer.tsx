@@ -6,8 +6,7 @@ import { AppStateType } from '../../../types/types'
 import { EventType } from '../../../types/admin'
 import { formatDate } from '../../../utils/formatDate'
 import { getAdminEventsFromServer, deleteEvent } from '../../../redux/admin-reducer'
-import { getRoleName } from '../../../utils/getRoleName'
-import { getMatchStatus } from '../../../utils/getStatus'
+import { getRoleName, getMatchStatus } from '../../../utils/getValueFromEnumCode'
 
 
 const EventsContainer: FC = ({ ...props }) => {
@@ -19,15 +18,15 @@ const EventsContainer: FC = ({ ...props }) => {
 	const [pagesPerPage, changePagesPerPage] = useState(10)
 
 	const [sortedLabel, setSortedLabel] = useState('id')
-	const [sortDirection, setSortDirection] = useState('desc')
+	const [sortDirection, setSortDirection] = useState('asc')
 
 	const getEvents = (searchText = "") => {
-		dispatch(getAdminEventsFromServer(currentPage + 1, pagesPerPage, searchText, 'login'))
+		dispatch(getAdminEventsFromServer(currentPage + 1, pagesPerPage, searchText, 'login', sortedLabel, sortDirection))
 	}
 
 	useEffect(() => {
 		getEvents()
-	}, [currentPage, pagesPerPage])
+	}, [currentPage, pagesPerPage, sortedLabel, sortDirection])
 
 
 	const handleSearch = (searchText: string) => {
@@ -59,10 +58,10 @@ const EventsContainer: FC = ({ ...props }) => {
 			data={{
 				labels: [
 					{ name: 'id', value: 'ID' },
-					{ name: 'event_name', value: 'Событие' },
-					{ name: 'sport_name', value: 'Вид спорта' },
+					{ name: 'title', value: 'Событие' },
+					{ name: 'sport_id', value: 'Вид спорта' },
 					{ name: 'status', value: 'Статус' },
-					{ name: 'forecasts_count', value: 'Кол-во прогнозов' },
+					{ name: '', value: 'Кол-во прогнозов' },
 					{ name: 'created_at', value: 'Дата создания' },
 				],
 				data: events,

@@ -354,13 +354,12 @@ export const appAPI = {
 
 export const adminAPI = {
 	posts: {
-		getAdminPosts(page: number, limit: number, search: string, search_by: string) {
-			let searchString = ''
-			if (search && search_by) {
-				searchString = `&search=${search}&search_by=${search_by}`
-			}
-
-			return instance.get(`admin/posts?page=${page}&limit=${limit}` + searchString)
+		getAdminPosts(page: number, limit: number, search: string, search_by: string, order_by: string, direction: string) {
+			return instance.get(`admin/posts`, {
+				params: {
+					page, limit, search, order_by, direction
+				}
+			})
 				.then((response) => {
 					return response.data
 				});
@@ -400,13 +399,12 @@ export const adminAPI = {
 		},
 	},
 	users: {
-		getAdminUsers(page: number, limit: number, search: string, search_by: string) {
-			let searchString = ''
-			if (search && search_by) {
-				searchString = `&search=${search}&search_by=${search_by}`
-			}
-
-			return instance.get(`admin/users?page=${page}&limit=${limit}` + searchString)
+		getAdminUsers(page: number, limit: number, search: string, search_by: string, order_by: string, direction: string) {
+			return instance.get(`admin/users`, {
+				params: {
+					page, limit, search, order_by, direction
+				}
+			})
 				.then((response) => {
 					return response.data
 				});
@@ -447,24 +445,22 @@ export const adminAPI = {
 		},
 	},
 	forecsats: {
-		getAdminForecasts(page: number, limit: number, search: string, search_by: string) {
-			let searchString = ''
-			if (search) {
-				searchString = `&search=${search}`
-			}
-
-			return instance.get(`admin/forecasts?page=${page}&limit=${limit}` + searchString)
+		getAdminForecasts(page: number, limit: number, search: string, search_by: string, order_by: string, direction: string) {
+			return instance.get(`admin/forecasts`, {
+				params: {
+					page, limit, search, order_by, direction
+				}
+			})
 				.then((response) => {
 					return response.data
 				});
 		},
-		getUserForecasts(page: number, limit: number, search: string, search_by: string, userId: number) {
-			let searchString = ''
-			if (search) {
-				searchString = `&search=${search}`
-			}
-
-			return instance.get(`admin/users/${userId}/forecasts?page=${page}&limit=${limit}` + searchString)
+		getUserForecasts(page: number, limit: number, search: string, search_by: string, order_by: string, direction: string, userId: number) {
+			return instance.get(`admin/users/${userId}/forecasts`, {
+				params: {
+					page, limit, search, order_by, direction
+				}
+			})
 				.then((response) => {
 					return response.data
 				});
@@ -497,13 +493,12 @@ export const adminAPI = {
 		},
 	},
 	boomakers: {
-		getAdminBookmakers(page: number, limit: number, search: string, search_by: string) {
-			let searchString = ''
-			if (search && search_by) {
-				searchString = `&search=${search}&search_by=${search_by}`
-			}
-
-			return instance.get(`admin/bookmakers?page=${page}&limit=${limit}` + searchString)
+		getAdminBookmakers(page: number, limit: number, search: string, search_by: string, order_by: string, direction: string) {
+			return instance.get(`admin/bookmakers`, {
+				params: {
+					page, limit, search, order_by, direction
+				}
+			})
 				.then((response) => {
 					return response.data
 				});
@@ -543,13 +538,12 @@ export const adminAPI = {
 		},
 	},
 	events: {
-		getAdminEvents(page: number, limit: number, search: string, search_by: string) {
-			let searchString = ''
-			if (search && search_by) {
-				searchString = `&search=${search}&search_by=${search_by}`
-			}
-
-			return instance.get(`admin/events?page=${page}&limit=${limit}` + searchString)
+		getAdminEvents(page: number, limit: number, search: string, search_by: string, order_by: string, direction: string) {
+			return instance.get(`admin/events`, {
+				params: {
+					page, limit, search, order_by, direction
+				}
+			})
 				.then((response) => {
 					return response.data
 				});
@@ -583,13 +577,12 @@ export const adminAPI = {
 		},
 	},
 	championships: {
-		getAdminChampionships(page: number, limit: number, search: string, search_by: string) {
-			let searchString = ''
-			if (search && search_by) {
-				searchString = `&search=${search}&search_by=${search_by}`
-			}
-
-			return instance.get(`admin/championships?page=${page}&limit=${limit}` + searchString)
+		getAdminChampionships(page: number, limit: number, search: string, search_by: string, order_by: string, direction: string) {
+			return instance.get(`admin/championships`, {
+				params: {
+					page, limit, search, order_by, direction
+				}
+			})
 				.then((response) => {
 					return response.data
 				});

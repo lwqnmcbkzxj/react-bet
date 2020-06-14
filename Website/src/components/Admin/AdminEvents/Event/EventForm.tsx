@@ -15,7 +15,7 @@ import { apiURL } from '../../../../api/api'
 import { loadImage } from '../../../../utils/loadImage'
 import { sortDropdownValues } from '../../../../utils/sortDropdownValues'
 import { MatchStatusEnum } from '../../../../types/matches'
-import { getMatchStatus } from '../../../../utils/getStatus'
+import { getMatchStatus } from '../../../../utils/getValueFromEnumCode'
 import { ShortDataElementType } from '../../../../types/types'
 
 type FormType = {
@@ -61,13 +61,7 @@ const EventForm: FC<FormValuesType & InjectedFormProps<{}, FormValuesType>> = (p
 		if (props.initialValues.id) {
 			props.dropdownLists.statuses.length > 0 && sortDropdownValues(props.initialValues.status, props.dropdownLists.statuses, setStatusArr, setIsStatusSorted)
 			props.dropdownLists.championships.length > 0 && sortDropdownValues(props.initialValues.championship_id, props.dropdownLists.championships, setChampionshipsArr, setIsChampionshipsSorted)
-		} else {
-			setChampionshipsArr(props.dropdownLists.championships)
-			setIsChampionshipsSorted(true)
-
-			setStatusArr(props.dropdownLists.statuses)
-			setIsStatusSorted(true)
-		}
+		} 
 	}, [props.initialValues, props.dropdownLists.statuses, props.dropdownLists.championships]);
 
 

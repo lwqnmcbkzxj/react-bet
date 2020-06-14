@@ -360,9 +360,9 @@ const setDashboardInfo = (info: DashboardType): SetDashboardType  => {
 // DASHBOARD END
 
 // USERS START
-export const getAdminUsersFromServer = (page: number, limit: number, search = "", search_by = ""):ThunksType => async (dispatch) => {
+export const getAdminUsersFromServer = (page: number, limit: number, search = "", search_by = "", order_by = "", direction = ""):ThunksType => async (dispatch) => {
 	dispatch(toggleIsFetching('users'))
-	let response = await adminAPI.users.getAdminUsers(page, limit, search, search_by)	
+	let response = await adminAPI.users.getAdminUsers(page, limit, search, search_by, order_by, direction)	
 	dispatch(toggleIsFetching('users'))
 	
 	dispatch(setPagesCount(response.last_page))
@@ -405,13 +405,13 @@ export const deleteUser = (id: number):ThunksType => async (dispatch) => {
 
 
 // FORECASTS START
-export const getAdminForecastsFromServer = (page: number, limit: number, search = "", search_by = "", userId = 0):ThunksType => async (dispatch) => {
+export const getAdminForecastsFromServer = (page: number, limit: number, search = "", search_by = "", order_by = "", direction = "", userId = 0):ThunksType => async (dispatch) => {
 	dispatch(toggleIsFetching('forecasts'))
 	let response 
 	if (userId)
-		response = await adminAPI.forecsats.getUserForecasts(page, limit, search, search_by, userId)	
+		response = await adminAPI.forecsats.getUserForecasts(page, limit, search, search_by, order_by, direction, userId)	
 	else 
-		response = await adminAPI.forecsats.getAdminForecasts(page, limit, search, search_by)
+		response = await adminAPI.forecsats.getAdminForecasts(page, limit, search, search_by, order_by, direction,)
 		
 	dispatch(toggleIsFetching('forecasts'))
 	
@@ -454,9 +454,9 @@ export const deleteForecast = (id: number):ThunksType => async (dispatch) => {
 // FORECASTS END
 
 // ARTICLES START
-export const getAdminArticlesFromServer = (page: number, limit: number, search = "", search_by = ""):ThunksType => async (dispatch) => {
+export const getAdminArticlesFromServer = (page: number, limit: number, search = "", search_by = "", order_by = "", direction = ""):ThunksType => async (dispatch) => {
 	dispatch(toggleIsFetching('articles'))
-	let response = await adminAPI.posts.getAdminPosts(page, limit, search, search_by)	
+	let response = await adminAPI.posts.getAdminPosts(page, limit, search, search_by, order_by, direction)	
 	dispatch(toggleIsFetching('articles'))
 	
 
@@ -504,9 +504,9 @@ export const deleteArticle = (id: number):ThunksType => async (dispatch) => {
 // ARTICLES END
 
 // BOOKMAKERS START
-export const getBookmakersFromServer = (page: number, limit: number, search = "", search_by = ""):ThunksType => async (dispatch) => {
+export const getBookmakersFromServer = (page: number, limit: number, search = "", search_by = "", order_by = "", direction = ""):ThunksType => async (dispatch) => {
 	dispatch(toggleIsFetching('bookmakers'))
-	let response = await adminAPI.boomakers.getAdminBookmakers(page, limit, search, search_by)	
+	let response = await adminAPI.boomakers.getAdminBookmakers(page, limit, search, search_by, order_by, direction)	
 	dispatch(toggleIsFetching('bookmakers'))
 	
 	dispatch(setPagesCount(response.last_page))
@@ -548,9 +548,9 @@ export const deleteBookmaker = (id: number):ThunksType => async (dispatch) => {
 
 
 // EVENTS START
-export const getAdminEventsFromServer = (page: number, limit: number, search = "", search_by = ""):ThunksType => async (dispatch) => {
+export const getAdminEventsFromServer = (page: number, limit: number, search = "", search_by = "", order_by = "", direction = ""):ThunksType => async (dispatch) => {
 	dispatch(toggleIsFetching('events'))
-	let response = await adminAPI.events.getAdminEvents(page, limit, search, search_by)	
+	let response = await adminAPI.events.getAdminEvents(page, limit, search, search_by, order_by, direction)	
 	dispatch(toggleIsFetching('events'))
 	
 	dispatch(setPagesCount(response.last_page))
@@ -591,10 +591,10 @@ export const deleteEvent = (id: number):ThunksType => async (dispatch) => {
 // EVENTS END
 
 
-// EVENTS START
-export const getAdminChampionshipsFromServer = (page: number, limit: number, search = "", search_by = ""):ThunksType => async (dispatch) => {
+// CHAMPIONSHIPS START
+export const getAdminChampionshipsFromServer = (page: number, limit: number, search = "", search_by = "", order_by = "", direction = ""):ThunksType => async (dispatch) => {
 	dispatch(toggleIsFetching('championships'))
-	let response = await adminAPI.championships.getAdminChampionships(page, limit, search, search_by)	
+	let response = await adminAPI.championships.getAdminChampionships(page, limit, search, search_by, order_by, direction)	
 	dispatch(toggleIsFetching('championships'))
 	
 	dispatch(setPagesCount(response.last_page))
@@ -632,7 +632,7 @@ export const deleteChampionship = (id: number):ThunksType => async (dispatch) =>
 	let response = await adminAPI.championships.deleteChampionship(id)
 	showAlert('success', 'Чемпионат успешно удален')
 }
-// EVENTS END
+// CHAMPIONSHIPS END
 
 
 // CHAMPIONSHIPS START

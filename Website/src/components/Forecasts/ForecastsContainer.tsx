@@ -28,6 +28,7 @@ const ForecastsContainer: FC<Props> = ({ ...props }) => {
 
 	const page = useSelector<AppStateType, number>(state => state.app.paginationObject.forecasts.page)
 	const limit = useSelector<AppStateType, number>(state => state.app.paginationObject.forecasts.limit)
+	const totalCount = useSelector<AppStateType, number>(state => state.app.paginationObject.forecasts.totalCount)
 
 	// For subscribtion filters
 	const loggedUser = useSelector<AppStateType, UserType>(state => state.me.userInfo)
@@ -59,6 +60,7 @@ const ForecastsContainer: FC<Props> = ({ ...props }) => {
 			forecasts={forecasts}
 			filters={filters}
 			toggleFilter={toggleFilterDispatch}
+			moreButtonVisible={page * limit < totalCount}
 		/>
 	)
 }

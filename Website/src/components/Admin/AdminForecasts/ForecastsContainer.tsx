@@ -7,7 +7,7 @@ import { ForecastType } from '../../../types/admin'
 
 import { getAdminForecastsFromServer, deleteForecast } from '../../../redux/admin-reducer'
 import { formatDate } from '../../../utils/formatDate'
-import { getForecastStatus } from '../../../utils/getForecastStatus'
+import { getForecastStatus } from '../../../utils/getValueFromEnumCode'
 
 import { withRouter, RouteComponentProps } from 'react-router'
 
@@ -25,21 +25,19 @@ const ForecastsContainer: FC<Props> = ({ ...props }) => {
 	const [currentPage, changeCurrentPage] = useState(0)
 	const [pagesPerPage, changePagesPerPage] = useState(10)
 
-	const [sortedLabel, setSortedLabel] = useState('id')
-	const [sortDirection, setSortDirection] = useState('desc')
+	const [sortedLabel, setSortedLabel] = useState('forecast_id')
+	const [sortDirection, setSortDirection] = useState('asc')
 
 
 	let userId = props.match.params.userId;
 	const getForecasts = (searchText = "") => {
-		dispatch(getAdminForecastsFromServer(currentPage + 1, pagesPerPage, searchText, '', +userId))
+		dispatch(getAdminForecastsFromServer(currentPage + 1, pagesPerPage, searchText, '', sortedLabel, sortDirection, +userId))
 	}
 
 	useEffect(() => {
 		getForecasts()
-	}, [currentPage, pagesPerPage])
-	useEffect(() => {
-		getForecasts()
-	}, [])
+	}, [currentPage, pagesPerPage, sortedLabel, sortDirection])
+	
 
 
 	const handleSearch = (searchText: string) => {
@@ -74,11 +72,11 @@ const ForecastsContainer: FC<Props> = ({ ...props }) => {
 			}}
 			data={{
 				labels: [
-					{ name: 'id', value: 'ID' },
-					{ name: 'user_id', value: 'Прогноз от' },
-					{ name: 'event', value: 'Событие' },
+					{ name: 'forecast_id', value: 'ID' },
+					{ name: 'user_login', value: 'Прогноз от' },
+					{ name: 'event_title', value: 'Событие' },
 					{ name: 'created_at', value: 'Дата создания' },
-					{ name: 'status', value: 'Статус' },
+					{ name: 'coefficients_status', value: 'Статус' },
 				],
 				data: forecasts,
 				dataArray: dataArray

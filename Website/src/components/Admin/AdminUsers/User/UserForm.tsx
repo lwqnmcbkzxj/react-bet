@@ -14,6 +14,8 @@ import contentHolder from '../../../../assets/img/content-img-holder.png'
 import { apiURL } from '../../../../api/api'
 import { loadImage } from '../../../../utils/loadImage'
 import { sortDropdownValues } from '../../../../utils/sortDropdownValues'
+import { RolesEnum } from '../../../../types/types'
+import { getRoleName } from '../../../../utils/getValueFromEnumCode'
 
 type FormType = {
 	initialValues: any,
@@ -39,11 +41,11 @@ const UserForm: FC<FormValuesType & InjectedFormProps<{}, FormValuesType>> = (pr
 
 	let [isSortedRoles, setIsRolesSorted] = useState(false)
 	let [rolesArray, setRolesArray] = useState([
-		{ id: 1, value: 'Пользователь' },
-		{ id: 2, value: 'Робот-прогнозист' },
-		{ id: 3, value: 'Модератор' },
-		{ id: 4, value: 'Администратор' },
-		{ id: 5, value: 'Технический администратор' },
+		{ id: RolesEnum.user, value: getRoleName(RolesEnum.user) },
+		{ id: RolesEnum.robotForecaster, value: getRoleName(RolesEnum.robotForecaster) },
+		{ id: RolesEnum.moderator, value: getRoleName(RolesEnum.moderator) },
+		{ id: RolesEnum.admin, value: getRoleName(RolesEnum.admin) },
+		{ id: RolesEnum.techAdmin, value: getRoleName(RolesEnum.techAdmin)  },
 	])
 	useEffect(() => {
 		if (props.initialValues)

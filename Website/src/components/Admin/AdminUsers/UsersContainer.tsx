@@ -8,7 +8,7 @@ import { AppStateType } from '../../../types/types'
 import { UserType } from '../../../types/admin'
 import { formatDate } from '../../../utils/formatDate'
 import { getAdminUsersFromServer, deleteUser } from '../../../redux/admin-reducer'
-import { getRoleName } from '../../../utils/getRoleName'
+import { getRoleName } from '../../../utils/getValueFromEnumCode'
 
 
 const UsersContainer: FC = ({ ...props }) => {
@@ -23,12 +23,12 @@ const UsersContainer: FC = ({ ...props }) => {
 	const [sortDirection, setSortDirection] = useState('desc')
 
 	const getUsers = (searchText = "") => {
-		dispatch(getAdminUsersFromServer(currentPage + 1, pagesPerPage, searchText, 'login'))
+		dispatch(getAdminUsersFromServer(currentPage + 1, pagesPerPage, searchText, 'login', sortedLabel, sortDirection))
 	}
 
 	useEffect(() => {
 		getUsers()
-	}, [currentPage, pagesPerPage])
+	}, [currentPage, pagesPerPage, sortedLabel, sortDirection])
 
 
 	const handleSearch = (searchText: string) => {
@@ -63,8 +63,8 @@ const UsersContainer: FC = ({ ...props }) => {
 					{ name: 'login', value: 'Логин' },
 					{ name: 'created_at', value: 'Дата регистрации' },
 					{ name: 'platform', value: 'Платформа' },
-					{ name: 'role', value: 'Роль' },
-					{ name: 'forecasts_count', value: 'Кол-во прогнозов' },
+					{ name: 'role_id', value: 'Роль' },
+					{ name: '', value: 'Кол-во прогнозов' },
 				],
 				data: users,
 				dataArray: dataArray

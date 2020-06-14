@@ -21,9 +21,9 @@ type ForecastsPropsType = {
 	forecasts: Array<ForecastType>
 	filters: FiltersObjectType
 	toggleFilter: (filterName: FilterNames, filtersBlockName: string) => void
-
+	moreButtonVisible: boolean
 }
-const Forecasts: FC<ForecastsPropsType> = ({ forecasts, filters, toggleFilter, ...props }) => {
+const Forecasts: FC<ForecastsPropsType> = ({ forecasts, filters, toggleFilter, moreButtonVisible, ...props }) => {
 	const dispatch = useDispatch()
 
 	const [filtersVisible, setFiltersVisible] = useState(false)
@@ -64,8 +64,10 @@ const Forecasts: FC<ForecastsPropsType> = ({ forecasts, filters, toggleFilter, .
 
 
 			<ForeCastsList forecasts={forecasts} />
-		
-			<div className={s.actionBtnHoder}><ActionButton value="Показать больше" func={() => { dispatch(setPaginationPage(-1, 'forecasts')) }}/></div>
+
+			{moreButtonVisible && <div className={s.actionBtnHoder}>
+				<ActionButton value="Показать больше" func={() => { dispatch(setPaginationPage(-1, 'forecasts')) }} />
+			</div>}
 		</div>
 	)
 }

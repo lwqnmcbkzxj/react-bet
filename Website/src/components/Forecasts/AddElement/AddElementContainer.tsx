@@ -11,6 +11,8 @@ const AddElementContainer: FC = (props) => {
 	const logged = useSelector<AppStateType, boolean>(state => state.me.logged)
 	const userBalance = useSelector<AppStateType, string>(state => state.me.userInfo.balance)
 	// const dispatch = useDispatch()
+
+	return <div>Страница находится в разработке</div>
 	return (
 		logged ?
 			<Switch>

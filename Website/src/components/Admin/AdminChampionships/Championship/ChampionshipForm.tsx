@@ -45,11 +45,8 @@ const ChampionshipForm: FC<FormValuesType & InjectedFormProps<{}, FormValuesType
 
 	useEffect(() => {
 		if (props.initialValues.id) {
-			props.dropdownLists.sports.length > 0 && sortDropdownValues(props.initialValues.sport_id, sportsArray, setSportsArray, setIsSportsSorted)
-		} else {
-			setSportsArray(props.dropdownLists.sports)
-			setIsSportsSorted(true)
-		}
+			props.dropdownLists.sports.length > 0 && sortDropdownValues(props.initialValues.sport_id, props.dropdownLists.sports, setSportsArray, setIsSportsSorted)
+		} 
 	}, [props.initialValues, props.dropdownLists]);
 
 

@@ -7,6 +7,7 @@ import ForecastForm from './ForecastForm'
 
 import { getAdminForecastFromSErver, addForecast, editForecast } from '../../../../redux/admin-reducer'
 import { getShortData } from '../../../../redux/app-reducer'
+import { ForecastStatusEnum } from '../../../../types/forecasts'
 
 interface MatchParams {
 	forecastId: string;
@@ -58,18 +59,25 @@ const ForecastContainer: FC<Props> = ({ ...props }) => {
 		onSubmitFunc = addForecastDispatch
 
 		initialValues = {
-			title: '',
-			category_name: '',
-			content: '',
-			image: '',
-			is_published: false
+			user_id: users[0].id,
+			event_id: events[0].id,
+			type: "",
+			coefficient: 0,
+			bet: 0,
+			forecast_text: "",
+			status: ForecastStatusEnum.wait,
 		}
 		breadcrumbsObj = { text: 'Добавление прогноза', link: '/admin/forecasts/add' }
 		buttonText = "Добавить прогноз"
 	}
 
 
-
+	let statusArr = [
+		{ id: ForecastStatusEnum.back, value: 'Возврат ставки' },
+		{ id: ForecastStatusEnum.wait, value: 'Ставка еще не сыграла' },
+		{ id: ForecastStatusEnum.win, value: 'Ставка прошла' },
+		{ id: ForecastStatusEnum.loss, value: 'Ставка не прошла' },
+	]
 
 	return (
 		<ForecastForm
@@ -85,6 +93,7 @@ const ForecastContainer: FC<Props> = ({ ...props }) => {
 			dropdownLists={{
 				users: users,
 				events: events,
+				statuses: statusArr,
 			}}
 		/>
 	)

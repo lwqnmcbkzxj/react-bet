@@ -8,7 +8,7 @@ import EventForm from './EventForm'
 import { getAdminEventFromServer, addEvent, editEvent } from '../../../../redux/admin-reducer'
 import { formatDateSimply } from '../../../../utils/formatDate'
 import { MatchStatusEnum } from '../../../../types/matches'
-import { getMatchStatus } from '../../../../utils/getStatus'
+import { getMatchStatus } from '../../../../utils/getValueFromEnumCode'
 import { getShortData } from '../../../../redux/app-reducer'
 
 interface MatchParams {
@@ -40,7 +40,7 @@ const ArticleContainer: FC<ArticleProps> = ({ ...props }) => {
 
 		props.history.push('/admin/events');
 	}
-	const editEventDispatch = async (formData:EventType) => {
+	const editEventDispatch = async (formData: EventType) => {
 		await dispatch(editEvent(+eventId, formData))
 
 		props.history.push('/admin/events');
@@ -52,7 +52,7 @@ const ArticleContainer: FC<ArticleProps> = ({ ...props }) => {
 	let breadcrumbsObj
 	let buttonText = ""
 	if (eventId) {
-		initialValues = {...event}
+		initialValues = { ...event }
 		initialValues.created_at = formatDateSimply(initialValues.created_at)
 		onSubmitFunc = editEventDispatch
 		breadcrumbsObj = { text: 'Изменение события', link: `/admin/events/${eventId}/edit` }
@@ -61,23 +61,23 @@ const ArticleContainer: FC<ArticleProps> = ({ ...props }) => {
 		onSubmitFunc = addEventDispatch
 
 		initialValues = {
-			login: '',
-			email: '',
-			balance: '',
-			platform: '',
-			created_at: '',
-			uid: 0
+			sport_id: 1,
+			championship_id: championships[0].id,
+			title: "",
+			start: "",
+			status: "",
+			forecasts_count: 0,
 		}
 		breadcrumbsObj = { text: 'Добавление события', link: '/admin/events/add' }
 		buttonText = "Добавить событие"
 	}
-	
+
 	let statusArr = [
 		{ id: MatchStatusEnum.uncompleted, value: getMatchStatus(MatchStatusEnum.uncompleted) },
 		{ id: MatchStatusEnum.completed, value: getMatchStatus(MatchStatusEnum.completed) },
 	]
-	
-	
+
+
 	return (
 		<EventForm
 			initialValues={initialValues}

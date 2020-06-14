@@ -13,7 +13,7 @@ const SET_USERS = 'users/SET_USERS'
 const SET_SPORTS = 'app/SET_SPORTS'
 
 let initialState = {
-	users: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}] as Array<UserType>,
+	users: [{}, {}, {}, {}, {}] as Array<UserType>,
 	filters: {
 		timeFilter: [
 			{index: 1, name: timeFilterEnum.allTime, visibleText: 'Все время', active: false},

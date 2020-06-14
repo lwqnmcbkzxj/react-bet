@@ -24,8 +24,7 @@ const commentsReducer = (state = initialState, action: ActionsTypes): InitialSta
 	switch (action.type) {
 		case SET_COMMENTS: {
 			let comments = [{}] as Array<CommentType>
-			debugger
-			if (action.comments) 
+			if (action.comments.length > 0) 
 				comments = [...action.comments]
 			return {
 				...state,

@@ -18,7 +18,7 @@ const ArticleContainer: FC<ArticleProps> = ({ ...props }) => {
 	const article = useSelector<AppStateType, ArticleType>(state => state.articles.currentArticle)
 	const isFetching = useSelector<AppStateType, boolean>(state => state.articles.isFetching) 
 	const dispatch = useDispatch()
-	const articles = useSelector<AppStateType, Array<ArticleType>>(state => state.articles.articles)
+	let articles = useSelector<AppStateType, Array<ArticleType>>(state => state.articles.articles)
 
 	let articleId = props.match.params.articleId ? props.match.params.articleId : 1;
 
@@ -42,7 +42,7 @@ const ArticleContainer: FC<ArticleProps> = ({ ...props }) => {
 		return 	<ArticlePlaceholder />
 	}
 
-	articles.filter(articlesElem => articlesElem.id !== articleId)
+	articles = articles.filter(articlesElem => +articlesElem.id !== +articleId)
 	articles.length = 3
 	return ( 
 		<Article

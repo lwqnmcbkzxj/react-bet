@@ -5,36 +5,16 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChromecast  } from '@fortawesome/free-brands-svg-icons'
 import { SortedLabelType } from '../../../types/types'
+import { PagePropsType } from '../types'
 
 
-type UsersProps = {
-	handleSearch: (searchText: string) => void
-	deleteFunction: (id: number) => void
-	pages: {
-		pagesCount: number
-		currentPage: number
-		handlePageChange: (pageNumber: number) => void
-		pagesPerPage: number
-		handleChangePagesPerPage: (pagesPerPage: number) => void
-	}
-	sorting: {
-		sortDirection: string,
-		setSortDirection: (direction: string) => void,
-		sortedLabel: string
-		setSortedLabel: (labelName: string) => void
-	}
-	data: {
-		labels: Array<SortedLabelType>
-		data: Array<any>
-		dataArray: Array<any>
-	}
-}
+
 const AdditionalActionComponent = ({...propsValues}) => {
 	return <Link to={`/admin/users/${propsValues.id}/forecasts`}>
 		<FontAwesomeIcon icon={faChromecast}/>
 	</Link>
 }
-const Users: FC<UsersProps> = ({ handleSearch, deleteFunction, pages, data, sorting, ...props }) => {
+const Users: FC<PagePropsType> = ({ handleSearch, deleteFunction, pages, data, sorting, ...props }) => {
 	
 	return (
 		<div className={s.usersAdminPage}>

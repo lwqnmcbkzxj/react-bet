@@ -6,7 +6,7 @@ import { AppStateType } from '../../../types/types'
 import { ChampionshipType } from '../../../types/admin'
 import { formatDate } from '../../../utils/formatDate'
 import { getAdminChampionshipsFromServer, deleteChampionship } from '../../../redux/admin-reducer'
-import { getMatchStatus } from '../../../utils/getStatus'
+import { getMatchStatus } from '../../../utils/getValueFromEnumCode'
 
 
 const ChampionshipsContainer: FC = ({ ...props }) => {
@@ -18,15 +18,15 @@ const ChampionshipsContainer: FC = ({ ...props }) => {
 	const [pagesPerPage, changePagesPerPage] = useState(10)
 
 	const [sortedLabel, setSortedLabel] = useState('id')
-	const [sortDirection, setSortDirection] = useState('desc')
+	const [sortDirection, setSortDirection] = useState('asc')
 
 	const getChampionships = (searchText = "") => {
-		dispatch(getAdminChampionshipsFromServer(currentPage + 1, pagesPerPage, searchText, 'login'))
+		dispatch(getAdminChampionshipsFromServer(currentPage + 1, pagesPerPage, searchText, 'login', sortedLabel, sortDirection))
 	}
 
 	useEffect(() => {
 		getChampionships()
-	}, [currentPage, pagesPerPage])
+	}, [currentPage, pagesPerPage, sortedLabel, sortDirection])
 
 
 	const handleSearch = (searchText: string) => {
@@ -58,8 +58,8 @@ const ChampionshipsContainer: FC = ({ ...props }) => {
 			data={{
 				labels: [
 					{ name: 'id', value: 'ID' },
-					{ name: 'title', value: 'Название' },
-					{ name: 'sport_name', value: 'Вид спорта' },
+					{ name: 'name', value: 'Название' },
+					{ name: 'sport_id', value: 'Вид спорта' },
 					{ name: 'created_at', value: 'Дата создания' },
 				],
 				data: championships,

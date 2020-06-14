@@ -7,8 +7,7 @@ export const sortDropdownValues = (comparingElement, valuesArray, setValuesArray
 		let currentValue = { ...localArr[0] }
 		localArr[0] = { ...localArr[index] }
 		localArr[index] = { ...currentValue }
-
-		setValuesArray(localArr)
-		setIsSorted(true)
 	}
+	setValuesArray(localArr)
+	setIsSorted(true)
 }

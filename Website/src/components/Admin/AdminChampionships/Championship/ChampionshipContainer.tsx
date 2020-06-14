@@ -59,7 +59,7 @@ const ChampionshipContainer: FC<ChampionshipProps> = ({ ...props }) => {
 
 		initialValues = {
 			id: '',
-			sport_id: '',
+			sport_id: 1,
 			name: ''
 		}
 		breadcrumbsObj = { text: 'Добавление чемпионата', link: '/admin/championships/add' }
