@@ -35,3 +35,44 @@
 
 	}
 }
+
+.banner {
+	display: block;
+	&.banner-menu {
+		margin-top: 30px;
+		width: 95%;
+		& img {
+			width: 100%;
+		}
+	}
+	&.banner-comments {
+		margin-top: 30px;
+		width: 100%;
+		& img {
+			width: 100%;
+		}
+	}
+	&.banner-header {
+		margin-left: 15px;
+		height: 32px;
+		& img {
+			height: 32px;
+		}
+	}
+	&.banner-header_big {
+		width: 100%;
+		height: 120px;
+		position: fixed;
+		z-index: 10;
+		& img {
+			width: 100%;
+			height: 120px;
+		}
+	}
+	&.banner-big_horizontal {
+		width: 100%;
+		& img {
+			height: 100%;
+		}
+	}
+}

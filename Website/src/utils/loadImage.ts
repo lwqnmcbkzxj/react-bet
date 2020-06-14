@@ -2,18 +2,23 @@ import { change } from 'redux-form'
 import { showAlert } from './showAlert'
 
 
-export const loadImage = (file: File, formName: string, fieldName: string, imageId: string, dispatchFunc: any) => {
+export const loadImage = (file: File, formName: string, fieldName: string, holderId: string, dispatchFunc: any) => {
 	let fileReader = new FileReader()
 		
+	let maxFileSize = 2
 	// Max image size 2MB
-	if (file.size / 1024 / 1024 < 2) {
+	if (holderId.includes('video'))
+		maxFileSize = 10
+		
+	if (file.size / 1024 / 1024 < maxFileSize) {
 		fileReader.onload = function (event: any) {
-			document.getElementById(imageId)?.setAttribute("src", event.target.result)
+			document.getElementById(holderId)?.setAttribute("src", event.target.result)
 		}
 		fileReader.readAsDataURL(file)
 
 	} else {
 		dispatchFunc(change(formName, fieldName, ''))
-		showAlert('error', 'Размер фотографии не должен превышеть 2МБ')
+
+		showAlert('error', `Размер файла не должен превышеть ${maxFileSize}МБ`)
 	}
 }

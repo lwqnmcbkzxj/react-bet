@@ -75,6 +75,18 @@ export type BannerType = {
 	updated_at: string
 }
 
+export enum BannerPositionEnum {
+	header = 1,
+	header_big = 9,
+	menu = 2,
+	comments = 3,
+	main_content_horizontal = 4,
+	mobile_bottom = 5,
+	mobile_full_width = 6,
+	big_left = 7,
+	big_right = 8,
+}
+
 export type ShortDataElementType = {
 	id: number,
 	value: string

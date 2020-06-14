@@ -20,6 +20,8 @@ import { getArrayFromEnum } from '../../utils/enumToArray'
 import { MatchType } from '../../types/matches';
 import { BookmakerType } from '../../types/bookmakers';
 import { UserType } from '../../types/users';
+import { BannerPositionEnum } from '../../types/types';
+import { Banner } from '../Adverts/Banner';
 
 enum blocksNamesEnum {
 	bookmakers = 'bookmakers'
@@ -89,6 +91,8 @@ const MainPage: FC<MainPagePropsType> = ({
 				<NavLink to="/bookmakers" className={s.navLinkBtn}><ActionButton value="Посмотреть всех" /></NavLink>
 			</div>
 
+			<Banner position={BannerPositionEnum.main_content_horizontal}/>
+			
 			<div className={s.matches}>
 				<div className={s.contentBlock}>
 					<div className={s.contentBlockHeader}>

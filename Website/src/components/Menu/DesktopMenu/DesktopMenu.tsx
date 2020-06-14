@@ -2,11 +2,11 @@ import React, { FC } from 'react';
 import s from './DesktopMenu.module.scss';
 import { NavLink } from 'react-router-dom';
 import { FilterNames } from '../../../types/filters'
-import { SportType } from '../../../types/types'
+import { SportType, BannerPositionEnum } from '../../../types/types'
 
 import SportsBlock from './SportsBlock';
 import MenuFooter from '../../Common/Footer/Footer';
-
+import { Banner } from '../../Adverts/Banner'
 type MenuPropsType = {
 	toggleFilter: (filterName: FilterNames, filtersBlockName: string) => void
 	sports: Array<SportType>
@@ -29,6 +29,8 @@ const Menu: FC<MenuPropsType> = ({toggleFilter, sports, ...props }) => {
 					<SportsBlock toggleFilter={toggleFilter} sports={sports}/>
 				</div>
 
+				<Banner position={BannerPositionEnum.menu}/>
+				
 				<MenuFooter />
 
 			</div>

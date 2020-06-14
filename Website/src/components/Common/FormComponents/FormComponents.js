@@ -207,7 +207,6 @@ export function createDropdown(
 
 
 export const DropDownSelect = ({ elements, name, formName, ...props }) => {
-	debugger
 	const dispatch = useDispatch()
 	const { input, label } = props;
 
@@ -231,10 +230,8 @@ export const DropDownSelect = ({ elements, name, formName, ...props }) => {
 	}, [dropdownVisible]);
 
 	const [activeElement, setActiveElement] = useState(elements.length > 0 && elements[0])
-	useEffect(() => {
-		if (elements.length > 0)
-			setActiveElement(elements[0])
-	}, [elements])
+	
+	
 	const handleSetActiveElement = (value) => {
 		setActiveElement(value)
 		dispatch(change(formName, name, value.id))
@@ -270,6 +267,7 @@ export const DropDownSelect = ({ elements, name, formName, ...props }) => {
 	}
 
 	let lineHeight = 46
+	let rowsCount = elements.length > 7 ? 7 : elements.length
 	return (
 		<div className={s.dropdownBlock} ref={dropDownRef}>
 			<label htmlFor={label}>{label}</label>
@@ -281,7 +279,7 @@ export const DropDownSelect = ({ elements, name, formName, ...props }) => {
 						<List
 							className={cn(s.elementsList)}
 							width={width}
-							height={7 * lineHeight + 2}
+							height={rowsCount * lineHeight + 2}
 							rowCount={elements.length}
 							rowHeight={lineHeight}
 							rowRenderer={rowRenderer}

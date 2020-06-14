@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 import s from './Comments.module.scss';
-import { CommentType } from '../../types/types'
+import { CommentType, BannerPositionEnum } from '../../types/types'
 import LiveBtn from '../Header/LiveBtn/LiveBtn';
 import Comment from './Comment'
+import { Banner } from '../Adverts/Banner';
 
 type CommentsPropsType = {
 	comments: Array<CommentType>,
@@ -22,6 +23,7 @@ const Comments: FC<CommentsPropsType> = ({ comments, isCommentsBlockVisible, tog
 		<div className={s.commentsHolder}>
 			<div className={s.comments}>
 				{renderBlock}
+			<Banner position={BannerPositionEnum.comments}/>
 			</div>
 		</div>
 	)

@@ -1,51 +1,53 @@
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 
-import Bookmakers from './Bookmakers'
-import { AppStateType } from '../../../types/types'
-import { BookmakerType } from '../../../types/admin'
+import Banners from './Banners'
+import { AppStateType, BannerType } from '../../../types/types'
 
-import { getBookmakersFromServer, deleteBookmaker } from '../../../redux/admin-reducer'
-import { formatDate } from '../../../utils/formatDate'
-import { adminAPI } from '../../../api/api'
+import { getAdminBannersFromServer, deleteBanner } from '../../../redux/admin-reducer'
+import { getBannerPosition } from '../../../utils/getValueFromEnumCode'
 
-const BookmakersContainer: FC = ({ ...props }) => {
+const BannersContainer: FC = ({ ...props }) => {
 	const dispatch = useDispatch()
-	const bookmakers = useSelector<AppStateType, Array<BookmakerType>>(state => state.admin.bookmakers.bookmakers)
+	const banners = useSelector<AppStateType, Array<BannerType>>(state => state.admin.banners.banners)
 	const pagesCount = useSelector<AppStateType, number>(state => state.admin.pagesCount)
 
 	const [currentPage, changeCurrentPage] = useState(0)
 	const [pagesPerPage, changePagesPerPage] = useState(10)
 
-	
 	const [sortedLabel, setSortedLabel] = useState('id')
 	const [sortDirection, setSortDirection] = useState('desc')
-	const getBookmakers = (searchText = "") => {
-		dispatch(getBookmakersFromServer(currentPage + 1, pagesPerPage, searchText, 'title'))
+	
+
+	const getBanners = (searchText = "") => {
+		dispatch(getAdminBannersFromServer(currentPage + 1, pagesPerPage, searchText, 'content'))
 	}
 
 	useEffect(() => {
-		getBookmakers()
+		getBanners()
 	}, [currentPage, pagesPerPage])
-	
+	useEffect(() => {
+		getBanners()
+	}, [])
+
 
 	const handleSearch = (searchText: string) => {
-		getBookmakers(searchText)
+		getBanners(searchText)
 	}
 
 	const deleteFunction = async (id: number) => {
-		await dispatch(deleteBookmaker(id))
-		getBookmakers()
+		await dispatch(deleteBanner(id))
+		getBanners()
 	}
 
 	let dataArray = [] as any
-	bookmakers.map(dataObj => dataArray.push([
-		dataObj.id, dataObj.title, dataObj.content, dataObj.rating, dataObj.bonus, dataObj.link
+	banners.map(dataObj => dataArray.push([
+		dataObj.id, dataObj.title, getBannerPosition(dataObj.position), dataObj.link, dataObj.status ? 'Активен' : 'Неактивен'
 	]))
 
 
 	return (
-		<Bookmakers
+		<Banners
 			handleSearch={handleSearch}
 			deleteFunction={deleteFunction}
 			pages={{
@@ -60,12 +62,11 @@ const BookmakersContainer: FC = ({ ...props }) => {
 				labels: [
 					{ value: 'ID', name: '' },
 					{ value: 'Название', name: '' },
-					{ value: 'Описание', name: '' },
-					{ value: 'Рейтинг', name: '' },
-					{ value: 'Бонус', name: '' },
+					{ value: 'Расположение', name: '' },
 					{ value: 'Ссылка', name: '' },
+					{ value: 'Статус', name: '' },
 				],
-				data: bookmakers,
+				data: banners,
 				dataArray: dataArray
 			}}
 			sorting={{
@@ -78,4 +79,4 @@ const BookmakersContainer: FC = ({ ...props }) => {
 	)
 }
 
-export default BookmakersContainer;
+export default BannersContainer;

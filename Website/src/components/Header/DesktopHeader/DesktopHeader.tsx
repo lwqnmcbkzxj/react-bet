@@ -13,6 +13,10 @@ import LiveBtn from '../LiveBtn/LiveBtn';
 import { UserType } from '../../../types/me';
 import { apiURL } from '../../../api/api';
 import { getUserImg } from '../../../utils/getUserImg';
+import { BannerPositionEnum, AppStateType, BannerType } from '../../../types/types';
+import { Banner } from '../../Adverts/Banner';
+import { useSelector } from 'react-redux';
+import classNames from 'classnames';
 
 type HeaderPropsType = {
 	logged: boolean
@@ -34,7 +38,10 @@ type HeaderPropsType = {
 
 const DesktopHeader: FC<HeaderPropsType> = ({ logged, logout, user, isCommentsBlockVisible, toggleAuthFormVisiblility, toggleCommentsBlockVisibility, ...props }) => {
 	const [popupVisible, setPopupVisibility] = useState(false)
-
+	const banners = useSelector<AppStateType, Array<BannerType>>(state => state.app.banners)
+	// debugger
+	// .filter(banner => +banner.id === +BannerPositionEnum.header_big)
+	
 	const toggleUserPopupVisibility = (value?: boolean | any) => {
 		if (!user.id) {
 			return
@@ -54,9 +61,10 @@ const DesktopHeader: FC<HeaderPropsType> = ({ logged, logout, user, isCommentsBl
 		authedBlock =
 			<div className={s.headerUserBlock}>
 				<div className={s.bankBlock}>Банк: <span>
-					{user.balance ? (+user.balance).toLocaleString() : 0} xB</span></div>
+					{user.balance ? (+user.balance).toLocaleString() : 0} xB</span>
+				</div>
 				<div className={s.loggedUser}>
-				<div onClick={toggleUserPopupVisibility} className={s.userImgBlock}>
+					<div onClick={toggleUserPopupVisibility} className={s.userImgBlock}>
 						<img src={getUserImg(user.avatar)} alt="user-img" />
 						<button className={s.userBlockToggler} >
 							<FontAwesomeIcon icon={faCaretDown} />
@@ -75,7 +83,7 @@ const DesktopHeader: FC<HeaderPropsType> = ({ logged, logout, user, isCommentsBl
 	} else {
 		authedBlock = (
 			<div className={s.headerUserBlock}>
-				<div></div>
+				<div><Banner position={BannerPositionEnum.header} /></div>
 				<button className={s.loginBtn} onClick={toggleAuthFormVisiblility}>
 					<FontAwesomeIcon icon={faUser} className={s.loginIcon} />
 					<span>Войти</span>
@@ -84,10 +92,10 @@ const DesktopHeader: FC<HeaderPropsType> = ({ logged, logout, user, isCommentsBl
 
 	}
 
-
 	return (
-		<div className={s.desktopHeader}>
-			<div className={s.advert}></div>
+		<div className={classNames(s.desktopHeader, {[s.withAdvert]: banners.length > 0})}>
+			<Banner position={BannerPositionEnum.header_big} />
+
 			<header>
 				<NavLink to="/" className={s.logoLink}><img src={logo} className={s.logo} alt="logo" /></NavLink>
 				<Search search={props.search} />

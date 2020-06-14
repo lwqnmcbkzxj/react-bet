@@ -51,6 +51,7 @@ const HeaderConainer: FC<RouteComponentProps> = (props) => {
 		renderComponent =
 			<MobileHeader
 				logged={logged}
+				user={user}
 
 				search={searchObj}
 			/>

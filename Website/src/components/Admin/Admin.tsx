@@ -27,6 +27,9 @@ const ChampionshipContainer = React.lazy(() => import('./AdminChampionships/Cham
 const EventsContainer = React.lazy(() => import('./AdminEvents/EventsContainer'))
 const EventContainer = React.lazy(() => import('./AdminEvents/Event/EventContainer'))
 
+const BannersContainer = React.lazy(() => import('./AdminBanners/BannersContainer'))
+const BannerContainer = React.lazy(() => import('./AdminBanners/Banner/BannerContainer'))
+
 const PolicyContainer = React.lazy(() => import('./SimpleForms/PolicyContainer'))
 const TermsContainer = React.lazy(() => import('./SimpleForms/TermsContainer'))
 const OptionsContainer = React.lazy(() => import('./Options/OptionsContainer'))
@@ -78,13 +81,9 @@ const Admin: FC = ({ ...props }) => {
 					<Route path="/admin/championships/add" render={withSuspense(ChampionshipContainer)} />
 					<Route path="/admin/championships/:championshipId/edit" render={withSuspense(ChampionshipContainer)} />
 					
-
-					{/* <Route exact path="/admin/banners" render={withSuspense(BannersContainer)} /> */}
-					{/* <Route path="/admin/banners/add" render={withSuspense(BannerContainer)} /> */}
-					{/* <Route path="/admin/banners/:bannerId/edit" render={withSuspense(BannerContainer)} /> */}
-					<Route exact path="/admin/banners" render={() => <div>BANNERS</div>} />
-					<Route path="/admin/banners/add" render={() => <div>BANNER ADD</div>} />
-					<Route path="/admin/banners/:bannerId/edit" render={() => <div>BANNER EDIT</div>} />
+					<Route exact path="/admin/banners" render={withSuspense(BannersContainer)} />
+					<Route path="/admin/banners/add" render={withSuspense(BannerContainer)} />
+					<Route path="/admin/banners/:bannerId/edit" render={withSuspense(BannerContainer)} />
 
 
 					<Route path="/admin/policy" render={withSuspense(PolicyContainer)} />

@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import qs from 'query-string'
 import { UserType, BookmakerType, ForecastType, ChampionshipType, EventType } from '../types/admin';
-import { OptionsType } from '../types/types';
+import { OptionsType, BannerType } from '../types/types';
 
 export const apiURL = "https://app.betthub.org"
 
@@ -611,6 +611,51 @@ export const adminAPI = {
 				});
 		},
 	},
+	banners: {
+		getAdminBanners(page: number, limit: number, search: string, search_by: string, order_by: string, direction: string) {
+			return instance.get(`admin/banners`, {
+				params: { page, limit, search, order_by, direction }
+			})
+				.then((response) => {
+					return response.data
+				});
+		},
+		getAdminBanner(id: number) {
+			return instance.get(`admin/banners/${id}`)
+				.then((response) => {
+					return response.data
+				});
+		},
+
+		addBanner(dataObject: BannerType | any) {
+			let formData = new FormData()
+			for (let key in dataObject) {
+				formData.append(key, dataObject[key])
+			}
+			return instance.post(`admin/banners`, formData, { headers: { 'Content-type': 'multipart/form-data' } })
+				.then((response) => {
+					return response.data
+				});
+		},
+		editBanner(id: number, dataObject: BannerType | any) {
+			let formData = new FormData()
+			for (let key in dataObject) {
+				formData.append(key, dataObject[key])
+			}
+			return instance.post(`admin/banners/${id}`, formData, { headers: { 'Content-type': 'multipart/form-data' } })
+				.then((response) => {
+					return response.data
+				});
+		},
+		deleteBanner(id: number) {
+			return instance.delete(`admin/banners/${id}`)
+				.then((response) => {
+					return response.data
+				});
+		},
+	},
+	
+
 	app: {
 		changePolicy(text: string) {
 			return instance.post(`admin/policy`, { text })

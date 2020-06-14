@@ -4,6 +4,13 @@
 
 .desktopHeader {
 	height: 50px;
+
+	&.withAdvert {
+		height: 170px;
+		& header {
+			top: 120px;
+		}
+	}
 }
 
 .desktopHeader header {

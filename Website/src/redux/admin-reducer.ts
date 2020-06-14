@@ -635,7 +635,54 @@ export const deleteChampionship = (id: number):ThunksType => async (dispatch) =>
 // EVENTS END
 
 
+// CHAMPIONSHIPS START
+export const getAdminBannersFromServer = (page: number, limit: number, search = "", search_by = "", order_by = "", direction = ""):ThunksType => async (dispatch) => {
+	dispatch(toggleIsFetching('banners'))
+	let response = await adminAPI.banners.getAdminBanners(page, limit, search, search_by, order_by, direction)	
+	dispatch(toggleIsFetching('banners'))
+	
+	dispatch(setPagesCount(response.last_page))
+	dispatch(setBanners(response.data))
+}
+export const getAdminBannerFromServer = (id: number): ThunksType => async (dispatch) => {
 
+	dispatch(toggleIsFetching('banner'))
+	let response = await adminAPI.banners.getAdminBanner(id)	
+	dispatch(toggleIsFetching('banner'))
+
+	dispatch(setBanner(response))
+}
+const setBanners = (banners: Array<BannerType>): SetBannersType => {
+	return {
+		type: SET_BANNERS,
+		banners
+	}
+}
+const setBanner = (banner: BannerType): SetBannerType => {
+	return {
+		type: SET_BANNER,
+		banner
+	}
+}
+export const addBanner = (formData: BannerType): ThunksType => async (dispatch) => {
+	dispatch(toggleIsFetching('banner-action'))
+	let response = await adminAPI.banners.addBanner(formData)
+	dispatch(toggleIsFetching('banner-action'))
+
+	showAlert('success', 'Баннер успешно добавлен')
+}
+export const editBanner = (id: number, formData: BannerType): ThunksType => async (dispatch) => {
+	dispatch(toggleIsFetching('banner-action'))
+	let response = await adminAPI.banners.editBanner(id, formData)
+	dispatch(toggleIsFetching('banner-action'))
+	
+	showAlert('success', 'Баннер успешно изменен')
+}
+export const deleteBanner = (id: number):ThunksType => async (dispatch) => {
+	let response = await adminAPI.banners.deleteBanner(id)
+	showAlert('success', 'Баннер успешно удален')
+}
+// CHAMPIONSHIPS END
 
 
 // APP START
