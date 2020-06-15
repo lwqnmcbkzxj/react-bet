@@ -23,6 +23,8 @@ import { apiURL } from '../../api/api'
 import SubscribeButton from '../Common/SubscibeButton/SubscribeButton';
 import { formatDate, formatStartDate } from '../../utils/formatDate'
 import { getUserImg } from '../../utils/getUserImg';
+import ExpressTable from '../Forecasts/ForecastsList/ExpressTable'
+
 
 type ForecastPropsType = {
 	forecast: ForecastType
@@ -53,6 +55,8 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, commentsFunctions, ...props
 		}
 	}
 
+	let isExpress = +forecast.id === 4118
+
 	return (
 		<div className={s.forecast}>
 			<GoBackBlock
@@ -82,13 +86,13 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, commentsFunctions, ...props
 
 			<div className={s.forecastHeader}>
 				<div className={s.headerDetails}>
-					<div className={s.disciplineName}>{forecast.event_data.championship_data.sport_name}</div>
+					<div className={s.disciplineName}>{!isExpress && forecast.event_data.championship_data.sport_name}</div>
 					<div className={s.matchDate}>{formatDate(forecast.forecast_created_at)}</div>
 				</div>
-				<div className={s.forecastName}>{forecastTitle}</div>
+				{!isExpress && <div className={s.forecastName}>{forecastTitle}</div>}
 			</div>
 
-			<div className={s.teams}>
+			{!isExpress ? <div className={s.teams}>
 				<div className={s.team}>
 					<img src={apiURL + forecast.event_data.championship_data.sport_image} alt="teamImg" />
 					<p>{forecast.event_data.team_1.name}</p>
@@ -98,24 +102,25 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, commentsFunctions, ...props
 					<p>{forecast.event_data.team_2.name}</p>
 					<img src={apiURL + forecast.event_data.championship_data.sport_image} alt="teamImg" />
 				</div>
-			</div>
+			</div> : 
+				<ExpressTable forecast={forecast}/>}
 
 			<div className={s.forecastDetails}>
-				<div>
+				{!isExpress && <div>
 					<p>Турнир</p>
 					<p className={s.splitter}></p>
 					<p>{tournamentName}</p>
-				</div>
+				</div>}
 				<div>
 					<p>Дата и время</p>
 					<p className={s.splitter}></p>
 					<p>{formatStartDate(forecast.event_data.event_start)}</p>
 				</div>
-				<div className={s.details_forecast}>
+				{!isExpress && <div className={s.details_forecast}>
 					<p>Прогноз</p>
 					<p className={s.splitter}></p>
 					<p>{forecast.bet_data.type}</p>
-				</div>
+				</div>}
 				<div>
 					<p>Коэффициент</p>
 					<p className={s.splitter}></p>
@@ -188,6 +193,8 @@ const Forecast: FC<ForecastPropsType> = ({ forecast, commentsFunctions, ...props
 				<p>{forecast.forecast_text}</p>
 			</div>
 
+			
+			
 			<ElementStats
 				comments={forecast.forecast_stats.count_comments}
 				favourites={forecast.forecast_stats.count_subscribers}

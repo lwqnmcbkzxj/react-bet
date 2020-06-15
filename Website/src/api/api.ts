@@ -282,6 +282,12 @@ export const commentsAPI = {
 				return response.data
 			}).catch(err => err);
 	},
+	deleteComment(id: number) {
+		return instance.delete(`comments/${id}`)
+		.then((response) => {
+			return response.data
+		}).catch(err => err);
+	},
 	likeComment(id: number) {
 		return instance.post(`comments/${id}/like`)
 			.then((response) => {
@@ -618,7 +624,7 @@ export const adminAPI = {
 	banners: {
 		getAdminBanners(page: number, limit: number, search: string, search_by: string, order_by: string, direction: string) {
 			return instance.get(`admin/banners`, {
-				params: { page, limit, search, order_by, direction }
+				params: { page, limit, search }
 			})
 				.then((response) => {
 					return response.data

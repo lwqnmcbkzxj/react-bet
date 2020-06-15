@@ -16,6 +16,7 @@ import { formatDate, formatStartDate } from '../../../utils/formatDate'
 
 import { apiURL } from '../../../api/api'
 import { getUserImg } from '../../../utils/getUserImg';
+import ExpressTable from './ExpressTable';
 
 type ForecastPropsType = {
 	forecast: ForecastType
@@ -36,6 +37,8 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 		return <ForecastsListElementPlaceholder />
 	}
 
+	let isExpress = +forecast.id === 4118
+
 	return (
 		forecast.id ?
 			<div className={s.forecast}>
@@ -50,25 +53,31 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 					</div>
 				</div>
 
+
 				<div className={s.forecastContent}>
-					<div className={classNames(s.matchPreview, {[s.wait]: forecast.bet_data.status === ForecastStatusEnum.wait})}> 
+					<div className={classNames(s.matchPreview, { [s.wait]: forecast.bet_data.status === ForecastStatusEnum.wait })}>
 						{
-							forecast.bet_data.status === ForecastStatusEnum.back ? 
+							forecast.bet_data.status === ForecastStatusEnum.back ?
 								<div className={classNames(s.profit, s.back)}>{(+forecast.bet_data.bet).toFixed(2)} xB</div> :
-							forecast.bet_data.status === ForecastStatusEnum.wait ? 	
-								<div></div> :
-							forecast.bet_data.status === ForecastStatusEnum.win ? 	
-								<div className={classNames(s.profit, s.positive)}>+{(forecast.bet_data.pure_profit * +forecast.bet_data.bet).toFixed(2)} xB</div> :
-								<div className={classNames(s.profit, s.negative)}>-{forecast.bet_data.bet} xB</div>
+								forecast.bet_data.status === ForecastStatusEnum.wait ?
+									<div></div> :
+									forecast.bet_data.status === ForecastStatusEnum.win ?
+										<div className={classNames(s.profit, s.positive)}>+{(forecast.bet_data.pure_profit * +forecast.bet_data.bet).toFixed(2)} xB</div> :
+										<div className={classNames(s.profit, s.negative)}>-{forecast.bet_data.bet} xB</div>
 						}
 
-						
-						<Link to={`/forecasts/${forecast.id}`}><div className={s.matchTitle}>{forecast.event_data.event}</div></Link>
+
+						{!isExpress && <Link to={`/forecasts/${forecast.id}`}><div className={s.matchTitle}>{forecast.event_data.event}</div></Link>}
 					</div>
 
 					<div className={s.matchStats}>
+						{isExpress && <ExpressTable forecast={forecast} />}
+
 						<div className={s.profitStats}>
-							<Link to={`/forecasts/${forecast.id}`} className={s.profitStat}><div>Прогноз: <span>{forecast.bet_data.type}</span></div></Link>
+							{!isExpress && <Link to={`/forecasts/${forecast.id}`} className={s.profitStat}>
+								<div>Прогноз: <span>{forecast.bet_data.type}</span></div>
+							</Link>}
+							
 							<Link to={`/forecasts/${forecast.id}`} className={s.profitStat}>
 								<div>Коэффициент: <span>{forecast.bet_data.coefficient}</span></div>
 							</Link>
@@ -83,7 +92,6 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 					</div>
 				</div>
 
-
 				<div className={s.forecastFooter}>
 					<div className={s.userStats}>
 						<NavLink to={`/forecasters/${forecast.user_data.id}`} className={s.userInfo}>
@@ -93,7 +101,7 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 						<div className={s.userMatches}>
 							<div className={s.slash}>|</div>
 							{forecast.user_data.last_five.map((predict, counter) =>
-								predict ? <img src={winImg} alt="winImg" key={counter}/> : <img src={loseImg} alt="loseImg" key={counter}/>
+								predict ? <img src={winImg} alt="winImg" key={counter} /> : <img src={loseImg} alt="loseImg" key={counter} />
 							)}
 							{forecast.user_data.last_five.length > 0 && <div className={s.slash}>|</div>}
 
@@ -104,8 +112,8 @@ const Forecasts: FC<ForecastPropsType> = ({ forecast, isFetching, ...props }) =>
 							{(+ forecast.user_data.stats.roi === 0) ?
 								<span className={classNames(s.neutral)}>{(+forecast.user_data.stats.roi * 100).toFixed()}</span> :
 								(+ forecast.user_data.stats.roi > 0) ?
-								<span className={classNames(s.positive)}>+{(+forecast.user_data.stats.roi * 100).toFixed(0)}%</span> :
-								<span className={classNames(s.negative)}>{(+forecast.user_data.stats.roi * 100).toFixed(0)}%</span>
+									<span className={classNames(s.positive)}>+{(+forecast.user_data.stats.roi * 100).toFixed(0)}%</span> :
+									<span className={classNames(s.negative)}>{(+forecast.user_data.stats.roi * 100).toFixed(0)}%</span>
 							}
 						</div>
 					</div>

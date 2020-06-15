@@ -38,9 +38,7 @@ type HeaderPropsType = {
 
 const DesktopHeader: FC<HeaderPropsType> = ({ logged, logout, user, isCommentsBlockVisible, toggleAuthFormVisiblility, toggleCommentsBlockVisibility, ...props }) => {
 	const [popupVisible, setPopupVisibility] = useState(false)
-	const banners = useSelector<AppStateType, Array<BannerType>>(state => state.app.banners)
-	// debugger
-	// .filter(banner => +banner.id === +BannerPositionEnum.header_big)
+	const banners = useSelector<AppStateType, Array<BannerType>>(state => state.app.banners).filter(banner => +banner.id === +BannerPositionEnum.header_big)
 	
 	const toggleUserPopupVisibility = (value?: boolean | any) => {
 		if (!user.id) {
