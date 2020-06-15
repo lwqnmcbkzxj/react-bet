@@ -41,6 +41,7 @@ class AdminForecast extends JsonResource
                     'count_loss' => $this->count_loss,
                     'count_wait' => $this->count_wait,
                     'count_back' => $this->count_back,
+                    'patency'=>$this->patency,
                     'count_subscribers' => $this->count_subscribers,
                     'count_subscriptions' => $this->count_subscriptions
                 ],

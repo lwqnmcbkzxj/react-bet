@@ -3,6 +3,7 @@
 namespace App;
 
 use ErrorException;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -137,7 +138,6 @@ WHERE `forecasts`.`user_id` = ? and ( `coefficients`.status = 3 or `coefficients
     {
         return $this->belongsToMany('App\User', 'subscribers', 'user_id', 'subscriber_id');
     }
-
     public function votes()
     {
         return $this->hasMany('App\Vote', 'user_id');
@@ -146,9 +146,12 @@ WHERE `forecasts`.`user_id` = ? and ( `coefficients`.status = 3 or `coefficients
     {
         return $this->hasMany('App\Comments', 'user_id');
     }
-
     public function stats()
     {
         return $this->hasOne('App\UserStats', 'user_id');
+    }
+    public function fcm_tokens()
+    {
+        return $this->hasMany('App\FCMToken','user_id','id');
     }
 }

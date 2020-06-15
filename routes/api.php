@@ -1,13 +1,40 @@
 <?php
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
-
+use LaravelFCM\Facades\FCM;
+use LaravelFCM\Message\OptionsBuilder;
+use LaravelFCM\Message\PayloadDataBuilder;
+use LaravelFCM\Message\PayloadNotificationBuilder;
 // Регистрация
+Route::get('/test', function ()
+{
+    $optionBuilder = new OptionsBuilder();
+    $optionBuilder->setTimeToLive(60*20);
 
+    $notificationBuilder = new PayloadNotificationBuilder('my title');
+    $notificationBuilder->setBody('Hello world')
+        ->setSound('default');
+
+    $dataBuilder = new PayloadDataBuilder();
+    $dataBuilder->addData(['a_data' => 'my_data']);
+
+    $option = $optionBuilder->build();
+    $notification = $notificationBuilder->build();
+    $data = $dataBuilder->build();
+
+// You must change it to get your tokens
+
+    $downstreamResponse = FCM::sendTo(['fbEVta4GS725_oMhd0s8Fj:APA91bG6_oTtyfso1DQR5RuiALhTbcKcKHrXvfX4SdTSFHteC-MFG8Q04zIcALdcp1ybtTPmtxcqPZhzirlQO4omniw__ufURwna5sGJ5H4V5WMG36NFFZ0NtOpFmvTJsgf_l5I7Qj-2'], $option, $notification, $data);
+
+    return json_decode(array([$downstreamResponse->numberSuccess(),
+    $downstreamResponse->numberFailure(),
+    $downstreamResponse->numberModification()]));
+});
 Route::get('login/{driver}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{driver}/callback', 'Auth\LoginController@handleProviderCallback');
 
@@ -171,6 +198,8 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/comments/{comment}', 'CommentController@delete');
     Route::post('/votes', 'VoteController@post');
     Route::delete('/votes/{vote}', 'VoteController@delete');
+
+    Route::post('/users/fcm', 'FCMController@register');
     Route::get('/users/profile', 'ProfileController@index')->name('profile');
     Route::post('/users/update/login', 'ProfileController@updateLogin')->name('update.login');
     Route::post('/users/update/email', 'ProfileController@updateEmail')->name('update.email');

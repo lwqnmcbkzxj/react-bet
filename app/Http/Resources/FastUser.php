@@ -34,6 +34,7 @@ class FastUser extends JsonResource
                 'count_win' => $this->count_win,
                 'count_loss' => $this->count_loss,
                 'count_wait' => $this->count_wait,
+                'patency' => $this->patency,
                 'count_back' => $this->count_back,
                 'count_subscribers' => $this->count_subscribers,
                 'count_subscriptions' => $this->count_subscriptions
