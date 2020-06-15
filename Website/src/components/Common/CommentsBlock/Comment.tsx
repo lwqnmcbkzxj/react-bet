@@ -2,27 +2,42 @@ import React, { FC, useState, useEffect } from 'react';
 import s from './CommentsBlock.module.scss';
 import { Link } from 'react-router-dom'
 import classNames from 'classnames'
-import userImg from '../../../assets/img/user-no-image.png'
 import replyIcon from '../../../assets/img/reply-icon.png'
 import LikesBlock from '../ElementStats/LikesBlock'
 import SendComment from './SendComment';
 import { formatDate } from '../../../utils/formatDate';
-import { CommentType } from '../../../types/types';
+import { CommentType, AppStateType } from '../../../types/types';
 import { apiURL } from '../../../api/api';
 import { getUserImg } from '../../../utils/getUserImg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import { useSelector } from 'react-redux';
+import { UserType } from '../../../types/me';
+import { deleteComment } from '../../../redux/comments-reducer';
+
+
 type CommentPropsType = {
 	comment: CommentType
 	comments: Array<CommentType>
 
 	sendCommentFunc: (text: string, reply_id: number) => void
+	deleteCommentFunc: (comment_id: number) => void
 }
 
 
-const Comment: FC<CommentPropsType> = ({ comment, comments, sendCommentFunc, ...props }) => {
+const Comment: FC<CommentPropsType> = ({ comment, comments, sendCommentFunc, deleteCommentFunc, ...props }) => {
+	const loggedUser = useSelector<AppStateType, UserType>(state => state.me.userInfo)
+
 	const [replyVisible, setReplyVisible] = useState(false)
 	const toggleReplyVisible = () => {
 		setReplyVisible(!replyVisible)
 	}
+	const [optionsVisible, setOptionsVisible] = useState(false)
+	const toggleOptionsVisible = () => {
+		setOptionsVisible(!optionsVisible)
+	}
+
+
 	let replyBlock = [] as any
 	comments.map(commentEl => {
 		if (commentEl.replies_to === comment.id) {
@@ -31,16 +46,17 @@ const Comment: FC<CommentPropsType> = ({ comment, comments, sendCommentFunc, ...
 					comment={commentEl}
 					comments={comments}
 					sendCommentFunc={sendCommentFunc}
+					deleteCommentFunc={deleteCommentFunc}
 			/>)
 		}
 	})
 
 
-	const replyBtnRef = React.createRef<HTMLDivElement>()
+	const actionsBlockRef = React.createRef<HTMLDivElement>()
 	const commentFieldRef =  React.createRef<HTMLDivElement>()
 	useEffect(() => {
 		document.addEventListener('click', (e: any) => {
-			if (replyBtnRef.current && !replyBtnRef.current.contains(e.target) && commentFieldRef.current && !commentFieldRef.current.contains(e.target)) {
+			if (actionsBlockRef.current && !actionsBlockRef.current.contains(e.target) && commentFieldRef.current && !commentFieldRef.current.contains(e.target)) {
 				setReplyVisible(false)
 				e.stopPropagation()
 			}
@@ -69,7 +85,20 @@ const Comment: FC<CommentPropsType> = ({ comment, comments, sendCommentFunc, ...
 				<LikesBlock likes={comment.rating} elementType={'comment'} id={comment.id} likesActive={comment.vote}/>
 			</div>
 			<div className={s.contentText}>{comment.text}</div>
-			<div className={s.replyBtn} onClick={toggleReplyVisible} ref={replyBtnRef}><button>Ответить</button></div>
+
+
+			<div className={s.commentActions} ref={actionsBlockRef}>
+				<div className={s.replyBtn} onClick={toggleReplyVisible}><button>Ответить</button></div>
+				{comment.user_id === loggedUser.id && <div className={s.commentOptions}>
+					<button onClick={toggleOptionsVisible}><FontAwesomeIcon icon={faEllipsisH}/></button>
+				</div>}
+
+				{optionsVisible && 
+					<div className={s.optionsPopup} >
+						<button onClick={() => { deleteCommentFunc(comment.id) }}>Удалить</button>
+					</div>}
+			</div>
+			
 			{replyVisible &&
 				<SendComment
 				active={true}

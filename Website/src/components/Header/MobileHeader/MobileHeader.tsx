@@ -46,7 +46,9 @@ const MobileHeader: FC<HeaderPropsType> = ({ logged, search, user, ...props }) =
 						ref={inputRef}
 						onBlur={toggleSeachBlockVisibility}
 						value={search.searchText}
-						onChange={(e) => { search.handleSearchTextChange(e.target.value) }} />
+						onChange={(e) => { search.handleSearchTextChange(e.target.value) }}
+						onKeyUp={(e) => { if (e.keyCode === 13) search.handleSearch() }}
+					/>
 				</div>
 			</header>
 			

@@ -22,7 +22,7 @@
 		flex-direction: row;
 		align-items: flex-start;
 		justify-content: space-between;
-		border: 1px solid #E5E2E2;
+		border: 1px solid rgba(0, 0, 0, .1);
 		border-radius: 7px;
 		min-height: 50px;
 		transition: min-height 0.25s;
@@ -33,10 +33,11 @@
 			width: 100%;
 			padding: 15px 0px;
 			color: #818283;
-			font-size: 16px;
-			line-height: 19px;
+			font-size: 15px;
+			line-height: 18px;
 			height: 20px;
 			resize: none;
+			font-family: Roboto;
 		}
 
 		& .sendBlock {
@@ -168,11 +169,40 @@
 			}
 		}
 
+
 		& .contentText {
 			margin: 18px 0 13px 0;
 			font-size: 16px;
 			line-height: 24px;
 			color: #4E525A;
+		}
+
+		& .commentActions {
+			display: flex;
+			position: relative;
+
+			& .optionsPopup {
+				z-index: 10;
+				padding: 2px 0;
+				border-radius: 4px;
+				background: #fff;
+				position: absolute;
+				top: 25px;
+				left: 20px;
+				text-align: left;
+				box-shadow: 0 0 0 1px rgba(0, 0, 0, .07), 0 4px 8px 0 rgba(0, 0, 0, .07);
+
+				& button {
+					display: block;
+					height: 34px;
+					line-height: 34px;
+					padding: 0 10px;
+					font-size: 13px;
+					cursor: pointer;
+					color: #5E687B;
+					white-space: nowrap;
+				}
+			}
 		}
 
 		& .replyBtn {
@@ -183,15 +213,23 @@
 			width: auto;
 			margin-bottom: 20px;
 		}
+
+		& .commentOptions {
+			margin-left: 10px;
+			color: #5E687B;
+		}
+
 	}
 
 	& .repliesBlock {
 		margin-top: 20px;
-		padding: 10px 0 ;
+		padding: 10px 0;
+
 		& .sendCommentBlock {
 			margin: 20px 0 10px 0;
 		}
 	}
+
 	& .comment.reply {
 		border-left: 2px solid rgba(216, 216, 216, 0.562);
 		padding: 15px 0 15px 30px;
@@ -348,6 +386,7 @@
 			}
 		}
 	}
+
 	.selectorsList {
 		padding: 0 !important;
 		display: flex;

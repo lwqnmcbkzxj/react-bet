@@ -16,7 +16,10 @@ const Search: FC<SearchPropsType> = ({ ...props }) => {
 	let searchObj = props.search
 	return (
 		<div className={s.search_block} >
-			<input type="text" placeholder="поиск..." value={searchObj.searchText} onChange={(e) => { searchObj.handleSearchTextChange(e.target.value) }}/>
+			<input type="text" placeholder="поиск..." value={searchObj.searchText}
+				onChange={(e) => { searchObj.handleSearchTextChange(e.target.value) }}
+				onKeyUp={(e) => { if (e.keyCode === 13) searchObj.handleSearch() }}
+			/>
 			<button onClick={searchObj.handleSearch}><FontAwesomeIcon icon={faSearch} className={ s.searchIcon }/></button>
 		</div>
 	)

@@ -3,7 +3,7 @@ import s from './CommentsBlock.module.scss';
 import SendComment from './SendComment'
 import Comment from './Comment'
 import { CommentType } from '../../../types/types';
-import { sendComment } from '../../../redux/comments-reducer'
+import { sendComment, deleteComment } from '../../../redux/comments-reducer'
 
 import { useDispatch, useSelector } from "react-redux"
 
@@ -48,6 +48,11 @@ const CommentsBlock: FC<CommentsBlockPropsType> = ({ type, elementId, comments =
 		commentsFunctions.refreshComments()
 	}
 
+	const deleteCommentDispatch = async (comment_id: number) => {
+		await dispatch(deleteComment(comment_id))
+		commentsFunctions.refreshComments()
+	}
+
 
 
 	return (
@@ -73,7 +78,7 @@ const CommentsBlock: FC<CommentsBlockPropsType> = ({ type, elementId, comments =
 					comments={comments}
 					key={counter}
 
-
+					deleteCommentFunc={deleteCommentDispatch}
 					sendCommentFunc={sendCommentDispatch}
 				/>
 			)}

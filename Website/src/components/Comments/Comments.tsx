@@ -4,6 +4,7 @@ import { CommentType, BannerPositionEnum } from '../../types/types'
 import LiveBtn from '../Header/LiveBtn/LiveBtn';
 import Comment from './Comment'
 import { Banner } from '../Adverts/Banner';
+import classNames from 'classnames';
 
 type CommentsPropsType = {
 	comments: Array<CommentType>,
@@ -20,10 +21,10 @@ const Comments: FC<CommentsPropsType> = ({ comments, isCommentsBlockVisible, tog
 		renderBlock = <LiveBtn toggleCommentsBlockVisibility={toggleCommentsBlockVisibility} />
 	}
 	return (
-		<div className={s.commentsHolder}>
+		<div className={classNames(s.commentsHolder, {[s.hidden]: !isCommentsBlockVisible })}>
 			<div className={s.comments}>
 				{renderBlock}
-			<Banner position={BannerPositionEnum.comments}/>
+				<Banner position={BannerPositionEnum.comments}/>
 			</div>
 		</div>
 	)

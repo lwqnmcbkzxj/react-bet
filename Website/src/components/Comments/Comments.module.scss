@@ -84,6 +84,11 @@
 		}
 	}
 
+	&.hidden {
+		& a {
+			margin-top: 250px;
+		}
+	}
 }
 
 

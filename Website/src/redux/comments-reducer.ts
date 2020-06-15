@@ -100,6 +100,15 @@ export const rateComment = (id: number, rateType: number): ThunksType => async (
 		response = await commentsAPI.dislikeComment(id)
 	}
 }
+export const deleteComment = (id: number): ThunksType => async (dispatch) => {
+	let response = await commentsAPI.deleteComment(id)
+
+	if (!response.message)
+		showAlert('success', 'Комментарий удален')
+	else 
+		showAlert('error', 'Не удалось удалить комментарий')
+}
+
 	
 type ThunksType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
